@@ -1,35 +1,41 @@
-local exports = exports.core
-local IsDuplicityVersion = IsDuplicityVersion()
+local function init()
+    local isServer = IsDuplicityVersion()
+    local exports = exports.core
+    Ox = setmetatable({}, {
+        __index = function(self, method)
+            rawset(self, method, function(...)
+                return exports[method](nil, ...)
+            end)
 
-Ox = setmetatable({}, {
-    __index = exports
-})
+            return self[method]
+        end
+    })
 
-local function playerMethod(self, index)
-    return function(...)
-        return exports['player_'..index](_, self, ...)
+    local function playerMethod(self, index)
+        return function(...)
+            return exports['player_'..index](_, self, ...)
+        end
+    end
+
+    function Ox.Player(source)
+        local player = Ox.getPlayer(source)
+        if not player then error(source..' is not a player') end
+        return setmetatable(player, {
+            __index = playerMethod
+        })
+    end
+
+    if isServer then
+
+    else
+
     end
 end
 
-function Ox.Player(source)
-    local player = exports:getPlayer(source)
-    if not player then error(source..' is not a player') end
-    return setmetatable(player, {
-        __index = playerMethod
-    })
-end
+AddEventHandler('onResourceStart', function(resource)
+    if resource == 'core' then
+        init()
+    end
+end)
 
-function Ox.Vehicle(entity)
-    if not GetEntityType(entity) == 2 then error(entity..' is not a vehicle') end
-    return setmetatable(exports:getVehicle(NetworkGetNetworkIdFromEntity(entity)), {
-        __index = function(self, name)
-            return exports['vehicle_'..name](_, self)
-        end
-    })
-end
-
-if IsDuplicityVersion then
-
-else
-
-end
+init()
