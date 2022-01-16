@@ -37,19 +37,14 @@ function db.selectCharacter(userid, characters, slot, data)
     end
 end
 
-function db.saveCharacter(player)
+function db.saveCharacter(player, inventory)
     local entity = GetPlayerPed(player.source)
     local coords = GetEntityCoords(entity)
-    local inventory = json.encode(player:getInventory()?.items or {})
-    MySQL.prepare('UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?', {coords.x, coords.y, coords.z, GetEntityHeading(entity), inventory, player.charid})
+    MySQL.prepare('UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?', {coords.x, coords.y, coords.z, GetEntityHeading(entity), json.encode(inventory or {}), player.charid})
 end
 
 function db.saveAppearance(charid, appearance)
     MySQL.prepare('UPDATE characters SET appearance = ? WHERE charid = ?', { appearance, charid})
-end
-
-function db.selectInventory(charid)
-    return json.decode(MySQL.prepare.await('SELECT inventory FROM characters WHERE charid = ?', { charid }))
 end
 
 server.db = db

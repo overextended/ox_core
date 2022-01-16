@@ -9,6 +9,10 @@ function functions.getIdentifiers(source)
     return identifiers
 end
 
+function functions.firstToUpper(str)
+	return str:gsub("^%l", string.upper)
+end
+
 server.ready(function()
     print('functions')
 end)

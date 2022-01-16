@@ -39,8 +39,11 @@ AddEventHandler('ox:newCharacter', function(slot)
     TriggerServerEvent('ox:selectCharacter', slot, {firstname = 'John', lastname = 'Smith', dateofbirth = '1990-01-01', gender = 'male'})
 end)
 
+local ox_inventory = exports.ox_inventory
+
 RegisterNetEvent('ox:playerLoaded', function(data, appearance)
     PlayerData = data
+
     if not appearance then
         exports['fivem-appearance']:startPlayerCustomization(function(data)
             if data then
@@ -50,6 +53,8 @@ RegisterNetEvent('ox:playerLoaded', function(data, appearance)
     else
         exports['fivem-appearance']:setPlayerAppearance(json.decode(appearance))
     end
+
+    ox_inventory:setPlayerData({ groups = data.groups })
 end)
 
 AddEventHandler('ox:playerLogout', function()

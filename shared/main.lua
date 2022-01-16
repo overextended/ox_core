@@ -1,14 +1,17 @@
 IsDuplicityVersion = IsDuplicityVersion()
-
 shared = {
     resource = GetCurrentResourceName()
 }
 
-shared.ready = setmetatable({}, {
+shared.ready = setmetatable({ready = false}, {
     __call = function(self, cb)
+        if cb == true then
+            self.ready = true
+            return
+        end
         if not self[1] then
             CreateThread(function()
-                repeat Wait(0) until GetResourceState(shared.resource):find('start')
+                repeat Wait(0) until self.ready
                 for i=1, #self do
                     self[i]()
                 end

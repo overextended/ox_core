@@ -1,4 +1,5 @@
 local db
+local groups
 local functions = server.functions
 local player = {}
 
@@ -28,18 +29,25 @@ function player:getCoords()
     return GetEntityCoords(GetPlayerPed(self.source))
 end
 
-function player:setGroup(group, bool)
-    ExecuteCommand(('%s_principal player.%s group.%s'):format(bool and 'add' or 'remove', self.source, group))
-end
+function player:setGroup(group, rank)
+    if not groups[group] then
+        error(("invalid group '%s' set for player %s"):format(group, self.source))
+    end
 
-function player:save()
-    db.saveCharacter(self)
+    if not self.groups[group] then
+        ExecuteCommand(('add_principal player.%s group.%s'):format(self.source, group))
+    elseif not rank or rank == 0 then
+        ExecuteCommand(('remove_principal player.%s group.%s'):format(self.source, group))
+    end
 end
 
 local ox_inventory = exports.ox_inventory
 
-function player:getInventory()
-    return ox_inventory:Inventory(self.source)
+function player:save()
+    if not self.characters then
+        local inventory = ox_inventory:Inventory(self.source)
+        db.saveCharacter(self, inventory?.items)
+    end
 end
 
 for name, method in pairs(PlayerClass) do
@@ -52,6 +60,16 @@ end
 
 exports('getPlayer', function(source)
     return player.list[source]
+end)
+
+exports('getPlayers', function()
+    local size = 0
+    local players = {}
+    for _, v in pairs(player.list) do
+        size += 1
+        players[size] = v
+    end
+    return players
 end)
 
 function player.new(source)
@@ -74,6 +92,7 @@ end
 
 server.ready(function()
     db = server.db
+    groups = server.groups
 	for i = 0, GetNumPlayerIndices() - 1 do
 		local source = GetPlayerFromIndex(i)
 		player.new(source)
@@ -81,23 +100,25 @@ server.ready(function()
 end)
 
 server.onResourceStart('ox_inventory', function()
+    Wait(1000)
     for _, oxPlayer in pairs(player.list) do
+        print(oxPlayer.characters)
         if not oxPlayer.characters then
-            exports.ox_inventory:setPlayerInventory({
+            ox_inventory:setPlayerInventory({
                 source = oxPlayer.source,
                 identifier = oxPlayer.charid,
                 name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
                 sex = oxPlayer.gender,
                 dateofbirth = oxPlayer.dob,
-                job = 'police'
-            }, db.selectInventory(oxPlayer.charid))
+                groups = oxPlayer.groups
+            }, json.decode(MySQL.prepare.await('SELECT inventory FROM characters WHERE charid = ?', { oxPlayer.charid })))
         end
     end
 end)
 
 server.player = player
 
-AddEventHandler('playerJoined', function()
+RegisterNetEvent('playerJoined', function()
 	player.new(source)
 end)
 
@@ -111,7 +132,7 @@ AddEventHandler('playerDropped', function()
 end)
 
 AddEventHandler('onResourceStop', function(resource)
-    if resource == 'core' then
+    if resource == 'core' or resource == 'ox_inventory' then
         for _, oxPlayer in pairs(player.list) do
             oxPlayer:save()
         end
@@ -122,8 +143,21 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
     local oxPlayer = player(source)
     local character = db.selectCharacter(oxPlayer.userid, oxPlayer.characters, slot, data)
     local characters = oxPlayer.characters[slot]
+    character.groups = {}
+
+    for name, group in pairs(groups) do
+        local rank = group.members[character.charid]
+        if rank then
+            ExecuteCommand(('add_principal player.%s group.%s'):format(oxPlayer.source, name))
+            character.groups[name] = {
+                rank = group.ranks[rank],
+                label = group.label
+            }
+        end
+    end
 
     rawset(oxPlayer, 'charid', character.charid)
+    rawset(oxPlayer, 'groups', character.groups)
     rawset(oxPlayer, 'firstname', characters.firstname)
     rawset(oxPlayer, 'lastname', characters.lastname)
     rawset(oxPlayer, 'gender', characters.gender)
@@ -133,13 +167,13 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
     oxPlayer:setCoords(character.x or 9.77143, character.y or 26.7429, character.z or 70.7979, character.heading or 249.449)
     TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, character.appearance)
 
-    exports.ox_inventory:setPlayerInventory({
+    ox_inventory:setPlayerInventory({
         source = oxPlayer.source,
         identifier = oxPlayer.charid,
         name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
         sex = oxPlayer.gender,
         dateofbirth = oxPlayer.dob,
-        job = 'police'
+        groups = oxPlayer.groups
     }, json.decode(character.inventory) or {})
 end)
 
