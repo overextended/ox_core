@@ -30,13 +30,14 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
   `inventory` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]',
-  `appearance` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
   CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table overextended.characters: ~0 rows (approximately)
+/*!40000 ALTER TABLE `characters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 
 -- Dumping structure for table overextended.ox_inventory
 CREATE TABLE IF NOT EXISTS `ox_inventory` (
@@ -47,7 +48,9 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
   UNIQUE KEY `owner` (`owner`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table overextended.ox_inventory: ~0 rows (approximately)
+/*!40000 ALTER TABLE `ox_inventory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ox_inventory` ENABLE KEYS */;
 
 -- Dumping structure for table overextended.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -59,9 +62,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `discord` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ip` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`userid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table overextended.users: ~0 rows (approximately)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

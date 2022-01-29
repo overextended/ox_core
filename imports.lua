@@ -1,41 +1,49 @@
-local function init()
-    local isServer = IsDuplicityVersion()
-    local exports = exports.core
-    Ox = setmetatable({}, {
-        __index = function(self, method)
-            rawset(self, method, function(...)
-                return exports[method](nil, ...)
-            end)
+local isServer = IsDuplicityVersion()
+local core = exports.ox_core
 
-            return self[method]
-        end
-    })
+Ox = setmetatable({}, {
+	__index = function(self, method)
+		rawset(self, method, function(...)
+			return core[method](nil, ...)
+		end)
 
-    local function playerMethod(self, index)
-        return function(...)
-            return exports['player_'..index](_, self, ...)
-        end
-    end
+		return self[method]
+	end
+})
 
-    function Ox.Player(source)
-        local player = Ox.getPlayer(source)
-        if not player then error(source..' is not a player') end
-        return setmetatable(player, {
-            __index = playerMethod
-        })
-    end
+if isServer then
+	-----------------------------------------------------------------------------------------------
+	--	Player Interface
+	-----------------------------------------------------------------------------------------------
 
-    if isServer then
+	---Triggers exported Class functions when triggering a player's index metamethod.
+	---@param self table
+	---@param index string
+	---@return function export
+	local function playerMethod(self, index)
+		if index == 'state' then
+			return Player(self.source).state
+		else
+			return function(...)
+				return core['player_'..index](_, self, ...)
+			end
+		end
+	end
 
-    else
+	---Access and manipulate data for a player object.
+	---@param source number
+	---@return table oxPlayer
+	function Ox.Player(source)
+		local self = Ox.getPlayer(source)
 
-    end
+		if not self then
+			error(("'%s' is not a player"):format(source))
+		end
+
+		return setmetatable(self, {
+			__index = playerMethod
+		})
+	end
+else
+
 end
-
-AddEventHandler('onResourceStart', function(resource)
-    if resource == 'core' then
-        init()
-    end
-end)
-
-init()

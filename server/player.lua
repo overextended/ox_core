@@ -1,130 +1,157 @@
-local db
-local groups
 local functions = server.functions
-local player = {}
 
-player.count = 0
-player.list = {}
-player.new = true
 
-local PlayerClass = {}
-PlayerClass.__index = PlayerClass
-PlayerClass.__newindex = PlayerClass
-PlayerClass.__call = function(self, source)
-    return self.list[source]
+-----------------------------------------------------------------------------------------------
+--	Module
+-----------------------------------------------------------------------------------------------
+
+local player = {
+	count = 0,
+	list = {},
+	new = true,
+}
+
+local Query = {
+	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
+	INSERT_USERID = 'INSERT INTO users (license, steam, fivem, discord, ip) VALUES (?, ?, ?, ?, ?)',
+	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth FROM characters WHERE userid = ?',
+	SELECT_CHARACTER = 'SELECT charid, x, y, z, heading FROM characters WHERE charid = ?',
+	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
+	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ? WHERE charid = ?',
+}
+
+
+-----------------------------------------------------------------------------------------------
+--	Class
+-----------------------------------------------------------------------------------------------
+
+local Class = {}
+Class.__index = Class
+Class.__newindex = Class
+Class.__call = function(self, source)
+	return self.list[source]
 end
-setmetatable(player, PlayerClass)
 
-function player:state()
-    return Player(self.source).state
-end
+setmetatable(player, Class)
 
 function player:setCoords(x, y, z, heading)
-    local entity = GetPlayerPed(self.source)
-    SetEntityCoords(entity, x, y, z)
-    SetEntityHeading(entity, heading)
+	local entity = GetPlayerPed(self.source)
+	SetEntityCoords(entity, x, y, z)
+	SetEntityHeading(entity, heading)
 end
 
 function player:getCoords()
-    return GetEntityCoords(GetPlayerPed(self.source))
-end
-
-function player:setGroup(group, rank)
-    if not groups[group] then
-        error(("invalid group '%s' set for player %s"):format(group, self.source))
-    end
-
-    if not self.groups[group] then
-        ExecuteCommand(('add_principal player.%s group.%s'):format(self.source, group))
-    elseif not rank or rank == 0 then
-        ExecuteCommand(('remove_principal player.%s group.%s'):format(self.source, group))
-    end
+	return GetEntityCoords(GetPlayerPed(self.source))
 end
 
 local ox_inventory = exports.ox_inventory
 
 function player:save()
-    if not self.characters then
-        local inventory = ox_inventory:Inventory(self.source)
-        db.saveCharacter(self, inventory?.items)
-    end
+	if not self.characters then
+		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
+		local entity = GetPlayerPed(self.source)
+		local coords = GetEntityCoords(entity)
+
+		MySQL.prepare(Query.UPDATE_CHARACTER, {
+			coords.x,
+			coords.y,
+			coords.z,
+			GetEntityHeading(entity),
+			inventory,
+			self.charid
+		})
+	end
 end
 
-for name, method in pairs(PlayerClass) do
-    if type(method) == 'function' and name ~= '__call' then
-        name = 'player_'..name
-        exports(name, method)
-        print('created new export (exports.core:'..name..')')
-    end
+function player.new(source)
+	source = tonumber(source)
+
+	if not player.list[source] then
+		local identifiers = functions.getIdentifiers(source)
+		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers.ip })
+
+		if not userid then
+			userid = MySQL.prepare.await(Query.INSERT_USERID, {
+				identifiers.license or '',
+				identifiers.steam or '',
+				identifiers.fivem or '',
+				identifiers.discord or '',
+				identifiers.ip or '',
+			})
+		end
+
+		local self = {
+			source = source,
+			userid = userid,
+			username = GetPlayerName(source),
+			characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
+		}
+
+		for k, v in pairs(self.characters) do
+			print(k, v)
+		end
+
+		local state = Player(self.source).state
+
+		state:set('userid', self.userid, true)
+		state:set('username', self.username, true)
+
+		for type, identifier in pairs(identifiers) do
+			state:set(type, identifier, false)
+		end
+
+		player.list[source] = self
+		player.count += 1
+
+		TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
+	end
+end
+
+
+-----------------------------------------------------------------------------------------------
+--	Interface
+-----------------------------------------------------------------------------------------------
+
+for name, method in pairs(Class) do
+	if type(method) == 'function' and name ~= '__call' then
+		name = 'player_'..name
+		exports(name, method)
+		print('created new export (exports.core:'..name..')')
+	end
 end
 
 exports('getPlayer', function(source)
-    return player.list[source]
+	return player.list[source]
 end)
 
 exports('getPlayers', function()
-    local size = 0
-    local players = {}
-    for _, v in pairs(player.list) do
-        size += 1
-        players[size] = v
-    end
-    return players
-end)
+	local size = 0
+	local players = {}
 
-function player.new(source)
-    source = tonumber(source)
-    local identifiers = functions.getIdentifiers(source)
-    local self = setmetatable(db.selectUser(source, identifiers), PlayerClass)
-    local state = self:state()
-
-    state:set('userid', self.userid, true)
-    state:set('username', self.username, true)
-
-    for type, identifier in pairs(identifiers) do
-        state:set(type, identifier, false)
-    end
-
-    player.list[source] = self
-    player.count += 1
-    TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
-end
-
-server.ready(function()
-    db = server.db
-    groups = server.groups
-	for i = 0, GetNumPlayerIndices() - 1 do
-		local source = GetPlayerFromIndex(i)
-		player.new(source)
+	for _, v in pairs(player.list) do
+		if v.charid then
+			size += 1
+			players[size] = v
+		end
 	end
-end)
 
-server.onResourceStart('ox_inventory', function()
-    Wait(1000)
-    for _, oxPlayer in pairs(player.list) do
-        print(oxPlayer.characters)
-        if not oxPlayer.characters then
-            ox_inventory:setPlayerInventory({
-                source = oxPlayer.source,
-                identifier = oxPlayer.charid,
-                name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
-                sex = oxPlayer.gender,
-                dateofbirth = oxPlayer.dob,
-                groups = oxPlayer.groups
-            }, json.decode(MySQL.prepare.await('SELECT inventory FROM characters WHERE charid = ?', { oxPlayer.charid })))
-        end
-    end
+	return players
 end)
 
 server.player = player
 
-RegisterNetEvent('playerJoined', function()
+
+-----------------------------------------------------------------------------------------------
+--	Events
+-----------------------------------------------------------------------------------------------
+
+RegisterNetEvent('ox:playerJoined', function()
 	player.new(source)
 end)
 
 AddEventHandler('playerDropped', function()
-	local oxPlayer = player.list[source]
-	if oxPlayer then
+	local oxPlayer = player(source)
+	if oxPlayer?.charid then
 		oxPlayer:save()
 		player.list[source] = nil
 		player.count -= 1
@@ -132,59 +159,84 @@ AddEventHandler('playerDropped', function()
 end)
 
 AddEventHandler('onResourceStop', function(resource)
-    if resource == 'core' or resource == 'ox_inventory' then
-        for _, oxPlayer in pairs(player.list) do
-            oxPlayer:save()
-        end
-    end
+	if resource == 'core' or resource == 'ox_inventory' then
+		for _, oxPlayer in pairs(player.list) do
+			if oxPlayer.charid then
+				oxPlayer:save()
+			end
+		end
+	end
 end)
+
+AddEventHandler('onServerResourceStart', function(resource)
+	if resource == 'ox_inventory' then
+		Wait(2000)
+		for _, oxPlayer in pairs(player.list) do
+			if oxPlayer.charid then
+				ox_inventory:setPlayerInventory({
+					source = oxPlayer.source,
+					identifier = oxPlayer.charid,
+					name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
+					sex = oxPlayer.gender,
+					dateofbirth = oxPlayer.dob,
+				})
+			end
+		end
+	end
+end)
+
+local appearance = exports['fivem-appearance']
+local groups = exports.ox_groups
 
 RegisterNetEvent('ox:selectCharacter', function(slot, data)
-    local oxPlayer = player(source)
-    local character = db.selectCharacter(oxPlayer.userid, oxPlayer.characters, slot, data)
-    local characters = oxPlayer.characters[slot]
-    character.groups = {}
+	local oxPlayer = player(source)
+	local character
 
-    for name, group in pairs(groups) do
-        local rank = group.members[character.charid]
-        if rank then
-            ExecuteCommand(('add_principal player.%s group.%s'):format(oxPlayer.source, name))
-            character.groups[name] = {
-                rank = group.ranks[rank],
-                label = group.label
-            }
-        end
-    end
+	if type(slot) == 'number' and string.len(slot) == 1 then
+		character = oxPlayer.characters[slot]
 
-    rawset(oxPlayer, 'charid', character.charid)
-    rawset(oxPlayer, 'groups', character.groups)
-    rawset(oxPlayer, 'firstname', characters.firstname)
-    rawset(oxPlayer, 'lastname', characters.lastname)
-    rawset(oxPlayer, 'gender', characters.gender)
-    rawset(oxPlayer, 'dob', characters.dateofbirth)
+		if not character then
+			character = { charid = MySQL.insert.await(Query.INSERT_CHARACTER, {oxPlayer.userid, data.firstname, data.lastname, data.gender, data.dateofbirth}) }
+		else
+			character = MySQL.prepare.await(Query.SELECT_CHARACTER, { character.charid })
+		end
+	else
+		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(slot))
+	end
 
-    oxPlayer.characters = nil
-    oxPlayer:setCoords(character.x or 9.77143, character.y or 26.7429, character.z or 70.7979, character.heading or 249.449)
-    TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, character.appearance)
+	local characters = oxPlayer.characters[slot] or data
 
-    ox_inventory:setPlayerInventory({
-        source = oxPlayer.source,
-        identifier = oxPlayer.charid,
-        name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
-        sex = oxPlayer.gender,
-        dateofbirth = oxPlayer.dob,
-        groups = oxPlayer.groups
-    }, json.decode(character.inventory) or {})
-end)
+	oxPlayer.charid = character.charid
+	oxPlayer.firstname = characters.firstname
+	oxPlayer.lastname = characters.lastname
+	oxPlayer.gender = characters.gender
+	oxPlayer.dob = characters.dateofbirth
+	oxPlayer.characters = nil
 
-RegisterNetEvent('ox:saveAppearance', function(appearance)
-    local oxPlayer = player(source)
-    db.saveAppearance(oxPlayer.charid, json.encode(appearance))
+	setmetatable(oxPlayer, Class)
+
+	groups:getGroups(oxPlayer.source, oxPlayer.charid)
+	oxPlayer:setCoords(character.x or 9.77143, character.y or 26.7429, character.z or 70.7979, character.heading or 249.449)
+
+	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, appearance:load(oxPlayer.source, oxPlayer.charid))
+	TriggerEvent('ox:playerLoaded', oxPlayer.source, oxPlayer.userid, oxPlayer.charid)
+
+	ox_inventory:setPlayerInventory({
+		 source = oxPlayer.source,
+		 identifier = oxPlayer.charid,
+		 name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
+		 sex = oxPlayer.gender,
+		 dateofbirth = oxPlayer.dob
+	})
 end)
 
 RegisterCommand('logout', function(source)
-    local oxPlayer = player(source)
-    oxPlayer:save()
-    rawset(oxPlayer, 'characters', db.selectCharacters(oxPlayer.userid))
-    TriggerClientEvent('ox:selectCharacter', oxPlayer.source, oxPlayer.characters)
+	local oxPlayer = player(source)
+
+	oxPlayer:save()
+	rawset(oxPlayer, 'charid', nil)
+	rawset(oxPlayer, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { oxPlayer.userid }) or {})
+	print(json.encode(oxPlayer.characters, {indent=true}))
+
+	TriggerClientEvent('ox:selectCharacter', oxPlayer.source, oxPlayer.characters)
 end)

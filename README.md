@@ -1,33 +1,36 @@
-Contents for secondary testing resource, using @core/imports.lua
+Contents for secondary testing resource, using @ox_core/imports.lua
 
 ```lua
-function test(source)
-    Wait(1500)
-    for k, v in pairs(Ox) do
-        print(k, v)
-    end
+local groups = exports.ox_groups
 
-    print('~~~~~')
-    local oxPlayer = Ox.Player(source)
+local function test(oxPlayer)
+	if oxPlayer then
+		print(json.encode(oxPlayer, {indent=true}))
+		print(vec3(oxPlayer.getCoords()))
 
-    if oxPlayer then
-        local coords = vec3(oxPlayer.getCoords())
-        print(oxPlayer.source, coords)
-    end
-    print('~~~~~')
+		local playerState = oxPlayer.state
 
+		local police = GlobalState['group:police']
+		print(police.label, police.ranks[playerState.police])
+
+		local ox = GlobalState['group:ox']
+		print(ox.label, ox.ranks[playerState.ox])
+
+		groups:setGroup(oxPlayer.source, 'ox', 4)
+
+	end
 end
 
-AddEventHandler('playerJoined', function()
-	test(source)
+AddEventHandler('ox:playerLoaded', function(source, userid, charid)
+    test(Ox.Player(source))
 end)
 
-AddEventHandler('onServerResourceStart', function(resource)
-    if resource == 'core' or resource == 'test' then
-        local players = GetPlayers()
-        for i=1, #players do
-            test(tonumber(players[i]))
-        end
-    end
+CreateThread(function()
+	Wait(0)
+	local players = exports.ox_core:getPlayers()
+
+	for _, player in pairs(players) do
+		return test(Ox.Player(player.source))
+	end
 end)
 ```

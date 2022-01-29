@@ -30,7 +30,10 @@ client_scripts {
 }
 
 server_scripts {
-    'server/**.lua',
+    'server/init.lua',
+    'server/functions.lua',
+    'server/player.lua',
+    'server/main.lua',
 }
 
 files {
