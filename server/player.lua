@@ -17,7 +17,7 @@ local Query = {
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth FROM characters WHERE userid = ?',
 	SELECT_CHARACTER = 'SELECT charid, x, y, z, heading FROM characters WHERE charid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
-	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ? WHERE charid = ?',
+	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
 }
 
 
@@ -168,9 +168,10 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
+local ox_groups = exports.ox_groups
+
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
-		Wait(2000)
 		for _, oxPlayer in pairs(player.list) do
 			if oxPlayer.charid then
 				ox_inventory:setPlayerInventory({
@@ -179,6 +180,7 @@ AddEventHandler('onServerResourceStart', function(resource)
 					name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
 					sex = oxPlayer.gender,
 					dateofbirth = oxPlayer.dob,
+					groups = ox_groups:getGroups(oxPlayer.source, oxPlayer.charid),
 				})
 			end
 		end
@@ -186,7 +188,6 @@ AddEventHandler('onServerResourceStart', function(resource)
 end)
 
 local appearance = exports['fivem-appearance']
-local groups = exports.ox_groups
 
 RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	local oxPlayer = player(source)
@@ -205,6 +206,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	end
 
 	local characters = oxPlayer.characters[slot] or data
+	local groups = ox_groups:getGroups(oxPlayer.source, character.charid)
 
 	oxPlayer.charid = character.charid
 	oxPlayer.firstname = characters.firstname
@@ -215,7 +217,6 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 
 	setmetatable(oxPlayer, Class)
 
-	groups:getGroups(oxPlayer.source, oxPlayer.charid)
 	oxPlayer:setCoords(character.x or 9.77143, character.y or 26.7429, character.z or 70.7979, character.heading or 249.449)
 
 	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, appearance:load(oxPlayer.source, oxPlayer.charid))
@@ -226,7 +227,8 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 		 identifier = oxPlayer.charid,
 		 name = ('%s %s'):format(oxPlayer.firstname, oxPlayer.lastname),
 		 sex = oxPlayer.gender,
-		 dateofbirth = oxPlayer.dob
+		 dateofbirth = oxPlayer.dob,
+		 groups = groups,
 	})
 end)
 
