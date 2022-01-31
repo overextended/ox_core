@@ -6,13 +6,18 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	if cache then TriggerEvent('ox:playerLogout') end
 
 	cache.ped = PlayerPedId()
-	local playerCoords = GetEntityCoords(cache.ped)
-	local camCoords = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 8.0, 0.2)
-	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', camCoords.x, camCoords.y, camCoords.z, 0.0, 0.0, 0.0, 20.0, false, 0)
+	local coords = vec4(-1380.316, 735.389, 182.967, 357.165)
+
+	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z)
+	SetEntityHeading(cache.ped, coords.w)
+
+	local camCoords = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 5.0, -0.6)
+	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', camCoords.x, camCoords.y, camCoords.z, 0.0, 0.0, 0.0, 30.0, false, 0)
 
 	SetCamActive(cache.cam, true)
 	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, playerCoords.x, playerCoords.y, playerCoords.z)
+	PointCamAtCoord(cache.cam, coords.x, coords.y, coords.z)
+	DoScreenFadeIn(200)
 
 	CreateThread(function()
 		local concealed = {}
@@ -81,7 +86,8 @@ end)
 RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
 	DoScreenFadeOut(200)
 	Wait(500)
-	SetEntityCoords(cache.ped, coords.x or 9.77143, coords.y or 26.7429, coords.z or 70.7979, coords.w or 249.449)
+	SetEntityCoordsNoOffset(cache.ped, coords.x or -1380.316, coords.y or 735.389, coords.z or 182.967, true, true, true)
+	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
 
@@ -116,6 +122,7 @@ AddEventHandler('ox:playerLogout', function()
 end)
 
 CreateThread(function()
+	DoScreenFadeOut(0)
 	Wait(500)
 	TriggerServerEvent('ox:playerJoined')
 end)

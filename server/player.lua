@@ -5,7 +5,7 @@ local functions = server.functions
 --	Module
 -----------------------------------------------------------------------------------------------
 
-local player = {
+local CPlayer = {
 	count = 0,
 	list = {},
 	new = true,
@@ -31,21 +31,21 @@ Class.__call = function(self, source)
 	return self.list[source]
 end
 
-setmetatable(player, Class)
+setmetatable(CPlayer, Class)
 
-function player:setCoords(x, y, z, heading)
+function CPlayer:setCoords(x, y, z, heading)
 	local entity = GetPlayerPed(self.source)
 	SetEntityCoords(entity, x, y, z)
 	SetEntityHeading(entity, heading)
 end
 
-function player:getCoords()
+function CPlayer:getCoords()
 	return GetEntityCoords(GetPlayerPed(self.source))
 end
 
 local ox_inventory = exports.ox_inventory
 
-function player:save()
+function CPlayer:save()
 	if not self.characters then
 		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
 		local entity = GetPlayerPed(self.source)
@@ -62,11 +62,11 @@ function player:save()
 	end
 end
 
-function player.new(source)
+function CPlayer.new(source)
 	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
 
-	if not player.list[source] then
+	if not CPlayer.list[source] then
 
 		local identifiers = functions.getIdentifiers(source)
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers.ip })
@@ -88,10 +88,6 @@ function player.new(source)
 			characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
 		}
 
-		for k, v in pairs(self.characters) do
-			print(k, v)
-		end
-
 		local state = Player(self.source).state
 
 		state:set('userid', self.userid, true)
@@ -101,8 +97,8 @@ function player.new(source)
 			state:set(type, identifier, false)
 		end
 
-		player.list[source] = self
-		player.count += 1
+		CPlayer.list[source] = self
+		CPlayer.count += 1
 
 		TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 	end
@@ -117,19 +113,19 @@ for name, method in pairs(Class) do
 	if type(method) == 'function' and name ~= '__call' then
 		name = 'player_'..name
 		exports(name, method)
-		print('created new export (exports.core:'..name..')')
+		-- print('created new export (exports.core:'..name..')')
 	end
 end
 
 exports('getPlayer', function(source)
-	return player.list[source]
+	return CPlayer.list[source]
 end)
 
 exports('getPlayers', function()
 	local size = 0
 	local players = {}
 
-	for _, v in pairs(player.list) do
+	for _, v in pairs(CPlayer.list) do
 		if v.charid then
 			size += 1
 			players[size] = v
@@ -139,7 +135,7 @@ exports('getPlayers', function()
 	return players
 end)
 
-server.player = player
+server.CPlayer = CPlayer
 
 
 -----------------------------------------------------------------------------------------------
@@ -147,21 +143,21 @@ server.player = player
 -----------------------------------------------------------------------------------------------
 
 RegisterNetEvent('ox:playerJoined', function()
-	player.new(source)
+	CPlayer.new(source)
 end)
 
 AddEventHandler('playerDropped', function()
-	local oxPlayer = player(source)
+	local oxPlayer = CPlayer(source)
 	if oxPlayer?.charid then
 		oxPlayer:save()
-		player.list[source] = nil
-		player.count -= 1
+		CPlayer.list[source] = nil
+		CPlayer.count -= 1
 	end
 end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == 'ox_core' or resource == 'ox_inventory' then
-		for _, oxPlayer in pairs(player.list) do
+		for _, oxPlayer in pairs(CPlayer.list) do
 			if oxPlayer.charid then
 				oxPlayer:save()
 			end
@@ -173,7 +169,7 @@ local ox_groups = exports.ox_groups
 
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
-		for _, oxPlayer in pairs(player.list) do
+		for _, oxPlayer in pairs(CPlayer.list) do
 			if oxPlayer.charid then
 				ox_inventory:setPlayerInventory({
 					source = oxPlayer.source,
@@ -191,7 +187,7 @@ end)
 local appearance = exports['fivem-appearance']
 
 RegisterNetEvent('ox:selectCharacter', function(slot, data)
-	local oxPlayer = player(source)
+	local oxPlayer = CPlayer(source)
 	local character
 
 	if type(slot) == 'number' and string.len(slot) == 1 then
@@ -216,7 +212,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 
 	setmetatable(oxPlayer, Class)
 
-	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, vector(character.x, character.y, character.z, character.heading), appearance:load(oxPlayer.source, oxPlayer.charid))
+	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, vec4(character.x, character.y, character.z, character.heading), appearance:load(oxPlayer.source, oxPlayer.charid))
 	TriggerEvent('ox:playerLoaded', oxPlayer.source, oxPlayer.userid, oxPlayer.charid)
 
 	ox_inventory:setPlayerInventory({
@@ -232,12 +228,11 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 end)
 
 RegisterCommand('logout', function(source)
-	local oxPlayer = player(source)
+	local oxPlayer = CPlayer(source)
 
 	oxPlayer:save()
 	rawset(oxPlayer, 'charid', nil)
 	rawset(oxPlayer, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { oxPlayer.userid }) or {})
-	print(json.encode(oxPlayer.characters, {indent=true}))
 
 	TriggerClientEvent('ox:selectCharacter', oxPlayer.source, oxPlayer.characters)
 end)
