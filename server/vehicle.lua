@@ -6,15 +6,15 @@ local CVehicle = {
 	count = 0,
 	list = {},
 	new = true,
-	remove = true,
 }
 
 local Query = {
 	SELECT_VEHICLES = 'SELECT owner, data, x, y, z, heading FROM vehicles WHERE stored = "false"',
 	UPDATE_VEHICLES = 'UPDATE vehicles SET x = ?, y = ?, z = ?, heading = ? WHERE plate = ?',
-	IMPOUND_VEHICLE = 'UPDATE vehicles SET stored = "impound" WHERE plate = ?',
+	STORE_VEHICLE = 'UPDATE vehicles SET stored = ? WHERE plate = ?',
 	VEHICLE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-	INSERT_VEHICLE = 'INSERT into vehicles (plate, owner, type, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+	INSERT_VEHICLE = 'INSERT into vehicles (plate, owner, type, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+	DELETE_VEHICLE = 'DELETE FROM vehicles WHERE plate = ?',
 }
 
 
@@ -25,11 +25,23 @@ local Query = {
 local Class = {}
 Class.__index = Class
 Class.__newindex = Class
-Class.__call = function(self, source)
-	return self.list[source]
+Class.__call = function(self, plate)
+	return self.list[plate]
 end
 
 setmetatable(CVehicle, Class)
+
+function CVehicle:remove()
+	MySQL.update(Query.DELETE_VEHICLE, { self.data.plate })
+	DeleteEntity(self.entity)
+	CVehicle.list[self.data.plate] = nil
+end
+
+function CVehicle:store(store)
+	MySQL.update(Query.STORE_VEHICLE, { store or 'impound', self.data.plate })
+	DeleteEntity(self.entity)
+	CVehicle.list[self.data.plate] = nil
+end
 
 function CVehicle.new(owner, data, x, y, z, heading)
 	local entity
@@ -72,16 +84,16 @@ function CVehicle.new(owner, data, x, y, z, heading)
 		if x and y and z then
 			if NetworkGetEntityOwner(entity) < 1 then
 				DeleteEntity(entity)
-				MySQL.prepare(Query.IMPOUND_VEHICLE, { data.plate })
+				MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
 			else
 				SetVehicleNumberPlateText(entity, data.plate)
 
-				local self = {
+				local self = setmetatable({
 					owner = owner,
 					data = data,
 					entity = entity,
 					netid = NetworkGetNetworkIdFromEntity(entity),
-				}
+				}, Class)
 
 				CVehicle.list[data.plate] = self
 				CVehicle.count += 1
@@ -152,16 +164,18 @@ MySQL.ready(function()
 	for i = 1, #vehicles do
 		local vehicle = vehicles[i]
 		vehicle = CVehicle.new(vehicle.owner, json.decode(vehicle.data), vehicle.x, vehicle.y, vehicle.z, vehicle.heading)
-		print(json.encode(vehicle, {indent=true}))
 	end
 
 	-- Wait(5000)
 	-- local vehicle = CVehicle.new(1, {model = -295689028, new = true}, -1352.4527587890625,-1540.786865234375,4.4263916015625,357.16534423828125)
+	-- print(json.encode(vehicle, {indent=true}))
+	-- print(vehicle)
+	-- Wait(2000)
+	-- vehicle:remove()
 end)
 
-RegisterCommand('dv', function()
-	for plate, data in pairs(CVehicle.list) do
-		DeleteEntity(data.entity)
-		CVehicle[plate] = nil
-	end
-end)
+-- RegisterCommand('dv', function()
+-- 	for plate, vehicle in pairs(CVehicle.list) do
+-- 		vehicle:store()
+-- 	end
+-- end)
