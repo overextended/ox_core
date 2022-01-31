@@ -14,8 +14,7 @@ local player = {
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (license, steam, fivem, discord, ip) VALUES (?, ?, ?, ?, ?)',
-	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth FROM characters WHERE userid = ?',
-	SELECT_CHARACTER = 'SELECT charid, x, y, z, heading FROM characters WHERE charid = ?',
+	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, x, y, z, heading FROM characters WHERE userid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
 }
@@ -64,9 +63,11 @@ function player:save()
 end
 
 function player.new(source)
+	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
 
 	if not player.list[source] then
+
 		local identifiers = functions.getIdentifiers(source)
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers.ip })
 
@@ -159,7 +160,7 @@ AddEventHandler('playerDropped', function()
 end)
 
 AddEventHandler('onResourceStop', function(resource)
-	if resource == 'core' or resource == 'ox_inventory' then
+	if resource == 'ox_core' or resource == 'ox_inventory' then
 		for _, oxPlayer in pairs(player.list) do
 			if oxPlayer.charid then
 				oxPlayer:save()
@@ -198,8 +199,6 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 
 		if not character then
 			character = { charid = MySQL.insert.await(Query.INSERT_CHARACTER, {oxPlayer.userid, data.firstname, data.lastname, data.gender, data.dateofbirth}) }
-		else
-			character = MySQL.prepare.await(Query.SELECT_CHARACTER, { character.charid })
 		end
 	else
 		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(slot))
@@ -217,9 +216,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 
 	setmetatable(oxPlayer, Class)
 
-	oxPlayer:setCoords(character.x or 9.77143, character.y or 26.7429, character.z or 70.7979, character.heading or 249.449)
-
-	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, appearance:load(oxPlayer.source, oxPlayer.charid))
+	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, vector(character.x, character.y, character.z, character.heading), appearance:load(oxPlayer.source, oxPlayer.charid))
 	TriggerEvent('ox:playerLoaded', oxPlayer.source, oxPlayer.userid, oxPlayer.charid)
 
 	ox_inventory:setPlayerInventory({
@@ -230,6 +227,8 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 		 dateofbirth = oxPlayer.dob,
 		 groups = groups,
 	})
+
+	SetPlayerRoutingBucket(tostring(oxPlayer.source), 0)
 end)
 
 RegisterCommand('logout', function(source)
