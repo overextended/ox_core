@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `inventory` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]',
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
-  CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
+  CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table overextended.characters: ~0 rows (approximately)
@@ -67,6 +67,28 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table overextended.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Dumping structure for table overextended.vehicles
+CREATE TABLE IF NOT EXISTS `vehicles` (
+  `plate` char(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `owner` int(11) NOT NULL,
+  `type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'automobile',
+  `x` float DEFAULT NULL,
+  `y` float DEFAULT NULL,
+  `z` float DEFAULT NULL,
+  `heading` float DEFAULT NULL,
+  `data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `trunk` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `glovebox` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stored` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`plate`),
+  KEY `FK__characters` (`owner`),
+  CONSTRAINT `FK__characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table overextended.vehicles: ~0 rows (approximately)
+/*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
