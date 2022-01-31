@@ -1,4 +1,6 @@
-local cache = {}
+local cache = {
+	id = PlayerId()
+}
 
 ExecuteCommand('ensure zf_context')
 
@@ -86,12 +88,13 @@ end)
 RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
 	DoScreenFadeOut(200)
 	Wait(500)
-	SetEntityCoordsNoOffset(cache.ped, coords.x or -1380.316, coords.y or 735.389, coords.z or 182.967, true, true, true)
+	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
 
 	cache = data
+	cache.id = PlayerId()
 
 	if not appearance.model then
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)

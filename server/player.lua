@@ -210,7 +210,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 
 	setmetatable(oxPlayer, Class)
 
-	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, vec4(character.x, character.y, character.z, character.heading), appearance:load(oxPlayer.source, oxPlayer.charid))
+	TriggerClientEvent('ox:playerLoaded', oxPlayer.source, oxPlayer, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165), appearance:load(oxPlayer.source, oxPlayer.charid))
 	TriggerEvent('ox:playerLoaded', oxPlayer.source, oxPlayer.userid, oxPlayer.charid)
 
 	ox_inventory:setPlayerInventory({

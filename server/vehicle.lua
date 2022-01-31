@@ -82,7 +82,9 @@ function CVehicle.new(owner, data, x, y, z, heading)
 		end
 
 		if x and y and z then
-			if NetworkGetEntityOwner(entity) < 1 then
+			local entityOwner = NetworkGetEntityOwner(entity)
+
+			if entityOwner < 1 then
 				DeleteEntity(entity)
 				MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
 			else
@@ -98,8 +100,8 @@ function CVehicle.new(owner, data, x, y, z, heading)
 				CVehicle.list[data.plate] = self
 				CVehicle.count += 1
 
-				Entity(entity).state.data = data
 				Entity(entity).state.owner = owner
+				TriggerClientEvent('lualib:setVehicleProperties', entityOwner, self.netid, data)
 
 				return self
 			end
