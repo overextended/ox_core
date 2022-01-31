@@ -111,9 +111,7 @@ end
 
 for name, method in pairs(Class) do
 	if type(method) == 'function' and name ~= '__call' then
-		name = 'player_'..name
-		exports(name, method)
-		-- print('created new export (exports.core:'..name..')')
+		exports('player_'..name, method)
 	end
 end
 
