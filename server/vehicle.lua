@@ -176,6 +176,11 @@ MySQL.ready(function()
 	-- vehicle:remove()
 end)
 
+RegisterNetEvent('saveProperties', function(data)
+	print(json.encode(data, {indent=true}))
+	MySQL.query('UPDATE vehicles SET data = ? WHERE plate = ?', { json.encode(data), data.plate })
+end)
+
 -- RegisterCommand('dv', function()
 -- 	for plate, vehicle in pairs(CVehicle.list) do
 -- 		vehicle:store()

@@ -1,84 +1,85 @@
-local cache = {
-	id = PlayerId()
-}
+local cache = {}
 
 ExecuteCommand('ensure zf_context')
 
 RegisterNetEvent('ox:selectCharacter', function(characters)
 	if cache then TriggerEvent('ox:playerLogout') end
+	DoScreenFadeOut(0)
 
-	cache.ped = PlayerPedId()
 	local coords = vec4(-1380.316, 735.389, 182.967, 357.165)
-
-	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z)
-	SetEntityHeading(cache.ped, coords.w)
-
-	local camCoords = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 5.0, -0.6)
-	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', camCoords.x, camCoords.y, camCoords.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', coords.x, coords.y + 4.7, coords.z + 0.3, 0.0, 0.0, 0.0, 30.0, false, 0)
 
 	SetCamActive(cache.cam, true)
 	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, coords.x, coords.y, coords.z)
-	DoScreenFadeIn(200)
+	PointCamAtCoord(cache.cam, coords.x, coords.y, coords.z + 0.1)
 
-	CreateThread(function()
-		local concealed = {}
-		local playerId = PlayerId()
-		SetPlayerInvincible(playerId, true)
+	exports.spawnmanager:spawnPlayer({
+		x = coords.x,
+		y = coords.y,
+		z = coords.z,
+		heading = coords.w,
+	}, function()
+		cache.ped = PlayerPedId()
+		cache.id = PlayerId()
 
-		while cache.cam do
-			DisableAllControlActions(0)
-			ThefeedHideThisFrame()
-			HideHudAndRadarThisFrame()
+		CreateThread(function()
+			local concealed = {}
+			SetPlayerInvincible(playerId, true)
 
-			local players = GetActivePlayers()
+			while cache.cam do
+				DisableAllControlActions(0)
+				ThefeedHideThisFrame()
+				HideHudAndRadarThisFrame()
 
-			for i = 1, #players do
-				local player = players[i]
-				if player ~= playerId and not concealed[player] then
-					concealed[#concealed + 1] = player
-					NetworkConcealPlayer(player, true, true)
+				local players = GetActivePlayers()
+
+				for i = 1, #players do
+					local player = players[i]
+					if player ~= cache.id and not concealed[player] then
+						concealed[#concealed + 1] = player
+						NetworkConcealPlayer(player, true, true)
+					end
 				end
+
+				Wait(0)
 			end
 
-			Wait(0)
+			for i = 1, #concealed do
+				NetworkConcealPlayer(concealed[i], false, false)
+			end
+		end)
+
+		local menu = {}
+		local size = #characters
+
+		for i=1, size do
+			local character = characters[i]
+			menu[i] = {
+				id = i,
+				header = 'Select character',
+				txt = (character.firstname and (character.firstname..' '..character.lastname) or '')..'  Location: '..GetLabelText(GetNameOfZone(character.x, character.y, character.z)),
+				params = {
+					event = 'ox:selectCharacter',
+					isServer = true,
+					args = i
+				}
+			}
 		end
 
-		for i = 1, #concealed do
-			NetworkConcealPlayer(concealed[i], false, false)
+		if size < 4 then
+			size = size+1
+			menu[size] = {
+				id = size,
+				header = 'Create character',
+				params = {
+					event = 'ox:newCharacter',
+					args = size
+				}
+			}
 		end
+
+		exports.zf_context:openMenu(menu)
 	end)
-
-	local menu = {}
-	local size = #characters
-
-	for i=1, size do
-		local character = characters[i]
-		menu[i] = {
-			id = i,
-			header = 'Select character',
-			txt = (character.firstname and (character.firstname..' '..character.lastname) or '')..'  Location: '..GetLabelText(GetNameOfZone(character.x, character.y, character.z)),
-			params = {
-				event = 'ox:selectCharacter',
-				isServer = true,
-				args = i
-			}
-		}
-	end
-
-	if size < 4 then
-		size = size+1
-		menu[size] = {
-			id = size,
-			header = 'Create character',
-			params = {
-				event = 'ox:newCharacter',
-				args = size
-			}
-		}
-	end
-
-	exports.zf_context:openMenu(menu)
 end)
 
 AddEventHandler('ox:newCharacter', function(slot)
@@ -117,7 +118,6 @@ RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
 
 	Wait(500)
 	DoScreenFadeIn(200)
-
 end)
 
 AddEventHandler('ox:playerLogout', function()
@@ -125,7 +125,10 @@ AddEventHandler('ox:playerLogout', function()
 end)
 
 CreateThread(function()
-	DoScreenFadeOut(0)
-	Wait(500)
 	TriggerServerEvent('ox:playerJoined')
+end)
+
+RegisterCommand('saveveh', function()
+	local data = lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
+	TriggerServerEvent('saveProperties', data)
 end)
