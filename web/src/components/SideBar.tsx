@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Text, Flex, Spacer, Divider } from "@chakra-ui/react";
+import { Box, Text, Flex, Spacer } from "@chakra-ui/react";
+import Characters from "./Characters";
 
 const SideBar: React.FC = () => {
 	return (
@@ -19,12 +20,7 @@ const SideBar: React.FC = () => {
 					justifyContent="center"
 					alignItems="center"
 				>
-					<Box>
-						<Text fontSize="2xl">Peter Linden</Text>
-						<Text fontSize="sm">Location: Pillbox Hill</Text>
-						<Text fontSize="sm">Last Played: 31/01/2022</Text>
-					</Box>
-					<Divider />
+					<Characters />
 				</Flex>
 				<Spacer />
 				<Text
