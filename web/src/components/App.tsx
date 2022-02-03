@@ -1,19 +1,19 @@
-import { debugData } from "../utils/debugData";
-import SideBar from "./SideBar";
+import { debugData } from '../utils/debugData';
+import SideBar from './SideBar';
 
 debugData([
-	{
-		action: "setVisible",
-		data: true,
-	},
+  {
+    action: 'setVisible',
+    data: true,
+  },
 ]);
 
 const App: React.FC = () => {
-	return (
-		<>
-			<SideBar />
-		</>
-	);
+  return (
+    <>
+      <SideBar />
+    </>
+  );
 };
 
 export default App;
