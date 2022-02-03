@@ -1,6 +1,7 @@
-import { Box, Text, Divider, Flex } from "@chakra-ui/react";
+import { Box, Text, Divider, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { debugData } from "../utils/debugData";
+import { BsPersonDash, BsPersonDashFill } from "react-icons/bs";
 import React from "react";
 
 interface Character {
@@ -47,17 +48,29 @@ const Characters: React.FC = () => {
 		<>
 			{characters.map((character: Character, index) => (
 				<React.Fragment key={`character-${index}`}>
-					<Flex p={3} w="100%" alignItems="center">
-						<Text
-							color={
-								character.gender === "male" ? "blue" : "pink"
-							}
-							fontSize="3xl"
-							w="15%"
+					<Flex
+						p={3}
+						w="100%"
+						alignItems="center"
+						position="relative"
+					>
+						<IconButton
+							aria-label="Delete character"
+							icon={<BsPersonDashFill />}
+							color="red.500"
+							position="absolute"
+							fontSize="xl"
+							top="1vh"
+							right="2vh"
+							bg="none"
+							_hover={{ color: "red.700" }}
+							outline="none !important"
+						/>
+						<Box
+							justifySelf="center"
+							alignItems="center"
+							maxW="80%"
 						>
-							{character.gender === "male" ? "♂️" : "♀️"}
-						</Text>
-						<Box justifySelf="center" alignItems="center">
 							<Text fontSize="2xl">{`${character.firstName} ${character.lastName}`}</Text>
 							<Text fontSize="sm">{`Location: ${character.location}`}</Text>
 							<Text fontSize="sm">Last Played: 31/01/2022</Text>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Text, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Text, Flex, Spacer, Icon } from "@chakra-ui/react";
 import Characters from "./Characters";
+import { BsFillPersonPlusFill } from "react-icons/bs";
 
 const SideBar: React.FC = () => {
 	return (
@@ -23,14 +24,17 @@ const SideBar: React.FC = () => {
 					<Characters />
 				</Flex>
 				<Spacer />
-				<Text
+				<Flex
 					fontSize="xl"
-					align="center"
-					paddingBottom={5}
+					alignContent="center"
+					justifyContent="space-evenly"
+					alignItems="center"
+					mb={5}
 					fontFamily="Poppins"
 				>
-					Create new character
-				</Text>
+					<Icon as={BsFillPersonPlusFill} verticalAlign="middle" />
+					<Text>Create new character</Text>
+				</Flex>
 			</Flex>
 		</Box>
 	);
