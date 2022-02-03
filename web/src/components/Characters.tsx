@@ -1,7 +1,8 @@
-import { Box, Text, Divider, Flex, Icon, IconButton } from "@chakra-ui/react";
+import { Box, Text, Divider, Flex, IconButton } from "@chakra-ui/react";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { debugData } from "../utils/debugData";
-import { BsPersonDash, BsPersonDashFill } from "react-icons/bs";
+import { BsPersonDashFill } from "react-icons/bs";
+import { customTheme } from "../styles/theme";
 import React from "react";
 
 interface Character {
@@ -53,7 +54,10 @@ const Characters: React.FC = () => {
 						w="100%"
 						alignItems="center"
 						position="relative"
+						transition="0.3s"
+						_hover={{ bg: customTheme.colors.sideHover }}
 					>
+						{console.log(customTheme)}
 						<IconButton
 							aria-label="Delete character"
 							icon={<BsPersonDashFill />}

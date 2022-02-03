@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Text, Flex, Spacer, Icon } from "@chakra-ui/react";
 import Characters from "./Characters";
 import { BsFillPersonPlusFill } from "react-icons/bs";
+import { customTheme } from "../styles/theme";
 
 const SideBar: React.FC = () => {
 	return (
@@ -30,7 +31,10 @@ const SideBar: React.FC = () => {
 					justifyContent="space-evenly"
 					alignItems="center"
 					mb={5}
+					p={3}
 					fontFamily="Poppins"
+					transition="0.3s"
+					_hover={{ bg: customTheme.colors.sideHover }}
 				>
 					<Icon as={BsFillPersonPlusFill} verticalAlign="middle" />
 					<Text>Create new character</Text>
