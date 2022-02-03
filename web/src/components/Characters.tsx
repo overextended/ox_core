@@ -6,8 +6,8 @@ import { customTheme } from '../styles/theme';
 import React from 'react';
 
 interface Character {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   location: string;
   gender: string;
 }
@@ -17,13 +17,13 @@ debugData([
     action: 'sendCharacters',
     data: [
       {
-        firstName: 'Peter',
-        lastName: 'Linden',
+        firstname: 'Peter',
+        lastname: 'Linden',
         location: 'Galaxy far far away',
       },
       {
-        firstName: 'Luke',
-        lastName: 'Lindensson',
+        firstname: 'Luke',
+        lastname: 'Lindensson',
         gender: 'male',
         location: 'Pillbox Hill',
       },
@@ -34,8 +34,8 @@ debugData([
 const Characters: React.FC = () => {
   const [characters, setCharacters] = React.useState<Character[]>([
     {
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
       location: '',
       gender: '',
     },
@@ -70,7 +70,7 @@ const Characters: React.FC = () => {
               outline="none !important"
             />
             <Box justifySelf="center" alignItems="center" maxW="80%">
-              <Text fontSize="2xl">{`${character.firstName} ${character.lastName}`}</Text>
+              <Text fontSize="2xl">{`${character.firstname} ${character.lastname}`}</Text>
               <Text fontSize="sm">{`Location: ${character.location}`}</Text>
               <Text fontSize="sm">Last Played: 31/01/2022</Text>
             </Box>
