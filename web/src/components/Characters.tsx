@@ -31,6 +31,15 @@ debugData([
   },
 ]);
 
+const deleteCharacter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  event.stopPropagation();
+  // Open delete character dialog here
+};
+
+const selectCharacter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  // Open select charcter dialog here
+};
+
 const Characters: React.FC = () => {
   const [characters, setCharacters] = React.useState<Character[]>([
     {
@@ -56,6 +65,7 @@ const Characters: React.FC = () => {
             position="relative"
             transition="0.3s"
             _hover={{ bg: customTheme.colors.sideHover }}
+            onClick={(e) => selectCharacter(e)}
           >
             <IconButton
               aria-label="Delete character"
@@ -66,8 +76,8 @@ const Characters: React.FC = () => {
               top="1vh"
               right="2vh"
               bg="none"
-              _hover={{ color: 'red.700' }}
-              outline="none !important"
+              _hover={{ color: 'red.300' }}
+              onClick={(e) => deleteCharacter(e)}
             />
             <Box justifySelf="center" alignItems="center" maxW="80%">
               <Text fontSize="2xl">{`${character.firstname} ${character.lastname}`}</Text>
