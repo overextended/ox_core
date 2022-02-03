@@ -1,4 +1,5 @@
 import { debugData } from "../utils/debugData";
+import SideBar from "./SideBar";
 
 debugData([
 	{
@@ -10,7 +11,7 @@ debugData([
 const App: React.FC = () => {
 	return (
 		<>
-			<></>
+			<SideBar />
 		</>
 	);
 };

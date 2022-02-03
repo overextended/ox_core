@@ -4,10 +4,11 @@ import "./index.css";
 import App from "./components/App";
 import { VisibilityProvider } from "./providers/VisibilityProvider";
 import { ChakraProvider } from "@chakra-ui/react";
+import { customTheme } from "./styles/theme";
 
 ReactDOM.render(
 	<React.StrictMode>
-		<ChakraProvider>
+		<ChakraProvider theme={customTheme}>
 			<VisibilityProvider>
 				<App />
 			</VisibilityProvider>
