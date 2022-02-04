@@ -26,7 +26,7 @@ setmetatable(player, {
 
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
-	INSERT_USERID = 'INSERT INTO users (license, steam, fivem, discord, ip) VALUES (?, ?, ?, ?, ?)',
+	INSERT_USERID = 'INSERT INTO users (license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, x, y, z, heading FROM characters WHERE userid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
@@ -155,7 +155,6 @@ function player.new(source)
 				identifiers.steam or '',
 				identifiers.fivem or '',
 				identifiers.discord or '',
-				identifiers.ip or '',
 			})
 		end
 
