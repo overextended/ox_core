@@ -27,7 +27,7 @@ setmetatable(player, {
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
-	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, x, y, z, heading FROM characters WHERE userid = ?',
+	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, phone_number, x, y, z, heading FROM characters WHERE userid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
 }
@@ -135,6 +135,12 @@ function CPlayer:logout()
 	self:save(true)
 	rawset(self, 'charid', nil)
 	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
+
+	for i = 1, #self.characters do
+		character = self.characters[i]
+		character.groups = groups.userGroups(character.charid)
+	end
+
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
 
@@ -174,6 +180,11 @@ function player.new(source)
 
 		for type, identifier in pairs(identifiers) do
 			state:set(type, identifier, false)
+		end
+
+		for i = 1, #self.characters do
+			character = self.characters[i]
+			character.groups = groups.userGroups(character.charid)
 		end
 
 		TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
