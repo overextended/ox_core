@@ -93,6 +93,18 @@ function CPlayer:loadInventory()
 	})
 end
 
+local npwd = exports.npwd
+
+function CPlayer:loadPhone()
+	npwd:newPlayer({
+		source = self.source,
+		identifier = self.charid,
+		phoneNumber = self.phoneNumber,
+		firstname = self.firstName,
+		lastname = self.lastName
+	})
+end
+
 local groups = server.groups
 
 function CPlayer:getGroups()
@@ -130,6 +142,7 @@ function CPlayer:saveAccounts(remove)
 end
 
 function CPlayer:logout()
+	npwd:unloadPlayer(self.source)
 	self:save(true)
 	rawset(self, 'charid', nil)
 	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
@@ -213,6 +226,7 @@ function player.loaded(obj, character)
 
 	accounts.load(obj.source, obj.charid)
 	obj:loadInventory()
+	obj:loadPhone()
 
 	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
 	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165), appearance:load(obj.source, obj.charid))

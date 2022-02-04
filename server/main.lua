@@ -1,7 +1,3 @@
--- Disable population in routing bucket id 60
--- This routing bucket will be used during character selection
-SetRoutingBucketPopulationEnabled(60, false)
-
 local player = server.player
 
 RegisterNetEvent('ox:playerJoined', function()
@@ -19,7 +15,13 @@ AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
 		for _, obj in pairs(player.list) do
 			if obj.charid then
-				obj.loadInventory(obj)
+				obj:loadInventory()
+			end
+		end
+	elseif resource == 'npwd' then
+		for _, obj in pairs(player.list) do
+			if obj.charid then
+				obj:loadPhone()
 			end
 		end
 	end
