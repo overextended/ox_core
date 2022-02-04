@@ -26,7 +26,7 @@ setmetatable(player, {
 
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
-	INSERT_USERID = 'INSERT INTO users (license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
+	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, x, y, z, heading FROM characters WHERE userid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
@@ -148,9 +148,11 @@ function player.new(source)
 
 		local identifiers = functions.getIdentifiers(source)
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers[server.PRIMARY_INDENTIFIER] })
+		local username = GetPlayerName(source)
 
 		if not userid then
 			userid = MySQL.prepare.await(Query.INSERT_USERID, {
+				username,
 				identifiers.license or '',
 				identifiers.steam or '',
 				identifiers.fivem or '',
@@ -161,7 +163,7 @@ function player.new(source)
 		local self = {
 			source = source,
 			userid = userid,
-			username = GetPlayerName(source),
+			username = username,
 			characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
 		}
 
