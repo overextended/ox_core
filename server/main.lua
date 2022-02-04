@@ -27,28 +27,25 @@ AddEventHandler('onServerResourceStart', function(resource)
 	end
 end)
 
-RegisterNetEvent('ox:selectCharacter', function(slot, data)
+RegisterNetEvent('ox:selectCharacter', function(data)
 	local obj = player(source)
 	local character
 
-	if type(slot) == 'number' and string.len(slot) == 1 then
-		character = obj.characters[slot]
-
-		if not character then
-			character = obj:registerCharacter(data)
-		end
+	if not data.slot then
+		character = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date)
+	elseif type(data.slot) == 'number' and string.len(data.slot) == 1 then
+		character = obj.characters[data.slot]
+		data = obj.characters[data.slot]
 	else
-		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(slot))
+		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(data.slot))
 	end
 
-	local characters = obj.characters[slot] or data
-
-	obj.charid = character.charid
-	obj.firstname = characters.firstname
-	obj.lastname = characters.lastname
-	obj.gender = characters.gender
-	obj.dob = characters.dateofbirth
 	obj.characters = nil
+	obj.charid = character.charid
+	obj.firstname = data.firstname
+	obj.lastname = data.lastname
+	obj.gender = data.gender
+	obj.dob = data.dateofbirth
 	player.loaded(obj, character)
 end)
 

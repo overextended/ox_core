@@ -71,17 +71,6 @@ function CPlayer:save(logout)
 	end
 end
 
-function CPlayer:registerCharacter(data)
-	return { charid = MySQL.insert.await(Query.INSERT_CHARACTER, {
-			self.userid,
-			data.firstname,
-			data.lastname,
-			data.gender,
-			data.dateofbirth
-		})
-	}
-end
-
 function CPlayer:loadInventory()
 	ox_inventory:setPlayerInventory({
 		source = self.source,
@@ -217,6 +206,10 @@ function player.saveAll(remove)
 		MySQL.prepare(Query.UPDATE_CHARACTER, parameters)
 		accounts.saveAll(false, remove)
 	end
+end
+
+function player.registerCharacter(userid, firstName, lastName, gender, date)
+	return { charid = MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date }) }
 end
 
 local appearance = exports['fivem-appearance']

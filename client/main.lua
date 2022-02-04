@@ -1,7 +1,5 @@
 local cache = {}
 
-ExecuteCommand('ensure zf_context')
-
 RegisterNetEvent('ox:selectCharacter', function(characters)
 	if cache then TriggerEvent('ox:playerLogout') end
 	DoScreenFadeOut(0)
@@ -49,36 +47,31 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 			end
 		end)
 
-		local menu = {}
-		local size = #characters
-
-		for i=1, size do
+		for i = 1, #characters do
 			local character = characters[i]
-			menu[i] = {
-				id = i,
-				header = 'Select character',
-				txt = (character.firstname and (character.firstname..' '..character.lastname) or '')..'  Location: '..GetLabelText(GetNameOfZone(character.x, character.y, character.z)),
-				params = {
-					event = 'ox:selectCharacter',
-					isServer = true,
-					args = i
-				}
-			}
+			character.location = GetLabelText(GetNameOfZone(character.x, character.y, character.z))
 		end
 
-		if size < 4 then
-			size = size+1
-			menu[size] = {
-				id = size,
-				header = 'Create character',
-				params = {
-					event = 'ox:newCharacter',
-					args = size
-				}
-			}
-		end
+		SendNUIMessage({
+			action = 'sendCharacters',
+			data = characters
+		})
 
-		exports.zf_context:openMenu(menu)
+		SetNuiFocus(true, true)
+		SetNuiFocusKeepInput(false)
+
+		RegisterRawNuiCallback('ox:newCharacter', function(data, cb)
+			data = json.decode(data.body)
+
+			if data.slot then
+				DoScreenFadeOut(200)
+			end
+
+			SetNuiFocus(false, false)
+			TriggerServerEvent('ox:selectCharacter', data)
+			cb({ body = '{}'})
+			UnregisterRawNuiCallback('ox:newCharacter')
+		end)
 	end)
 end)
 
@@ -87,8 +80,6 @@ AddEventHandler('ox:newCharacter', function(slot)
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
-	DoScreenFadeOut(200)
-	Wait(500)
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
