@@ -32,8 +32,8 @@ client_scripts {
 server_scripts {
     'server/init.lua',
     'server/functions.lua',
-    'server/player.lua',
-    'server/vehicle.lua',
+    'server/classes/player.lua',
+    'server/classes/vehicle.lua',
     'server/main.lua',
 }
 
