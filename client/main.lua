@@ -63,7 +63,8 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		RegisterRawNuiCallback('ox:newCharacter', function(data, cb)
 			data = json.decode(data.body)
 
-			if data.slot then
+			if type(data) == 'number' then
+				data += 1
 				DoScreenFadeOut(200)
 			end
 

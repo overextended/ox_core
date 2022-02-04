@@ -31,13 +31,13 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 	local obj = player(source)
 	local character
 
-	if not data.slot then
+	if type(data) == 'table' then
 		character = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date)
-	elseif type(data.slot) == 'number' and string.len(data.slot) == 1 then
-		character = obj.characters[data.slot]
-		data = obj.characters[data.slot]
+	elseif type(data) == 'number' and string.len(data) == 1 then
+		character = obj.characters[data]
+		data = obj.characters[data]
 	else
-		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(data.slot))
+		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(data))
 	end
 
 	obj.characters = nil
