@@ -3,6 +3,7 @@ import { Box, Text, Flex, Spacer, Button, ScaleFade } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
+import { useVisibility } from '../../providers/VisibilityProvider';
 
 interface Props {
   visible: boolean;
@@ -11,9 +12,12 @@ interface Props {
 }
 
 const SelectCharacter: React.FC<Props> = (props) => {
+  const frameVisibility = useVisibility();
+
   const playCharacter = () => {
     fetchNui('ox:selectCharacter', props.character.slot);
     props.setVisible(false);
+    frameVisibility.setVisible(false);
   };
 
   return (

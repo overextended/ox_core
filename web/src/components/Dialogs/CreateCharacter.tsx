@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Text, Flex, Input, Spacer, Select, ScaleFade } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { fetchNui } from '../../utils/fetchNui';
+import { useVisibility } from '../../providers/VisibilityProvider';
 
 interface Props {
   visible: boolean;
@@ -14,10 +15,13 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const [date, setDate] = React.useState('');
   const [gender, setGender] = React.useState('');
 
+  const frameVisibility = useVisibility();
+
   const createCharacter = () => {
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
     fetchNui('ox:selectCharacter', { firstName, lastName, date, gender });
     props.setVisible(false);
+    frameVisibility.setVisible(false);
   };
 
   return (
