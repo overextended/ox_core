@@ -26,9 +26,6 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
         bg={theme.colors.sideHover}
         w="100%"
         h="30vh"
-        animate={{
-          x: 100,
-        }}
         visibility={props.visible ? 'visible' : 'hidden'}
         fontFamily="Poppins"
       >
@@ -70,20 +67,10 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
           </Select>
           <Spacer />
           <Box mb={3}>
-            <Button
-              mr={1}
-              bg="green.500"
-              _hover={{ bg: 'green.600' }}
-              onClick={() => createCharacter()}
-            >
+            <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => createCharacter()}>
               Confirm
             </Button>
-            <Button
-              ml={1}
-              bg="red.500"
-              _hover={{ bg: 'red.600' }}
-              onClick={() => props.setVisible(false)}
-            >
+            <Button ml={1} _hover={{ bg: 'red.500' }} onClick={() => props.setVisible(false)}>
               Cancel
             </Button>
           </Box>

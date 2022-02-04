@@ -8,6 +8,11 @@ const themeConfig: ThemeConfig = {
 export const theme = extendTheme({
   config: themeConfig,
   components: {
+    Button: {
+      baseStyle: {
+        borderRadius: 'none',
+      },
+    },
     Input: {
       baseStyle: {
         field: {
