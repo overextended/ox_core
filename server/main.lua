@@ -15,13 +15,13 @@ AddEventHandler('playerDropped', function()
 	end
 end)
 
-local ox_groups = exports.ox_groups
+local ox_groups = server.groups
 
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
 		for playerId, obj in pairs(player.list) do
 			if obj.charid then
-				obj.loadInventory(obj, ox_groups:getGroups(playerId, obj.charid))
+				obj.loadInventory(obj, ox_groups.getGroups(playerId, obj.charid))
 			end
 		end
 	end
@@ -44,7 +44,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	end
 
 	local characters = obj.characters[slot] or data
-	local groups = ox_groups:getGroups(obj.source, character.charid)
+	local groups = ox_groups.getGroups(obj.source, character.charid)
 
 	obj.charid = character.charid
 	obj.firstname = characters.firstname

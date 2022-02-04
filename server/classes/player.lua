@@ -88,6 +88,16 @@ function CPlayer:loadInventory(groups)
 	})
 end
 
+local groups = server.groups
+
+function CPlayer:getGroups()
+	return groups.getGroups(self.source)
+end
+
+function CPlayer:setGroup(group, rank)
+	return groups.setGroup(self.source, group, rank)
+end
+
 function CPlayer:logout()
 	self:save()
 	rawset(self, 'charid', nil)
@@ -171,6 +181,7 @@ end
 for name, method in pairs(CPlayer) do
 	if type(method) == 'function' and name ~= '__call' then
 		exports('player_'..name, method)
+		print('registered export:', 'player_'..name)
 	end
 end
 
