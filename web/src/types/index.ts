@@ -4,5 +4,7 @@ export type Character = {
     location: string;
     gender: string;
     dateofbirth: string;
+    groups: string[],
+    phone_number: string;
     slot: number;
 }

@@ -26,20 +26,34 @@ const SelectCharacter: React.FC<Props> = (props) => {
         fontFamily="Poppins"
         visibility={props.visible ? 'visible' : 'hidden'}
       >
-        <Flex justifyContent="center" alignItems="center" direction="column" h="100%">
+        <Flex
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+          h="100%"
+          textAlign="center"
+        >
           <Text fontSize="lg">{`${props.character.firstname} ${props.character.lastname}`}</Text>
           <Spacer />
-          <Text>Gender</Text>
-          <Text>{props.character.gender}</Text>
+          <Box>
+            <Text fontWeight="bold">Gender</Text>
+            <Text>{props.character.gender}</Text>
+          </Box>
           <Spacer />
-          <Text>Date of Birth</Text>
-          <Text>{props.character.dateofbirth}</Text>
+          <Box>
+            <Text fontWeight="bold">Date of Birth</Text>
+            <Text>{new Date(props.character.dateofbirth).toDateString()}</Text>
+          </Box>
           <Spacer />
-          <Text>Groups</Text>
-          <Text>Ox, Police</Text>
+          <Box maxW="80%">
+            <Text fontWeight="bold">Groups</Text>
+            <Text>{props.character.groups.join(', ')}</Text>
+          </Box>
           <Spacer />
-          <Text>Phone Number</Text>
-          <Text>069-357924</Text>
+          <Box>
+            <Text fontWeight="bold">Phone Number</Text>
+            <Text>{props.character.phone_number}</Text>
+          </Box>
           <Spacer />
           <Box mb={1}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>

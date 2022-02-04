@@ -22,6 +22,8 @@ debugData([
         gender: 'Male',
         location: 'Galaxy far far away',
         dateofbirth: '03/07/1990',
+        groups: ['Ox', 'Police'],
+        phone_number: '069-999999',
         slot: 0,
       },
       {
@@ -30,6 +32,8 @@ debugData([
         gender: 'Male',
         location: 'Pillbox Hill',
         dateofbirth: '14/03/1984',
+        groups: ['Ox', 'Ambulance'],
+        phone_number: '069-945132',
         slot: 1,
       },
     ],
@@ -44,6 +48,8 @@ const Characters: React.FC<Props> = (props) => {
       location: '',
       gender: '',
       dateofbirth: '',
+      groups: [''],
+      phone_number: '',
       slot: 0,
     },
   ]);
