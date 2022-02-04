@@ -20,6 +20,7 @@ debugData([
         lastname: 'Linden',
         gender: 'Male',
         location: 'Galaxy far far away',
+        dateofbirth: '03/07/1990',
         slot: 0,
       },
       {
@@ -27,6 +28,7 @@ debugData([
         lastname: 'Lindensson',
         gender: 'Male',
         location: 'Pillbox Hill',
+        dateofbirth: '14/03/1984',
         slot: 1,
       },
     ],
@@ -45,6 +47,7 @@ const Characters: React.FC<Props> = (props) => {
       lastname: '',
       location: '',
       gender: '',
+      dateofbirth: '',
       slot: 0,
     },
   ]);

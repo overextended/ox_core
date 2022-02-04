@@ -15,6 +15,7 @@ const SideBar: React.FC = () => {
     lastname: '',
     gender: '',
     location: '',
+    dateofbirth: '',
     slot: 0,
   });
 

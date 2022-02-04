@@ -20,7 +20,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
     <ScaleFade in={props.visible} unmountOnExit>
       <Box
         w="100%"
-        h="40vh"
+        h="35vh"
         p={3}
         bg={theme.colors.sideHover}
         fontFamily="Poppins"
@@ -33,14 +33,13 @@ const SelectCharacter: React.FC<Props> = (props) => {
           <Text>{props.character.gender}</Text>
           <Spacer />
           <Text>Date of Birth</Text>
-          <Text>01/01/0001</Text>
+          <Text>{props.character.dateofbirth}</Text>
           <Spacer />
           <Text>Groups</Text>
           <Text>Ox, Police</Text>
           <Spacer />
-          <Text>Accounts</Text>
-          <Text>Cash: 0</Text>
-          <Text>Fleeco: 0</Text>
+          <Text>Phone Number</Text>
+          <Text>069-357924</Text>
           <Spacer />
           <Box mb={1}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>
