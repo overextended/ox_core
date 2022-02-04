@@ -5,8 +5,30 @@ const themeConfig: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-export const customTheme = extendTheme({
+export const theme = extendTheme({
   config: themeConfig,
+  components: {
+    Input: {
+      baseStyle: {
+        field: {
+          borderRadius: 'none',
+        },
+      },
+      variants: {
+        outline: {
+          field: {
+            borderRadius: 0,
+            borderLeft: 'none',
+            borderTop: 'none',
+            borderRight: 'none'
+          }
+        }
+      },
+      defaultProps: {
+        variant: "outline"
+      }
+    },
+  },
   colors: {
     sideHover: 'rgba(0, 0, 0, 0.4)',
     sideBg: 'linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);',

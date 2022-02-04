@@ -2,7 +2,7 @@ import { Box, Text, Divider, Flex, IconButton } from '@chakra-ui/react';
 import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { BsPersonDashFill } from 'react-icons/bs';
-import { customTheme } from '../styles/theme';
+import { theme } from '../styles/theme';
 import React from 'react';
 
 interface Character {
@@ -64,7 +64,7 @@ const Characters: React.FC = () => {
             alignItems="center"
             position="relative"
             transition="0.3s"
-            _hover={{ bg: customTheme.colors.sideHover }}
+            _hover={{ bg: theme.colors.sideHover }}
             onClick={(e) => selectCharacter(e)}
           >
             <IconButton
