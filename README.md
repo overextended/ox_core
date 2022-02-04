@@ -4,7 +4,7 @@ Contents for secondary testing resource, using `@ox_core/imports.lua`
 local function test(player)
 	if player then
 		print(json.encode(player, {indent=true}))
-		print(vec3(player.getCoords()))
+		print(player.getCoords())
 
 		local playerState = player.state
 
@@ -18,6 +18,11 @@ local function test(player)
 		player.setGroup('ox', math.random(0, 4))
 
 		print(json.encode(player.getGroups(), {indent=true}))
+
+		print(json.encode(player.getAccount(), {indent=true}))
+		print(json.encode(player.getAccount('test'), {indent=true}))
+		player.addAccount('test', 60)
+		print(json.encode(player.getAccount('test'), {indent=true}))
 	end
 end
 

@@ -15,19 +15,15 @@ AddEventHandler('playerDropped', function()
 	end
 end)
 
-local ox_groups = server.groups
-
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
-		for playerId, obj in pairs(player.list) do
+		for _, obj in pairs(player.list) do
 			if obj.charid then
-				obj.loadInventory(obj, ox_groups.getGroups(playerId, obj.charid))
+				obj.loadInventory(obj)
 			end
 		end
 	end
 end)
-
-local appearance = exports['fivem-appearance']
 
 RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	local obj = player(source)
@@ -44,7 +40,6 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	end
 
 	local characters = obj.characters[slot] or data
-	local groups = ox_groups.getGroups(obj.source, character.charid)
 
 	obj.charid = character.charid
 	obj.firstname = characters.firstname
@@ -52,14 +47,7 @@ RegisterNetEvent('ox:selectCharacter', function(slot, data)
 	obj.gender = characters.gender
 	obj.dob = characters.dateofbirth
 	obj.characters = nil
-
-	setmetatable(obj, player.class)
-
-	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165), appearance:load(obj.source, obj.charid))
-	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
-	obj:loadInventory(groups)
-
-	SetPlayerRoutingBucket(tostring(obj.source), 0)
+	player.loaded(obj, character)
 end)
 
 local vehicle = server.vehicle

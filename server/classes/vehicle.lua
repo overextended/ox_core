@@ -5,7 +5,6 @@
 local vehicle = {
 	count = 0,
 	list = {},
-	class = {},
 }
 
 setmetatable(vehicle, {
@@ -33,7 +32,7 @@ local Query = {
 	DELETE_VEHICLE = 'DELETE FROM vehicles WHERE plate = ?',
 }
 
-local CVehicle = vehicle.class
+local CVehicle = {}
 CVehicle.__index = CVehicle
 CVehicle.__newindex = CVehicle
 

@@ -31,6 +31,7 @@ client_scripts {
 
 server_scripts {
 	'@ox_groups/server.lua',
+	'@ox_accounts/server.lua',
     'server/init.lua',
     'server/functions.lua',
     'server/classes/player.lua',

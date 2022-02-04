@@ -5,7 +5,6 @@
 local player = {
 	count = 0,
 	list = {},
-	class = {},
 }
 
 setmetatable(player, {
@@ -15,7 +14,7 @@ setmetatable(player, {
 	end,
 
 	__sub = function(self, obj)
-		obj:save()
+		obj:save(true)
 		self.list[obj.source] = nil
 		self.count -= 1
 	end,
@@ -33,7 +32,7 @@ local Query = {
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
 }
 
-local CPlayer = player.class
+local CPlayer = {}
 CPlayer.__index = CPlayer
 CPlayer.__newindex = CPlayer
 
@@ -43,26 +42,32 @@ function CPlayer:setCoords(x, y, z, heading)
 	SetEntityHeading(entity, heading)
 end
 
+function CPlayer:getEntity()
+	return GetPlayerPed(self.source)
+end
+
 function CPlayer:getCoords()
-	return GetEntityCoords(GetPlayerPed(self.source))
+	local entity = CPlayer.getEntity(self)
+	return vec4(GetEntityCoords(entity), GetEntityHeading(entity))
 end
 
 local ox_inventory = exports.ox_inventory
 
-function CPlayer:save()
+function CPlayer:save(logout)
 	if self.charid then
 		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
-		local entity = GetPlayerPed(self.source)
-		local coords = GetEntityCoords(entity)
+		local coords = self:getCoords()
 
 		MySQL.prepare(Query.UPDATE_CHARACTER, {
 			coords.x,
 			coords.y,
 			coords.z,
-			GetEntityHeading(entity),
+			coords.w,
 			inventory,
 			self.charid
 		})
+
+		self:saveAccounts(logout)
 	end
 end
 
@@ -77,29 +82,55 @@ function CPlayer:registerCharacter(data)
 	}
 end
 
-function CPlayer:loadInventory(groups)
+function CPlayer:loadInventory()
 	ox_inventory:setPlayerInventory({
 		source = self.source,
 		identifier = self.charid,
 		name = ('%s %s'):format(self.firstname, self.lastname),
 		sex = self.gender,
 		dateofbirth = self.dob,
-		groups = groups,
+		groups = self:getGroups(),
 	})
 end
 
 local groups = server.groups
 
 function CPlayer:getGroups()
-	return groups.getGroups(self.source)
+	return groups.getGroups(self.source, self.charid)
 end
 
 function CPlayer:setGroup(group, rank)
 	return groups.setGroup(self.source, group, rank)
 end
 
+local accounts = server.accounts
+
+function CPlayer:getAccount(account)
+	return accounts.get(self.source, account)
+end
+
+function CPlayer:addAccount(account, amount)
+	return accounts.add(self.source, account, amount)
+end
+
+function CPlayer:removeAccount(account, amount)
+	return accounts.remove(self.source, account, amount)
+end
+
+function CPlayer:setAccount(account, amount)
+	return accounts.set(self.source, account, amount)
+end
+
+function CPlayer:saveAccount(account)
+	return accounts.save(self.source, account)
+end
+
+function CPlayer:saveAccounts(remove)
+	return accounts.saveAll(self.source, remove)
+end
+
 function CPlayer:logout()
-	self:save()
+	self:save(true)
 	rawset(self, 'charid', nil)
 	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
@@ -147,7 +178,7 @@ function player.new(source)
 	end
 end
 
-function player.saveAll()
+function player.saveAll(remove)
 	local parameters = {}
 	local size = 0
 
@@ -171,7 +202,22 @@ function player.saveAll()
 
 	if size > 0 then
 		MySQL.prepare(Query.UPDATE_CHARACTER, parameters)
+		accounts.saveAll(false, remove)
 	end
+end
+
+local appearance = exports['fivem-appearance']
+
+function player.loaded(obj, character)
+	setmetatable(obj, CPlayer)
+
+	accounts.load(obj.source, obj.charid)
+	obj:loadInventory()
+
+	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
+	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165), appearance:load(obj.source, obj.charid))
+
+	SetPlayerRoutingBucket(tostring(obj.source), 0)
 end
 
 -----------------------------------------------------------------------------------------------
@@ -181,7 +227,7 @@ end
 for name, method in pairs(CPlayer) do
 	if type(method) == 'function' and name ~= '__call' then
 		exports('player_'..name, method)
-		print('registered export:', 'player_'..name)
+		-- print('registered export:', 'player_'..name)
 	end
 end
 
