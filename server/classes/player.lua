@@ -158,7 +158,7 @@ function player.new(source)
 	if not player(source) then
 
 		local identifiers = functions.getIdentifiers(source)
-		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers.ip })
+		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers[server.PRIMARY_INDENTIFIER] })
 
 		if not userid then
 			userid = MySQL.prepare.await(Query.INSERT_USERID, {
