@@ -60,7 +60,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		SetNuiFocus(true, true)
 		SetNuiFocusKeepInput(false)
 
-		RegisterRawNuiCallback('ox:newCharacter', function(data, cb)
+		RegisterRawNuiCallback('ox:selectCharacter', function(data, cb)
 			data = json.decode(data.body)
 
 			if type(data) == 'number' then
@@ -68,16 +68,12 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 				DoScreenFadeOut(200)
 			end
 
+			cb({ body = '{}'})
 			SetNuiFocus(false, false)
 			TriggerServerEvent('ox:selectCharacter', data)
-			cb({ body = '{}'})
-			UnregisterRawNuiCallback('ox:newCharacter')
+			UnregisterRawNuiCallback('ox:selectCharacter')
 		end)
 	end)
-end)
-
-AddEventHandler('ox:newCharacter', function(slot)
-	TriggerServerEvent('ox:selectCharacter', slot, {firstname = 'John', lastname = 'Smith', dateofbirth = '1990-01-01', gender = 'male'})
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)

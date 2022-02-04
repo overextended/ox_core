@@ -12,7 +12,7 @@ interface Props {
 
 const SelectCharacter: React.FC<Props> = (props) => {
   const playCharacter = () => {
-    fetchNui('ox:newCharacter', props.character.slot);
+    fetchNui('ox:selectCharacter', props.character.slot);
     props.setVisible(false);
   };
 
@@ -45,14 +45,14 @@ const SelectCharacter: React.FC<Props> = (props) => {
             <Text>{new Date(props.character.dateofbirth).toDateString()}</Text>
           </Box>
           <Spacer />
-          <Box maxW="80%">
-            <Text fontWeight="bold">Groups</Text>
-            <Text>{props.character.groups.join(', ')}</Text>
-          </Box>
-          <Spacer />
           <Box>
             <Text fontWeight="bold">Phone Number</Text>
             <Text>{props.character.phone_number}</Text>
+          </Box>
+          <Spacer />
+          <Box maxW="80%">
+            <Text fontWeight="bold">Groups</Text>
+            <Text>{props.character.groups.join(', ')}</Text>
           </Box>
           <Spacer />
           <Box mb={1}>

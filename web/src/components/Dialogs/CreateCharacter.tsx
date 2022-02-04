@@ -16,7 +16,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
 
   const createCharacter = () => {
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
-    fetchNui('ox:newCharacter', { firstName, lastName, date, gender });
+    fetchNui('ox:selectCharacter', { firstName, lastName, date, gender });
     props.setVisible(false);
   };
 
