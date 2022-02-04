@@ -3,13 +3,12 @@ import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { BsPersonDashFill } from 'react-icons/bs';
 import { theme } from '../styles/theme';
+import type { Character } from '../types';
 import React from 'react';
 
-interface Character {
-  firstname: string;
-  lastname: string;
-  location: string;
-  gender: string;
+interface Props {
+  setCharacter: React.Dispatch<React.SetStateAction<Character>>;
+  setSelectVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 debugData([
@@ -19,13 +18,16 @@ debugData([
       {
         firstname: 'Peter',
         lastname: 'Linden',
+        gender: 'Male',
         location: 'Galaxy far far away',
+        slot: 0,
       },
       {
         firstname: 'Luke',
         lastname: 'Lindensson',
-        gender: 'male',
+        gender: 'Male',
         location: 'Pillbox Hill',
+        slot: 1,
       },
     ],
   },
@@ -36,19 +38,23 @@ const deleteCharacter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>)
   // Open delete character dialog here
 };
 
-const selectCharacter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  // Open select charcter dialog here
-};
-
-const Characters: React.FC = () => {
+const Characters: React.FC<Props> = (props) => {
   const [characters, setCharacters] = React.useState<Character[]>([
     {
       firstname: '',
       lastname: '',
       location: '',
       gender: '',
+      slot: 0,
     },
   ]);
+
+  const selectCharacter = (index: number) => {
+    // Open select charcter dialog here
+    characters[index].slot = index;
+    props.setCharacter(characters[index]);
+    props.setSelectVisible(true);
+  };
 
   useNuiEvent('sendCharacters', (data: Character[]) => {
     setCharacters(data);
@@ -65,7 +71,7 @@ const Characters: React.FC = () => {
             position="relative"
             transition="0.3s"
             _hover={{ bg: theme.colors.sideHover }}
-            onClick={(e) => selectCharacter(e)}
+            onClick={() => selectCharacter(index)}
           >
             <IconButton
               aria-label="Delete character"
