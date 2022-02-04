@@ -5,6 +5,7 @@ import CreateCharacter from './Dialogs/CreateCharacter';
 import SelectCharacter from './Dialogs/SelectCharacter';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { theme } from '../styles/theme';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import type { Character } from '../types';
 
 const SideBar: React.FC = () => {
@@ -21,7 +22,7 @@ const SideBar: React.FC = () => {
 
   return (
     // Left bar
-    <>
+    <BrowserRouter>
       <Box
         position="fixed"
         left="0"
@@ -40,33 +41,46 @@ const SideBar: React.FC = () => {
             <Characters setCharacter={setCharacter} setSelectVisible={setSelectVisible} />
           </Flex>
           <Spacer />
-          <Button
-            leftIcon={<BsFillPersonPlusFill />}
-            mb={5}
-            size="lg"
-            fontFamily="Poppins"
-            fontSize="xl"
-            borderRadius="none"
-            backgroundColor="transparent"
-            _hover={{ bg: theme.colors.sideHover }}
-            onClick={() => setCreateVisible(true)}
-          >
-            Create new character
-          </Button>
+          <Link to="/create">
+            <Button
+              leftIcon={<BsFillPersonPlusFill />}
+              mb={5}
+              size="lg"
+              fontFamily="Poppins"
+              fontSize="xl"
+              borderRadius="none"
+              backgroundColor="transparent"
+              _hover={{ bg: theme.colors.sideHover }}
+              onClick={() => setCreateVisible(true)}
+            >
+              Create new character
+            </Button>
+          </Link>
         </Flex>
       </Box>
       {/* // Right bar */}
       <Box position="fixed" right="0" top="0" w="25vh" h="100vh">
         <Flex justifyContent="flex-end" alignItems="center" h="100%">
-          <CreateCharacter visible={createVisible} setVisible={setCreateVisible} />
-          <SelectCharacter
-            visible={selectVisible}
-            setVisible={setSelectVisible}
-            character={character}
-          />
+          <Routes>
+            <Route
+              path="/create"
+              element={<CreateCharacter visible={createVisible} setVisible={setCreateVisible} />}
+            />
+            <Route
+              path="/select"
+              element={
+                <SelectCharacter
+                  visible={selectVisible}
+                  setVisible={setSelectVisible}
+                  character={character}
+                />
+              }
+            />
+            <Route path="/delete" element={<></>} />
+          </Routes>
         </Flex>
       </Box>
-    </>
+    </BrowserRouter>
   );
 };
 

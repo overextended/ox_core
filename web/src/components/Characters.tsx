@@ -3,6 +3,7 @@ import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { BsPersonDashFill } from 'react-icons/bs';
 import { theme } from '../styles/theme';
+import { useNavigate } from 'react-router-dom';
 import type { Character } from '../types';
 import React from 'react';
 
@@ -35,11 +36,6 @@ debugData([
   },
 ]);
 
-const deleteCharacter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  event.stopPropagation();
-  // Open delete character dialog here
-};
-
 const Characters: React.FC<Props> = (props) => {
   const [characters, setCharacters] = React.useState<Character[]>([
     {
@@ -52,8 +48,15 @@ const Characters: React.FC<Props> = (props) => {
     },
   ]);
 
+  const navigate = useNavigate();
+
+  const deleteCharacter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation();
+    navigate('/delete');
+  };
+
   const selectCharacter = (index: number) => {
-    // Open select charcter dialog here
+    navigate('/select');
     characters[index].slot = index;
     props.setCharacter(characters[index]);
     props.setSelectVisible(true);
@@ -77,7 +80,7 @@ const Characters: React.FC<Props> = (props) => {
             onClick={() => selectCharacter(index)}
           >
             <IconButton
-              aria-label="Delete character"
+              aria-label="Delete chasracter"
               icon={<BsPersonDashFill />}
               color="red.500"
               position="absolute"
