@@ -17,78 +17,72 @@
 CREATE DATABASE IF NOT EXISTS `overextended` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `overextended`;
 
+-- Dumping structure for table overextended.accounts
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `name` varchar(50) NOT NULL,
+  `owner` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
+  UNIQUE KEY `name` (`name`,`owner`),
+  KEY `FK_accounts_characters` (`owner`),
+  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table overextended.characters
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
-  `firstname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `firstname` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
   `dateofbirth` date DEFAULT NULL,
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
-  `inventory` longtext COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '[]',
+  `inventory` longtext NOT NULL DEFAULT '[]',
+  `phone_number` varchar(20) DEFAULT NULL,
+  `last_played` date DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
   CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB;
 
--- Dumping data for table overextended.characters: ~0 rows (approximately)
-/*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-/*!40000 ALTER TABLE `characters` ENABLE KEYS */;
-
--- Dumping structure for table overextended.ox_inventory
-CREATE TABLE IF NOT EXISTS `ox_inventory` (
-  `owner` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastupdated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  UNIQUE KEY `owner` (`owner`,`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table overextended.ox_inventory: ~0 rows (approximately)
-/*!40000 ALTER TABLE `ox_inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ox_inventory` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 -- Dumping structure for table overextended.users
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `license` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `steam` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fivem` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `discord` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ip` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `steam` varchar(20) DEFAULT NULL,
+  `fivem` varchar(10) DEFAULT NULL,
+  `discord` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`userid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB;
 
--- Dumping data for table overextended.users: ~0 rows (approximately)
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 -- Dumping structure for table overextended.vehicles
 CREATE TABLE IF NOT EXISTS `vehicles` (
-  `plate` char(8) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `plate` char(8) NOT NULL DEFAULT '',
   `owner` int(11) NOT NULL,
-  `type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'automobile',
+  `type` varchar(10) NOT NULL DEFAULT 'automobile',
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
-  `data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `trunk` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `glovebox` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `stored` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `data` longtext NOT NULL,
+  `trunk` longtext DEFAULT NULL,
+  `glovebox` longtext DEFAULT NULL,
+  `stored` varchar(50) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`plate`),
   KEY `FK__characters` (`owner`),
   CONSTRAINT `FK__characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB;
 
--- Dumping data for table overextended.vehicles: ~0 rows (approximately)
-/*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
