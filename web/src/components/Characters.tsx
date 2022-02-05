@@ -52,6 +52,7 @@ const Characters: React.FC<Props> = (props) => {
   ) => {
     event.stopPropagation();
     navigate('/delete');
+    characters.value[index].slot = index;
     props.setCharacter(characters.value[index]);
     props.setDeleteVisible(true);
   };

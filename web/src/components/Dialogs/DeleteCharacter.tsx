@@ -24,8 +24,8 @@ const DeleteCharacter: React.FC<Props> = (props) => {
   };
 
   const handleDelete = () => {
-    fetchNui('ox:deleteCharacter', props.character.slot);
     characters.setValue(characters.value.filter((_, i) => i !== props.character.slot));
+    fetchNui('ox:deleteCharacter', props.character.slot);
     props.setVisible(false);
   };
 

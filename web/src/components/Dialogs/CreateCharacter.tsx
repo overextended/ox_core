@@ -11,12 +11,12 @@ interface Props {
 }
 
 const CreateCharacter: React.FC<Props> = (props: Props) => {
+  // Todo: Reset fields on dialog open
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [date, setDate] = React.useState('');
   const [gender, setGender] = React.useState('');
 
-  const frameVisibility = useVisibility();
   const characters = useCharacters();
 
   const createCharacter = () => {
@@ -33,7 +33,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
         location: '',
         groups: [''],
         phone_number: '',
-        slot: characters.value.length + 1,
+        slot: characters.value.length - 1,
       },
     ]);
   };
