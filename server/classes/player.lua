@@ -97,11 +97,11 @@ end
 local groups = server.groups
 
 function CPlayer:getGroups()
-	return groups.getGroups(self.source, self.charid)
+	return groups.get(self.source)
 end
 
 function CPlayer:setGroup(group, rank)
-	return groups.setGroup(self.source, group, rank)
+	return groups.set(self.source, group, rank)
 end
 
 local accounts = server.accounts
@@ -130,16 +130,27 @@ function CPlayer:saveAccounts(remove)
 	return accounts.saveAll(self.source, remove)
 end
 
+local function getGroups(characters)
+	for i = 1, #characters do
+		character = characters[i]
+		character.groups = {}
+		local size = 0
+
+		for group in pairs(groups.load(false, character.charid)) do
+			size += 1
+			character.groups[size] = groups.list[group].label
+		end
+	end
+
+	return characters
+end
+
 function CPlayer:logout()
 	npwd:unloadPlayer(self.source)
 	self:save(true)
 	rawset(self, 'charid', nil)
 	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
-
-	for i = 1, #self.characters do
-		character = self.characters[i]
-		character.groups = groups.userGroups(character.charid)
-	end
+	self.characters = getGroups(self.characters)
 
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
@@ -182,10 +193,7 @@ function player.new(source)
 			state:set(type, identifier, false)
 		end
 
-		for i = 1, #self.characters do
-			character = self.characters[i]
-			character.groups = groups.userGroups(character.charid)
-		end
+		self.characters = getGroups(self.characters)
 
 		TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 		return player + self
@@ -229,6 +237,7 @@ local appearance = exports['fivem-appearance']
 function player.loaded(obj, character)
 	setmetatable(obj, CPlayer)
 
+	groups.load(obj.source, obj.charid)
 	accounts.load(obj.source, obj.charid)
 	obj:loadInventory()
 	obj:loadPhone()

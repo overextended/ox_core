@@ -18,8 +18,6 @@ dependencies {
 	'pe-lualib',
 }
 
-server_script '@oxmysql/lib/MySQL.lua'
-
 shared_scripts {
 	'@pe-lualib/init.lua',
     'shared/**.lua',
@@ -30,7 +28,8 @@ client_scripts {
 }
 
 server_scripts {
-	'@ox_groups/server.lua',
+	'@oxmysql/lib/MySQL.lua',
+	'@ox_groups/server/groups.lua',
 	'@ox_accounts/server.lua',
     'server/init.lua',
     'server/functions.lua',
