@@ -3,6 +3,7 @@ import { Box, Flex, Spacer, Button } from '@chakra-ui/react';
 import Characters from './Characters';
 import CreateCharacter from './Dialogs/CreateCharacter';
 import SelectCharacter from './Dialogs/SelectCharacter';
+import DeleteCharacter from './Dialogs/DeleteCharacter';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { theme } from '../styles/theme';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -11,6 +12,7 @@ import type { Character } from '../types';
 const SideBar: React.FC = () => {
   const [createVisible, setCreateVisible] = React.useState(false);
   const [selectVisible, setSelectVisible] = React.useState(false);
+  const [deleteVisible, setDeleteVisible] = React.useState(false);
   const [character, setCharacter] = React.useState<Character>({
     firstname: '',
     lastname: '',
@@ -40,7 +42,11 @@ const SideBar: React.FC = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <Characters setCharacter={setCharacter} setSelectVisible={setSelectVisible} />
+            <Characters
+              setCharacter={setCharacter}
+              setSelectVisible={setSelectVisible}
+              setDeleteVisible={setDeleteVisible}
+            />
           </Flex>
           <Spacer />
           <Link to="/create">
@@ -78,7 +84,16 @@ const SideBar: React.FC = () => {
                 />
               }
             />
-            <Route path="/delete" element={<></>} />
+            <Route
+              path="/delete"
+              element={
+                <DeleteCharacter
+                  visible={deleteVisible}
+                  setVisible={setDeleteVisible}
+                  character={character}
+                />
+              }
+            />
           </Routes>
         </Flex>
       </Box>

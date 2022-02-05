@@ -10,6 +10,7 @@ import React from 'react';
 interface Props {
   setCharacter: React.Dispatch<React.SetStateAction<Character>>;
   setSelectVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setDeleteVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 debugData([
@@ -56,9 +57,14 @@ const Characters: React.FC<Props> = (props) => {
 
   const navigate = useNavigate();
 
-  const deleteCharacter = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const deleteCharacter = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number
+  ) => {
     event.stopPropagation();
     navigate('/delete');
+    props.setCharacter(characters[index]);
+    props.setDeleteVisible(true);
   };
 
   const selectCharacter = (index: number) => {
@@ -95,7 +101,7 @@ const Characters: React.FC<Props> = (props) => {
               right="2vh"
               bg="none"
               _hover={{ color: 'red.300' }}
-              onClick={(e) => deleteCharacter(e)}
+              onClick={(e) => deleteCharacter(e, index)}
             />
             <Box justifySelf="center" alignItems="center" maxW="80%">
               <Text fontSize="2xl">{`${character.firstname} ${character.lastname}`}</Text>
