@@ -3,6 +3,7 @@ import { Box, VStack, Text, Input, Button, HStack, ScaleFade } from '@chakra-ui/
 import { theme } from '../../styles/theme';
 import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
+import { useCharacters } from '../../providers/CharactersProvider';
 
 interface Props {
   visible: boolean;
@@ -14,6 +15,8 @@ const DeleteCharacter: React.FC<Props> = (props) => {
   const [disableDelete, setDisableDelete] = React.useState(true);
   const [inputValue, setInputValue] = React.useState('');
 
+  const characters = useCharacters();
+
   const handleInput = () => {
     if (inputValue !== `${props.character.firstname} ${props.character.lastname}`)
       setDisableDelete(true);
@@ -22,6 +25,7 @@ const DeleteCharacter: React.FC<Props> = (props) => {
 
   const handleDelete = () => {
     fetchNui('ox:deleteCharacter', props.character.slot);
+    characters.setValue(characters.value.filter((_, i) => i !== props.character.slot));
     props.setVisible(false);
   };
 

@@ -49,15 +49,19 @@ const SelectCharacter: React.FC<Props> = (props) => {
             <Text>{new Date(props.character.dateofbirth).toDateString()}</Text>
           </Box>
           <Spacer />
-          <Box>
-            <Text fontWeight="bold">Phone Number</Text>
-            <Text>{props.character.phone_number}</Text>
-          </Box>
+          {props.character.phone_number && (
+            <Box>
+              <Text fontWeight="bold">Phone Number</Text>
+              <Text>{props.character.phone_number}</Text>
+            </Box>
+          )}
           <Spacer />
-          <Box maxW="80%">
-            <Text fontWeight="bold">Groups</Text>
-            <Text>{props.character.groups.join(', ')}</Text>
-          </Box>
+          {props.character.groups && props.character.groups[0] !== '' && (
+            <Box maxW="80%">
+              <Text fontWeight="bold">Groups</Text>
+              <Text>{props.character.groups.join(', ')}</Text>
+            </Box>
+          )}
           <Spacer />
           <Box mb={1}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>

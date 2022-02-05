@@ -3,6 +3,7 @@ import { Box, Button, Text, Flex, Input, Spacer, Select, ScaleFade } from '@chak
 import { theme } from '../../styles/theme';
 import { fetchNui } from '../../utils/fetchNui';
 import { useVisibility } from '../../providers/VisibilityProvider';
+import { useCharacters } from '../../providers/CharactersProvider';
 
 interface Props {
   visible: boolean;
@@ -16,12 +17,25 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const [gender, setGender] = React.useState('');
 
   const frameVisibility = useVisibility();
+  const characters = useCharacters();
 
   const createCharacter = () => {
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
     fetchNui('ox:selectCharacter', { firstName, lastName, date, gender });
     props.setVisible(false);
-    frameVisibility.setVisible(false);
+    characters.setValue([
+      ...characters.value,
+      {
+        firstname: firstName,
+        lastname: lastName,
+        dateofbirth: date,
+        gender,
+        location: '',
+        groups: [''],
+        phone_number: '',
+        slot: characters.value.length + 1,
+      },
+    ]);
   };
 
   return (

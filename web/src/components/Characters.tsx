@@ -6,6 +6,7 @@ import { theme } from '../styles/theme';
 import { useNavigate } from 'react-router-dom';
 import type { Character } from '../types';
 import React from 'react';
+import { useCharacters } from '../providers/CharactersProvider';
 
 interface Props {
   setCharacter: React.Dispatch<React.SetStateAction<Character>>;
@@ -42,19 +43,7 @@ debugData([
 ]);
 
 const Characters: React.FC<Props> = (props) => {
-  const [characters, setCharacters] = React.useState<Character[]>([
-    {
-      firstname: '',
-      lastname: '',
-      location: '',
-      gender: '',
-      dateofbirth: '',
-      groups: [''],
-      phone_number: '',
-      slot: 0,
-    },
-  ]);
-
+  const characters = useCharacters();
   const navigate = useNavigate();
 
   const deleteCharacter = (
@@ -63,24 +52,24 @@ const Characters: React.FC<Props> = (props) => {
   ) => {
     event.stopPropagation();
     navigate('/delete');
-    props.setCharacter(characters[index]);
+    props.setCharacter(characters.value[index]);
     props.setDeleteVisible(true);
   };
 
   const selectCharacter = (index: number) => {
     navigate('/select');
-    characters[index].slot = index;
-    props.setCharacter(characters[index]);
+    characters.value[index].slot = index;
+    props.setCharacter(characters.value[index]);
     props.setSelectVisible(true);
   };
 
   useNuiEvent('sendCharacters', (data: Character[]) => {
-    setCharacters(data);
+    characters.setValue(data);
   });
 
   return (
     <>
-      {characters.map((character: Character, index) => (
+      {characters.value.map((character: Character, index) => (
         <React.Fragment key={`character-${index}`}>
           <Flex
             p={3}
