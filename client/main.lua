@@ -61,14 +61,14 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		SetNuiFocusKeepInput(false)
 
 		RegisterRawNuiCallback('ox:selectCharacter', function(data, cb)
+			cb({ body = '{}'})
 			data = json.decode(data.body)
 
 			if type(data) == 'number' then
 				data += 1
+				Wait(200)
 				DoScreenFadeOut(200)
 			end
-
-			cb({ body = '{}'})
 			SetNuiFocus(false, false)
 			TriggerServerEvent('ox:selectCharacter', data)
 			UnregisterRawNuiCallback('ox:selectCharacter')
