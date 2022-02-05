@@ -1,10 +1,3 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.6.4-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             11.3.0.6295
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
@@ -12,24 +5,21 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Dumping database structure for overextended
 CREATE DATABASE IF NOT EXISTS `overextended` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+DEFAULT CHARACTER SET utf8mb4
+DEFAULT COLLATE utf8_unicode_ci;
 USE `overextended`;
 
--- Dumping structure for table overextended.accounts
+
 CREATE TABLE IF NOT EXISTS `accounts` (
+  `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `owner` int(11) NOT NULL,
   `amount` int(11) NOT NULL DEFAULT 0,
-  UNIQUE KEY `name` (`name`,`owner`),
-  KEY `FK_accounts_characters` (`owner`),
-  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
+  KEY `FK_accounts_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
--- Data exporting was unselected.
-
--- Dumping structure for table overextended.characters
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) DEFAULT NULL,
@@ -46,12 +36,18 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `last_played` date DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
-  CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Data exporting was unselected.
+CREATE TABLE IF NOT EXISTS `groups` (
+  `charid` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `rank` int(11) NOT NULL,
+  UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
+  KEY `FK_groups_characters` (`charid`) USING BTREE,
+  CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
+) ENGINE=InnoDB ROW_FORMAT=DYNAMIC;
 
--- Dumping structure for table overextended.users
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
@@ -62,9 +58,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`userid`) USING BTREE
 ) ENGINE=InnoDB;
 
--- Data exporting was unselected.
-
--- Dumping structure for table overextended.vehicles
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `plate` char(8) NOT NULL DEFAULT '',
   `owner` int(11) NOT NULL,
@@ -79,10 +72,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `stored` varchar(50) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`plate`),
   KEY `FK__characters` (`owner`),
-  CONSTRAINT `FK__characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK__characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-
--- Data exporting was unselected.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
