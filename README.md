@@ -1,3 +1,9 @@
+# Do not use in production, and do not expect support.
+The base features aren't even implemented yet, and there's a lot of code that will be rewritten.  
+If you go make something just for API to change, it'll be on you to work out the changes.
+
+---
+
 Contents for secondary testing resource, using `@ox_core/imports.lua`
 
 ```lua
