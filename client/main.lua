@@ -47,6 +47,10 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 					end
 				end
 
+				if cache.hidePlayer then
+					SetLocalPlayerInvisibleLocally(true)
+				end
+
 				Wait(0)
 			end
 
@@ -88,6 +92,23 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 			UnregisterRawNuiCallback('ox:selectCharacter')
 		end)
 	end)
+end)
+
+RegisterRawNuiCallback('ox:setCharacter', function(data, cb)
+	print(data.body)
+	cb({ body = '{}'})
+	data = json.decode(data.body)
+
+	if type(data) == 'number' then
+		data = cache.appearance[data + 1]
+
+		if data then
+			exports['fivem-appearance']:setPlayerAppearance(data)
+			cache.hidePlayer = false
+		end
+	else
+		cache.hidePlayer = true
+	end
 end)
 
 RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
