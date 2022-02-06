@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, VStack, Text, Input, Button, HStack, ScaleFade } from '@chakra-ui/react';
+import { Box, VStack, Text, Button, HStack, ScaleFade } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
@@ -13,7 +13,6 @@ interface Props {
 
 const DeleteCharacter: React.FC<Props> = (props) => {
   const [disableDelete, setDisableDelete] = React.useState(true);
-  const [inputValue, setInputValue] = React.useState('');
 
   const characters = useCharacters();
 
@@ -23,7 +22,6 @@ const DeleteCharacter: React.FC<Props> = (props) => {
     props.setVisible(false);
   };
 
-  React.useEffect(() => setInputValue(''), [props.visible, props.character]);
   React.useEffect(() => {
     // Disables the confirm button for 2 seconds after opening the dialog
     if (props.visible) {
@@ -32,7 +30,7 @@ const DeleteCharacter: React.FC<Props> = (props) => {
         setDisableDelete(false);
       }, 2000);
     }
-  }, [props.visible]);
+  }, [props.visible, props.character]);
 
   return (
     <ScaleFade in={props.visible} unmountOnExit>
