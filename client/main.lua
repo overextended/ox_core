@@ -115,15 +115,6 @@ RegisterNetEvent('ox:playerLoaded', function(data, coords)
 		exports['fivem-appearance']:setPlayerAppearance(appearance)
 	end
 
-	Wait(0)
-	local playerState = LocalPlayer.state
-
-	local police = GlobalState['group:police']
-	print(police.label, police.ranks[playerState.police])
-
-	local ox = GlobalState['group:ox']
-	print(ox.label, ox.ranks[playerState.ox])
-
 	Wait(500)
 	DoScreenFadeIn(200)
 end)
@@ -132,11 +123,4 @@ AddEventHandler('ox:playerLogout', function()
 	table.wipe(cache)
 end)
 
-CreateThread(function()
-	TriggerServerEvent('ox:playerJoined')
-end)
-
-RegisterCommand('saveveh', function()
-	local data = lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
-	TriggerServerEvent('saveProperties', data)
-end)
+TriggerServerEvent('ox:playerJoined')
