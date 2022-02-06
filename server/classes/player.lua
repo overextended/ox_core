@@ -56,10 +56,12 @@ local ox_inventory = exports.ox_inventory
 
 function CPlayer:save(logout)
 	if self.charid then
+		self:saveAccounts(logout)
+
 		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
 		local coords = self:getCoords()
 
-		MySQL.prepare(Query.UPDATE_CHARACTER, {
+		MySQL.prepare.await(Query.UPDATE_CHARACTER, {
 			coords.x,
 			coords.y,
 			coords.z,
@@ -67,8 +69,6 @@ function CPlayer:save(logout)
 			inventory,
 			self.charid
 		})
-
-		self:saveAccounts(logout)
 	end
 end
 

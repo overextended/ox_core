@@ -96,14 +96,15 @@ RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, coords)
+	local appearance = cache.appearance
+	cache = data
+	cache.ped = PlayerPedId()
+	cache.id = PlayerId()
+
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
-
-	local appearance = cache.appearance
-	cache = data
-	cache.id = PlayerId()
 
 	if not appearance.model then
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
