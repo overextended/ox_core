@@ -69,14 +69,18 @@ const SideBar: React.FC = () => {
             </Link>
           </Flex>
         </Box>
+        <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
+          <Routes>
+            <Route
+              path="/create"
+              element={<CreateCharacter visible={createVisible} setVisible={setCreateVisible} />}
+            />
+          </Routes>
+        </Flex>
         {/* // Right bar */}
         <Box position="fixed" right="0" top="0" w="25vh" h="100vh">
           <Flex justifyContent="flex-end" alignItems="center" h="100%">
             <Routes>
-              <Route
-                path="/create"
-                element={<CreateCharacter visible={createVisible} setVisible={setCreateVisible} />}
-              />
               <Route
                 path="/select"
                 element={
