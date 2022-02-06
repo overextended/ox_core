@@ -20,7 +20,9 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const characters = useCharacters();
   const frameVisibility = useVisibility();
 
-  fetchNui('ox:setCharacter');
+  React.useEffect(() => {
+    props.visible && fetchNui('ox:setCharacter');
+  }, [props.visible]);
 
   const createCharacter = () => {
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
