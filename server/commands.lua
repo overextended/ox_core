@@ -1,3 +1,16 @@
+local vehicle = server.vehicle
+
+local function deleteVehicle(entity)
+	local plate = GetVehicleNumberPlateText(entity)
+	local veh = vehicle(plate)
+
+	if veh then
+		veh:store()
+	else
+		DeleteEntity(entity)
+	end
+end
+
 local Command = import.commands
 
 Command('admin', 'car', function(source, args)
@@ -6,7 +19,7 @@ Command('admin', 'car', function(source, args)
 	local entity = GetVehiclePedIsIn(ped)
 
 	if entity then
-		DeleteEntity(entity)
+		deleteVehicle(entity)
 	end
 
 	entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(args.model), coords.x, coords.y, coords.z, GetEntityHeading(ped))
@@ -18,20 +31,11 @@ Command('admin', 'car', function(source, args)
 	until GetVehiclePedIsIn(ped, false) ~= 0 or timeout < 1
 end, {'model:string'})
 
-local vehicle = server.vehicle
-
 Command('admin', 'dv', function(source)
 	local ped = GetPlayerPed(source)
 	local entity = GetVehiclePedIsIn(ped)
 
 	if entity then
-		local plate = GetVehicleNumberPlateText(entity)
-		local veh = vehicle(plate)
-
-		if veh then
-			veh:store()
-		else
-			DeleteEntity(entity)
-		end
+		deleteVehicle(entity)
 	end
 end)
