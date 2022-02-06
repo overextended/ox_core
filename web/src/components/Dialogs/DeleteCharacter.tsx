@@ -17,12 +17,6 @@ const DeleteCharacter: React.FC<Props> = (props) => {
 
   const characters = useCharacters();
 
-  const handleInput = () => {
-    if (inputValue !== `${props.character.firstname} ${props.character.lastname}`)
-      setDisableDelete(true);
-    else setDisableDelete(false);
-  };
-
   const handleDelete = () => {
     characters.setValue(characters.value.filter((_, i) => i !== props.character.slot));
     fetchNui('ox:deleteCharacter', props.character.slot);
@@ -30,7 +24,15 @@ const DeleteCharacter: React.FC<Props> = (props) => {
   };
 
   React.useEffect(() => setInputValue(''), [props.visible, props.character]);
-  React.useEffect(handleInput, [inputValue]);
+  React.useEffect(() => {
+    // Disables the confirm button for 2 seconds after opening the dialog
+    if (props.visible) {
+      setDisableDelete(true);
+      setTimeout(() => {
+        setDisableDelete(false);
+      }, 2000);
+    }
+  }, [props.visible]);
 
   return (
     <ScaleFade in={props.visible} unmountOnExit>
@@ -41,14 +43,8 @@ const DeleteCharacter: React.FC<Props> = (props) => {
           <Text fontWeight="bold" color="red.600">
             This action is irreversible
           </Text>
-          <Input
-            placeholder="Character name"
-            textAlign="center"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
         </VStack>
-        <HStack align="center" justify="center" mt={3} p={3}>
+        <HStack align="center" justify="center" p={3}>
           <Button
             _hover={{ bg: 'green.500' }}
             isDisabled={disableDelete}
