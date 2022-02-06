@@ -254,7 +254,7 @@ function player.loaded(obj, character)
 	obj:loadPhone()
 
 	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
-	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165))
+	TriggerClientEvent('ox:playerLoaded', obj.source, obj, character.x and vec4(character.x, character.y, character.z, character.heading))
 
 	SetPlayerRoutingBucket(tostring(obj.source), 0)
 end

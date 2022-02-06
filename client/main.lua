@@ -4,22 +4,22 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	if cache then TriggerEvent('ox:playerLogout') end
 	DoScreenFadeOut(0)
 
-	local coords = vec4(-1380.316, 735.389, 182.967, 357.165)
-	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', coords.x, coords.y + 4.7, coords.z + 0.3, 0.0, 0.0, 0.0, 30.0, false, 0)
-
-	SetCamActive(cache.cam, true)
-	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, coords.x, coords.y, coords.z + 0.1)
-
 	exports.spawnmanager:spawnPlayer({
-		x = coords.x,
-		y = coords.y,
-		z = coords.z,
-		heading = coords.w,
+		x = shared.spawn.x,
+		y = shared.spawn.y,
+		z = shared.spawn.z,
+		heading = shared.spawn.w,
 		skipFade = true
 	}, function()
 		cache.ped = PlayerPedId()
 		cache.id = PlayerId()
+
+		local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
+		cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+
+		SetCamActive(cache.cam, true)
+		RenderScriptCams(cache.cam, false, 0, true, true)
+		PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
 
 		if characters[1]?.appearance then
 			exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
@@ -96,10 +96,16 @@ RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, coords)
+	Wait(500)
+
 	local appearance = cache.appearance
 	cache = data
 	cache.ped = PlayerPedId()
 	cache.id = PlayerId()
+
+	if not coords then
+		coords = shared.spawn
+	end
 
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)
@@ -115,8 +121,6 @@ RegisterNetEvent('ox:playerLoaded', function(data, coords)
 	else
 		exports['fivem-appearance']:setPlayerAppearance(appearance)
 	end
-
-	Wait(500)
 	DoScreenFadeIn(200)
 end)
 
