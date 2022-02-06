@@ -23,6 +23,8 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 		if characters[1]?.appearance then
 			exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
+		else
+			cache.hidePlayer = true
 		end
 
 		Wait(200)
