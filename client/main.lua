@@ -78,9 +78,11 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 			if type(data) == 'number' then
 				data += 1
+				cache.appearance = cache.appearance[data]
 				Wait(200)
 				DoScreenFadeOut(200)
 			end
+
 			SetNuiFocus(false, false)
 			TriggerServerEvent('ox:selectCharacter', data)
 			UnregisterRawNuiCallback('ox:selectCharacter')
