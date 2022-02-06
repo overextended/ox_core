@@ -53,17 +53,17 @@ const Characters: React.FC<Props> = (props) => {
   ) => {
     event.stopPropagation();
     navigate('/delete');
-    fetchNui('ox:setCharacter');
     characters.value[index].slot = index;
     props.setCharacter(characters.value[index]);
+    fetchNui('ox:setCharacter', index);
     props.setDeleteVisible(true);
   };
 
   const selectCharacter = (index: number) => {
     navigate('/select');
-    fetchNui('ox:setCharacter');
     characters.value[index].slot = index;
     props.setCharacter(characters.value[index]);
+    fetchNui('ox:setCharacter', index);
     props.setSelectVisible(true);
   };
 
