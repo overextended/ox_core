@@ -24,7 +24,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
     <ScaleFade in={props.visible} unmountOnExit>
       <Box
         w="100%"
-        h="35vh"
+        h="fit-content"
         p={3}
         bg={theme.colors.sideHover}
         fontFamily="Poppins"
@@ -39,31 +39,31 @@ const SelectCharacter: React.FC<Props> = (props) => {
         >
           <Text fontSize="lg">{`${props.character.firstname} ${props.character.lastname}`}</Text>
           <Spacer />
-          <Box>
+          <Box p={1}>
             <Text fontWeight="bold">Gender</Text>
             <Text>{props.character.gender}</Text>
           </Box>
           <Spacer />
-          <Box>
+          <Box p={1}>
             <Text fontWeight="bold">Date of Birth</Text>
             <Text>{new Date(props.character.dateofbirth).toDateString()}</Text>
           </Box>
           <Spacer />
           {props.character.phone_number && (
-            <Box>
+            <Box p={1}>
               <Text fontWeight="bold">Phone Number</Text>
               <Text>{props.character.phone_number}</Text>
             </Box>
           )}
           <Spacer />
           {props.character.groups && props.character.groups[0] !== '' && (
-            <Box maxW="80%">
+            <Box maxW="80%" p={1}>
               <Text fontWeight="bold">Groups</Text>
               <Text>{props.character.groups.join(', ')}</Text>
             </Box>
           )}
           <Spacer />
-          <Box mb={1}>
+          <Box mb={1} p={1}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>
               Select
             </Button>
