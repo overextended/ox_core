@@ -137,14 +137,14 @@ local function getData(source, characters)
 	for i = 1, #characters do
 		character = characters[i]
 		character.groups = {}
-		character.appearance = {}
 		local size = 0
 
 		for group in pairs(groups.load(false, character.charid)) do
 			size += 1
 			character.groups[size] = groups.list[group].label
-			character.appearance = appearance:load(source, character.charid)
 		end
+
+		character.appearance = appearance:load(source, character.charid)
 	end
 
 	return characters
