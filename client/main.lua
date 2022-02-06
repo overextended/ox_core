@@ -77,29 +77,25 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 		SetNuiFocus(true, true)
 		SetNuiFocusKeepInput(false)
-
-		RegisterRawNuiCallback('ox:selectCharacter', function(data, cb)
-			cb({ body = '{}'})
-			data = json.decode(data.body)
-
-			if type(data) == 'number' then
-				data += 1
-				cache.appearance = cache.appearance[data]
-				Wait(200)
-				DoScreenFadeOut(200)
-			end
-
-			SetNuiFocus(false, false)
-			TriggerServerEvent('ox:selectCharacter', data)
-			UnregisterRawNuiCallback('ox:selectCharacter')
-		end)
 	end)
 end)
 
-RegisterRawNuiCallback('ox:setCharacter', function(data, cb)
-	print(data.body)
-	cb({ body = '{}'})
-	data = json.decode(data.body)
+RegisterNUICallback('ox:selectCharacter', function(data, cb)
+	cb(1)
+
+	if type(data) == 'number' then
+		data += 1
+		cache.appearance = cache.appearance[data]
+		Wait(200)
+		DoScreenFadeOut(200)
+	end
+
+	SetNuiFocus(false, false)
+	TriggerServerEvent('ox:selectCharacter', data)
+end)
+
+RegisterNUICallback('ox:setCharacter', function(data, cb)
+	cb(1)
 
 	if type(data) == 'number' then
 		data = cache.appearance[data + 1]
@@ -113,9 +109,9 @@ RegisterRawNuiCallback('ox:setCharacter', function(data, cb)
 	end
 end)
 
-RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
-	cb({ body = '{}'})
-	TriggerServerEvent('ox:deleteCharacter', json.decode(data.body))
+RegisterNUICallback('ox:deleteCharacter', function(data, cb)
+	cb(1)
+	TriggerServerEvent('ox:deleteCharacter', data)
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, spawn)
