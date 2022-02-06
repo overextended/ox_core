@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import type { Character } from '../types';
 import React from 'react';
 import { useCharacters } from '../providers/CharactersProvider';
+import { fetchNui } from '../utils/fetchNui';
 
 interface Props {
   setCharacter: React.Dispatch<React.SetStateAction<Character>>;
@@ -52,6 +53,7 @@ const Characters: React.FC<Props> = (props) => {
   ) => {
     event.stopPropagation();
     navigate('/delete');
+    fetchNui('ox:setCharacter');
     characters.value[index].slot = index;
     props.setCharacter(characters.value[index]);
     props.setDeleteVisible(true);
@@ -59,6 +61,7 @@ const Characters: React.FC<Props> = (props) => {
 
   const selectCharacter = (index: number) => {
     navigate('/select');
+    fetchNui('ox:setCharacter');
     characters.value[index].slot = index;
     props.setCharacter(characters.value[index]);
     props.setSelectVisible(true);
