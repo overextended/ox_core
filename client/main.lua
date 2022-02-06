@@ -95,32 +95,43 @@ RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
 	TriggerServerEvent('ox:deleteCharacter', json.decode(data.body))
 end)
 
-RegisterNetEvent('ox:playerLoaded', function(data, coords)
+RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 
 	local appearance = cache.appearance
 	cache = data
-	cache.ped = PlayerPedId()
 	cache.id = PlayerId()
 
-	if not coords then
-		coords = shared.spawn
-	end
-
-	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
-	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
+
+	local p = promise.new()
 
 	if not appearance.model then
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('fivem-appearance:save', appearance)
 			end
+			p:resolve()
 		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true })
 	else
 		exports['fivem-appearance']:setPlayerAppearance(appearance)
+		p:resolve()
 	end
+
+	Citizen.Await(p)
+	DoScreenFadeOut(200)
+	cache.ped = PlayerPedId()
+
+	if not spawn then
+		spawn = shared.spawn
+	end
+
+	if spawn then
+		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
+		SetEntityHeading(cache.ped, spawn.w or 357.165)
+	end
+
 	DoScreenFadeIn(200)
 end)
 
