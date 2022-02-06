@@ -76,6 +76,11 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	end)
 end)
 
+RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
+	cb({ body = '{}'})
+	TriggerServerEvent('ox:deleteCharacter', json.decode(data.body))
+end)
+
 RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)

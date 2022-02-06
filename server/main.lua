@@ -32,21 +32,36 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 	local character
 
 	if type(data) == 'table' then
-		character = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date)
-	elseif type(data) == 'number' and string.len(data) == 1 then
+		character = data
+		character.charid = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date)
+	elseif type(data) == 'number' and data < 10 then
 		character = obj.characters[data]
-		data = obj.characters[data]
 	else
-		error(('ox:selectCharacter received invalid slot (should be number with length of 1). Received %s'):format(data))
+		error(('ox:selectCharacter received invalid slot. Received %s'):format(data))
 	end
 
 	obj.characters = nil
 	obj.charid = character.charid
-	obj.firstname = data.firstname
-	obj.lastname = data.lastname
-	obj.gender = data.gender
-	obj.dob = data.dateofbirth
+	obj.firstname = character.firstname
+	obj.lastname = character.lastname
+	obj.gender = character.gender
+	obj.dob = character.dateofbirth
 	player.loaded(obj, character)
+end)
+
+RegisterNetEvent('ox:deleteCharacter', function(slot)
+	if type(slot) == 'number' and slot < 11 then
+		slot += 1
+		local obj = player(source)
+		local charid = obj.characters[slot]?.charid
+
+		if charid then
+			player.deleteCharacter(charid)
+			return table.remove(obj.characters, slot)
+		end
+	end
+
+	error(('ox:deleteCharacter received invalid slot. Received %s'):format(slot))
 end)
 
 local vehicle = server.vehicle

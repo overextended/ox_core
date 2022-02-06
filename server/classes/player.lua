@@ -30,6 +30,7 @@ local Query = {
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, phone_number, x, y, z, heading FROM characters WHERE userid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
+	DELETE_CHARACTER = 'DELETE FROM characters WHERE charid = ?',
 }
 
 local CPlayer = {}
@@ -229,10 +230,16 @@ function player.saveAll(remove)
 end
 
 function player.registerCharacter(userid, firstName, lastName, gender, date)
-	return { charid = MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date }) }
+	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date })
 end
 
 local appearance = exports['fivem-appearance']
+
+function player.deleteCharacter(charid)
+	appearance:save(charid)
+	return MySQL.update(Query.DELETE_CHARACTER, { charid })
+end
+
 
 function player.loaded(obj, character)
 	setmetatable(obj, CPlayer)
