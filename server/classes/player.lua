@@ -131,15 +131,19 @@ function CPlayer:saveAccounts(remove)
 	return accounts.saveAll(self.source, remove)
 end
 
-local function getGroups(characters)
+local appearance = exports['fivem-appearance']
+
+local function getData(source, characters)
 	for i = 1, #characters do
 		character = characters[i]
 		character.groups = {}
+		character.appearance = {}
 		local size = 0
 
 		for group in pairs(groups.load(false, character.charid)) do
 			size += 1
 			character.groups[size] = groups.list[group].label
+			character.appearance = appearance:load(source, character.charid)
 		end
 	end
 
@@ -151,7 +155,7 @@ function CPlayer:logout()
 	self:save(true)
 	rawset(self, 'charid', nil)
 	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
-	self.characters = getGroups(self.characters)
+	self.characters = getData(self.source, self.characters)
 
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
@@ -185,7 +189,7 @@ function player.new(source)
 			characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
 		}
 
-		local state = Player(self.source).state
+		local state = Player(source).state
 
 		state:set('userid', self.userid, true)
 		state:set('username', self.username, true)
@@ -194,9 +198,9 @@ function player.new(source)
 			state:set(type, identifier, false)
 		end
 
-		self.characters = getGroups(self.characters)
+		self.characters = getData(source, self.characters)
 
-		TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
+		TriggerClientEvent('ox:selectCharacter', source, self.characters)
 		return player + self
 	end
 end
@@ -233,8 +237,6 @@ function player.registerCharacter(userid, firstName, lastName, gender, date)
 	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date })
 end
 
-local appearance = exports['fivem-appearance']
-
 function player.deleteCharacter(charid)
 	appearance:save(charid)
 	return MySQL.update(Query.DELETE_CHARACTER, { charid })
@@ -246,11 +248,13 @@ function player.loaded(obj, character)
 
 	groups.load(obj.source, obj.charid)
 	accounts.load(obj.source, obj.charid)
+	appearance:load(obj.source, obj.charid)
+
 	obj:loadInventory()
 	obj:loadPhone()
 
 	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
-	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165), appearance:load(obj.source, obj.charid))
+	TriggerClientEvent('ox:playerLoaded', obj.source, obj, vec4(character.x or -1380.316, character.y or 735.389, character.z or 182.967, character.heading or 357.165))
 
 	SetPlayerRoutingBucket(tostring(obj.source), 0)
 end

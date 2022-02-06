@@ -16,9 +16,17 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		y = coords.y,
 		z = coords.z,
 		heading = coords.w,
+		skipFade = true
 	}, function()
 		cache.ped = PlayerPedId()
 		cache.id = PlayerId()
+
+		if characters[1]?.appearance then
+			exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
+		end
+
+		Wait(200)
+		DoScreenFadeIn(500)
 
 		CreateThread(function()
 			local concealed = {}
@@ -47,9 +55,13 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 			end
 		end)
 
+		cache.appearance = {}
+
 		for i = 1, #characters do
 			local character = characters[i]
 			character.location = GetLabelText(GetNameOfZone(character.x, character.y, character.z))
+			cache.appearance[i] = character.appearance
+			character.appearance = nil
 		end
 
 		SendNUIMessage({
@@ -81,12 +93,13 @@ RegisterRawNuiCallback('ox:deleteCharacter', function(data, cb)
 	TriggerServerEvent('ox:deleteCharacter', json.decode(data.body))
 end)
 
-RegisterNetEvent('ox:playerLoaded', function(data, coords, appearance)
+RegisterNetEvent('ox:playerLoaded', function(data, coords)
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, true, true, true)
 	SetEntityHeading(cache.ped, coords.w or 357.165)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
 
+	local appearance = cache.appearance
 	cache = data
 	cache.id = PlayerId()
 
