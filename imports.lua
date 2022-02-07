@@ -69,4 +69,22 @@ if isServer then
 	end
 else
 	cache.player.id = PlayerId()
+
+	RegisterNetEvent('ox:playerLoaded', function()
+		if Ox.PlayerLoaded then
+			Ox.PlayerLoaded()
+		end
+	end)
+
+	AddEventHandler('ox:playerLogout', function()
+		if Ox.PlayerLogout then
+			Ox.PlayerLogout()
+		end
+	end)
+
+	CreateThread(function()
+		if Ox.PlayerLoaded and Ox.IsPlayerLoaded() then
+			Ox.PlayerLoaded()
+		end
+	end)
 end

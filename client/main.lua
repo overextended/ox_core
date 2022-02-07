@@ -1,5 +1,9 @@
 local cache = {}
 
+exports('IsPlayerLoaded', function()
+	return cache.loaded
+end)
+
 RegisterNetEvent('ox:selectCharacter', function(characters)
 	if cache then TriggerEvent('ox:playerLogout') end
 	DoScreenFadeOut(0)
@@ -151,6 +155,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	cache = data
 	cache.id = PlayerId()
 	cache.ped = PlayerPedId()
+	cache.loaded = true
 
 	if spawn then
 		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
