@@ -11,6 +11,15 @@ Ox = setmetatable({}, {
 	end
 })
 
+cache = {
+	groups = setmetatable({}, {
+		__index = function(self, index)
+			self[index] = GlobalState['group:'..index]
+			return self[index]
+		end
+	})
+}
+
 if isServer then
 	-----------------------------------------------------------------------------------------------
 	--	Player Interface
