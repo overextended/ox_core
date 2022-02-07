@@ -32,8 +32,9 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 		CreateThread(function()
 			local concealed = {}
-			SetPlayerInvincible(playerId, true)
+			SetPlayerInvincible(cache.id, true)
 
+			-- Conceal other players during character selection
 			while cache.cam do
 				DisableAllControlActions(0)
 				ThefeedHideThisFrame()
@@ -59,6 +60,12 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 			for i = 1, #concealed do
 				NetworkConcealPlayer(concealed[i], false, false)
 			end
+
+			-- Trigger setters after the player has spawned
+			DoScreenFadeIn(200)
+			SetMaxWantedLevel(0)
+			NetworkSetFriendlyFireOption(true)
+			SetPlayerInvincible(cache.id, false)
 		end)
 
 		cache.appearance = {}
@@ -117,41 +124,38 @@ end)
 RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 
-	local appearance = cache.appearance
-	cache = data
-	cache.id = PlayerId()
-
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
 
 	local p = promise.new()
 
-	if not appearance.model then
+	if cache.appearance?.model then
+		exports['fivem-appearance']:setPlayerAppearance(cache.appearance)
+		p:resolve()
+	else
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('fivem-appearance:save', appearance)
 			end
 			p:resolve()
 		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true })
-	else
-		exports['fivem-appearance']:setPlayerAppearance(appearance)
-		p:resolve()
 	end
 
 	Citizen.Await(p)
 	DoScreenFadeOut(200)
-	cache.ped = PlayerPedId()
 
 	if not spawn then
 		spawn = shared.spawn
 	end
 
+	cache = data
+	cache.id = PlayerId()
+	cache.ped = PlayerPedId()
+
 	if spawn then
 		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
 		SetEntityHeading(cache.ped, spawn.w or 357.165)
 	end
-
-	DoScreenFadeIn(200)
 end)
 
 AddEventHandler('ox:playerLogout', function()
