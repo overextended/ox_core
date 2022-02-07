@@ -11,14 +11,28 @@ Ox = setmetatable({}, {
 	end
 })
 
-cache = {
-	groups = setmetatable({}, {
-		__index = function(self, index)
-			self[index] = GlobalState['group:'..index]
-			return self[index]
-		end
-	})
-}
+cache = setmetatable({}, {
+	__call = function(self)
+		self.groups = setmetatable({}, {
+			__index = function(groups, index)
+				groups[index] = GlobalState['group:'..index]
+				return groups[index]
+			end
+		})
+	end,
+
+	__index = function(self, index)
+		self[index] = {}
+		return self[index]
+	end
+})
+
+CreateThread(function()
+	while true do
+		cache()
+		Wait(60000)
+	end
+end)
 
 if isServer then
 	-----------------------------------------------------------------------------------------------
@@ -54,5 +68,5 @@ if isServer then
 		})
 	end
 else
-
+	cache.player.id = PlayerId()
 end
