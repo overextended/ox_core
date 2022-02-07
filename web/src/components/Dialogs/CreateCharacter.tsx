@@ -49,7 +49,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
       <Box
         bg={theme.colors.sideHover}
         w="100%"
-        h="30vh"
+        h="fit-content"
         visibility={props.visible ? 'visible' : 'hidden'}
         fontFamily="Poppins"
       >
@@ -90,7 +90,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
             <option value="non-binary">Non-Binary</option>
           </Select>
           <Spacer />
-          <Box mb={3}>
+          <Box mb={3} mt={3}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => createCharacter()}>
               Confirm
             </Button>
