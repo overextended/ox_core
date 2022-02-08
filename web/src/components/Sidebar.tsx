@@ -16,13 +16,14 @@ interface Props {
 const Sidebar: React.FC<Props> = (props) => {
   return (
     <Box
-      position="fixed"
+      position="absolute"
       left="0"
-      w="30vh"
+      top="0"
+      w="fit-content"
       h="100vh"
       bg="linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);"
     >
-      <Flex direction="column" h="100%">
+      <Flex direction="column" h="100%" overflowY="scroll">
         <Flex
           fontFamily="Poppins"
           direction="column"

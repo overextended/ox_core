@@ -78,6 +78,7 @@ const Characters: React.FC<Props> = (props) => {
           <Flex
             p={3}
             w="100%"
+            isTruncated
             alignItems="center"
             position="relative"
             transition="0.3s"
