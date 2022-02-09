@@ -45,10 +45,10 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   });
 
   const createCharacter = () => {
-    //Todo: Full date checks, not just year
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
-    const year = new Date(date).getFullYear();
-    if (year < 1900 || year > 2022)
+    const userDate = new Date(date).getTime();
+    const today = new Date(currentDate).getTime();
+    if (userDate > today || userDate < new Date('1900-01-01').getTime())
       return toast({
         title: 'Incorrect date',
         description: 'Please enter a valid year',
