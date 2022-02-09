@@ -56,12 +56,14 @@ const SelectCharacter: React.FC<Props> = (props) => {
             </Box>
           )}
           <Spacer />
-          {props.character.groups && props.character.groups[0] !== '' && (
-            <Box maxW="80%" p={1}>
-              <Text fontWeight="bold">Groups</Text>
-              <Text>{props.character.groups.join(', ')}</Text>
-            </Box>
-          )}
+          {props.character.groups &&
+            props.character.groups.length > 0 &&
+            props.character.groups[0] !== '' && (
+              <Box maxW="80%" p={1}>
+                <Text fontWeight="bold">Groups</Text>
+                <Text>{props.character.groups.join(', ')}</Text>
+              </Box>
+            )}
           <Spacer />
           <Box mb={1} p={1}>
             <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>
