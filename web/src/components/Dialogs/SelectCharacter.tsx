@@ -11,6 +11,10 @@ interface Props {
   character: Character;
 }
 
+const firstToUpper = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 const SelectCharacter: React.FC<Props> = (props) => {
   const frameVisibility = useVisibility();
 
@@ -41,7 +45,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
           <Spacer />
           <Box p={1}>
             <Text fontWeight="bold">Gender</Text>
-            <Text>{props.character.gender}</Text>
+            <Text>{firstToUpper(props.character.gender)}</Text>
           </Box>
           <Spacer />
           <Box p={1}>
