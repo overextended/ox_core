@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `amount` int(11) NOT NULL DEFAULT 0,
   UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
   KEY `FK_accounts_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `characters` (
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `plate` char(8) NOT NULL DEFAULT '',
-  `owner` int(11) NOT NULL,
+  `charid` int(11) NOT NULL,
   `type` varchar(10) NOT NULL DEFAULT 'automobile',
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `glovebox` longtext DEFAULT NULL,
   `stored` varchar(50) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`plate`),
-  KEY `FK__characters` (`owner`),
-  CONSTRAINT `FK__characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
+  KEY `FK__characters` (`charid`),
+  CONSTRAINT `FK__characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
