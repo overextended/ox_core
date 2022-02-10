@@ -24,11 +24,11 @@ setmetatable(vehicle, {
 })
 
 local Query = {
-	SELECT_VEHICLES = 'SELECT owner, data, x, y, z, heading FROM vehicles WHERE stored = "false"',
+	SELECT_VEHICLES = 'SELECT charid, data, x, y, z, heading FROM vehicles WHERE stored = "false"',
 	UPDATE_VEHICLES = 'UPDATE vehicles SET x = ?, y = ?, z = ?, heading = ? WHERE plate = ?',
 	STORE_VEHICLE = 'UPDATE vehicles SET stored = ? WHERE plate = ?',
 	VEHICLE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-	INSERT_VEHICLE = 'INSERT into vehicles (plate, owner, type, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+	INSERT_VEHICLE = 'INSERT into vehicles (plate, charid, type, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
 	DELETE_VEHICLE = 'DELETE FROM vehicles WHERE plate = ?',
 }
 
@@ -36,19 +36,32 @@ local CVehicle = {}
 CVehicle.__index = CVehicle
 CVehicle.__newindex = CVehicle
 
+---Removes the vehicle from the database and deletes the entity.
 function CVehicle:remove()
 	MySQL.update(Query.DELETE_VEHICLE, { self.plate })
 	DeleteEntity(self.entity)
 	return vehicle - self
 end
 
+---@param store any
+---Sets the vehicle as stored and deletes the entity.
 function CVehicle:store(store)
 	MySQL.update(Query.STORE_VEHICLE, { store or 'impound', self.plate })
 	DeleteEntity(self.entity)
 	return vehicle - self
 end
 
-local function generateVehicleData(owner, data, vehicleType, x, y, z, heading, plate)
+---@param charid number
+---@param data table
+---@param vehicleType string
+---@param x number
+---@param y number
+---@param z number
+---@param heading number
+---@param plate string
+---@return table data
+---Generates a suitable license plate and inserts a vehicle into the database.
+local function generateVehicleData(charid, data, vehicleType, x, y, z, heading, plate)
 	if not plate or MySQL.scalar.await(Query.VEHICLE_EXISTS, { plate }) then
 		repeat
 			local str = {}
@@ -71,12 +84,20 @@ local function generateVehicleData(owner, data, vehicleType, x, y, z, heading, p
 
 	data.new = nil
 	data.plate = plate
-	MySQL.prepare(Query.INSERT_VEHICLE, { plate, owner, vehicleType, x or 0.0, y or 0.0, z or 0.0, heading or 0.0, json.encode(data) })
+	MySQL.prepare(Query.INSERT_VEHICLE, { plate, charid, vehicleType, x or 0.0, y or 0.0, z or 0.0, heading or 0.0, json.encode(data) })
 
 	return data
 end
 
-function vehicle.new(owner, data, x, y, z, heading)
+---@param charid number
+---@param data table
+---@param x number
+---@param y number
+---@param z number
+---@param heading number
+---@return table vehicle
+---Creates an instance of CVehicle. Loads existing vehicle data from the database, or generates new data.
+function vehicle.new(charid, data, x, y, z, heading)
 	local entity
 
 	if x and y and z then
@@ -89,7 +110,7 @@ function vehicle.new(owner, data, x, y, z, heading)
 		if not vehicleType then return end
 
 		if data.new then
-			data = generateVehicleData(owner, data, vehicleType, x, y, z, heading, data.plate)
+			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading, data.plate)
 		end
 
 		if x and y and z then
@@ -102,14 +123,14 @@ function vehicle.new(owner, data, x, y, z, heading)
 				SetVehicleNumberPlateText(entity, data.plate)
 
 				local self = setmetatable({
-					owner = owner,
+					charid = charid,
 					data = data,
 					plate = data.plate,
 					entity = entity,
 					netid = NetworkGetNetworkIdFromEntity(entity),
 				}, CVehicle)
 
-				Entity(entity).state.owner = owner
+				Entity(entity).state.owner = charid
 				TriggerClientEvent('lualib:setVehicleProperties', entityOwner, self.netid, data)
 
 				return self, vehicle + self
@@ -118,6 +139,8 @@ function vehicle.new(owner, data, x, y, z, heading)
 	end
 end
 
+---Saves all data stored in vehicle.list and deletes the entities.  
+---Should only be used when stopping the core.
 function vehicle.saveAll()
 	local parameters = {}
 	local size = 0
@@ -134,12 +157,14 @@ function vehicle.saveAll()
 	end
 end
 
+---Creates an instance of CVehicle for all unstored vehicles.  
+---Should only be used when starting the core.
 function vehicle.load()
 	local vehicles = MySQL.query.await(Query.SELECT_VEHICLES)
 
 	for i = 1, #vehicles do
 		local obj = vehicles[i]
-		vehicle.new(obj.owner, json.decode(obj.data), obj.x, obj.y, obj.z, obj.heading)
+		vehicle.new(obj.charid, json.decode(obj.data), obj.x, obj.y, obj.z, obj.heading)
 	end
 
 	-- Wait(5000)

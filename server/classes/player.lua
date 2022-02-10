@@ -37,16 +37,19 @@ local CPlayer = {}
 CPlayer.__index = CPlayer
 CPlayer.__newindex = CPlayer
 
+---@param x number
+---@param y number
+---@param z number
+---@param heading number
+---Sets a player's position and heading.
 function CPlayer:setCoords(x, y, z, heading)
 	local entity = GetPlayerPed(self.source)
 	SetEntityCoords(entity, x, y, z)
 	SetEntityHeading(entity, heading)
 end
 
-function CPlayer:getEntity()
-	return GetPlayerPed(self.source)
-end
-
+---@return vector4
+---Returns a player's position and heading.
 function CPlayer:getCoords()
 	local entity = CPlayer.getEntity(self)
 	return vec4(GetEntityCoords(entity), GetEntityHeading(entity))
@@ -54,6 +57,9 @@ end
 
 local ox_inventory = exports.ox_inventory
 
+---@param logout boolean
+---Update the database with a player's current data.  
+---If logout is true, triggering saveAccounts will also clear cached account data.
 function CPlayer:save(logout)
 	if self.charid then
 		self:saveAccounts(logout)
@@ -72,6 +78,7 @@ function CPlayer:save(logout)
 	end
 end
 
+---Send player data to ox_inventory.
 function CPlayer:loadInventory()
 	ox_inventory:setPlayerInventory({
 		source = self.source,
@@ -85,6 +92,7 @@ end
 
 local npwd = exports.npwd
 
+---Send player data to npwd.
 function CPlayer:loadPhone()
 	npwd:newPlayer({
 		source = self.source,
@@ -97,28 +105,49 @@ end
 
 local groups = server.groups
 
+---@param group string
+---@return number | table<string, number>
+---Return the player's rank in the given group
+function CPlayer:getGroup(group)
+	return groups.get(self.source, group)
+end
+
+---@return number | table<string, number>
+---Return a list of all groups and ranks for the player.
 function CPlayer:getGroups()
 	return groups.get(self.source)
 end
 
+---@param group string name of the group to adjust
+---@param rank number
+---Any rank under 1 will remove the group from the player.
 function CPlayer:setGroup(group, rank)
 	return groups.set(self.source, group, rank)
 end
 
 local accounts = server.accounts
 
+---@param account? string return the amount in the given account
+---@return number | table<string, number>
+---Leave account undefined to get a table of all accounts and amounts
 function CPlayer:getAccount(account)
 	return accounts.get(self.source, account)
 end
 
+---@param account string name of the account to adjust
+---@param amount number
 function CPlayer:addAccount(account, amount)
 	return accounts.add(self.source, account, amount)
 end
 
+---@param account string name of the account to adjust
+---@param amount number
 function CPlayer:removeAccount(account, amount)
 	return accounts.remove(self.source, account, amount)
 end
 
+---@param account string name of the account to adjust
+---@param amount number
 function CPlayer:setAccount(account, amount)
 	return accounts.set(self.source, account, amount)
 end
@@ -150,6 +179,7 @@ local function getData(source, characters)
 	return characters
 end
 
+---Save the player and trigger character selection.
 function CPlayer:logout()
 	npwd:unloadPlayer(self.source)
 	self:save(true)
@@ -162,6 +192,8 @@ end
 
 local functions = server.functions
 
+---@param source number
+---Creates an instance of CPlayer.
 function player.new(source)
 	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
@@ -205,6 +237,8 @@ function player.new(source)
 	end
 end
 
+---@param remove boolean
+---Saves all data stored in players.list, and removes cached data if remove is true.
 function player.saveAll(remove)
 	local parameters = {}
 	local size = 0
@@ -233,16 +267,20 @@ function player.saveAll(remove)
 	end
 end
 
+---Insert new character data into the database.
 function player.registerCharacter(userid, firstName, lastName, gender, date)
 	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date })
 end
 
+---Remove character data from the database, and delete any known KVP.
 function player.deleteCharacter(charid)
 	appearance:save(charid)
 	return MySQL.update(Query.DELETE_CHARACTER, { charid })
 end
 
-
+---@param obj table player
+---@param character table
+---Finalises player loading after they have selected a character.
 function player.loaded(obj, character)
 	setmetatable(obj, CPlayer)
 
