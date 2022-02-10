@@ -137,6 +137,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		exports['fivem-appearance']:setPlayerAppearance(cache.appearance)
 		p:resolve()
 	else
+		cache.hidePlayer = false
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('fivem-appearance:save', appearance)
