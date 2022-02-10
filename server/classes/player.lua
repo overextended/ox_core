@@ -51,7 +51,7 @@ end
 ---@return vector4
 ---Returns a player's position and heading.
 function CPlayer:getCoords()
-	local entity = CPlayer.getEntity(self)
+	local entity = GetPlayerPed(self.source)
 	return vec4(GetEntityCoords(entity), GetEntityHeading(entity))
 end
 
