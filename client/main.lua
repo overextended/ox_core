@@ -131,22 +131,20 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
 
-	local p = promise.new()
-
-	if cache.appearance?.model then
-		exports['fivem-appearance']:setPlayerAppearance(cache.appearance)
-		p:resolve()
-	else
+	if not cache.appearance or not cache.appearance.model then
+		local p = promise.new()
 		cache.hidePlayer = false
+
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('fivem-appearance:save', appearance)
 			end
 			p:resolve()
 		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true })
+
+		Citizen.Await(p)
 	end
 
-	Citizen.Await(p)
 	DoScreenFadeOut(200)
 
 	if not spawn then
