@@ -14,6 +14,7 @@ import { theme } from '../../styles/theme';
 import { fetchNui } from '../../utils/fetchNui';
 import { useVisibility } from '../../providers/VisibilityProvider';
 import { useCharacters } from '../../providers/CharactersProvider';
+import { firstToUpper } from '../../utils/misc';
 
 interface Props {
   visible: boolean;
@@ -42,7 +43,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
     const dateMonth = date.getMonth() + 1;
     const dateDay = date.getDate();
     setCurrentDate(`${dateYear}-0${dateMonth}-0${dateDay}`);
-  });
+  }, []);
 
   const createCharacter = () => {
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
@@ -86,12 +87,12 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
           <Input
             placeholder="First name"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(firstToUpper(e.target.value))}
           ></Input>
           <Input
             placeholder="Last name"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={(e) => setLastName(firstToUpper(e.target.value))}
           ></Input>
           <Input
             placeholder="DoB"
