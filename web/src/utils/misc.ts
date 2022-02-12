@@ -4,3 +4,7 @@ export const isEnvBrowser = (): boolean => !(window as any).invokeNative;
 
 // Basic no operation function
 export const noop = () => {};
+
+export const firstToUpper = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
