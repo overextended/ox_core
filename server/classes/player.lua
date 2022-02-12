@@ -27,9 +27,10 @@ setmetatable(player, {
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
-	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, dateofbirth, phone_number, x, y, z, heading FROM characters WHERE userid = ?',
-	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
-	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ? WHERE charid = ?',
+	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
+	SELECT_CHARACTER = 'SELECT is_dead FROM characters WHERE charid = ?',
+	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth) VALUES (?, ?, ?, ?, ?)',
+	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ?, is_dead = ?, last_played = ? WHERE charid = ?',
 	DELETE_CHARACTER = 'DELETE FROM characters WHERE charid = ?',
 }
 
@@ -73,6 +74,8 @@ function CPlayer:save(logout)
 			coords.z,
 			coords.w,
 			inventory,
+			self.isdead,
+			os.date('%Y-%m-%d', os.time()),
 			self.charid
 		})
 	end
@@ -242,6 +245,7 @@ end
 function player.saveAll(remove)
 	local parameters = {}
 	local size = 0
+	local date = os.date('%Y-%m-%d', os.time())
 
 	for playerId, obj in pairs(player.list) do
 		if obj.charid then
@@ -256,6 +260,8 @@ function player.saveAll(remove)
 				coords.z,
 				GetEntityHeading(entity),
 				inventory,
+				obj.isdead,
+				date,
 				obj.charid
 			}
 		end
@@ -283,6 +289,9 @@ end
 ---Finalises player loading after they have selected a character.
 function player.loaded(obj, character)
 	setmetatable(obj, CPlayer)
+
+	-- currently returns a single value; will require iteration for more data
+	obj.isdead = MySQL.prepare.await(Query.SELECT_CHARACTER, { obj.charid }) == 1
 
 	groups.load(obj.source, obj.charid)
 	accounts.load(obj.source, obj.charid)

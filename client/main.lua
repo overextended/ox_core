@@ -160,10 +160,17 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
 		SetEntityHeading(cache.ped, spawn.w or 357.165)
 	end
+
+	while true do
+		Wait(200)
+		cache.ped = PlayerPedId()
+
+		if not cache.dead and IsPedDeadOrDying(cache.ped) then
+			client.onPlayerDeath(cache)
+		end
+	end
 end)
 
 AddEventHandler('ox:playerLogout', function()
 	table.wipe(cache)
 end)
-
-TriggerServerEvent('ox:playerJoined')

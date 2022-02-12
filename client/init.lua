@@ -1,0 +1,1 @@
+TriggerServerEvent('ox:playerJoined')

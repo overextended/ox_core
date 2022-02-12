@@ -20,7 +20,7 @@ shared.ready = setmetatable({ready = false}, {
 })
 
 if IsDuplicityVersion then
-	server = setmetatable({}, {__index = shared})
+	server = {}
 else
-	client = setmetatable({}, {__index = shared})
+	client = {}
 end

@@ -25,6 +25,8 @@ shared_scripts {
 }
 
 client_scripts {
+    'client/init.lua',
+    'client/death.lua',
     'client/main.lua',
 }
 
