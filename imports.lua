@@ -54,13 +54,13 @@ if isServer then
 	end
 
 	---Access and manipulate data for a player object.
-	---@param source number
+	---@param player table | number
 	---@return table oxPlayer
-	function Ox.Player(source)
-		local self = Ox.getPlayer(source)
+	function Ox.Player(player)
+		local self = (type(player) == 'table' and player.charid) and player or Ox.getPlayer(player)
 
 		if not self then
-			error(("'%s' is not a player"):format(source))
+			error(("%s is not a player"):format(json.encode(player)))
 		end
 
 		return setmetatable(self, {
