@@ -22,7 +22,6 @@ interface Props {
 }
 
 const CreateCharacter: React.FC<Props> = (props: Props) => {
-  // Todo: Reset fields on dialog open
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [date, setDate] = React.useState('');
@@ -34,7 +33,13 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const toast = useToast();
 
   React.useEffect(() => {
-    props.visible && fetchNui('ox:setCharacter');
+    if (props.visible) {
+      fetchNui('ox:setCharacter');
+      setFirstName('');
+      setLastName('');
+      setDate('');
+      setGender('');
+    }
   }, [props.visible]);
 
   React.useEffect(() => {
