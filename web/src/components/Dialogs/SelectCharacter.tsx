@@ -4,16 +4,13 @@ import { theme } from '../../styles/theme';
 import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
 import { useVisibility } from '../../providers/VisibilityProvider';
+import { firstToUpper } from '../../utils/misc';
 
 interface Props {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
   character: Character;
 }
-
-const firstToUpper = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
 
 const SelectCharacter: React.FC<Props> = (props) => {
   const frameVisibility = useVisibility();
