@@ -15,79 +15,39 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		heading = shared.spawn.w,
 		skipFade = true
 	}, function()
-		cache.ped = PlayerPedId()
-		cache.id = PlayerId()
+		client.setupCharacters(cache, characters)
+		local concealed = {}
 
-		local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
-		cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+		while cache.cam do
+			DisableAllControlActions(0)
+			ThefeedHideThisFrame()
+			HideHudAndRadarThisFrame()
 
-		SetCamActive(cache.cam, true)
-		RenderScriptCams(cache.cam, false, 0, true, true)
-		PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
+			local players = GetActivePlayers()
 
-		if characters[1]?.appearance then
-			exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
-		else
-			cache.hidePlayer = true
-		end
-
-		Wait(200)
-		DoScreenFadeIn(500)
-
-		CreateThread(function()
-			local concealed = {}
-			SetPlayerInvincible(cache.id, true)
-
-			-- Conceal other players during character selection
-			while cache.cam do
-				DisableAllControlActions(0)
-				ThefeedHideThisFrame()
-				HideHudAndRadarThisFrame()
-
-				local players = GetActivePlayers()
-
-				for i = 1, #players do
-					local player = players[i]
-					if player ~= cache.id and not concealed[player] then
-						concealed[#concealed + 1] = player
-						NetworkConcealPlayer(player, true, true)
-					end
+			for i = 1, #players do
+				local player = players[i]
+				if player ~= cache.id and not concealed[player] then
+					concealed[#concealed + 1] = player
+					NetworkConcealPlayer(player, true, true)
 				end
-
-				if cache.hidePlayer then
-					SetLocalPlayerInvisibleLocally(true)
-				end
-
-				Wait(0)
 			end
 
-			for i = 1, #concealed do
-				NetworkConcealPlayer(concealed[i], false, false)
+			if cache.hidePlayer then
+				SetLocalPlayerInvisibleLocally(true)
 			end
 
-			-- Trigger setters after the player has spawned
-			DoScreenFadeIn(200)
-			SetMaxWantedLevel(0)
-			NetworkSetFriendlyFireOption(true)
-			SetPlayerInvincible(cache.id, false)
-		end)
-
-		cache.appearance = {}
-
-		for i = 1, #characters do
-			local character = characters[i]
-			character.location = GetLabelText(GetNameOfZone(character.x, character.y, character.z))
-			cache.appearance[i] = character.appearance
-			character.appearance = nil
+			Wait(0)
 		end
 
-		SendNUIMessage({
-			action = 'sendCharacters',
-			data = characters
-		})
+		for i = 1, #concealed do
+			NetworkConcealPlayer(concealed[i], false, false)
+		end
 
-		SetNuiFocus(true, true)
-		SetNuiFocusKeepInput(false)
+		DoScreenFadeIn(200)
+		SetMaxWantedLevel(0)
+		NetworkSetFriendlyFireOption(true)
+		SetPlayerInvincible(cache.id, false)
 	end)
 end)
 
@@ -126,40 +86,11 @@ RegisterNUICallback('ox:deleteCharacter', function(data, cb)
 end)
 
 RegisterNetEvent('ox:playerLoaded', function(data, spawn)
-	Wait(500)
-
-	RenderScriptCams(false, false, 0, true, true)
-	DestroyCam(cache.cam, false)
-
-	if not cache.appearance or not cache.appearance.model then
-		local p = promise.new()
-		cache.hidePlayer = false
-
-		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
-			if appearance then
-				TriggerServerEvent('fivem-appearance:save', appearance)
-			end
-			p:resolve()
-		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true })
-
-		Citizen.Await(p)
-	end
-
-	DoScreenFadeOut(200)
-
-	if not spawn then
-		spawn = shared.spawn
-	end
+	client.playerLoaded(cache, spawn)
 
 	cache = data
 	cache.id = PlayerId()
-	cache.ped = PlayerPedId()
 	cache.loaded = true
-
-	if spawn then
-		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
-		SetEntityHeading(cache.ped, spawn.w or 357.165)
-	end
 
 	if cache.dead then
 		client.onPlayerDeath(cache, true)
