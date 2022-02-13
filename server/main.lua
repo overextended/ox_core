@@ -64,6 +64,11 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 	error(('ox:deleteCharacter received invalid slot. Received %s'):format(slot))
 end)
 
+RegisterNetEvent('ox:playerDeath', function(dead)
+	local obj = player(source)
+	obj.dead = dead
+end)
+
 local vehicle = server.vehicle
 
 AddEventHandler('onResourceStop', function(resource)

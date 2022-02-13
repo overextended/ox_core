@@ -161,7 +161,11 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		SetEntityHeading(cache.ped, spawn.w or 357.165)
 	end
 
-	while true do
+	if cache.dead then
+		client.onPlayerDeath(cache, true)
+	end
+
+	while cache.loaded do
 		Wait(200)
 		cache.ped = PlayerPedId()
 

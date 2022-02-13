@@ -74,7 +74,7 @@ function CPlayer:save(logout)
 			coords.z,
 			coords.w,
 			inventory,
-			self.isdead,
+			self.dead,
 			os.date('%Y-%m-%d', os.time()),
 			self.charid
 		})
@@ -260,7 +260,7 @@ function player.saveAll(remove)
 				coords.z,
 				GetEntityHeading(entity),
 				inventory,
-				obj.isdead,
+				obj.dead,
 				date,
 				obj.charid
 			}
@@ -288,11 +288,10 @@ end
 ---@param character table
 ---Finalises player loading after they have selected a character.
 function player.loaded(obj, character)
-	setmetatable(obj, CPlayer)
-
 	-- currently returns a single value; will require iteration for more data
-	obj.isdead = MySQL.prepare.await(Query.SELECT_CHARACTER, { obj.charid }) == 1
+	obj.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { obj.charid }) == 1
 
+	setmetatable(obj, CPlayer)
 	groups.load(obj.source, obj.charid)
 	accounts.load(obj.source, obj.charid)
 	appearance:load(obj.source, obj.charid)
