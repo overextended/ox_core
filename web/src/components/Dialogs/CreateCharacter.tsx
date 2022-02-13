@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  Text,
-  Flex,
-  Input,
-  Spacer,
-  Select,
-  ScaleFade,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Button, Text, Flex, Input, Spacer, Select, ScaleFade } from '@chakra-ui/react';
 import { theme } from '../../styles/theme';
 import { fetchNui } from '../../utils/fetchNui';
 import { useVisibility } from '../../providers/VisibilityProvider';
 import { useCharacters } from '../../providers/CharactersProvider';
 import { firstToUpper } from '../../utils/misc';
+import DateInput from './DateInput';
 
 interface Props {
   visible: boolean;
@@ -26,11 +17,9 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const [lastName, setLastName] = React.useState('');
   const [date, setDate] = React.useState('');
   const [gender, setGender] = React.useState('');
-  const [currentDate, setCurrentDate] = React.useState('');
 
   const characters = useCharacters();
   const frameVisibility = useVisibility();
-  const toast = useToast();
 
   React.useEffect(() => {
     if (!props.visible) return;
@@ -41,24 +30,9 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
     setGender('');
   }, [props.visible]);
 
-  React.useEffect(() => {
-    const date = new Date();
-    const dateYear = date.getFullYear();
-    const dateMonth = date.getMonth() + 1;
-    const dateDay = date.getDate();
-    setCurrentDate(`${dateYear}-0${dateMonth}-0${dateDay}`);
-  }, []);
-
   const createCharacter = () => {
+    console.log(date);
     if (firstName === '' || lastName === '' || date === '' || gender === '') return;
-    const userDate = new Date(date).getTime();
-    const today = new Date(currentDate).getTime();
-    if (userDate > today || userDate < new Date('1900-01-01').getTime())
-      return toast({
-        title: 'Incorrect date',
-        description: 'Please enter a valid year',
-        status: 'error',
-      });
     fetchNui('ox:selectCharacter', { firstName, lastName, date, gender });
     frameVisibility.setVisible(false);
     props.setVisible(false);
@@ -81,7 +55,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
     <ScaleFade in={props.visible} unmountOnExit>
       <Box
         bg={theme.colors.sideHover}
-        w="100%"
+        w="2xs"
         h="fit-content"
         visibility={props.visible ? 'visible' : 'hidden'}
         fontFamily="Poppins"
@@ -98,14 +72,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
             value={lastName}
             onChange={(e) => setLastName(firstToUpper(e.target.value))}
           ></Input>
-          <Input
-            placeholder="DoB"
-            type="date"
-            min="1900-01-01"
-            max={currentDate}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          ></Input>
+          <DateInput setDate={setDate} />
           <Select
             placeholder="Gender"
             borderRadius="none"
