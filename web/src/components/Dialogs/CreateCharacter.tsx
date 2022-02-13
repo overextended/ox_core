@@ -33,13 +33,12 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const toast = useToast();
 
   React.useEffect(() => {
-    if (props.visible) {
-      fetchNui('ox:setCharacter');
-      setFirstName('');
-      setLastName('');
-      setDate('');
-      setGender('');
-    }
+    if (!props.visible) return;
+    fetchNui('ox:setCharacter');
+    setFirstName('');
+    setLastName('');
+    setDate('');
+    setGender('');
   }, [props.visible]);
 
   React.useEffect(() => {
