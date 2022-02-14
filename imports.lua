@@ -103,6 +103,22 @@ if isServer then
 			__index = vehicleMethod
 		})
 	end
+
+	---@param owner number charid or false
+	---@param model string | number
+	---@param coords vector x, y, z, w
+	---@param data table
+	---@return table vehicle
+	function Ox.CreateVehicle(owner, model, coords, data)
+		data = data or {}
+		data.model = model
+
+		local vehicle = core['vehicle_new'](nil, owner, data, coords.x, coords.y, coords.z, coords.w)
+
+		return setmetatable(vehicle, {
+			__index = vehicleMethod
+		})
+	end
 else
 	cache.player.id = PlayerId()
 
