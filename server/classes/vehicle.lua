@@ -9,17 +9,17 @@ local vehicle = {
 
 setmetatable(vehicle, {
 	__add = function(self, obj)
-		self.list[obj.plate] = obj
+		self.list[obj.netid] = obj
 		self.count += 1
 	end,
 
 	__sub = function(self, obj)
-		self.list[obj.plate] = nil
+		self.list[obj.netid] = nil
 		self.count -= 1
 	end,
 
-	__call = function(self, plate)
-		return self.list[plate]
+	__call = function(self, netid)
+		return self.list[netid]
 	end
 })
 
@@ -38,7 +38,10 @@ CVehicle.__newindex = CVehicle
 
 ---Removes the vehicle from the database and deletes the entity.
 function CVehicle:remove()
-	MySQL.update(Query.DELETE_VEHICLE, { self.plate })
+	if self.owner then
+		MySQL.update(Query.DELETE_VEHICLE, { self.plate })
+	end
+
 	DeleteEntity(self.entity)
 	return vehicle - self
 end
@@ -46,7 +49,10 @@ end
 ---@param store any
 ---Sets the vehicle as stored and deletes the entity.
 function CVehicle:store(store)
-	MySQL.update(Query.STORE_VEHICLE, { store or 'impound', self.plate })
+	if self.owner then
+		MySQL.update(Query.STORE_VEHICLE, { store or 'impound', self.plate })
+	end
+
 	DeleteEntity(self.entity)
 	return vehicle - self
 end
@@ -109,32 +115,35 @@ function vehicle.new(charid, data, x, y, z, heading)
 		local vehicleType = GetVehicleType(entity)
 		if not vehicleType then return end
 
-		if data.new then
+		if charid and data.new then
 			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading, data.plate)
 		end
 
 		if x and y and z then
 			local entityOwner = NetworkGetEntityOwner(entity)
 
-			if entityOwner < 1 then
-				DeleteEntity(entity)
-				MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
-			else
+			if data.charid then
+
+				if entityOwner < 1 then
+					DeleteEntity(entity)
+					return MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
+				end
+
 				SetVehicleNumberPlateText(entity, data.plate)
-
-				local self = setmetatable({
-					charid = charid,
-					data = data,
-					plate = data.plate,
-					entity = entity,
-					netid = NetworkGetNetworkIdFromEntity(entity),
-				}, CVehicle)
-
-				Entity(entity).state.owner = charid
-				TriggerClientEvent('lualib:setVehicleProperties', entityOwner, self.netid, data)
-
-				return self, vehicle + self
 			end
+
+			local self = setmetatable({
+				owner = charid,
+				data = data,
+				plate = data.plate,
+				entity = entity,
+				netid = NetworkGetNetworkIdFromEntity(entity),
+			}, CVehicle)
+
+			Entity(entity).state.owner = charid
+			TriggerClientEvent('lualib:setVehicleProperties', entityOwner, self.netid, data)
+
+			return self, vehicle + self
 		end
 	end
 end
@@ -145,10 +154,12 @@ function vehicle.saveAll()
 	local parameters = {}
 	local size = 0
 
-	for plate, obj in pairs(vehicle.list) do
-		size += 1
-		local coords = GetEntityCoords(obj.entity)
-		parameters[size] = { coords.x, coords.y, coords.z, GetEntityHeading(obj.entity), plate }
+	for _, obj in pairs(vehicle.list) do
+		if obj.owner then
+			size += 1
+			local coords = GetEntityCoords(obj.entity)
+			parameters[size] = { coords.x, coords.y, coords.z, GetEntityHeading(obj.entity), obj.plate }
+		end
 		DeleteEntity(obj.entity)
 	end
 
