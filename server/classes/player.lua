@@ -312,7 +312,7 @@ end
 for name, method in pairs(CPlayer) do
 	if type(method) == 'function' and name ~= '__call' then
 		exports('player_'..name, method)
-		-- print('registered export:', 'player_'..name)
+		print('registered export:', 'player_'..name)
 	end
 end
 

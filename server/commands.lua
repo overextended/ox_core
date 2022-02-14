@@ -28,7 +28,7 @@ Command('admin', 'car', function(source, args)
 	end
 
 	local coords = GetEntityCoords(ped)
-	local obj = vehicle.new(false, {model = joaat(args.model), new = true}, coords.x, coords.y, coords.z, GetEntityHeading(ped))
+	local obj = vehicle.new(false, {model = joaat(args.model)}, coords.x, coords.y, coords.z, GetEntityHeading(ped))
 
 	local timeout = 50
 	repeat

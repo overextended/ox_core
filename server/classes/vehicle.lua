@@ -46,6 +46,24 @@ function CVehicle:remove()
 	return vehicle - self
 end
 
+local function generatePlate()
+	local str = {}
+
+	for i = 1, 2 do
+		str[i] = string.char(math.random(48, 57))
+	end
+
+	for i = 3, 6 do
+		str[i] = string.char(math.random(65, 90))
+	end
+
+	for i = 7, 8 do
+		str[i] = string.char(math.random(48, 57))
+	end
+
+	return table.concat(str)
+end
+
 ---@param store any
 ---Sets the vehicle as stored and deletes the entity.
 function CVehicle:store(store)
@@ -70,21 +88,7 @@ end
 local function generateVehicleData(charid, data, vehicleType, x, y, z, heading, plate)
 	if not plate or MySQL.scalar.await(Query.VEHICLE_EXISTS, { plate }) then
 		repeat
-			local str = {}
-
-			for i = 1, 2 do
-				str[i] = string.char(math.random(48, 57))
-			end
-
-			for i = 3, 6 do
-				str[i] = string.char(math.random(65, 90))
-			end
-
-			for i = 7, 8 do
-				str[i] = string.char(math.random(48, 57))
-			end
-
-			plate = table.concat(str)
+			plate = generatePlate()
 		until not MySQL.scalar.await(Query.VEHICLE_EXISTS, { plate })
 	end
 
@@ -117,13 +121,14 @@ function vehicle.new(charid, data, x, y, z, heading)
 
 		if charid and data.new then
 			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading, data.plate)
+		else
+			data.plate = generatePlate()
 		end
 
 		if x and y and z then
 			local entityOwner = NetworkGetEntityOwner(entity)
 
 			if data.charid then
-
 				if entityOwner < 1 then
 					DeleteEntity(entity)
 					return MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
@@ -204,11 +209,12 @@ end
 for name, method in pairs(CVehicle) do
 	if type(method) == 'function' and name ~= '__call' then
 		exports('vehicle_'..name, method)
+		print('registered export:', 'vehicle_'..name)
 	end
 end
 
-exports('getVehicle', function(plate)
-	return vehicle.list[plate]
+exports('getVehicle', function(netId)
+	return vehicle.list[netId]
 end)
 
 exports('getVehicles', function()
