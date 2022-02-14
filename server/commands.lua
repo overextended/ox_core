@@ -15,20 +15,27 @@ local Command = import.commands
 
 Command('admin', 'car', function(source, args)
 	local ped = GetPlayerPed(source)
-	local coords = GetEntityCoords(ped)
 	local entity = GetVehiclePedIsIn(ped)
 
 	if entity then
-		deleteVehicle(entity)
+		local obj = vehicle(NetworkGetNetworkIdFromEntity(entity))
+
+		if obj then
+			obj:remove()
+		else
+			deleteVehicle(entity)
+		end
 	end
 
-	entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(args.model), coords.x, coords.y, coords.z, GetEntityHeading(ped))
+	local coords = GetEntityCoords(ped)
+	local obj = vehicle.new(false, {model = joaat(args.model), new = true}, coords.x, coords.y, coords.z, GetEntityHeading(ped))
+
 	local timeout = 50
 	repeat
 		Wait(0)
 		timeout -= 1
-		SetPedIntoVehicle(ped, entity, -1)
-	until GetVehiclePedIsIn(ped, false) ~= 0 or timeout < 1
+		SetPedIntoVehicle(ped, obj.entity, -1)
+	until GetVehiclePedIsIn(ped, false) == obj.entity or timeout < 1
 end, {'model:string'})
 
 Command('admin', 'dv', function(source)
@@ -36,6 +43,12 @@ Command('admin', 'dv', function(source)
 	local entity = GetVehiclePedIsIn(ped)
 
 	if entity then
-		deleteVehicle(entity)
+		local obj = vehicle(NetworkGetNetworkIdFromEntity(entity))
+
+		if obj then
+			obj:remove()
+		else
+			deleteVehicle(entity)
+		end
 	end
 end)
