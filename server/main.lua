@@ -77,6 +77,8 @@ AddEventHandler('onResourceStop', function(resource)
 		vehicle.saveAll()
 	elseif resource == 'ox_inventory' then
 		player.saveAll()
+	else
+		vehicle.clear(resource)
 	end
 end)
 

@@ -108,11 +108,16 @@ end
 ---@return table vehicle
 ---Creates an instance of CVehicle. Loads existing vehicle data from the database, or generates new data.
 function vehicle.new(charid, data, x, y, z, heading)
+	if type(data.model) == 'string' then
+		data.model = joaat(data.model)
+	end
+
+	local script = GetInvokingResource()
 	local entity
 
 	if x and y and z then
 		entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, data.model, x, y, z, heading or 90.0)
-		Wait(0)
+		Wait(50)
 	end
 
 	if entity then
@@ -120,7 +125,7 @@ function vehicle.new(charid, data, x, y, z, heading)
 		if not vehicleType then return end
 
 		if charid and data.new then
-			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading, data.plate)
+			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading or 90.0, data.plate)
 		else
 			data.plate = generatePlate()
 		end
@@ -143,6 +148,7 @@ function vehicle.new(charid, data, x, y, z, heading)
 				plate = data.plate,
 				entity = entity,
 				netid = NetworkGetNetworkIdFromEntity(entity),
+				script = script
 			}, CVehicle)
 
 			Entity(entity).state.owner = charid
@@ -170,6 +176,15 @@ function vehicle.saveAll()
 
 	if size > 0 then
 		MySQL.prepare(Query.UPDATE_VEHICLES, parameters)
+	end
+end
+
+---Removes vehicles spawned by a resource on stop.
+function vehicle.clear(resource)
+	for _, obj in pairs(vehicle.list) do
+		if obj.script == resource then
+			obj:remove()
+		end
 	end
 end
 
@@ -228,5 +243,7 @@ exports('getVehicles', function()
 
 	return vehicles
 end)
+
+exports('vehicle_new', vehicle.new)
 
 server.vehicle = vehicle
