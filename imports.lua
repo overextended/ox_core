@@ -1,7 +1,10 @@
 local isServer = IsDuplicityVersion()
 local core = exports.ox_core
 
-Ox = setmetatable({}, {
+Ox = setmetatable({
+	PlayerLogout = false,
+	PlayerLoaded = false,
+}, {
 	__index = function(self, method)
 		rawset(self, method, function(...)
 			return core[method](nil, ...)
@@ -48,14 +51,14 @@ if isServer then
 			return Player(self.source).state
 		else
 			return function(...)
-				return core['player_'..index](_, self, ...)
+				return core['player_'..index](nil, self, ...)
 			end
 		end
 	end
 
 	---Access and manipulate data for a player object.
 	---@param player table | number
-	---@return table oxPlayer
+	---@return table player
 	function Ox.Player(player)
 		local self = (type(player) == 'table' and player.charid) and player or Ox.getPlayer(player)
 
@@ -65,6 +68,39 @@ if isServer then
 
 		return setmetatable(self, {
 			__index = playerMethod
+		})
+	end
+
+	-----------------------------------------------------------------------------------------------
+	--	Vehicle Interface
+	-----------------------------------------------------------------------------------------------
+
+	---Triggers exported Class functions when triggering a vehicles's index metamethod.
+	---@param self table
+	---@param index string
+	---@return function export
+	local function vehicleMethod(self, index)
+		if index == 'state' then
+			return Entity(self.source).state
+		else
+			return function(...)
+				return core['vehicle_'..index](nil, self, ...)
+			end
+		end
+	end
+
+	---Access and manipulate data for a vehicle object.
+	---@param vehicle table | number
+	---@return table vehicle
+	function Ox.Vehicle(vehicle)
+		local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or Ox.getVehicle(vehicle)
+
+		if not self then
+			error(("%s is not a vehicle"):format(json.encode(vehicle)))
+		end
+
+		return setmetatable(self, {
+			__index = vehicleMethod
 		})
 	end
 else
