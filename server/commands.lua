@@ -52,3 +52,10 @@ Command('admin', 'dv', function(source)
 		end
 	end
 end)
+
+local player = server.player
+
+Command('admin', 'setgroup', function(source, args)
+	local obj = player(args.target)
+	obj:setGroup(args.group, args.rank)
+end, {'target:number', 'group:string', 'rank:number'})
