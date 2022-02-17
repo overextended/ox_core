@@ -67,10 +67,20 @@ const SelectCharacter: React.FC<Props> = (props) => {
             )}
           <Spacer />
           <Box mb={1} p={1}>
-            <Button mr={1} _hover={{ bg: 'green.500' }} onClick={() => playCharacter()}>
+            <Button
+              mr={1}
+              _hover={{ bg: 'green.500' }}
+              _focus={{ bg: 'green.500' }}
+              onClick={() => playCharacter()}
+            >
               Select
             </Button>
-            <Button ml={1} _hover={{ bg: 'red.500' }} onClick={() => props.setVisible(false)}>
+            <Button
+              ml={1}
+              _hover={{ bg: 'red.500' }}
+              _focus={{ bg: 'red.500' }}
+              onClick={() => props.setVisible(false)}
+            >
               Cancel
             </Button>
           </Box>

@@ -45,12 +45,17 @@ const DeleteCharacter: React.FC<Props> = (props) => {
         <HStack align="center" justify="center" p={3}>
           <Button
             _hover={{ bg: 'green.500' }}
+            _focus={{ bg: 'green.500' }}
             isDisabled={disableDelete}
             onClick={() => handleDelete()}
           >
             Delete
           </Button>
-          <Button _hover={{ bg: 'red.500' }} onClick={() => props.setVisible(false)}>
+          <Button
+            _hover={{ bg: 'red.500' }}
+            _focus={{ bg: 'red.500' }}
+            onClick={() => props.setVisible(false)}
+          >
             Cancel
           </Button>
         </HStack>
