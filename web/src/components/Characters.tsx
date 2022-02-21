@@ -86,7 +86,7 @@ const Characters: React.FC<Props> = (props) => {
             onClick={() => selectCharacter(index)}
           >
             <IconButton
-              aria-label="Delete chasracter"
+              aria-label="Delete character"
               icon={<BsPersonDashFill />}
               color="red.500"
               position="absolute"
