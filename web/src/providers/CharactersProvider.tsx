@@ -8,7 +8,7 @@ interface ContextValue {
 
 const CharactersCtx = React.createContext<ContextValue | null>(null);
 
-const CharactersPrvoider: React.FC = ({ children }) => {
+const CharactersProvider: React.FC = ({ children }) => {
   const [value, setValue] = React.useState<Character[]>([
     {
       firstname: '',
@@ -25,7 +25,7 @@ const CharactersPrvoider: React.FC = ({ children }) => {
   return <CharactersCtx.Provider value={{ value, setValue }}>{children}</CharactersCtx.Provider>;
 };
 
-export default CharactersPrvoider;
+export default CharactersProvider;
 
 export const useCharacters = () =>
   React.useContext<ContextValue>(CharactersCtx as React.Context<ContextValue>);
