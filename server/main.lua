@@ -33,7 +33,8 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 
 	if type(data) == 'table' then
 		character = data
-		character.charid = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date)
+		character.phone_number = exports.npwd:generatePhoneNumber()
+		character.charid = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date, character.phone_number)
 	elseif type(data) == 'number' and data < 10 then
 		character = obj.characters[data]
 	else
@@ -46,6 +47,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 	obj.lastname = character.lastname
 	obj.gender = character.gender
 	obj.dob = character.dateofbirth
+	obj.phone_number = character.phone_number
 	player.loaded(obj, character)
 end)
 

@@ -29,7 +29,7 @@ local Query = {
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
 	SELECT_CHARACTER = 'SELECT is_dead FROM characters WHERE charid = ?',
-	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth) VALUES (?, ?, ?, ?, ?)',
+	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ?, is_dead = ?, last_played = ? WHERE charid = ?',
 	DELETE_CHARACTER = 'DELETE FROM characters WHERE charid = ?',
 }
@@ -100,9 +100,9 @@ function CPlayer:loadPhone()
 	npwd:newPlayer({
 		source = self.source,
 		identifier = self.charid,
-		phoneNumber = self.phoneNumber,
-		firstname = self.firstName,
-		lastname = self.lastName
+		phoneNumber = self.phone_number,
+		firstname = self.firstname,
+		lastname = self.lastname
 	})
 end
 
@@ -274,8 +274,8 @@ function player.saveAll(remove)
 end
 
 ---Insert new character data into the database.
-function player.registerCharacter(userid, firstName, lastName, gender, date)
-	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date })
+function player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
+	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
 ---Remove character data from the database, and delete any known KVP.
