@@ -41,13 +41,7 @@ const DateInput: React.FC<Props> = ({ setDate }) => {
   }, [month, day]);
 
   React.useEffect(() => {
-    if (Number(day) > 10 && Number(month) > 10) {
-      setDate(`${year}-${month}-${day}`);
-    } else if (Number(day) < 10 && Number(month) > 10) {
-      setDate(`${year}-${month}-0${day}`);
-    } else if (Number(day) < 10 && Number(month) < 10) {
-      setDate(`${year}-0${month}-0${day}`);
-    }
+    setDate(`${year}-${month}-${day}`);
   }, [day, month, year, setDate]);
 
   return (
