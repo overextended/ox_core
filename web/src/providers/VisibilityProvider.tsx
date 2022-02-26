@@ -1,6 +1,5 @@
-import React, { Context, createContext, useContext, useEffect, useState } from 'react';
+import React, { Context, createContext, useContext, useState } from 'react';
 import { useNuiEvent } from '../hooks/useNuiEvent';
-import { fetchNui } from '../utils/fetchNui';
 
 const VisibilityCtx = createContext<VisibilityProviderValue | null>(null);
 
