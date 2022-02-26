@@ -23,6 +23,7 @@ const App: React.FC = () => {
     dateofbirth: '',
     groups: [''],
     phone_number: '',
+    last_played: '',
     slot: 0,
   });
 

@@ -100,7 +100,7 @@ const Characters: React.FC<Props> = (props) => {
             <Box justifySelf="center" alignItems="center" maxW="80%">
               <Text fontSize="2xl">{`${character.firstname} ${character.lastname}`}</Text>
               <Text fontSize="sm">{`Location: ${character.location}`}</Text>
-              <Text fontSize="sm">Last Played: 31/01/2022</Text>
+              <Text fontSize="sm">Last Played: {character.last_played}</Text>
             </Box>
           </Flex>
           <Divider />

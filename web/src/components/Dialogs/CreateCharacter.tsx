@@ -45,6 +45,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
         location: '',
         groups: [''],
         phone_number: '',
+        last_played: '',
         slot: characters.value.length - 1,
       },
     ]);

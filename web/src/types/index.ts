@@ -6,5 +6,6 @@ export type Character = {
     dateofbirth: string;
     groups?: string[],
     phone_number?: string;
+    last_played: string;
     slot: number;
 }

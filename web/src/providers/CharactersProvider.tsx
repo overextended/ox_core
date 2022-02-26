@@ -18,6 +18,7 @@ const CharactersProvider: React.FC = ({ children }) => {
       dateofbirth: '',
       groups: [''],
       phone_number: '',
+      last_played: '',
       slot: 0,
     },
   ]);
