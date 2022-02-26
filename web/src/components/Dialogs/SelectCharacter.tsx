@@ -47,7 +47,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
           <Spacer />
           <Box p={1}>
             <Text fontWeight="bold">Date of Birth</Text>
-            <Text>{new Date(props.character.dateofbirth).toDateString()}</Text>
+            <Text>{props.character.dateofbirth}</Text>
           </Box>
           <Spacer />
           {props.character.phone_number && (
