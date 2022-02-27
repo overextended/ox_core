@@ -42,13 +42,14 @@ if isServer then
 	--	Player Interface
 	-----------------------------------------------------------------------------------------------
 
+	local CfxPlayer = Player
 	---Triggers exported Class functions when triggering a player's index metamethod.
 	---@param self table
 	---@param index string
 	---@return function export
 	local function playerMethod(self, index)
 		if index == 'state' then
-			return Player(self.source).state
+			return CfxPlayer(self.source).state
 		else
 			return function(...)
 				return core['player_'..index](nil, self, ...)
@@ -59,7 +60,7 @@ if isServer then
 	---Access and manipulate data for a player object.
 	---@param player table | number
 	---@return table player
-	function Ox.Player(player)
+	function Player(player)
 		local self = (type(player) == 'table' and player.charid) and player or Ox.getPlayer(player)
 
 		if not self then
@@ -81,7 +82,7 @@ if isServer then
 	---@return function export
 	local function vehicleMethod(self, index)
 		if index == 'state' then
-			return Entity(self.source).state
+			return Entity(self.netid).state
 		else
 			return function(...)
 				return core['vehicle_'..index](nil, self, ...)
@@ -92,7 +93,7 @@ if isServer then
 	---Access and manipulate data for a vehicle object.
 	---@param vehicle table | number
 	---@return table vehicle
-	function Ox.Vehicle(vehicle)
+	function Vehicle(vehicle)
 		local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or Ox.getVehicle(vehicle)
 
 		if not self then
