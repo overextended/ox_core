@@ -3,6 +3,8 @@ SetTimeout(100, function()
 end)
 
 function client.setupCharacters(cache, characters)
+	Wait(100)
+
 	cache.ped = PlayerPedId()
 	cache.id = PlayerId()
 
