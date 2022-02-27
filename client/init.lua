@@ -1,1 +1,0 @@
-TriggerServerEvent('ox:playerJoined')

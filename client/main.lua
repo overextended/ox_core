@@ -14,41 +14,41 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		z = shared.spawn.z,
 		heading = shared.spawn.w,
 		skipFade = true
-	}, function()
-		client.setupCharacters(cache, characters)
-		local concealed = {}
+	})
 
-		while cache.cam do
-			DisableAllControlActions(0)
-			ThefeedHideThisFrame()
-			HideHudAndRadarThisFrame()
+	client.setupCharacters(cache, characters)
+	local concealed = {}
 
-			local players = GetActivePlayers()
+	while cache.cam do
+		DisableAllControlActions(0)
+		ThefeedHideThisFrame()
+		HideHudAndRadarThisFrame()
 
-			for i = 1, #players do
-				local player = players[i]
-				if player ~= cache.id and not concealed[player] then
-					concealed[#concealed + 1] = player
-					NetworkConcealPlayer(player, true, true)
-				end
+		local players = GetActivePlayers()
+
+		for i = 1, #players do
+			local player = players[i]
+			if player ~= cache.id and not concealed[player] then
+				concealed[#concealed + 1] = player
+				NetworkConcealPlayer(player, true, true)
 			end
-
-			if cache.hidePlayer then
-				SetLocalPlayerInvisibleLocally(true)
-			end
-
-			Wait(0)
 		end
 
-		for i = 1, #concealed do
-			NetworkConcealPlayer(concealed[i], false, false)
+		if cache.hidePlayer then
+			SetLocalPlayerInvisibleLocally(true)
 		end
 
-		DoScreenFadeIn(200)
-		SetMaxWantedLevel(0)
-		NetworkSetFriendlyFireOption(true)
-		SetPlayerInvincible(cache.id, false)
-	end)
+		Wait(0)
+	end
+
+	for i = 1, #concealed do
+		NetworkConcealPlayer(concealed[i], false, false)
+	end
+
+	DoScreenFadeIn(200)
+	SetMaxWantedLevel(0)
+	NetworkSetFriendlyFireOption(true)
+	SetPlayerInvincible(cache.id, false)
 end)
 
 RegisterNUICallback('ox:selectCharacter', function(data, cb)

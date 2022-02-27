@@ -1,3 +1,7 @@
+SetTimeout(100, function()
+    TriggerServerEvent('ox:playerJoined')
+end)
+
 function client.setupCharacters(cache, characters)
 	cache.ped = PlayerPedId()
 	cache.id = PlayerId()
