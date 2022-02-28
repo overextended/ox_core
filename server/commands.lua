@@ -12,7 +12,7 @@ local function deleteVehicle(entity)
 	end
 end
 
-lib.addCommand('group.admin', 'car', function(source, args)
+lib.commands('group.admin', 'car', function(source, args)
 	local ped = GetPlayerPed(source)
 	local entity = GetVehiclePedIsIn(ped)
 
@@ -42,7 +42,7 @@ lib.addCommand('group.admin', 'car', function(source, args)
 	until GetVehiclePedIsIn(ped, false) == veh.entity or timeout < 1
 end, {'model:string', 'owner:?number'})
 
-lib.addCommand('group.admin', 'dv', function(source)
+lib.commands('group.admin', 'dv', function(source)
 	local ped = GetPlayerPed(source)
 	local entity = GetVehiclePedIsIn(ped)
 
@@ -59,7 +59,7 @@ end)
 
 local player = server.player
 
-lib.addCommand('group.admin', 'setgroup', function(source, args)
+lib.commands('group.admin', 'setgroup', function(source, args)
 	local obj = player(args.target)
 	obj:setGroup(args.group, args.rank)
 end, {'target:number', 'group:string', 'rank:number'})
