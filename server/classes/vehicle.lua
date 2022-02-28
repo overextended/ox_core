@@ -199,15 +199,8 @@ function vehicle.load()
 end
 
 RegisterNetEvent('saveProperties', function(data)
-	print(data.plate)
 	MySQL.query('UPDATE vehicles SET data = ? WHERE plate = ?', { json.encode(data), data.plate })
 end)
-
--- RegisterCommand('dv', function()
--- 	for plate, vehicle in pairs(vehicle.list) do
--- 		vehicle:store()
--- 	end
--- end)
 
 -----------------------------------------------------------------------------------------------
 --	Interface
