@@ -16,11 +16,10 @@ repository   'https://github.com/overextended/ox_core'
 dependencies {
 	'/server:5104',
 	'/onesync',
-	'pe-lualib',
 }
 
 shared_scripts {
-	'@pe-lualib/init.lua',
+	'@ox_lib/init.lua',
     'shared/**.lua',
 }
 

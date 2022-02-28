@@ -1,4 +1,6 @@
-SetTimeout(100, function()
+DoScreenFadeOut(0)
+
+SetTimeout(1000, function()
     TriggerServerEvent('ox:playerJoined')
 end)
 

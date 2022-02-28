@@ -117,7 +117,7 @@ function vehicle.new(charid, data, x, y, z, heading)
 
 	if x and y and z then
 		entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, data.model, x, y, z, heading or 90.0)
-		Wait(50)
+		Wait(100)
 	end
 
 	if entity then
@@ -126,7 +126,7 @@ function vehicle.new(charid, data, x, y, z, heading)
 
 		if charid and data.new then
 			data = generateVehicleData(charid, data, vehicleType, x, y, z, heading or 90.0, data.plate)
-		else
+		elseif not data.plate then
 			data.plate = generatePlate()
 		end
 
@@ -138,8 +138,6 @@ function vehicle.new(charid, data, x, y, z, heading)
 					DeleteEntity(entity)
 					return MySQL.prepare(Query.STORE_VEHICLE, { 'impound', data.plate })
 				end
-
-				SetVehicleNumberPlateText(entity, data.plate)
 			end
 
 			local self = setmetatable({
@@ -153,6 +151,7 @@ function vehicle.new(charid, data, x, y, z, heading)
 
 			Entity(entity).state.owner = charid
 			TriggerClientEvent('lualib:setVehicleProperties', entityOwner, self.netid, data)
+			SetVehicleNumberPlateText(entity, data.plate)
 
 			return self, vehicle + self
 		end
@@ -189,7 +188,7 @@ function vehicle.clear(resource)
 end
 
 ---Creates an instance of CVehicle for all unstored vehicles.  
----Should only be used when starting the core.
+---Should only be used when starting the resource.
 function vehicle.load()
 	local vehicles = MySQL.query.await(Query.SELECT_VEHICLES)
 
@@ -197,19 +196,12 @@ function vehicle.load()
 		local obj = vehicles[i]
 		vehicle.new(obj.charid, json.decode(obj.data), obj.x, obj.y, obj.z, obj.heading)
 	end
-
-	-- Wait(5000)
-	-- local coords = GetEntityCoords(GetPlayerPed(2))
-	-- local obj = vehicle.new(1, {model = -295689028, new = true}, coords.x, coords.y, coords.z, 357.16534423828125)
-	-- print(json.encode(obj, {indent=true}))
-	-- Wait(2000)
-	-- obj:remove()
 end
 
--- RegisterNetEvent('saveProperties', function(data)
--- 	print(json.encode(data, {indent=true}))
--- 	MySQL.query('UPDATE vehicles SET data = ? WHERE plate = ?', { json.encode(data), plate })
--- end)
+RegisterNetEvent('saveProperties', function(data)
+	print(data.plate)
+	MySQL.query('UPDATE vehicles SET data = ? WHERE plate = ?', { json.encode(data), data.plate })
+end)
 
 -- RegisterCommand('dv', function()
 -- 	for plate, vehicle in pairs(vehicle.list) do

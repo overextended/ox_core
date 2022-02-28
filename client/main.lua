@@ -109,3 +109,8 @@ end)
 AddEventHandler('ox:playerLogout', function()
 	table.wipe(cache)
 end)
+
+RegisterCommand('saveveh', function()
+	local data = lib.getVehicleProperties(GetVehiclePedIsUsing(PlayerPedId()))
+	TriggerServerEvent('saveProperties', data)
+end)
