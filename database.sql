@@ -8,13 +8,14 @@
 CREATE DATABASE IF NOT EXISTS `overextended` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `overextended`;
 
-CREATE TABLE IF NOT EXISTS `accounts` (
-  `charid` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `amount` int(11) NOT NULL DEFAULT 0,
-  UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
-  KEY `FK_accounts_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE NO ACTION
+CREATE TABLE IF NOT EXISTS `users` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `steam` varchar(20) DEFAULT NULL,
+  `fivem` varchar(10) DEFAULT NULL,
+  `discord` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`userid`) USING BTREE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `characters` (
@@ -37,6 +38,18 @@ CREATE TABLE IF NOT EXISTS `characters` (
   CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `charid` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
+  UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
+  KEY `FK_accounts_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB;
+
+
+
 CREATE TABLE IF NOT EXISTS `groups` (
   `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -54,15 +67,6 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
   UNIQUE KEY `owner` (`owner`,`name`)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `license` varchar(50) DEFAULT NULL,
-  `steam` varchar(20) DEFAULT NULL,
-  `fivem` varchar(10) DEFAULT NULL,
-  `discord` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`userid`) USING BTREE
-) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `plate` char(8) NOT NULL DEFAULT '',
