@@ -1,22 +1,52 @@
-DoScreenFadeOut(0)
+RegisterNetEvent('ox:selectCharacter', function(characters)
+	DoScreenFadeOut(0)
 
-SetTimeout(1000, function()
-    TriggerServerEvent('ox:playerJoined')
-end)
+	if cache.id then
+		table.wipe(cache)
+		TriggerEvent('ox:playerLogout')
+	end
 
-function client.setupCharacters(cache, characters)
-	Wait(100)
+	CreateThread(function()
+		local concealed = {}
 
-	cache.ped = PlayerPedId()
+		while not cache.loaded do
+			DisableAllControlActions(0)
+			ThefeedHideThisFrame()
+			HideHudAndRadarThisFrame()
+
+			local players = GetActivePlayers()
+
+			for i = 1, #players do
+				local player = players[i]
+				if player ~= cache.id and not concealed[player] then
+					concealed[#concealed + 1] = player
+					NetworkConcealPlayer(player, true, true)
+				end
+			end
+
+			if cache.hidePlayer then
+				SetLocalPlayerInvisibleLocally(true)
+			end
+
+			Wait(0)
+		end
+
+		for i = 1, #concealed do
+			NetworkConcealPlayer(concealed[i], false, false)
+		end
+
+		DoScreenFadeIn(200)
+		SetMaxWantedLevel(0)
+		NetworkSetFriendlyFireOption(true)
+		SetPlayerInvincible(cache.id, false)
+	end)
+
 	cache.id = PlayerId()
 
 	SetPlayerInvincible(cache.id, true)
-	local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
-	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+	StartPlayerTeleport(cache.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
 
-	SetCamActive(cache.cam, true)
-	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
+	while IsPlayerTeleportActive() do Wait(0) end
 
 	if characters[1]?.appearance then
 		exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
@@ -24,8 +54,14 @@ function client.setupCharacters(cache, characters)
 		cache.hidePlayer = true
 	end
 
-	Wait(200)
-	DoScreenFadeIn(500)
+	cache.ped = PlayerPedId()
+
+	local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
+	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+
+	SetCamActive(cache.cam, true)
+	RenderScriptCams(cache.cam, false, 0, true, true)
+	PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
 
 	cache.appearance = {}
 
@@ -41,11 +77,13 @@ function client.setupCharacters(cache, characters)
 		data = characters
 	})
 
+	DoScreenFadeIn(500)
+	Wait(500)
 	SetNuiFocus(true, true)
 	SetNuiFocusKeepInput(false)
-end
+end)
 
-function client.playerLoaded(cache, spawn)
+RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
@@ -64,15 +102,28 @@ function client.playerLoaded(cache, spawn)
 		Citizen.Await(p)
 	end
 
-	DoScreenFadeOut(200)
-
-	if not spawn then
-		spawn = shared.spawn
-	end
-
-	cache.ped = PlayerPedId()
 	if spawn then
-		SetEntityCoordsNoOffset(cache.ped, spawn.x, spawn.y, spawn.z, true, true, true)
-		SetEntityHeading(cache.ped, spawn.w or 357.165)
+		StartPlayerTeleport(cache.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
+		while IsPlayerTeleportActive() do Wait(0) end
+	else
+		StartPlayerTeleport(cache.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
 	end
-end
+
+	cache = data
+	cache.id = PlayerId()
+	cache.ped = PlayerPedId()
+	cache.loaded = true
+
+	if cache.dead then
+		client.onPlayerDeath(cache, true)
+	end
+
+	while cache.loaded do
+		Wait(200)
+		cache.ped = PlayerPedId()
+
+		if not cache.dead and IsPedDeadOrDying(cache.ped) then
+			client.onPlayerDeath(cache)
+		end
+	end
+end)
