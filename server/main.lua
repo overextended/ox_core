@@ -14,13 +14,13 @@ end)
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
 		for _, obj in pairs(player.list) do
-			if obj.charid then
+			if not obj.characters then
 				obj:loadInventory()
 			end
 		end
 	elseif resource == 'npwd' then
 		for _, obj in pairs(player.list) do
-			if obj.charid then
+			if not obj.characters then
 				obj:loadPhone()
 			end
 		end
