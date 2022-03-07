@@ -44,7 +44,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	cache.id = PlayerId()
 
 	SetPlayerInvincible(cache.id, true)
-	StartPlayerTeleport(cache.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
+	StartPlayerTeleport(cache.id, shared.selection.x, shared.selection.y, shared.selection.z, shared.selection.w, false, true)
 
 	while IsPlayerTeleportActive() do Wait(0) end
 
@@ -61,7 +61,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 	SetCamActive(cache.cam, true)
 	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
+	PointCamAtCoord(cache.cam, shared.selection.x, shared.selection.y, shared.selection.z + 0.1)
 
 	cache.appearance = {}
 

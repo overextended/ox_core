@@ -1,6 +1,7 @@
 IsDuplicityVersion = IsDuplicityVersion()
 shared = {
 	resource = 'ox_core',
+	selection = vec4(2486.3608, 3760.6089, 42.2486, 81.3602),
 	spawn = vec4(-258.211, -293.077, 21.6132, 206.0),
 }
 
