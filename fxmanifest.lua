@@ -37,7 +37,6 @@ server_scripts {
     'server/init.lua',
     'server/functions.lua',
     'server/classes/player.lua',
-    'server/classes/vehicle.lua',
 	'server/commands.lua',
     'server/main.lua',
 }

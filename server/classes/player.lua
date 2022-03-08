@@ -334,4 +334,4 @@ exports('getPlayers', function()
 	return players
 end)
 
-server.player = player
+_ENV.player = player

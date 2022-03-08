@@ -1,5 +1,6 @@
 local isServer = IsDuplicityVersion()
-local core = exports.ox_core
+local ox_core = exports.ox_core
+local ox_vehicles = exports.ox_vehicles
 
 Ox = setmetatable({
 	PlayerLogout = false,
@@ -29,7 +30,7 @@ if isServer then
 			return CfxPlayer(self.source).state
 		else
 			return function(...)
-				return core['player_'..index](nil, self, ...)
+				return ox_core['player_'..index](nil, self, ...)
 			end
 		end
 	end
@@ -38,7 +39,7 @@ if isServer then
 	---@param player table | number
 	---@return table player
 	function Player(player)
-		local self = (type(player) == 'table' and player.charid) and player or Ox.getPlayer(player)
+		local self = (type(player) == 'table' and player.charid) and player or ox_core:getPlayer(player)
 
 		if not self then
 			error(("%s is not a player"):format(json.encode(player)))
@@ -62,7 +63,7 @@ if isServer then
 			return Entity(self.netid).state
 		else
 			return function(...)
-				return core['vehicle_'..index](nil, self, ...)
+				return ox_vehicles[index](nil, self, ...)
 			end
 		end
 	end
@@ -71,7 +72,7 @@ if isServer then
 	---@param vehicle table | number
 	---@return table vehicle
 	function Vehicle(vehicle)
-		local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or Ox.getVehicle(vehicle)
+		local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or ox_vehicles:get(vehicle)
 
 		if not self then
 			error(("%s is not a vehicle"):format(json.encode(vehicle)))
@@ -91,12 +92,24 @@ if isServer then
 		data = data or {}
 		data.model = model
 
-		local vehicle = core['vehicle_new'](nil, owner, data, coords.x, coords.y, coords.z, coords.w)
+		local vehicle = ox_vehicles:new(owner, data, coords.x, coords.y, coords.z, coords.w)
 
 		return setmetatable(vehicle, {
 			__index = vehicleMethod
 		})
 	end
+
+	AddEventHandler('ox:playerLoaded', function(source)
+		if Ox.PlayerLoaded then
+			Ox.PlayerLoaded(Player(source))
+		end
+	end)
+
+	AddEventHandler('ox:playerLogout', function(source, userid, charid)
+		if Ox.PlayerLogout then
+			Ox.PlayerLogout(source, userid, charid)
+		end
+	end)
 else
 	RegisterNetEvent('ox:playerLoaded', function()
 		if Ox.PlayerLoaded then

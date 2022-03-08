@@ -1,5 +1,3 @@
-local player = server.player
-
 RegisterNetEvent('ox:playerJoined', function()
 	player.new(source)
 end)
@@ -78,21 +76,12 @@ RegisterNetEvent('ox:playerDeath', function(dead)
 	obj.dead = dead
 end)
 
-local vehicle = server.vehicle
-
 AddEventHandler('onResourceStop', function(resource)
 	if resource == 'ox_core' then
 		player.saveAll()
-		vehicle.saveAll()
 	elseif resource == 'ox_inventory' then
 		player.saveAll()
-	else
-		vehicle.clear(resource)
 	end
-end)
-
-MySQL.ready(function()
-	vehicle.load()
 end)
 
 RegisterCommand('logout', function(source)
