@@ -87,10 +87,10 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cache.cam, false)
+	cache.hidePlayer = false
 
 	if not cache.appearance or not cache.appearance.model then
 		local p = promise.new()
-		cache.hidePlayer = false
 
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
