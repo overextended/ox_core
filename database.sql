@@ -35,40 +35,36 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `inventory` longtext NOT NULL DEFAULT '[]',
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
-  CONSTRAINT `FK_character_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE
+  CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-
-CREATE TABLE IF NOT EXISTS `accounts` (
+CREATE TABLE IF NOT EXISTS `user_accounts` (
   `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `amount` int(11) NOT NULL DEFAULT 0,
   UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
-  KEY `FK_accounts_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `FK_user_accounts_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_user_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-
-
-CREATE TABLE IF NOT EXISTS `groups` (
+CREATE TABLE IF NOT EXISTS `user_groups` (
   `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `rank` int(11) NOT NULL,
   UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
-  KEY `FK_groups_characters` (`charid`) USING BTREE,
-  CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+  KEY `FK_user_groups_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_user_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ox_inventory` (
   `owner` varchar(60) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(60) NOT NULL,
   `data` longtext DEFAULT NULL,
   `lastupdated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   UNIQUE KEY `owner` (`owner`,`name`)
 ) ENGINE=InnoDB;
 
-
-CREATE TABLE IF NOT EXISTS `vehicles` (
+CREATE TABLE IF NOT EXISTS `user_vehicles` (
   `plate` char(8) NOT NULL DEFAULT '',
   `charid` int(11) NOT NULL,
   `type` varchar(10) NOT NULL DEFAULT 'automobile',
@@ -81,8 +77,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `glovebox` longtext DEFAULT NULL,
   `stored` varchar(50) NOT NULL DEFAULT 'false',
   PRIMARY KEY (`plate`),
-  KEY `FK__characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK__characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
+  KEY `FK_user_vehicles_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_user_vehicles_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
