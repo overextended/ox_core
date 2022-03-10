@@ -4,7 +4,7 @@ end)
 
 AddEventHandler('playerDropped', function()
 	local obj = player(source)
-	if obj?.charid then
+	if obj then
 		return player - obj
 	end
 end)
