@@ -14,7 +14,8 @@ setmetatable(player, {
 	end,
 
 	__sub = function(self, obj)
-		obj:save(true)
+		if obj.charid then obj:save(true) end
+
 		self.list[obj.source] = nil
 		self.count -= 1
 	end,
