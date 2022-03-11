@@ -8,7 +8,7 @@ Ox = setmetatable({
 }, {
 	__index = function(self, method)
 		rawset(self, method, function(...)
-			return core[method](nil, ...)
+			return ox_core[method](nil, ...)
 		end)
 
 		return self[method]
