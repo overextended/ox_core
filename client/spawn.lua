@@ -1,5 +1,22 @@
 RegisterNetEvent('ox:selectCharacter', function(characters)
-	DoScreenFadeOut(0)
+
+	if GetIsLoadingScreenActive() then
+		SendLoadingScreenMessage(json.encode({
+			fullyLoaded = true
+		}))
+
+		ShutdownLoadingScreenNui()
+
+		while GetIsLoadingScreenActive() do
+			DoScreenFadeOut(0)
+			Wait(0)
+		end
+	end
+
+	while not IsScreenFadedOut() do
+		DoScreenFadeOut(0)
+		Wait(0)
+	end
 
 	if cache.id then
 		table.wipe(cache)
