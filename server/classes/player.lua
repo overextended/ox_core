@@ -26,7 +26,7 @@ setmetatable(player, {
 })
 
 local Query = {
-	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_INDENTIFIER),
+	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_IDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
 	SELECT_CHARACTER = 'SELECT is_dead FROM characters WHERE charid = ?',
@@ -205,7 +205,7 @@ function player.new(source)
 	if not player(source) then
 
 		local identifiers = functions.getIdentifiers(source)
-		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers[server.PRIMARY_INDENTIFIER] })
+		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers[server.PRIMARY_IDENTIFIER] })
 		local username = GetPlayerName(source)
 
 		if not userid then
