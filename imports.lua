@@ -100,27 +100,19 @@ if isServer then
 	end
 
 	AddEventHandler('ox:playerLoaded', function(source)
-		if Ox.PlayerLoaded then
-			Ox.PlayerLoaded(Player(source))
-		end
+		if Ox.PlayerLoaded then Ox.PlayerLoaded(Player(source)) end
 	end)
 
-	AddEventHandler('ox:playerLogout', function(source, userid, charid)
-		if Ox.PlayerLogout then
-			Ox.PlayerLogout(source, userid, charid)
-		end
+	AddEventHandler('ox:playerLogout', function(...)
+		if Ox.PlayerLogout then Ox.PlayerLogout(...) end
 	end)
 else
 	RegisterNetEvent('ox:playerLoaded', function()
-		if Ox.PlayerLoaded then
-			Ox.PlayerLoaded()
-		end
+		if Ox.PlayerLoaded then Ox.PlayerLoaded() end
 	end)
 
 	AddEventHandler('ox:playerLogout', function()
-		if Ox.PlayerLogout then
-			Ox.PlayerLogout()
-		end
+		if Ox.PlayerLogout then Ox.PlayerLogout() end
 	end)
 
 	CreateThread(function()
