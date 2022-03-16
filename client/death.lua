@@ -10,6 +10,8 @@ function client.onPlayerDeath(cache, login)
 		TriggerServerEvent('ox:playerDeath', true)
 	end
 
+	local playerState = LocalPlayer.state
+	playerState.dead = true
 	local timeout = 20
 
 	while cache.dead do
@@ -25,6 +27,7 @@ function client.onPlayerDeath(cache, login)
 		Wait(200)
 	end
 
+	playerState.dead = false
 	ClearPedTasks(cache.ped)
 	TriggerServerEvent('ox:playerDeath', false)
 end
