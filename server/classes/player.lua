@@ -205,7 +205,15 @@ function player.new(source)
 	if not player(source) then
 
 		local identifiers = functions.getIdentifiers(source)
-		local userid = MySQL.prepare.await(Query.SELECT_USERID, { identifiers[server.PRIMARY_IDENTIFIER] })
+		local primary = identifiers[server.PRIMARY_IDENTIFIER]
+
+		--todo: check for identifier during connection process
+		if not primary then
+			DropPlayer(source, ('Unable to register an account, player has no %s identifier'):format(server.PRIMARY_IDENTIFIER))
+			return error(("Player.%s was unable to register an account (no %s identifier)"):format(source, server.PRIMARY_IDENTIFIER))
+		end
+
+		local userid = MySQL.prepare.await(Query.SELECT_USERID, { primary })
 		local username = GetPlayerName(source)
 
 		if not userid then
@@ -249,6 +257,7 @@ function player.saveAll(remove)
 	local date = os.date('%Y-%m-%d', os.time())
 
 	for playerId, obj in pairs(player.list) do
+		print(playerId, obj.charid, ox_inventory:Inventory(playerId))
 		if obj.charid then
 			size += 1
 			local inventory = json.encode(ox_inventory:Inventory(playerId)?.items or {})
