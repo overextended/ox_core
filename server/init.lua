@@ -1,4 +1,4 @@
-server.PRIMARY_IDENTIFIER = GetConvar('ox_core:primaryIdentifier', 'discord')
+server.PRIMARY_IDENTIFIER = GetConvar('ox_core:primaryIdentifier', 'fivem')
 
 -- Disable population in routing bucket id 60
 -- This routing bucket will be used during character selection
