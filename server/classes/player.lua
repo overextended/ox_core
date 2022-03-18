@@ -319,12 +319,9 @@ end
 --	Interface
 -----------------------------------------------------------------------------------------------
 
-for name, method in pairs(CPlayer) do
-	if type(method) == 'function' and name ~= '__call' then
-		exports('player_'..name, method)
-		print('registered export:', 'player_'..name)
-	end
-end
+exports('CPlayer', function(method, source, ...)
+	return CPlayer[method](player(source), ...)
+end)
 
 exports('getPlayer', function(source)
 	return player.list[source]

@@ -30,7 +30,7 @@ if isServer then
 			return CfxPlayer(self.source).state
 		else
 			return function(...)
-				return ox_core['player_'..index](nil, self, ...)
+				return ox_core:CPlayer(index, self.source, ...)
 			end
 		end
 	end
