@@ -37,7 +37,6 @@ local Query = {
 
 local CPlayer = {}
 CPlayer.__index = CPlayer
-CPlayer.__newindex = CPlayer
 
 ---@param x number
 ---@param y number
@@ -80,31 +79,6 @@ function CPlayer:save(logout)
 			self.charid
 		})
 	end
-end
-
----Send player data to ox_inventory.
-function CPlayer:loadInventory()
-	ox_inventory:setPlayerInventory({
-		source = self.source,
-		identifier = self.charid,
-		name = ('%s %s'):format(self.firstname, self.lastname),
-		sex = self.gender,
-		dateofbirth = self.dob,
-		groups = self:getGroups(),
-	})
-end
-
-local npwd = exports.npwd
-
----Send player data to npwd.
-function CPlayer:loadPhone()
-	npwd:newPlayer({
-		source = self.source,
-		identifier = self.charid,
-		phoneNumber = self.phone_number,
-		firstname = self.firstname,
-		lastname = self.lastname
-	})
 end
 
 local groups = server.groups
@@ -166,7 +140,9 @@ end
 
 local appearance = exports['fivem-appearance']
 
-local function getData(source, characters)
+local function selectCharacters(source, userid)
+	local characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
+
 	for i = 1, #characters do
 		character = characters[i]
 		character.groups = {}
@@ -183,13 +159,14 @@ local function getData(source, characters)
 	return characters
 end
 
+local npwd = exports.npwd
+
 ---Save the player and trigger character selection.
 function CPlayer:logout()
 	npwd:unloadPlayer(self.source)
 	self:save(true)
-	rawset(self, 'charid', nil)
-	rawset(self, 'characters', MySQL.query.await(Query.SELECT_CHARACTERS, { self.userid }) or {})
-	self.characters = getData(self.source, self.characters)
+	self.charid = nil
+	self.characters = selectCharacters(self.source, self.userid)
 
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
@@ -230,7 +207,7 @@ function player.new(source)
 			source = source,
 			userid = userid,
 			username = username,
-			characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
+			characters = selectCharacters(source, userid)
 		}
 
 		local state = Player(source).state
@@ -241,8 +218,6 @@ function player.new(source)
 		for type, identifier in pairs(identifiers) do
 			state:set(type, identifier, false)
 		end
-
-		self.characters = getData(source, self.characters)
 
 		TriggerClientEvent('ox:selectCharacter', source, self.characters)
 		return player + self
@@ -294,25 +269,39 @@ function player.deleteCharacter(charid)
 	return MySQL.update(Query.DELETE_CHARACTER, { charid })
 end
 
----@param obj table player
+---@param self table player
 ---@param character table
 ---Finalises player loading after they have selected a character.
-function player.loaded(obj, character)
+function player.loaded(self, character)
 	-- currently returns a single value; will require iteration for more data
-	obj.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { obj.charid }) == 1
+	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
 
-	setmetatable(obj, CPlayer)
-	groups.load(obj.source, obj.charid)
-	accounts.load(obj.source, obj.charid)
-	appearance:load(obj.source, obj.charid)
+	setmetatable(self, CPlayer)
+	groups.load(self.source, self.charid)
+	accounts.load(self.source, self.charid)
+	appearance:load(self.source, self.charid)
 
-	obj:loadInventory()
-	obj:loadPhone()
+	ox_inventory:setPlayerInventory({
+		source = self.source,
+		identifier = self.charid,
+		name = ('%s %s'):format(self.firstname, self.lastname),
+		sex = self.gender,
+		dateofbirth = self.dob,
+		groups = self:getGroups(),
+	})
 
-	TriggerEvent('ox:playerLoaded', obj.source, obj.userid, obj.charid)
-	TriggerClientEvent('ox:playerLoaded', obj.source, obj, character.x and vec4(character.x, character.y, character.z, character.heading))
+	npwd:newPlayer({
+		source = self.source,
+		identifier = self.charid,
+		phoneNumber = self.phone_number,
+		firstname = self.firstname,
+		lastname = self.lastname
+	})
 
-	SetPlayerRoutingBucket(tostring(obj.source), 0)
+	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
+	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
+
+	SetPlayerRoutingBucket(tostring(self.source), 0)
 end
 
 -----------------------------------------------------------------------------------------------
