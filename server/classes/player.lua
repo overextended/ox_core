@@ -58,6 +58,17 @@ end
 
 local ox_inventory = exports.ox_inventory
 
+function CPlayer:loadInventory()
+	ox_inventory:setPlayerInventory({
+		source = self.source,
+		identifier = self.charid,
+		name = ('%s %s'):format(self.firstname, self.lastname),
+		sex = self.gender,
+		dateofbirth = self.dob,
+		groups = self:getGroups(),
+	})
+end
+
 ---@param logout boolean
 ---Update the database with a player's current data.  
 ---If logout is true, triggering saveAccounts will also clear cached account data.
@@ -160,6 +171,16 @@ local function selectCharacters(source, userid)
 end
 
 local npwd = exports.npwd
+
+function CPlayer:loadPhone()
+	npwd:newPlayer({
+		source = self.source,
+		identifier = self.charid,
+		phoneNumber = self.phone_number,
+		firstname = self.firstname,
+		lastname = self.lastname
+	})
+end
 
 ---Save the player and trigger character selection.
 function CPlayer:logout()
@@ -281,22 +302,8 @@ function player.loaded(self, character)
 	accounts.load(self.source, self.charid)
 	appearance:load(self.source, self.charid)
 
-	ox_inventory:setPlayerInventory({
-		source = self.source,
-		identifier = self.charid,
-		name = ('%s %s'):format(self.firstname, self.lastname),
-		sex = self.gender,
-		dateofbirth = self.dob,
-		groups = self:getGroups(),
-	})
-
-	npwd:newPlayer({
-		source = self.source,
-		identifier = self.charid,
-		phoneNumber = self.phone_number,
-		firstname = self.firstname,
-		lastname = self.lastname
-	})
+	self:loadPhone()
+	self:loadInventory()
 
 	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
 	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
