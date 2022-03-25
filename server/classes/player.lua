@@ -76,8 +76,8 @@ function CPlayer:save(logout)
 	if self.charid then
 		self:saveAccounts(logout)
 
-		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
 		local coords = self:getCoords()
+		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
 
 		MySQL.prepare.await(Query.UPDATE_CHARACTER, {
 			coords.x,
@@ -255,9 +255,9 @@ function player.saveAll(remove)
 	for playerId, obj in pairs(player.list) do
 		if obj.charid then
 			size += 1
-			local inventory = json.encode(ox_inventory:Inventory(playerId)?.items or {})
 			local entity = GetPlayerPed(playerId)
 			local coords = GetEntityCoords(entity)
+			local inventory = json.encode(ox_inventory:Inventory(playerId)?.items or {})
 
 			parameters[size] = {
 				coords.x,
