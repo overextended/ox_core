@@ -217,10 +217,10 @@ function player.new(source)
 		if not userid then
 			userid = MySQL.prepare.await(Query.INSERT_USERID, {
 				username,
-				identifiers.license or '',
-				identifiers.steam or '',
-				identifiers.fivem or '',
-				identifiers.discord or '',
+				identifiers.license,
+				identifiers.steam,
+				identifiers.fivem,
+				identifiers.discord,
 			})
 		end
 
@@ -253,7 +253,6 @@ function player.saveAll(remove)
 	local date = os.date('%Y-%m-%d', os.time())
 
 	for playerId, obj in pairs(player.list) do
-		print(playerId, obj.charid, ox_inventory:Inventory(playerId))
 		if obj.charid then
 			size += 1
 			local inventory = json.encode(ox_inventory:Inventory(playerId)?.items or {})
