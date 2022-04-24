@@ -2,6 +2,7 @@ IsDuplicityVersion = IsDuplicityVersion()
 shared = {
 	resource = 'ox_core',
 	spawn = vec4(-258.211, -293.077, 21.6132, 206.0),
+	animatedDeath = true,
 }
 
 shared.ready = setmetatable({ready = false}, {
