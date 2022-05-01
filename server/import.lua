@@ -17,18 +17,24 @@ Ox = setmetatable({}, {
 -----------------------------------------------------------------------------------------------
 local Player = Player
 local CPlayer = {}
-CPlayer.__index = ox_core.CPlayer
+setmetatable(CPlayer, CPlayer)
+
+function CPlayer:__index(index)
+	return function(...)
+		return ox_core:CPlayer(index, self.source, ...)
+	end
+end
 
 function CPlayer:getState()
-	return Player(self.id).state
+	return Player(self.source).state
 end
 
 function CPlayer:getPed()
-	return GetPlayerPed(self.id)
+	return GetPlayerPed(self.source)
 end
 
 function CPlayer:getCoords()
-	return GetEntityCoords(GetPlayerPed(self.id))
+	return GetEntityCoords(GetPlayerPed(self.source))
 end
 
 ---Access and manipulate data for a player object.
@@ -41,9 +47,7 @@ function Ox.Player(player)
 		error(("%s is not a player"):format(json.encode(player)))
 	end
 
-	return setmetatable(self, {
-		__index = CPlayer
-	})
+	return setmetatable(self, CPlayer)
 end
 
 -----------------------------------------------------------------------------------------------
