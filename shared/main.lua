@@ -1,4 +1,12 @@
 IsDuplicityVersion = IsDuplicityVersion()
+
+Ox = setmetatable({}, {
+	__newindex = function(self, name, fn)
+		exports(name, fn)
+		rawset(self, name, fn)
+	end
+})
+
 shared = {
 	resource = 'ox_core',
 	spawn = vec4(-258.211, -293.077, 21.6132, 206.0),
