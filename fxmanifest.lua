@@ -46,5 +46,6 @@ ui_page 'web/build/index.html'
 files {
     'web/build/index.html',
     'web/build/**/*',
-    'imports.lua',
+	'imports.lua',
+    'client/import.lua',
 }
