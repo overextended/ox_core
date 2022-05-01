@@ -192,8 +192,6 @@ function CPlayer:logout()
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
 
-local functions = server.functions
-
 ---@param source number
 ---Creates an instance of CPlayer.
 function player.new(source)
@@ -202,7 +200,7 @@ function player.new(source)
 
 	if not player(source) then
 
-		local identifiers = functions.getIdentifiers(source)
+		local identifiers = Ox.GetIdentifiers(source)
 		local primary = identifiers[server.PRIMARY_IDENTIFIER]
 
 		--todo: check for identifier during connection process
