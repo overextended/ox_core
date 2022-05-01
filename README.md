@@ -1,6 +1,10 @@
-# Do not use in production, and do not expect support.
+## Do not use in production, and do not expect support.
 The base features aren't even implemented yet, and there's a lot of code that will be rewritten.  
 If you go make something just for API to change, it'll be on you to work out the changes.
+
+## Third-party resources
+If you create a resoure that is dependent on ox_core, ox_accounts, etc. *do not use the ox_ prefix*.  
+Doing so adds confusion about the resource creator and can lead to multiple resources existing with the name _ox_banking_ or similar.
 
 ---
 
