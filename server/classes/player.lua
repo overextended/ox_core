@@ -160,8 +160,11 @@ local function selectCharacters(source, userid)
 		local size = 0
 
 		for group in pairs(groups.load(false, character.charid)) do
-			size += 1
-			character.groups[size] = groups.list[group].label
+			local data = groups.list[group]
+			if data then
+				size += 1
+				character.groups[size] = data.label
+			end
 		end
 
 		character.appearance = appearance:load(source, character.charid)
@@ -313,11 +316,12 @@ end
 -----------------------------------------------------------------------------------------------
 
 exports('CPlayer', function(method, source, ...)
-	return CPlayer[method](player(source), ...)
+	return CPlayer[method](player.list[source], ...)
 end)
 
 exports('getPlayer', function(source)
-	return player.list[source]
+	local obj = player.list[source]
+	if obj?.charid then return obj end
 end)
 
 exports('getPlayers', function()
