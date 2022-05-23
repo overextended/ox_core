@@ -1,4 +1,4 @@
-local wait, count = 12, 60
+local timeout, knockedOut = 10, 20
 local playerState = LocalPlayer.state
 
 playerState.hurt = true
@@ -23,26 +23,25 @@ SetInterval(function()
     local entity = GetPlayerPed(-1)
     if IsPedInMeleeCombat(cache.ped, entity) then
       if GetEntityHealth(cache.ped, entity) < 140 then
-        SetPlayerInvincible(cache.ped, true)
-        SetPedToRagdoll(entity, 1000, 1000, 0, 0, 0, 0)
-        wait = 20
         playerState.knockedOut = true
-        SetEntityHealth(cache.ped, entity, 200)
+        SetPedToRagdoll(entity, 1000, 1000, 0, 0, 0, 0)
+        SetPlayerInvincible(cache.ped, true)
+        timeout = 30
       end
-	  end
+    end
 
     if playerState.knockedOut == true then
       ResetPedRagdollTimer(entity)
-      if wait >= 0 then
-        count = count - 1
-        if count == 0 then
-          count = 60
-          wait = wait - 1
-          SetEntityHealth(cache.ped, entity, GetEntityHealth(entity) + 4) end
-        else
-          playerState.knockedOut = false end
+      if timeout >= 0 then knockedOut = knockedOut - 1
+        if knockedOut == 0 then knockedOut = 20
+          timeout = timeout - 1
+          SetEntityHealth(cache.ped, entity, 200)
         end
-    end
+        else
+          playerState.knockedOut = false
+        end
+     end
+   end
 end)
 
 local function DrawGenericTextThisFrame(x, y, width, height, scale, text)
@@ -57,7 +56,8 @@ end
 SetInterval(function()
 	while playerState.knockedOut do
     Wait(0)
-	if (wait >= 0) then
-		DrawGenericTextThisFrame(0.85, 1.4, 1.0, 1.0, 0.3, ('You become dazed, and are currently unconscious for %s seconds.'):format(wait), 255, 255, 255, 255) end
+	if (timeout >= 0) then
+		DrawGenericTextThisFrame(0.85, 1.3, 1.0, 1.0, 0.3, ('You become dazed, and are currently unconscious for %s seconds.'):format(timeout), 255, 255, 255, 255)
   end
+ end
 end)
