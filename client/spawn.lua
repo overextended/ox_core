@@ -1,5 +1,22 @@
-RegisterNetEvent('ox:selectCharacter', function(characters)
+local cam
+local hidePlayer
 
+RegisterNUICallback('ox:setCharacter', function(data, cb)
+	cb(1)
+
+	if type(data) == 'number' then
+		data = PlayerData.appearance[data + 1]
+
+		if data then
+			exports['fivem-appearance']:setPlayerAppearance(data)
+			hidePlayer = nil
+		end
+	else
+		hidePlayer = true
+	end
+end)
+
+RegisterNetEvent('ox:selectCharacter', function(characters)
 	if GetIsLoadingScreenActive() then
 		SendLoadingScreenMessage(json.encode({
 			fullyLoaded = true
@@ -18,15 +35,15 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		Wait(0)
 	end
 
-	if cache.id then
-		table.wipe(cache)
+	if PlayerData.id then
+		table.wipe(PlayerData)
 		TriggerEvent('ox:playerLogout')
 	end
 
 	CreateThread(function()
 		local concealed = {}
 
-		while not cache.loaded do
+		while not PlayerData.loaded do
 			DisableAllControlActions(0)
 			ThefeedHideThisFrame()
 			HideHudAndRadarThisFrame()
@@ -35,13 +52,13 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 			for i = 1, #players do
 				local player = players[i]
-				if player ~= cache.id and not concealed[player] then
+				if player ~= PlayerData.id and not concealed[player] then
 					concealed[#concealed + 1] = player
 					NetworkConcealPlayer(player, true, true)
 				end
 			end
 
-			if cache.hidePlayer then
+			if hidePlayer then
 				SetLocalPlayerInvisibleLocally(true)
 			end
 
@@ -55,37 +72,37 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		DoScreenFadeIn(200)
 		SetMaxWantedLevel(0)
 		NetworkSetFriendlyFireOption(true)
-		SetPlayerInvincible(cache.id, false)
+		SetPlayerInvincible(PlayerData.id, false)
 	end)
 
-	cache.id = PlayerId()
+	PlayerData.id = PlayerId()
 
-	SetPlayerInvincible(cache.id, true)
-	StartPlayerTeleport(cache.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
+	SetPlayerInvincible(PlayerData.id, true)
+	StartPlayerTeleport(PlayerData.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
 
 	while IsPlayerTeleportActive() do Wait(0) end
 
 	if characters[1]?.appearance then
 		exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
 	else
-		cache.hidePlayer = true
+		hidePlayer = true
 	end
 
 	cache.ped = PlayerPedId()
 
 	local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
-	cache.cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
+	cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
 
-	SetCamActive(cache.cam, true)
-	RenderScriptCams(cache.cam, false, 0, true, true)
-	PointCamAtCoord(cache.cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
+	SetCamActive(cam, true)
+	RenderScriptCams(cam, false, 0, true, true)
+	PointCamAtCoord(cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
 
-	cache.appearance = {}
+	PlayerData.appearance = {}
 
 	for i = 1, #characters do
 		local character = characters[i]
 		character.location = GetLabelText(GetNameOfZone(character.x, character.y, character.z))
-		cache.appearance[i] = character.appearance
+		PlayerData.appearance[i] = character.appearance
 		character.appearance = nil
 	end
 
@@ -103,10 +120,11 @@ end)
 RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
-	DestroyCam(cache.cam, false)
-	cache.hidePlayer = false
+	DestroyCam(cam, false)
+	cam = nil
+	hidePlayer = nil
 
-	if not cache.appearance or not cache.appearance.model then
+	if not PlayerData.appearance or not PlayerData.appearance.model then
 		local p = promise.new()
 
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
@@ -120,27 +138,27 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	end
 
 	if spawn then
-		StartPlayerTeleport(cache.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
+		StartPlayerTeleport(PlayerData.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
 		while IsPlayerTeleportActive() do Wait(0) end
 	else
-		StartPlayerTeleport(cache.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
+		StartPlayerTeleport(PlayerData.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
 	end
 
-	cache = data
-	cache.id = PlayerId()
+	PlayerData = data
+	PlayerData.id = PlayerId()
 	cache.ped = PlayerPedId()
-	cache.loaded = true
+	PlayerData.loaded = true
 
-	if cache.dead then
-		client.onPlayerDeath(cache, true)
+	if PlayerData.dead then
+		client.onPlayerDeath(PlayerData, true)
 	end
 
-	while cache.loaded do
+	while PlayerData.loaded do
 		Wait(200)
 		cache.ped = PlayerPedId()
 
-		if not cache.dead and IsPedDeadOrDying(cache.ped) then
-			client.onPlayerDeath(cache)
+		if not PlayerData.dead and IsPedDeadOrDying(cache.ped) then
+			client.onPlayerDeath(PlayerData)
 		end
 	end
 end)

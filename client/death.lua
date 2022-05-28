@@ -13,23 +13,8 @@ local anims = {
 	{'dead', 'dead_a'},
 }
 
-local function updateVehicle(cache)
-	cache.vehicle = GetVehiclePedIsIn(cache.ped, false)
-	if cache.vehicle > 0 then
-		if not cache.seat or GetPedInVehicleSeat(cache.vehicle, cache.seat) ~= cache.ped then
-			for i = -1, GetVehicleMaxNumberOfPassengers(cache.vehicle) - 1 do
-				if GetPedInVehicleSeat(cache.vehicle, i) == cache.ped then
-					cache.seat = i
-					break
-				end
-			end
-		end
-	end
-	return cache
-end
-
-function client.onPlayerDeath(cache, login)
-	cache.dead = true
+function client.onPlayerDeath(PlayerData, login)
+	PlayerData.dead = true
 
 	if shared.animatedDeath then
 		for i = 1, #anims do
@@ -38,6 +23,7 @@ function client.onPlayerDeath(cache, login)
 	end
 
 	local scaleform = RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
+
 	while not HasScaleformMovieLoaded(scaleform) and not login do
 		Wait(10)
 	end
@@ -66,6 +52,7 @@ function client.onPlayerDeath(cache, login)
 		PopScaleformMovieFunctionVoid()
 
 		PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS')
+
 		while wasted do
 			DisableFirstPersonCamThisFrame()
 			DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
@@ -75,17 +62,17 @@ function client.onPlayerDeath(cache, login)
 	end
 
 	CreateThread(function()
-		while cache.dead do
+		while PlayerData.dead do
 			DisableFirstPersonCamThisFrame()
 			Wait(0)
 		end
 	end)
 
 	if shared.animatedDeath then
-		cache = updateVehicle(cache)
 		local coords = GetEntityCoords(cache.ped)
 
 		NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
+
 		if cache.vehicle then
 			SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
 		end
@@ -101,26 +88,18 @@ function client.onPlayerDeath(cache, login)
 	local timeout = 50
 	local bleedOut
 
-	while cache.dead do
+	while PlayerData.dead do
 		if shared.animatedDeath then
-			cache.ped = PlayerPedId()
-
-			local anim
-			if cache.vehicle ~= 0 then
-				anim = anims[2]
-			else
-				anim = anims[1]
-			end
+			local anim = cache.vehicle and anims[2] or anims[1]
 
 			if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
 				TaskPlayAnim(cache.ped, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
 			end
-			cache = updateVehicle(cache)
 		end
 
 		timeout -= 1
 		if timeout < 1 then
-			cache.dead = false
+			PlayerData.dead = false
 			bleedOut = true
 		end
 
@@ -128,16 +107,20 @@ function client.onPlayerDeath(cache, login)
 	end
 
 	local coords = vec(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped))
+
 	if bleedOut then
 		local closest, distance = {}
+
 		for i = 1, #hospitals do
 			local hospital = hospitals[i]
 			distance = #(coords.xyz - hospital.xyz)
+
 			if not next(closest) or distance < closest.dist then
 				closest.coords = hospital
 				closest.dist = distance
 			end
 		end
+
 		coords = closest.coords
 	end
 
@@ -147,8 +130,8 @@ function client.onPlayerDeath(cache, login)
 		Wait(50)
 	end
 
-	cache = updateVehicle(cache)
 	NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.w, false, false)
+
 	if cache.vehicle and not bleedOut then
 		SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
 	end
@@ -164,6 +147,7 @@ function client.onPlayerDeath(cache, login)
 	DoScreenFadeIn(800)
 
 	playerState.dead = false
+
 	ClearPedTasks(cache.ped)
 	TriggerServerEvent('ox:playerDeath', false)
 end
