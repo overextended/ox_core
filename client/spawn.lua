@@ -111,10 +111,10 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
-				TriggerServerEvent('fivem-appearance:save', appearance)
+				TriggerServerEvent('ox_appearance:save', appearance)
 			end
 			p:resolve()
-		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true })
+		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true, tattoos = true })
 
 		Citizen.Await(p)
 	end

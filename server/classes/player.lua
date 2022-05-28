@@ -70,7 +70,7 @@ function CPlayer:loadInventory()
 end
 
 ---@param logout boolean
----Update the database with a player's current data.  
+---Update the database with a player's current data.
 ---If logout is true, triggering saveAccounts will also clear cached account data.
 function CPlayer:save(logout)
 	if self.charid then
@@ -149,7 +149,7 @@ function CPlayer:saveAccounts(remove)
 	return accounts.saveAll(self.source, remove)
 end
 
-local appearance = exports['fivem-appearance']
+local appearance = exports.ox_appearance
 
 local function selectCharacters(source, userid)
 	local characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
