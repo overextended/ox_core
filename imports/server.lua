@@ -1,53 +1,27 @@
-if not IsDuplicityVersion() then return end
+if not lib.player then lib.player() end
 
 local ox_core = exports.ox_core
 
 Ox = setmetatable({}, {
-	__index = function(self, method)
-		rawset(self, method, function(...)
-			return ox_core[method](nil, ...)
-		end)
+    __index = function(self, index)
+        self[index] = function(...)
+            return ox_core[index](nil, ...)
+        end
 
-		return self[method]
-	end
+        return self[index]
+    end
 })
 
------------------------------------------------------------------------------------------------
---	Player
------------------------------------------------------------------------------------------------
-local Player = Player
-local CPlayer = {}
-setmetatable(CPlayer, CPlayer)
+local CPlayer = lib.getPlayer()
 
-function CPlayer:__index(index)
-	return function(...)
-		return ox_core:CPlayer(index, self.source, ...)
-	end
-end
+function lib.getPlayer(player)
+	player = type(player) == 'table' and player.charid or ox_core:getPlayer(player)
 
-function CPlayer:getState()
-	return Player(self.source).state
-end
-
-function CPlayer:getPed()
-	return GetPlayerPed(self.source)
-end
-
-function CPlayer:getCoords()
-	return GetEntityCoords(GetPlayerPed(self.source))
-end
-
----Access and manipulate data for a player object.
----@param player table | number
----@return table player
-function Ox.Player(player)
-	local self = (type(player) == 'table' and player.charid) and player or ox_core:getPlayer(player)
-
-	if not self then
-		error(("%s is not a player"):format(json.encode(player)))
+	if not player then
+		error(("'%s' is not a valid player"):format(player))
 	end
 
-	return setmetatable(self, CPlayer)
+	return setmetatable(player, CPlayer)
 end
 
 -----------------------------------------------------------------------------------------------
