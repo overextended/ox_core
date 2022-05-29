@@ -28,7 +28,16 @@ registerNetEvent('ox:setGroup', function(name, grade)
 	playerData.groups[name] = grade
 end)
 
-lib.addPlayerMethod('hasGroup', function(_, filter)
+local CPlayer = lib.getPlayer()
+
+function lib.getPlayer()
+	return setmetatable({
+		id = cache.playerId,
+		serverId = cache.serverId,
+	}, CPlayer)
+end
+
+function CPlayer:hasGroup(filter)
 	if type(filter) == 'string' then
 		local grade = playerGroups[filter]
 
@@ -57,4 +66,6 @@ lib.addPlayerMethod('hasGroup', function(_, filter)
 			end
 		end
 	end
-end)
+end
+
+player = lib.getPlayer()
