@@ -51,7 +51,7 @@ function Vehicle(vehicle)
 	local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or ox_vehicles:get(vehicle)
 
 	if not self then
-		error(("%s is not a vehicle"):format(json.encode(vehicle)))
+		error(("'%s' is not a vehicle"):format(vehicle))
 	end
 
 	return setmetatable(self, {
@@ -60,15 +60,19 @@ function Vehicle(vehicle)
 end
 
 ---@param owner number charid or false
----@param model string | number
----@param coords vector x, y, z, w
 ---@param data table
+---@param coords vector x, y, z, w
 ---@return table vehicle
-function Ox.CreateVehicle(owner, model, coords, data)
-	data = data or {}
-	data.model = model
+function Ox.CreateVehicle(owner, data, coords)
+	if type(data) ~= 'table' then
+		data = {
+			model = data
+		}
+	elseif not data.model then
+		error('Did not receive data.model for new vehicle')
+	end
 
-	local vehicle = ox_vehicles:new(owner, data, coords.x, coords.y, coords.z, coords.w)
+	local vehicle = ox_vehicles:new(owner, data, coords?.x, coords?.y, coords?.z, coords?.w)
 
 	return setmetatable(vehicle, {
 		__index = vehicleMethod
