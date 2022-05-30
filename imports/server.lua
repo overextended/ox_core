@@ -24,6 +24,15 @@ function lib.getPlayer(player)
 	return setmetatable(player, CPlayer)
 end
 
+function CPlayer:hasGroup(filter)
+	-- todo: support string, array, and hash (need to rewrite group stuff first)
+	for group, minimumGrade in pairs(filter) do
+		if IsPlayerAceAllowed(self.source, ('group.%s:%s'):format(group, minimumGrade == 0 and 1 or minimumGrade)) then
+			return true
+		end
+	end
+end
+
 -----------------------------------------------------------------------------------------------
 --	Vehicle
 -----------------------------------------------------------------------------------------------
