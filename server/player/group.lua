@@ -39,8 +39,8 @@ function CGroup:set(player, grade)
 		self:add(player, grade)
 	end
 
-	TriggerEvent('ox_groups:setGroup', player.source, self.name, grade)
-	TriggerClientEvent('ox_groups:setGroup', player.source, self.name, grade)
+	TriggerEvent('ox:setGroup', player.source, self.name, grade)
+	TriggerClientEvent('ox:setGroup', player.source, self.name, grade)
 
 	return true
 end
