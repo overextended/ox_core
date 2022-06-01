@@ -12,22 +12,6 @@ Ox = setmetatable({}, {
     end
 })
 
-local function registerNetEvent(event, fn)
-	RegisterNetEvent(event, function(...)
-		if source ~= '' then fn(...) end
-	end)
-end
-
-local playerData = Ox.GetPlayerData()
-
-registerNetEvent('ox:playerLoaded', function(data)
-	playerData = data
-end)
-
-registerNetEvent('ox:setGroup', function(name, grade)
-	playerData.groups[name] = grade
-end)
-
 local CPlayer = lib.getPlayer()
 
 function lib.getPlayer()
@@ -37,35 +21,63 @@ function lib.getPlayer()
 	}, CPlayer)
 end
 
+local function registerNetEvent(event, fn)
+	RegisterNetEvent(event, function(...)
+		if source ~= '' then fn(...) end
+	end)
+end
+
+if Ox.IsPlayerLoaded() then
+	player = lib.getPlayer()
+
+	for k, v in pairs(Ox.GetPlayerData()) do
+		player[k] = v
+	end
+end
+
+registerNetEvent('ox:playerLoaded', function(data)
+	player = lib.getPlayer()
+
+	for k, v in pairs(data) do
+		player[k] = v
+	end
+end)
+
+registerNetEvent('ox:setGroup', function(name, grade)
+	player.groups[name] = grade
+end)
+
 function CPlayer:hasGroup(filter)
-	if type(filter) == 'string' then
-		local grade = playerGroups[filter]
+	local type = type(filter)
+
+	if type == 'string' then
+		local grade = self.groups[filter]
 
 		if grade then
 			return filter, grade
 		end
-	else
+	elseif type == 'table' then
 		local tabletype = table.type(filter)
 
 		if tabletype == 'hash' then
-			for group, minimumGrade in pairs(filter) do
-				local grade = playerGroups[group]
+			for name, grade in pairs(filter) do
+				local playerGrade = self.groups[name]
 
-				if grade and minimumGrade <= grade then
-					return group, grade
+				if playerGrade and grade <= playerGrade then
+					return name, playerGrade
 				end
 			end
 		elseif tabletype == 'array' then
 			for i = 1, #filter do
-				local group = filter[i]
-				local grade = playerGroups[filter[i]]
+				local name = filter[i]
+				local grade = self.groups[name]
 
 				if grade then
-					return group, grade
+					return name, grade
 				end
 			end
 		end
+	else
+		error(("received '%s' when checking player group"):format(filter))
 	end
 end
-
-player = lib.getPlayer()
