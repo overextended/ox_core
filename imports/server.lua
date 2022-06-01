@@ -15,10 +15,10 @@ Ox = setmetatable({}, {
 local CPlayer = lib.getPlayer()
 
 function lib.getPlayer(player)
-	player = type(player) == 'table' and player.charid or ox_core:getPlayer(player)
+	player = type(player) == 'table' and player.charid or ox_core:GetPlayer(player)
 
 	if not player then
-		error(("'%s' is not a valid player"):format(player))
+		error(("no player exists with id '%s'"):format(player))
 	end
 
 	return setmetatable(player, CPlayer)
@@ -31,6 +31,10 @@ function CPlayer:hasGroup(filter)
 			return true
 		end
 	end
+end
+
+function CPlayer:setGroup(group, grade)
+	return ox_core:SetPlayerGroup(self.source, group, grade)
 end
 
 -----------------------------------------------------------------------------------------------

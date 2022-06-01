@@ -32,11 +32,11 @@ client_scripts {
 
 server_scripts {
 	'@oxmysql/lib/MySQL.lua',
-	'@ox_groups/server/groups.lua',
 	'@ox_accounts/server/accounts.lua',
     'server/init.lua',
     'server/functions.lua',
-    'server/classes/player.lua',
+    'server/player/group.lua',
+    'server/player/main.lua',
 	'server/commands.lua',
     'server/main.lua',
 }

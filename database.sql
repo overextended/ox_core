@@ -47,6 +47,16 @@ CREATE TABLE IF NOT EXISTS `user_accounts` (
   CONSTRAINT `FK_user_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS `ox_groups` (
+	`name` VARCHAR(20) NOT NULL,
+	`label` VARCHAR(50) NOT NULL,
+	`grades` LONGTEXT NOT NULL,
+	PRIMARY KEY (`name`) USING BTREE
+) ENGINE=InnoDB;
+
+INSERT INTO `ox_groups` (`name`, `label`, `grades`) VALUES
+	('police', 'Los Santos Police Department', '["Cadet", "Officer", "Sergeant", "Captain", "Commander", "Chief"]');
+
 CREATE TABLE IF NOT EXISTS `user_groups` (
   `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,

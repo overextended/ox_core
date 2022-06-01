@@ -33,27 +33,35 @@ local Query = {
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ?, is_dead = ?, last_played = ? WHERE charid = ?',
 	DELETE_CHARACTER = 'DELETE FROM characters WHERE charid = ?',
+	SELECT_USER_GROUPS = 'SELECT name, grade FROM user_groups WHERE charid = ?',
 }
 
 local CPlayer = {}
 CPlayer.__index = CPlayer
-
----@param x number
----@param y number
----@param z number
----@param heading number
----Sets a player's position and heading.
-function CPlayer:setCoords(x, y, z, heading)
-	local entity = GetPlayerPed(self.source)
-	SetEntityCoords(entity, x, y, z)
-	SetEntityHeading(entity, heading)
-end
 
 ---@return vector4
 ---Returns a player's position and heading.
 function CPlayer:getCoords()
 	local entity = GetPlayerPed(self.source)
 	return vec4(GetEntityCoords(entity), GetEntityHeading(entity))
+end
+
+function CPlayer:loadGroups()
+	local results = MySQL.prepare.await(Query.SELECT_USER_GROUPS, { self.charid })
+	self.groups = {}
+
+	if results then
+		if not results[1] then results = { results } end
+
+		for i = 1, #results do
+			local data = results[i]
+			local group = Ox.GetGroup(data.name)
+
+			if group then
+				group:add(self, data.grade)
+			end
+		end
+	end
 end
 
 local ox_inventory = exports.ox_inventory
@@ -65,7 +73,7 @@ function CPlayer:loadInventory()
 		name = ('%s %s'):format(self.firstname, self.lastname),
 		sex = self.gender,
 		dateofbirth = self.dob,
-		groups = self:getGroups(),
+		groups = self.groups,
 	})
 end
 
@@ -74,6 +82,14 @@ end
 ---If logout is true, triggering saveAccounts will also clear cached account data.
 function CPlayer:save(logout)
 	if self.charid then
+		for name, grade in pairs(self.groups) do
+			local group = Ox.GetGroup(name)
+
+			if group then
+				group:remove(self, grade)
+			end
+		end
+
 		self:saveAccounts(logout)
 
 		local coords = self:getCoords()
@@ -90,28 +106,6 @@ function CPlayer:save(logout)
 			self.charid
 		})
 	end
-end
-
-local groups = server.groups
-
----@param group string
----@return number | table<string, number>
----Return the player's rank in the given group
-function CPlayer:getGroup(group)
-	return groups.get(self.source, group)
-end
-
----@return number | table<string, number>
----Return a list of all groups and ranks for the player.
-function CPlayer:getGroups()
-	return groups.get(self.source)
-end
-
----@param group string name of the group to adjust
----@param rank number
----Any rank under 1 will remove the group from the player.
-function CPlayer:setGroup(group, rank)
-	return groups.set(self.source, group, rank)
 end
 
 local accounts = server.accounts
@@ -157,15 +151,15 @@ local function selectCharacters(source, userid)
 	for i = 1, #characters do
 		character = characters[i]
 		character.groups = {}
-		local size = 0
+		-- local size = 0
 
-		for group in pairs(groups.load(false, character.charid)) do
-			local data = groups.list[group]
-			if data then
-				size += 1
-				character.groups[size] = data.label
-			end
-		end
+		-- for group in pairs(groups.load(false, character.charid)) do
+		-- 	local data = groups.list[group]
+		-- 	if data then
+		-- 		size += 1
+		-- 		character.groups[size] = data.label
+		-- 	end
+		-- end
 
 		character.appearance = appearance:load(source, character.charid)
 	end
@@ -202,7 +196,6 @@ function player.new(source)
 	source = tonumber(source)
 
 	if not player(source) then
-
 		local identifiers = Ox.GetIdentifiers(source)
 		local primary = identifiers[server.PRIMARY_IDENTIFIER]
 
@@ -298,10 +291,10 @@ function player.loaded(self, character)
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
 
 	setmetatable(self, CPlayer)
-	groups.load(self.source, self.charid)
 	accounts.load(self.source, self.charid)
 	appearance:load(self.source, self.charid)
 
+	self:loadGroups()
 	self:loadPhone()
 	self:loadInventory()
 
@@ -315,13 +308,29 @@ end
 --	Interface
 -----------------------------------------------------------------------------------------------
 
+function Ox.GetPlayer(source)
+	local obj = player.list[source]
+
+	if obj?.charid then
+		return obj
+	end
+
+	error(("no player exists with id '%s'"):format(source))
+end
+
+function Ox.SetPlayerGroup(source, name, grade)
+	local obj = Ox.GetPlayer(source)
+	local group = Ox.GetGroup(name)
+
+	if group then
+		return group:set(obj, grade)
+	end
+
+	error(("no group exists with name '%s'"):format(name))
+end
+
 exports('CPlayer', function(method, source, ...)
 	return CPlayer[method](player.list[source], ...)
-end)
-
-exports('getPlayer', function(source)
-	local obj = player.list[source]
-	if obj?.charid then return obj end
 end)
 
 exports('getPlayers', function()
