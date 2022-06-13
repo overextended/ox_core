@@ -74,9 +74,10 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
   UNIQUE KEY `owner` (`owner`,`name`)
 ) ENGINE=InnoDB;
 
-CREATE TABLE IF NOT EXISTS `user_vehicles` (
+CREATE TABLE IF NOT EXISTS `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `plate` char(8) NOT NULL DEFAULT '',
-  `charid` int(11) NOT NULL,
+  `owner` int(11) DEFAULT NULL,
   `type` varchar(10) NOT NULL DEFAULT 'automobile',
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
@@ -86,9 +87,10 @@ CREATE TABLE IF NOT EXISTS `user_vehicles` (
   `trunk` longtext DEFAULT NULL,
   `glovebox` longtext DEFAULT NULL,
   `stored` varchar(50) NOT NULL DEFAULT 'false',
-  PRIMARY KEY (`plate`),
-  KEY `FK_user_vehicles_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_user_vehicles_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `plate` (`plate`),
+  KEY `FK_vehicles_characters` (`owner`) USING BTREE,
+  CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
