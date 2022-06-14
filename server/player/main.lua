@@ -16,6 +16,7 @@ setmetatable(player, {
 	__sub = function(self, obj)
 		if obj.charid then obj:save(true) end
 
+		TriggerEvent('ox:playerLogout', obj.source, obj.userid, obj.charid)
 		self.list[obj.source] = nil
 		self.count -= 1
 	end,

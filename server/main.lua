@@ -63,6 +63,7 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 		local charid = obj.characters[slot]?.charid
 
 		if charid then
+			TriggerEvent('ox:characterDeleted', obj.source, obj.userid, charid)
 			player.deleteCharacter(charid)
 			return table.remove(obj.characters, slot)
 		end
