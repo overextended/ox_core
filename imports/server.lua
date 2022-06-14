@@ -14,7 +14,7 @@ Ox = setmetatable({}, {
 
 local CPlayer = lib.getPlayer()
 
-function lib.getPlayer(player)
+function Ox.GetPlayer(player)
 	player = type(player) == 'table' and player.charid or ox_core:GetPlayer(player)
 
 	if not player then
@@ -22,6 +22,18 @@ function lib.getPlayer(player)
 	end
 
 	return setmetatable(player, CPlayer)
+end
+
+lib.getPlayer = Ox.GetPlayer
+
+function Ox.GetPlayers()
+	local players = ox_core:GetPlayers()
+
+	for i = 1, #players do
+		setmetatable(players[i], CPlayer)
+	end
+
+	return players
 end
 
 function CPlayer:hasGroup(filter)

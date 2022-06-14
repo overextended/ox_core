@@ -319,22 +319,7 @@ function Ox.GetPlayer(source)
 	error(("no player exists with id '%s'"):format(source))
 end
 
-function Ox.SetPlayerGroup(source, name, grade)
-	local obj = Ox.GetPlayer(source)
-	local group = Ox.GetGroup(name)
-
-	if group then
-		return group:set(obj, grade)
-	end
-
-	error(("no group exists with name '%s'"):format(name))
-end
-
-exports('CPlayer', function(method, source, ...)
-	return CPlayer[method](player.list[source], ...)
-end)
-
-exports('getPlayers', function()
+function Ox.GetPlayers()
 	local size = 0
 	local players = {}
 
@@ -346,6 +331,17 @@ exports('getPlayers', function()
 	end
 
 	return players
-end)
+end
+
+function Ox.SetPlayerGroup(source, name, grade)
+	local obj = Ox.GetPlayer(source)
+	local group = Ox.GetGroup(name)
+
+	if group then
+		return group:set(obj, grade)
+	end
+
+	error(("no group exists with name '%s'"):format(name))
+end
 
 _ENV.player = player
