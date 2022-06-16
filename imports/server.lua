@@ -1,5 +1,3 @@
-if not lib.player then lib.player() end
-
 local ox_core = exports.ox_core
 
 Ox = setmetatable({}, {
@@ -12,7 +10,48 @@ Ox = setmetatable({}, {
     end
 })
 
-local CPlayer = lib.getPlayer()
+local CPlayer = {}
+local PlayerExports = Ox.PlayerExports()
+
+function CPlayer:__index(index, ...)
+	local method = CPlayer[index]
+
+	if method then
+		return function(...)
+			return method(self, ...)
+		end
+	end
+
+	local export = PlayerExports[index]
+
+	if export then
+		if type(export) == 'function' then
+			return export(self.source, index, ...)
+		end
+
+		CPlayer[index] = function(...)
+			return ox_core:CPlayer(self.source, index, ...)
+		end
+
+		return CPlayer[index]
+	end
+end
+
+function CPlayer:getPed()
+	if update or not self.ped then
+		self.ped = GetPlayerPed(self.source)
+	end
+
+	return self.ped
+end
+
+function CPlayer:getCoords(update)
+	if update or not self.coords then
+		self.coords = GetEntityCoords(self.getPed())
+	end
+
+	return self.coords
+end
 
 function Ox.GetPlayer(player)
 	player = type(player) == 'table' and player.charid or ox_core:GetPlayer(player)
@@ -69,10 +108,6 @@ function CPlayer:hasGroup(filter)
 	else
 		error(("received '%s' when checking player group"):format(filter))
 	end
-end
-
-function CPlayer:setGroup(group, grade)
-	return ox_core:SetPlayerGroup(self.source, group, grade)
 end
 
 -----------------------------------------------------------------------------------------------
