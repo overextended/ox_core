@@ -3,7 +3,10 @@ function Ox.GetIdentifiers(source)
 
 	for i = 0, GetNumPlayerIdentifiers(source) - 1 do
 		local prefix, identifier = string.strsplit(':', GetPlayerIdentifier(source, i))
-		identifiers[prefix] = identifier
+
+		if prefix ~= 'ip' then
+			identifiers[prefix] = identifier
+		end
 	end
 
 	return identifiers
