@@ -111,5 +111,12 @@ end, {'target:number', 'group:string', 'grade:number'})
 -----------------------------------------------------------------------------------------------
 
 function Ox.GetGroup(name)
-	return groups[name]
+	local group = groups[name]
+
+	if group then
+		return groups[name]
+	end
+
+	error(("no group exists with name '%s'"):format(name))
 end
+

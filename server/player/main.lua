@@ -1,11 +1,9 @@
------------------------------------------------------------------------------------------------
---	Module
------------------------------------------------------------------------------------------------
-
 local player = {
 	count = 0,
 	list = {},
 }
+
+local playerData = {}
 
 setmetatable(player, {
 	__add = function(self, obj)
@@ -190,6 +188,14 @@ function CPlayer:logout()
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
 
+function CPlayer:setGroup(name, grade)
+	Ox.GetGroup(name):set(self, grade)
+end
+
+function CPlayer:getGroup(name)
+	return self.groups[name]
+end
+
 ---@param source number
 ---Creates an instance of CPlayer.
 function player.new(source)
@@ -324,17 +330,6 @@ function Ox.GetPlayers()
 	end
 
 	return players
-end
-
-function Ox.SetPlayerGroup(source, name, grade)
-	local obj = Ox.GetPlayer(source)
-	local group = Ox.GetGroup(name)
-
-	if group then
-		return group:set(obj, grade)
-	end
-
-	error(("no group exists with name '%s'"):format(name))
 end
 
 _ENV.player = player
