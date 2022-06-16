@@ -38,6 +38,12 @@ local Query = {
 CPlayer = {}
 
 function CPlayer:__index(index)
+	local value = playerData[self.source][index]
+
+	if value then
+		return value
+	end
+
 	local method = CPlayer[index]
 
 	return method and function(...)
@@ -195,6 +201,14 @@ function CPlayer:logout()
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
 
+function CPlayer:get(index)
+	local data = playerData[self.source]
+	return data[index] or data
+end
+
+function CPlayer:set(index, value)
+	playerData[self.source][index] = value
+end
 
 function CPlayer:setGroup(name, grade)
 	Ox.GetGroup(name):set(self, grade)
@@ -241,6 +255,10 @@ function player.new(source)
 		for type, identifier in pairs(identifiers) do
 			state:set(type, identifier, false)
 		end
+
+		local data = identifiers
+		data.inScope = {}
+		playerData[source] = data
 
 		TriggerClientEvent('ox:selectCharacter', source, self.characters)
 		return player + self
@@ -316,6 +334,17 @@ end
 --	Interface
 -----------------------------------------------------------------------------------------------
 
+function Ox.PlayerExports()
+	return {
+		set = true,
+		get = true,
+		setGroup = true,
+		getGroup = true,
+		isPlayerInScope = true,
+		triggerScopedEvent = true,
+	}
+end
+
 function Ox.GetPlayer(source)
 	local obj = player.list[source]
 
@@ -324,6 +353,10 @@ function Ox.GetPlayer(source)
 	end
 
 	error(("no player exists with id '%s'"):format(source))
+end
+
+function Ox.CPlayer(source, method, ...)
+	return Ox.GetPlayer(source)[method](...)
 end
 
 function Ox.GetPlayers()
