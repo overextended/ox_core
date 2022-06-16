@@ -13,13 +13,13 @@ AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
 		for _, obj in pairs(player.list) do
 			if not obj.characters then
-				obj:loadInventory()
+				obj.loadInventory()
 			end
 		end
 	elseif resource == 'npwd' then
 		for _, obj in pairs(player.list) do
 			if not obj.characters then
-				obj:loadPhone()
+				obj.loadPhone()
 			end
 		end
 	end
@@ -87,5 +87,5 @@ end)
 
 RegisterCommand('logout', function(source)
 	local obj = player(source)
-	obj:logout()
+	obj.logout()
 end)
