@@ -199,13 +199,6 @@ function player.new(source)
 	if not player(source) then
 		local identifiers = Ox.GetIdentifiers(source)
 		local primary = identifiers[server.PRIMARY_IDENTIFIER]
-
-		--todo: check for identifier during connection process
-		if not primary then
-			DropPlayer(source, ('Unable to register an account, player has no %s identifier'):format(server.PRIMARY_IDENTIFIER))
-			return error(("Player.%s was unable to register an account (no %s identifier)"):format(source, server.PRIMARY_IDENTIFIER))
-		end
-
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { primary })
 		local username = GetPlayerName(source)
 

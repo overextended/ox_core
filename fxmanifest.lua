@@ -37,6 +37,7 @@ server_scripts {
     'server/functions.lua',
     'server/player/group.lua',
     'server/player/main.lua',
+    'server/player/events.lua',
     'server/main.lua',
 }
 
