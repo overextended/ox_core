@@ -60,7 +60,7 @@ INSERT INTO `ox_groups` (`name`, `label`, `grades`) VALUES
 CREATE TABLE IF NOT EXISTS `user_groups` (
   `charid` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `rank` int(11) NOT NULL,
+  `grade` int(11) NOT NULL,
   UNIQUE KEY `name` (`name`,`charid`) USING BTREE,
   KEY `FK_user_groups_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_user_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
