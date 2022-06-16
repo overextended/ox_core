@@ -218,6 +218,18 @@ function CPlayer:getGroup(name)
 	return self.groups[name]
 end
 
+function CPlayer:isPlayerInScope(target)
+	return self.get('inScope')[target]
+end
+
+function CPlayer:triggerScopedEvent(eventName, ...)
+	local inScope = self.get('inScope')
+
+	for id in pairs(inScope) do
+		TriggerClientEvent(eventName, id, ...)
+	end
+end
+
 ---@param source number
 ---Creates an instance of CPlayer.
 function player.new(source)
