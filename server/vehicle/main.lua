@@ -2,8 +2,8 @@ local Query = {
 	DELETE_VEHICLE = 'DELETE FROM vehicles WHERE plate = ?',
 	INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, stored, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
 	PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-	STORE_VEHICLE = 'UPDATE vehicles SET stored = ?, data = ? WHERE plate = ?',
-	UPDATE_VEHICLE = 'UPDATE vehicles SET x = ?, y = ?, z = ?, heading = ?, data = ? WHERE plate = ?',
+	UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE plate = ?',
+	UPDATE_VEHICLE = 'UPDATE vehicles SET stored = ?, data = ? WHERE plate = ?',
 }
 
 local CVehicle = {}
@@ -51,7 +51,7 @@ end
 
 function CVehicle:store(value)
 	if self.owner ~= false then
-		MySQL.prepare(Query.STORE_VEHICLE, { value or 'impound', json.encode(self.get()), self.plate })
+		MySQL.prepare(Query.UPDATE_VEHICLE, { value or 'impound', json.encode(self.get()), self.plate })
 	end
 
 	self.despawn()
@@ -134,6 +134,8 @@ function Vehicle.new(data)
 			state:set('vehicleProperties', data.properties, true)
 		end
 
+		MySQL.prepare(Query.UPDATE_STORED, { 'false' })
+
 		return Vehicle + self
 	end
 end
@@ -146,14 +148,11 @@ function Vehicle.saveAll(resource)
 	local parameters = {}
 	local size = 0
 
-	print(json.encode(Vehicle.list))
-
 	for _, vehicle in pairs(Vehicle.list) do
 		if not resource or resource == vehicle.script then
 			if vehicle.owner ~= false then
 				size += 1
-				local coords = GetEntityCoords(vehicle.entity)
-				parameters[size] = { coords.x, coords.y, coords.z, GetEntityHeading(vehicle.entity), json.encode(vehicle.get()), vehicle.plate }
+				parameters[size] = { 'impound', json.encode(vehicle.get()), vehicle.plate }
 			end
 
 			if resource then
@@ -194,7 +193,6 @@ function Ox.VehicleExports()
 	return {
 		set = true,
 		get = true,
-		despawn = true,
 		delete = true,
 		store = true,
 	}
@@ -221,10 +219,8 @@ function Ox.GetVehicles()
 	local vehicles = {}
 
 	for _, v in pairs(Vehicle.list) do
-		if v.charid then
-			size += 1
-			vehicles[size] = v
-		end
+		size += 1
+		vehicles[size] = v
 	end
 
 	return vehicles

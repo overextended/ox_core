@@ -15,11 +15,11 @@ lib.addCommand('group.admin', 'car', function(source, args)
 		args.owner = Player(args.owner)?.charid
 	end
 
-	local coords = GetEntityCoords(ped)
 	local vehicle = Vehicle.new({
 		owner = args.owner or false,
 		model = joaat(args.model),
-		coords = vector4(coords.x, coords.y, coords.z, GetEntityHeading(ped))
+		coords = GetEntityCoords(ped),
+		heading = GetEntityHeading(ped)
 	})
 
 	local timeout = 50
