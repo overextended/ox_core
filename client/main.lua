@@ -8,13 +8,7 @@ function Ox.GetPlayerData()
 	return PlayerData
 end
 
-local function registerNetEvent(event, fn)
-	RegisterNetEvent(event, function(...)
-		if source ~= '' then fn(...) end
-	end)
-end
-
-registerNetEvent('ox:setGroup', function(name, grade)
+NetEventHandler('ox:setGroup', function(name, grade)
 	PlayerData.groups[name] = grade
 end)
 
