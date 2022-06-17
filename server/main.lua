@@ -1,32 +1,33 @@
 RegisterNetEvent('ox:playerJoined', function()
-	player.new(source)
+	Player.new(source)
 end)
 
 AddEventHandler('playerDropped', function()
-	local obj = player(source)
-	if obj then
-		return player - obj
+	local player = Player(source)
+
+	if player then
+		return Player - player
 	end
 end)
 
 AddEventHandler('onServerResourceStart', function(resource)
 	if resource == 'ox_inventory' then
-		for _, obj in pairs(player.list) do
-			if not obj.characters then
-				obj.loadInventory()
+		for _, player in pairs(Player.list) do
+			if not player.characters then
+				player.loadInventory()
 			end
 		end
 	elseif resource == 'npwd' then
-		for _, obj in pairs(player.list) do
-			if not obj.characters then
-				obj.loadPhone()
+		for _, player in pairs(Player.list) do
+			if not player.characters then
+				player.loadPhone()
 			end
 		end
 	end
 end)
 
 RegisterNetEvent('ox:selectCharacter', function(data)
-	local obj = player(source)
+	local player = Player(source)
 	local character
 
 	if type(data) == 'table' then
@@ -37,35 +38,35 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 			gender = data.gender,
 			dateofbirth = data.date,
 			phone_number = phoneNumber,
-			charid = player.registerCharacter(obj.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber)
+			charid = Player.registerCharacter(player.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber)
 		}
 	elseif type(data) == 'number' and data < 10 then
-		character = obj.characters[data]
+		character = player.characters[data]
 	else
 		error(('ox:selectCharacter received invalid slot. Received %s'):format(data))
 	end
 
-	obj.characters = nil
-	obj.charid = character.charid
-	obj.firstname = character.firstname
-	obj.lastname = character.lastname
-	obj.gender = character.gender
-	obj.dateofbirth = character.dateofbirth
-	obj.phone_number = character.phone_number
+	player.characters = nil
+	player.charid = character.charid
+	player.firstname = character.firstname
+	player.lastname = character.lastname
+	player.gender = character.gender
+	player.dateofbirth = character.dateofbirth
+	player.phone_number = character.phone_number
 
-	player.loaded(obj, character)
+	Player.loaded(player, character)
 end)
 
 RegisterNetEvent('ox:deleteCharacter', function(slot)
 	if type(slot) == 'number' and slot < 11 then
 		slot += 1
-		local obj = player(source)
-		local charid = obj.characters[slot]?.charid
+		local player = Player(source)
+		local charid = player.characters[slot]?.charid
 
 		if charid then
-			TriggerEvent('ox:characterDeleted', obj.source, obj.userid, charid)
-			player.deleteCharacter(charid)
-			return table.remove(obj.characters, slot)
+			TriggerEvent('ox:characterDeleted', player.source, player.userid, charid)
+			Player.deleteCharacter(charid)
+			return table.remove(player.characters, slot)
 		end
 	end
 
@@ -73,19 +74,17 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 end)
 
 RegisterNetEvent('ox:playerDeath', function(dead)
-	local obj = player(source)
-	obj.dead = dead
+	Player(source).dead = dead
 end)
 
 AddEventHandler('onResourceStop', function(resource)
 	if resource == 'ox_core' then
-		player.saveAll()
+		Player.saveAll()
 	elseif resource == 'ox_inventory' then
-		player.saveAll()
+		Player.saveAll()
 	end
 end)
 
 RegisterCommand('logout', function(source)
-	local obj = player(source)
-	obj.logout()
+	Player(source).logout()
 end)

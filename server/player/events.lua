@@ -1,13 +1,17 @@
 AddEventHandler('playerEnteredScope', function(data)
-	local player = player(tonumber(data['for']))
+	local source = tonumber(data['for'])
 	local target = tonumber(data.player)
+	local player = Player(source)
+
 	local inScope = player.get('inScope')
 	inScope[target] = true
 end)
 
 AddEventHandler('playerLeftScope', function(data)
-	local player = player(tonumber(data['for']))
+	local source = tonumber(data['for'])
 	local target = tonumber(data.player)
+	local player = Player(source)
+
 	local inScope = player.get('inScope')
 	inScope[target] = nil
 end)

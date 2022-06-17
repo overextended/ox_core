@@ -1,29 +1,3 @@
-local player = {
-	count = 0,
-	list = {},
-}
-
-local playerData = {}
-
-setmetatable(player, {
-	__add = function(self, obj)
-		self.list[obj.source] = obj
-		self.count += 1
-	end,
-
-	__sub = function(self, obj)
-		if obj.charid then obj.save(true) end
-
-		TriggerEvent('ox:playerLogout', obj.source, obj.userid, obj.charid)
-		self.list[obj.source] = nil
-		self.count -= 1
-	end,
-
-	__call = function(self, source)
-		return self.list[source]
-	end
-})
-
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_IDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
@@ -35,7 +9,10 @@ local Query = {
 	SELECT_USER_GROUPS = 'SELECT name, grade FROM user_groups WHERE charid = ?',
 }
 
+CfxPlayer = Player
 CPlayer = {}
+
+local playerData = {}
 
 function CPlayer:__index(index)
 	local value = playerData[self.source][index]
@@ -49,6 +26,10 @@ function CPlayer:__index(index)
 	return method and function(...)
 		return method(self, ...)
 	end
+end
+
+function CPlayer:getState()
+	return CfxPlayer(self.source).state
 end
 
 ---@return vector4
@@ -230,13 +211,35 @@ function CPlayer:triggerScopedEvent(eventName, ...)
 	end
 end
 
+Player = setmetatable({
+	count = 0,
+	list = {},
+}, {
+	__add = function(self, obj)
+		self.list[obj.source] = obj
+		self.count += 1
+	end,
+
+	__sub = function(self, obj)
+		if obj.charid then obj.save(true) end
+
+		TriggerEvent('ox:playerLogout', obj.source, obj.userid, obj.charid)
+		self.list[obj.source] = nil
+		self.count -= 1
+	end,
+
+	__call = function(self, source)
+		return self.list[source]
+	end
+})
+
 ---@param source number
 ---Creates an instance of CPlayer.
-function player.new(source)
+function Player.new(source)
 	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
 
-	if not player(source) then
+	if not Player(source) then
 		local identifiers = Ox.GetIdentifiers(source)
 		local primary = identifiers[server.PRIMARY_IDENTIFIER]
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { primary })
@@ -252,15 +255,18 @@ function player.new(source)
 			})
 		end
 
-		local self = {
+		local self = setmetatable({
 			source = source,
 			userid = userid,
 			username = username,
-			characters = selectCharacters(source, userid)
-		}
+			characters = selectCharacters(source, userid),
+			ped = GetPlayerPed(source),
+		}, CPlayer)
 
-		local state = Player(source).state
+		local data = identifiers
+		playerData[source] = data
 
+		local state = self:getState()
 		state:set('userid', self.userid, true)
 		state:set('username', self.username, true)
 
@@ -268,23 +274,21 @@ function player.new(source)
 			state:set(type, identifier, false)
 		end
 
-		local data = identifiers
 		data.inScope = {}
-		playerData[source] = data
 
 		TriggerClientEvent('ox:selectCharacter', source, self.characters)
-		return player + self
+		return Player + self
 	end
 end
 
 ---@param remove boolean
 ---Saves all data stored in players.list, and removes cached data if remove is true.
-function player.saveAll(remove)
+function Player.saveAll(remove)
 	local parameters = {}
 	local size = 0
 	local date = os.date('%Y-%m-%d', os.time())
 
-	for playerId, obj in pairs(player.list) do
+	for playerId, obj in pairs(Player.list) do
 		if obj.charid then
 			size += 1
 			local entity = GetPlayerPed(playerId)
@@ -311,12 +315,12 @@ function player.saveAll(remove)
 end
 
 ---Insert new character data into the database.
-function player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
+function Player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
 	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
 ---Remove character data from the database, and delete any known KVP.
-function player.deleteCharacter(charid)
+function Player.deleteCharacter(charid)
 	appearance:save(charid)
 	return MySQL.update(Query.DELETE_CHARACTER, { charid })
 end
@@ -324,11 +328,10 @@ end
 ---@param self table player
 ---@param character table
 ---Finalises player loading after they have selected a character.
-function player.loaded(self, character)
+function Player.loaded(self, character)
 	-- currently returns a single value; will require iteration for more data
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
 
-	setmetatable(self, CPlayer)
 	accounts.load(self.source, self.charid)
 	appearance:load(self.source, self.charid)
 
@@ -358,7 +361,7 @@ function Ox.PlayerExports()
 end
 
 function Ox.GetPlayer(source)
-	local obj = player.list[source]
+	local obj = Player(source)
 
 	if obj?.charid then
 		return obj
@@ -375,7 +378,7 @@ function Ox.GetPlayers()
 	local size = 0
 	local players = {}
 
-	for _, v in pairs(player.list) do
+	for _, v in pairs(Player.list) do
 		if v.charid then
 			size += 1
 			players[size] = v
@@ -384,5 +387,3 @@ function Ox.GetPlayers()
 
 	return players
 end
-
-_ENV.player = player
