@@ -10,6 +10,10 @@ Ox = setmetatable({}, {
     end
 })
 
+-----------------------------------------------------------------------------------------------
+--	Player
+-----------------------------------------------------------------------------------------------
+
 local CPlayer = {}
 local PlayerExports = Ox.PlayerExports()
 
@@ -113,54 +117,53 @@ end
 -----------------------------------------------------------------------------------------------
 --	Vehicle
 -----------------------------------------------------------------------------------------------
-local Entity = Entity
-local ox_vehicles = exports.ox_vehicles
 
----Triggers exported Class functions when triggering a vehicles's index metamethod.
----@param self table
----@param index string
----@return function export
-local function vehicleMethod(self, index)
-	if index == 'state' then
-		return Entity(self.netid).state
-	else
+local CVehicle = {}
+local VehicleExports = Ox.VehicleExports()
+
+function CVehicle:__index(index, ...)
+	local method = CVehicle[index]
+
+	if method then
 		return function(...)
-			return ox_vehicles[index](nil, self, ...)
+			return method(self, ...)
 		end
 	end
+
+	local export = VehicleExports[index]
+
+	if export then
+		if type(export) == 'function' then
+			return export(self.entity, index, ...)
+		end
+
+		CVehicle[index] = function(...)
+			return ox_core:CVehicle(self.entity, index, ...)
+		end
+
+		return CVehicle[index]
+	end
 end
 
----Access and manipulate data for a vehicle object.
----@param vehicle table | number
----@return table vehicle
-function Vehicle(vehicle)
-	local self = (type(vehicle) == 'table' and vehicle.netid) and vehicle or ox_vehicles:get(vehicle)
-
-	if not self then
-		error(("'%s' is not a vehicle"):format(vehicle))
+function CVehicle:getCoords(update)
+	if update or not self.coords then
+		self.coords = GetEntityCoords(self.entity)
 	end
 
-	return setmetatable(self, {
-		__index = vehicleMethod
-	})
+	return self.coords
 end
 
----@param owner number charid or false
----@param data table
----@param coords vector x, y, z, w
----@return table vehicle
-function Ox.CreateVehicle(owner, data, coords)
-	if type(data) ~= 'table' then
-		data = {
-			model = data
-		}
-	elseif not data.model then
-		error('Did not receive data.model for new vehicle')
+function Ox.GetVehicle(vehicle)
+	vehicle = type(vehicle) == 'table' and vehicle.entity or ox_core:GetVehicle(vehicle)
+
+	if not vehicle then
+		error(("no vehicle exists with id '%s'"):format(vehicle))
 	end
 
-	local vehicle = ox_vehicles:new(owner, data, coords?.x, coords?.y, coords?.z, coords?.w)
+	return setmetatable(vehicle, CVehicle)
+end
 
-	return setmetatable(vehicle, {
-		__index = vehicleMethod
-	})
+function Ox.CreateVehicle(data)
+	local vehicle = ox_core:CreateVehicle(data)
+	return setmetatable(vehicle, CVehicle)
 end

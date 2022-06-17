@@ -10,8 +10,7 @@ local Query = {
 }
 
 CfxPlayer = Player
-CPlayer = {}
-
+local CPlayer = {}
 local playerData = {}
 
 function CPlayer:__index(index)
@@ -361,10 +360,10 @@ function Ox.PlayerExports()
 end
 
 function Ox.GetPlayer(source)
-	local obj = Player(source)
+	local player = Player(source)
 
-	if obj?.charid then
-		return obj
+	if player?.charid then
+		return player
 	end
 
 	error(("no player exists with id '%s'"):format(source))
