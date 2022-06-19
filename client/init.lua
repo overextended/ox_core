@@ -11,3 +11,7 @@ SetTimeout(500, function()
 	exports.spawnmanager:setAutoSpawn(false)
 	TriggerServerEvent('ox:playerJoined')
 end)
+
+for i = 0, 5 do
+	SetDefaultVehicleNumberPlateTextPattern(i, '........')
+end
