@@ -29,15 +29,9 @@ function CPlayer:__index(index, ...)
 	local export = PlayerExports[index]
 
 	if export then
-		if type(export) == 'function' then
-			return export(self.source, index, ...)
-		end
-
-		CPlayer[index] = function(...)
+		return function(...)
 			return ox_core:CPlayer(self.source, index, ...)
 		end
-
-		return CPlayer[index]
 	end
 end
 
