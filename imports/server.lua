@@ -69,11 +69,13 @@ end
 
 lib.getPlayer = Ox.GetPlayer
 
-function Ox.GetPlayers()
+function Ox.GetPlayers(usemetatable)
 	local players = ox_core:GetPlayers()
 
-	for i = 1, #players do
-		setmetatable(players[i], CPlayer)
+	if usemetatable then
+		for i = 1, #players do
+			setmetatable(players[i], CPlayer)
+		end
 	end
 
 	return players
@@ -163,7 +165,19 @@ function Ox.GetVehicle(vehicle)
 	return setmetatable(vehicle, CVehicle)
 end
 
-function Ox.CreateVehicle(data)
-	local vehicle = ox_core:CreateVehicle(data)
+function Ox.CreateVehicle(data, coords, heading)
+	local vehicle = ox_core:CreateVehicle(data, coords, heading)
 	return setmetatable(vehicle, CVehicle)
+end
+
+function Ox.GetVehicles(usemetatable)
+	local vehicles = ox_core:GetVehicles()
+
+	if usemetatable then
+		for i = 1, #vehicles do
+			setmetatable(vehicles[i], CVehicle)
+		end
+	end
+
+	return vehicles
 end

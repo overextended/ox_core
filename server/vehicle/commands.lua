@@ -16,11 +16,9 @@ lib.addCommand('group.admin', 'car', function(source, args)
 	end
 
 	local vehicle = Vehicle.new({
-		owner = args.owner or false,
-		model = joaat(args.model),
-		coords = GetEntityCoords(ped),
-		heading = GetEntityHeading(ped)
-	})
+		owner = args.owner,
+		model = args.model,
+	}, GetEntityCoords(ped), GetEntityHeading(ped))
 
 	local timeout = 50
 	repeat

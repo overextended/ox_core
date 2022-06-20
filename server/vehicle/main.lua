@@ -1,9 +1,11 @@
 local Query = {
 	DELETE_VEHICLE = 'DELETE FROM vehicles WHERE plate = ?',
-	INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, stored, x, y, z, heading, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+	INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, type, data, stored) VALUES (?, ?, ?, ?, ?, ?, ?)',
 	PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
+	SELECT_VEHICLE = 'SELECT owner, model, type, data FROM vehicles WHERE id = ?',
 	UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE plate = ?',
 	UPDATE_VEHICLE = 'UPDATE vehicles SET stored = ?, data = ? WHERE plate = ?',
+	SELECT_MODEL_DATA = 'SELECT name, make, type, bodytype, class, price, doors, seats, weapons FROM vehicle_data WHERE model = ?'
 }
 
 local CVehicle = {}
@@ -74,55 +76,18 @@ Vehicle = setmetatable({
 	end
 })
 
-function Vehicle.new(data)
-	if type(data.model) == 'string' then
-		data.model = joaat(data.model)
-	end
-
-	local owner = data.owner
-	local script = GetInvokingResource()
-	local plate = data.plate
-	local coords = vector3(data.coords?.x or 0, data.coords?.y or 0, data.coords?.z or 0)
-	local heading = data.heading or 90
-	local stored = data.stored
-
-	if owner and owner < 1 then
-		owner = nil
-	end
-
-	if not data.properties then
-		data.properties = {}
-	end
-
-	if not plate then
-		plate = Ox.GeneratePlate()
-		data.properties.plate = plate
-		data.plate = nil
-		data.owner = nil
-		data.coords = nil
-		data.stored = nil
-		data.heading = nil
-
-		if owner ~= false then
-			MySQL.prepare(Query.INSERT_VEHICLE, { plate, owner, stored or 'false', coords.x, coords.y, coords.z, heading, json.encode(data) })
-		end
-	end
-
-	if stored then
-		return plate
-	elseif not data.properties.plate then
-		data.properties.plate = plate
-	end
-
-	local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, data.model, coords.x, coords.y, coords.z, coords.w)
+local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
+	local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
 	if entity then
 		local self = setmetatable({
+			id = id,
 			netid = NetworkGetNetworkIdFromEntity(entity),
 			owner = owner,
 			entity = entity,
 			script = script,
 			plate = plate,
+			model = model,
 		}, CVehicle)
 
 		vehicleData[self.entity] = data
@@ -134,10 +99,75 @@ function Vehicle.new(data)
 			state:set('vehicleProperties', data.properties, true)
 		end
 
-		MySQL.prepare(Query.UPDATE_STORED, { 'false' })
+		if owner ~= false then
+			MySQL.prepare(Query.UPDATE_STORED, { 'false' })
+		end
 
 		return Vehicle + self
 	end
+end
+
+function Vehicle.new(data, coords, heading)
+	local script = GetInvokingResource()
+
+	if type(data) == 'number' then
+		do
+			local type = type(coords)
+
+			if type ~= 'vector3' then
+				error(("Expected coords to be 'vector3' but received '%s' instead"):format(type))
+			end
+		end
+
+		do
+			local type = type(heading)
+
+			if type ~= 'number' then
+				error(("Expected heading to be 'number' but received '%s' instead"):format(type))
+			end
+		end
+
+		local vehicle = MySQL.prepare(Query.SELECT_VEHICLE, data)
+		vehicle.data = json.decode(vehicle.data)
+
+		return spawnVehicle(vehicle.id, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords, heading or 90.0)
+	end
+
+	do
+		local type = type(data.model)
+
+		if type ~= 'string' then
+			error(("Expected data.model to be 'string' but received '%s' instead"):format(type))
+		end
+	end
+
+	local owner = data.owner or false
+	local model = data.model:lower()
+	local stored = data.stored
+	local plate = Ox.GeneratePlate()
+	local modelData = Ox.GetVehicleData(model)
+
+	data = {
+		properties = data.properties or {}
+	}
+
+	data.properties.plate = plate
+
+	if owner and owner < 1 then
+		owner = nil
+	end
+
+	local vehicleId
+
+	if owner ~= false then
+		vehicleId = MySQL.prepare(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, modelData.type, json.encode(data), stored or 'false' })?.insertId
+	end
+
+	if stored then
+		return vehicleId
+	end
+
+	return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
 end
 
 function Vehicle.saveAll(resource)
@@ -208,6 +238,17 @@ function Ox.GetVehicle(entity)
 	end
 
 	error(("no vehicle exists with id '%s'"):format(source))
+end
+
+local models = setmetatable({}, {
+	__index = function(self, model)
+		self[model] = MySQL.prepare.await(Query.SELECT_MODEL_DATA, { model })
+		return self[model]
+	end
+})
+
+function Ox.GetVehicleData(model)
+	return models[model]
 end
 
 function Ox.CVehicle(source, method, ...)
