@@ -127,7 +127,7 @@ function Vehicle.new(data, coords, heading)
 			end
 		end
 
-		local vehicle = MySQL.prepare(Query.SELECT_VEHICLE, data)
+		local vehicle = MySQL.prepare.await(Query.SELECT_VEHICLE, { data })
 		vehicle.data = json.decode(vehicle.data)
 
 		return spawnVehicle(vehicle.id, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords, heading or 90.0)
@@ -160,7 +160,7 @@ function Vehicle.new(data, coords, heading)
 	local vehicleId
 
 	if owner ~= false then
-		vehicleId = MySQL.prepare(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, modelData.type, json.encode(data), stored or 'false' })?.insertId
+		vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, modelData.type, json.encode(data), stored or 'false' })
 	end
 
 	if stored then
