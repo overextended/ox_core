@@ -76,6 +76,35 @@ Vehicle = setmetatable({
 	end
 })
 
+function Vehicle.saveAll(resource)
+	if resource == cache.resource then
+		resource = nil
+	end
+
+	local parameters = {}
+	local size = 0
+
+	for _, vehicle in pairs(Vehicle.list) do
+		if not resource or resource == vehicle.script then
+			if vehicle.owner ~= false then
+				size += 1
+				parameters[size] = { 'impound', json.encode(vehicle.get()), vehicle.plate }
+			end
+
+			if resource then
+				vehicle.despawn()
+			else
+				DeleteEntity(vehicle.entity)
+			end
+		end
+	end
+
+	if size > 0 then
+		MySQL.prepare(Query.UPDATE_VEHICLE, parameters)
+	end
+end
+AddEventHandler('onResourceStop', Vehicle.saveAll)
+
 local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
 	local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
@@ -107,7 +136,11 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
 	end
 end
 
-function Vehicle.new(data, coords, heading)
+-----------------------------------------------------------------------------------------------
+--	Interface
+-----------------------------------------------------------------------------------------------
+
+function Ox.CreateVehicle(data, coords, heading)
 	local script = GetInvokingResource()
 
 	if type(data) == 'number' then
@@ -170,39 +203,6 @@ function Vehicle.new(data, coords, heading)
 	return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
 end
 
-function Vehicle.saveAll(resource)
-	if resource == cache.resource then
-		resource = nil
-	end
-
-	local parameters = {}
-	local size = 0
-
-	for _, vehicle in pairs(Vehicle.list) do
-		if not resource or resource == vehicle.script then
-			if vehicle.owner ~= false then
-				size += 1
-				parameters[size] = { 'impound', json.encode(vehicle.get()), vehicle.plate }
-			end
-
-			if resource then
-				vehicle.despawn()
-			else
-				DeleteEntity(vehicle.entity)
-			end
-		end
-	end
-
-	if size > 0 then
-		MySQL.prepare(Query.UPDATE_VEHICLE, parameters)
-	end
-end
-AddEventHandler('onResourceStop', Vehicle.saveAll)
-
------------------------------------------------------------------------------------------------
---	Interface
------------------------------------------------------------------------------------------------
-
 function Ox.GeneratePlate()
 	local plate = table.create(8, 0)
 
@@ -227,8 +227,6 @@ function Ox.VehicleExports()
 		store = true,
 	}
 end
-
-Ox.CreateVehicle = Vehicle.new
 
 function Ox.GetVehicle(entity)
 	local vehicle = Vehicle(entity)

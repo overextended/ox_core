@@ -15,7 +15,7 @@ lib.addCommand('group.admin', 'car', function(source, args)
 		args.owner = Player(args.owner)?.charid
 	end
 
-	local vehicle = Vehicle.new({
+	local vehicle = Ox.CreateVehicle({
 		owner = args.owner,
 		model = args.model,
 	}, GetEntityCoords(ped), GetEntityHeading(ped))
