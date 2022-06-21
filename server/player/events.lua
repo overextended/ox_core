@@ -18,10 +18,10 @@ end)
 
 AddEventHandler('playerConnecting', function(_, _, deferrals)
 	deferrals.defer()
-	local identifier = Ox.GetIdentifiers(source)?[server.PRIMARY_IDENTIFIER]
+	local identifier = Ox.GetIdentifiers(source)?[Server.PRIMARY_IDENTIFIER]
 
 	if not identifier then
-		return deferrals.done(('Unable to register an account, unable to determine "%s" identifier.'):format(server.PRIMARY_IDENTIFIER))
+		return deferrals.done(('Unable to register an account, unable to determine "%s" identifier.'):format(Server.PRIMARY_IDENTIFIER))
 	end
 
 	deferrals.done()

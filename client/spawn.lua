@@ -78,7 +78,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	PlayerData.id = PlayerId()
 
 	SetPlayerInvincible(PlayerData.id, true)
-	StartPlayerTeleport(PlayerData.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
+	StartPlayerTeleport(PlayerData.id, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 
 	while IsPlayerTeleportActive() do Wait(0) end
 
@@ -95,7 +95,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 	SetCamActive(cam, true)
 	RenderScriptCams(cam, false, 0, true, true)
-	PointCamAtCoord(cam, shared.spawn.x, shared.spawn.y, shared.spawn.z + 0.1)
+	PointCamAtCoord(cam, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z + 0.1)
 
 	PlayerData.appearance = {}
 
@@ -141,7 +141,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		StartPlayerTeleport(PlayerData.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
 		while IsPlayerTeleportActive() do Wait(0) end
 	else
-		StartPlayerTeleport(PlayerData.id, shared.spawn.x, shared.spawn.y, shared.spawn.z, shared.spawn.w, false, true)
+		StartPlayerTeleport(PlayerData.id, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 	end
 
 	PlayerData = data
@@ -150,7 +150,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	PlayerData.loaded = true
 
 	if PlayerData.dead then
-		client.onPlayerDeath(PlayerData, true)
+		OnPlayerDeath(PlayerData, true)
 	end
 
 	while PlayerData.loaded do
@@ -158,7 +158,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		cache.ped = PlayerPedId()
 
 		if not PlayerData.dead and IsPedDeadOrDying(cache.ped) then
-			client.onPlayerDeath(PlayerData)
+			OnPlayerDeath(PlayerData)
 		end
 	end
 end)

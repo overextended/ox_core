@@ -1,4 +1,6 @@
-server.PRIMARY_IDENTIFIER = GetConvar('ox_core:primaryIdentifier', 'fivem')
+Server = {
+	PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'fivem'),
+}
 
 SetRoutingBucketEntityLockdownMode(0, 'relaxed')
 SetRoutingBucketEntityLockdownMode(60, 'strict')

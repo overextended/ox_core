@@ -13,13 +13,11 @@ local anims = {
 	{'dead', 'dead_a'},
 }
 
-function client.onPlayerDeath(PlayerData, login)
+function OnPlayerDeath(PlayerData, login)
 	PlayerData.dead = true
 
-	if shared.animatedDeath then
-		for i = 1, #anims do
-			lib.requestAnimDict(anims[i][1])
-		end
+	for i = 1, #anims do
+		lib.requestAnimDict(anims[i][1])
 	end
 
 	local scaleform = RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
@@ -68,20 +66,18 @@ function client.onPlayerDeath(PlayerData, login)
 		end
 	end)
 
-	if shared.animatedDeath then
-		local coords = GetEntityCoords(cache.ped)
+	local coords = GetEntityCoords(cache.ped)
 
-		NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
+	NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
 
-		if cache.vehicle then
-			SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
-		end
-
-		SetEntityInvincible(cache.ped, true)
-		SetEntityHealth(cache.ped, 100)
-		SetPlayerHealthRechargeMultiplier(PlayerId(), 0.0)
-		SetEveryoneIgnorePlayer(PlayerId(), true)
+	if cache.vehicle then
+		SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
 	end
+
+	SetEntityInvincible(cache.ped, true)
+	SetEntityHealth(cache.ped, 100)
+	SetPlayerHealthRechargeMultiplier(PlayerId(), 0.0)
+	SetEveryoneIgnorePlayer(PlayerId(), true)
 
 	local playerState = LocalPlayer.state
 	playerState.dead = true
@@ -89,12 +85,10 @@ function client.onPlayerDeath(PlayerData, login)
 	local bleedOut
 
 	while PlayerData.dead do
-		if shared.animatedDeath then
-			local anim = cache.vehicle and anims[2] or anims[1]
+		local anim = cache.vehicle and anims[2] or anims[1]
 
-			if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
-				TaskPlayAnim(cache.ped, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
-			end
+		if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
+			TaskPlayAnim(cache.ped, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
 		end
 
 		timeout -= 1
@@ -106,14 +100,14 @@ function client.onPlayerDeath(PlayerData, login)
 		Wait(200)
 	end
 
-	local coords = vec(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped))
+	coords = vec(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped))
 
 	if bleedOut then
 		local closest, distance = {}
 
 		for i = 1, #hospitals do
 			local hospital = hospitals[i]
-			distance = #(coords.xyz - hospital.xyz)
+			distance = #(coords - hospital)
 
 			if not next(closest) or distance < closest.dist then
 				closest.coords = hospital

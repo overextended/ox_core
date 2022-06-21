@@ -1,5 +1,5 @@
 local Query = {
-	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(server.PRIMARY_IDENTIFIER),
+	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(Server.PRIMARY_IDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
 	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
 	SELECT_CHARACTER = 'SELECT is_dead FROM characters WHERE charid = ?',
@@ -100,7 +100,8 @@ function CPlayer:save(logout)
 	end
 end
 
-local accounts = server.accounts
+-- Placeholder
+local accounts = {}
 
 ---@param account? string return the amount in the given account
 ---@return number | table<string, number>
@@ -240,7 +241,7 @@ function Player.new(source)
 
 	if not Player(source) then
 		local identifiers = Ox.GetIdentifiers(source)
-		local primary = identifiers[server.PRIMARY_IDENTIFIER]
+		local primary = identifiers[Server.PRIMARY_IDENTIFIER]
 		local userid = MySQL.prepare.await(Query.SELECT_USERID, { primary })
 		local username = GetPlayerName(source)
 

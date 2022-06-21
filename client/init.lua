@@ -1,9 +1,13 @@
+Client = {
+	DEFAULT_SPAWN = vec4(-258.211, -293.077, 21.6132, 206.0),
+}
+
 SetTimeout(500, function()
 	exports.spawnmanager:spawnPlayer({
-		x = shared.spawn.x,
-		y = shared.spawn.y,
-		z = shared.spawn.z,
-		heading = shared.spawn.w,
+		x = Client.DEFAULT_SPAWN.x,
+		y = Client.DEFAULT_SPAWN.y,
+		z = Client.DEFAULT_SPAWN.z,
+		heading = Client.DEFAULT_SPAWN.w,
 		model = `mp_m_freemode_01`,
 		skipFade = true,
 	})
