@@ -33,7 +33,6 @@ client_scripts {
 
 server_scripts {
 	'@oxmysql/lib/MySQL.lua',
-	'@ox_accounts/server/accounts.lua',
     'server/init.lua',
     'server/functions.lua',
     'server/player/group.lua',

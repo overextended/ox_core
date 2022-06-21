@@ -82,8 +82,6 @@ function CPlayer:save(logout)
 			end
 		end
 
-		self.saveAccounts(logout)
-
 		local coords = self.getCoords()
 		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
 
@@ -310,7 +308,6 @@ function Player.saveAll(remove)
 
 	if size > 0 then
 		MySQL.prepare(Query.UPDATE_CHARACTER, parameters)
-		accounts.saveAll(false, remove)
 	end
 end
 
@@ -332,7 +329,6 @@ function Player.loaded(self, character)
 	-- currently returns a single value; will require iteration for more data
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
 
-	accounts.load(self.source, self.charid)
 	appearance:load(self.source, self.charid)
 
 	self.loadGroups()
