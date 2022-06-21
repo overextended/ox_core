@@ -24,12 +24,22 @@ AddEventHandler('playerLeftScope', function(data)
 	inScope[target] = nil
 end)
 
+local serverLockdown
+
 RegisterNetEvent('ox:playerJoined', function()
+	if serverLockdown then
+		return DropPlayer(source, serverLockdown)
+	end
+
 	Player.new(source)
 end)
 
 AddEventHandler('playerConnecting', function(_, _, deferrals)
 	deferrals.defer()
+
+	if serverLockdown then
+		return deferrals.done(serverLockdown)
+	end
 
 	local identifier = Ox.GetIdentifiers(source)?[Server.PRIMARY_IDENTIFIER]
 
@@ -40,6 +50,19 @@ AddEventHandler('playerConnecting', function(_, _, deferrals)
 	deferrals.done()
 end)
 
+AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
+    if eventData.secondsRemaining == 60 then
+		serverLockdown = 'The server is about to restart. You cannot join at this time.'
+
+		Wait(40000)
+		Player.saveAll()
+
+		for playerId, player in pairs(Player.list) do
+			player.charid = nil
+			DropPlayer(playerId, 'Server is restarting.')
+		end
+    end
+end)
 
 RegisterNetEvent('ox:selectCharacter', function(data)
 	local player = Player(source)
