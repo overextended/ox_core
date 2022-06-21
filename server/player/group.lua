@@ -9,16 +9,26 @@ local groups
 local CGroup = {}
 CGroup.__index = CGroup
 
+---Adds a player to a group and grants permissions based on their grade.
+---@param player CPlayer
+---@param grade number
 function CGroup:add(player, grade)
 	lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
 	player.groups[self.name] = grade
 end
 
+---Removes a player from a group and revokes permissions.
+---@param player CPlayer
+---@param grade number
 function CGroup:remove(player, grade)
 	lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
 	player.groups[self.name] = nil
 end
 
+---Sets a players grade in a group and updates their permissions.
+---@param player CPlayer
+---@param grade number
+---@return boolean
 function CGroup:set(player, grade)
 	if not self.grades[grade] and grade > 0 then
 		error(("attempted to set invalid grade '%s' for group '%s' on 'player.%s'"):format(grade, self.name, player.source))
@@ -45,6 +55,7 @@ function CGroup:set(player, grade)
 	return true
 end
 
+---Load groups from the database and creates permission groups.
 local function loadGroups()
 	local results = MySQL.query.await(Query.SELECT_GROUPS)
 
@@ -110,6 +121,9 @@ end, {'target:number', 'group:string', 'grade:number'})
 --	Interface
 -----------------------------------------------------------------------------------------------
 
+---Return data associated with the given group name.
+---@param name string
+---@return unknown
 function Ox.GetGroup(name)
 	local group = groups[name]
 

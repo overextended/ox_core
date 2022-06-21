@@ -76,6 +76,8 @@ Vehicle = setmetatable({
 	end
 })
 
+---Save all vehicles for the resource and despawn them.
+---@param resource string
 function Vehicle.saveAll(resource)
 	if resource == cache.resource then
 		resource = nil
@@ -105,6 +107,15 @@ function Vehicle.saveAll(resource)
 end
 AddEventHandler('onResourceStop', Vehicle.saveAll)
 
+---@param id number
+---@param owner number | boolean | nil
+---@param plate string
+---@param model string
+---@param script string
+---@param data table
+---@param coords vector3
+---@param heading number
+---@return number
 local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
 	local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
@@ -140,6 +151,11 @@ end
 --	Interface
 -----------------------------------------------------------------------------------------------
 
+---Loads a vehicle from the database by id, or creates a new vehicle using provided data.
+---@param data table | number
+---@param coords? vector3
+---@param heading? number
+---@return number
 function Ox.CreateVehicle(data, coords, heading)
 	local script = GetInvokingResource()
 
@@ -203,6 +219,8 @@ function Ox.CreateVehicle(data, coords, heading)
 	return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
 end
 
+---Creates a unique vehicle license plate.
+---@return string
 function Ox.GeneratePlate()
 	local plate = table.create(8, 0)
 
@@ -228,6 +246,9 @@ function Ox.VehicleExports()
 	}
 end
 
+---Return vehicle data for the given entity or network id.
+---@param entity number
+---@return table
 function Ox.GetVehicle(entity)
 	local vehicle = Vehicle(entity)
 
@@ -245,14 +266,22 @@ local models = setmetatable({}, {
 	end
 })
 
+---Return vehicle data for the given model. The data is cached for future calls.
 function Ox.GetVehicleData(model)
 	return models[model]
 end
 
-function Ox.CVehicle(source, method, ...)
-	return Ox.GetVehicle(source)[method](...)
+---API entry point for triggering vehicle methods.
+---@param entity number
+---@param method string
+---@param ... unknown
+---@return unknown
+function Ox.CVehicle(entity, method, ...)
+	return Ox.GetVehicle(entity)[method](...)
 end
 
+---Return all vehicle data.
+---@return table
 function Ox.GetVehicles()
 	local size = 0
 	local vehicles = {}

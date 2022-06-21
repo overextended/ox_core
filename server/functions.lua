@@ -1,3 +1,6 @@
+---Return all identifiers for the given source.
+---@param source number
+---@return table
 function Ox.GetIdentifiers(source)
 	local identifiers = {}
 

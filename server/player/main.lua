@@ -10,6 +10,8 @@ local Query = {
 }
 
 CfxPlayer = Player
+
+---@class CPlayer
 local CPlayer = {}
 local playerData = {}
 
@@ -27,17 +29,13 @@ function CPlayer:__index(index)
 	end
 end
 
+---Returns the player's statebag.
+---@return table<string, unknown>
 function CPlayer:getState()
 	return CfxPlayer(self.source).state
 end
 
----@return vector4
----Returns a player's position and heading.
-function CPlayer:getCoords()
-	local entity = GetPlayerPed(self.source)
-	return vec4(GetEntityCoords(entity), GetEntityHeading(entity))
-end
-
+---Load groups for the player's current character.
 function CPlayer:loadGroups()
 	local results = MySQL.prepare.await(Query.SELECT_USER_GROUPS, { self.charid })
 	self.groups = {}
@@ -80,15 +78,14 @@ function CPlayer:save()
 			end
 		end
 
-		local coords = self.getCoords()
-		local inventory = json.encode(ox_inventory:Inventory(self.source)?.items or {})
+		local coords = GetEntityCoords(self.ped)
 
 		MySQL.prepare.await(Query.UPDATE_CHARACTER, {
 			coords.x,
 			coords.y,
 			coords.z,
-			coords.w,
-			inventory,
+			GetEntityHeading(self.ped),
+			json.encode(ox_inventory:Inventory(self.source)?.items or {}),
 			self.dead,
 			os.date('%Y-%m-%d', os.time()),
 			self.charid
@@ -134,6 +131,10 @@ end
 
 local appearance = exports.ox_appearance
 
+---Fetch all characters owned by the player from the database.
+---@param source number
+---@param userid number
+---@return table
 local function selectCharacters(source, userid)
 	local characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
 
@@ -168,7 +169,7 @@ function CPlayer:loadPhone()
 	})
 end
 
----Save the player and trigger character selection.
+---Save the player and return to character selection.
 function CPlayer:logout()
 	npwd:unloadPlayer(self.source)
 	self.save(true)
@@ -178,23 +179,38 @@ function CPlayer:logout()
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
 
+---Return player metadata.
+---@param index? string
+---@return unknown
 function CPlayer:get(index)
 	local data = playerData[self.source]
 	return data[index] or data
 end
 
+---Updates player metadata with the new value.
+---@param index string
+---@param value any
 function CPlayer:set(index, value)
 	playerData[self.source][index] = value
 end
 
+---Updates the player's grade in the given group.
+---@param name string
+---@param grade number
 function CPlayer:setGroup(name, grade)
 	Ox.GetGroup(name):set(self, grade)
 end
 
+---Get the player's grade for the given group.
+---@param name string
+---@return number
 function CPlayer:getGroup(name)
 	return self.groups[name]
 end
 
+---Check if another player is range of the player.
+---@param target number
+---@return boolean
 function CPlayer:isPlayerInScope(target)
 	return self.get('inScope')[target]
 end
@@ -224,13 +240,15 @@ Player = setmetatable({
 		self.count -= 1
 	end,
 
+	---@return CPlayer
 	__call = function(self, source)
 		return self.list[source]
 	end
 })
 
----@param source number
 ---Creates an instance of CPlayer.
+---@param source number
+---@return CPlayer
 function Player.new(source)
 	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
@@ -251,6 +269,7 @@ function Player.new(source)
 			})
 		end
 
+		---@type CPlayer
 		local self = setmetatable({
 			source = source,
 			userid = userid,
@@ -309,19 +328,27 @@ function Player.saveAll()
 end
 
 ---Insert new character data into the database.
+---@param userid number
+---@param firstName string
+---@param lastName string
+---@param gender string
+---@param date number
+---@param phone_number number
+---@return unknown
 function Player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
 	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
----Remove character data from the database, and delete any known KVP.
+---Remove character data from the database.
+---@param charid number
 function Player.deleteCharacter(charid)
 	appearance:save(charid)
 	return MySQL.update(Query.DELETE_CHARACTER, { charid })
 end
 
----@param self table player
----@param character table
 ---Finalises player loading after they have selected a character.
+---@param self CPlayer
+---@param character table
 function Player.loaded(self, character)
 	-- currently returns a single value; will require iteration for more data
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
@@ -353,6 +380,9 @@ function Ox.PlayerExports()
 	}
 end
 
+---Return player data for the given player id.
+---@param source number
+---@return CPlayer
 function Ox.GetPlayer(source)
 	local player = Player(source)
 
@@ -363,10 +393,17 @@ function Ox.GetPlayer(source)
 	error(("no player exists with id '%s'"):format(source))
 end
 
+---API entry point for triggering player methods.
+---@param source number
+---@param method string
+---@param ... unknown
+---@return unknown
 function Ox.CPlayer(source, method, ...)
 	return Ox.GetPlayer(source)[method](...)
 end
 
+---Return all player data.
+---@return table
 function Ox.GetPlayers()
 	local size = 0
 	local players = {}
