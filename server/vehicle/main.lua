@@ -250,7 +250,7 @@ end
 ---@param entity number
 ---@return table
 function Ox.GetVehicle(entity)
-	local vehicle = Vehicle(entity)
+	local vehicle = Vehicle(entity) or Vehicle(NetworkGetEntityFromNetworkId(entity))
 
 	if vehicle then
 		return vehicle
