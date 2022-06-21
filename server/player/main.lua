@@ -69,10 +69,8 @@ function CPlayer:loadInventory()
 	})
 end
 
----@param logout boolean
 ---Update the database with a player's current data.
----If logout is true, triggering saveAccounts will also clear cached account data.
-function CPlayer:save(logout)
+function CPlayer:save()
 	if self.charid then
 		for name, grade in pairs(self.groups) do
 			local group = Ox.GetGroup(name)
@@ -213,16 +211,16 @@ Player = setmetatable({
 	count = 0,
 	list = {},
 }, {
-	__add = function(self, obj)
-		self.list[obj.source] = obj
+	__add = function(self, player)
+		self.list[player.source] = player
 		self.count += 1
 	end,
 
-	__sub = function(self, obj)
-		if obj.charid then obj.save(true) end
+	__sub = function(self, player)
+		if player.charid then player.save(true) end
 
-		TriggerEvent('ox:playerLogout', obj.source, obj.userid, obj.charid)
-		self.list[obj.source] = nil
+		TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+		self.list[player.source] = nil
 		self.count -= 1
 	end,
 
@@ -279,15 +277,14 @@ function Player.new(source)
 	end
 end
 
----@param remove boolean
----Saves all data stored in players.list, and removes cached data if remove is true.
-function Player.saveAll(remove)
+---Saves all data stored in players.list.
+function Player.saveAll()
 	local parameters = {}
 	local size = 0
 	local date = os.date('%Y-%m-%d', os.time())
 
-	for playerId, obj in pairs(Player.list) do
-		if obj.charid then
+	for playerId, player in pairs(Player.list) do
+		if player.charid then
 			size += 1
 			local entity = GetPlayerPed(playerId)
 			local coords = GetEntityCoords(entity)
@@ -299,15 +296,15 @@ function Player.saveAll(remove)
 				coords.z,
 				GetEntityHeading(entity),
 				inventory,
-				obj.dead,
+				player.dead,
 				date,
-				obj.charid
+				player.charid
 			}
 		end
 	end
 
 	if size > 0 then
-		MySQL.prepare(Query.UPDATE_CHARACTER, parameters)
+		MySQL.prepare.await(Query.UPDATE_CHARACTER, parameters)
 	end
 end
 
