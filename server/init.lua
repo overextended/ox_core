@@ -1,7 +1,7 @@
 server.PRIMARY_IDENTIFIER = GetConvar('ox_core:primaryIdentifier', 'fivem')
 
--- Disable population in routing bucket id 60
--- This routing bucket will be used during character selection
+SetRoutingBucketEntityLockdownMode(0, 'relaxed')
+SetRoutingBucketEntityLockdownMode(60, 'strict')
 SetRoutingBucketPopulationEnabled(60, false)
 
 SetConvarReplicated('inventory:framework', 'ox')
