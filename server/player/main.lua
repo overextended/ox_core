@@ -10,6 +10,54 @@ local Query = {
 }
 
 CfxPlayer = Player
+Player = {
+	count = 0,
+	list = {},
+}
+
+local loadResource = {}
+
+---Trigger a function when the player is loaded or the resource restarts.
+---@param resource string
+---@param cb function
+function Player.loadResource(resource, cb)
+	loadResource[resource] = cb
+
+	AddEventHandler('onServerResourceStart', function(res)
+		if res == resource then
+			for _, player in pairs(Player.list) do
+				if not player.characters then
+					cb(player)
+				end
+			end
+		end
+	end)
+end
+
+local ox_inventory = exports.ox_inventory
+
+Player.loadResource('ox_inventory', function(self)
+	ox_inventory:setPlayerInventory({
+		source = self.source,
+		identifier = self.charid,
+		name = ('%s %s'):format(self.firstname, self.lastname),
+		sex = self.gender,
+		dateofbirth = self.dob,
+		groups = self.groups,
+	})
+end)
+
+local npwd = exports.npwd
+
+Player.loadResource('npwd', function(self)
+	npwd:newPlayer({
+		source = self.source,
+		identifier = self.charid,
+		phoneNumber = self.phone_number,
+		firstname = self.firstname,
+		lastname = self.lastname
+	})
+end)
 
 ---@class CPlayer
 local CPlayer = {}
@@ -52,19 +100,6 @@ function CPlayer:loadGroups()
 			end
 		end
 	end
-end
-
-local ox_inventory = exports.ox_inventory
-
-function CPlayer:loadInventory()
-	ox_inventory:setPlayerInventory({
-		source = self.source,
-		identifier = self.charid,
-		name = ('%s %s'):format(self.firstname, self.lastname),
-		sex = self.gender,
-		dateofbirth = self.dob,
-		groups = self.groups,
-	})
 end
 
 ---Update the database with a player's current data.
@@ -157,18 +192,6 @@ local function selectCharacters(source, userid)
 	return characters
 end
 
-local npwd = exports.npwd
-
-function CPlayer:loadPhone()
-	npwd:newPlayer({
-		source = self.source,
-		identifier = self.charid,
-		phoneNumber = self.phone_number,
-		firstname = self.firstname,
-		lastname = self.lastname
-	})
-end
-
 ---Save the player and return to character selection.
 function CPlayer:logout()
 	npwd:unloadPlayer(self.source)
@@ -223,10 +246,7 @@ function CPlayer:triggerScopedEvent(eventName, ...)
 	end
 end
 
-Player = setmetatable({
-	count = 0,
-	list = {},
-}, {
+setmetatable(Player, {
 	__add = function(self, player)
 		self.list[player.source] = player
 		self.count += 1
@@ -350,18 +370,17 @@ end
 ---@param self CPlayer
 ---@param character table
 function Player.loaded(self, character)
+	appearance:load(self.source, self.charid)
 	-- currently returns a single value; will require iteration for more data
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
-
-	appearance:load(self.source, self.charid)
-
 	self.loadGroups()
-	self.loadPhone()
-	self.loadInventory()
+
+	for _, load in pairs(loadResource) do
+		load(self)
+	end
 
 	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
 	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
-
 	SetPlayerRoutingBucket(tostring(self.source), 0)
 end
 
