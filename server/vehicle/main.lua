@@ -261,8 +261,14 @@ end
 
 local models = setmetatable({}, {
 	__index = function(self, model)
-		self[model] = MySQL.prepare.await(Query.SELECT_MODEL_DATA, { model })
-		return self[model]
+		local result = MySQL.prepare.await(Query.SELECT_MODEL_DATA, { model })
+
+		if result then
+			result.weapons = result.weapons[1] == 1 or nil
+			self[model] = result
+		end
+
+		return result
 	end
 })
 
