@@ -277,6 +277,10 @@ function Ox.GetVehicleData(model)
 	return models[model]
 end
 
+lib.callback.register('ox:getVehicleData', function(source, model)
+	return models[model]
+end)
+
 ---API entry point for triggering vehicle methods.
 ---@param entity number
 ---@param method string
