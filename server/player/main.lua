@@ -270,7 +270,6 @@ setmetatable(Player, {
 ---@param source number
 ---@return CPlayer
 function Player.new(source)
-	SetPlayerRoutingBucket(tostring(source), 60)
 	source = tonumber(source)
 
 	if not Player(source) then
@@ -385,7 +384,6 @@ function Player.loaded(self, character)
 
 	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
 	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
-	SetPlayerRoutingBucket(tostring(self.source), 0)
 end
 
 -----------------------------------------------------------------------------------------------

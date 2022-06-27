@@ -3,8 +3,6 @@ Server = {
 }
 
 SetRoutingBucketEntityLockdownMode(0, 'relaxed')
-SetRoutingBucketEntityLockdownMode(60, 'strict')
-SetRoutingBucketPopulationEnabled(60, false)
 
 SetConvarReplicated('inventory:framework', 'ox')
 SetConvarReplicated('inventory:trimplate ', 'false')
