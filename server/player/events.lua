@@ -11,8 +11,10 @@ AddEventHandler('playerEnteredScope', function(data)
 	local target = tonumber(data.player)
 	local player = Player(source)
 
-	local inScope = player.get('inScope')
-	inScope[target] = true
+	if player then
+		local inScope = player.get('inScope')
+		inScope[target] = true
+	end
 end)
 
 AddEventHandler('playerLeftScope', function(data)
@@ -20,8 +22,10 @@ AddEventHandler('playerLeftScope', function(data)
 	local target = tonumber(data.player)
 	local player = Player(source)
 
-	local inScope = player.get('inScope')
-	inScope[target] = nil
+	if player then
+		local inScope = player.get('inScope')
+		inScope[target] = nil
+	end
 end)
 
 local serverLockdown
