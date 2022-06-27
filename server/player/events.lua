@@ -112,5 +112,7 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 end)
 
 RegisterNetEvent('ox:playerDeath', function(dead)
-	Player(source).dead = dead
+	local player = Player(source)
+	player.dead = dead
+	player.getState().dead = dead
 end)

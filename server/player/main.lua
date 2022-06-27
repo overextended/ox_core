@@ -40,7 +40,7 @@ Player.loadResource('ox_inventory', function(self)
 	ox_inventory:setPlayerInventory({
 		source = self.source,
 		identifier = self.charid,
-		name = ('%s %s'):format(self.firstname, self.lastname),
+		name = self.name,
 		sex = self.gender,
 		dateofbirth = self.dob,
 		groups = self.groups,
@@ -303,7 +303,6 @@ function Player.new(source)
 
 		local state = self:getState()
 		state:set('userid', self.userid, true)
-		state:set('username', self.username, true)
 
 		for type, identifier in pairs(identifiers) do
 			state:set(type, identifier, false)
@@ -373,11 +372,16 @@ function Player.loaded(self, character)
 	appearance:load(self.source, self.charid)
 	-- currently returns a single value; will require iteration for more data
 	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
+	self.name = ('%s %s'):format(self.firstname, self.lastname)
 	self.loadGroups()
 
 	for _, load in pairs(loadResource) do
 		load(self)
 	end
+
+	local state = self:getState()
+	state:set('dead', self.dead, true)
+	state:set('name', self.name, true)
 
 	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
 	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
