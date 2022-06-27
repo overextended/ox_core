@@ -37,6 +37,8 @@ RegisterNUICallback('ox:deleteCharacter', function(data, cb)
 end)
 
 RegisterNetEvent('ox:selectCharacter', function(characters)
+	NetworkStartSoloTutorialSession()
+
 	if GetIsLoadingScreenActive() then
 		SendLoadingScreenMessage(json.encode({
 			fullyLoaded = true
@@ -68,25 +70,11 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 			ThefeedHideThisFrame()
 			HideHudAndRadarThisFrame()
 
-			local players = GetActivePlayers()
-
-			for i = 1, #players do
-				local player = players[i]
-				if player ~= PlayerData.id and not concealed[player] then
-					concealed[#concealed + 1] = player
-					NetworkConcealPlayer(player, true, true)
-				end
-			end
-
 			if hidePlayer then
 				SetLocalPlayerInvisibleLocally(true)
 			end
 
 			Wait(0)
-		end
-
-		for i = 1, #concealed do
-			NetworkConcealPlayer(concealed[i], false, false)
 		end
 
 		DoScreenFadeIn(200)
@@ -159,10 +147,13 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 
 	if spawn then
 		StartPlayerTeleport(PlayerData.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
-		while IsPlayerTeleportActive() do Wait(0) end
 	else
 		StartPlayerTeleport(PlayerData.id, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 	end
+
+	while IsPlayerTeleportActive() do Wait(0) end
+
+	NetworkEndTutorialSession()
 
 	PlayerData = data
 	PlayerData.id = PlayerId()
