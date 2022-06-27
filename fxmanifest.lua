@@ -49,4 +49,5 @@ files {
     'web/build/index.html',
     'web/build/**/*',
 	'imports/client.*',
+	'files/**.*'
 }
