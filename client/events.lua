@@ -11,7 +11,7 @@ AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value,
 		local entity = NetworkGetEntityFromNetworkId(netId)
 
 		if NetworkGetEntityOwner(entity) == PlayerData.id then
-			TriggerEvent('ox_lib:setVehicleProperties', netId, value)
+			lib.setVehicleProperties(NetToVeh(netId), value)
 			Entity(entity).state:set('vehicleProps', nil, true)
 		end
 	end
