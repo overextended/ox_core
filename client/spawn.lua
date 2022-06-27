@@ -63,8 +63,6 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	end
 
 	CreateThread(function()
-		local concealed = {}
-
 		while not PlayerData.loaded do
 			DisableAllControlActions(0)
 			ThefeedHideThisFrame()

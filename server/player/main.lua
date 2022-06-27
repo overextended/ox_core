@@ -47,17 +47,19 @@ Player.loadResource('ox_inventory', function(self)
 	})
 end)
 
-local npwd = exports.npwd
+local npwd = Resource('npwd') and exports.npwd
 
-Player.loadResource('npwd', function(self)
-	npwd:newPlayer({
-		source = self.source,
-		identifier = self.charid,
-		phoneNumber = self.phone_number,
-		firstname = self.firstname,
-		lastname = self.lastname
-	})
-end)
+if npwd then
+	Player.loadResource('npwd', function(self)
+		npwd:newPlayer({
+			source = self.source,
+			identifier = self.charid,
+			phoneNumber = self.phone_number,
+			firstname = self.firstname,
+			lastname = self.lastname
+		})
+	end)
+end
 
 ---@class CPlayer
 local CPlayer = {}
@@ -194,7 +196,10 @@ end
 
 ---Save the player and return to character selection.
 function CPlayer:logout()
-	npwd:unloadPlayer(self.source)
+	if npwd then
+		npwd:unloadPlayer(self.source)
+	end
+
 	self.save(true)
 	self.charid = nil
 	self.characters = selectCharacters(self.source, self.userid)

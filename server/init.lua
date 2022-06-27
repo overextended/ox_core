@@ -9,8 +9,10 @@ SetConvarReplicated('inventory:trimplate ', 'false')
 
 SetConvarReplicated('pe-basicloading:disableAutoShutdown', 1)
 
-SetConvar('npwd:useResourceIntegration', 'true')
-SetConvar('npwd:database', json.encode({
-	playerTable = 'characters',
-	identifierColumn = 'charid',
-}))
+if Resource('npwd') then
+	SetConvar('npwd:useResourceIntegration', 'true')
+	SetConvar('npwd:database', json.encode({
+		playerTable = 'characters',
+		identifierColumn = 'charid',
+	}))
+end

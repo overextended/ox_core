@@ -68,12 +68,14 @@ AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     end
 end)
 
+local npwd = Resource('npwd') and exports.npwd
+
 RegisterNetEvent('ox:selectCharacter', function(data)
 	local player = Player(source)
 	local character
 
 	if type(data) == 'table' then
-		local phoneNumber = exports.npwd:generatePhoneNumber()
+		local phoneNumber = npwd and exports.npwd:generatePhoneNumber()
 		character = {
 			firstname = data.firstName,
 			lastname = data.lastName,

@@ -4,3 +4,8 @@ Ox = setmetatable({}, {
 		rawset(self, name, fn)
 	end
 })
+
+function Resource(name)
+	return GetResourceState(name) ~= 'missing'
+end
+end
