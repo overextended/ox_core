@@ -129,15 +129,9 @@ function CVehicle:__index(index, ...)
 	local export = VehicleExports[index]
 
 	if export then
-		if type(export) == 'function' then
-			return export(self.entity, index, ...)
-		end
-
-		CVehicle[index] = function(...)
+		return function(...)
 			return ox_core:CVehicle(self.entity, index, ...)
 		end
-
-		return CVehicle[index]
 	end
 end
 
