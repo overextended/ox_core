@@ -205,6 +205,7 @@ function CPlayer:logout()
 	self.characters = selectCharacters(self.source, self.userid)
 
 	TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
+	TriggerClientEvent('ox:playerLogout', self.source)
 end
 
 ---Return player metadata.
