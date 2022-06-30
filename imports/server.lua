@@ -15,7 +15,13 @@ Ox = setmetatable({}, {
 -----------------------------------------------------------------------------------------------
 
 local CPlayer = {}
-local PlayerExports = Ox.PlayerExports()
+local PlayerExports = {}
+setmetatable(PlayerExports, {
+	__index = function(_, index)
+		PlayerExports = Ox.PlayerExports()
+		return PlayerExports[index]
+	end
+})
 
 function CPlayer:__index(index, ...)
 	local method = CPlayer[index]
@@ -115,7 +121,13 @@ end
 -----------------------------------------------------------------------------------------------
 
 local CVehicle = {}
-local VehicleExports = Ox.VehicleExports()
+local VehicleExports = {}
+setmetatable(VehicleExports, {
+	__index = function(_, index)
+		VehicleExports = Ox.VehicleExports()
+		return VehicleExports[index]
+	end
+})
 
 function CVehicle:__index(index, ...)
 	local method = CVehicle[index]
