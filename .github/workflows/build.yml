@@ -72,7 +72,7 @@ jobs:
                   mkdir -p ./temp/ox_core
                   mkdir -p ./temp/ox_core/web
                   cp ./{LICENSE,README.md,database.sql,fxmanifest.lua} ./temp/ox_core
-                  cp -r ./{client,server,shared,imports} ./temp/ox_core
+                  cp -r ./{client,server,shared,imports,files} ./temp/ox_core
                   cp -r ./web/build ./temp/ox_core/web/build
                   cd ./temp && zip -r ../ox_core.zip ./ox_core
             - name: Create Release
@@ -81,7 +81,7 @@ jobs:
               with:
                   repo_token: "${{ secrets.GITHUB_TOKEN }}"
                   title: "${{ env.RELEASE_VERSION }}"
-                  prerelease: false
+                  prerelease: true
                   files: ox_core.zip
 
               env:
