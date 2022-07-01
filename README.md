@@ -1,14 +1,18 @@
 ## Do not use in production, and do not expect support.
+
 The base features aren't even implemented yet, and there's a lot of code that will be rewritten.
 If you go make something just for API to change, it'll be on you to work out the changes.
 
+https://overextended.github.io/docs/ox_core/
+
 ## Third-party resources
-If you create a resoure that is dependent on ox_core, ox_accounts, etc. *do not use the ox_ prefix*.
-Doing so adds confusion about the resource creator and can lead to multiple resources existing with the name _ox_banking_ or similar.
+
+We ask that any resources you create _do not use the ox prefix_.
+Doing so adds confusion about the resource creator and can lead to multiple resources existing with the name (i.e. ox_banking).
 
 ---
 
-Sample to showcase playerdata, player methods, groups, and vehicles.
+Server-side sample.
 
 ```lua
 CreateThread(function()
@@ -44,49 +48,66 @@ CreateThread(function()
         -- }, player.getCoords(), GetEntityHeading(player.ped))
 
         -- Select the first owned vehicle from the database.
-        local vehicleId = MySQL.scalar.await('SELECT id FROM vehicles WHERE owner = ? LIMIT 1', { player.charid })
+    end
+end)
 
-        if vehicleId then
-            local coords = player.getCoords()
+RegisterCommand('getveh', function(source)
+	-- Get the player ref for source.
+    local player = Ox.GetPlayer(source)
 
-            -- Spawn it
-            local vehicle = Ox.CreateVehicle(vehicleId,
-                vector3(coords.x + math.random(-10, 10), coords.y + math.random(-10, 10), coords.z + math.random(-10, 10))
-                , GetEntityHeading(player.ped))
+	-- Select the first vehicle owned by the current character.
+    local vehicleId = MySQL.scalar.await('SELECT id FROM vehicles WHERE owner = ? LIMIT 1', { player.charid })
 
-            if vehicle then
-                -- Print the vehicle table.
-                print(json.encode(vehicle, { indent = true }))
+    if vehicleId then
+        local coords = player.getCoords()
 
-                -- Print the vehicle metadata.
-                print(json.encode(vehicle.get(), { indent = true }))
+        -- Spawn it
+        local vehicle = Ox.CreateVehicle(vehicleId, vector3(coords.x, coords.y + 3.0, coords.z + 1.0), GetEntityHeading(player.ped))
 
-                print(vehicle.getCoords())
-            end
+        if vehicle then
+            -- Print the vehicle table.
+            print(json.encode(vehicle, { indent = true }))
+
+            -- Print the vehicle metadata.
+            print(json.encode(vehicle.get(), { indent = true }))
+
+            print(vehicle.getCoords())
+
         end
     end
+end)
+
+RegisterNetEvent('saveProperties', function(netid, data)
+    local vehicle = Ox.GetVehicle(netid)
+
+	-- Set properties in the vehicle's metadata.
+    vehicle.set('properties', data)
+
+	-- Save and despawn the vehicle.
+    vehicle.store()
 end)
 
 ```
 
 ![image](https://user-images.githubusercontent.com/65407488/174664196-181ffe51-a21f-40c2-9ffa-7d582f7de876.png)
 
+Client-side sample.
 
-Work-in-progress JS support.
+```lua
+RegisterCommand('saveveh', function()
+    if not cache.vehicle then return end
 
-```js
-const player = Ox.GetPlayers()[0];
+	local data = lib.getVehicleProperties(cache.vehicle)
+	TriggerServerEvent('saveProperties', VehToNet(cache.vehicle), data)
+end)
 
-if (player) {
-  console.log(player);
+local function init()
+    print(json.encode(player, { indent = true }))
+    print(player.hasGroup('police'))
+    print(player.getCoords())
+end
 
-  const data = player.get();
-  console.log(data);
+RegisterNetEvent('ox:playerLoaded', init)
 
-  console.log(player.getPed());
-  console.log(player.getCoords());
-
-  const [group, grade] = player.hasGroup({ mem: 3, police: 1 });
-  console.log(group, grade);
-}
+if player then CreateThread(init) end
 ```
