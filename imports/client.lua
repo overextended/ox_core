@@ -1,5 +1,3 @@
-if not lib.player then lib.player() end
-
 local ox_core = exports.ox_core
 
 Ox = setmetatable({}, {
@@ -12,40 +10,48 @@ Ox = setmetatable({}, {
     end
 })
 
-local CPlayer = lib.getPlayer()
+-----------------------------------------------------------------------------------------------
+--	Player
+-----------------------------------------------------------------------------------------------
 
-function lib.getPlayer()
-	return setmetatable({
-		id = cache.playerId,
-		serverId = cache.serverId,
-	}, CPlayer)
-end
+local CPlayer = {}
+local PlayerExports = {}
+setmetatable(PlayerExports, {
+	__index = function(_, index)
+		PlayerExports = Ox.PlayerExports()
+		return PlayerExports[index]
+	end
+})
 
-local function registerNetEvent(event, fn)
-	RegisterNetEvent(event, function(...)
-		if source ~= '' then fn(...) end
-	end)
-end
+function CPlayer:__index(index, ...)
+	local method = CPlayer[index]
 
-if Ox.IsPlayerLoaded() then
-	player = lib.getPlayer()
+	if method then
+		return function(...)
+			return method(self, ...)
+		end
+	end
 
-	for k, v in pairs(Ox.GetPlayerData()) do
-		player[k] = v
+	local export = PlayerExports[index]
+
+	if export then
+		return function(...)
+			return ox_core:CPlayer(index, ...)
+		end
 	end
 end
 
-registerNetEvent('ox:playerLoaded', function(data)
-	player = lib.getPlayer()
+function CPlayer:getPed()
+	return cache.ped
+end
 
-	for k, v in pairs(data) do
-		player[k] = v
+function CPlayer:getCoords(update)
+	if update or not self.coords then
+		self.coords = GetEntityCoords(cache.ped)
 	end
-end)
 
-registerNetEvent('ox:setGroup', function(name, grade)
-	player.groups[name] = grade
-end)
+	return self.coords
+end
 
 function CPlayer:hasGroup(filter)
 	local type = type(filter)
@@ -81,3 +87,25 @@ function CPlayer:hasGroup(filter)
 		error(("received '%s' when checking player group"):format(filter))
 	end
 end
+
+if Ox.IsPlayerLoaded() then
+	player = setmetatable(Ox.GetPlayerData(), CPlayer)
+end
+
+local function registerNetEvent(event, fn)
+	RegisterNetEvent(event, function(...)
+		if source ~= '' then fn(...) end
+	end)
+end
+
+registerNetEvent('ox:playerLoaded', function(data)
+	player = setmetatable(data, CPlayer)
+end)
+
+registerNetEvent('ox:playerLogout', function()
+	player = nil
+end)
+
+registerNetEvent('ox:setGroup', function(name, grade)
+	player.groups[name] = grade
+end)
