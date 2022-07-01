@@ -88,8 +88,10 @@ function CPlayer:hasGroup(filter)
 	end
 end
 
-if Ox.IsPlayerLoaded() then
-	player = setmetatable(Ox.GetPlayerData(), CPlayer)
+player = Ox.GetPlayerData()
+
+if player then
+	player = setmetatable(player, CPlayer)
 end
 
 local function registerNetEvent(event, fn)

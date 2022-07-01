@@ -155,7 +155,6 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	SetPlayerData(data)
 
 	cache.ped = PlayerPedId()
-	PlayerData.loaded = true
 
 	if PlayerData.dead then
 		OnPlayerDeath(true)
