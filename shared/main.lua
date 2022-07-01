@@ -13,7 +13,7 @@ function json.load(file)
 	local t = json.decode(LoadResourceFile(cache.resource, file))
 
 	if not t then
-		error(('An unknown error occured while loading @%s/files/%s'):format(cache.resource, file), 2)
+		error(('An unknown error occured while loading @%s/%s'):format(cache.resource, file), 2)
 	end
 
 	return t
