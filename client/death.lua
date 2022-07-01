@@ -13,7 +13,7 @@ local anims = {
 	{'dead', 'dead_a'},
 }
 
-function OnPlayerDeath(PlayerData, login)
+function OnPlayerDeath(login)
 	PlayerData.dead = true
 
 	for i = 1, #anims do

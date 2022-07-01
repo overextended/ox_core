@@ -152,14 +152,13 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	while IsPlayerTeleportActive() do Wait(0) end
 
 	NetworkEndTutorialSession()
+	SetPlayerData(data)
 
-	PlayerData = data
-	PlayerData.id = PlayerId()
 	cache.ped = PlayerPedId()
 	PlayerData.loaded = true
 
 	if PlayerData.dead then
-		OnPlayerDeath(PlayerData, true)
+		OnPlayerDeath(true)
 	end
 
 	while PlayerData.loaded do
@@ -167,7 +166,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		cache.ped = PlayerPedId()
 
 		if not PlayerData.dead and IsPedDeadOrDying(cache.ped) then
-			OnPlayerDeath(PlayerData)
+			OnPlayerDeath()
 		end
 	end
 end)

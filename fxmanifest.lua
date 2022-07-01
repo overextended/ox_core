@@ -26,9 +26,9 @@ shared_scripts {
 client_scripts {
     'client/init.lua',
 	'client/events.lua',
+    'client/player.lua',
     'client/spawn.lua',
     'client/death.lua',
-    'client/main.lua',
 }
 
 server_scripts {
