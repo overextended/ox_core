@@ -179,6 +179,10 @@ function Ox.CreateVehicle(data, coords, heading)
 		local vehicle = MySQL.prepare.await(Query.SELECT_VEHICLE, { data })
 		vehicle.data = json.decode(vehicle.data)
 
+		if not Ox.GetVehicleData(vehicle.model) then
+			error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
+		end
+
 		return spawnVehicle(data, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords, heading or 90.0)
 	end
 
@@ -195,6 +199,10 @@ function Ox.CreateVehicle(data, coords, heading)
 	local stored = data.stored
 	local plate = Ox.GeneratePlate()
 	local modelData = Ox.GetVehicleData(model)
+
+	if not modelData then
+		error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
+	end
 
 	data = {
 		properties = data.properties or {}
