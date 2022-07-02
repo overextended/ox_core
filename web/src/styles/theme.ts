@@ -25,13 +25,22 @@ export const theme = extendTheme({
             borderRadius: 0,
             borderLeft: 'none',
             borderTop: 'none',
-            borderRight: 'none'
-          }
-        }
+            borderRight: 'none',
+          },
+        },
       },
       defaultProps: {
-        variant: "outline"
-      }
+        variant: 'outline',
+      },
+    },
+    Modal: {
+      baseStyle: {
+        dialog: {
+          borderRadius: 'none',
+          bg: 'rgba(0, 0, 0, 0.4)',
+          boxShadow: 'none',
+        },
+      },
     },
   },
   colors: {
