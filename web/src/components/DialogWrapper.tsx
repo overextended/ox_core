@@ -24,8 +24,8 @@ const DialogWrapper: React.FC<Props> = (props) => {
       w="100%"
       h="100%"
       direction="column"
-      justifyContent="center"
-      alignItems={location.pathname === '/create' ? 'center' : 'flex-end'}
+      justifyContent={location.pathname === '/select' ? 'flex-start' : 'center'}
+      alignItems="center"
     >
       <Routes>
         <Route path="/" element={<></>} />

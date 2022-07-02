@@ -40,33 +40,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
         >
           <Text fontSize="lg">{`${props.character.firstname} ${props.character.lastname}`}</Text>
           <Spacer />
-          <Box p={1}>
-            <Text fontWeight="bold">Gender</Text>
-            <Text>{firstToUpper(props.character.gender)}</Text>
-          </Box>
-          <Spacer />
-          <Box p={1}>
-            <Text fontWeight="bold">Date of Birth</Text>
-            <Text>{props.character.dateofbirth}</Text>
-          </Box>
-          <Spacer />
-          {props.character.phone_number && (
-            <Box p={1}>
-              <Text fontWeight="bold">Phone Number</Text>
-              <Text>{props.character.phone_number}</Text>
-            </Box>
-          )}
-          <Spacer />
-          {props.character.groups &&
-            props.character.groups.length > 0 &&
-            props.character.groups[0] !== '' && (
-              <Box maxW="80%" p={1}>
-                <Text fontWeight="bold">Groups</Text>
-                <Text>{props.character.groups.join(', ')}</Text>
-              </Box>
-            )}
-          <Spacer />
-          <Box mb={1} p={1}>
+          <Box mb={1} p={1} mt={3}>
             <Button
               mr={1}
               _hover={{ bg: 'green.500' }}
