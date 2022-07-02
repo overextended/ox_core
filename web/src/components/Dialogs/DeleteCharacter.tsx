@@ -78,34 +78,6 @@ const DeleteCharacter: React.FC<Props> = (props) => {
         </ModalFooter>
       </ModalContent>
     </Modal>
-    // <ScaleFade in={props.visible} unmountOnExit>
-    //   <Box bg={theme.colors.sideHover} w="100%" h="fit-content" fontFamily="Poppins">
-    //     <VStack textAlign="center" p={1}>
-    //       <Text fontSize="lg">Delete Character</Text>
-    //       <Text fontWeight="bold">{`${props.character.firstname}  ${props.character.lastname}`}</Text>
-    //       <Text fontWeight="bold" color="red.600">
-    //         This action is irreversible
-    //       </Text>
-    //     </VStack>
-    //     <HStack align="center" justify="center" p={3}>
-    //       <Button
-    //         _hover={{ bg: 'green.500' }}
-    //         _focus={{ bg: 'green.500' }}
-    //         isDisabled={disableDelete}
-    //         onClick={() => handleDelete()}
-    //       >
-    //         Delete
-    //       </Button>
-    //       <Button
-    //         _hover={{ bg: 'red.500' }}
-    //         _focus={{ bg: 'red.500' }}
-    //         onClick={() => props.setVisible(false)}
-    //       >
-    //         Cancel
-    //       </Button>
-    //     </HStack>
-    //   </Box>
-    // </ScaleFade>
   );
 };
 
