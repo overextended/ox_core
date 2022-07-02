@@ -20,12 +20,14 @@ lib.addCommand('group.admin', 'car', function(source, args)
 		model = args.model,
 	}, GetEntityCoords(ped), GetEntityHeading(ped))
 
-	local timeout = 50
-	repeat
+	for i = 1, 50 do
 		Wait(0)
-		timeout -= 1
 		SetPedIntoVehicle(ped, vehicle.entity, -1)
-	until GetVehiclePedIsIn(ped, false) == vehicle.entity or timeout < 1
+
+		if GetVehiclePedIsIn(ped, false) == vehicle.entity then
+			break
+		end
+	end
 end, {'model:string', 'owner:?number'})
 
 lib.addCommand('group.admin', 'dv', function(source, args)
