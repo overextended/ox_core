@@ -16,14 +16,14 @@ interface Props {
 const Sidebar: React.FC<Props> = (props) => {
   return (
     <Box
-      position="absolute"
+      position="fixed"
       left="0"
       top="0"
       w="fit-content"
-      h="100vh"
+      h="100%"
       bg="linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);"
     >
-      <Flex direction="column" h="100%" overflowY="scroll">
+      <Box overflowY="scroll" height="90%">
         <Flex
           fontFamily="Poppins"
           direction="column"
@@ -37,7 +37,9 @@ const Sidebar: React.FC<Props> = (props) => {
             setDeleteVisible={props.setDeleteVisible}
           />
         </Flex>
-        <Spacer />
+      </Box>
+      <Spacer />
+      <Flex height="10%" justifyContent="center" alignItems="center">
         <Link to="/create">
           <Button
             leftIcon={<BsFillPersonPlusFill />}
@@ -50,7 +52,7 @@ const Sidebar: React.FC<Props> = (props) => {
             _hover={{ bg: theme.colors.sideHover }}
             onClick={() => props.setCreateVisible(true)}
           >
-            Create new character
+            Create a character
           </Button>
         </Link>
       </Flex>
