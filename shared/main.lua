@@ -5,6 +5,10 @@ Ox = setmetatable({}, {
 	end
 })
 
+Shared = {
+	CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
+}
+
 function Resource(name)
 	return GetResourceState(name) ~= 'missing'
 end
