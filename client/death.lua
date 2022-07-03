@@ -14,7 +14,7 @@ local anims = {
 }
 
 function OnPlayerDeath(login)
-	PlayerData.dead = true
+	player.dead = true
 
 	for i = 1, #anims do
 		lib.requestAnimDict(anims[i][1])
@@ -60,7 +60,7 @@ function OnPlayerDeath(login)
 	end
 
 	CreateThread(function()
-		while PlayerData.dead do
+		while player.dead do
 			DisableFirstPersonCamThisFrame()
 			Wait(0)
 		end
@@ -76,15 +76,15 @@ function OnPlayerDeath(login)
 
 	SetEntityInvincible(cache.ped, true)
 	SetEntityHealth(cache.ped, 100)
-	SetPlayerHealthRechargeMultiplier(PlayerId(), 0.0)
-	SetEveryoneIgnorePlayer(PlayerId(), true)
+	SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
+	SetEveryoneIgnorePlayer(cache.playerId, true)
 
 	local playerState = LocalPlayer.state
 	playerState.dead = true
 	local timeout = 50
 	local bleedOut
 
-	while PlayerData.dead do
+	while player.dead do
 		local anim = cache.vehicle and anims[2] or anims[1]
 
 		if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
@@ -93,7 +93,7 @@ function OnPlayerDeath(login)
 
 		timeout -= 1
 		if timeout < 1 then
-			PlayerData.dead = false
+			player.dead = false
 			bleedOut = true
 		end
 
@@ -133,8 +133,8 @@ function OnPlayerDeath(login)
 	ClearPedBloodDamage(cache.ped)
 	SetEntityHealth(cache.ped, GetEntityMaxHealth(cache.ped))
 	SetEntityInvincible(cache.ped, false)
-	SetPlayerHealthRechargeMultiplier(PlayerId(), 1.0)
-	SetEveryoneIgnorePlayer(PlayerId(), false)
+	SetPlayerHealthRechargeMultiplier(cache.playerId, 1.0)
+	SetEveryoneIgnorePlayer(cache.playerId, false)
 
 	AnimpostfxStop('DeathFailOut')
 	Wait(2000)

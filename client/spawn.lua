@@ -5,7 +5,7 @@ RegisterNUICallback('ox:setCharacter', function(data, cb)
 	cb(1)
 
 	if type(data) == 'number' then
-		data = PlayerData.appearance[data + 1]
+		data = player.appearance[data + 1]
 
 		if data then
 			exports['fivem-appearance']:setPlayerAppearance(data)
@@ -21,7 +21,7 @@ RegisterNUICallback('ox:selectCharacter', function(data, cb)
 
 	if type(data) == 'number' then
 		data += 1
-		PlayerData.appearance = PlayerData.appearance[data]
+		player.appearance = player.appearance[data]
 		Wait(200)
 		DoScreenFadeOut(200)
 	end
@@ -57,13 +57,13 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		Wait(0)
 	end
 
-	if PlayerData.id then
-		table.wipe(PlayerData)
+	if cache.playerId then
+		table.wipe(player)
 		TriggerEvent('ox:playerLogout')
 	end
 
 	CreateThread(function()
-		while not PlayerData.loaded do
+		while not player.loaded do
 			DisableAllControlActions(0)
 			ThefeedHideThisFrame()
 			HideHudAndRadarThisFrame()
@@ -78,13 +78,11 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		DoScreenFadeIn(200)
 		SetMaxWantedLevel(0)
 		NetworkSetFriendlyFireOption(true)
-		SetPlayerInvincible(PlayerData.id, false)
+		SetPlayerInvincible(cache.playerId, false)
 	end)
 
-	PlayerData.id = PlayerId()
-
-	SetPlayerInvincible(PlayerData.id, true)
-	StartPlayerTeleport(PlayerData.id, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
+	SetPlayerInvincible(cache.playerId, true)
+	StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 
 	while IsPlayerTeleportActive() do Wait(0) end
 
@@ -103,12 +101,12 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	RenderScriptCams(cam, false, 0, true, true)
 	PointCamAtCoord(cam, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z + 0.1)
 
-	PlayerData.appearance = {}
+	player.appearance = {}
 
 	for i = 1, #characters do
 		local character = characters[i]
 		character.location = GetLabelText(GetNameOfZone(character.x, character.y, character.z))
-		PlayerData.appearance[i] = character.appearance
+		player.appearance[i] = character.appearance
 		character.appearance = nil
 	end
 
@@ -130,7 +128,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	cam = nil
 	hidePlayer = nil
 
-	if not PlayerData.appearance or not PlayerData.appearance.model then
+	if not player.appearance or not player.appearance.model then
 		local p = promise.new()
 
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
@@ -144,9 +142,9 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	end
 
 	if spawn then
-		StartPlayerTeleport(PlayerData.id, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
+		StartPlayerTeleport(cache.playerId, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
 	else
-		StartPlayerTeleport(PlayerData.id, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
+		StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 	end
 
 	while IsPlayerTeleportActive() do Wait(0) end
@@ -156,15 +154,15 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 
 	cache.ped = PlayerPedId()
 
-	if PlayerData.dead then
+	if player.dead then
 		OnPlayerDeath(true)
 	end
 
-	while PlayerData.loaded do
+	while player.loaded do
 		Wait(200)
 		cache.ped = PlayerPedId()
 
-		if not PlayerData.dead and IsPedDeadOrDying(cache.ped) then
+		if not player.dead and IsPedDeadOrDying(cache.ped) then
 			OnPlayerDeath()
 		end
 	end

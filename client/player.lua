@@ -1,14 +1,13 @@
-PlayerData = {}
+player = {}
 local CPlayer = {}
 
 function SetPlayerData(data)
-	data.id = PlayerId()
 	data.loaded = true
-	PlayerData = setmetatable(data, CPlayer)
+	player = setmetatable(data, CPlayer)
 end
 
 NetEventHandler('ox:setGroup', function(name, grade)
-	PlayerData.groups[name] = grade
+	player.groups[name] = grade
 end)
 
 function CPlayer:__index(index)
@@ -24,11 +23,11 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CPlayer(method, ...)
-	return PlayerData[method](...)
+	return player[method](...)
 end
 
 function Ox.GetPlayerData()
-	return PlayerData.loaded and PlayerData
+	return player.loaded and player
 end
 
 function Ox.PlayerExports()

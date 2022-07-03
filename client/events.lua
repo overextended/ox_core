@@ -10,7 +10,7 @@ AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value,
 		local netId = tonumber(bagName:gsub('entity:', ''), 10)
 		local entity = NetworkGetEntityFromNetworkId(netId)
 
-		if NetworkGetEntityOwner(entity) == PlayerData.id then
+		if NetworkGetEntityOwner(entity) == cache.playerId then
 			lib.setVehicleProperties(NetToVeh(netId), value)
 			Entity(entity).state:set('vehicleProps', nil, true)
 		end
