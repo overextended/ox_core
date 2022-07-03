@@ -57,7 +57,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		Wait(0)
 	end
 
-	if cache.playerId then
+	if player.loaded then
 		table.wipe(player)
 		TriggerEvent('ox:playerLogout')
 	end
