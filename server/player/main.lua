@@ -223,6 +223,42 @@ function CPlayer:getGroup(name)
 	return self.groups[name]
 end
 
+-- Likely temporary
+function CPlayer:hasGroup(filter)
+	local type = type(filter)
+
+	if type == 'string' then
+		local grade = self.groups[filter]
+
+		if grade then
+			return filter, grade
+		end
+	elseif type == 'table' then
+		local tabletype = table.type(filter)
+
+		if tabletype == 'hash' then
+			for name, grade in pairs(filter) do
+				local playerGrade = self.groups[name]
+
+				if playerGrade and grade <= playerGrade then
+					return name, playerGrade
+				end
+			end
+		elseif tabletype == 'array' then
+			for i = 1, #filter do
+				local name = filter[i]
+				local grade = self.groups[name]
+
+				if grade then
+					return name, grade
+				end
+			end
+		end
+	else
+		error(("received '%s' when checking player group"):format(filter))
+	end
+end
+
 ---Check if another player is range of the player.
 ---@param target number
 ---@return boolean
@@ -421,16 +457,32 @@ function Ox.CPlayer(source, method, ...)
 	return Ox.GetPlayer(source)[method](...)
 end
 
+local function filterPlayer(player, filter)
+	for k, v in pairs(filter) do
+		if k == 'groups' then
+			if not player.hasGroup(v) then
+				return
+			end
+		elseif player[k] ~= v then
+			return
+		end
+	end
+
+	return true
+end
+
 ---Return all player data.
 ---@return table
-function Ox.GetPlayers()
+function Ox.GetPlayers(filter)
 	local size = 0
 	local players = {}
 
-	for _, v in pairs(Player.list) do
-		if v.charid then
-			size += 1
-			players[size] = v
+	for _, player in pairs(Player.list) do
+		if player.charid then
+			if not filter or filterPlayer(player, filter) then
+				size += 1
+				players[size] = player
+			end
 		end
 	end
 

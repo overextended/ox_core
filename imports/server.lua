@@ -69,8 +69,8 @@ end
 
 lib.getPlayer = Ox.GetPlayer
 
-function Ox.GetPlayers(usemetatable)
-	local players = ox_core:GetPlayers()
+function Ox.GetPlayers(usemetatable, filter)
+	local players = ox_core:GetPlayers(filter)
 
 	if usemetatable then
 		for i = 1, #players do
