@@ -27,6 +27,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
         w="100%"
         h="fit-content"
         p={3}
+        mt={15}
         bg={theme.colors.sideHover}
         fontFamily="Poppins"
         visibility={props.visible ? 'visible' : 'hidden'}
