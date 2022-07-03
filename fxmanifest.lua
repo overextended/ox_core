@@ -6,7 +6,7 @@ game         'gta5'
 
 --[[ Resource Information ]]--
 name         'ox_core'
-version      '0.1.2'
+version      '0.1.3'
 description  'What have I done?'
 license      'GPL-3.0-or-later'
 author       'overextended'
