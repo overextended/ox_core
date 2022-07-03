@@ -144,11 +144,9 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		Citizen.Await(p)
 	end
 
-	if spawn then
-		StartPlayerTeleport(cache.playerId, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
-	else
-		StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
-	end
+	if not spawn then spawn = Client.DEFAULT_SPAWN end
+
+	StartPlayerTeleport(cache.playerId, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
 
 	while IsPlayerTeleportActive() do Wait(0) end
 
