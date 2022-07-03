@@ -176,18 +176,7 @@ local function selectCharacters(source, userid)
 	local characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
 
 	for i = 1, #characters do
-		character = characters[i]
-		character.groups = {}
-		-- local size = 0
-
-		-- for group in pairs(groups.load(false, character.charid)) do
-		-- 	local data = groups.list[group]
-		-- 	if data then
-		-- 		size += 1
-		-- 		character.groups[size] = data.label
-		-- 	end
-		-- end
-
+		local character = characters[i]
 		character.appearance = appearance:load(source, character.charid)
 	end
 
