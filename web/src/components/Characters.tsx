@@ -18,28 +18,41 @@ interface Props {
 debugData([
   {
     action: 'sendCharacters',
-    data: [
-      {
-        firstname: 'Peter',
-        lastname: 'Linden',
-        gender: 'Male',
-        location: 'Galaxy far far away',
-        dateofbirth: '03/07/1990',
-        groups: ['Ox', 'Police'],
-        phone_number: '069-999999',
-        slot: 0,
-      },
-      {
-        firstname: 'Luke',
-        lastname: 'Lindensson',
-        gender: 'Male',
-        location: 'Pillbox Hill',
-        dateofbirth: '14/03/1984',
-        groups: ['Ox', 'Ambulance'],
-        phone_number: '069-945132',
-        slot: 1,
-      },
-    ],
+    data: {
+      characters: [
+        {
+          firstname: 'Peter',
+          lastname: 'Linden',
+          gender: 'Male',
+          location: 'Galaxy far far away',
+          dateofbirth: '03/07/1990',
+          groups: ['Ox', 'Police'],
+          phone_number: '069-999999',
+          slot: 0,
+        },
+        {
+          firstname: 'Luke',
+          lastname: 'Lindensson',
+          gender: 'Male',
+          location: 'Pillbox Hill',
+          dateofbirth: '14/03/1984',
+          groups: ['Ox', 'Ambulance'],
+          phone_number: '069-945132',
+          slot: 1,
+        },
+        {
+          firstname: 'Luke',
+          lastname: 'Lindensson',
+          gender: 'Male',
+          location: 'Pillbox Hill',
+          dateofbirth: '14/03/1984',
+          groups: ['Ox', 'Ambulance'],
+          phone_number: '069-945132',
+          slot: 1,
+        },
+      ],
+      maxSlots: 3,
+    },
   },
 ]);
 
@@ -67,8 +80,8 @@ const Characters: React.FC<Props> = (props) => {
     props.setSelectVisible(true);
   };
 
-  useNuiEvent('sendCharacters', (data: Character[]) => {
-    characters.setValue(data);
+  useNuiEvent('sendCharacters', (data: { characters: Character[]; maxSlots: number }) => {
+    characters.setValue(data.characters);
   });
 
   return (

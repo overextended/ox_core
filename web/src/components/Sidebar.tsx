@@ -1,10 +1,12 @@
-import React from 'react';
-import { Box, Flex, Spacer, Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Flex, Spacer, Button, Tooltip } from '@chakra-ui/react';
 import Characters from './Characters';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { theme } from '../styles/theme';
 import { Link } from 'react-router-dom';
 import type { Character } from '../types';
+import { useNuiEvent } from '../hooks/useNuiEvent';
+import { useCharacters } from '../providers/CharactersProvider';
 
 interface Props {
   setCreateVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +16,13 @@ interface Props {
 }
 
 const Sidebar: React.FC<Props> = (props) => {
+  const [maxSlots, setMaxSlots] = useState(0);
+  const characters = useCharacters();
+
+  useNuiEvent('sendCharacters', (data: { characters: Character[]; maxSlots: number }) =>
+    setMaxSlots(data.maxSlots)
+  );
+
   return (
     <Box
       position="fixed"
@@ -40,21 +49,28 @@ const Sidebar: React.FC<Props> = (props) => {
       </Box>
       <Spacer />
       <Flex height="10%" justifyContent="center" alignItems="center">
-        <Link to="/create">
-          <Button
-            leftIcon={<BsFillPersonPlusFill />}
-            mb={5}
-            size="lg"
-            fontFamily="Poppins"
-            fontSize="xl"
-            borderRadius="none"
-            backgroundColor="transparent"
-            _hover={{ bg: theme.colors.sideHover }}
-            onClick={() => props.setCreateVisible(true)}
-          >
-            Create a character
-          </Button>
-        </Link>
+        <Tooltip
+          isDisabled={maxSlots <= characters.value.length ? false : true}
+          label="Maximum number of slots reached"
+          hasArrow
+        >
+          <Link to="/create">
+            <Button
+              leftIcon={<BsFillPersonPlusFill />}
+              mb={5}
+              size="lg"
+              fontFamily="Poppins"
+              fontSize="xl"
+              borderRadius="none"
+              backgroundColor="transparent"
+              _hover={{ bg: theme.colors.sideHover }}
+              onClick={() => props.setCreateVisible(true)}
+              isDisabled={maxSlots <= characters.value.length ? true : false}
+            >
+              Create a character
+            </Button>
+          </Link>
+        </Tooltip>
       </Flex>
     </Box>
   );

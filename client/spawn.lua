@@ -112,7 +112,10 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 	SendNUIMessage({
 		action = 'sendCharacters',
-		data = characters
+		data = {
+			characters = characters,
+			maxSlots = Shared.CHARACTER_SLOTS
+		}
 	})
 
 	DoScreenFadeIn(500)
