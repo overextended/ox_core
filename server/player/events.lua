@@ -79,9 +79,6 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 		character = {
 			firstname = data.firstName,
 			lastname = data.lastName,
-			gender = data.gender,
-			dateofbirth = data.date,
-			phone_number = phoneNumber,
 			charid = Player.registerCharacter(player.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber)
 		}
 	elseif type(data) == 'number' and data < 10 then
@@ -94,9 +91,6 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 	player.charid = character.charid
 	player.firstname = character.firstname
 	player.lastname = character.lastname
-	player.gender = character.gender
-	player.dateofbirth = character.dateofbirth
-	player.phone_number = character.phone_number
 
 	Player.loaded(player, character)
 end)

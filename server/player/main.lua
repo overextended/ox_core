@@ -1,8 +1,8 @@
 local Query = {
 	SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(Server.PRIMARY_IDENTIFIER),
 	INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
-	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
-	SELECT_CHARACTER = 'SELECT is_dead FROM characters WHERE charid = ?',
+	SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ?',
+	SELECT_CHARACTER = 'SELECT is_dead, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number FROM characters WHERE charid = ?',
 	INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
 	UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ?, is_dead = ?, last_played = ? WHERE charid = ?',
 	DELETE_CHARACTER = 'DELETE FROM characters WHERE charid = ?',
@@ -87,12 +87,10 @@ end
 
 ---Load groups for the player's current character.
 function CPlayer:loadGroups()
-	local results = MySQL.prepare.await(Query.SELECT_USER_GROUPS, { self.charid })
+	local results = MySQL.query.await(Query.SELECT_USER_GROUPS, { self.charid })
 	self.groups = {}
 
 	if results then
-		if not results[1] then results = { results } end
-
 		for i = 1, #results do
 			local data = results[i]
 			local group = Ox.GetGroup(data.name)
@@ -123,7 +121,7 @@ function CPlayer:save()
 			coords.z,
 			GetEntityHeading(self.ped),
 			json.encode(ox_inventory:Inventory(self.source)?.items or {}),
-			self.dead,
+			self.dead or false,
 			os.date('%Y-%m-%d', os.time()),
 			self.charid
 		})
@@ -189,7 +187,7 @@ function CPlayer:logout()
 		npwd:unloadPlayer(self.source)
 	end
 
-	self.save(true)
+	self.save()
 	self.charid = nil
 	self.characters = selectCharacters(self.source, self.userid)
 
@@ -248,7 +246,7 @@ setmetatable(Player, {
 	end,
 
 	__sub = function(self, player)
-		if player.charid then player.save(true) end
+		if player.charid then player.save() end
 
 		TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
 		self.list[player.source] = nil
@@ -270,7 +268,7 @@ function Player.new(source)
 	if not Player(source) then
 		local identifiers = Ox.GetIdentifiers(source)
 		local primary = identifiers[Server.PRIMARY_IDENTIFIER]
-		local userid = MySQL.prepare.await(Query.SELECT_USERID, { primary })
+		local userid = MySQL.scalar.await(Query.SELECT_USERID, { primary })
 		local username = GetPlayerName(source)
 
 		if not userid then
@@ -328,7 +326,7 @@ function Player.saveAll()
 				coords.z,
 				GetEntityHeading(entity),
 				inventory,
-				player.dead,
+				player.dead or false,
 				date,
 				player.charid
 			}
@@ -349,7 +347,7 @@ end
 ---@param phone_number number
 ---@return unknown
 function Player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
-	return MySQL.insert.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
+	return MySQL.prepare.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
 ---Remove character data from the database.
@@ -363,9 +361,14 @@ end
 ---@param self CPlayer
 ---@param character table
 function Player.loaded(self, character)
-	appearance:load(self.source, self.charid)
-	-- currently returns a single value; will require iteration for more data
-	self.dead = MySQL.prepare.await(Query.SELECT_CHARACTER, { self.charid }) == 1
+	local result = MySQL.single.await(Query.SELECT_CHARACTER, { self.charid })
+	self.dead = result.is_dead
+	result.is_dead = nil
+
+	for k, v in pairs(result) do
+		playerData[self.source][k] = v
+	end
+
 	self.name = ('%s %s'):format(self.firstname, self.lastname)
 	self.loadGroups()
 
@@ -376,6 +379,7 @@ function Player.loaded(self, character)
 	local state = self:getState()
 	state:set('dead', self.dead, true)
 	state:set('name', self.name, true)
+	appearance:load(self.source, self.charid)
 
 	TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
 	TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
