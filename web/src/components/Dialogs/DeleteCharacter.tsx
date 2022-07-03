@@ -42,7 +42,12 @@ const DeleteCharacter: React.FC<Props> = (props) => {
   }, [props.visible, props.character]);
 
   return (
-    <Modal isOpen={props.visible} onClose={() => props.setVisible(false)} closeOnEsc={false}>
+    <Modal
+      isOpen={props.visible}
+      onClose={() => props.setVisible(false)}
+      closeOnEsc={false}
+      autoFocus={false}
+    >
       <ModalOverlay />
       <ModalContent maxW={250}>
         <ModalBody p={3}>
