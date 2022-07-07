@@ -258,13 +258,7 @@ end
 ---@param entity number
 ---@return table
 function Ox.GetVehicle(entity)
-	local vehicle = Vehicle(entity) or Vehicle(NetworkGetEntityFromNetworkId(entity))
-
-	if vehicle then
-		return vehicle
-	end
-
-	error(("no vehicle exists with id '%s'"):format(source))
+	return Vehicle(entity) or Vehicle(NetworkGetEntityFromNetworkId(entity))
 end
 
 ---API entry point for triggering vehicle methods.
@@ -273,7 +267,8 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CVehicle(entity, method, ...)
-	return Ox.GetVehicle(entity)[method](...)
+	local vehicle = Ox.GetVehicle(entity)
+	return vehicle and vehicle[method](...)
 end
 
 ---Return all vehicle data.

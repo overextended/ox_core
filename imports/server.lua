@@ -157,12 +157,7 @@ end
 
 function Ox.GetVehicle(vehicle)
 	vehicle = type(vehicle) == 'table' and vehicle.entity or ox_core:GetVehicle(vehicle)
-
-	if not vehicle then
-		error(("no vehicle exists with id '%s'"):format(vehicle))
-	end
-
-	return setmetatable(vehicle, CVehicle)
+	return vehicle and setmetatable(vehicle, CVehicle)
 end
 
 function Ox.CreateVehicle(data, coords, heading)
