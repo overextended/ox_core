@@ -4,7 +4,7 @@ local Query = {
 	PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
 	SELECT_VEHICLE = 'SELECT owner, model, type, data FROM vehicles WHERE id = ?',
 	UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?',
-	UPDATE_VEHICLE = 'UPDATE vehicles SET stored = ?, data = ? WHERE id = ?',
+	UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
 	SELECT_MODEL_DATA = 'SELECT name, make, type, bodytype, class, price, doors, seats, weapons FROM vehicle_data WHERE model = ?'
 }
 
@@ -31,6 +31,10 @@ function CVehicle:get(index)
 end
 
 function CVehicle:set(index, value)
+	if index == 'properties' and value.plate then
+		self.plate = value.plate
+	end
+
 	vehicleData[self.entity][index] = value
 end
 
@@ -53,7 +57,7 @@ end
 
 function CVehicle:store(value)
 	if self.owner ~= false then
-		MySQL.prepare(Query.UPDATE_VEHICLE, { value or 'impound', json.encode(self.get()), self.id })
+		MySQL.prepare(Query.UPDATE_VEHICLE, { value or 'impound', self.plate, json.encode(self.get()), self.id })
 	end
 
 	self.despawn()
