@@ -160,6 +160,11 @@ function Ox.GetVehicle(vehicle)
 	return vehicle and setmetatable(vehicle, CVehicle)
 end
 
+function Ox.GetVehicleFromNetId(vehicle)
+	vehicle = ox_core:GetVehicleFromNetId(vehicle)
+	return vehicle and setmetatable(vehicle, CVehicle)
+end
+
 function Ox.CreateVehicle(data, coords, heading)
 	local vehicle = ox_core:CreateVehicle(data, coords, heading)
 	return setmetatable(vehicle, CVehicle)

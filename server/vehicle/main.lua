@@ -254,11 +254,18 @@ function Ox.VehicleExports()
 	}
 end
 
----Return vehicle data for the given entity or network id.
+---Return vehicle data for the given entity id.
 ---@param entity number
 ---@return table
 function Ox.GetVehicle(entity)
-	return Vehicle(entity) or Vehicle(NetworkGetEntityFromNetworkId(entity))
+	return Vehicle(entity)
+end
+
+---Return vehicle data for the given network id.
+---@param netId number
+---@return table
+function Ox.GetVehicleFromNetId(netId)
+	return Vehicle(NetworkGetEntityFromNetworkId(netId))
 end
 
 ---API entry point for triggering vehicle methods.
@@ -267,7 +274,7 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CVehicle(entity, method, ...)
-	local vehicle = Ox.GetVehicle(entity)
+	local vehicle = Vehicle(entity)
 	return vehicle and vehicle[method](...)
 end
 
