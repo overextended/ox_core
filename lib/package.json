@@ -1,0 +1,29 @@
+{
+  "name": "@overextended/ox_core",
+  "version": "0.1.3",
+  "author": "Overextended",
+  "types": "./server/index.d.ts",
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "keywords": [
+    "fivem",
+    "ox_core",
+    "ox",
+    "overextended"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overextended/ox_core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/overextended/oxmysql/issues"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@citizenfx/server": "2.0.5722-1",
+    "@types/node": "^18.0.3",
+    "typescript": "^4.7.4"
+  }
+}
+

@@ -1,6 +1,15 @@
 const exp = exports.ox_core.CVehicle;
 
-export class CVehicle {
+interface ICVehicle {
+  owner: number;
+  id: number;
+  netid: number;
+  entity: number;
+  model: string;
+  script: string;
+}
+
+export class CVehicle implements ICVehicle {
   owner: number;
   id: number;
   netid: number;
@@ -8,7 +17,7 @@ export class CVehicle {
   model: string;
   script: string;
 
-  constructor(data: CVehicle) {
+  constructor(data: ICVehicle) {
     this.owner = data.owner;
     this.id = data.id;
     this.netid = data.netid;
@@ -41,8 +50,9 @@ export class CVehicle {
   }
 }
 
-export function GetVehicle(vehicle: any) {
-  vehicle = vehicle?.entity ? vehicle : exports.ox_core.GetPlayer(vehicle);
+export function GetVehicle(vehicle: number | ICVehicle) {
+  vehicle =
+    typeof vehicle === "object" && vehicle?.entity ? vehicle : (exports.ox_core.GetPlayer(vehicle) as ICVehicle);
   return new CVehicle(vehicle);
 }
 
@@ -51,17 +61,18 @@ export function GetVehicleFromNetId(netid: number) {
   return GetVehicle(entity);
 }
 
+// TODO: objectify the unobjectified coords object
 export async function CreateVehicle(
-  data: Object,
+  data: { model: string; stored: number; properties?: { [key: string]: any }; owner?: string },
   coords: Object,
   heading: number
 ) {
-  const vehicle = await exports.ox_core.CreateVehicle(data, coords, heading);
+  const vehicle: ICVehicle = await exports.ox_core.CreateVehicle(data, coords, heading);
   return new CVehicle(vehicle);
 }
 
 export function GetVehicles(useclass?: boolean) {
-  const vehicles = exports.ox_core.GetVehicles();
+  const vehicles: CVehicle[] = exports.ox_core.GetVehicles();
 
   if (useclass) {
     for (let i = 0; i === vehicles.length - 1; i++) {

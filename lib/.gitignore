@@ -6,3 +6,11 @@
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+server/*.js
+server/*.js.map
+server/*.d.ts
+
+client/*.js
+client/*.js.map
+client/*.d.ts

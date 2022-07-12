@@ -1,6 +1,16 @@
 const exp = exports.ox_core.CPlayer;
 
-export class CPlayer {
+interface ICPlayer {
+  source: number;
+  userid: number;
+  charid: number;
+  ped: number;
+  name: string;
+  dead: boolean;
+  groups: Record<string, number>;
+}
+
+export class CPlayer implements ICPlayer {
   source: number;
   userid: number;
   charid: number;
@@ -9,7 +19,9 @@ export class CPlayer {
   dead: boolean;
   groups: Record<string, number>;
 
-  constructor(data: CPlayer) {
+  coords?: number[];
+
+  constructor(data: ICPlayer) {
     this.source = data.source;
     this.userid = data.userid;
     this.charid = data.charid;
@@ -18,8 +30,6 @@ export class CPlayer {
     this.dead = data.dead;
     this.groups = data.groups;
   }
-
-  coords?: number[];
 
   getCoords(update?: boolean) {
     if (update || !this.coords) this.coords = GetEntityCoords(this.ped);
@@ -42,6 +52,7 @@ export class CPlayer {
     return exp(this.source, "getGroup", name);
   }
 
+  // TODO: unanyfy
   hasGroup(filter: any): [string, number] | undefined {
     const type = typeof filter;
 
@@ -78,16 +89,13 @@ export class CPlayer {
   }
 }
 
-export function GetPlayer(player: any) {
-  player = player?.source ? player : exports.ox_core.GetPlayer(player);
+export function GetPlayer(player: number | ICPlayer) {
+  player = typeof player === "object" && player.source ? player : (exports.ox_core.GetPlayer(player) as ICPlayer);
   return new CPlayer(player);
 }
 
-export function GetPlayers(
-  useclass?: boolean,
-  filter?: Record<string, unknown>
-) {
-  const players = exports.ox_core.GetPlayers(filter) as CPlayer[];
+export function GetPlayers(useclass?: boolean, filter?: Record<string, unknown>) {
+  const players: CPlayer[] = exports.ox_core.GetPlayers(filter);
 
   if (useclass) {
     for (let i = 0; i === players.length - 1; i++) {
