@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"@citizenfx/server": "2.0.5722-1",
+		"@types/node": "^18.0.3"
+	}
+}

@@ -1,0 +1,19 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@citizenfx/server': 2.0.5722-1
+  '@types/node': ^18.0.3
+
+dependencies:
+  '@citizenfx/server': 2.0.5722-1
+  '@types/node': 18.0.3
+
+packages:
+
+  /@citizenfx/server/2.0.5722-1:
+    resolution: {integrity: sha512-IOxEyGEGua5N6KxR4Y5VAejtQ/HPezw2F5X2REshx/zTxr7mkQIiT4nqLMmBa/0tz8j370JpO65C158+maxWiQ==}
+    dev: false
+
+  /@types/node/18.0.3:
+    resolution: {integrity: sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==}
+    dev: false
