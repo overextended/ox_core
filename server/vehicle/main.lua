@@ -167,7 +167,12 @@ function Ox.CreateVehicle(data, coords, heading)
 		do
 			local type = type(coords)
 
-			if type ~= 'vector3' then
+			if type == 'table' then
+				if coords[1] then
+					coords = vector3(coords[1], coords[2], coords[3])
+				end
+			elseif type ~= 'vector3' then
+
 				error(("Expected coords to be 'vector3' but received '%s' instead"):format(type))
 			end
 		end
