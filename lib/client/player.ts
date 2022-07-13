@@ -24,8 +24,8 @@ export class CPlayer implements ICPlayer {
     return this.coords;
   }
 
-  hasGroup(filter: string | string[] | { [group: string]: number }): [string, number] | undefined {
-    if (typeof filter === "string" && !Array.isArray(filter)) {
+  hasGroup(filter: string | string[] | Record<string, number>): [string, number] | undefined {
+    if (typeof filter === "string") {
       const grade = this.groups[filter];
 
       if (grade) return [filter, grade];

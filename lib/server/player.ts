@@ -53,14 +53,12 @@ export class CPlayer implements ICPlayer {
   }
 
   // TODO: unanyfy
-  hasGroup(filter: any): [string, number] | undefined {
-    const type = typeof filter;
-
-    if (type === "string") {
+  hasGroup(filter: string | string[] | Record<string, number>): [string, number] | undefined {
+    if (typeof filter === "string") {
       const grade = this.groups[filter];
 
       if (grade) return [filter, grade];
-    } else if (type === "object") {
+    } else if (typeof filter === "object") {
       if (Array.isArray(filter)) {
         for (let i = 0; filter.length; i++) {
           const name = filter[i];
