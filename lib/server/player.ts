@@ -1,6 +1,6 @@
 const exp = exports.ox_core.CPlayer;
 
-interface ICPlayer {
+export class CPlayer {
   source: number;
   userid: number;
   charid: number;
@@ -8,20 +8,9 @@ interface ICPlayer {
   name: string;
   dead: boolean;
   groups: Record<string, number>;
-}
-
-export class CPlayer implements ICPlayer {
-  source: number;
-  userid: number;
-  charid: number;
-  ped: number;
-  name: string;
-  dead: boolean;
-  groups: Record<string, number>;
-
   coords?: number[];
 
-  constructor(data: ICPlayer) {
+  constructor(data: any) {
     this.source = data.source;
     this.userid = data.userid;
     this.charid = data.charid;
@@ -52,7 +41,6 @@ export class CPlayer implements ICPlayer {
     return exp(this.source, "getGroup", name);
   }
 
-  // TODO: unanyfy
   hasGroup(filter: string | string[] | Record<string, number>): [string, number] | undefined {
     if (typeof filter === "string") {
       const grade = this.groups[filter];
@@ -87,8 +75,8 @@ export class CPlayer implements ICPlayer {
   }
 }
 
-export function GetPlayer(player: number | ICPlayer) {
-  player = typeof player === "object" && player.source ? player : (exports.ox_core.GetPlayer(player) as ICPlayer);
+export function GetPlayer(player: number) {
+  player = exports.ox_core.GetPlayer(player);
   return new CPlayer(player);
 }
 
