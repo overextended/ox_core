@@ -52,7 +52,7 @@ export class CVehicle implements ICVehicle {
 
 export function GetVehicle(vehicle: number | ICVehicle) {
   vehicle =
-    typeof vehicle === "object" && vehicle?.entity ? vehicle : (exports.ox_core.GetPlayer(vehicle) as ICVehicle);
+    typeof vehicle === "object" && vehicle?.entity ? vehicle : (exports.ox_core.GetVehicle(vehicle) as ICVehicle);
   return new CVehicle(vehicle);
 }
 
@@ -61,10 +61,9 @@ export function GetVehicleFromNetId(netid: number) {
   return GetVehicle(entity);
 }
 
-// TODO: objectify the unobjectified coords object
 export async function CreateVehicle(
-  data: { model: string; stored: number; properties?: { [key: string]: any }; owner?: string },
-  coords: Object,
+  data: number | { model: string; stored: number; properties?: { [key: string]: any }; owner?: string },
+  coords: [number, number, number] | { x: number; y: number; z: number },
   heading: number
 ) {
   const vehicle: ICVehicle = await exports.ox_core.CreateVehicle(data, coords, heading);
