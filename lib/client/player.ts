@@ -1,15 +1,18 @@
-interface ICPlayer {
+export class CPlayer {
   coords: number[];
   groups: Record<string, number>;
-}
+  userid: number;
+  charid: number;
+  firstname: string;
+  lastname: string;
 
-export class CPlayer implements ICPlayer {
-  coords: number[];
-  groups: Record<string, number>;
-
-  constructor(data: ICPlayer) {
+  constructor(data: any) {
     this.coords = data.coords;
     this.groups = data.groups;
+    this.userid = data.userid;
+    this.charid = data.charid;
+    this.firstname = data.firstname;
+    this.lastname = data.lastname;
   }
 
   getPed() {
@@ -60,11 +63,11 @@ const registerNetEvent = (event: string, fn: (...args: any[]) => void) => {
   });
 };
 
-registerNetEvent("ox:playerLoaded", () => {
-  if (player) player = new CPlayer(player);
+registerNetEvent("ox:playerLoaded", (data) => {
+  player = new CPlayer(data);
 });
 
-registerNetEvent("ox:playerLoaded", () => {
+registerNetEvent("ox:playerLogout", () => {
   player = undefined;
 });
 
