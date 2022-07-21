@@ -104,10 +104,10 @@ registerNetEvent('ox:playerLoaded', function(data)
 	player = setmetatable(data, CPlayer)
 end)
 
-registerNetEvent('ox:playerLogout', function()
-	player = nil
-end)
-
 registerNetEvent('ox:setGroup', function(name, grade)
 	player.groups[name] = grade
+end)
+
+AddEventHandler('ox:playerLogout', function()
+	player = nil
 end)
