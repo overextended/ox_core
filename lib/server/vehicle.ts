@@ -62,7 +62,7 @@ export function GetVehicleFromNetId(netid: number) {
 }
 
 export async function CreateVehicle(
-  data: number | { model: string; stored: number; properties?: { [key: string]: any }; owner?: string },
+  data: number | { model: string; stored: number; properties?: { [key: string]: any }; owner?: number },
   coords: [number, number, number] | { x: number; y: number; z: number },
   heading: number
 ) {
