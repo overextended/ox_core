@@ -67,10 +67,10 @@ registerNetEvent("ox:playerLoaded", (data) => {
   player = new CPlayer(data);
 });
 
-registerNetEvent("ox:playerLogout", () => {
-  player = undefined;
-});
-
 registerNetEvent("ox:setGroup", (name: string, grade: number) => {
   if (player) player.groups[name] = grade;
+});
+
+on("ox:playerLogout", () => {
+  player = undefined;
 });
