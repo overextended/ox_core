@@ -63,21 +63,8 @@ end
 
 ---@class CPlayer
 local CPlayer = {}
+CPlayer.__index = CPlayer
 local playerData = {}
-
-function CPlayer:__index(index)
-	local value = playerData[self.source][index]
-
-	if value then
-		return value
-	end
-
-	local method = CPlayer[index]
-
-	return method and function(...)
-		return method(self, ...)
-	end
-end
 
 ---Returns the player's statebag.
 ---@return table<string, unknown>
@@ -187,7 +174,7 @@ function CPlayer:logout()
 		npwd:unloadPlayer(self.source)
 	end
 
-	self.save()
+	self:save()
 	self.charid = nil
 	self.characters = selectCharacters(self.source, self.userid)
 
@@ -263,11 +250,11 @@ end
 ---@param target number
 ---@return boolean
 function CPlayer:isPlayerInScope(target)
-	return self.get('inScope')[target]
+	return self:get('inScope')[target]
 end
 
 function CPlayer:triggerScopedEvent(eventName, ...)
-	local inScope = self.get('inScope')
+	local inScope = self:get('inScope')
 
 	for id in pairs(inScope) do
 		TriggerClientEvent(eventName, id, ...)
@@ -281,7 +268,7 @@ setmetatable(Player, {
 	end,
 
 	__sub = function(self, player)
-		if player.charid then player.save() end
+		if player.charid then player:save() end
 
 		TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
 		self.list[player.source] = nil
@@ -405,7 +392,7 @@ function Player.loaded(self, character)
 	end
 
 	self.name = ('%s %s'):format(self.firstname, self.lastname)
-	self.loadGroups()
+	self:loadGroups()
 
 	for _, load in pairs(loadResource) do
 		load(self)
@@ -454,13 +441,14 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CPlayer(source, method, ...)
-	return Ox.GetPlayer(source)[method](...)
+    local player = Player(source)
+	return player[method](player, ...)
 end
 
 local function filterPlayer(player, filter)
 	for k, v in pairs(filter) do
 		if k == 'groups' then
-			if not player.hasGroup(v) then
+			if not player:hasGroup(v) then
 				return
 			end
 		elseif player[k] ~= v then

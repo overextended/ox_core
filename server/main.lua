@@ -5,5 +5,5 @@ AddEventHandler('onResourceStop', function(resource)
 end)
 
 RegisterCommand('logout', function(source)
-	Player(source).logout()
+	Player(source):logout()
 end)
