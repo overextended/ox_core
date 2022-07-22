@@ -54,19 +54,26 @@ AddEventHandler('playerConnecting', function(_, _, deferrals)
     deferrals.done()
 end)
 
+local function onServerShutdown()
+    if not serverLockdown then
+        serverLockdown = 'The server is about to restart. You cannot join at this time.'
+    end
+
+    Player.saveAll()
+
+    for playerId, player in pairs(Player.list) do
+        player.charid = nil
+        DropPlayer(playerId, 'Server is restarting.')
+    end
+end
+
 AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
     if eventData.secondsRemaining == 60 then
         serverLockdown = 'The server is about to restart. You cannot join at this time.'
-
-        Wait(40000)
-        Player.saveAll()
-
-        for playerId, player in pairs(Player.list) do
-            player.charid = nil
-            DropPlayer(playerId, 'Server is restarting.')
-        end
     end
 end)
+
+AddEventHandler('txAdmin:events:serverShuttingDown', onServerShutdown)
 
 local npwd = Resource('npwd') and exports.npwd
 
