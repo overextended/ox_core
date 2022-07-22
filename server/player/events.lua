@@ -114,5 +114,5 @@ end)
 RegisterNetEvent('ox:playerDeath', function(dead)
     local player = Player(source)
     player.dead = dead
-    player.getState().dead = dead
+    player:getState().dead = dead
 end)
