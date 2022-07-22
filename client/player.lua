@@ -1,21 +1,23 @@
 player = {}
 local CPlayer = {}
+CPlayer.__index = CPlayer
+local data = {}
 
 function SetPlayerData(data)
-	data.loaded = true
-	player = setmetatable(data, CPlayer)
+    data.loaded = true
+    player = setmetatable(data, CPlayer)
 end
 
 NetEventHandler('ox:setGroup', function(name, grade)
-	player.groups[name] = grade
+    player.groups[name] = grade
 end)
 
-function CPlayer:__index(index)
-	local method = CPlayer[index]
+NetEventHandler('ox:setPlayerData', function(index, value)
+    data[index] = value
+end)
 
-	return method and function(...)
-		return method(self, ...)
-	end
+function CPlayer:get(index)
+    return data[index]
 end
 
 ---API entry point for triggering player methods.
@@ -23,13 +25,16 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CPlayer(method, ...)
-	return player[method](...)
+    method = CPlayer[method]
+    return method and method(player, ...)
 end
 
 function Ox.GetPlayerData()
-	return player.loaded and player
+    return player.loaded and player
 end
 
 function Ox.PlayerExports()
-	return {}
+    return {
+        get = true
+    }
 end
