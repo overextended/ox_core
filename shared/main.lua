@@ -1,24 +1,24 @@
 Ox = setmetatable({}, {
-	__newindex = function(self, name, fn)
-		exports(name, fn)
-		rawset(self, name, fn)
-	end
+    __newindex = function(self, name, fn)
+        exports(name, fn)
+        rawset(self, name, fn)
+    end
 })
 
 Shared = {
-	CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
+    CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
 }
 
 function Resource(name)
-	return GetResourceState(name) ~= 'missing'
+    return GetResourceState(name) ~= 'missing'
 end
 
 function json.load(file)
-	local t = json.decode(LoadResourceFile(cache.resource, file))
+    local t = json.decode(LoadResourceFile(cache.resource, file))
 
-	if not t then
-		error(('An unknown error occured while loading @%s/%s'):format(cache.resource, file), 2)
-	end
+    if not t then
+        error(('An unknown error occured while loading @%s/%s'):format(cache.resource, file), 2)
+    end
 
-	return t
+    return t
 end

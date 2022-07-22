@@ -1,20 +1,20 @@
 function NetEventHandler(event, fn)
-	RegisterNetEvent(event, function(...)
-		if source ~= '' then fn(...) end
-	end)
+    RegisterNetEvent(event, function(...)
+        if source ~= '' then fn(...) end
+    end)
 end
 
 AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value, reserved, replicated)
     if value then
-		Wait(0)
-		local netId = tonumber(bagName:gsub('entity:', ''), 10)
-		local entity = NetworkGetEntityFromNetworkId(netId)
+        Wait(0)
+        local netId = tonumber(bagName:gsub('entity:', ''), 10)
+        local entity = NetworkGetEntityFromNetworkId(netId)
 
-		if NetworkGetEntityOwner(entity) == cache.playerId then
-			lib.setVehicleProperties(NetToVeh(netId), value)
-			Entity(entity).state:set('vehicleProps', nil, true)
-		end
-	end
+        if NetworkGetEntityOwner(entity) == cache.playerId then
+            lib.setVehicleProperties(NetToVeh(netId), value)
+            Entity(entity).state:set('vehicleProps', nil, true)
+        end
+    end
 end)
 
 lib.callback.register('ox:getNearbyVehicles', function(radius)

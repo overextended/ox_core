@@ -1,5 +1,5 @@
 Server = {
-	PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'fivem'),
+    PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'fivem'),
 }
 
 SetRoutingBucketEntityLockdownMode(0, 'relaxed')
@@ -10,9 +10,9 @@ SetConvarReplicated('inventory:trimplate ', 'false')
 SetConvarReplicated('pe-basicloading:disableAutoShutdown', 1)
 
 if Resource('npwd') then
-	SetConvar('npwd:useResourceIntegration', 'true')
-	SetConvar('npwd:database', json.encode({
-		playerTable = 'characters',
-		identifierColumn = 'charid',
-	}))
+    SetConvar('npwd:useResourceIntegration', 'true')
+    SetConvar('npwd:database', json.encode({
+        playerTable = 'characters',
+        identifierColumn = 'charid',
+    }))
 end
