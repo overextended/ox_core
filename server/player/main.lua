@@ -174,6 +174,8 @@ function CPlayer:logout()
 		npwd:unloadPlayer(self.source)
 	end
 
+    TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+
 	self:save()
 	self.charid = nil
 	self.characters = selectCharacters(self.source, self.userid)
