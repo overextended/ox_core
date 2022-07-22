@@ -70,6 +70,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 			if hidePlayer then
 				SetLocalPlayerInvisibleLocally(true)
+                SetPedAoBlobRendering(cache.ped, false)
 			end
 
 			Wait(0)
@@ -128,12 +129,15 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cam, false)
+    SetLocalPlayerInvisibleLocally(false)
+    SetPedAoBlobRendering(cache.ped, true)
 	cam = nil
 	hidePlayer = nil
 
 	if not player.appearance or not player.appearance.model then
 		local p = promise.new()
 
+        exports['fivem-appearance']:setPlayerAppearance({ model = 'mp_m_freemode_01' })
 		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('ox_appearance:save', appearance)
