@@ -123,7 +123,7 @@ end, {'target:number', 'group:string', 'grade:number'})
 
 ---Return data associated with the given group name.
 ---@param name string
----@return unknown
+---@return table?
 function Ox.GetGroup(name)
 	local group = groups[name]
 
@@ -131,6 +131,6 @@ function Ox.GetGroup(name)
 		return groups[name]
 	end
 
-	error(("no group exists with name '%s'"):format(name))
+	print(("^1no group exists with name '%s'^0"):format(name))
 end
 
