@@ -9,7 +9,7 @@ local Query = {
 	SELECT_USER_GROUPS = 'SELECT name, grade FROM user_groups WHERE charid = ?',
 }
 
-CfxPlayer = Player
+local cfxPlayer = Player
 Player = {
 	count = 0,
 	list = {},
@@ -69,7 +69,7 @@ local playerData = {}
 ---Returns the player's statebag.
 ---@return table<string, unknown>
 function CPlayer:getState()
-	return CfxPlayer(self.source).state
+	return cfxPlayer(self.source).state
 end
 
 ---Load groups for the player's current character.
@@ -194,8 +194,12 @@ end
 ---Updates player metadata with the new value.
 ---@param index string
 ---@param value any
-function CPlayer:set(index, value)
+function CPlayer:set(index, value, replicate)
 	playerData[self.source][index] = value
+
+    if replicate then
+        TriggerClientEvent('ox:setPlayerData', self.source, index, value)
+    end
 end
 
 ---Updates the player's grade in the given group.
