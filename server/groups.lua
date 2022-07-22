@@ -15,6 +15,7 @@ CGroup.__index = CGroup
 function CGroup:add(player, grade)
 	lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
 	player.groups[self.name] = grade
+    GlobalState[('%s:count'):format(self.name)] += 1
 end
 
 ---Removes a player from a group and revokes permissions.
@@ -23,6 +24,7 @@ end
 function CGroup:remove(player, grade)
 	lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
 	player.groups[self.name] = nil
+    GlobalState[('%s:count'):format(self.name)] -= 1
 end
 
 ---Sets a players grade in a group and updates their permissions.
@@ -106,6 +108,7 @@ local function loadGroups()
 		}, CGroup)
 
 		GlobalState[principal] = groups[group.name]
+        GlobalState[('%s:count'):format(group.name)] = 0
 	end
 end
 
