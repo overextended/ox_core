@@ -25,12 +25,12 @@ export class CPlayer {
     return this.coords;
   }
 
-  set(index: string, value: any) {
-    exp(this.source, "set", index, value);
+  set(key: string, value: any) {
+    exp(this.source, "set", key, value);
   }
 
-  get(index?: string): any {
-    return exp(this.source, "get", index);
+  get(key?: string): any {
+    return exp(this.source, "get", key);
   }
 
   setGroup(name: string, grade: number) {

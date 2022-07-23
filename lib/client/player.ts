@@ -1,3 +1,5 @@
+const exp = exports.ox_core.CPlayer;
+
 export class CPlayer {
   coords: number[];
   groups: Record<string, number>;
@@ -50,6 +52,10 @@ export class CPlayer {
         }
       }
     }
+  }
+
+  get(key?: string): any {
+    return exp("get", key);
   }
 }
 
