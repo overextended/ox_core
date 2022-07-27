@@ -34,7 +34,9 @@ function CAccount:__index(index)
 end
 
 function Ox.GetAccounts(owner)
-    return setmetatable(ox_core:GetAccounts(owner), CAccount)
+    return setmetatable({
+        owner = owner
+    }, CAccount)
 end
 
 -----------------------------------------------------------------------------------------------

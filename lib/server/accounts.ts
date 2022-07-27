@@ -25,6 +25,5 @@ export class CAccount {
 }
 
 export function GetAccounts(owner: number | string) {
-  const accounts = exports.ox_core.GetAccounts(owner);
-  return new CAccount(accounts);
+  return new CAccount({ owner: owner });
 }

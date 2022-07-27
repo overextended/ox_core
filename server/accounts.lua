@@ -13,7 +13,8 @@ local accounts = {}
 ---@param owner number | string
 ---@param account string
 local function fetchAccount(owner, account)
-    return MySQL.prepare.await(type(owner) == 'number' and Query.SELECT_USER_ACCOUNT or Query.SELECT_GROUP_ACCOUNT, { owner, account })
+    return MySQL.prepare.await(type(owner) == 'number' and Query.SELECT_USER_ACCOUNT or Query.SELECT_GROUP_ACCOUNT,
+        { owner, account })
 end
 
 ---Updates the balance of an account in the database.
@@ -21,7 +22,8 @@ end
 ---@param account string
 ---@param balance number
 local function saveAccount(owner, account, balance)
-    MySQL.prepare(type(owner) == 'number' and Query.UPDATE_USER_ACCOUNT or Query.UPDATE_GROUP_ACCOUNT, { owner, account, balance })
+    MySQL.prepare(type(owner) == 'number' and Query.UPDATE_USER_ACCOUNT or Query.UPDATE_GROUP_ACCOUNT,
+        { owner, account, balance })
 end
 
 ---@class CAccount
@@ -83,7 +85,7 @@ end
 
 ---@param owner number|string The owner's character id, or a group name.
 ---@return CAccount
-function Ox.GetAccounts(owner)
+local function getAccounts(owner)
     if not accounts[owner] then
         local ownerType = type(owner)
 
@@ -122,6 +124,6 @@ end
 ---@param ... unknown
 ---@return unknown
 function Ox.CAccount(source, method, ...)
-    local _accounts = Ox.GetAccounts(source)
+    local _accounts = getAccounts(source)
     return _accounts[method](_accounts, ...)
 end
