@@ -107,14 +107,21 @@ function Ox.GetAccounts(owner)
     return accounts[owner]
 end
 
--- CreateThread(function()
---     local userAccounts = Ox.GetAccounts(1)
---     print(userAccounts:get('maze'))
---     userAccounts:add('maze', 300)
---     print(userAccounts:get('maze'))
+function Ox.AccountExports()
+    return {
+        get = true,
+        set = true,
+        add = true,
+        remove = true,
+    }
+end
 
---     local groupAccounts = Ox.GetAccounts('police')
---     print(groupAccounts:get('maze'))
---     groupAccounts:add('maze', 300)
---     print(groupAccounts:get('maze'))
--- end)
+---API entry point for triggering account methods.
+---@param source number
+---@param method string
+---@param ... unknown
+---@return unknown
+function Ox.CAccount(source, method, ...)
+    local _accounts = Ox.GetAccounts(source)
+    return _accounts[method](_accounts, ...)
+end
