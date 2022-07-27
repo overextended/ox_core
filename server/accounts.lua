@@ -8,22 +8,45 @@ local Query = {
 }
 
 local accounts = {}
+local saveTimeout
 
 ---Fetch the balance of an account in the database.
+---After 60 seconds, accounts will be synced and unloaded.
 ---@param owner number | string
 ---@param account string
-local function fetchAccount(owner, account)
-    return MySQL.prepare.await(type(owner) == 'number' and Query.SELECT_USER_ACCOUNT or Query.SELECT_GROUP_ACCOUNT,
-        { owner, account })
-end
+local function fetchAccount(shared, owner, account)
+    if not saveTimeout then
+        saveTimeout = true
 
----Updates the balance of an account in the database.
----@param owner number | string
----@param account string
----@param balance number
-local function saveAccount(owner, account, balance)
-    MySQL.prepare(type(owner) == 'number' and Query.UPDATE_USER_ACCOUNT or Query.UPDATE_GROUP_ACCOUNT,
-        { owner, account, balance })
+        SetTimeout(60000, function()
+            local parameters = { {}, {} }
+
+            for owner, _accounts in pairs(accounts) do
+                local index = _accounts.__shared and 1 or 2
+                local arr = parameters[index]
+
+                for account, balance in pairs(_accounts) do
+                      if not account:find('^__') then
+                        arr[#arr + 1] = { owner, account, balance }
+                    end
+                end
+            end
+
+            accounts = {}
+
+            if #parameters[1] > 0 then
+                MySQL.prepare(Query.UPDATE_GROUP_ACCOUNT, parameters[1])
+            end
+
+            if #parameters[2] > 0 then
+                MySQL.prepare(Query.UPDATE_USER_ACCOUNT, parameters[2])
+            end
+
+            saveTimeout = false
+        end)
+    end
+
+    return MySQL.prepare.await(shared and Query.SELECT_GROUP_ACCOUNT or Query.SELECT_USER_ACCOUNT, { owner, account })
 end
 
 ---@class CAccount
@@ -38,7 +61,7 @@ function CAccount:get(account)
 
     if balance then return balance end
 
-    self[account] = fetchAccount(self.owner, account) or 0
+    self[account] = fetchAccount(self.__shared, self.__owner, account) or 0
 
     return self[account]
 end
@@ -47,40 +70,37 @@ end
 ---@param account string
 ---@param amount number
 function CAccount:set(account, amount)
-    if account == self.owner then return end
+    if account:find('^__') then return end
     amount = math.floor(amount + 0.5)
     self[account] = amount
-    saveAccount(self.owner, account, amount)
 end
 
 ---Adds the specified amount to the account's balance.
 ---@param account string
 ---@param amount number
 function CAccount:add(account, amount)
-    if account == self.owner then return end
+    if account:find('^__') then return end
     amount = math.floor(amount + 0.5)
 
     if not self[account] then
-        self[account] = fetchAccount(self.owner, account) or 0
+        self[account] = fetchAccount(self.__shared, self.__owner, account) or 0
     end
 
     self[account] += amount
-    saveAccount(self.owner, account, self[account])
 end
 
 ---Removes the specified amount from the account's balance.
 ---@param account string
 ---@param amount number
 function CAccount:remove(account, amount)
-    if account == self.owner then return end
+    if account:find('^__') then return end
     amount = math.floor(amount + 0.5)
 
     if not self[account] then
-        self[account] = fetchAccount(self.owner, account) or 0
+        self[account] = fetchAccount(self.__shared, self.__owner, account) or 0
     end
 
     self[account] -= amount
-    saveAccount(self.owner, account, self[account])
 end
 
 ---@param owner number|string The owner's character id, or a group name.
@@ -102,7 +122,8 @@ local function getAccounts(owner)
         end
 
         accounts[owner] = setmetatable({
-            owner = owner
+            __owner = owner,
+            __shared = ownerType == 'string',
         }, CAccount)
     end
 
