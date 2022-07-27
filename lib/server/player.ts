@@ -1,3 +1,5 @@
+import { GetAccounts } from './accounts';
+
 const exp = exports.ox_core.CPlayer;
 
 export class CPlayer {
@@ -72,6 +74,10 @@ export class CPlayer {
 
   triggerScopedEvent(eventName: string, ...args: any) {
     exp(this.source, "triggerScopedEvent", eventName, ...args);
+  }
+
+  getAccounts() {
+    return GetAccounts(this.charid);
   }
 }
 
