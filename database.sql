@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
-  `inventory` longtext NOT NULL DEFAULwT '[]',
+  `inventory` longtext NOT NULL DEFAULT '[]',
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE CASCADE
