@@ -11,6 +11,33 @@ Ox = setmetatable({}, {
 })
 
 -----------------------------------------------------------------------------------------------
+-- Accounts
+-----------------------------------------------------------------------------------------------
+
+local CAccount = {}
+local AccountExports = {}
+setmetatable(AccountExports, {
+    __index = function(_, index)
+        AccountExports = Ox.AccountExports()
+        return AccountExports[index]
+    end
+})
+
+function CAccount:__index(index)
+    local export = AccountExports[index]
+
+    if export then
+        return function(...)
+            return ox_core:CAccount(self.owner, index, ...)
+        end
+    end
+end
+
+function Ox.GetAccounts(owner)
+    return setmetatable(ox_core:GetAccounts(owner), CAccount)
+end
+
+-----------------------------------------------------------------------------------------------
 -- Player
 -----------------------------------------------------------------------------------------------
 
@@ -23,7 +50,7 @@ setmetatable(PlayerExports, {
     end
 })
 
-function CPlayer:__index(index, ...)
+function CPlayer:__index(index)
     local method = CPlayer[index]
 
     if method then
@@ -116,6 +143,10 @@ function CPlayer:hasGroup(filter)
     end
 end
 
+function CPlayer:getAccounts()
+    return Ox.GetAccounts(self.charid)
+end
+
 -----------------------------------------------------------------------------------------------
 -- Vehicle
 -----------------------------------------------------------------------------------------------
@@ -129,7 +160,7 @@ setmetatable(VehicleExports, {
     end
 })
 
-function CVehicle:__index(index, ...)
+function CVehicle:__index(index)
     local method = CVehicle[index]
 
     if method then
