@@ -36,6 +36,7 @@ server_scripts {
     'server/init.lua',
     'server/functions.lua',
     'server/groups.lua',
+    'server/accounts.lua',
     'server/player/events.lua',
     'server/player/main.lua',
     'server/vehicle/main.lua',
