@@ -12,7 +12,7 @@ AddEventHandler('playerEnteredScope', function(data)
     local player = Player(source)
 
     if player then
-        local inScope = player.get('inScope')
+        local inScope = player:get('inScope')
         inScope[target] = true
     end
 end)
@@ -23,7 +23,7 @@ AddEventHandler('playerLeftScope', function(data)
     local player = Player(source)
 
     if player then
-        local inScope = player.get('inScope')
+        local inScope = player:get('inScope')
         inScope[target] = nil
     end
 end)
