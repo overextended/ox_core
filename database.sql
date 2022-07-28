@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `user_accounts` (
   `charid` int(11) UNSIGNED NOT NULL,
   `account` varchar(50) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT 0,
-  UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
+  UNIQUE KEY `account` (`account`, `charid`) USING BTREE,
   KEY `FK_user_accounts_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_user_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -76,14 +76,13 @@ VALUES (
   );
 
 CREATE TABLE `group_accounts` (
-	`group` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`account` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
-	`balance` INT(11) NOT NULL DEFAULT '0',
-	UNIQUE INDEX `account` (`account`, `group`) USING BTREE,
-	INDEX `FK_group_accounts_ox_groups` (`group`) USING BTREE,
-	CONSTRAINT `FK_group_accounts_ox_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB;
-
+  `group` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+  `account` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+  `balance` INT(11) NOT NULL DEFAULT '0',
+  UNIQUE INDEX `account` (`account`, `group`) USING BTREE,
+  INDEX `FK_group_accounts_ox_groups` (`group`) USING BTREE,
+  CONSTRAINT `FK_group_accounts_ox_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `user_groups` (
   `charid` int(11) UNSIGNED NOT NULL,
