@@ -179,7 +179,14 @@ function CPlayer:logout()
     self:save()
     self.charid = nil
     self.characters = selectCharacters(self.source, self.userid)
-    playerData[self.source] = nil
+    local data = playerData[self.source]
+
+    playerData[self.source] = {
+        license = data.license,
+        steam = data.steam,
+        fivem = data.fivem,
+        discord = data.discord,
+    }
 
     TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
