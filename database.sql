@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 CREATE TABLE IF NOT EXISTS `user_accounts` (
   `charid` int(11) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
   `account` varchar(50) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT 0,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
