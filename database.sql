@@ -54,10 +54,9 @@ CREATE TABLE IF NOT EXISTS `characters` (
 
 CREATE TABLE IF NOT EXISTS `user_accounts` (
   `charid` int(11) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
   `account` varchar(50) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT 0,
-  UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
+  UNIQUE KEY `account` (`account`, `charid`) USING BTREE,
   KEY `FK_user_accounts_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_user_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
