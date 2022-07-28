@@ -174,11 +174,12 @@ function CPlayer:logout()
         npwd:unloadPlayer(self.source)
     end
 
-    TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+    TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
 
     self:save()
     self.charid = nil
     self.characters = selectCharacters(self.source, self.userid)
+    playerData[self.source] = nil
 
     TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
 end
@@ -277,6 +278,7 @@ setmetatable(Player, {
         if player.charid then player:save() end
 
         TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+        playerData[player.source] = nil
         self.list[player.source] = nil
         self.count -= 1
     end,
