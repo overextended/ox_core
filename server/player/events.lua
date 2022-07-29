@@ -123,3 +123,15 @@ RegisterNetEvent('ox:playerDeath', function(dead)
     player.dead = dead
     player:getState().dead = dead
 end)
+
+RegisterNetEvent('ox:setPlayerInService', function(job)
+    local player = Player(source)
+    if not player then return end
+
+    if job and player.groups[job] then
+        return player:set('inService', job)
+    end
+
+    player:set('inService', false)
+end)
+
