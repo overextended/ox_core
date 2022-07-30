@@ -1,11 +1,10 @@
 local Query = {
     DELETE_VEHICLE = 'DELETE FROM vehicles WHERE id = ?',
-    INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, type, data, stored) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)',
     PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-    SELECT_VEHICLE = 'SELECT owner, model, type, data FROM vehicles WHERE id = ?',
+    SELECT_VEHICLE = 'SELECT owner, model, data FROM vehicles WHERE id = ?',
     UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?',
     UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
-    SELECT_MODEL_DATA = 'SELECT name, make, type, bodytype, class, price, doors, seats, weapons FROM vehicle_data WHERE model = ?'
 }
 
 local CVehicle = {}
@@ -226,7 +225,7 @@ function Ox.CreateVehicle(data, coords, heading)
     local vehicleId
 
     if owner ~= false then
-        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, modelData.type, json.encode(data), stored or 'false' })
+        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, json.encode(data), stored or 'false' })
     end
 
     if stored then
