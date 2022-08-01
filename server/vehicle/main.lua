@@ -2,7 +2,7 @@ local Query = {
     DELETE_VEHICLE = 'DELETE FROM vehicles WHERE id = ?',
     INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)',
     PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-    SELECT_VEHICLE = 'SELECT owner, plate, model, data FROM vehicles WHERE id = ?',
+    SELECT_VEHICLE = 'SELECT owner, plate, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL',
     UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?',
     UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
 }
@@ -189,6 +189,11 @@ function Ox.CreateVehicle(data, coords, heading)
         end
 
         local vehicle = MySQL.prepare.await(Query.SELECT_VEHICLE, { data })
+
+        if not vehicle then
+            error(("Failed to spawn vehicle with id '%s' (invalid id or already spawned)"):format(data))
+        end
+
         vehicle.data = json.decode(vehicle.data)
 
         if not Ox.GetVehicleData(vehicle.model) then
