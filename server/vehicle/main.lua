@@ -93,7 +93,7 @@ function Vehicle.saveAll(resource)
         if not resource or resource == vehicle.script then
             if vehicle.owner ~= false then
                 size += 1
-                parameters[size] = { 'impound', json.encode(vehicle.get()), vehicle.id }
+                parameters[size] = { vehicle.plate, 'impound', json.encode(vehicle.get()), vehicle.id }
             end
 
             if resource then
@@ -143,7 +143,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
         end
 
         if owner ~= false then
-            MySQL.prepare(Query.UPDATE_STORED, { 'false', self.id })
+            MySQL.prepare(Query.UPDATE_STORED, { nil, self.id })
         end
 
         return Vehicle + self
@@ -225,7 +225,7 @@ function Ox.CreateVehicle(data, coords, heading)
     local vehicleId
 
     if owner ~= false then
-        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, json.encode(data), stored or 'false' })
+        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, json.encode(data), stored })
     end
 
     if stored then

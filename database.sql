@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `data` LONGTEXT NOT NULL,
   `trunk` LONGTEXT NULL DEFAULT NULL,
   `glovebox` LONGTEXT NULL DEFAULT NULL,
-  `stored` VARCHAR(50) NOT NULL DEFAULT 'false',
+  `stored` VARCHAR(50) NULL DEFAULT 'false',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `plate` (`plate`) USING BTREE,
   INDEX `FK_vehicles_characters` (`owner`) USING BTREE,
