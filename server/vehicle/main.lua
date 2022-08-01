@@ -56,7 +56,7 @@ end
 
 function CVehicle:store(value)
     if self.owner ~= false then
-        MySQL.prepare(Query.UPDATE_VEHICLE, { value or 'impound', self.plate, json.encode(self.get()), self.id })
+        MySQL.prepare(Query.UPDATE_VEHICLE, { self.plate, value or 'impound', json.encode(self.get()), self.id })
     end
 
     self.despawn()
