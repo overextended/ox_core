@@ -5,6 +5,11 @@ Features are still missinng, and we are awaiting feedback and suggestions to fur
 
 https://overextended.github.io/docs/ox_core/
 
+## Database
+
+Only [MariaDB](https://mariadb.com/downloads/) is officially supported.
+We cannot guarantee older versions of MySQL will work as expected, and guarantee MySQL 8 is incompatible.
+
 ## Third-party resources
 
 We ask that any resources you create _do not use the ox prefix_.
