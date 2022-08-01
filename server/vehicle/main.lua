@@ -2,7 +2,7 @@ local Query = {
     DELETE_VEHICLE = 'DELETE FROM vehicles WHERE id = ?',
     INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)',
     PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-    SELECT_VEHICLE = 'SELECT owner, model, data FROM vehicles WHERE id = ?',
+    SELECT_VEHICLE = 'SELECT owner, plate, model, data FROM vehicles WHERE id = ?',
     UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?',
     UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
 }
