@@ -7,6 +7,10 @@ local Query = {
     UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
 }
 
+MySQL.ready(function()
+    MySQL.query('UPDATE vehicles SET stored = ? WHERE stored IS NULL', { 'impound' })
+end)
+
 local CVehicle = {}
 local vehicleData = {}
 
