@@ -196,7 +196,7 @@ end
 ---@return unknown
 function CPlayer:get(index)
     local data = playerData[self.source]
-    return data[index] or data
+    return index and data[index] or data
 end
 
 ---Updates player metadata with the new value.

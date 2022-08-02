@@ -30,7 +30,7 @@ end
 
 function CVehicle:get(index)
     local data = vehicleData[self.entity]
-    return data[index] or data
+    return index and data[index] or data
 end
 
 function CVehicle:set(index, value)
