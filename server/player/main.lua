@@ -461,12 +461,14 @@ function Ox.CPlayer(source, method, ...)
 end
 
 local function filterPlayer(player, filter)
+    local metadata = player:get()
+
     for k, v in pairs(filter) do
         if k == 'groups' then
             if not player:hasGroup(v) then
                 return
             end
-        elseif player[k] ~= v then
+        elseif player[k] ~= v and metadata[k] ~= v then
             return
         end
     end
