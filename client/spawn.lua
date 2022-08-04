@@ -60,6 +60,8 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	if player.loaded then
 		table.wipe(player)
 		TriggerEvent('ox:playerLogout')
+		ClearPedTasks(cache.ped)
+        Wait(500)
 	end
 
 	CreateThread(function()
