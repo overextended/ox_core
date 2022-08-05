@@ -1,6 +1,6 @@
 {
   "name": "@overextended/ox_core",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "Overextended",
   "description": "Player and vehicle wrapper for ox_core",
   "types": "./server/index.d.ts",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/overextended/oxmysql/issues"
   },
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",

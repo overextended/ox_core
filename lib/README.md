@@ -16,7 +16,7 @@ npm install @overextended/ox_core
 ```
 
 ## Usage
-Modules are split into client and server ones.  
+Modules are split into client and server ones.
 You can look at type declaration files for exported functions that you can use.
 
 ### Example
@@ -38,6 +38,3 @@ console.log(player?.groups)
 
 ## Documentation
 [View documentation](https://overextended.github.io/docs/ox_core)
-
-## License
-GPL-3.0

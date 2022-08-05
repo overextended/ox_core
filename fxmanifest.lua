@@ -8,7 +8,7 @@ game         'gta5'
 name         'ox_core'
 version      '0.4.2'
 description  'What have I done?'
-license      'GPL-3.0-or-later'
+license      'MIT'
 author       'overextended'
 repository   'https://github.com/overextended/ox_core'
 
