@@ -1,5 +1,5 @@
 AddEventHandler('onResourceStop', function(resource)
-    if resource == 'ox_core' or resource == 'ox_inventory'then
+    if resource == 'ox_core' then
         Player.saveAll()
     end
 end)

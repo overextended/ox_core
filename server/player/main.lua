@@ -4,7 +4,7 @@ local Query = {
     SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ? AND deleted IS NULL',
     SELECT_CHARACTER = 'SELECT is_dead, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number FROM characters WHERE charid = ?',
     INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
-    UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, inventory = ?, is_dead = ?, last_played = ? WHERE charid = ?',
+    UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ? WHERE charid = ?',
     DELETE_CHARACTER = 'UPDATE characters SET deleted = curdate() WHERE charid = ?',
     SELECT_USER_GROUPS = 'SELECT name, grade FROM user_groups WHERE charid = ?',
 }
@@ -108,7 +108,6 @@ function CPlayer:save()
             coords.y,
             coords.z,
             GetEntityHeading(self.ped),
-            json.encode(ox_inventory:Inventory(self.source)?.items or {}),
             self.dead or false,
             os.date('%Y-%m-%d', os.time()),
             self.charid
@@ -353,14 +352,12 @@ function Player.saveAll()
             size += 1
             local entity = GetPlayerPed(playerId)
             local coords = GetEntityCoords(entity)
-            local inventory = json.encode(ox_inventory:Inventory(playerId)?.items or {})
 
             parameters[size] = {
                 coords.x,
                 coords.y,
                 coords.z,
                 GetEntityHeading(entity),
-                inventory,
                 player.dead or false,
                 date,
                 player.charid
