@@ -1,10 +1,10 @@
 local hospitals = {
-    vec(340.5, -1396.8, 32.5, 60.1),
-    vec(-449.3, -340.2, 34.5, 76.2),
-    vec(295.6, -583.9, 43.2, 79.5),
-    vec(1840.1, 3670.7, 33.9, 207.6),
-    vec(1153.2, -1526.4, 34.8, 352.4),
-    vec(-244.7, 6328.3, 32.4, 242.1),
+    vec4(340.5, -1396.8, 32.5, 60.1),
+    vec4(-449.3, -340.2, 34.5, 76.2),
+    vec4(295.6, -583.9, 43.2, 79.5),
+    vec4(1840.1, 3670.7, 33.9, 207.6),
+    vec4(1153.2, -1526.4, 34.8, 352.4),
+    vec4(-244.7, 6328.3, 32.4, 242.1),
 }
 
 local anims = {
@@ -66,7 +66,7 @@ function OnPlayerDeath(login)
         end
     end)
 
-    local coords = GetEntityCoords(cache.ped)
+    local coords = GetEntityCoords(cache.ped) --[[@as vector]]
 
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
 
@@ -100,7 +100,7 @@ function OnPlayerDeath(login)
         Wait(200)
     end
 
-    coords = vec(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped))
+    coords = vec4(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped)) --[[@as vector]]
 
     if bleedOut then
         local closest, distance = {}
@@ -115,7 +115,7 @@ function OnPlayerDeath(login)
             end
         end
 
-        coords = closest.coords
+        coords = closest.coords --[[@as vector]]
     end
 
     DoScreenFadeOut(800)

@@ -84,7 +84,7 @@ Vehicle = setmetatable({
 })
 
 ---Save all vehicles for the resource and despawn them.
----@param resource string
+---@param resource string?
 function Vehicle.saveAll(resource)
     if resource == cache.resource then
         resource = nil
@@ -112,6 +112,7 @@ function Vehicle.saveAll(resource)
         MySQL.prepare(Query.UPDATE_VEHICLE, parameters)
     end
 end
+
 AddEventHandler('onResourceStop', Vehicle.saveAll)
 
 ---@param id number
@@ -122,7 +123,7 @@ AddEventHandler('onResourceStop', Vehicle.saveAll)
 ---@param data table
 ---@param coords vector3
 ---@param heading number
----@return number
+---@return number?
 local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
     local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
@@ -150,7 +151,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
             MySQL.prepare(Query.UPDATE_STORED, { nil, self.id })
         end
 
-        return Vehicle + self
+        return Vehicle + self --[[@as number]]
     end
 end
 
@@ -160,9 +161,9 @@ end
 
 ---Loads a vehicle from the database by id, or creates a new vehicle using provided data.
 ---@param data table | number
----@param coords? vector3
+---@param coords vector3
 ---@param heading? number
----@return number
+---@return number?
 function Ox.CreateVehicle(data, coords, heading)
     local script = GetInvokingResource()
 
@@ -175,7 +176,6 @@ function Ox.CreateVehicle(data, coords, heading)
                     coords = vector3(coords[1], coords[2], coords[3])
                 end
             elseif type ~= 'vector3' then
-
                 error(("Expected coords to be 'vector3' but received '%s' instead"):format(type))
             end
         end
@@ -194,13 +194,14 @@ function Ox.CreateVehicle(data, coords, heading)
             error(("Failed to spawn vehicle with id '%s' (invalid id or already spawned)"):format(data))
         end
 
-        vehicle.data = json.decode(vehicle.data)
+        vehicle.data = json.decode(vehicle.data--[[@as string]] )
 
         if not Ox.GetVehicleData(vehicle.model) then
             error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
         end
 
-        return spawnVehicle(data, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords, heading or 90.0)
+        return spawnVehicle(data, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords,
+            heading or 90.0)
     end
 
     do
@@ -211,7 +212,7 @@ function Ox.CreateVehicle(data, coords, heading)
         end
     end
 
-    local owner = data.owner or false
+    local owner = data.owner or false --[[@as boolean?]]
     local model = data.model:lower()
     local stored = data.stored
     local plate = Ox.GeneratePlate()
@@ -234,7 +235,8 @@ function Ox.CreateVehicle(data, coords, heading)
     local vehicleId
 
     if owner ~= false then
-        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE, { plate, owner, model, modelData.class, json.encode(data), stored })
+        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE,
+            { plate, owner, model, modelData.class, json.encode(data), stored }) --[[@as number]]
     end
 
     if stored then

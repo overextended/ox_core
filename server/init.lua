@@ -7,6 +7,7 @@ SetRoutingBucketEntityLockdownMode(0, 'relaxed')
 SetConvarReplicated('inventory:framework', 'ox')
 SetConvarReplicated('inventory:trimplate ', 'false')
 
+---@diagnostic disable-next-line: param-type-mismatch
 SetConvarReplicated('pe-basicloading:disableAutoShutdown', 1)
 
 if Resource('npwd') then

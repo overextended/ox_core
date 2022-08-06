@@ -20,12 +20,14 @@ lib.addCommand('group.admin', 'car', function(source, args)
         model = args.model,
     }, GetEntityCoords(ped), GetEntityHeading(ped))
 
-    for i = 1, 50 do
-        Wait(0)
-        SetPedIntoVehicle(ped, vehicle.entity, -1)
+    if vehicle then
+        for i = 1, 50 do
+            Wait(0)
+            SetPedIntoVehicle(ped, vehicle.entity, -1)
 
-        if GetVehiclePedIsIn(ped, false) == vehicle.entity then
-            break
+            if GetVehiclePedIsIn(ped, false) == vehicle.entity then
+                break
+            end
         end
     end
 end, {'model:string', 'owner:?number'})

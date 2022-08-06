@@ -29,9 +29,11 @@ end
 
 ---Sets a players grade in a group and updates their permissions.
 ---@param player CPlayer
----@param grade number
----@return boolean
+---@param grade number?
+---@return boolean?
 function CGroup:set(player, grade)
+    if not grade then grade = 0 end
+
     if not self.grades[grade] and grade > 0 then
         error(("attempted to set invalid grade '%s' for group '%s' on 'player.%s'"):format(grade, self.name, player.source))
     end
@@ -61,6 +63,8 @@ end
 local function loadGroups()
     local results = MySQL.query.await(Query.SELECT_GROUPS)
 
+    if not results then return end
+
     if groups then
         for name, data in pairs(groups) do
             local parent = data.principal
@@ -81,7 +85,7 @@ local function loadGroups()
     for i = 1, #results do
         local group = results[i]
         local principal = ('group.%s'):format(group.name)
-        group.grades = json.decode(group.grades)
+        group.grades = json.decode(group.grades --[[@as string]])
 
         if not IsPrincipalAceAllowed(principal, principal) then
             lib.addAce(principal, principal)

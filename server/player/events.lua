@@ -7,8 +7,8 @@ AddEventHandler('playerDropped', function()
 end)
 
 AddEventHandler('playerEnteredScope', function(data)
-    local source = tonumber(data['for'])
-    local target = tonumber(data.player)
+    local source = tonumber(data['for']) --[[@as number]]
+    local target = tonumber(data.player) --[[@as number]]
     local player = Player(source)
 
     if player then
@@ -18,8 +18,8 @@ AddEventHandler('playerEnteredScope', function(data)
 end)
 
 AddEventHandler('playerLeftScope', function(data)
-    local source = tonumber(data['for'])
-    local target = tonumber(data.player)
+    local source = tonumber(data['for']) --[[@as number]]
+    local target = tonumber(data.player) --[[@as number]]
     local player = Player(source)
 
     if player then
@@ -35,7 +35,7 @@ RegisterNetEvent('ox:playerJoined', function()
         return DropPlayer(source, serverLockdown)
     end
 
-    Player.new(source)
+    Player.new(tonumber(source) --[[@as number]])
 end)
 
 AddEventHandler('playerConnecting', function(_, _, deferrals)
@@ -78,11 +78,12 @@ AddEventHandler('txAdmin:events:serverShuttingDown', onServerShutdown)
 local npwd = Resource('npwd') and exports.npwd
 
 RegisterNetEvent('ox:selectCharacter', function(data)
-    local player = Player(source)
+    local player = Player(source) --[[@as CPlayer]]
     local character
 
     if type(data) == 'table' then
-        local phoneNumber = npwd and exports.npwd:generatePhoneNumber()
+        local phoneNumber = npwd and exports.npwd:generatePhoneNumber() or nil
+
         character = {
             firstname = data.firstName,
             lastname = data.lastName,

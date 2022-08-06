@@ -10,10 +10,11 @@ local Query = {
 }
 
 local cfxPlayer = Player
-Player = {
+local Player = {
     count = 0,
     list = {},
 }
+_ENV.Player = Player
 
 local loadResource = {}
 
@@ -298,10 +299,7 @@ setmetatable(Player, {
 
 ---Creates an instance of CPlayer.
 ---@param source number
----@return CPlayer
 function Player.new(source)
-    source = tonumber(source)
-
     if not Player(source) then
         local identifiers = Ox.GetIdentifiers(source)
         local primary = identifiers[Server.PRIMARY_IDENTIFIER]
@@ -315,7 +313,7 @@ function Player.new(source)
                 identifiers.steam,
                 identifiers.fivem,
                 identifiers.discord,
-            })
+            }) --[[@as number]]
         end
 
         ---@type CPlayer
@@ -381,7 +379,7 @@ end
 ---@param lastName string
 ---@param gender string
 ---@param date number
----@param phone_number number
+---@param phone_number number?
 ---@return unknown
 function Player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
     return MySQL.prepare.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
@@ -399,11 +397,14 @@ end
 ---@param character table
 function Player.loaded(self, character)
     local result = MySQL.single.await(Query.SELECT_CHARACTER, { self.charid })
-    self.dead = result.is_dead
-    result.is_dead = nil
 
-    for k, v in pairs(result) do
-        playerData[self.source][k] = v
+    if result then
+        self.dead = result.is_dead
+        result.is_dead = nil
+
+        for k, v in pairs(result) do
+            playerData[self.source][k] = v
+        end
     end
 
     self.name = ('%s %s'):format(self.firstname, self.lastname)
