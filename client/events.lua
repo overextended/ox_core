@@ -12,7 +12,7 @@ AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value,
 
         if NetworkGetEntityOwner(entity) == cache.playerId then
             lib.setVehicleProperties(entity, value)
-            Entity(entity).state:set('vehicleProps', nil, true)
+            Entity(entity).state:set('vehicleProperties', nil, true)
         end
     end
 end)
