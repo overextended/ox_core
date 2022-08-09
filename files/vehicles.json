@@ -1,4817 +1,5470 @@
 {
-  "adder": {
-    "class": 7,
-    "make": "TRUFFADE",
-    "name": "Adder",
-    "seats": 2
-  },
-  "airbus": {
-    "class": 17,
-    "make": "",
-    "name": "Airport Bus",
-    "seats": 16
-  },
-  "airtug": {
-    "class": 11,
-    "make": "",
-    "name": "Airtug",
-    "seats": 2
-  },
-  "akula": {
-    "class": 15,
-    "make": "",
-    "name": "Akula",
-    "seats": 4,
-    "weapons": true
-  },
-  "akuma": {
-    "class": 8,
-    "make": "DINKA",
-    "name": "Akuma",
-    "seats": 2
-  },
-  "alkonost": {
-    "class": 16,
-    "make": "",
-    "name": "RO-86 Alkonost",
-    "seats": 10
-  },
-  "alpha": {
-    "class": 6,
-    "make": "ALBANY",
-    "name": "Alpha",
-    "seats": 4
-  },
-  "alphaz1": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Alpha-Z1",
-    "seats": 1
-  },
-  "ambulance": {
-    "class": 18,
-    "make": "",
-    "name": "Ambulance",
-    "seats": 4
-  },
-  "annihilator": {
-    "class": 15,
-    "make": "",
-    "name": "Annihilator",
-    "seats": 6,
-    "weapons": true
-  },
-  "annihilator2": {
-    "class": 15,
-    "make": "",
-    "name": "Annihilator Stealth",
-    "seats": 6,
-    "weapons": true
-  },
-  "apc": {
-    "class": 19,
-    "make": "HVY",
-    "name": "APC",
-    "seats": 4,
-    "weapons": true
-  },
-  "arbitergt": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Arbiter GT",
-    "seats": 2
-  },
-  "ardent": {
-    "class": 5,
-    "make": "OCELOT",
-    "name": "Ardent",
-    "seats": 2,
-    "weapons": true
-  },
-  "armytanker": {
-    "class": 11,
-    "make": "",
-    "name": "Army Trailer",
-    "seats": 2
-  },
-  "armytrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Army Trailer",
-    "seats": 2
-  },
-  "armytrailer2": {
-    "class": 11,
-    "make": "",
-    "name": "Army Trailer",
-    "seats": 2
-  },
-  "asbo": {
-    "class": 0,
-    "make": "MAXWELL",
-    "name": "Asbo",
-    "seats": 4
-  },
-  "asea": {
-    "class": 1,
-    "make": "DECLASSE",
-    "name": "Asea",
-    "seats": 4
-  },
-  "asea2": {
-    "class": 1,
-    "make": "DECLASSE",
-    "name": "Asea",
-    "seats": 4
-  },
-  "asterope": {
-    "class": 1,
-    "make": "KARIN",
-    "name": "Asterope",
-    "seats": 4
-  },
-  "astron": {
-    "class": 2,
-    "make": "PFISTER",
-    "name": "Astron",
-    "seats": 4
-  },
-  "astron2": {
-    "class": 2,
-    "make": "PFISTER",
-    "name": "Astron Custom",
-    "seats": 4
-  },
-  "autarch": {
-    "class": 7,
-    "make": "OVERFLOD",
-    "name": "Autarch",
-    "seats": 2
-  },
-  "avarus": {
-    "class": 8,
-    "make": "LCC",
-    "name": "Avarus",
-    "seats": 2
-  },
-  "avenger": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Avenger",
-    "seats": 3,
-    "weapons": true
-  },
-  "avenger2": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Avenger",
-    "seats": 3,
-    "weapons": true
-  },
-  "avisa": {
-    "class": 14,
-    "make": "KRAKEN",
-    "name": "Avisa",
-    "seats": 4
-  },
-  "bagger": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Bagger",
-    "seats": 2
-  },
-  "baletrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Baletrailer",
-    "seats": 2
-  },
-  "baller": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller",
-    "seats": 4
-  },
-  "baller2": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller",
-    "seats": 4
-  },
-  "baller3": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller LE",
-    "seats": 4
-  },
-  "baller4": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller LE LWB",
-    "seats": 4
-  },
-  "baller5": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller LE (Armored)",
-    "seats": 4
-  },
-  "baller6": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller LE LWB (Armored)",
-    "seats": 4
-  },
-  "baller7": {
-    "class": 2,
-    "make": "GALLIVAN",
-    "name": "Baller ST",
-    "seats": 4
-  },
-  "banshee": {
-    "class": 6,
-    "make": "BRAVADO",
-    "name": "Banshee",
-    "seats": 2
-  },
-  "banshee2": {
-    "class": 7,
-    "make": "BRAVADO",
-    "name": "Banshee 900R",
-    "seats": 2
-  },
-  "barracks": {
-    "class": 19,
-    "make": "",
-    "name": "Barracks",
-    "seats": 10
-  },
-  "barracks2": {
-    "class": 19,
-    "make": "HVY",
-    "name": "Barracks Semi",
-    "seats": 2
-  },
-  "barracks3": {
-    "class": 19,
-    "make": "",
-    "name": "Barracks",
-    "seats": 10
-  },
-  "barrage": {
-    "class": 19,
-    "make": "",
-    "name": "Barrage",
-    "seats": 4,
-    "weapons": true
-  },
-  "bati": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Bati 801",
-    "seats": 2
-  },
-  "bati2": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Bati 801RR",
-    "seats": 2
-  },
-  "benson": {
-    "class": 20,
-    "make": "VAPID",
-    "name": "Benson",
-    "seats": 6
-  },
-  "besra": {
-    "class": 16,
-    "make": "WESTERN",
-    "name": "Besra",
-    "seats": 1
-  },
-  "bestiagts": {
-    "class": 6,
-    "make": "GROTTI",
-    "name": "Bestia GTS",
-    "seats": 2
-  },
-  "bf400": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "BF400",
-    "seats": 2
-  },
-  "bfinjection": {
-    "class": 9,
-    "make": "BF",
-    "name": "Injection",
-    "seats": 2
-  },
-  "biff": {
-    "class": 20,
-    "make": "HVY",
-    "name": "Biff",
-    "seats": 2
-  },
-  "bifta": {
-    "class": 9,
-    "make": "BF",
-    "name": "Bifta",
-    "seats": 2
-  },
-  "bison": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Bison",
-    "seats": 6
-  },
-  "bison2": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Bison",
-    "seats": 6
-  },
-  "bison3": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Bison",
-    "seats": 6
-  },
-  "bjxl": {
-    "class": 2,
-    "make": "KARIN",
-    "name": "BeeJay XL",
-    "seats": 4
-  },
-  "blade": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Blade",
-    "seats": 2
-  },
-  "blazer": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Blazer",
-    "seats": 1
-  },
-  "blazer2": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Blazer Lifeguard",
-    "seats": 1
-  },
-  "blazer3": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Hot Rod Blazer",
-    "seats": 1
-  },
-  "blazer4": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Street Blazer",
-    "seats": 1
-  },
-  "blazer5": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Blazer Aqua",
-    "seats": 1,
-    "weapons": true
-  },
-  "blimp": {
-    "class": 16,
-    "make": "",
-    "name": "Atomic Blimp",
-    "seats": 4
-  },
-  "blimp2": {
-    "class": 16,
-    "make": "",
-    "name": "Xero Blimp",
-    "seats": 4
-  },
-  "blimp3": {
-    "class": 16,
-    "make": "",
-    "name": "Blimp",
-    "seats": 4
-  },
-  "blista": {
-    "class": 0,
-    "make": "DINKA",
-    "name": "Blista",
-    "seats": 4
-  },
-  "blista2": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Blista Compact",
-    "seats": 2
-  },
-  "blista3": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Go Go Monkey Blista",
-    "seats": 2
-  },
-  "bmx": {
-    "class": 13,
-    "make": "",
-    "name": "BMX",
-    "seats": 1
-  },
-  "boattrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Boat Trailer",
-    "seats": 2
-  },
-  "bobcatxl": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Bobcat XL",
-    "seats": 4
-  },
-  "bodhi2": {
-    "class": 9,
-    "make": "CANIS",
-    "name": "Bodhi",
-    "seats": 4
-  },
-  "bombushka": {
-    "class": 16,
-    "make": "",
-    "name": "RM-10 Bombushka",
-    "seats": 6,
-    "weapons": true
-  },
-  "boxville": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Boxville",
-    "seats": 6
-  },
-  "boxville2": {
-    "class": 12,
-    "make": "",
-    "name": "Boxville",
-    "seats": 6
-  },
-  "boxville3": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Boxville",
-    "seats": 6
-  },
-  "boxville4": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Boxville",
-    "seats": 6
-  },
-  "boxville5": {
-    "class": 12,
-    "make": "",
-    "name": "Armored Boxville",
-    "seats": 5,
-    "weapons": true
-  },
-  "brawler": {
-    "class": 9,
-    "make": "COIL",
-    "name": "Brawler",
-    "seats": 2
-  },
-  "brickade": {
-    "class": 17,
-    "make": "MTL",
-    "name": "Brickade",
-    "seats": 6
-  },
-  "brioso": {
-    "class": 0,
-    "make": "GROTTI",
-    "name": "Brioso R/A",
-    "seats": 2
-  },
-  "brioso2": {
-    "class": 0,
-    "make": "GROTTI",
-    "name": "Brioso 300",
-    "seats": 4
-  },
-  "brioso3": {
-    "class": 0,
-    "make": "GROTTI",
-    "name": "Brioso 300 Widebody",
-    "seats": 4
-  },
-  "bruiser": {
-    "class": 9,
-    "make": "BENEFAC",
-    "name": "Apocalypse Bruiser",
-    "seats": 4,
-    "weapons": true
-  },
-  "bruiser2": {
-    "class": 9,
-    "make": "BENEFAC",
-    "name": "Future Shock Bruiser",
-    "seats": 4,
-    "weapons": true
-  },
-  "bruiser3": {
-    "class": 9,
-    "make": "BENEFAC",
-    "name": "Nightmare Bruiser",
-    "seats": 4,
-    "weapons": true
-  },
-  "brutus": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Apocalypse Brutus",
-    "seats": 2,
-    "weapons": true
-  },
-  "brutus2": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Future Shock Brutus",
-    "seats": 2,
-    "weapons": true
-  },
-  "brutus3": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Nightmare Brutus",
-    "seats": 2,
-    "weapons": true
-  },
-  "btype": {
-    "class": 5,
-    "make": "ALBANY",
-    "name": "Roosevelt",
-    "seats": 6
-  },
-  "btype2": {
-    "class": 5,
-    "make": "ALBANY",
-    "name": "Fränken Stange",
-    "seats": 4
-  },
-  "btype3": {
-    "class": 5,
-    "make": "ALBANY",
-    "name": "Roosevelt Valor",
-    "seats": 6
-  },
-  "buccaneer": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Buccaneer",
-    "seats": 2
-  },
-  "buccaneer2": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Buccaneer Custom",
-    "seats": 2
-  },
-  "buffalo": {
-    "class": 6,
-    "make": "BRAVADO",
-    "name": "Buffalo",
-    "seats": 4
-  },
-  "buffalo2": {
-    "class": 6,
-    "make": "BRAVADO",
-    "name": "Buffalo S",
-    "seats": 4
-  },
-  "buffalo3": {
-    "class": 6,
-    "make": "BRAVADO",
-    "name": "Sprunk Buffalo",
-    "seats": 4
-  },
-  "buffalo4": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Buffalo STX",
-    "seats": 4,
-    "weapons": true
-  },
-  "bulldozer": {
-    "class": 10,
-    "make": "HVY",
-    "name": "Dozer",
-    "seats": 1
-  },
-  "bullet": {
-    "class": 7,
-    "make": "VAPID",
-    "name": "Bullet",
-    "seats": 2
-  },
-  "burrito": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Burrito",
-    "seats": 4
-  },
-  "burrito2": {
-    "class": 12,
-    "make": "DECLASSE",
-    "seats": 4
-  },
-  "burrito3": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Burrito",
-    "seats": 4
-  },
-  "burrito4": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Burrito",
-    "seats": 4
-  },
-  "burrito5": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Burrito",
-    "seats": 4
-  },
-  "bus": {
-    "class": 17,
-    "make": "",
-    "name": "Bus",
-    "seats": 16
-  },
-  "buzzard": {
-    "class": 15,
-    "make": "",
-    "name": "Buzzard Attack Chopper",
-    "seats": 4,
-    "weapons": true
-  },
-  "buzzard2": {
-    "class": 15,
-    "make": "",
-    "name": "Buzzard",
-    "seats": 4,
-    "weapons": true
-  },
-  "cablecar": {
-    "class": 21,
-    "make": "",
-    "name": "Cable Car",
-    "seats": 4
-  },
-  "caddy": {
-    "class": 11,
-    "make": "",
-    "name": "Caddy",
-    "seats": 2
-  },
-  "caddy2": {
-    "class": 11,
-    "make": "",
-    "name": "Caddy",
-    "seats": 2
-  },
-  "caddy3": {
-    "class": 11,
-    "make": "",
-    "name": "Caddy",
-    "seats": 2
-  },
-  "calico": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Calico GTF",
-    "seats": 2
-  },
-  "camper": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Camper",
-    "seats": 4
-  },
-  "caracara": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Caracara",
-    "seats": 5,
-    "weapons": true
-  },
-  "caracara2": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Caracara 4x4",
-    "seats": 4
-  },
-  "carbonizzare": {
-    "class": 6,
-    "make": "GROTTI",
-    "name": "Carbonizzare",
-    "seats": 2
-  },
-  "carbonrs": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "Carbon RS",
-    "seats": 2
-  },
-  "cargobob": {
-    "class": 15,
-    "make": "",
-    "name": "Cargobob",
-    "seats": 10
-  },
-  "cargobob2": {
-    "class": 15,
-    "make": "",
-    "name": "Cargobob",
-    "seats": 10
-  },
-  "cargobob3": {
-    "class": 15,
-    "make": "",
-    "name": "Cargobob",
-    "seats": 10
-  },
-  "cargobob4": {
-    "class": 15,
-    "make": "",
-    "name": "Cargobob",
-    "seats": 10
-  },
-  "cargoplane": {
-    "class": 16,
-    "make": "",
-    "name": "Cargo Plane",
-    "seats": 4
-  },
-  "casco": {
-    "class": 5,
-    "make": "LAMPADA",
-    "name": "Casco",
-    "seats": 2
-  },
-  "cavalcade": {
-    "class": 2,
-    "make": "ALBANY",
-    "name": "Cavalcade",
-    "seats": 4
-  },
-  "cavalcade2": {
-    "class": 2,
-    "make": "ALBANY",
-    "name": "Cavalcade",
-    "seats": 4
-  },
-  "cerberus": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Apocalypse Cerberus",
-    "seats": 2,
-    "weapons": true
-  },
-  "cerberus2": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Future Shock Cerberus",
-    "seats": 2,
-    "weapons": true
-  },
-  "cerberus3": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Nightmare Cerberus",
-    "seats": 2,
-    "weapons": true
-  },
-  "champion": {
-    "class": 7,
-    "make": "DEWBAUCH",
-    "name": "Champion",
-    "seats": 2,
-    "weapons": true
-  },
-  "cheburek": {
-    "class": 5,
-    "make": "RUNE",
-    "name": "Cheburek",
-    "seats": 4
-  },
-  "cheetah": {
-    "class": 7,
-    "make": "GROTTI",
-    "name": "Cheetah",
-    "seats": 2
-  },
-  "cheetah2": {
-    "class": 5,
-    "make": "GROTTI",
-    "name": "Cheetah Classic",
-    "seats": 2
-  },
-  "chernobog": {
-    "class": 19,
-    "make": "",
-    "name": "Chernobog",
-    "seats": 2,
-    "weapons": true
-  },
-  "chimera": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "Chimera",
-    "seats": 2
-  },
-  "chino": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Chino",
-    "seats": 2
-  },
-  "chino2": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Chino Custom",
-    "seats": 2
-  },
-  "cinquemila": {
-    "class": 1,
-    "make": "LAMPADA",
-    "name": "Cinquemila",
-    "seats": 4
-  },
-  "cliffhanger": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Cliffhanger",
-    "seats": 2
-  },
-  "clique": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Clique",
-    "seats": 2
-  },
-  "club": {
-    "class": 0,
-    "make": "BF",
-    "name": "Club",
-    "seats": 4
-  },
-  "coach": {
-    "class": 17,
-    "make": "",
-    "name": "Dashound",
-    "seats": 10
-  },
-  "cog55": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Cognoscenti 55",
-    "seats": 4
-  },
-  "cog552": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Cognoscenti 55 (Armored)",
-    "seats": 4
-  },
-  "cogcabrio": {
-    "class": 3,
-    "make": "ENUS",
-    "name": "Cognoscenti Cabrio",
-    "seats": 2
-  },
-  "cognoscenti": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Cognoscenti",
-    "seats": 4
-  },
-  "cognoscenti2": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Cognoscenti (Armored)",
-    "seats": 4
-  },
-  "comet2": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet",
-    "seats": 2
-  },
-  "comet3": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet Retro Custom",
-    "seats": 2
-  },
-  "comet4": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet Safari",
-    "seats": 2,
-    "weapons": true
-  },
-  "comet5": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet SR",
-    "seats": 2
-  },
-  "comet6": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet S2",
-    "seats": 2
-  },
-  "comet7": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Comet S2 Cabrio",
-    "seats": 2
-  },
-  "conada": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "Conada",
-    "seats": 4
-  },
-  "contender": {
-    "class": 2,
-    "make": "VAPID",
-    "name": "Contender",
-    "seats": 4
-  },
-  "coquette": {
-    "class": 6,
-    "make": "INVERTO",
-    "name": "Coquette",
-    "seats": 2
-  },
-  "coquette2": {
-    "class": 5,
-    "make": "INVERTO",
-    "name": "Coquette Classic",
-    "seats": 2
-  },
-  "coquette3": {
-    "class": 4,
-    "make": "INVERTO",
-    "name": "Coquette BlackFin",
-    "seats": 4
-  },
-  "coquette4": {
-    "class": 6,
-    "make": "INVERTO",
-    "name": "Coquette D10",
-    "seats": 2
-  },
-  "corsita": {
-    "class": 6,
-    "make": "LAMPADA",
-    "name": "Corsita",
-    "seats": 2
-  },
-  "cruiser": {
-    "class": 13,
-    "make": "",
-    "name": "Cruiser",
-    "seats": 1
-  },
-  "crusader": {
-    "class": 19,
-    "make": "CANIS",
-    "name": "Crusader",
-    "seats": 4
-  },
-  "cuban800": {
-    "class": 16,
-    "make": "",
-    "name": "Cuban 800",
-    "seats": 2
-  },
-  "cutter": {
-    "class": 10,
-    "make": "HVY",
-    "name": "Cutter",
-    "seats": 1
-  },
-  "cyclone": {
-    "class": 7,
-    "make": "COIL",
-    "name": "Cyclone",
-    "seats": 2
-  },
-  "cyclone2": {
-    "class": 7,
-    "make": "COIL",
-    "name": "Cyclone II",
-    "seats": 2
-  },
-  "cypher": {
-    "class": 6,
-    "make": "UBERMACHT",
-    "name": "Cypher",
-    "seats": 2
-  },
-  "daemon": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Daemon",
-    "seats": 2
-  },
-  "daemon2": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Daemon",
-    "seats": 2
-  },
-  "deathbike": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Apocalypse Deathbike",
-    "seats": 2,
-    "weapons": true
-  },
-  "deathbike2": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Future Shock Deathbike",
-    "seats": 2,
-    "weapons": true
-  },
-  "deathbike3": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Nightmare Deathbike",
-    "seats": 2,
-    "weapons": true
-  },
-  "defiler": {
-    "class": 8,
-    "make": "SHITZU",
-    "name": "Defiler",
-    "seats": 2
-  },
-  "deity": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Deity",
-    "seats": 4,
-    "weapons": true
-  },
-  "deluxo": {
-    "class": 5,
-    "make": "IMPONTE",
-    "name": "Deluxo",
-    "seats": 2,
-    "weapons": true
-  },
-  "deveste": {
-    "class": 7,
-    "make": "PRINCIPL",
-    "name": "Deveste Eight",
-    "seats": 2
-  },
-  "deviant": {
-    "class": 4,
-    "make": "SCHYSTER",
-    "name": "Deviant",
-    "seats": 2
-  },
-  "diablous": {
-    "class": 8,
-    "make": "PRINCIPL",
-    "name": "Diabolus",
-    "seats": 2
-  },
-  "diablous2": {
-    "class": 8,
-    "make": "PRINCIPL",
-    "name": "Diabolus Custom",
-    "seats": 2
-  },
-  "dilettante": {
-    "class": 0,
-    "make": "KARIN",
-    "name": "Dilettante",
-    "seats": 4
-  },
-  "dilettante2": {
-    "class": 0,
-    "make": "KARIN",
-    "name": "Dilettante",
-    "seats": 4
-  },
-  "dinghy": {
-    "class": 14,
-    "make": "NAGASAKI",
-    "name": "Dinghy",
-    "seats": 4,
-    "weapons": true
-  },
-  "dinghy2": {
-    "class": 14,
-    "make": "NAGASAKI",
-    "name": "Dinghy",
-    "seats": 4,
-    "weapons": true
-  },
-  "dinghy3": {
-    "class": 14,
-    "make": "NAGASAKI",
-    "name": "Dinghy",
-    "seats": 4,
-    "weapons": true
-  },
-  "dinghy4": {
-    "class": 14,
-    "make": "NAGASAKI",
-    "name": "Dinghy",
-    "seats": 4,
-    "weapons": true
-  },
-  "dinghy5": {
-    "class": 14,
-    "make": "NAGASAKI",
-    "name": "Weaponized Dinghy",
-    "seats": 5,
-    "weapons": true
-  },
-  "dloader": {
-    "class": 9,
-    "make": "BRAVADO",
-    "name": "Duneloader",
-    "seats": 4
-  },
-  "docktrailer": {
-    "class": 11,
-    "make": "",
-    "seats": 2
-  },
-  "docktug": {
-    "class": 11,
-    "make": "",
-    "name": "Docktug",
-    "seats": 1
-  },
-  "dodo": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Dodo",
-    "seats": 4
-  },
-  "dominator": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Dominator",
-    "seats": 4
-  },
-  "dominator2": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Pisswasser Dominator",
-    "seats": 4
-  },
-  "dominator3": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Dominator GTX",
-    "seats": 2
-  },
-  "dominator4": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Apocalypse Dominator",
-    "seats": 2,
-    "weapons": true
-  },
-  "dominator5": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Future Shock Dominator",
-    "seats": 2,
-    "weapons": true
-  },
-  "dominator6": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Nightmare Dominator",
-    "seats": 2,
-    "weapons": true
-  },
-  "dominator7": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Dominator ASP",
-    "seats": 2
-  },
-  "dominator8": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Dominator GTT",
-    "seats": 2
-  },
-  "double": {
-    "class": 8,
-    "make": "DINKA",
-    "name": "Double-T",
-    "seats": 2
-  },
-  "drafter": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "8F Drafter",
-    "seats": 2
-  },
-  "draugur": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Draugur",
-    "seats": 4
-  },
-  "dubsta": {
-    "class": 2,
-    "make": "BENEFAC",
-    "name": "Dubsta",
-    "seats": 4
-  },
-  "dubsta2": {
-    "class": 2,
-    "make": "BENEFAC",
-    "name": "Dubsta",
-    "seats": 4
-  },
-  "dubsta3": {
-    "class": 9,
-    "make": "BENEFAC",
-    "name": "Dubsta 6x6",
-    "seats": 6
-  },
-  "dukes": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Dukes",
-    "seats": 2
-  },
-  "dukes2": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Duke O'Death",
-    "seats": 2
-  },
-  "dukes3": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Beater Dukes",
-    "seats": 2
-  },
-  "dump": {
-    "class": 10,
-    "make": "HVY",
-    "name": "Dump",
-    "seats": 1
-  },
-  "dune": {
-    "class": 9,
-    "make": "BF",
-    "name": "Dune Buggy",
-    "seats": 2
-  },
-  "dune2": {
-    "class": 9,
-    "make": "",
-    "name": "Space Docker",
-    "seats": 2
-  },
-  "dune3": {
-    "class": 9,
-    "make": "BF",
-    "name": "Dune FAV",
-    "seats": 2,
-    "weapons": true
-  },
-  "dune4": {
-    "class": 9,
-    "make": "",
-    "name": "Ramp Buggy",
-    "seats": 2
-  },
-  "dune5": {
-    "class": 9,
-    "make": "",
-    "name": "Ramp Buggy",
-    "seats": 2
-  },
-  "duster": {
-    "class": 16,
-    "make": "",
-    "name": "Duster",
-    "seats": 2
-  },
-  "dynasty": {
-    "class": 5,
-    "make": "WEENY",
-    "name": "Dynasty",
-    "seats": 4
-  },
-  "elegy": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Elegy Retro Custom",
-    "seats": 2
-  },
-  "elegy2": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Elegy RH8",
-    "seats": 4
-  },
-  "ellie": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Ellie",
-    "seats": 2
-  },
-  "emerus": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "Emerus",
-    "seats": 2
-  },
-  "emperor": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Emperor",
-    "seats": 4
-  },
-  "emperor2": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Emperor",
-    "seats": 4
-  },
-  "emperor3": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Emperor",
-    "seats": 4
-  },
-  "enduro": {
-    "class": 8,
-    "make": "DINKA",
-    "name": "Enduro",
-    "seats": 2
-  },
-  "entity2": {
-    "class": 7,
-    "make": "OVERFLOD",
-    "name": "Entity XXR",
-    "seats": 2
-  },
-  "entityxf": {
-    "class": 7,
-    "make": "OVERFLOD",
-    "name": "Entity XF",
-    "seats": 2
-  },
-  "esskey": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Esskey",
-    "seats": 2
-  },
-  "euros": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Euros",
-    "seats": 2
-  },
-  "everon": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Everon",
-    "seats": 4
-  },
-  "exemplar": {
-    "class": 3,
-    "make": "DEWBAUCH",
-    "name": "Exemplar",
-    "seats": 4
-  },
-  "f620": {
-    "class": 3,
-    "make": "OCELOT",
-    "name": "F620",
-    "seats": 2
-  },
-  "faction": {
-    "class": 4,
-    "make": "WILLARD",
-    "name": "Faction",
-    "seats": 2
-  },
-  "faction2": {
-    "class": 4,
-    "make": "WILLARD",
-    "name": "Faction Custom",
-    "seats": 2
-  },
-  "faction3": {
-    "class": 4,
-    "make": "WILLARD",
-    "name": "Faction Custom Donk",
-    "seats": 2
-  },
-  "fagaloa": {
-    "class": 5,
-    "make": "VULCAR",
-    "name": "Fagaloa",
-    "seats": 4
-  },
-  "faggio": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Faggio Sport",
-    "seats": 2
-  },
-  "faggio2": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Faggio",
-    "seats": 2
-  },
-  "faggio3": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Faggio Mod",
-    "seats": 2
-  },
-  "fbi": {
-    "class": 18,
-    "make": "",
-    "name": "FIB",
-    "seats": 4
-  },
-  "fbi2": {
-    "class": 18,
-    "make": "",
-    "name": "FIB",
-    "seats": 8
-  },
-  "fcr": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "FCR 1000",
-    "seats": 2
-  },
-  "fcr2": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "FCR 1000 Custom",
-    "seats": 2
-  },
-  "felon": {
-    "class": 3,
-    "make": "LAMPADA",
-    "name": "Felon",
-    "seats": 4
-  },
-  "felon2": {
-    "class": 3,
-    "make": "LAMPADA",
-    "name": "Felon GT",
-    "seats": 4
-  },
-  "feltzer2": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "Feltzer",
-    "seats": 2
-  },
-  "feltzer3": {
-    "class": 5,
-    "make": "BENEFAC",
-    "name": "Stirling GT",
-    "seats": 2
-  },
-  "firetruk": {
-    "class": 18,
-    "make": "MTL",
-    "name": "Fire Truck",
-    "seats": 8,
-    "weapons": true
-  },
-  "fixter": {
-    "class": 13,
-    "make": "",
-    "name": "Fixter",
-    "seats": 1
-  },
-  "flashgt": {
-    "class": 6,
-    "make": "VAPID",
-    "name": "Flash GT",
-    "seats": 4
-  },
-  "flatbed": {
-    "class": 10,
-    "make": "MTL",
-    "name": "Flatbed",
-    "seats": 2
-  },
-  "fmj": {
-    "class": 7,
-    "make": "VAPID",
-    "name": "FMJ",
-    "seats": 2
-  },
-  "forklift": {
-    "class": 11,
-    "make": "HVY",
-    "name": "Forklift",
-    "seats": 1
-  },
-  "formula": {
-    "class": 22,
-    "make": "PROGEN",
-    "name": "PR4",
-    "seats": 1
-  },
-  "formula2": {
-    "class": 22,
-    "make": "OCELOT",
-    "name": "R88",
-    "seats": 1
-  },
-  "fq2": {
-    "class": 2,
-    "make": "FATHOM",
-    "name": "FQ 2",
-    "seats": 4
-  },
-  "freecrawler": {
-    "class": 9,
-    "make": "CANIS",
-    "name": "Freecrawler",
-    "seats": 4
-  },
-  "freight": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freightcar": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freightcar2": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freightcont1": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freightcont2": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freightgrain": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "freighttrailer": {
-    "class": 11,
-    "make": "",
-    "seats": 2
-  },
-  "frogger": {
-    "class": 15,
-    "make": "",
-    "name": "Frogger",
-    "seats": 4,
-    "weapons": true
-  },
-  "frogger2": {
-    "class": 15,
-    "make": "",
-    "name": "Frogger",
-    "seats": 4,
-    "weapons": true
-  },
-  "fugitive": {
-    "class": 1,
-    "make": "CHEVAL",
-    "name": "Fugitive",
-    "seats": 4
-  },
-  "furia": {
-    "class": 7,
-    "make": "GROTTI",
-    "name": "Furia",
-    "seats": 2
-  },
-  "furoregt": {
-    "class": 6,
-    "make": "LAMPADA",
-    "name": "Furore GT",
-    "seats": 2
-  },
-  "fusilade": {
-    "class": 6,
-    "make": "SCHYSTER",
-    "name": "Fusilade",
-    "seats": 2
-  },
-  "futo": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Futo",
-    "seats": 4
-  },
-  "futo2": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Futo GTX",
-    "seats": 4
-  },
-  "gargoyle": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Gargoyle",
-    "seats": 2
-  },
-  "gauntlet": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Gauntlet",
-    "seats": 2
-  },
-  "gauntlet2": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Redwood Gauntlet",
-    "seats": 2
-  },
-  "gauntlet3": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Gauntlet Classic",
-    "seats": 2
-  },
-  "gauntlet4": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Gauntlet Hellfire",
-    "seats": 4
-  },
-  "gauntlet5": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Gauntlet Classic Custom",
-    "seats": 2
-  },
-  "gb200": {
-    "class": 6,
-    "make": "VAPID",
-    "name": "GB200",
-    "seats": 2
-  },
-  "gburrito": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Gang Burrito",
-    "seats": 4
-  },
-  "gburrito2": {
-    "class": 12,
-    "make": "DECLASSE",
-    "name": "Gang Burrito",
-    "seats": 4
-  },
-  "glendale": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Glendale",
-    "seats": 4
-  },
-  "glendale2": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Glendale Custom",
-    "seats": 4
-  },
-  "gp1": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "GP1",
-    "seats": 2
-  },
-  "graintrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Graintrailer",
-    "seats": 2
-  },
-  "granger": {
-    "class": 2,
-    "make": "DECLASSE",
-    "name": "Granger",
-    "seats": 8
-  },
-  "granger2": {
-    "class": 2,
-    "make": "DECLASSE",
-    "name": "Granger 3600LX",
-    "seats": 8,
-    "weapons": true
-  },
-  "greenwood": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Greenwood",
-    "seats": 4
-  },
-  "gresley": {
-    "class": 2,
-    "make": "BRAVADO",
-    "name": "Gresley",
-    "seats": 4
-  },
-  "growler": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Growler",
-    "seats": 2
-  },
-  "gt500": {
-    "class": 5,
-    "make": "GROTTI",
-    "name": "GT500",
-    "seats": 2
-  },
-  "guardian": {
-    "class": 10,
-    "make": "VAPID",
-    "name": "Guardian",
-    "seats": 6
-  },
-  "habanero": {
-    "class": 2,
-    "make": "EMPEROR",
-    "name": "Habanero",
-    "seats": 4
-  },
-  "hakuchou": {
-    "class": 8,
-    "make": "SHITZU",
-    "name": "Hakuchou",
-    "seats": 2
-  },
-  "hakuchou2": {
-    "class": 8,
-    "make": "SHITZU",
-    "name": "Hakuchou Drag",
-    "seats": 2
-  },
-  "halftrack": {
-    "class": 19,
-    "make": "BRAVADO",
-    "name": "Half-track",
-    "seats": 3,
-    "weapons": true
-  },
-  "handler": {
-    "class": 10,
-    "make": "",
-    "name": "Dock Handler",
-    "seats": 1
-  },
-  "hauler": {
-    "class": 20,
-    "make": "JOBUILT",
-    "name": "Hauler",
-    "seats": 2
-  },
-  "hauler2": {
-    "class": 20,
-    "make": "JOBUILT",
-    "name": "Hauler Custom",
-    "seats": 2
-  },
-  "havok": {
-    "class": 15,
-    "make": "NAGASAKI",
-    "name": "Havok",
-    "seats": 1,
-    "weapons": true
-  },
-  "hellion": {
-    "class": 9,
-    "make": "ANNIS",
-    "name": "Hellion",
-    "seats": 4
-  },
-  "hermes": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Hermes",
-    "seats": 2
-  },
-  "hexer": {
-    "class": 8,
-    "make": "LCC",
-    "name": "Hexer",
-    "seats": 2
-  },
-  "hotknife": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Hotknife",
-    "seats": 2
-  },
-  "hotring": {
-    "class": 6,
-    "make": "DECLASSE",
-    "name": "Hotring Sabre",
-    "seats": 2
-  },
-  "howard": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Howard NX-25",
-    "seats": 1
-  },
-  "hunter": {
-    "class": 15,
-    "make": "",
-    "name": "FH-1 Hunter",
-    "seats": 2,
-    "weapons": true
-  },
-  "huntley": {
-    "class": 2,
-    "make": "ENUS",
-    "name": "Huntley S",
-    "seats": 4
-  },
-  "hustler": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Hustler",
-    "seats": 2
-  },
-  "hydra": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Hydra",
-    "seats": 1,
-    "weapons": true
-  },
-  "ignus": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Ignus",
-    "seats": 2
-  },
-  "ignus2": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Weaponized Ignus",
-    "seats": 2,
-    "weapons": true
-  },
-  "imorgon": {
-    "class": 6,
-    "make": "OVERFLOD",
-    "name": "Imorgon",
-    "seats": 2
-  },
-  "impaler": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Impaler",
-    "seats": 4
-  },
-  "impaler2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Apocalypse Impaler",
-    "seats": 2,
-    "weapons": true
-  },
-  "impaler3": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Future Shock Impaler",
-    "seats": 2,
-    "weapons": true
-  },
-  "impaler4": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Nightmare Impaler",
-    "seats": 2,
-    "weapons": true
-  },
-  "imperator": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Apocalypse Imperator",
-    "seats": 2,
-    "weapons": true
-  },
-  "imperator2": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Future Shock Imperator",
-    "seats": 2,
-    "weapons": true
-  },
-  "imperator3": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Nightmare Imperator",
-    "seats": 2,
-    "weapons": true
-  },
-  "infernus": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Infernus",
-    "seats": 2
-  },
-  "infernus2": {
-    "class": 5,
-    "make": "PEGASSI",
-    "name": "Infernus Classic",
-    "seats": 2
-  },
-  "ingot": {
-    "class": 1,
-    "make": "VULCAR",
-    "name": "Ingot",
-    "seats": 4
-  },
-  "innovation": {
-    "class": 8,
-    "make": "LCC",
-    "name": "Innovation",
-    "seats": 2
-  },
-  "insurgent": {
-    "class": 9,
-    "make": "HVY",
-    "name": "Insurgent Pick-Up",
-    "seats": 9,
-    "weapons": true
-  },
-  "insurgent2": {
-    "class": 9,
-    "make": "HVY",
-    "name": "Insurgent",
-    "seats": 9,
-    "weapons": true
-  },
-  "insurgent3": {
-    "class": 9,
-    "make": "HVY",
-    "name": "Insurgent Pick-Up Custom",
-    "seats": 9,
-    "weapons": true
-  },
-  "intruder": {
-    "class": 1,
-    "make": "KARIN",
-    "name": "Intruder",
-    "seats": 4
-  },
-  "issi2": {
-    "class": 0,
-    "make": "WEENY",
-    "name": "Issi",
-    "seats": 4
-  },
-  "issi3": {
-    "class": 0,
-    "make": "WEENY",
-    "name": "Issi Classic",
-    "seats": 4
-  },
-  "issi4": {
-    "class": 0,
-    "make": "WEENY",
-    "name": "Apocalypse Issi",
-    "seats": 2,
-    "weapons": true
-  },
-  "issi5": {
-    "class": 0,
-    "make": "WEENY",
-    "name": "Future Shock Issi",
-    "seats": 2,
-    "weapons": true
-  },
-  "issi6": {
-    "class": 0,
-    "make": "WEENY",
-    "name": "Nightmare Issi",
-    "seats": 2,
-    "weapons": true
-  },
-  "issi7": {
-    "class": 6,
-    "make": "WEENY",
-    "name": "Issi Sport",
-    "seats": 2
-  },
-  "italigtb": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "Itali GTB",
-    "seats": 2
-  },
-  "italigtb2": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "Itali GTB Custom",
-    "seats": 2
-  },
-  "italigto": {
-    "class": 6,
-    "make": "GROTTI",
-    "name": "Itali GTO",
-    "seats": 2
-  },
-  "italirsx": {
-    "class": 6,
-    "make": "GROTTI",
-    "name": "Itali RSX",
-    "seats": 2
-  },
-  "iwagen": {
-    "class": 2,
-    "make": "OBEY",
-    "name": "I-Wagen",
-    "seats": 4
-  },
-  "jackal": {
-    "class": 3,
-    "make": "OCELOT",
-    "name": "Jackal",
-    "seats": 4
-  },
-  "jb700": {
-    "class": 5,
-    "make": "DEWBAUCH",
-    "name": "JB 700",
-    "seats": 2
-  },
-  "jb7002": {
-    "class": 5,
-    "make": "DEWBAUCH",
-    "name": "JB 700W",
-    "seats": 2,
-    "weapons": true
-  },
-  "jester": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Jester",
-    "seats": 2
-  },
-  "jester2": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Jester (Racecar)",
-    "seats": 2
-  },
-  "jester3": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Jester Classic",
-    "seats": 4
-  },
-  "jester4": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Jester RR",
-    "seats": 2
-  },
-  "jet": {
-    "class": 16,
-    "make": "",
-    "name": "Jet",
-    "seats": 2
-  },
-  "jetmax": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Jetmax",
-    "seats": 2
-  },
-  "journey": {
-    "class": 12,
-    "make": "ZIRCONIU",
-    "name": "Journey",
-    "seats": 6
-  },
-  "jubilee": {
-    "class": 2,
-    "make": "ENUS",
-    "name": "Jubilee",
-    "seats": 4,
-    "weapons": true
-  },
-  "jugular": {
-    "class": 6,
-    "make": "OCELOT",
-    "name": "Jugular",
-    "seats": 4
-  },
-  "kalahari": {
-    "class": 9,
-    "make": "CANIS",
-    "name": "Kalahari",
-    "seats": 2
-  },
-  "kamacho": {
-    "class": 9,
-    "make": "CANIS",
-    "name": "Kamacho",
-    "seats": 4
-  },
-  "kanjo": {
-    "class": 0,
-    "make": "DINKA",
-    "name": "Blista Kanjo",
-    "seats": 2
-  },
-  "kanjosj": {
-    "class": 3,
-    "make": "DINKA",
-    "name": "Kanjo SJ",
-    "seats": 4
-  },
-  "khamelion": {
-    "class": 6,
-    "make": "HIJAK",
-    "name": "Khamelion",
-    "seats": 4
-  },
-  "khanjali": {
-    "class": 19,
-    "make": "",
-    "name": "TM-02 Khanjali",
-    "seats": 4,
-    "weapons": true
-  },
-  "komoda": {
-    "class": 6,
-    "make": "LAMPADATI",
-    "name": "Komoda",
-    "seats": 4
-  },
-  "kosatka": {
-    "class": 14,
-    "make": "RUNE",
-    "name": "Kosatka",
-    "seats": 1,
-    "weapons": true
-  },
-  "krieger": {
-    "class": 7,
-    "make": "BENEFACTOR",
-    "name": "Krieger",
-    "seats": 2
-  },
-  "kuruma": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Kuruma",
-    "seats": 4
-  },
-  "kuruma2": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Kuruma (armored)",
-    "seats": 4
-  },
-  "landstalker": {
-    "class": 2,
-    "make": "DUNDREAR",
-    "name": "Landstalker",
-    "seats": 4
-  },
-  "landstalker2": {
-    "class": 2,
-    "make": "DUNDREAR",
-    "name": "Landstalker XL",
-    "seats": 4
-  },
-  "lazer": {
-    "class": 16,
-    "make": "",
-    "name": "P-996 LAZER",
-    "seats": 1,
-    "weapons": true
-  },
-  "le7b": {
-    "class": 7,
-    "make": "ANNIS",
-    "name": "RE-7B",
-    "seats": 2
-  },
-  "lectro": {
-    "class": 8,
-    "make": "PRINCIPL",
-    "name": "Lectro",
-    "seats": 2
-  },
-  "lguard": {
-    "class": 18,
-    "make": "DECLASSE",
-    "name": "Lifeguard",
-    "seats": 4
-  },
-  "limo2": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Turreted Limo",
-    "seats": 5,
-    "weapons": true
-  },
-  "lm87": {
-    "class": 7,
-    "make": "BENEFAC",
-    "name": "LM87",
-    "seats": 1
-  },
-  "locust": {
-    "class": 6,
-    "make": "OCELOT",
-    "name": "Locust",
-    "seats": 2
-  },
-  "longfin": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Longfin",
-    "seats": 4
-  },
-  "lurcher": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Lurcher",
-    "seats": 2
-  },
-  "luxor": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Luxor",
-    "seats": 10
-  },
-  "luxor2": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Luxor Deluxe",
-    "seats": 8
-  },
-  "lynx": {
-    "class": 6,
-    "make": "OCELOT",
-    "name": "Lynx",
-    "seats": 2
-  },
-  "mamba": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Mamba",
-    "seats": 2
-  },
-  "mammatus": {
-    "class": 16,
-    "make": "",
-    "name": "Mammatus",
-    "seats": 4
-  },
-  "manana": {
-    "class": 5,
-    "make": "ALBANY",
-    "name": "Manana",
-    "seats": 4
-  },
-  "manana2": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Manana Custom",
-    "seats": 4
-  },
-  "manchez": {
-    "class": 8,
-    "make": "MAIBATSU",
-    "name": "Manchez",
-    "seats": 2
-  },
-  "manchez2": {
-    "class": 8,
-    "make": "MAIBATSU",
-    "name": "Manchez Scout",
-    "seats": 1
-  },
-  "marquis": {
-    "class": 14,
-    "make": "DINKA",
-    "name": "Marquis",
-    "seats": 4
-  },
-  "marshall": {
-    "class": 9,
-    "make": "CHEVAL",
-    "name": "Marshall",
-    "seats": 2
-  },
-  "massacro": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Massacro",
-    "seats": 2
-  },
-  "massacro2": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Massacro (Racecar)",
-    "seats": 2
-  },
-  "maverick": {
-    "class": 15,
-    "make": "",
-    "name": "Maverick",
-    "seats": 4,
-    "weapons": true
-  },
-  "menacer": {
-    "class": 9,
-    "make": "HVY",
-    "name": "Menacer",
-    "seats": 5,
-    "weapons": true
-  },
-  "mesa": {
-    "class": 2,
-    "make": "CANIS",
-    "name": "Mesa",
-    "seats": 4
-  },
-  "mesa2": {
-    "class": 2,
-    "make": "CANIS",
-    "name": "Mesa",
-    "seats": 4
-  },
-  "mesa3": {
-    "class": 9,
-    "make": "CANIS",
-    "name": "Mesa",
-    "seats": 4
-  },
-  "metrotrain": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "michelli": {
-    "class": 5,
-    "make": "LAMPADA",
-    "name": "Michelli GT",
-    "seats": 2
-  },
-  "microlight": {
-    "class": 16,
-    "make": "NAGASAKI",
-    "name": "Ultralight",
-    "seats": 1,
-    "weapons": true
-  },
-  "miljet": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Miljet",
-    "seats": 16
-  },
-  "minitank": {
-    "class": 19,
-    "make": "",
-    "name": "Invade and Persuade Tank",
-    "seats": 1,
-    "weapons": true
-  },
-  "minivan": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Minivan",
-    "seats": 4
-  },
-  "minivan2": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Minivan Custom",
-    "seats": 4
-  },
-  "mixer": {
-    "class": 10,
-    "make": "HVY",
-    "name": "Mixer",
-    "seats": 2
-  },
-  "mixer2": {
-    "class": 10,
-    "make": "HVY",
-    "name": "Mixer",
-    "seats": 2
-  },
-  "mogul": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Mogul",
-    "seats": 3,
-    "weapons": true
-  },
-  "molotok": {
-    "class": 16,
-    "make": "",
-    "name": "V-65 Molotok",
-    "seats": 1,
-    "weapons": true
-  },
-  "monroe": {
-    "class": 5,
-    "make": "PEGASSI",
-    "name": "Monroe",
-    "seats": 2
-  },
-  "monster": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Monster",
-    "seats": 2
-  },
-  "monster3": {
-    "class": 9,
-    "make": "BRAVADO",
-    "name": "Apocalypse Sasquatch",
-    "seats": 2,
-    "weapons": true
-  },
-  "monster4": {
-    "class": 9,
-    "make": "BRAVADO",
-    "name": "Future Shock Sasquatch",
-    "seats": 2,
-    "weapons": true
-  },
-  "monster5": {
-    "class": 9,
-    "make": "BRAVADO",
-    "name": "Nightmare Sasquatch",
-    "seats": 2,
-    "weapons": true
-  },
-  "moonbeam": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Moonbeam",
-    "seats": 4
-  },
-  "moonbeam2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Moonbeam Custom",
-    "seats": 4
-  },
-  "mower": {
-    "class": 11,
-    "make": "",
-    "name": "Lawn Mower",
-    "seats": 1
-  },
-  "mule": {
-    "class": 20,
-    "make": "MAIBATSU",
-    "name": "Mule",
-    "seats": 6
-  },
-  "mule2": {
-    "class": 20,
-    "make": "MAIBATSU",
-    "name": "Mule",
-    "seats": 6
-  },
-  "mule3": {
-    "class": 20,
-    "make": "MAIBATSU",
-    "name": "Mule",
-    "seats": 6
-  },
-  "mule4": {
-    "class": 20,
-    "make": "MAIBATSU",
-    "name": "Mule Custom",
-    "seats": 4,
-    "weapons": true
-  },
-  "mule5": {
-    "class": 20,
-    "make": "MAIBATSU",
-    "name": "Mule",
-    "seats": 6
-  },
-  "nebula": {
-    "class": 5,
-    "make": "VULCAR",
-    "name": "Nebula Turbo",
-    "seats": 4
-  },
-  "nemesis": {
-    "class": 8,
-    "make": "PRINCIPL",
-    "name": "Nemesis",
-    "seats": 2
-  },
-  "neo": {
-    "class": 6,
-    "make": "VYSSER",
-    "name": "Neo",
-    "seats": 2
-  },
-  "neon": {
-    "class": 6,
-    "make": "PFISTER",
-    "name": "Neon",
-    "seats": 4
-  },
-  "nero": {
-    "class": 7,
-    "make": "TRUFFADE",
-    "name": "Nero",
-    "seats": 2
-  },
-  "nero2": {
-    "class": 7,
-    "make": "TRUFFADE",
-    "name": "Nero Custom",
-    "seats": 2
-  },
-  "nightblade": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Nightblade",
-    "seats": 2
-  },
-  "nightshade": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Nightshade",
-    "seats": 2
-  },
-  "nightshark": {
-    "class": 9,
-    "make": "HVY",
-    "name": "Nightshark",
-    "seats": 4,
-    "weapons": true
-  },
-  "nimbus": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Nimbus",
-    "seats": 8
-  },
-  "ninef": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "9F",
-    "seats": 2
-  },
-  "ninef2": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "9F Cabrio",
-    "seats": 2
-  },
-  "nokota": {
-    "class": 16,
-    "make": "",
-    "name": "P-45 Nokota",
-    "seats": 1,
-    "weapons": true
-  },
-  "novak": {
-    "class": 2,
-    "make": "LAMPADATI",
-    "name": "Novak",
-    "seats": 4
-  },
-  "omnis": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "Omnis",
-    "seats": 2
-  },
-  "omnisegt": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "Omnis e-GT",
-    "seats": 4
-  },
-  "openwheel1": {
-    "class": 22,
-    "make": "BENEFAC",
-    "name": "BR8",
-    "seats": 1
-  },
-  "openwheel2": {
-    "class": 22,
-    "make": "DECLASSE",
-    "name": "DR1",
-    "seats": 1
-  },
-  "oppressor": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Oppressor",
-    "seats": 1,
-    "weapons": true
-  },
-  "oppressor2": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Oppressor Mk II",
-    "seats": 1,
-    "weapons": true
-  },
-  "oracle": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Oracle XS",
-    "seats": 4
-  },
-  "oracle2": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Oracle",
-    "seats": 4
-  },
-  "osiris": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Osiris",
-    "seats": 2
-  },
-  "outlaw": {
-    "class": 9,
-    "make": "NAGASAKI",
-    "name": "Outlaw",
-    "seats": 2
-  },
-  "packer": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Packer",
-    "seats": 2
-  },
-  "panto": {
-    "class": 0,
-    "make": "BENEFAC",
-    "name": "Panto",
-    "seats": 2
-  },
-  "paradise": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Paradise",
-    "seats": 4
-  },
-  "paragon": {
-    "class": 6,
-    "make": "ENUS",
-    "name": "Paragon R",
-    "seats": 2
-  },
-  "paragon2": {
-    "class": 6,
-    "make": "ENUS",
-    "name": "Paragon R (Armored)",
-    "seats": 2,
-    "weapons": true
-  },
-  "pariah": {
-    "class": 6,
-    "make": "OCELOT",
-    "name": "Pariah",
-    "seats": 2
-  },
-  "patriot": {
-    "class": 2,
-    "make": "MAMMOTH",
-    "name": "Patriot",
-    "seats": 4
-  },
-  "patriot2": {
-    "class": 2,
-    "make": "MAMMOTH",
-    "name": "Patriot Stretch",
-    "seats": 6
-  },
-  "patriot3": {
-    "class": 9,
-    "make": "MAMMOTH",
-    "name": "Patriot Mil-Spec",
-    "seats": 4,
-    "weapons": true
-  },
-  "patrolboat": {
-    "class": 14,
-    "make": "",
-    "name": "Kurtz 31 Patrol Boat",
-    "seats": 4,
-    "weapons": true
-  },
-  "pbus": {
-    "class": 18,
-    "make": "",
-    "name": "Police Prison Bus",
-    "seats": 11
-  },
-  "pbus2": {
-    "class": 17,
-    "make": "",
-    "name": "Festival Bus",
-    "seats": 11
-  },
-  "pcj": {
-    "class": 8,
-    "make": "SHITZU",
-    "name": "PCJ 600",
-    "seats": 2
-  },
-  "penetrator": {
-    "class": 7,
-    "make": "OCELOT",
-    "name": "Penetrator",
-    "seats": 2
-  },
-  "penumbra": {
-    "class": 6,
-    "make": "MAIBATSU",
-    "name": "Penumbra",
-    "seats": 2
-  },
-  "penumbra2": {
-    "class": 6,
-    "make": "MAIBATSU",
-    "name": "Penumbra FF",
-    "seats": 2
-  },
-  "peyote": {
-    "class": 5,
-    "make": "VAPID",
-    "name": "Peyote",
-    "seats": 2
-  },
-  "peyote2": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Peyote Gasser",
-    "seats": 2
-  },
-  "peyote3": {
-    "class": 5,
-    "make": "VAPID",
-    "name": "Peyote Custom",
-    "seats": 2
-  },
-  "pfister811": {
-    "class": 7,
-    "make": "PFISTER",
-    "name": "811",
-    "seats": 2
-  },
-  "phantom": {
-    "class": 20,
-    "make": "JOBUILT",
-    "name": "Phantom",
-    "seats": 2
-  },
-  "phantom2": {
-    "class": 20,
-    "make": "JOBUILT",
-    "name": "Phantom Wedge",
-    "seats": 5
-  },
-  "phantom3": {
-    "class": 20,
-    "make": "JOBUILT",
-    "name": "Phantom Custom",
-    "seats": 5
-  },
-  "phoenix": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Phoenix",
-    "seats": 2
-  },
-  "picador": {
-    "class": 4,
-    "make": "CHEVAL",
-    "name": "Picador",
-    "seats": 4
-  },
-  "pigalle": {
-    "class": 5,
-    "make": "LAMPADA",
-    "name": "Pigalle",
-    "seats": 2
-  },
-  "police": {
-    "class": 18,
-    "make": "",
-    "name": "Police Cruiser",
-    "seats": 4
-  },
-  "police2": {
-    "class": 18,
-    "make": "",
-    "name": "Police Cruiser",
-    "seats": 4
-  },
-  "police3": {
-    "class": 18,
-    "make": "",
-    "name": "Police Cruiser",
-    "seats": 4
-  },
-  "police4": {
-    "class": 18,
-    "make": "",
-    "name": "Unmarked Cruiser",
-    "seats": 4
-  },
-  "policeb": {
-    "class": 18,
-    "make": "",
-    "name": "Police Bike",
-    "seats": 1
-  },
-  "policeold1": {
-    "class": 18,
-    "make": "",
-    "name": "Police Rancher",
-    "seats": 4
-  },
-  "policeold2": {
-    "class": 18,
-    "make": "",
-    "name": "Police Roadcruiser",
-    "seats": 4
-  },
-  "policet": {
-    "class": 18,
-    "make": "",
-    "name": "Police Transporter",
-    "seats": 4
-  },
-  "polmav": {
-    "class": 15,
-    "make": "",
-    "name": "Police Maverick",
-    "seats": 4,
-    "weapons": true
-  },
-  "pony": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Pony",
-    "seats": 4
-  },
-  "pony2": {
-    "class": 12,
-    "make": "BRUTE",
-    "name": "Pony",
-    "seats": 4
-  },
-  "postlude": {
-    "class": 3,
-    "make": "DINKA",
-    "name": "Postlude",
-    "seats": 2
-  },
-  "pounder": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Pounder",
-    "seats": 2
-  },
-  "pounder2": {
-    "class": 20,
-    "make": "MTL",
-    "name": "Pounder Custom",
-    "seats": 8,
-    "weapons": true
-  },
-  "prairie": {
-    "class": 0,
-    "make": "BOLLOKAN",
-    "name": "Prairie",
-    "seats": 2
-  },
-  "pranger": {
-    "class": 18,
-    "make": "",
-    "name": "Park Ranger",
-    "seats": 8
-  },
-  "predator": {
-    "class": 14,
-    "make": "",
-    "name": "Police Predator",
-    "seats": 4,
-    "weapons": true
-  },
-  "premier": {
-    "class": 1,
-    "make": "DECLASSE",
-    "name": "Premier",
-    "seats": 4
-  },
-  "previon": {
-    "class": 3,
-    "make": "KARIN",
-    "name": "Previon",
-    "seats": 2
-  },
-  "primo": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Primo",
-    "seats": 4
-  },
-  "primo2": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Primo Custom",
-    "seats": 4
-  },
-  "proptrailer": {
-    "class": 11,
-    "make": "",
-    "seats": 4
-  },
-  "prototipo": {
-    "class": 7,
-    "make": "GROTTI",
-    "name": "X80 Proto",
-    "seats": 2
-  },
-  "pyro": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Pyro",
-    "seats": 2,
-    "weapons": true
-  },
-  "radi": {
-    "class": 2,
-    "make": "VAPID",
-    "name": "Radius",
-    "seats": 4
-  },
-  "raiden": {
-    "class": 6,
-    "make": "COIL",
-    "name": "Raiden",
-    "seats": 4
-  },
-  "raketrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "rallytruck": {
-    "class": 17,
-    "make": "MTL",
-    "name": "Dune",
-    "seats": 2
-  },
-  "rancherxl": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Rancher XL",
-    "seats": 4
-  },
-  "rancherxl2": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Rancher XL",
-    "seats": 4
-  },
-  "rapidgt": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Rapid GT",
-    "seats": 2
-  },
-  "rapidgt2": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Rapid GT",
-    "seats": 2
-  },
-  "rapidgt3": {
-    "class": 5,
-    "make": "DEWBAUCH",
-    "name": "Rapid GT Classic",
-    "seats": 2
-  },
-  "raptor": {
-    "class": 6,
-    "make": "BF",
-    "name": "Raptor",
-    "seats": 2
-  },
-  "ratbike": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Rat Bike",
-    "seats": 2
-  },
-  "ratloader": {
-    "class": 4,
-    "make": "",
-    "name": "Rat-Loader",
-    "seats": 2
-  },
-  "ratloader2": {
-    "class": 4,
-    "make": "BRAVADO",
-    "name": "Rat-Truck",
-    "seats": 2
-  },
-  "rcbandito": {
-    "class": 9,
-    "make": "",
-    "name": "RC Bandito",
-    "seats": 2
-  },
-  "reaper": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Reaper",
-    "seats": 2
-  },
-  "rebel": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Rusty Rebel",
-    "seats": 4
-  },
-  "rebel2": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Rebel",
-    "seats": 4
-  },
-  "rebla": {
-    "class": 2,
-    "make": "UBERMACHT",
-    "name": "Rebla GTS",
-    "seats": 4
-  },
-  "reever": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Reever",
-    "seats": 2
-  },
-  "regina": {
-    "class": 1,
-    "make": "DUNDREAR",
-    "name": "Regina",
-    "seats": 4
-  },
-  "remus": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Remus",
-    "seats": 2
-  },
-  "rentalbus": {
-    "class": 17,
-    "make": "",
-    "name": "Rental Shuttle Bus",
-    "seats": 10
-  },
-  "retinue": {
-    "class": 5,
-    "make": "VAPID",
-    "name": "Retinue",
-    "seats": 4
-  },
-  "retinue2": {
-    "class": 5,
-    "make": "VAPID",
-    "name": "Retinue Mk II",
-    "seats": 4
-  },
-  "revolter": {
-    "class": 6,
-    "make": "UBERMACH",
-    "name": "Revolter",
-    "seats": 4,
-    "weapons": true
-  },
-  "rhapsody": {
-    "class": 0,
-    "make": "DECLASSE",
-    "name": "Rhapsody",
-    "seats": 4
-  },
-  "rhinehart": {
-    "class": 1,
-    "make": "UBERMACHT",
-    "name": "Rhinehart",
-    "seats": 4
-  },
-  "rhino": {
-    "class": 19,
-    "make": "",
-    "name": "Rhino Tank",
-    "seats": 2,
-    "weapons": true
-  },
-  "riata": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Riata",
-    "seats": 2
-  },
-  "riot": {
-    "class": 18,
-    "make": "",
-    "name": "Police Riot",
-    "seats": 8
-  },
-  "riot2": {
-    "class": 18,
-    "make": "",
-    "name": "RCV",
-    "seats": 6,
-    "weapons": true
-  },
-  "ripley": {
-    "class": 11,
-    "make": "",
-    "name": "Ripley",
-    "seats": 2
-  },
-  "rocoto": {
-    "class": 2,
-    "make": "OBEY",
-    "name": "Rocoto",
-    "seats": 4
-  },
-  "rogue": {
-    "class": 16,
-    "make": "WESTERN",
-    "name": "Rogue",
-    "seats": 2,
-    "weapons": true
-  },
-  "romero": {
-    "class": 1,
-    "make": "CHARIOT",
-    "name": "Romero Hearse",
-    "seats": 4
-  },
-  "rrocket": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Rampant Rocket",
-    "seats": 1
-  },
-  "rt3000": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "RT3000",
-    "seats": 2
-  },
-  "rubble": {
-    "class": 10,
-    "make": "JOBUILT",
-    "name": "Rubble",
-    "seats": 2
-  },
-  "ruffian": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Ruffian",
-    "seats": 2
-  },
-  "ruiner": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Ruiner",
-    "seats": 2
-  },
-  "ruiner2": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Ruiner 2000",
-    "seats": 2,
-    "weapons": true
-  },
-  "ruiner3": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Ruiner",
-    "seats": 2
-  },
-  "ruiner4": {
-    "class": 4,
-    "make": "IMPONTE",
-    "name": "Ruiner ZZ-8",
-    "seats": 2
-  },
-  "rumpo": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Rumpo",
-    "seats": 4
-  },
-  "rumpo2": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Rumpo",
-    "seats": 4
-  },
-  "rumpo3": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Rumpo Custom",
-    "seats": 4
-  },
-  "ruston": {
-    "class": 6,
-    "make": "HIJAK",
-    "name": "Ruston",
-    "seats": 2
-  },
-  "s80": {
-    "class": 7,
-    "make": "ANNIS",
-    "name": "S80RR",
-    "seats": 1
-  },
-  "s95": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "S95",
-    "seats": 2
-  },
-  "sabregt": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Sabre Turbo",
-    "seats": 2
-  },
-  "sabregt2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Sabre Turbo Custom",
-    "seats": 2
-  },
-  "sadler": {
-    "class": 11,
-    "make": "VAPID",
-    "name": "Sadler",
-    "seats": 4
-  },
-  "sadler2": {
-    "class": 11,
-    "make": "VAPID",
-    "name": "Sadler",
-    "seats": 4
-  },
-  "sanchez": {
-    "class": 8,
-    "make": "MAIBATSU",
-    "name": "Sanchez (livery)",
-    "seats": 2
-  },
-  "sanchez2": {
-    "class": 8,
-    "make": "MAIBATSU",
-    "name": "Sanchez",
-    "seats": 2
-  },
-  "sanctus": {
-    "class": 8,
-    "make": "LCC",
-    "name": "Sanctus",
-    "seats": 2
-  },
-  "sandking": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Sandking XL",
-    "seats": 4
-  },
-  "sandking2": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Sandking SWB",
-    "seats": 4
-  },
-  "savage": {
-    "class": 15,
-    "make": "",
-    "name": "Savage",
-    "seats": 4,
-    "weapons": true
-  },
-  "savestra": {
-    "class": 5,
-    "make": "ANNIS",
-    "name": "Savestra",
-    "seats": 4,
-    "weapons": true
-  },
-  "sc1": {
-    "class": 7,
-    "make": "UBERMACH",
-    "name": "SC1",
-    "seats": 2
-  },
-  "scarab": {
-    "class": 19,
-    "make": "HVY",
-    "name": "Apocalypse Scarab",
-    "seats": 4,
-    "weapons": true
-  },
-  "scarab2": {
-    "class": 19,
-    "make": "HVY",
-    "name": "Future Shock Scarab",
-    "seats": 4,
-    "weapons": true
-  },
-  "scarab3": {
-    "class": 19,
-    "make": "HVY",
-    "name": "Nightmare Scarab",
-    "seats": 4,
-    "weapons": true
-  },
-  "schafter2": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Schafter",
-    "seats": 4
-  },
-  "schafter3": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "Schafter V12",
-    "seats": 4
-  },
-  "schafter4": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "Schafter LWB",
-    "seats": 4
-  },
-  "schafter5": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Schafter V12 (Armored)",
-    "seats": 4
-  },
-  "schafter6": {
-    "class": 1,
-    "make": "BENEFAC",
-    "name": "Schafter LWB (Armored)",
-    "seats": 4
-  },
-  "schlagen": {
-    "class": 6,
-    "make": "BENEFACTOR",
-    "name": "Schlagen GT",
-    "seats": 2
-  },
-  "schwarzer": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "Schwartzer",
-    "seats": 2
-  },
-  "scorcher": {
-    "class": 13,
-    "make": "",
-    "name": "Scorcher",
-    "seats": 1
-  },
-  "scramjet": {
-    "class": 7,
-    "make": "DECLASSE",
-    "name": "Scramjet",
-    "seats": 2,
-    "weapons": true
-  },
-  "scrap": {
-    "class": 11,
-    "make": "",
-    "name": "Scrap Truck",
-    "seats": 2
-  },
-  "seabreeze": {
-    "class": 16,
-    "make": "WESTERN",
-    "name": "Seabreeze",
-    "seats": 2,
-    "weapons": true
-  },
-  "seashark": {
-    "class": 14,
-    "make": "SPEEDOPH",
-    "name": "Seashark",
-    "seats": 2
-  },
-  "seashark2": {
-    "class": 14,
-    "make": "SPEEDOPH",
-    "name": "Seashark",
-    "seats": 2
-  },
-  "seashark3": {
-    "class": 14,
-    "make": "SPEEDOPH",
-    "name": "Seashark",
-    "seats": 2
-  },
-  "seasparrow": {
-    "class": 15,
-    "make": "",
-    "name": "Sea Sparrow",
-    "seats": 2,
-    "weapons": true
-  },
-  "seasparrow2": {
-    "class": 15,
-    "make": "",
-    "name": "Sparrow",
-    "seats": 2,
-    "weapons": true
-  },
-  "seasparrow3": {
-    "class": 15,
-    "make": "",
-    "name": "Sparrow",
-    "seats": 2,
-    "weapons": true
-  },
-  "seminole": {
-    "class": 2,
-    "make": "CANIS",
-    "name": "Seminole",
-    "seats": 4
-  },
-  "seminole2": {
-    "class": 2,
-    "make": "CANIS",
-    "name": "Seminole Frontier",
-    "seats": 4
-  },
-  "sentinel": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Sentinel XS",
-    "seats": 2
-  },
-  "sentinel2": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Sentinel",
-    "seats": 4
-  },
-  "sentinel3": {
-    "class": 6,
-    "make": "UBERMACH",
-    "name": "Sentinel",
-    "seats": 4
-  },
-  "sentinel4": {
-    "class": 6,
-    "make": "UBERMACH",
-    "name": "Sentinel Classic Widebody",
-    "seats": 4
-  },
-  "serrano": {
-    "class": 2,
-    "make": "BENEFAC",
-    "name": "Serrano",
-    "seats": 4
-  },
-  "seven70": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Seven-70",
-    "seats": 2
-  },
-  "shamal": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Shamal",
-    "seats": 10
-  },
-  "sheava": {
-    "class": 7,
-    "make": "EMPEROR",
-    "name": "ETR1",
-    "seats": 2
-  },
-  "sheriff": {
-    "class": 18,
-    "make": "",
-    "name": "Sheriff Cruiser",
-    "seats": 4
-  },
-  "sheriff2": {
-    "class": 18,
-    "make": "",
-    "name": "Sheriff SUV",
-    "seats": 8
-  },
-  "shinobi": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "Shinobi",
-    "seats": 2
-  },
-  "shotaro": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "Shotaro",
-    "seats": 2
-  },
-  "skylift": {
-    "class": 15,
-    "make": "",
-    "name": "Skylift",
-    "seats": 2
-  },
-  "slamtruck": {
-    "class": 11,
-    "make": "VAPID",
-    "name": "Slamtruck",
-    "seats": 2
-  },
-  "slamvan": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Slamvan",
-    "seats": 2
-  },
-  "slamvan2": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Lost Slamvan",
-    "seats": 4
-  },
-  "slamvan3": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Slamvan Custom",
-    "seats": 2
-  },
-  "slamvan4": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Apocalypse Slamvan",
-    "seats": 2,
-    "weapons": true
-  },
-  "slamvan5": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Future Shock Slamvan",
-    "seats": 2,
-    "weapons": true
-  },
-  "slamvan6": {
-    "class": 4,
-    "make": "VAPID",
-    "name": "Nightmare Slamvan",
-    "seats": 2,
-    "weapons": true
-  },
-  "sm722": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "SM722",
-    "seats": 4
-  },
-  "sovereign": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Sovereign",
-    "seats": 1
-  },
-  "specter": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Specter",
-    "seats": 2
-  },
-  "specter2": {
-    "class": 6,
-    "make": "DEWBAUCH",
-    "name": "Specter Custom",
-    "seats": 2
-  },
-  "speeder": {
-    "class": 14,
-    "make": "PEGASSI",
-    "name": "Speeder",
-    "seats": 4
-  },
-  "speeder2": {
-    "class": 14,
-    "make": "PEGASSI",
-    "name": "Speeder",
-    "seats": 4
-  },
-  "speedo": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Speedo",
-    "seats": 4
-  },
-  "speedo2": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Clown Van",
-    "seats": 4
-  },
-  "speedo4": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Speedo Custom",
-    "seats": 4,
-    "weapons": true
-  },
-  "squaddie": {
-    "class": 2,
-    "make": "MAMMOTH",
-    "name": "Squaddie",
-    "seats": 4
-  },
-  "squalo": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Squalo",
-    "seats": 2
-  },
-  "stafford": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Stafford",
-    "seats": 4
-  },
-  "stalion": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Stallion",
-    "seats": 2
-  },
-  "stalion2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Burger Shot Stallion",
-    "seats": 2
-  },
-  "stanier": {
-    "class": 1,
-    "make": "VAPID",
-    "name": "Stanier",
-    "seats": 4
-  },
-  "starling": {
-    "class": 16,
-    "make": "",
-    "name": "LF-22 Starling",
-    "seats": 1,
-    "weapons": true
-  },
-  "stinger": {
-    "class": 5,
-    "make": "GROTTI",
-    "name": "Stinger",
-    "seats": 2
-  },
-  "stingergt": {
-    "class": 5,
-    "make": "GROTTI",
-    "name": "Stinger GT",
-    "seats": 2
-  },
-  "stockade": {
-    "class": 20,
-    "make": "BRUTE",
-    "name": "Stockade",
-    "seats": 8
-  },
-  "stockade3": {
-    "class": 20,
-    "make": "BRUTE",
-    "name": "Stockade",
-    "seats": 8
-  },
-  "stratum": {
-    "class": 1,
-    "make": "ZIRCONIU",
-    "name": "Stratum",
-    "seats": 4
-  },
-  "streiter": {
-    "class": 6,
-    "make": "BENEFACTOR",
-    "name": "Streiter",
-    "seats": 4
-  },
-  "stretch": {
-    "class": 1,
-    "make": "DUNDREAR",
-    "name": "Stretch",
-    "seats": 6
-  },
-  "strikeforce": {
-    "class": 16,
-    "make": "",
-    "name": "B-11 Strikeforce",
-    "seats": 1,
-    "weapons": true
-  },
-  "stromberg": {
-    "class": 5,
-    "make": "OCELOT",
-    "name": "Stromberg",
-    "seats": 2,
-    "weapons": true
-  },
-  "stryder": {
-    "class": 8,
-    "make": "NAGASAKI",
-    "name": "Stryder",
-    "seats": 2
-  },
-  "stunt": {
-    "class": 16,
-    "make": "",
-    "name": "Mallard",
-    "seats": 1
-  },
-  "submersible": {
-    "class": 14,
-    "make": "",
-    "name": "Submersible",
-    "seats": 1
-  },
-  "submersible2": {
-    "class": 14,
-    "make": "",
-    "name": "Kraken",
-    "seats": 1
-  },
-  "sugoi": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Sugoi",
-    "seats": 4
-  },
-  "sultan": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Sultan",
-    "seats": 4
-  },
-  "sultan2": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Sultan Classic",
-    "seats": 4
-  },
-  "sultan3": {
-    "class": 6,
-    "make": "KARIN",
-    "name": "Sultan RS Classic",
-    "seats": 2
-  },
-  "sultanrs": {
-    "class": 7,
-    "make": "KARIN",
-    "name": "Sultan RS",
-    "seats": 4
-  },
-  "suntrap": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Suntrap",
-    "seats": 4
-  },
-  "superd": {
-    "class": 1,
-    "make": "ENUS",
-    "name": "Super Diamond",
-    "seats": 4
-  },
-  "supervolito": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "SuperVolito",
-    "seats": 4,
-    "weapons": true
-  },
-  "supervolito2": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "SuperVolito Carbon",
-    "seats": 4,
-    "weapons": true
-  },
-  "surano": {
-    "class": 6,
-    "make": "BENEFAC",
-    "name": "Surano",
-    "seats": 2
-  },
-  "surfer": {
-    "class": 12,
-    "make": "BF",
-    "name": "Surfer",
-    "seats": 4
-  },
-  "surfer2": {
-    "class": 12,
-    "make": "BF",
-    "name": "Surfer",
-    "seats": 4
-  },
-  "surge": {
-    "class": 1,
-    "make": "CHEVAL",
-    "name": "Surge",
-    "seats": 4
-  },
-  "swift": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "Swift",
-    "seats": 4,
-    "weapons": true
-  },
-  "swift2": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "Swift Deluxe",
-    "seats": 4,
-    "weapons": true
-  },
-  "swinger": {
-    "class": 5,
-    "make": "OCELOT",
-    "name": "Swinger",
-    "seats": 2
-  },
-  "t20": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "T20",
-    "seats": 2
-  },
-  "taco": {
-    "class": 12,
-    "make": "",
-    "name": "Taco Van",
-    "seats": 1
-  },
-  "tailgater": {
-    "class": 1,
-    "make": "OBEY",
-    "name": "Tailgater",
-    "seats": 4
-  },
-  "tailgater2": {
-    "class": 1,
-    "make": "OBEY",
-    "name": "Tailgater S",
-    "seats": 4
-  },
-  "taipan": {
-    "class": 7,
-    "make": "CHEVAL",
-    "name": "Taipan",
-    "seats": 2
-  },
-  "tampa": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Tampa",
-    "seats": 2
-  },
-  "tampa2": {
-    "class": 6,
-    "make": "DECLASSE",
-    "name": "Drift Tampa",
-    "seats": 2
-  },
-  "tampa3": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Weaponized Tampa",
-    "seats": 2,
-    "weapons": true
-  },
-  "tanker": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tanker2": {
-    "class": 11,
-    "make": "",
-    "seats": 2
-  },
-  "tankercar": {
-    "class": 21,
-    "make": "",
-    "name": "Freight Train",
-    "seats": 4
-  },
-  "taxi": {
-    "class": 17,
-    "make": "",
-    "name": "Taxi",
-    "seats": 4
-  },
-  "technical": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Technical",
-    "seats": 3,
-    "weapons": true
-  },
-  "technical2": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Technical Aqua",
-    "seats": 3,
-    "weapons": true
-  },
-  "technical3": {
-    "class": 9,
-    "make": "KARIN",
-    "name": "Technical Custom",
-    "seats": 3,
-    "weapons": true
-  },
-  "tempesta": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Tempesta",
-    "seats": 2
-  },
-  "tenf": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "10F",
-    "seats": 2
-  },
-  "tenf2": {
-    "class": 6,
-    "make": "OBEY",
-    "name": "10F Widebody",
-    "seats": 2
-  },
-  "terbyte": {
-    "class": 20,
-    "make": "BENEFACTOR",
-    "name": "Terrorbyte",
-    "seats": 2,
-    "weapons": true
-  },
-  "tezeract": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Tezeract",
-    "seats": 2
-  },
-  "thrax": {
-    "class": 7,
-    "make": "TRUFFADE",
-    "name": "Thrax",
-    "seats": 2
-  },
-  "thrust": {
-    "class": 8,
-    "make": "DINKA",
-    "name": "Thrust",
-    "seats": 2
-  },
-  "thruster": {
-    "class": 19,
-    "make": "MAMMOTH",
-    "name": "Thruster",
-    "seats": 1,
-    "weapons": true
-  },
-  "tigon": {
-    "class": 7,
-    "make": "LAMPADATI",
-    "name": "Tigon",
-    "seats": 2
-  },
-  "tiptruck": {
-    "class": 10,
-    "make": "BRUTE",
-    "name": "Tipper",
-    "seats": 2
-  },
-  "tiptruck2": {
-    "class": 10,
-    "make": "",
-    "name": "Tipper",
-    "seats": 2
-  },
-  "titan": {
-    "class": 16,
-    "make": "",
-    "name": "Titan",
-    "seats": 10
-  },
-  "toreador": {
-    "class": 5,
-    "make": "PEGASSI",
-    "name": "Toreador",
-    "seats": 4,
-    "weapons": true
-  },
-  "torero": {
-    "class": 5,
-    "make": "PEGASSI",
-    "name": "Torero",
-    "seats": 2
-  },
-  "torero2": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Torero XO",
-    "seats": 2
-  },
-  "tornado": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado",
-    "seats": 4
-  },
-  "tornado2": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado",
-    "seats": 4
-  },
-  "tornado3": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado",
-    "seats": 4
-  },
-  "tornado4": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado",
-    "seats": 4
-  },
-  "tornado5": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado Custom",
-    "seats": 4
-  },
-  "tornado6": {
-    "class": 5,
-    "make": "DECLASSE",
-    "name": "Tornado Rat Rod",
-    "seats": 4
-  },
-  "toro": {
-    "class": 14,
-    "make": "LAMPADA",
-    "name": "Toro",
-    "seats": 4
-  },
-  "toro2": {
-    "class": 14,
-    "make": "LAMPADA",
-    "name": "Toro",
-    "seats": 4
-  },
-  "toros": {
-    "class": 2,
-    "make": "PEGASSI",
-    "name": "Toros",
-    "seats": 4
-  },
-  "tourbus": {
-    "class": 17,
-    "make": "",
-    "name": "Tourbus",
-    "seats": 10
-  },
-  "towtruck": {
-    "class": 11,
-    "make": "",
-    "name": "Towtruck",
-    "seats": 2
-  },
-  "towtruck2": {
-    "class": 11,
-    "make": "",
-    "name": "Towtruck",
-    "seats": 2
-  },
-  "tr2": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tr3": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tr4": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tractor": {
-    "class": 11,
-    "make": "",
-    "name": "Tractor",
-    "seats": 1
-  },
-  "tractor2": {
-    "class": 11,
-    "make": "STANLEY",
-    "name": "Fieldmaster",
-    "seats": 1
-  },
-  "tractor3": {
-    "class": 11,
-    "make": "STANLEY",
-    "name": "Fieldmaster",
-    "seats": 1
-  },
-  "trailerlarge": {
-    "class": 11,
-    "make": "",
-    "name": "Mobile Operations Center",
-    "seats": 3,
-    "weapons": true
-  },
-  "trailerlogs": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailers": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailers2": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailers3": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailers4": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailersmall": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "trailersmall2": {
-    "class": 19,
-    "make": "VOMFEUER",
-    "name": "Anti-Aircraft Trailer",
-    "seats": 1,
-    "weapons": true
-  },
-  "trash": {
-    "class": 17,
-    "make": "",
-    "name": "Trashmaster",
-    "seats": 4
-  },
-  "trash2": {
-    "class": 17,
-    "make": "",
-    "name": "Trashmaster",
-    "seats": 4
-  },
-  "trflat": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tribike": {
-    "class": 13,
-    "make": "",
-    "name": "Whippet Race Bike",
-    "seats": 1
-  },
-  "tribike2": {
-    "class": 13,
-    "make": "",
-    "name": "Endurex Race Bike",
-    "seats": 1
-  },
-  "tribike3": {
-    "class": 13,
-    "make": "",
-    "name": "Tri-Cycles Race Bike",
-    "seats": 1
-  },
-  "trophytruck": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Trophy Truck",
-    "seats": 2
-  },
-  "trophytruck2": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Desert Raid",
-    "seats": 2
-  },
-  "tropic": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Tropic",
-    "seats": 4
-  },
-  "tropic2": {
-    "class": 14,
-    "make": "SHITZU",
-    "name": "Tropic",
-    "seats": 4
-  },
-  "tropos": {
-    "class": 6,
-    "make": "LAMPADA",
-    "name": "Tropos Rallye",
-    "seats": 2
-  },
-  "tug": {
-    "class": 14,
-    "make": "",
-    "name": "Tug",
-    "seats": 1
-  },
-  "tula": {
-    "class": 16,
-    "make": "MAMMOTH",
-    "name": "Tula",
-    "seats": 5,
-    "weapons": true
-  },
-  "tulip": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Tulip",
-    "seats": 4
-  },
-  "turismo2": {
-    "class": 5,
-    "make": "GROTTI",
-    "name": "Turismo Classic",
-    "seats": 2
-  },
-  "turismor": {
-    "class": 7,
-    "make": "GROTTI",
-    "name": "Turismo R",
-    "seats": 2
-  },
-  "tvtrailer": {
-    "class": 11,
-    "make": "",
-    "name": "Trailer",
-    "seats": 2
-  },
-  "tyrant": {
-    "class": 7,
-    "make": "OVERFLOD",
-    "name": "Tyrant",
-    "seats": 2
-  },
-  "tyrus": {
-    "class": 7,
-    "make": "PROGEN",
-    "name": "Tyrus",
-    "seats": 2
-  },
-  "utillitruck": {
-    "class": 11,
-    "make": "",
-    "name": "Utility Truck",
-    "seats": 6
-  },
-  "utillitruck2": {
-    "class": 11,
-    "make": "",
-    "name": "Utility Truck",
-    "seats": 6
-  },
-  "utillitruck3": {
-    "class": 11,
-    "make": "",
-    "name": "Utility Truck",
-    "seats": 4
-  },
-  "vacca": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Vacca",
-    "seats": 2
-  },
-  "vader": {
-    "class": 8,
-    "make": "SHITZU",
-    "name": "Vader",
-    "seats": 2
-  },
-  "vagner": {
-    "class": 7,
-    "make": "DEWBAUCH",
-    "name": "Vagner",
-    "seats": 2
-  },
-  "vagrant": {
-    "class": 9,
-    "make": "MAXWELL",
-    "name": "Vagrant",
-    "seats": 2
-  },
-  "valkyrie": {
-    "class": 15,
-    "make": "",
-    "name": "Valkyrie",
-    "seats": 4,
-    "weapons": true
-  },
-  "valkyrie2": {
-    "class": 15,
-    "make": "",
-    "name": "Valkyrie MOD.0",
-    "seats": 4,
-    "weapons": true
-  },
-  "vamos": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Vamos",
-    "seats": 2
-  },
-  "vectre": {
-    "class": 6,
-    "make": "EMPEROR",
-    "name": "Vectre",
-    "seats": 4
-  },
-  "velum": {
-    "class": 16,
-    "make": "",
-    "name": "Velum",
-    "seats": 4
-  },
-  "velum2": {
-    "class": 16,
-    "make": "",
-    "name": "Velum 5-Seater",
-    "seats": 5
-  },
-  "verlierer2": {
-    "class": 6,
-    "make": "BRAVADO",
-    "name": "Verlierer",
-    "seats": 2
-  },
-  "verus": {
-    "class": 9,
-    "make": "DINKA",
-    "name": "Verus",
-    "seats": 2
-  },
-  "vestra": {
-    "class": 16,
-    "make": "BUCKING",
-    "name": "Vestra",
-    "seats": 2
-  },
-  "vetir": {
-    "class": 19,
-    "make": "",
-    "name": "Vetir",
-    "seats": 10
-  },
-  "veto": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Veto Classic",
-    "seats": 1
-  },
-  "veto2": {
-    "class": 6,
-    "make": "DINKA",
-    "name": "Veto Modern",
-    "seats": 1
-  },
-  "vigero": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Vigero",
-    "seats": 2
-  },
-  "vigero2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Vigero ZX",
-    "seats": 4
-  },
-  "vigilante": {
-    "class": 7,
-    "make": "",
-    "name": "Vigilante",
-    "seats": 2,
-    "weapons": true
-  },
-  "vindicator": {
-    "class": 8,
-    "make": "DINKA",
-    "name": "Vindicator",
-    "seats": 2
-  },
-  "virgo": {
-    "class": 4,
-    "make": "ALBANY",
-    "name": "Virgo",
-    "seats": 4
-  },
-  "virgo2": {
-    "class": 4,
-    "make": "DUNDREAR",
-    "name": "Virgo Classic Custom",
-    "seats": 2
-  },
-  "virgo3": {
-    "class": 4,
-    "make": "DUNDREAR",
-    "name": "Virgo Classic",
-    "seats": 2
-  },
-  "viseris": {
-    "class": 5,
-    "make": "LAMPADATI",
-    "name": "Viseris",
-    "seats": 2,
-    "weapons": true
-  },
-  "visione": {
-    "class": 7,
-    "make": "GROTTI",
-    "name": "Visione",
-    "seats": 2
-  },
-  "volatol": {
-    "class": 16,
-    "make": "",
-    "name": "Volatol",
-    "seats": 4,
-    "weapons": true
-  },
-  "volatus": {
-    "class": 15,
-    "make": "BUCKING",
-    "name": "Volatus",
-    "seats": 4,
-    "weapons": true
-  },
-  "voltic": {
-    "class": 7,
-    "make": "COIL",
-    "name": "Voltic",
-    "seats": 2
-  },
-  "voltic2": {
-    "class": 7,
-    "make": "COIL",
-    "name": "Rocket Voltic",
-    "seats": 2
-  },
-  "voodoo": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Voodoo Custom",
-    "seats": 2
-  },
-  "voodoo2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Voodoo",
-    "seats": 2
-  },
-  "vortex": {
-    "class": 8,
-    "make": "PEGASSI",
-    "name": "Vortex",
-    "seats": 2
-  },
-  "vstr": {
-    "class": 6,
-    "make": "ALBANY",
-    "name": "V-STR",
-    "seats": 4
-  },
-  "warrener": {
-    "class": 1,
-    "make": "VULCAR",
-    "name": "Warrener",
-    "seats": 4
-  },
-  "warrener2": {
-    "class": 1,
-    "make": "VULCAR",
-    "name": "Warrener HKR",
-    "seats": 2
-  },
-  "washington": {
-    "class": 1,
-    "make": "ALBANY",
-    "name": "Washington",
-    "seats": 4
-  },
-  "wastelander": {
-    "class": 17,
-    "make": "MTL",
-    "name": "Wastelander",
-    "seats": 6
-  },
-  "weevil": {
-    "class": 0,
-    "make": "BF",
-    "name": "Weevil",
-    "seats": 2
-  },
-  "weevil2": {
-    "class": 4,
-    "make": "BF",
-    "name": "Weevil Custom",
-    "seats": 2
-  },
-  "windsor": {
-    "class": 3,
-    "make": "ENUS",
-    "name": "Windsor",
-    "seats": 4
-  },
-  "windsor2": {
-    "class": 3,
-    "make": "ENUS",
-    "name": "Windsor Drop",
-    "seats": 4
-  },
-  "winky": {
-    "class": 9,
-    "make": "VAPID",
-    "name": "Winky",
-    "seats": 3
-  },
-  "wolfsbane": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Wolfsbane",
-    "seats": 2
-  },
-  "xa21": {
-    "class": 7,
-    "make": "OCELOT",
-    "name": "XA-21",
-    "seats": 2
-  },
-  "xls": {
-    "class": 2,
-    "make": "BENEFAC",
-    "name": "XLS",
-    "seats": 4
-  },
-  "xls2": {
-    "class": 2,
-    "make": "BENEFAC",
-    "name": "XLS (Armored)",
-    "seats": 4
-  },
-  "yosemite": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Yosemite",
-    "seats": 2
-  },
-  "yosemite2": {
-    "class": 4,
-    "make": "DECLASSE",
-    "name": "Drift Yosemite",
-    "seats": 2
-  },
-  "yosemite3": {
-    "class": 9,
-    "make": "DECLASSE",
-    "name": "Yosemite Rancher",
-    "seats": 2
-  },
-  "youga": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Youga",
-    "seats": 4
-  },
-  "youga2": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Youga Classic",
-    "seats": 4
-  },
-  "youga3": {
-    "class": 12,
-    "make": "BRAVADO",
-    "name": "Youga Classic 4x4",
-    "seats": 4
-  },
-  "youga4": {
-    "class": 12,
-    "make": "VAPID",
-    "name": "Youga Custom",
-    "seats": 4
-  },
-  "z190": {
-    "class": 5,
-    "make": "KARIN",
-    "name": "190z",
-    "seats": 2
-  },
-  "zeno": {
-    "class": 7,
-    "make": "OVERFLOD",
-    "name": "Zeno",
-    "seats": 2
-  },
-  "zentorno": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Zentorno",
-    "seats": 2
-  },
-  "zhaba": {
-    "class": 9,
-    "make": "RUNE",
-    "name": "Zhaba",
-    "seats": 4
-  },
-  "zion": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Zion",
-    "seats": 2
-  },
-  "zion2": {
-    "class": 3,
-    "make": "UBERMACH",
-    "name": "Zion Cabrio",
-    "seats": 2
-  },
-  "zion3": {
-    "class": 5,
-    "make": "UBERMACH",
-    "name": "Zion Classic",
-    "seats": 2
-  },
-  "zombiea": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Zombie Bobber",
-    "seats": 2
-  },
-  "zombieb": {
-    "class": 8,
-    "make": "WESTERN",
-    "name": "Zombie Chopper",
-    "seats": 2
-  },
-  "zorrusso": {
-    "class": 7,
-    "make": "PEGASSI",
-    "name": "Zorrusso",
-    "seats": 2
-  },
-  "zr350": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "ZR350",
-    "seats": 2
-  },
-  "zr380": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Apocalypse ZR380",
-    "seats": 2,
-    "weapons": true
-  },
-  "zr3802": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Future Shock ZR380",
-    "seats": 2,
-    "weapons": true
-  },
-  "zr3803": {
-    "class": 6,
-    "make": "ANNIS",
-    "name": "Nightmare ZR380",
-    "seats": 2,
-    "weapons": true
-  },
-  "ztype": {
-    "class": 5,
-    "make": "TRUFFADE",
-    "name": "Z-Type",
-    "seats": 2
-  }
+    "adder": {
+        "class": 7,
+        "doors": 3,
+        "make": "Truffade",
+        "name": "Adder",
+        "seats": 2
+    },
+    "airbus": {
+        "class": 17,
+        "doors": 5,
+        "make": "",
+        "name": "Airport Bus",
+        "seats": 16
+    },
+    "airtug": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "Airtug",
+        "seats": 2
+    },
+    "akula": {
+        "class": 15,
+        "doors": 4,
+        "make": "",
+        "name": "Akula",
+        "seats": 4,
+        "weapons": true
+    },
+    "akuma": {
+        "class": 8,
+        "doors": 1,
+        "make": "Dinka",
+        "name": "Akuma",
+        "seats": 2
+    },
+    "alkonost": {
+        "class": 16,
+        "doors": 2,
+        "make": "",
+        "name": "RO-86 Alkonost",
+        "seats": 10
+    },
+    "alpha": {
+        "class": 6,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Alpha",
+        "seats": 2
+    },
+    "alphaz1": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Alpha-Z1",
+        "seats": 1
+    },
+    "ambulance": {
+        "class": 18,
+        "doors": 5,
+        "make": "",
+        "name": "ambulance",
+        "seats": 4
+    },
+    "annihilator": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "annihilator",
+        "seats": 6
+    },
+    "annihilator2": {
+        "class": 15,
+        "doors": 4,
+        "make": "",
+        "name": "annihilator2",
+        "seats": 6
+    },
+    "apc": {
+        "class": 19,
+        "doors": 4,
+        "make": "HVY",
+        "name": "APC",
+        "seats": 4,
+        "weapons": true
+    },
+    "ardent": {
+        "class": 5,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "Ardent",
+        "seats": 2
+    },
+    "armytanker": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Army Tanker",
+        "seats": 0
+    },
+    "armytrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Army Trailer",
+        "seats": 0
+    },
+    "armytrailer2": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "armytrailer2",
+        "seats": 0
+    },
+    "asbo": {
+        "class": 0,
+        "doors": 5,
+        "make": "Maxwell",
+        "name": "Asbo",
+        "seats": 2
+    },
+    "asea": {
+        "class": 1,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Asea",
+        "seats": 4
+    },
+    "asea2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "asea2",
+        "seats": 4
+    },
+    "asterope": {
+        "class": 1,
+        "doors": 6,
+        "make": "Karin",
+        "name": "asterope",
+        "seats": 4
+    },
+    "astron": {
+        "class": 2,
+        "doors": 6,
+        "make": "Pfister",
+        "name": "Astron",
+        "seats": 4
+    },
+    "autarch": {
+        "class": 7,
+        "doors": 4,
+        "make": "Overflod",
+        "name": "Autarch",
+        "seats": 2
+    },
+    "avarus": {
+        "class": 8,
+        "doors": 1,
+        "make": "LCC",
+        "name": "Avarus",
+        "seats": 1
+    },
+    "avenger": {
+        "class": 16,
+        "doors": 3,
+        "make": "Mammoth",
+        "name": "Avenger",
+        "seats": 3,
+        "weapons": true
+    },
+    "avenger2": {
+        "class": 16,
+        "doors": 3,
+        "make": "Mammoth",
+        "name": "avenger2",
+        "seats": 3
+    },
+    "avisa": {
+        "class": 14,
+        "doors": 4,
+        "make": "Kraken",
+        "name": "Avisa",
+        "seats": 4
+    },
+    "bagger": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Bagger",
+        "seats": 2
+    },
+    "baletrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Baletrailer",
+        "seats": 0
+    },
+    "baller": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller",
+        "seats": 4
+    },
+    "baller2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller",
+        "seats": 4
+    },
+    "baller3": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller LE",
+        "seats": 4
+    },
+    "baller4": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller LE LWB",
+        "seats": 4
+    },
+    "baller5": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller LE (Armored)",
+        "seats": 4
+    },
+    "baller6": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller LE LWB (Armored)",
+        "seats": 4
+    },
+    "baller7": {
+        "class": 2,
+        "doors": 6,
+        "make": "Gallivanter",
+        "name": "Baller ST",
+        "seats": 4
+    },
+    "banshee": {
+        "class": 6,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Banshee",
+        "seats": 2
+    },
+    "banshee2": {
+        "class": 7,
+        "doors": 3,
+        "make": "Bravado",
+        "name": "Banshee 900R",
+        "seats": 2
+    },
+    "barracks": {
+        "class": 19,
+        "doors": 4,
+        "make": "",
+        "name": "Barracks",
+        "seats": 10
+    },
+    "barracks2": {
+        "class": 19,
+        "doors": 3,
+        "make": "HVY",
+        "name": "Barracks Semi",
+        "seats": 2
+    },
+    "barracks3": {
+        "class": 19,
+        "doors": 4,
+        "make": "",
+        "name": "barracks3",
+        "seats": 10
+    },
+    "barrage": {
+        "class": 19,
+        "doors": 4,
+        "make": "",
+        "name": "Barrage",
+        "seats": 4,
+        "weapons": true
+    },
+    "bati": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Bati 801",
+        "seats": 2
+    },
+    "bati2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Bati 801RR",
+        "seats": 2
+    },
+    "benson": {
+        "class": 20,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Benson",
+        "seats": 2
+    },
+    "besra": {
+        "class": 16,
+        "doors": 1,
+        "make": "Western",
+        "name": "Besra",
+        "seats": 1
+    },
+    "bestiagts": {
+        "class": 6,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Bestia GTS",
+        "seats": 2
+    },
+    "bf400": {
+        "class": 8,
+        "doors": 1,
+        "make": "Nagasaki",
+        "name": "BF400",
+        "seats": 2
+    },
+    "bfinjection": {
+        "class": 9,
+        "doors": 2,
+        "make": "BF",
+        "name": "bfinjection",
+        "seats": 2
+    },
+    "biff": {
+        "class": 20,
+        "doors": 3,
+        "make": "HVY",
+        "name": "Biff",
+        "seats": 2
+    },
+    "bifta": {
+        "class": 9,
+        "doors": 0,
+        "make": "BF",
+        "name": "Bifta",
+        "seats": 2
+    },
+    "bison": {
+        "class": 12,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Bison",
+        "seats": 6
+    },
+    "bison2": {
+        "class": 12,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Bison",
+        "seats": 4
+    },
+    "bison3": {
+        "class": 12,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "bison3",
+        "seats": 4
+    },
+    "bjxl": {
+        "class": 2,
+        "doors": 6,
+        "make": "Karin",
+        "name": "BeeJay XL",
+        "seats": 4
+    },
+    "blade": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Blade",
+        "seats": 2
+    },
+    "blazer": {
+        "class": 9,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Blazer",
+        "seats": 1
+    },
+    "blazer2": {
+        "class": 9,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Blazer Lifeguard",
+        "seats": 1
+    },
+    "blazer3": {
+        "class": 9,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Hot Rod Blazer",
+        "seats": 1
+    },
+    "blazer4": {
+        "class": 9,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Street Blazer",
+        "seats": 1
+    },
+    "blazer5": {
+        "class": 9,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Blazer Aqua",
+        "seats": 1
+    },
+    "blimp": {
+        "class": 16,
+        "doors": 4,
+        "make": "",
+        "name": "Atomic Blimp",
+        "seats": 4
+    },
+    "blimp2": {
+        "class": 16,
+        "doors": 4,
+        "make": "",
+        "name": "Xero Blimp",
+        "seats": 4
+    },
+    "blimp3": {
+        "class": 16,
+        "doors": 4,
+        "make": "",
+        "name": "Blimp",
+        "seats": 4
+    },
+    "blista": {
+        "class": 0,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Blista",
+        "seats": 2
+    },
+    "blista2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Blista Compact",
+        "seats": 2
+    },
+    "blista3": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Go Go Monkey Blista",
+        "seats": 2
+    },
+    "bmx": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "BMX",
+        "seats": 1
+    },
+    "boattrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Boat Trailer",
+        "seats": 0
+    },
+    "bobcatxl": {
+        "class": 12,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Bobcat XL",
+        "seats": 2
+    },
+    "bodhi2": {
+        "class": 9,
+        "doors": 4,
+        "make": "Canis",
+        "name": "Bodhi",
+        "seats": 4
+    },
+    "bombushka": {
+        "class": 16,
+        "doors": 3,
+        "make": "",
+        "name": "RM-10 Bombushka",
+        "seats": 6,
+        "weapons": true
+    },
+    "boxville": {
+        "class": 12,
+        "doors": 5,
+        "make": "Brute",
+        "name": "Boxville",
+        "seats": 6
+    },
+    "boxville2": {
+        "class": 12,
+        "doors": 5,
+        "make": "",
+        "name": "boxville2",
+        "seats": 6
+    },
+    "boxville3": {
+        "class": 12,
+        "doors": 5,
+        "make": "Brute",
+        "name": "boxville3",
+        "seats": 4
+    },
+    "boxville4": {
+        "class": 12,
+        "doors": 5,
+        "make": "Brute",
+        "name": "Boxville",
+        "seats": 6
+    },
+    "boxville5": {
+        "class": 12,
+        "doors": 5,
+        "make": "",
+        "name": "Armored Boxville",
+        "seats": 5,
+        "weapons": true
+    },
+    "brawler": {
+        "class": 9,
+        "doors": 4,
+        "make": "Coil",
+        "name": "Brawler",
+        "seats": 2
+    },
+    "brickade": {
+        "class": 17,
+        "doors": 2,
+        "make": "MTL",
+        "name": "Brickade",
+        "seats": 6
+    },
+    "brioso": {
+        "class": 0,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Brioso R/A",
+        "seats": 2
+    },
+    "brioso2": {
+        "class": 0,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Brioso 300",
+        "seats": 2
+    },
+    "brioso3": {
+        "class": 0,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Brioso 300 Widebody",
+        "seats": 2
+    },
+    "bruiser": {
+        "class": 9,
+        "doors": 5,
+        "make": "Benefactor",
+        "name": "Apocalypse Bruiser",
+        "seats": 4
+    },
+    "bruiser2": {
+        "class": 9,
+        "doors": 5,
+        "make": "Benefactor",
+        "name": "Future Shock Bruiser",
+        "seats": 4
+    },
+    "bruiser3": {
+        "class": 9,
+        "doors": 5,
+        "make": "Benefactor",
+        "name": "Nightmare Bruiser",
+        "seats": 4
+    },
+    "brutus": {
+        "class": 9,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Apocalypse Brutus",
+        "seats": 2
+    },
+    "brutus2": {
+        "class": 9,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Future Shock Brutus",
+        "seats": 2
+    },
+    "brutus3": {
+        "class": 9,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Nightmare Brutus",
+        "seats": 2
+    },
+    "btype": {
+        "class": 5,
+        "doors": 5,
+        "make": "Albany",
+        "name": "B-Type",
+        "seats": 6
+    },
+    "btype2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Fränken Stange",
+        "seats": 4
+    },
+    "btype3": {
+        "class": 5,
+        "doors": 5,
+        "make": "Albany",
+        "name": "btype3",
+        "seats": 6
+    },
+    "buccaneer": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "buccaneer",
+        "seats": 2
+    },
+    "buccaneer2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "buccaneer2",
+        "seats": 2
+    },
+    "buffalo": {
+        "class": 6,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Buffalo",
+        "seats": 4
+    },
+    "buffalo2": {
+        "class": 6,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Buffalo S",
+        "seats": 4
+    },
+    "buffalo3": {
+        "class": 6,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Sprunk Buffalo",
+        "seats": 4
+    },
+    "buffalo4": {
+        "class": 4,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Buffalo STX",
+        "seats": 4
+    },
+    "bulldozer": {
+        "class": 10,
+        "doors": 2,
+        "make": "HVY",
+        "name": "bulldozer",
+        "seats": 1
+    },
+    "bullet": {
+        "class": 7,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "Bullet",
+        "seats": 2
+    },
+    "burrito": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "Burrito",
+        "seats": 4
+    },
+    "burrito2": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "Bugstars Burrito",
+        "seats": 4
+    },
+    "burrito3": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "burrito3",
+        "seats": 4
+    },
+    "burrito4": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "burrito4",
+        "seats": 4
+    },
+    "burrito5": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "burrito5",
+        "seats": 4
+    },
+    "bus": {
+        "class": 17,
+        "doors": 5,
+        "make": "",
+        "name": "Bus",
+        "seats": 16
+    },
+    "buzzard": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Buzzard Attack Chopper",
+        "seats": 4
+    },
+    "buzzard2": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Buzzard",
+        "seats": 4
+    },
+    "cablecar": {
+        "class": 21,
+        "doors": 2,
+        "make": "",
+        "name": "Cable Car",
+        "seats": 4
+    },
+    "caddy": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Caddy",
+        "seats": 2
+    },
+    "caddy2": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "caddy2",
+        "seats": 2
+    },
+    "caddy3": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Caddy",
+        "seats": 2
+    },
+    "calico": {
+        "class": 6,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Calico GTF",
+        "seats": 2
+    },
+    "camper": {
+        "class": 12,
+        "doors": 4,
+        "make": "Brute",
+        "name": "Camper",
+        "seats": 2
+    },
+    "caracara": {
+        "class": 9,
+        "doors": 5,
+        "make": "Vapid",
+        "name": "Caracara",
+        "seats": 5,
+        "weapons": true
+    },
+    "caracara2": {
+        "class": 9,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Caracara 4x4",
+        "seats": 4
+    },
+    "carbonizzare": {
+        "class": 6,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "carbonizzare",
+        "seats": 2
+    },
+    "carbonrs": {
+        "class": 8,
+        "doors": 1,
+        "make": "Nagasaki",
+        "name": "carbonrs",
+        "seats": 2
+    },
+    "cargobob": {
+        "class": 15,
+        "doors": 3,
+        "make": "",
+        "name": "Cargobob",
+        "seats": 10
+    },
+    "cargobob2": {
+        "class": 15,
+        "doors": 3,
+        "make": "",
+        "name": "Cargobob Jetsam",
+        "seats": 10
+    },
+    "cargobob3": {
+        "class": 15,
+        "doors": 3,
+        "make": "",
+        "name": "cargobob3",
+        "seats": 10
+    },
+    "cargobob4": {
+        "class": 15,
+        "doors": 3,
+        "make": "",
+        "name": "cargobob4",
+        "seats": 2
+    },
+    "cargoplane": {
+        "class": 16,
+        "doors": 4,
+        "make": "",
+        "name": "cargoplane",
+        "seats": 2
+    },
+    "casco": {
+        "class": 5,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Casco",
+        "seats": 2
+    },
+    "cavalcade": {
+        "class": 2,
+        "doors": 6,
+        "make": "Albany",
+        "name": "cavalcade",
+        "seats": 4
+    },
+    "cavalcade2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Albany",
+        "name": "cavalcade2",
+        "seats": 4
+    },
+    "cerberus": {
+        "class": 20,
+        "doors": 2,
+        "make": "MTL",
+        "name": "Apocalypse Cerberus",
+        "seats": 2,
+        "weapons": true
+    },
+    "cerberus2": {
+        "class": 20,
+        "doors": 2,
+        "make": "MTL",
+        "name": "Future Shock Cerberus",
+        "seats": 2,
+        "weapons": true
+    },
+    "cerberus3": {
+        "class": 20,
+        "doors": 2,
+        "make": "MTL",
+        "name": "Nightmare Cerberus",
+        "seats": 2,
+        "weapons": true
+    },
+    "champion": {
+        "class": 7,
+        "doors": 3,
+        "make": "Dewbauchee",
+        "name": "Champion",
+        "seats": 2
+    },
+    "cheburek": {
+        "class": 5,
+        "doors": 6,
+        "make": "RUNE",
+        "name": "Cheburek",
+        "seats": 4
+    },
+    "cheetah": {
+        "class": 7,
+        "doors": 3,
+        "make": "Grotti",
+        "name": "Cheetah",
+        "seats": 2
+    },
+    "cheetah2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Cheetah Classic",
+        "seats": 2
+    },
+    "chernobog": {
+        "class": 19,
+        "doors": 5,
+        "make": "",
+        "name": "Chernobog",
+        "seats": 2,
+        "weapons": true
+    },
+    "chimera": {
+        "class": 8,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Chimera",
+        "seats": 1
+    },
+    "chino": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Chino",
+        "seats": 2
+    },
+    "chino2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Chino Custom",
+        "seats": 2
+    },
+    "cinquemila": {
+        "class": 1,
+        "doors": 6,
+        "make": "Lampadati",
+        "name": "Cinquemila",
+        "seats": 4
+    },
+    "cliffhanger": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Cliffhanger",
+        "seats": 2
+    },
+    "clique": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Clique",
+        "seats": 2
+    },
+    "club": {
+        "class": 0,
+        "doors": 4,
+        "make": "BF",
+        "name": "Club",
+        "seats": 2
+    },
+    "coach": {
+        "class": 17,
+        "doors": 2,
+        "make": "",
+        "name": "Dashound",
+        "seats": 10
+    },
+    "cog55": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Cognoscenti 55",
+        "seats": 4
+    },
+    "cog552": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Cognoscenti 55 (Armored)",
+        "seats": 4
+    },
+    "cogcabrio": {
+        "class": 3,
+        "doors": 4,
+        "make": "Enus",
+        "name": "cogcabrio",
+        "seats": 2
+    },
+    "cognoscenti": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "cognoscenti",
+        "seats": 4
+    },
+    "cognoscenti2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "cognoscenti2",
+        "seats": 4
+    },
+    "comet2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Comet",
+        "seats": 2
+    },
+    "comet3": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Comet Retro Custom",
+        "seats": 2
+    },
+    "comet4": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Comet Safari",
+        "seats": 2
+    },
+    "comet5": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Comet SR",
+        "seats": 2
+    },
+    "comet6": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Comet S2",
+        "seats": 2
+    },
+    "comet7": {
+        "class": 6,
+        "doors": 3,
+        "make": "Pfister",
+        "name": "Comet S2 Cabrio",
+        "seats": 2
+    },
+    "conada": {
+        "class": 15,
+        "doors": 2,
+        "make": "Buckingham",
+        "name": "Conada",
+        "seats": 4
+    },
+    "contender": {
+        "class": 2,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Contender",
+        "seats": 4
+    },
+    "coquette": {
+        "class": 6,
+        "doors": 3,
+        "make": "Invetero",
+        "name": "Coquette",
+        "seats": 2
+    },
+    "coquette2": {
+        "class": 5,
+        "doors": 3,
+        "make": "Invetero",
+        "name": "Coquette Classic",
+        "seats": 2
+    },
+    "coquette3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Invetero",
+        "name": "Coquette BlackFin",
+        "seats": 2
+    },
+    "coquette4": {
+        "class": 6,
+        "doors": 4,
+        "make": "Invetero",
+        "name": "Coquette D10",
+        "seats": 2
+    },
+    "corsita": {
+        "class": 6,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Corsita",
+        "seats": 2
+    },
+    "cruiser": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Cruiser",
+        "seats": 1
+    },
+    "crusader": {
+        "class": 19,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Crusader",
+        "seats": 4
+    },
+    "cuban800": {
+        "class": 16,
+        "doors": 2,
+        "make": "",
+        "name": "Cuban 800",
+        "seats": 2
+    },
+    "cutter": {
+        "class": 10,
+        "doors": 1,
+        "make": "HVY",
+        "name": "Cutter",
+        "seats": 1
+    },
+    "cyclone": {
+        "class": 7,
+        "doors": 2,
+        "make": "Coil",
+        "name": "Cyclone",
+        "seats": 2
+    },
+    "cypher": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Cypher",
+        "seats": 2
+    },
+    "daemon": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Daemon",
+        "seats": 2
+    },
+    "daemon2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Daemon",
+        "seats": 2
+    },
+    "deathbike": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Apocalypse Deathbike",
+        "seats": 1
+    },
+    "deathbike2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Future Shock Deathbike",
+        "seats": 1
+    },
+    "deathbike3": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Nightmare Deathbike",
+        "seats": 1
+    },
+    "defiler": {
+        "class": 8,
+        "doors": 1,
+        "make": "Shitzu",
+        "name": "Defiler",
+        "seats": 1
+    },
+    "deity": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Deity",
+        "seats": 4
+    },
+    "deluxo": {
+        "class": 5,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Deluxo",
+        "seats": 2
+    },
+    "deveste": {
+        "class": 7,
+        "doors": 2,
+        "make": "Principe",
+        "name": "Deveste Eight",
+        "seats": 2
+    },
+    "deviant": {
+        "class": 4,
+        "doors": 4,
+        "make": "Schyster",
+        "name": "Deviant",
+        "seats": 2
+    },
+    "diablous": {
+        "class": 8,
+        "doors": 1,
+        "make": "Principe",
+        "name": "Diabolus",
+        "seats": 1
+    },
+    "diablous2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Principe",
+        "name": "Diabolus Custom",
+        "seats": 1
+    },
+    "dilettante": {
+        "class": 0,
+        "doors": 6,
+        "make": "Karin",
+        "name": "dilettante",
+        "seats": 4
+    },
+    "dilettante2": {
+        "class": 0,
+        "doors": 6,
+        "make": "Karin",
+        "name": "dilettante2",
+        "seats": 4
+    },
+    "dinghy": {
+        "class": 14,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Dinghy",
+        "seats": 4
+    },
+    "dinghy2": {
+        "class": 14,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "dinghy2",
+        "seats": 2
+    },
+    "dinghy3": {
+        "class": 14,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Dinghy",
+        "seats": 4
+    },
+    "dinghy4": {
+        "class": 14,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "dinghy4",
+        "seats": 4
+    },
+    "dinghy5": {
+        "class": 14,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Weaponized Dinghy",
+        "seats": 5,
+        "weapons": true
+    },
+    "dloader": {
+        "class": 9,
+        "doors": 3,
+        "make": "Bravado",
+        "name": "Duneloader",
+        "seats": 2
+    },
+    "docktrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "docktrailer",
+        "seats": 0
+    },
+    "docktug": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "Docktug",
+        "seats": 1
+    },
+    "dodo": {
+        "class": 16,
+        "doors": 4,
+        "make": "Mammoth",
+        "name": "Dodo",
+        "seats": 4
+    },
+    "dominator": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "dominator",
+        "seats": 2
+    },
+    "dominator2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Pisswasser Dominator",
+        "seats": 2
+    },
+    "dominator3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Dominator GTX",
+        "seats": 2
+    },
+    "dominator4": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Apocalypse Dominator",
+        "seats": 2
+    },
+    "dominator5": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Future Shock Dominator",
+        "seats": 2
+    },
+    "dominator6": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Nightmare Dominator",
+        "seats": 2
+    },
+    "dominator7": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Dominator ASP",
+        "seats": 2
+    },
+    "dominator8": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Dominator GTT",
+        "seats": 2
+    },
+    "double": {
+        "class": 8,
+        "doors": 1,
+        "make": "Dinka",
+        "name": "Double-T",
+        "seats": 2
+    },
+    "drafter": {
+        "class": 6,
+        "doors": 4,
+        "make": "Obey",
+        "name": "8F Drafter",
+        "seats": 2
+    },
+    "draugur": {
+        "class": 9,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Draugur",
+        "seats": 4
+    },
+    "dubsta": {
+        "class": 2,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Dubsta",
+        "seats": 4
+    },
+    "dubsta2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "dubsta2",
+        "seats": 4
+    },
+    "dubsta3": {
+        "class": 9,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Dubsta 6x6",
+        "seats": 6
+    },
+    "dukes": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Dukes",
+        "seats": 2
+    },
+    "dukes2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Duke O'Death",
+        "seats": 2
+    },
+    "dukes3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Beater Dukes",
+        "seats": 2
+    },
+    "dump": {
+        "class": 10,
+        "doors": 1,
+        "make": "HVY",
+        "name": "Dump",
+        "seats": 1
+    },
+    "dune": {
+        "class": 9,
+        "doors": 0,
+        "make": "BF",
+        "name": "Dune Buggy",
+        "seats": 2
+    },
+    "dune2": {
+        "class": 9,
+        "doors": 0,
+        "make": "",
+        "name": "Space Docker",
+        "seats": 2
+    },
+    "dune3": {
+        "class": 9,
+        "doors": 0,
+        "make": "BF",
+        "name": "Dune FAV",
+        "seats": 2,
+        "weapons": true
+    },
+    "dune4": {
+        "class": 9,
+        "doors": 0,
+        "make": "",
+        "name": "Ramp Buggy",
+        "seats": 2
+    },
+    "dune5": {
+        "class": 9,
+        "doors": 0,
+        "make": "",
+        "name": "Ramp Buggy",
+        "seats": 2
+    },
+    "duster": {
+        "class": 16,
+        "doors": 0,
+        "make": "",
+        "name": "Duster",
+        "seats": 2
+    },
+    "dynasty": {
+        "class": 5,
+        "doors": 6,
+        "make": "Weeny",
+        "name": "Dynasty",
+        "seats": 4
+    },
+    "elegy": {
+        "class": 6,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Elegy Retro Custom",
+        "seats": 2
+    },
+    "elegy2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Elegy RH8",
+        "seats": 2
+    },
+    "ellie": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Ellie",
+        "seats": 2
+    },
+    "emerus": {
+        "class": 7,
+        "doors": 2,
+        "make": "Progen",
+        "name": "Emerus",
+        "seats": 2
+    },
+    "emperor": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "Emperor",
+        "seats": 4
+    },
+    "emperor2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "Emperor",
+        "seats": 4
+    },
+    "emperor3": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "emperor3",
+        "seats": 4
+    },
+    "enduro": {
+        "class": 8,
+        "doors": 1,
+        "make": "Dinka",
+        "name": "Enduro",
+        "seats": 2
+    },
+    "entity2": {
+        "class": 7,
+        "doors": 4,
+        "make": "Overflod",
+        "name": "Entity XXR",
+        "seats": 2
+    },
+    "entityxf": {
+        "class": 7,
+        "doors": 3,
+        "make": "Overflod",
+        "name": "Entity XF",
+        "seats": 2
+    },
+    "esskey": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Esskey",
+        "seats": 2
+    },
+    "euros": {
+        "class": 6,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Euros",
+        "seats": 2
+    },
+    "everon": {
+        "class": 9,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Everon",
+        "seats": 4
+    },
+    "exemplar": {
+        "class": 3,
+        "doors": 6,
+        "make": "Dewbauchee",
+        "name": "Exemplar",
+        "seats": 4
+    },
+    "f620": {
+        "class": 3,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "F620",
+        "seats": 2
+    },
+    "faction": {
+        "class": 4,
+        "doors": 4,
+        "make": "Willard",
+        "name": "Faction",
+        "seats": 2
+    },
+    "faction2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Willard",
+        "name": "Faction Custom",
+        "seats": 2
+    },
+    "faction3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Willard",
+        "name": "Faction Custom Donk",
+        "seats": 2
+    },
+    "fagaloa": {
+        "class": 5,
+        "doors": 5,
+        "make": "Vulcar",
+        "name": "Fagaloa",
+        "seats": 2
+    },
+    "faggio": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Faggio",
+        "seats": 2
+    },
+    "faggio2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "faggio2",
+        "seats": 2
+    },
+    "faggio3": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Faggio Mod",
+        "seats": 2
+    },
+    "fbi": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "FIB",
+        "seats": 4
+    },
+    "fbi2": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "FIB",
+        "seats": 8
+    },
+    "fcr": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "FCR 1000",
+        "seats": 1
+    },
+    "fcr2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "FCR 1000 Custom",
+        "seats": 1
+    },
+    "felon": {
+        "class": 3,
+        "doors": 6,
+        "make": "Lampadati",
+        "name": "Felon",
+        "seats": 4
+    },
+    "felon2": {
+        "class": 3,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Felon GT",
+        "seats": 2
+    },
+    "feltzer2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "feltzer2",
+        "seats": 2
+    },
+    "feltzer3": {
+        "class": 5,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "Stirling GT",
+        "seats": 2
+    },
+    "firetruk": {
+        "class": 18,
+        "doors": 4,
+        "make": "MTL",
+        "name": "Fire Truck",
+        "seats": 8,
+        "weapons": true
+    },
+    "fixter": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Fixter",
+        "seats": 1
+    },
+    "flashgt": {
+        "class": 6,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "Flash GT",
+        "seats": 2
+    },
+    "flatbed": {
+        "class": 10,
+        "doors": 3,
+        "make": "MTL",
+        "name": "Flatbed",
+        "seats": 2
+    },
+    "fmj": {
+        "class": 7,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "FMJ",
+        "seats": 2
+    },
+    "forklift": {
+        "class": 11,
+        "doors": 0,
+        "make": "HVY",
+        "name": "forklift",
+        "seats": 1
+    },
+    "formula": {
+        "class": 22,
+        "doors": 0,
+        "make": "Progen",
+        "name": "PR4",
+        "seats": 1
+    },
+    "formula2": {
+        "class": 22,
+        "doors": 0,
+        "make": "Ocelot",
+        "name": "R88",
+        "seats": 1
+    },
+    "fq2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Fathom",
+        "name": "FQ 2",
+        "seats": 4
+    },
+    "freecrawler": {
+        "class": 9,
+        "doors": 7,
+        "make": "Canis",
+        "name": "Freecrawler",
+        "seats": 4
+    },
+    "freight": {
+        "class": 21,
+        "doors": 1,
+        "make": "",
+        "name": "Freight Train",
+        "seats": 2
+    },
+    "freightcar": {
+        "class": 21,
+        "doors": 0,
+        "make": "",
+        "name": "freightcar",
+        "seats": 0
+    },
+    "freightcar2": {
+        "class": 21,
+        "doors": 0,
+        "make": "",
+        "name": "freightcar2",
+        "seats": 0
+    },
+    "freightcont1": {
+        "class": 21,
+        "doors": 2,
+        "make": "",
+        "name": "freightcont1",
+        "seats": 2
+    },
+    "freightcont2": {
+        "class": 21,
+        "doors": 0,
+        "make": "",
+        "name": "freightcont2",
+        "seats": 2
+    },
+    "freightgrain": {
+        "class": 21,
+        "doors": 1,
+        "make": "",
+        "name": "freightgrain",
+        "seats": 2
+    },
+    "freighttrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "freighttrailer",
+        "seats": 0
+    },
+    "frogger": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Frogger",
+        "seats": 4
+    },
+    "frogger2": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "frogger2",
+        "seats": 4
+    },
+    "fugitive": {
+        "class": 1,
+        "doors": 6,
+        "make": "Cheval",
+        "name": "Fugitive",
+        "seats": 4
+    },
+    "furia": {
+        "class": 7,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Furia",
+        "seats": 2
+    },
+    "furoregt": {
+        "class": 6,
+        "doors": 3,
+        "make": "Lampadati",
+        "name": "furoregt",
+        "seats": 2
+    },
+    "fusilade": {
+        "class": 6,
+        "doors": 4,
+        "make": "Schyster",
+        "name": "Fusilade",
+        "seats": 2
+    },
+    "futo": {
+        "class": 6,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Futo",
+        "seats": 2
+    },
+    "futo2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Futo GTX",
+        "seats": 2
+    },
+    "gargoyle": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Gargoyle",
+        "seats": 2
+    },
+    "gauntlet": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Gauntlet",
+        "seats": 2
+    },
+    "gauntlet2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Redwood Gauntlet",
+        "seats": 2
+    },
+    "gauntlet3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Gauntlet Classic",
+        "seats": 2
+    },
+    "gauntlet4": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Gauntlet Hellfire",
+        "seats": 2
+    },
+    "gauntlet5": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "Gauntlet Classic Custom",
+        "seats": 2
+    },
+    "gb200": {
+        "class": 6,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "GB200",
+        "seats": 2
+    },
+    "gburrito": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "Gang Burrito",
+        "seats": 4
+    },
+    "gburrito2": {
+        "class": 12,
+        "doors": 5,
+        "make": "Declasse",
+        "name": "Gang Burrito",
+        "seats": 4
+    },
+    "glendale": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Glendale",
+        "seats": 4
+    },
+    "glendale2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Glendale Custom",
+        "seats": 4
+    },
+    "gp1": {
+        "class": 7,
+        "doors": 4,
+        "make": "Progen",
+        "name": "GP1",
+        "seats": 2
+    },
+    "graintrailer": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "Graintrailer",
+        "seats": 0
+    },
+    "granger": {
+        "class": 2,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Granger",
+        "seats": 8
+    },
+    "granger2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Granger 3600LX",
+        "seats": 8
+    },
+    "greenwood": {
+        "class": 4,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Greenwood",
+        "seats": 4
+    },
+    "gresley": {
+        "class": 2,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Gresley",
+        "seats": 4
+    },
+    "growler": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Growler",
+        "seats": 2
+    },
+    "gt500": {
+        "class": 5,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "GT500",
+        "seats": 2
+    },
+    "guardian": {
+        "class": 10,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Guardian",
+        "seats": 6
+    },
+    "habanero": {
+        "class": 2,
+        "doors": 6,
+        "make": "Emperor",
+        "name": "Habanero",
+        "seats": 4
+    },
+    "hakuchou": {
+        "class": 8,
+        "doors": 1,
+        "make": "Shitzu",
+        "name": "Hakuchou",
+        "seats": 2
+    },
+    "hakuchou2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Shitzu",
+        "name": "Hakuchou Drag",
+        "seats": 2
+    },
+    "halftrack": {
+        "class": 19,
+        "doors": 3,
+        "make": "Bravado",
+        "name": "Half-track",
+        "seats": 3,
+        "weapons": true
+    },
+    "handler": {
+        "class": 10,
+        "doors": 1,
+        "make": "",
+        "name": "Dock Handler",
+        "seats": 1
+    },
+    "hauler": {
+        "class": 20,
+        "doors": 2,
+        "make": "JoBuilt",
+        "name": "Hauler",
+        "seats": 2
+    },
+    "hauler2": {
+        "class": 20,
+        "doors": 2,
+        "make": "JoBuilt",
+        "name": "Hauler Custom",
+        "seats": 2
+    },
+    "havok": {
+        "class": 15,
+        "doors": 1,
+        "make": "Nagasaki",
+        "name": "Havok",
+        "seats": 1
+    },
+    "hellion": {
+        "class": 9,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Hellion",
+        "seats": 2
+    },
+    "hermes": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Hermes",
+        "seats": 2
+    },
+    "hexer": {
+        "class": 8,
+        "doors": 1,
+        "make": "LCC",
+        "name": "Hexer",
+        "seats": 2
+    },
+    "hotknife": {
+        "class": 4,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "Hotknife",
+        "seats": 2
+    },
+    "hotring": {
+        "class": 6,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Hotring Sabre",
+        "seats": 2
+    },
+    "howard": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Howard NX-25",
+        "seats": 1
+    },
+    "hunter": {
+        "class": 15,
+        "doors": 4,
+        "make": "",
+        "name": "FH-1 Hunter",
+        "seats": 2,
+        "weapons": true
+    },
+    "huntley": {
+        "class": 2,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Huntley S",
+        "seats": 4
+    },
+    "hustler": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Hustler",
+        "seats": 2
+    },
+    "hydra": {
+        "class": 16,
+        "doors": 1,
+        "make": "Mammoth",
+        "name": "Hydra",
+        "seats": 1
+    },
+    "ignus": {
+        "class": 7,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Ignus",
+        "seats": 2
+    },
+    "imorgon": {
+        "class": 6,
+        "doors": 3,
+        "make": "Overflod",
+        "name": "Imorgon",
+        "seats": 2
+    },
+    "impaler": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Impaler",
+        "seats": 2
+    },
+    "impaler2": {
+        "class": 4,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Apocalypse Impaler",
+        "seats": 2
+    },
+    "impaler3": {
+        "class": 4,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Future Shock Impaler",
+        "seats": 2
+    },
+    "impaler4": {
+        "class": 4,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Nightmare Impaler",
+        "seats": 2
+    },
+    "imperator": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Apocalypse Imperator",
+        "seats": 2
+    },
+    "imperator2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Future Shock Imperator",
+        "seats": 2
+    },
+    "imperator3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Nightmare Imperator",
+        "seats": 2
+    },
+    "infernus": {
+        "class": 7,
+        "doors": 3,
+        "make": "Pegassi",
+        "name": "Infernus",
+        "seats": 2
+    },
+    "infernus2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Infernus Classic",
+        "seats": 2
+    },
+    "ingot": {
+        "class": 1,
+        "doors": 6,
+        "make": "Vulcar",
+        "name": "Ingot",
+        "seats": 4
+    },
+    "innovation": {
+        "class": 8,
+        "doors": 1,
+        "make": "LCC",
+        "name": "Innovation",
+        "seats": 2
+    },
+    "insurgent": {
+        "class": 9,
+        "doors": 5,
+        "make": "HVY",
+        "name": "Insurgent Pick-Up",
+        "seats": 9,
+        "weapons": true
+    },
+    "insurgent2": {
+        "class": 9,
+        "doors": 5,
+        "make": "HVY",
+        "name": "Insurgent",
+        "seats": 6
+    },
+    "insurgent3": {
+        "class": 9,
+        "doors": 5,
+        "make": "HVY",
+        "name": "Insurgent Pick-Up Custom",
+        "seats": 9,
+        "weapons": true
+    },
+    "intruder": {
+        "class": 1,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Intruder",
+        "seats": 4
+    },
+    "issi2": {
+        "class": 0,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Issi",
+        "seats": 2
+    },
+    "issi3": {
+        "class": 0,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Issi Classic",
+        "seats": 2
+    },
+    "issi4": {
+        "class": 0,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Apocalypse Issi",
+        "seats": 2
+    },
+    "issi5": {
+        "class": 0,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Future Shock Issi",
+        "seats": 2
+    },
+    "issi6": {
+        "class": 0,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Nightmare Issi",
+        "seats": 2
+    },
+    "issi7": {
+        "class": 6,
+        "doors": 4,
+        "make": "Weeny",
+        "name": "Issi Sport",
+        "seats": 2
+    },
+    "italigtb": {
+        "class": 7,
+        "doors": 4,
+        "make": "Progen",
+        "name": "Itali GTB",
+        "seats": 2
+    },
+    "italigtb2": {
+        "class": 7,
+        "doors": 4,
+        "make": "Progen",
+        "name": "Itali GTB Custom",
+        "seats": 2
+    },
+    "italigto": {
+        "class": 6,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Itali GTO",
+        "seats": 2
+    },
+    "italirsx": {
+        "class": 6,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Itali RSX",
+        "seats": 2
+    },
+    "iwagen": {
+        "class": 2,
+        "doors": 6,
+        "make": "Obey",
+        "name": "I-Wagen",
+        "seats": 4
+    },
+    "jackal": {
+        "class": 3,
+        "doors": 6,
+        "make": "Ocelot",
+        "name": "Jackal",
+        "seats": 4
+    },
+    "jb700": {
+        "class": 5,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "JB 700",
+        "seats": 2
+    },
+    "jb7002": {
+        "class": 5,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "JB 700W",
+        "seats": 2
+    },
+    "jester": {
+        "class": 6,
+        "doors": 3,
+        "make": "Dinka",
+        "name": "Jester",
+        "seats": 2
+    },
+    "jester2": {
+        "class": 6,
+        "doors": 3,
+        "make": "Dinka",
+        "name": "Jester (Racecar)",
+        "seats": 2
+    },
+    "jester3": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Jester Classic",
+        "seats": 2
+    },
+    "jester4": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Jester RR",
+        "seats": 2
+    },
+    "jet": {
+        "class": 16,
+        "doors": 0,
+        "make": "",
+        "name": "Jet",
+        "seats": 2
+    },
+    "jetmax": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "Jetmax",
+        "seats": 2
+    },
+    "journey": {
+        "class": 12,
+        "doors": 3,
+        "make": "Zirconium",
+        "name": "Journey",
+        "seats": 6
+    },
+    "jubilee": {
+        "class": 2,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Jubilee",
+        "seats": 4
+    },
+    "jugular": {
+        "class": 6,
+        "doors": 6,
+        "make": "Ocelot",
+        "name": "Jugular",
+        "seats": 4
+    },
+    "kalahari": {
+        "class": 9,
+        "doors": 4,
+        "make": "Canis",
+        "name": "Kalahari",
+        "seats": 2
+    },
+    "kamacho": {
+        "class": 9,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Kamacho",
+        "seats": 4
+    },
+    "kanjo": {
+        "class": 0,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Blista Kanjo",
+        "seats": 2
+    },
+    "kanjosj": {
+        "class": 3,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Kanjo SJ",
+        "seats": 2
+    },
+    "khamelion": {
+        "class": 6,
+        "doors": 4,
+        "make": "Hijak",
+        "name": "khamelion",
+        "seats": 2
+    },
+    "khanjali": {
+        "class": 19,
+        "doors": 4,
+        "make": "",
+        "name": "TM-02 Khanjali",
+        "seats": 4,
+        "weapons": true
+    },
+    "komoda": {
+        "class": 6,
+        "doors": 6,
+        "make": "Lampadati",
+        "name": "Komoda",
+        "seats": 4
+    },
+    "kosatka": {
+        "class": 14,
+        "doors": 3,
+        "make": "RUNE",
+        "name": "Kosatka",
+        "seats": 1
+    },
+    "krieger": {
+        "class": 7,
+        "doors": 2,
+        "make": "Benefactor",
+        "name": "Krieger",
+        "seats": 2
+    },
+    "kuruma": {
+        "class": 6,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Kuruma",
+        "seats": 4
+    },
+    "kuruma2": {
+        "class": 6,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Kuruma (Armored)",
+        "seats": 4
+    },
+    "landstalker": {
+        "class": 2,
+        "doors": 6,
+        "make": "Dundreary",
+        "name": "Landstalker",
+        "seats": 4
+    },
+    "landstalker2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Dundreary",
+        "name": "landstalker2",
+        "seats": 4
+    },
+    "lazer": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "P-996 LAZER",
+        "seats": 1
+    },
+    "le7b": {
+        "class": 7,
+        "doors": 2,
+        "make": "Annis",
+        "name": "RE-7B",
+        "seats": 2
+    },
+    "lectro": {
+        "class": 8,
+        "doors": 1,
+        "make": "Principe",
+        "name": "Lectro",
+        "seats": 2
+    },
+    "lguard": {
+        "class": 18,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Lifeguard",
+        "seats": 4
+    },
+    "limo2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Turreted Limo",
+        "seats": 5,
+        "weapons": true
+    },
+    "lm87": {
+        "class": 7,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "LM87",
+        "seats": 1
+    },
+    "locust": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "Locust",
+        "seats": 2
+    },
+    "longfin": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "Longfin",
+        "seats": 4
+    },
+    "lurcher": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Lurcher",
+        "seats": 2
+    },
+    "luxor": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Luxor",
+        "seats": 10
+    },
+    "luxor2": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Luxor Deluxe",
+        "seats": 8
+    },
+    "lynx": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "Lynx",
+        "seats": 2
+    },
+    "mamba": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Mamba",
+        "seats": 2
+    },
+    "mammatus": {
+        "class": 16,
+        "doors": 3,
+        "make": "",
+        "name": "Mammatus",
+        "seats": 4
+    },
+    "manana": {
+        "class": 5,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Manana",
+        "seats": 2
+    },
+    "manana2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Manana Custom",
+        "seats": 2
+    },
+    "manchez": {
+        "class": 8,
+        "doors": 1,
+        "make": "Maibatsu",
+        "name": "Manchez",
+        "seats": 2
+    },
+    "manchez2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Maibatsu",
+        "name": "Manchez Scout",
+        "seats": 1
+    },
+    "marquis": {
+        "class": 14,
+        "doors": 0,
+        "make": "Dinka",
+        "name": "Marquis",
+        "seats": 4
+    },
+    "marshall": {
+        "class": 9,
+        "doors": 3,
+        "make": "Cheval",
+        "name": "Marshall",
+        "seats": 2
+    },
+    "massacro": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Massacro",
+        "seats": 2
+    },
+    "massacro2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Massacro (Racecar)",
+        "seats": 2
+    },
+    "maverick": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Maverick",
+        "seats": 4
+    },
+    "menacer": {
+        "class": 9,
+        "doors": 5,
+        "make": "HVY",
+        "name": "Menacer",
+        "seats": 5,
+        "weapons": true
+    },
+    "mesa": {
+        "class": 2,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Mesa",
+        "seats": 4
+    },
+    "mesa2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Canis",
+        "name": "mesa2",
+        "seats": 4
+    },
+    "mesa3": {
+        "class": 9,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Mesa",
+        "seats": 4
+    },
+    "metrotrain": {
+        "class": 21,
+        "doors": 4,
+        "make": "",
+        "name": "Metropolitan",
+        "seats": 4
+    },
+    "michelli": {
+        "class": 5,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Michelli GT",
+        "seats": 2
+    },
+    "microlight": {
+        "class": 16,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Ultralight",
+        "seats": 1
+    },
+    "miljet": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Miljet",
+        "seats": 16
+    },
+    "minitank": {
+        "class": 19,
+        "doors": 0,
+        "make": "",
+        "name": "Invade and Persuade Tank",
+        "seats": 1,
+        "weapons": true
+    },
+    "minivan": {
+        "class": 12,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Minivan",
+        "seats": 4
+    },
+    "minivan2": {
+        "class": 12,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Minivan Custom",
+        "seats": 4
+    },
+    "mixer": {
+        "class": 10,
+        "doors": 3,
+        "make": "HVY",
+        "name": "Mixer",
+        "seats": 2
+    },
+    "mixer2": {
+        "class": 10,
+        "doors": 3,
+        "make": "HVY",
+        "name": "Mixer",
+        "seats": 2
+    },
+    "mogul": {
+        "class": 16,
+        "doors": 3,
+        "make": "Mammoth",
+        "name": "Mogul",
+        "seats": 3,
+        "weapons": true
+    },
+    "molotok": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "V-65 Molotok",
+        "seats": 1
+    },
+    "monroe": {
+        "class": 5,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Monroe",
+        "seats": 2
+    },
+    "monster": {
+        "class": 9,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "Liberator",
+        "seats": 2
+    },
+    "monster3": {
+        "class": 9,
+        "doors": 2,
+        "make": "Bravado",
+        "name": "Apocalypse Sasquatch",
+        "seats": 2
+    },
+    "monster4": {
+        "class": 9,
+        "doors": 2,
+        "make": "Bravado",
+        "name": "Future Shock Sasquatch",
+        "seats": 2
+    },
+    "monster5": {
+        "class": 9,
+        "doors": 2,
+        "make": "Bravado",
+        "name": "Nightmare Sasquatch",
+        "seats": 2
+    },
+    "moonbeam": {
+        "class": 4,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Moonbeam",
+        "seats": 4
+    },
+    "moonbeam2": {
+        "class": 4,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Moonbeam Custom",
+        "seats": 4
+    },
+    "mower": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "Lawn Mower",
+        "seats": 1
+    },
+    "mule": {
+        "class": 20,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Mule",
+        "seats": 6
+    },
+    "mule2": {
+        "class": 20,
+        "doors": 3,
+        "make": "Maibatsu",
+        "name": "mule2",
+        "seats": 2
+    },
+    "mule3": {
+        "class": 20,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Mule",
+        "seats": 6
+    },
+    "mule4": {
+        "class": 20,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Mule Custom",
+        "seats": 4
+    },
+    "mule5": {
+        "class": 20,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Mule",
+        "seats": 6
+    },
+    "nebula": {
+        "class": 5,
+        "doors": 4,
+        "make": "Vulcar",
+        "name": "Nebula Turbo",
+        "seats": 2
+    },
+    "nemesis": {
+        "class": 8,
+        "doors": 1,
+        "make": "Principe",
+        "name": "Nemesis",
+        "seats": 2
+    },
+    "neo": {
+        "class": 6,
+        "doors": 4,
+        "make": "Vysser",
+        "name": "Neo",
+        "seats": 2
+    },
+    "neon": {
+        "class": 6,
+        "doors": 4,
+        "make": "Pfister",
+        "name": "Neon",
+        "seats": 4
+    },
+    "nero": {
+        "class": 7,
+        "doors": 3,
+        "make": "Truffade",
+        "name": "Nero",
+        "seats": 2
+    },
+    "nero2": {
+        "class": 7,
+        "doors": 2,
+        "make": "Truffade",
+        "name": "Nero Custom",
+        "seats": 2
+    },
+    "nightblade": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Nightblade",
+        "seats": 2
+    },
+    "nightshade": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "nightshade",
+        "seats": 2
+    },
+    "nightshark": {
+        "class": 9,
+        "doors": 4,
+        "make": "HVY",
+        "name": "Nightshark",
+        "seats": 4
+    },
+    "nimbus": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Nimbus",
+        "seats": 8
+    },
+    "ninef": {
+        "class": 6,
+        "doors": 4,
+        "make": "Obey",
+        "name": "9F",
+        "seats": 2
+    },
+    "ninef2": {
+        "class": 6,
+        "doors": 3,
+        "make": "Obey",
+        "name": "9F Cabrio",
+        "seats": 2
+    },
+    "nokota": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "P-45 Nokota",
+        "seats": 1
+    },
+    "novak": {
+        "class": 2,
+        "doors": 6,
+        "make": "Lampadati",
+        "name": "Novak",
+        "seats": 4
+    },
+    "omnis": {
+        "class": 6,
+        "doors": 3,
+        "make": "Obey",
+        "name": "Omnis",
+        "seats": 2
+    },
+    "omnisegt": {
+        "class": 6,
+        "doors": 6,
+        "make": "Obey",
+        "name": "Omnis e-GT",
+        "seats": 4
+    },
+    "openwheel1": {
+        "class": 22,
+        "doors": 0,
+        "make": "Benefactor",
+        "name": "BR8",
+        "seats": 1
+    },
+    "openwheel2": {
+        "class": 22,
+        "doors": 0,
+        "make": "Declasse",
+        "name": "DR1",
+        "seats": 1
+    },
+    "oppressor": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Oppressor",
+        "seats": 1
+    },
+    "oppressor2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Oppressor Mk II",
+        "seats": 1
+    },
+    "oracle": {
+        "class": 3,
+        "doors": 6,
+        "make": "Ubermacht",
+        "name": "Oracle",
+        "seats": 4
+    },
+    "oracle2": {
+        "class": 3,
+        "doors": 6,
+        "make": "Ubermacht",
+        "name": "Oracle XS",
+        "seats": 4
+    },
+    "osiris": {
+        "class": 7,
+        "doors": 3,
+        "make": "Pegassi",
+        "name": "Osiris",
+        "seats": 2
+    },
+    "outlaw": {
+        "class": 9,
+        "doors": 2,
+        "make": "Nagasaki",
+        "name": "Outlaw",
+        "seats": 2
+    },
+    "packer": {
+        "class": 20,
+        "doors": 3,
+        "make": "MTL",
+        "name": "Packer",
+        "seats": 2
+    },
+    "panto": {
+        "class": 0,
+        "doors": 3,
+        "make": "Benefactor",
+        "name": "Panto",
+        "seats": 2
+    },
+    "paradise": {
+        "class": 12,
+        "doors": 5,
+        "make": "Bravado",
+        "name": "Paradise",
+        "seats": 4
+    },
+    "paragon": {
+        "class": 6,
+        "doors": 4,
+        "make": "Enus",
+        "name": "Paragon R",
+        "seats": 2
+    },
+    "paragon2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Enus",
+        "name": "Paragon R (Armored)",
+        "seats": 2
+    },
+    "pariah": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "Pariah",
+        "seats": 2
+    },
+    "patriot": {
+        "class": 2,
+        "doors": 6,
+        "make": "Mammoth",
+        "name": "Patriot",
+        "seats": 4
+    },
+    "patriot2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Mammoth",
+        "name": "Patriot Stretch",
+        "seats": 6
+    },
+    "patriot3": {
+        "class": 9,
+        "doors": 6,
+        "make": "Mammoth",
+        "name": "Patriot Mil-Spec",
+        "seats": 4
+    },
+    "patrolboat": {
+        "class": 14,
+        "doors": 0,
+        "make": "",
+        "name": "Kurtz 31 Patrol Boat",
+        "seats": 4,
+        "weapons": true
+    },
+    "pbus": {
+        "class": 18,
+        "doors": 4,
+        "make": "",
+        "name": "Prison Bus",
+        "seats": 11
+    },
+    "pbus2": {
+        "class": 17,
+        "doors": 4,
+        "make": "",
+        "name": "Festival Bus",
+        "seats": 11
+    },
+    "pcj": {
+        "class": 8,
+        "doors": 1,
+        "make": "Shitzu",
+        "name": "PCJ 600",
+        "seats": 2
+    },
+    "penetrator": {
+        "class": 7,
+        "doors": 3,
+        "make": "Ocelot",
+        "name": "Penetrator",
+        "seats": 2
+    },
+    "penumbra": {
+        "class": 6,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Penumbra",
+        "seats": 2
+    },
+    "penumbra2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Maibatsu",
+        "name": "Penumbra FF",
+        "seats": 2
+    },
+    "peyote": {
+        "class": 5,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Peyote",
+        "seats": 2
+    },
+    "peyote2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Peyote Gasser",
+        "seats": 2
+    },
+    "peyote3": {
+        "class": 5,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Peyote Custom",
+        "seats": 2
+    },
+    "pfister811": {
+        "class": 7,
+        "doors": 3,
+        "make": "Pfister",
+        "name": "811",
+        "seats": 2
+    },
+    "phantom": {
+        "class": 20,
+        "doors": 3,
+        "make": "JoBuilt",
+        "name": "Phantom",
+        "seats": 2
+    },
+    "phantom2": {
+        "class": 20,
+        "doors": 2,
+        "make": "JoBuilt",
+        "name": "Phantom Wedge",
+        "seats": 5
+    },
+    "phantom3": {
+        "class": 20,
+        "doors": 3,
+        "make": "JoBuilt",
+        "name": "Phantom Custom",
+        "seats": 5
+    },
+    "phoenix": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Phoenix",
+        "seats": 2
+    },
+    "picador": {
+        "class": 4,
+        "doors": 4,
+        "make": "Cheval",
+        "name": "Picador",
+        "seats": 2
+    },
+    "pigalle": {
+        "class": 5,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Pigalle",
+        "seats": 2
+    },
+    "police": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Police Cruiser",
+        "seats": 4
+    },
+    "police2": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Police Cruiser",
+        "seats": 4
+    },
+    "police3": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "police3",
+        "seats": 4
+    },
+    "police4": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Unmarked Cruiser",
+        "seats": 4
+    },
+    "policeb": {
+        "class": 18,
+        "doors": 1,
+        "make": "",
+        "name": "Police Bike",
+        "seats": 1
+    },
+    "policeold1": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "policeold1",
+        "seats": 4
+    },
+    "policeold2": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "policeold2",
+        "seats": 4
+    },
+    "policet": {
+        "class": 18,
+        "doors": 5,
+        "make": "",
+        "name": "Police Transporter",
+        "seats": 4
+    },
+    "polmav": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Police Maverick",
+        "seats": 4
+    },
+    "pony": {
+        "class": 12,
+        "doors": 5,
+        "make": "Brute",
+        "name": "Pony",
+        "seats": 4
+    },
+    "pony2": {
+        "class": 12,
+        "doors": 5,
+        "make": "Brute",
+        "name": "pony2",
+        "seats": 4
+    },
+    "postlude": {
+        "class": 3,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "Postlude",
+        "seats": 2
+    },
+    "pounder": {
+        "class": 20,
+        "doors": 5,
+        "make": "MTL",
+        "name": "Pounder",
+        "seats": 2
+    },
+    "pounder2": {
+        "class": 20,
+        "doors": 4,
+        "make": "MTL",
+        "name": "Pounder Custom",
+        "seats": 8
+    },
+    "prairie": {
+        "class": 0,
+        "doors": 4,
+        "make": "Bollokan",
+        "name": "Prairie",
+        "seats": 2
+    },
+    "pranger": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Park Ranger",
+        "seats": 8
+    },
+    "predator": {
+        "class": 14,
+        "doors": 0,
+        "make": "",
+        "name": "Police Predator",
+        "seats": 4
+    },
+    "premier": {
+        "class": 1,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Premier",
+        "seats": 4
+    },
+    "previon": {
+        "class": 3,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Previon",
+        "seats": 2
+    },
+    "primo": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "Primo",
+        "seats": 4
+    },
+    "primo2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "Primo Custom",
+        "seats": 4
+    },
+    "proptrailer": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "proptrailer",
+        "seats": 2
+    },
+    "prototipo": {
+        "class": 7,
+        "doors": 3,
+        "make": "Grotti",
+        "name": "X80 Proto",
+        "seats": 2
+    },
+    "pyro": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Pyro",
+        "seats": 2
+    },
+    "radi": {
+        "class": 2,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Radius",
+        "seats": 4
+    },
+    "raiden": {
+        "class": 6,
+        "doors": 6,
+        "make": "Coil",
+        "name": "Raiden",
+        "seats": 4
+    },
+    "raketrailer": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "raketrailer",
+        "seats": 0
+    },
+    "rallytruck": {
+        "class": 17,
+        "doors": 2,
+        "make": "MTL",
+        "name": "Dune",
+        "seats": 2
+    },
+    "rancherxl": {
+        "class": 9,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "rancherxl",
+        "seats": 4
+    },
+    "rancherxl2": {
+        "class": 9,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "rancherxl2",
+        "seats": 4
+    },
+    "rapidgt": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Rapid GT",
+        "seats": 2
+    },
+    "rapidgt2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Rapid GT Topless",
+        "seats": 2
+    },
+    "rapidgt3": {
+        "class": 5,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Rapid GT Classic",
+        "seats": 2
+    },
+    "raptor": {
+        "class": 6,
+        "doors": 0,
+        "make": "BF",
+        "name": "Raptor",
+        "seats": 2
+    },
+    "ratbike": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Rat Bike",
+        "seats": 2
+    },
+    "ratloader": {
+        "class": 4,
+        "doors": 3,
+        "make": "",
+        "name": "ratloader",
+        "seats": 2
+    },
+    "ratloader2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "ratloader2",
+        "seats": 2
+    },
+    "rcbandito": {
+        "class": 9,
+        "doors": 0,
+        "make": "",
+        "name": "RC Bandito",
+        "seats": 1
+    },
+    "reaper": {
+        "class": 7,
+        "doors": 3,
+        "make": "Pegassi",
+        "name": "Reaper",
+        "seats": 2
+    },
+    "rebel": {
+        "class": 9,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Rebel",
+        "seats": 2
+    },
+    "rebel2": {
+        "class": 9,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Rebel (Clean)",
+        "seats": 2
+    },
+    "rebla": {
+        "class": 2,
+        "doors": 6,
+        "make": "Ubermacht",
+        "name": "Rebla GTS",
+        "seats": 4
+    },
+    "reever": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Reever",
+        "seats": 1
+    },
+    "regina": {
+        "class": 1,
+        "doors": 6,
+        "make": "Dundreary",
+        "name": "Regina",
+        "seats": 4
+    },
+    "remus": {
+        "class": 6,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Remus",
+        "seats": 2
+    },
+    "rentalbus": {
+        "class": 17,
+        "doors": 5,
+        "make": "",
+        "name": "rentalbus",
+        "seats": 10
+    },
+    "retinue": {
+        "class": 5,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Retinue",
+        "seats": 2
+    },
+    "retinue2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Retinue Mk II",
+        "seats": 2
+    },
+    "revolter": {
+        "class": 6,
+        "doors": 6,
+        "make": "Ubermacht",
+        "name": "Revolter",
+        "seats": 4
+    },
+    "rhapsody": {
+        "class": 0,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Rhapsody",
+        "seats": 2
+    },
+    "rhinehart": {
+        "class": 1,
+        "doors": 6,
+        "make": "Ubermacht",
+        "name": "Rhinehart",
+        "seats": 4
+    },
+    "rhino": {
+        "class": 19,
+        "doors": 1,
+        "make": "",
+        "name": "Rhino Tank",
+        "seats": 2,
+        "weapons": true
+    },
+    "riata": {
+        "class": 9,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Riata",
+        "seats": 2
+    },
+    "riot": {
+        "class": 18,
+        "doors": 4,
+        "make": "",
+        "name": "Police Riot",
+        "seats": 8
+    },
+    "riot2": {
+        "class": 18,
+        "doors": 4,
+        "make": "",
+        "name": "RCV",
+        "seats": 6,
+        "weapons": true
+    },
+    "ripley": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "Ripley",
+        "seats": 2
+    },
+    "rocoto": {
+        "class": 2,
+        "doors": 6,
+        "make": "Obey",
+        "name": "Rocoto",
+        "seats": 4
+    },
+    "rogue": {
+        "class": 16,
+        "doors": 2,
+        "make": "Western",
+        "name": "Rogue",
+        "seats": 2
+    },
+    "romero": {
+        "class": 1,
+        "doors": 4,
+        "make": "Chariot",
+        "name": "Romero Hearse",
+        "seats": 2
+    },
+    "rrocket": {
+        "class": 8,
+        "doors": 0,
+        "make": "Western",
+        "name": "Rampant Rocket",
+        "seats": 1
+    },
+    "rt3000": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dinka",
+        "name": "RT3000",
+        "seats": 2
+    },
+    "rubble": {
+        "class": 10,
+        "doors": 3,
+        "make": "JoBuilt",
+        "name": "Rubble",
+        "seats": 2
+    },
+    "ruffian": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Ruffian",
+        "seats": 2
+    },
+    "ruiner": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Ruiner",
+        "seats": 2
+    },
+    "ruiner2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Ruiner 2000",
+        "seats": 2
+    },
+    "ruiner3": {
+        "class": 4,
+        "doors": 0,
+        "make": "Imponte",
+        "name": "ruiner3",
+        "seats": 2
+    },
+    "ruiner4": {
+        "class": 4,
+        "doors": 4,
+        "make": "Imponte",
+        "name": "Ruiner ZZ-8",
+        "seats": 2
+    },
+    "rumpo": {
+        "class": 12,
+        "doors": 5,
+        "make": "Bravado",
+        "name": "Rumpo",
+        "seats": 4
+    },
+    "rumpo2": {
+        "class": 12,
+        "doors": 5,
+        "make": "Bravado",
+        "name": "rumpo2",
+        "seats": 2
+    },
+    "rumpo3": {
+        "class": 12,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Rumpo Custom",
+        "seats": 4
+    },
+    "ruston": {
+        "class": 6,
+        "doors": 2,
+        "make": "Hijak",
+        "name": "Ruston",
+        "seats": 2
+    },
+    "s80": {
+        "class": 7,
+        "doors": 4,
+        "make": "Annis",
+        "name": "S80RR",
+        "seats": 1
+    },
+    "sabregt": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Sabre Turbo",
+        "seats": 2
+    },
+    "sabregt2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Sabre Turbo Custom",
+        "seats": 2
+    },
+    "sadler": {
+        "class": 11,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Sadler",
+        "seats": 4
+    },
+    "sadler2": {
+        "class": 11,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "sadler2",
+        "seats": 4
+    },
+    "sanchez": {
+        "class": 8,
+        "doors": 1,
+        "make": "Maibatsu",
+        "name": "Sanchez (Livery)",
+        "seats": 2
+    },
+    "sanchez2": {
+        "class": 8,
+        "doors": 1,
+        "make": "Maibatsu",
+        "name": "Sanchez 2",
+        "seats": 2
+    },
+    "sanctus": {
+        "class": 8,
+        "doors": 1,
+        "make": "LCC",
+        "name": "Sanctus",
+        "seats": 1
+    },
+    "sandking": {
+        "class": 9,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Sandking XL",
+        "seats": 4
+    },
+    "sandking2": {
+        "class": 9,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "sandking2",
+        "seats": 2
+    },
+    "savage": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Savage",
+        "seats": 4
+    },
+    "savestra": {
+        "class": 5,
+        "doors": 4,
+        "make": "Annis",
+        "name": "Savestra",
+        "seats": 2
+    },
+    "sc1": {
+        "class": 7,
+        "doors": 3,
+        "make": "Ubermacht",
+        "name": "SC1",
+        "seats": 2
+    },
+    "scarab": {
+        "class": 19,
+        "doors": 2,
+        "make": "HVY",
+        "name": "Apocalypse Scarab",
+        "seats": 4
+    },
+    "scarab2": {
+        "class": 19,
+        "doors": 2,
+        "make": "HVY",
+        "name": "Future Shock Scarab",
+        "seats": 4
+    },
+    "scarab3": {
+        "class": 19,
+        "doors": 2,
+        "make": "HVY",
+        "name": "Nightmare Scarab",
+        "seats": 4
+    },
+    "schafter2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Schafter",
+        "seats": 4
+    },
+    "schafter3": {
+        "class": 6,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Schafter V12",
+        "seats": 4
+    },
+    "schafter4": {
+        "class": 6,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Schafter LWB",
+        "seats": 4
+    },
+    "schafter5": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Schafter V12 (Armored)",
+        "seats": 4
+    },
+    "schafter6": {
+        "class": 1,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Schafter LWB (Armored)",
+        "seats": 4
+    },
+    "schlagen": {
+        "class": 6,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "Schlagen GT",
+        "seats": 2
+    },
+    "schwarzer": {
+        "class": 6,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "schwarzer",
+        "seats": 2
+    },
+    "scorcher": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Scorcher",
+        "seats": 1
+    },
+    "scramjet": {
+        "class": 7,
+        "doors": 2,
+        "make": "Declasse",
+        "name": "Scramjet",
+        "seats": 2
+    },
+    "scrap": {
+        "class": 11,
+        "doors": 3,
+        "make": "",
+        "name": "Scrap Truck",
+        "seats": 2
+    },
+    "seabreeze": {
+        "class": 16,
+        "doors": 1,
+        "make": "Western",
+        "name": "Seabreeze",
+        "seats": 2
+    },
+    "seashark": {
+        "class": 14,
+        "doors": 0,
+        "make": "Speedophile",
+        "name": "Seashark",
+        "seats": 2
+    },
+    "seashark2": {
+        "class": 14,
+        "doors": 0,
+        "make": "Speedophile",
+        "name": "seashark2",
+        "seats": 2
+    },
+    "seashark3": {
+        "class": 14,
+        "doors": 0,
+        "make": "Speedophile",
+        "name": "seashark3",
+        "seats": 2
+    },
+    "seasparrow": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "seasparrow",
+        "seats": 2
+    },
+    "seasparrow2": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "seasparrow2",
+        "seats": 2
+    },
+    "seasparrow3": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "seasparrow3",
+        "seats": 2
+    },
+    "seminole": {
+        "class": 2,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Seminole",
+        "seats": 4
+    },
+    "seminole2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Canis",
+        "name": "Seminole Frontier",
+        "seats": 4
+    },
+    "sentinel": {
+        "class": 3,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Sentinel XS",
+        "seats": 2
+    },
+    "sentinel2": {
+        "class": 3,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Sentinel",
+        "seats": 4
+    },
+    "sentinel3": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Sentinel Classic",
+        "seats": 2
+    },
+    "sentinel4": {
+        "class": 6,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Sentinel Classic Widebody",
+        "seats": 2
+    },
+    "serrano": {
+        "class": 2,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Serrano",
+        "seats": 4
+    },
+    "seven70": {
+        "class": 6,
+        "doors": 4,
+        "make": "Dewbauchee",
+        "name": "Seven-70",
+        "seats": 2
+    },
+    "shamal": {
+        "class": 16,
+        "doors": 1,
+        "make": "Buckingham",
+        "name": "Shamal",
+        "seats": 10
+    },
+    "sheava": {
+        "class": 7,
+        "doors": 3,
+        "make": "Emperor",
+        "name": "ETR1",
+        "seats": 2
+    },
+    "sheriff": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Sheriff Cruiser",
+        "seats": 4
+    },
+    "sheriff2": {
+        "class": 18,
+        "doors": 6,
+        "make": "",
+        "name": "Sheriff SUV",
+        "seats": 8
+    },
+    "shinobi": {
+        "class": 8,
+        "doors": 1,
+        "make": "Nagasaki",
+        "name": "Shinobi",
+        "seats": 1
+    },
+    "shotaro": {
+        "class": 8,
+        "doors": 1,
+        "make": "Nagasaki",
+        "name": "Shotaro",
+        "seats": 1
+    },
+    "skylift": {
+        "class": 15,
+        "doors": 3,
+        "make": "",
+        "name": "Skylift",
+        "seats": 2
+    },
+    "slamtruck": {
+        "class": 11,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "Slamtruck",
+        "seats": 2
+    },
+    "slamvan": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Slamvan",
+        "seats": 2
+    },
+    "slamvan2": {
+        "class": 4,
+        "doors": 5,
+        "make": "Vapid",
+        "name": "Lost Slamvan",
+        "seats": 4
+    },
+    "slamvan3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "Slamvan Custom",
+        "seats": 2
+    },
+    "slamvan4": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Apocalypse Slamvan",
+        "seats": 2
+    },
+    "slamvan5": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Future Shock Slamvan",
+        "seats": 2
+    },
+    "slamvan6": {
+        "class": 4,
+        "doors": 2,
+        "make": "Vapid",
+        "name": "Nightmare Slamvan",
+        "seats": 2
+    },
+    "sm722": {
+        "class": 6,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "SM722",
+        "seats": 2
+    },
+    "sovereign": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Sovereign",
+        "seats": 1
+    },
+    "specter": {
+        "class": 6,
+        "doors": 2,
+        "make": "Dewbauchee",
+        "name": "Specter",
+        "seats": 2
+    },
+    "specter2": {
+        "class": 6,
+        "doors": 2,
+        "make": "Dewbauchee",
+        "name": "Specter Custom",
+        "seats": 2
+    },
+    "speeder": {
+        "class": 14,
+        "doors": 0,
+        "make": "Pegassi",
+        "name": "Speeder",
+        "seats": 4
+    },
+    "speeder2": {
+        "class": 14,
+        "doors": 0,
+        "make": "Pegassi",
+        "name": "speeder2",
+        "seats": 4
+    },
+    "speedo": {
+        "class": 12,
+        "doors": 5,
+        "make": "Vapid",
+        "name": "Speedo",
+        "seats": 4
+    },
+    "speedo2": {
+        "class": 12,
+        "doors": 5,
+        "make": "Vapid",
+        "name": "Clown Van",
+        "seats": 4
+    },
+    "speedo4": {
+        "class": 12,
+        "doors": 5,
+        "make": "Vapid",
+        "name": "Speedo Custom",
+        "seats": 4
+    },
+    "squaddie": {
+        "class": 2,
+        "doors": 4,
+        "make": "Mammoth",
+        "name": "Squaddie",
+        "seats": 4
+    },
+    "squalo": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "Squalo",
+        "seats": 2
+    },
+    "stafford": {
+        "class": 1,
+        "doors": 7,
+        "make": "Enus",
+        "name": "Stafford",
+        "seats": 4
+    },
+    "stalion": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Stallion",
+        "seats": 2
+    },
+    "stalion2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Burger Shot Stallion",
+        "seats": 2
+    },
+    "stanier": {
+        "class": 1,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Stanier",
+        "seats": 4
+    },
+    "starling": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "LF-22 Starling",
+        "seats": 1
+    },
+    "stinger": {
+        "class": 5,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Stinger",
+        "seats": 2
+    },
+    "stingergt": {
+        "class": 5,
+        "doors": 3,
+        "make": "Grotti",
+        "name": "stingergt",
+        "seats": 2
+    },
+    "stockade": {
+        "class": 20,
+        "doors": 5,
+        "make": "Brute",
+        "name": "Stockade",
+        "seats": 4
+    },
+    "stockade3": {
+        "class": 20,
+        "doors": 5,
+        "make": "Brute",
+        "name": "stockade3",
+        "seats": 4
+    },
+    "stratum": {
+        "class": 1,
+        "doors": 6,
+        "make": "Zirconium",
+        "name": "Stratum",
+        "seats": 4
+    },
+    "streiter": {
+        "class": 6,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "Streiter",
+        "seats": 4
+    },
+    "stretch": {
+        "class": 1,
+        "doors": 6,
+        "make": "Dundreary",
+        "name": "Stretch",
+        "seats": 6
+    },
+    "strikeforce": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "B-11 Strikeforce",
+        "seats": 1
+    },
+    "stromberg": {
+        "class": 5,
+        "doors": 2,
+        "make": "Ocelot",
+        "name": "Stromberg",
+        "seats": 2
+    },
+    "stryder": {
+        "class": 8,
+        "doors": 0,
+        "make": "Nagasaki",
+        "name": "Stryder",
+        "seats": 2
+    },
+    "stunt": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "Mallard",
+        "seats": 1
+    },
+    "submersible": {
+        "class": 14,
+        "doors": 1,
+        "make": "",
+        "name": "submersible",
+        "seats": 1
+    },
+    "submersible2": {
+        "class": 14,
+        "doors": 1,
+        "make": "",
+        "name": "submersible2",
+        "seats": 1
+    },
+    "sugoi": {
+        "class": 6,
+        "doors": 6,
+        "make": "Dinka",
+        "name": "Sugoi",
+        "seats": 4
+    },
+    "sultan": {
+        "class": 6,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Sultan",
+        "seats": 4
+    },
+    "sultan2": {
+        "class": 6,
+        "doors": 6,
+        "make": "Karin",
+        "name": "Sultan Classic",
+        "seats": 4
+    },
+    "sultan3": {
+        "class": 6,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Sultan RS Classic",
+        "seats": 2
+    },
+    "sultanrs": {
+        "class": 7,
+        "doors": 4,
+        "make": "Karin",
+        "name": "Sultan RS",
+        "seats": 2
+    },
+    "suntrap": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "Suntrap",
+        "seats": 4
+    },
+    "superd": {
+        "class": 1,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Super Diamond",
+        "seats": 4
+    },
+    "supervolito": {
+        "class": 15,
+        "doors": 4,
+        "make": "Buckingham",
+        "name": "supervolito",
+        "seats": 4
+    },
+    "supervolito2": {
+        "class": 15,
+        "doors": 4,
+        "make": "Buckingham",
+        "name": "supervolito2",
+        "seats": 4
+    },
+    "surano": {
+        "class": 6,
+        "doors": 4,
+        "make": "Benefactor",
+        "name": "Surano",
+        "seats": 2
+    },
+    "surfer": {
+        "class": 12,
+        "doors": 6,
+        "make": "BF",
+        "name": "Surfer",
+        "seats": 2
+    },
+    "surfer2": {
+        "class": 12,
+        "doors": 6,
+        "make": "BF",
+        "name": "Surfer",
+        "seats": 2
+    },
+    "surge": {
+        "class": 1,
+        "doors": 6,
+        "make": "Cheval",
+        "name": "Surge",
+        "seats": 4
+    },
+    "swift": {
+        "class": 15,
+        "doors": 4,
+        "make": "Buckingham",
+        "name": "Swift",
+        "seats": 4
+    },
+    "swift2": {
+        "class": 15,
+        "doors": 4,
+        "make": "Buckingham",
+        "name": "Swift Deluxe",
+        "seats": 4
+    },
+    "swinger": {
+        "class": 5,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "Swinger",
+        "seats": 2
+    },
+    "t20": {
+        "class": 7,
+        "doors": 3,
+        "make": "Progen",
+        "name": "T20",
+        "seats": 2
+    },
+    "taco": {
+        "class": 12,
+        "doors": 5,
+        "make": "",
+        "name": "Taco Van",
+        "seats": 1
+    },
+    "tailgater": {
+        "class": 1,
+        "doors": 6,
+        "make": "Obey",
+        "name": "Tailgater",
+        "seats": 4
+    },
+    "tailgater2": {
+        "class": 1,
+        "doors": 6,
+        "make": "Obey",
+        "name": "Tailgater S",
+        "seats": 4
+    },
+    "taipan": {
+        "class": 7,
+        "doors": 2,
+        "make": "Cheval",
+        "name": "Taipan",
+        "seats": 2
+    },
+    "tampa": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Tampa",
+        "seats": 2
+    },
+    "tampa2": {
+        "class": 6,
+        "doors": 3,
+        "make": "Declasse",
+        "name": "Drift Tampa",
+        "seats": 2
+    },
+    "tampa3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Weaponized Tampa",
+        "seats": 2,
+        "weapons": true
+    },
+    "tanker": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "tanker",
+        "seats": 0
+    },
+    "tanker2": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "tanker2",
+        "seats": 0
+    },
+    "tankercar": {
+        "class": 21,
+        "doors": 0,
+        "make": "",
+        "name": "tankercar",
+        "seats": 2
+    },
+    "taxi": {
+        "class": 17,
+        "doors": 6,
+        "make": "",
+        "name": "Taxi",
+        "seats": 4
+    },
+    "technical": {
+        "class": 9,
+        "doors": 3,
+        "make": "Karin",
+        "name": "Technical",
+        "seats": 3,
+        "weapons": true
+    },
+    "technical2": {
+        "class": 9,
+        "doors": 3,
+        "make": "Karin",
+        "name": "Technical Aqua",
+        "seats": 3,
+        "weapons": true
+    },
+    "technical3": {
+        "class": 9,
+        "doors": 3,
+        "make": "Karin",
+        "name": "Technical Custom",
+        "seats": 3,
+        "weapons": true
+    },
+    "tempesta": {
+        "class": 7,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Tempesta",
+        "seats": 2
+    },
+    "tenf": {
+        "class": 6,
+        "doors": 4,
+        "make": "Obey",
+        "name": "10F",
+        "seats": 2
+    },
+    "tenf2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Obey",
+        "name": "10F Widebody",
+        "seats": 2
+    },
+    "terbyte": {
+        "class": 20,
+        "doors": 2,
+        "make": "Benefactor",
+        "name": "Terrorbyte",
+        "seats": 2,
+        "weapons": true
+    },
+    "tezeract": {
+        "class": 7,
+        "doors": 2,
+        "make": "Pegassi",
+        "name": "Tezeract",
+        "seats": 2
+    },
+    "thrax": {
+        "class": 7,
+        "doors": 3,
+        "make": "Truffade",
+        "name": "Thrax",
+        "seats": 2
+    },
+    "thrust": {
+        "class": 8,
+        "doors": 1,
+        "make": "Dinka",
+        "name": "Thrust",
+        "seats": 2
+    },
+    "thruster": {
+        "class": 19,
+        "doors": 0,
+        "make": "Mammoth",
+        "name": "Thruster",
+        "seats": 1
+    },
+    "tigon": {
+        "class": 7,
+        "doors": 3,
+        "make": "Lampadati",
+        "name": "Tigon",
+        "seats": 2
+    },
+    "tiptruck": {
+        "class": 10,
+        "doors": 3,
+        "make": "Brute",
+        "name": "Tipper",
+        "seats": 2
+    },
+    "tiptruck2": {
+        "class": 10,
+        "doors": 3,
+        "make": "",
+        "name": "Tipper",
+        "seats": 2
+    },
+    "titan": {
+        "class": 16,
+        "doors": 2,
+        "make": "",
+        "name": "Titan",
+        "seats": 10
+    },
+    "toreador": {
+        "class": 5,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Toreador",
+        "seats": 4
+    },
+    "torero": {
+        "class": 5,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Torero",
+        "seats": 2
+    },
+    "torero2": {
+        "class": 7,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Torero XO",
+        "seats": 2
+    },
+    "tornado": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Tornado",
+        "seats": 2
+    },
+    "tornado2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Tornado",
+        "seats": 2
+    },
+    "tornado3": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Tornado",
+        "seats": 2
+    },
+    "tornado4": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "tornado4",
+        "seats": 2
+    },
+    "tornado5": {
+        "class": 5,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Tornado Custom",
+        "seats": 2
+    },
+    "tornado6": {
+        "class": 5,
+        "doors": 3,
+        "make": "Declasse",
+        "name": "Tornado Rat Rod",
+        "seats": 2
+    },
+    "toro": {
+        "class": 14,
+        "doors": 0,
+        "make": "Lampadati",
+        "name": "Toro",
+        "seats": 4
+    },
+    "toro2": {
+        "class": 14,
+        "doors": 0,
+        "make": "Lampadati",
+        "name": "toro2",
+        "seats": 4
+    },
+    "toros": {
+        "class": 2,
+        "doors": 5,
+        "make": "Pegassi",
+        "name": "Toros",
+        "seats": 4
+    },
+    "tourbus": {
+        "class": 17,
+        "doors": 5,
+        "make": "",
+        "name": "Tourbus",
+        "seats": 10
+    },
+    "towtruck": {
+        "class": 11,
+        "doors": 3,
+        "make": "",
+        "name": "Towtruck",
+        "seats": 2
+    },
+    "towtruck2": {
+        "class": 11,
+        "doors": 3,
+        "make": "",
+        "name": "towtruck2",
+        "seats": 2
+    },
+    "tr2": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "tr2",
+        "seats": 0
+    },
+    "tr3": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "tr3",
+        "seats": 0
+    },
+    "tr4": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "tr4",
+        "seats": 0
+    },
+    "tractor": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "Tractor",
+        "seats": 1
+    },
+    "tractor2": {
+        "class": 11,
+        "doors": 3,
+        "make": "Stanley",
+        "name": "Fieldmaster",
+        "seats": 1
+    },
+    "tractor3": {
+        "class": 11,
+        "doors": 3,
+        "make": "Stanley",
+        "name": "tractor3",
+        "seats": 1
+    },
+    "trailerlarge": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "trailerlarge",
+        "seats": 3
+    },
+    "trailerlogs": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "trailerlogs",
+        "seats": 0
+    },
+    "trailers": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "trailers",
+        "seats": 0
+    },
+    "trailers2": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "trailers2",
+        "seats": 0
+    },
+    "trailers3": {
+        "class": 11,
+        "doors": 1,
+        "make": "",
+        "name": "Trailer",
+        "seats": 0
+    },
+    "trailers4": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "trailers4",
+        "seats": 0
+    },
+    "trailersmall": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "trailersmall",
+        "seats": 0
+    },
+    "trailersmall2": {
+        "class": 19,
+        "doors": 0,
+        "make": "Vom Feuer",
+        "name": "trailersmall2",
+        "seats": 1,
+        "weapons": true
+    },
+    "trash": {
+        "class": 17,
+        "doors": 3,
+        "make": "",
+        "name": "Trashmaster",
+        "seats": 4
+    },
+    "trash2": {
+        "class": 17,
+        "doors": 3,
+        "make": "",
+        "name": "trash2",
+        "seats": 4
+    },
+    "trflat": {
+        "class": 11,
+        "doors": 0,
+        "make": "",
+        "name": "trflat",
+        "seats": 0
+    },
+    "tribike": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Whippet Race Bike",
+        "seats": 1
+    },
+    "tribike2": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Endurex Race Bike",
+        "seats": 1
+    },
+    "tribike3": {
+        "class": 13,
+        "doors": 1,
+        "make": "",
+        "name": "Tri-Cycles Race Bike",
+        "seats": 1
+    },
+    "trophytruck": {
+        "class": 9,
+        "doors": 3,
+        "make": "Vapid",
+        "name": "trophytruck",
+        "seats": 2
+    },
+    "trophytruck2": {
+        "class": 9,
+        "doors": 4,
+        "make": "Vapid",
+        "name": "trophytruck2",
+        "seats": 2
+    },
+    "tropic": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "Tropic",
+        "seats": 4
+    },
+    "tropic2": {
+        "class": 14,
+        "doors": 0,
+        "make": "Shitzu",
+        "name": "tropic2",
+        "seats": 4
+    },
+    "tropos": {
+        "class": 6,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Tropos Rallye",
+        "seats": 2
+    },
+    "tug": {
+        "class": 14,
+        "doors": 0,
+        "make": "",
+        "name": "Tug",
+        "seats": 1
+    },
+    "tula": {
+        "class": 16,
+        "doors": 2,
+        "make": "Mammoth",
+        "name": "Tula",
+        "seats": 5,
+        "weapons": true
+    },
+    "tulip": {
+        "class": 4,
+        "doors": 6,
+        "make": "Declasse",
+        "name": "Tulip",
+        "seats": 4
+    },
+    "turismo2": {
+        "class": 5,
+        "doors": 4,
+        "make": "Grotti",
+        "name": "Turismo Classic",
+        "seats": 2
+    },
+    "turismor": {
+        "class": 7,
+        "doors": 3,
+        "make": "Grotti",
+        "name": "Turismo R",
+        "seats": 2
+    },
+    "tvtrailer": {
+        "class": 11,
+        "doors": 2,
+        "make": "",
+        "name": "tvtrailer",
+        "seats": 0
+    },
+    "tyrant": {
+        "class": 7,
+        "doors": 3,
+        "make": "Overflod",
+        "name": "Tyrant",
+        "seats": 2
+    },
+    "tyrus": {
+        "class": 7,
+        "doors": 3,
+        "make": "Progen",
+        "name": "Tyrus",
+        "seats": 2
+    },
+    "utillitruck": {
+        "class": 11,
+        "doors": 3,
+        "make": "",
+        "name": "utillitruck",
+        "seats": 2
+    },
+    "utillitruck2": {
+        "class": 11,
+        "doors": 4,
+        "make": "",
+        "name": "utillitruck2",
+        "seats": 2
+    },
+    "utillitruck3": {
+        "class": 11,
+        "doors": 4,
+        "make": "",
+        "name": "utillitruck3",
+        "seats": 2
+    },
+    "vacca": {
+        "class": 7,
+        "doors": 4,
+        "make": "Pegassi",
+        "name": "Vacca",
+        "seats": 2
+    },
+    "vader": {
+        "class": 8,
+        "doors": 1,
+        "make": "Shitzu",
+        "name": "Vader",
+        "seats": 2
+    },
+    "vagner": {
+        "class": 7,
+        "doors": 3,
+        "make": "Dewbauchee",
+        "name": "Vagner",
+        "seats": 2
+    },
+    "vagrant": {
+        "class": 9,
+        "doors": 2,
+        "make": "Maxwell",
+        "name": "Vagrant",
+        "seats": 2
+    },
+    "valkyrie": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "Valkyrie",
+        "seats": 4,
+        "weapons": true
+    },
+    "valkyrie2": {
+        "class": 15,
+        "doors": 2,
+        "make": "",
+        "name": "valkyrie2",
+        "seats": 4,
+        "weapons": true
+    },
+    "vamos": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Vamos",
+        "seats": 2
+    },
+    "vectre": {
+        "class": 6,
+        "doors": 4,
+        "make": "Emperor",
+        "name": "Vectre",
+        "seats": 2
+    },
+    "velum": {
+        "class": 16,
+        "doors": 2,
+        "make": "",
+        "name": "Velum",
+        "seats": 4
+    },
+    "velum2": {
+        "class": 16,
+        "doors": 3,
+        "make": "",
+        "name": "Velum 5-Seater",
+        "seats": 5
+    },
+    "verlierer2": {
+        "class": 6,
+        "doors": 4,
+        "make": "Bravado",
+        "name": "verlierer2",
+        "seats": 2
+    },
+    "verus": {
+        "class": 9,
+        "doors": 0,
+        "make": "Dinka",
+        "name": "Verus",
+        "seats": 2
+    },
+    "vestra": {
+        "class": 16,
+        "doors": 2,
+        "make": "Buckingham",
+        "name": "Vestra",
+        "seats": 2
+    },
+    "vetir": {
+        "class": 19,
+        "doors": 3,
+        "make": "",
+        "name": "Vetir",
+        "seats": 10
+    },
+    "veto": {
+        "class": 6,
+        "doors": 0,
+        "make": "Dinka",
+        "name": "Veto Classic",
+        "seats": 1
+    },
+    "veto2": {
+        "class": 6,
+        "doors": 0,
+        "make": "Dinka",
+        "name": "Veto Modern",
+        "seats": 1
+    },
+    "vigero": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Vigero",
+        "seats": 2
+    },
+    "vigero2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Vigero ZX",
+        "seats": 2
+    },
+    "vigilante": {
+        "class": 7,
+        "doors": 2,
+        "make": "",
+        "name": "Vigilante",
+        "seats": 2
+    },
+    "vindicator": {
+        "class": 8,
+        "doors": 1,
+        "make": "Dinka",
+        "name": "Vindicator",
+        "seats": 2
+    },
+    "virgo": {
+        "class": 4,
+        "doors": 4,
+        "make": "Albany",
+        "name": "Virgo",
+        "seats": 2
+    },
+    "virgo2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Dundreary",
+        "name": "Virgo Classic Custom",
+        "seats": 2
+    },
+    "virgo3": {
+        "class": 4,
+        "doors": 4,
+        "make": "Dundreary",
+        "name": "Virgo Classic",
+        "seats": 2
+    },
+    "viseris": {
+        "class": 5,
+        "doors": 4,
+        "make": "Lampadati",
+        "name": "Viseris",
+        "seats": 2
+    },
+    "visione": {
+        "class": 7,
+        "doors": 2,
+        "make": "Grotti",
+        "name": "Visione",
+        "seats": 2
+    },
+    "volatol": {
+        "class": 16,
+        "doors": 1,
+        "make": "",
+        "name": "Volatol",
+        "seats": 4,
+        "weapons": true
+    },
+    "volatus": {
+        "class": 15,
+        "doors": 4,
+        "make": "Buckingham",
+        "name": "Volatus",
+        "seats": 4
+    },
+    "voltic": {
+        "class": 7,
+        "doors": 3,
+        "make": "Coil",
+        "name": "Voltic",
+        "seats": 2
+    },
+    "voltic2": {
+        "class": 7,
+        "doors": 3,
+        "make": "Coil",
+        "name": "Rocket Voltic",
+        "seats": 2
+    },
+    "voodoo": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Voodoo",
+        "seats": 2
+    },
+    "voodoo2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Voodoo Custom",
+        "seats": 2
+    },
+    "vortex": {
+        "class": 8,
+        "doors": 1,
+        "make": "Pegassi",
+        "name": "Vortex",
+        "seats": 1
+    },
+    "vstr": {
+        "class": 6,
+        "doors": 6,
+        "make": "Albany",
+        "name": "V-STR",
+        "seats": 4
+    },
+    "warrener": {
+        "class": 1,
+        "doors": 6,
+        "make": "Vulcar",
+        "name": "Warrener",
+        "seats": 4
+    },
+    "warrener2": {
+        "class": 1,
+        "doors": 4,
+        "make": "Vulcar",
+        "name": "Warrener HKR",
+        "seats": 2
+    },
+    "washington": {
+        "class": 1,
+        "doors": 6,
+        "make": "Albany",
+        "name": "washington",
+        "seats": 4
+    },
+    "wastelander": {
+        "class": 17,
+        "doors": 0,
+        "make": "MTL",
+        "name": "wastelander",
+        "seats": 6
+    },
+    "weevil": {
+        "class": 0,
+        "doors": 4,
+        "make": "BF",
+        "name": "Weevil",
+        "seats": 2
+    },
+    "weevil2": {
+        "class": 4,
+        "doors": 4,
+        "make": "BF",
+        "name": "Weevil Custom",
+        "seats": 2
+    },
+    "windsor": {
+        "class": 3,
+        "doors": 4,
+        "make": "Enus",
+        "name": "Windsor",
+        "seats": 2
+    },
+    "windsor2": {
+        "class": 3,
+        "doors": 6,
+        "make": "Enus",
+        "name": "Windsor Drop",
+        "seats": 4
+    },
+    "winky": {
+        "class": 9,
+        "doors": 1,
+        "make": "Vapid",
+        "name": "Winky",
+        "seats": 3
+    },
+    "wolfsbane": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Wolfsbane",
+        "seats": 2
+    },
+    "xa21": {
+        "class": 7,
+        "doors": 4,
+        "make": "Ocelot",
+        "name": "XA-21",
+        "seats": 2
+    },
+    "xls": {
+        "class": 2,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "XLS",
+        "seats": 4
+    },
+    "xls2": {
+        "class": 2,
+        "doors": 6,
+        "make": "Benefactor",
+        "name": "XLS (Armored)",
+        "seats": 4
+    },
+    "yosemite": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Yosemite",
+        "seats": 2
+    },
+    "yosemite2": {
+        "class": 4,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Drift Yosemite",
+        "seats": 2
+    },
+    "yosemite3": {
+        "class": 9,
+        "doors": 4,
+        "make": "Declasse",
+        "name": "Yosemite Rancher",
+        "seats": 2
+    },
+    "youga": {
+        "class": 12,
+        "doors": 5,
+        "make": "Bravado",
+        "name": "Youga",
+        "seats": 2
+    },
+    "youga2": {
+        "class": 12,
+        "doors": 6,
+        "make": "Bravado",
+        "name": "Youga Classic",
+        "seats": 4
+    },
+    "youga3": {
+        "class": 12,
+        "doors": 5,
+        "make": "Bravado",
+        "name": "Youga Classic 4x4",
+        "seats": 4
+    },
+    "youga4": {
+        "class": 12,
+        "doors": 6,
+        "make": "Vapid",
+        "name": "Youga Custom",
+        "seats": 4
+    },
+    "z190": {
+        "class": 5,
+        "doors": 6,
+        "make": "Karin",
+        "name": "190z",
+        "seats": 2
+    },
+    "zeno": {
+        "class": 7,
+        "doors": 4,
+        "make": "Overflod",
+        "name": "Zeno",
+        "seats": 2
+    },
+    "zentorno": {
+        "class": 7,
+        "doors": 2,
+        "make": "Pegassi",
+        "name": "Zentorno",
+        "seats": 2
+    },
+    "zhaba": {
+        "class": 9,
+        "doors": 6,
+        "make": "RUNE",
+        "name": "Zhaba",
+        "seats": 4
+    },
+    "zion": {
+        "class": 3,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Zion",
+        "seats": 2
+    },
+    "zion2": {
+        "class": 3,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Zion Cabrio",
+        "seats": 2
+    },
+    "zion3": {
+        "class": 5,
+        "doors": 4,
+        "make": "Ubermacht",
+        "name": "Zion Classic",
+        "seats": 2
+    },
+    "zombiea": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Zombie Bobber",
+        "seats": 1
+    },
+    "zombieb": {
+        "class": 8,
+        "doors": 1,
+        "make": "Western",
+        "name": "Zombie Chopper",
+        "seats": 2
+    },
+    "zorrusso": {
+        "class": 7,
+        "doors": 3,
+        "make": "Pegassi",
+        "name": "Zorrusso",
+        "seats": 2
+    },
+    "zr350": {
+        "class": 6,
+        "doors": 4,
+        "make": "Annis",
+        "name": "ZR350",
+        "seats": 2
+    },
+    "zr380": {
+        "class": 6,
+        "doors": 2,
+        "make": "Annis",
+        "name": "Apocalypse ZR380",
+        "seats": 2
+    },
+    "zr3802": {
+        "class": 6,
+        "doors": 2,
+        "make": "Annis",
+        "name": "Future Shock ZR380",
+        "seats": 2
+    },
+    "zr3803": {
+        "class": 6,
+        "doors": 2,
+        "make": "Annis",
+        "name": "Nightmare ZR380",
+        "seats": 2
+    },
+    "ztype": {
+        "class": 5,
+        "doors": 4,
+        "make": "Truffade",
+        "name": "Z-Type",
+        "seats": 2
+    }
 }

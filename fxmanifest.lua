@@ -29,6 +29,7 @@ client_scripts {
     'client/player.lua',
     'client/spawn.lua',
     'client/death.lua',
+    'client/debug.lua',
 }
 
 server_scripts {
@@ -42,6 +43,7 @@ server_scripts {
     'server/vehicle/main.lua',
     'server/vehicle/commands.lua',
     'server/main.lua',
+    'server/debug.lua',
 }
 
 ui_page 'web/build/index.html'
