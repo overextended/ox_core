@@ -7,6 +7,7 @@ Ox = setmetatable({}, {
 
 Shared = {
     CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
+    DEBUG = GetConvarInt('ox:debug', 0) == 1,
 }
 
 function Resource(name)
@@ -14,7 +15,7 @@ function Resource(name)
 end
 
 function json.load(file)
-    local t = json.decode(LoadResourceFile(cache.resource, file))
+    local t = json.decode(LoadResourceFile(cache.resource, file) or '{}')
 
     if not t then
         error(('An unknown error occured while loading @%s/%s'):format(cache.resource, file), 2)
