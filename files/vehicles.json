@@ -60,21 +60,21 @@
         "class": 18,
         "doors": 5,
         "make": "",
-        "name": "ambulance",
+        "name": "Ambulance",
         "seats": 4
     },
     "annihilator": {
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "annihilator",
+        "name": "Annihilator",
         "seats": 6
     },
     "annihilator2": {
         "class": 15,
         "doors": 4,
         "make": "",
-        "name": "annihilator2",
+        "name": "Annihilator Stealth",
         "seats": 6
     },
     "apc": {
@@ -96,7 +96,7 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "Army Tanker",
+        "name": "Army Trailer",
         "seats": 0
     },
     "armytrailer": {
@@ -110,7 +110,7 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "armytrailer2",
+        "name": "Army Trailer",
         "seats": 0
     },
     "asbo": {
@@ -131,14 +131,14 @@
         "class": 1,
         "doors": 6,
         "make": "Declasse",
-        "name": "asea2",
+        "name": "Asea",
         "seats": 4
     },
     "asterope": {
         "class": 1,
         "doors": 6,
         "make": "Karin",
-        "name": "asterope",
+        "name": "Asterope",
         "seats": 4
     },
     "astron": {
@@ -174,7 +174,7 @@
         "class": 16,
         "doors": 3,
         "make": "Mammoth",
-        "name": "avenger2",
+        "name": "Avenger",
         "seats": 3
     },
     "avisa": {
@@ -279,7 +279,7 @@
         "class": 19,
         "doors": 4,
         "make": "",
-        "name": "barracks3",
+        "name": "Barracks",
         "seats": 10
     },
     "barrage": {
@@ -336,7 +336,7 @@
         "class": 9,
         "doors": 2,
         "make": "BF",
-        "name": "bfinjection",
+        "name": "Injection",
         "seats": 2
     },
     "biff": {
@@ -371,7 +371,7 @@
         "class": 12,
         "doors": 6,
         "make": "Bravado",
-        "name": "bison3",
+        "name": "Bison",
         "seats": 4
     },
     "bjxl": {
@@ -512,14 +512,14 @@
         "class": 12,
         "doors": 5,
         "make": "",
-        "name": "boxville2",
+        "name": "Boxville",
         "seats": 6
     },
     "boxville3": {
         "class": 12,
         "doors": 5,
         "make": "Brute",
-        "name": "boxville3",
+        "name": "Boxville",
         "seats": 4
     },
     "boxville4": {
@@ -618,7 +618,7 @@
         "class": 5,
         "doors": 5,
         "make": "Albany",
-        "name": "B-Type",
+        "name": "Roosevelt",
         "seats": 6
     },
     "btype2": {
@@ -632,21 +632,21 @@
         "class": 5,
         "doors": 5,
         "make": "Albany",
-        "name": "btype3",
+        "name": "Roosevelt Valor",
         "seats": 6
     },
     "buccaneer": {
         "class": 4,
         "doors": 4,
         "make": "Albany",
-        "name": "buccaneer",
+        "name": "Buccaneer",
         "seats": 2
     },
     "buccaneer2": {
         "class": 4,
         "doors": 4,
         "make": "Albany",
-        "name": "buccaneer2",
+        "name": "Buccaneer Custom",
         "seats": 2
     },
     "buffalo": {
@@ -681,7 +681,7 @@
         "class": 10,
         "doors": 2,
         "make": "HVY",
-        "name": "bulldozer",
+        "name": "Dozer",
         "seats": 1
     },
     "bullet": {
@@ -709,21 +709,21 @@
         "class": 12,
         "doors": 5,
         "make": "Declasse",
-        "name": "burrito3",
+        "name": "Burrito",
         "seats": 4
     },
     "burrito4": {
         "class": 12,
         "doors": 5,
         "make": "Declasse",
-        "name": "burrito4",
+        "name": "Burrito",
         "seats": 4
     },
     "burrito5": {
         "class": 12,
         "doors": 5,
         "make": "Declasse",
-        "name": "burrito5",
+        "name": "Burrito",
         "seats": 4
     },
     "bus": {
@@ -765,7 +765,7 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "caddy2",
+        "name": "Caddy",
         "seats": 2
     },
     "caddy3": {
@@ -808,14 +808,14 @@
         "class": 6,
         "doors": 4,
         "make": "Grotti",
-        "name": "carbonizzare",
+        "name": "Carbonizzare",
         "seats": 2
     },
     "carbonrs": {
         "class": 8,
         "doors": 1,
         "make": "Nagasaki",
-        "name": "carbonrs",
+        "name": "Carbon RS",
         "seats": 2
     },
     "cargobob": {
@@ -829,28 +829,28 @@
         "class": 15,
         "doors": 3,
         "make": "",
-        "name": "Cargobob Jetsam",
+        "name": "Cargobob",
         "seats": 10
     },
     "cargobob3": {
         "class": 15,
         "doors": 3,
         "make": "",
-        "name": "cargobob3",
+        "name": "Cargobob",
         "seats": 10
     },
     "cargobob4": {
         "class": 15,
         "doors": 3,
         "make": "",
-        "name": "cargobob4",
+        "name": "Cargobob",
         "seats": 2
     },
     "cargoplane": {
         "class": 16,
         "doors": 4,
         "make": "",
-        "name": "cargoplane",
+        "name": "Cargo Plane",
         "seats": 2
     },
     "casco": {
@@ -864,14 +864,14 @@
         "class": 2,
         "doors": 6,
         "make": "Albany",
-        "name": "cavalcade",
+        "name": "Cavalcade",
         "seats": 4
     },
     "cavalcade2": {
         "class": 2,
         "doors": 6,
         "make": "Albany",
-        "name": "cavalcade2",
+        "name": "Cavalcade",
         "seats": 4
     },
     "cerberus": {
@@ -1008,21 +1008,21 @@
         "class": 3,
         "doors": 4,
         "make": "Enus",
-        "name": "cogcabrio",
+        "name": "Cognoscenti Cabrio",
         "seats": 2
     },
     "cognoscenti": {
         "class": 1,
         "doors": 6,
         "make": "Enus",
-        "name": "cognoscenti",
+        "name": "Cognoscenti",
         "seats": 4
     },
     "cognoscenti2": {
         "class": 1,
         "doors": 6,
         "make": "Enus",
-        "name": "cognoscenti2",
+        "name": "Cognoscenti (Armored)",
         "seats": 4
     },
     "comet2": {
@@ -1246,14 +1246,14 @@
         "class": 0,
         "doors": 6,
         "make": "Karin",
-        "name": "dilettante",
+        "name": "Dilettante",
         "seats": 4
     },
     "dilettante2": {
         "class": 0,
         "doors": 6,
         "make": "Karin",
-        "name": "dilettante2",
+        "name": "Dilettante",
         "seats": 4
     },
     "dinghy": {
@@ -1267,7 +1267,7 @@
         "class": 14,
         "doors": 0,
         "make": "Nagasaki",
-        "name": "dinghy2",
+        "name": "Dinghy",
         "seats": 2
     },
     "dinghy3": {
@@ -1281,7 +1281,7 @@
         "class": 14,
         "doors": 0,
         "make": "Nagasaki",
-        "name": "dinghy4",
+        "name": "Dinghy",
         "seats": 4
     },
     "dinghy5": {
@@ -1303,7 +1303,7 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "docktrailer",
+        "name": "NULL",
         "seats": 0
     },
     "docktug": {
@@ -1324,7 +1324,7 @@
         "class": 4,
         "doors": 4,
         "make": "Vapid",
-        "name": "dominator",
+        "name": "Dominator",
         "seats": 2
     },
     "dominator2": {
@@ -1408,7 +1408,7 @@
         "class": 2,
         "doors": 6,
         "make": "Benefactor",
-        "name": "dubsta2",
+        "name": "Dubsta",
         "seats": 4
     },
     "dubsta3": {
@@ -1542,7 +1542,7 @@
         "class": 1,
         "doors": 6,
         "make": "Albany",
-        "name": "emperor3",
+        "name": "Emperor",
         "seats": 4
     },
     "enduro": {
@@ -1633,14 +1633,14 @@
         "class": 8,
         "doors": 1,
         "make": "Pegassi",
-        "name": "Faggio",
+        "name": "Faggio Sport",
         "seats": 2
     },
     "faggio2": {
         "class": 8,
         "doors": 1,
         "make": "Pegassi",
-        "name": "faggio2",
+        "name": "Faggio",
         "seats": 2
     },
     "faggio3": {
@@ -1696,7 +1696,7 @@
         "class": 6,
         "doors": 4,
         "make": "Benefactor",
-        "name": "feltzer2",
+        "name": "Feltzer",
         "seats": 2
     },
     "feltzer3": {
@@ -1746,7 +1746,7 @@
         "class": 11,
         "doors": 0,
         "make": "HVY",
-        "name": "forklift",
+        "name": "Forklift",
         "seats": 1
     },
     "formula": {
@@ -1788,42 +1788,42 @@
         "class": 21,
         "doors": 0,
         "make": "",
-        "name": "freightcar",
+        "name": "Freight Train",
         "seats": 0
     },
     "freightcar2": {
         "class": 21,
         "doors": 0,
         "make": "",
-        "name": "freightcar2",
+        "name": "Freight Train",
         "seats": 0
     },
     "freightcont1": {
         "class": 21,
         "doors": 2,
         "make": "",
-        "name": "freightcont1",
+        "name": "Freight Train",
         "seats": 2
     },
     "freightcont2": {
         "class": 21,
         "doors": 0,
         "make": "",
-        "name": "freightcont2",
+        "name": "Freight Train",
         "seats": 2
     },
     "freightgrain": {
         "class": 21,
         "doors": 1,
         "make": "",
-        "name": "freightgrain",
+        "name": "Freight Train",
         "seats": 2
     },
     "freighttrailer": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "freighttrailer",
+        "name": "NULL",
         "seats": 0
     },
     "frogger": {
@@ -1837,7 +1837,7 @@
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "frogger2",
+        "name": "Frogger",
         "seats": 4
     },
     "fugitive": {
@@ -1858,7 +1858,7 @@
         "class": 6,
         "doors": 3,
         "make": "Lampadati",
-        "name": "furoregt",
+        "name": "Furore GT",
         "seats": 2
     },
     "fusilade": {
@@ -1970,7 +1970,7 @@
         "class": 11,
         "doors": 1,
         "make": "",
-        "name": "Graintrailer",
+        "name": "NULL",
         "seats": 0
     },
     "granger": {
@@ -2464,7 +2464,7 @@
         "class": 6,
         "doors": 4,
         "make": "Hijak",
-        "name": "khamelion",
+        "name": "Khamelion",
         "seats": 2
     },
     "khanjali": {
@@ -2521,7 +2521,7 @@
         "class": 2,
         "doors": 6,
         "make": "Dundreary",
-        "name": "landstalker2",
+        "name": "Landstalker XL",
         "seats": 4
     },
     "lazer": {
@@ -2705,7 +2705,7 @@
         "class": 2,
         "doors": 6,
         "make": "Canis",
-        "name": "mesa2",
+        "name": "Mesa",
         "seats": 4
     },
     "mesa3": {
@@ -2719,7 +2719,7 @@
         "class": 21,
         "doors": 4,
         "make": "",
-        "name": "Metropolitan",
+        "name": "Freight Train",
         "seats": 4
     },
     "michelli": {
@@ -2861,7 +2861,7 @@
         "class": 20,
         "doors": 3,
         "make": "Maibatsu",
-        "name": "mule2",
+        "name": "Mule",
         "seats": 2
     },
     "mule3": {
@@ -2938,7 +2938,7 @@
         "class": 4,
         "doors": 4,
         "make": "Imponte",
-        "name": "nightshade",
+        "name": "Nightshade",
         "seats": 2
     },
     "nightshark": {
@@ -3029,14 +3029,14 @@
         "class": 3,
         "doors": 6,
         "make": "Ubermacht",
-        "name": "Oracle",
+        "name": "Oracle XS",
         "seats": 4
     },
     "oracle2": {
         "class": 3,
         "doors": 6,
         "make": "Ubermacht",
-        "name": "Oracle XS",
+        "name": "Oracle",
         "seats": 4
     },
     "osiris": {
@@ -3254,7 +3254,7 @@
         "class": 18,
         "doors": 6,
         "make": "",
-        "name": "police3",
+        "name": "Police Cruiser",
         "seats": 4
     },
     "police4": {
@@ -3275,14 +3275,14 @@
         "class": 18,
         "doors": 6,
         "make": "",
-        "name": "policeold1",
+        "name": "Police Rancher",
         "seats": 4
     },
     "policeold2": {
         "class": 18,
         "doors": 6,
         "make": "",
-        "name": "policeold2",
+        "name": "Police Roadcruiser",
         "seats": 4
     },
     "policet": {
@@ -3310,7 +3310,7 @@
         "class": 12,
         "doors": 5,
         "make": "Brute",
-        "name": "pony2",
+        "name": "Pony",
         "seats": 4
     },
     "postlude": {
@@ -3387,7 +3387,7 @@
         "class": 11,
         "doors": 2,
         "make": "",
-        "name": "proptrailer",
+        "name": "NULL",
         "seats": 2
     },
     "prototipo": {
@@ -3422,7 +3422,7 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "raketrailer",
+        "name": "Trailer",
         "seats": 0
     },
     "rallytruck": {
@@ -3436,14 +3436,14 @@
         "class": 9,
         "doors": 6,
         "make": "Declasse",
-        "name": "rancherxl",
+        "name": "Rancher XL",
         "seats": 4
     },
     "rancherxl2": {
         "class": 9,
         "doors": 6,
         "make": "Declasse",
-        "name": "rancherxl2",
+        "name": "Rancher XL",
         "seats": 4
     },
     "rapidgt": {
@@ -3457,7 +3457,7 @@
         "class": 6,
         "doors": 4,
         "make": "Dewbauchee",
-        "name": "Rapid GT Topless",
+        "name": "Rapid GT",
         "seats": 2
     },
     "rapidgt3": {
@@ -3485,14 +3485,14 @@
         "class": 4,
         "doors": 3,
         "make": "",
-        "name": "ratloader",
+        "name": "Rat-Loader",
         "seats": 2
     },
     "ratloader2": {
         "class": 4,
         "doors": 4,
         "make": "Bravado",
-        "name": "ratloader2",
+        "name": "Rat-Truck",
         "seats": 2
     },
     "rcbandito": {
@@ -3513,14 +3513,14 @@
         "class": 9,
         "doors": 4,
         "make": "Karin",
-        "name": "Rebel",
+        "name": "Rusty Rebel",
         "seats": 2
     },
     "rebel2": {
         "class": 9,
         "doors": 4,
         "make": "Karin",
-        "name": "Rebel (Clean)",
+        "name": "Rebel",
         "seats": 2
     },
     "rebla": {
@@ -3555,7 +3555,7 @@
         "class": 17,
         "doors": 5,
         "make": "",
-        "name": "rentalbus",
+        "name": "Rental Shuttle Bus",
         "seats": 10
     },
     "retinue": {
@@ -3697,7 +3697,7 @@
         "class": 4,
         "doors": 0,
         "make": "Imponte",
-        "name": "ruiner3",
+        "name": "Ruiner",
         "seats": 2
     },
     "ruiner4": {
@@ -3718,7 +3718,7 @@
         "class": 12,
         "doors": 5,
         "make": "Bravado",
-        "name": "rumpo2",
+        "name": "Rumpo",
         "seats": 2
     },
     "rumpo3": {
@@ -3767,21 +3767,21 @@
         "class": 11,
         "doors": 6,
         "make": "Vapid",
-        "name": "sadler2",
+        "name": "Sadler",
         "seats": 4
     },
     "sanchez": {
         "class": 8,
         "doors": 1,
         "make": "Maibatsu",
-        "name": "Sanchez (Livery)",
+        "name": "Sanchez (livery)",
         "seats": 2
     },
     "sanchez2": {
         "class": 8,
         "doors": 1,
         "make": "Maibatsu",
-        "name": "Sanchez 2",
+        "name": "Sanchez",
         "seats": 2
     },
     "sanctus": {
@@ -3802,7 +3802,7 @@
         "class": 9,
         "doors": 4,
         "make": "Vapid",
-        "name": "sandking2",
+        "name": "Sandking SWB",
         "seats": 2
     },
     "savage": {
@@ -3893,7 +3893,7 @@
         "class": 6,
         "doors": 4,
         "make": "Benefactor",
-        "name": "schwarzer",
+        "name": "Schwartzer",
         "seats": 2
     },
     "scorcher": {
@@ -3935,35 +3935,35 @@
         "class": 14,
         "doors": 0,
         "make": "Speedophile",
-        "name": "seashark2",
+        "name": "Seashark",
         "seats": 2
     },
     "seashark3": {
         "class": 14,
         "doors": 0,
         "make": "Speedophile",
-        "name": "seashark3",
+        "name": "Seashark",
         "seats": 2
     },
     "seasparrow": {
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "seasparrow",
+        "name": "Sea Sparrow",
         "seats": 2
     },
     "seasparrow2": {
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "seasparrow2",
+        "name": "Sparrow",
         "seats": 2
     },
     "seasparrow3": {
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "seasparrow3",
+        "name": "Sparrow",
         "seats": 2
     },
     "seminole": {
@@ -4159,7 +4159,7 @@
         "class": 14,
         "doors": 0,
         "make": "Pegassi",
-        "name": "speeder2",
+        "name": "Speeder",
         "seats": 4
     },
     "speedo": {
@@ -4243,7 +4243,7 @@
         "class": 5,
         "doors": 3,
         "make": "Grotti",
-        "name": "stingergt",
+        "name": "Stinger GT",
         "seats": 2
     },
     "stockade": {
@@ -4257,7 +4257,7 @@
         "class": 20,
         "doors": 5,
         "make": "Brute",
-        "name": "stockade3",
+        "name": "Stockade",
         "seats": 4
     },
     "stratum": {
@@ -4313,14 +4313,14 @@
         "class": 14,
         "doors": 1,
         "make": "",
-        "name": "submersible",
+        "name": "Submersible",
         "seats": 1
     },
     "submersible2": {
         "class": 14,
         "doors": 1,
         "make": "",
-        "name": "submersible2",
+        "name": "Kraken",
         "seats": 1
     },
     "sugoi": {
@@ -4376,14 +4376,14 @@
         "class": 15,
         "doors": 4,
         "make": "Buckingham",
-        "name": "supervolito",
+        "name": "SuperVolito",
         "seats": 4
     },
     "supervolito2": {
         "class": 15,
         "doors": 4,
         "make": "Buckingham",
-        "name": "supervolito2",
+        "name": "SuperVolito Carbon",
         "seats": 4
     },
     "surano": {
@@ -4496,21 +4496,21 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "tanker",
+        "name": "Trailer",
         "seats": 0
     },
     "tanker2": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "tanker2",
+        "name": "NULL",
         "seats": 0
     },
     "tankercar": {
         "class": 21,
         "doors": 0,
         "make": "",
-        "name": "tankercar",
+        "name": "Freight Train",
         "seats": 2
     },
     "taxi": {
@@ -4675,7 +4675,7 @@
         "class": 5,
         "doors": 4,
         "make": "Declasse",
-        "name": "tornado4",
+        "name": "Tornado",
         "seats": 2
     },
     "tornado5": {
@@ -4703,7 +4703,7 @@
         "class": 14,
         "doors": 0,
         "make": "Lampadati",
-        "name": "toro2",
+        "name": "Toro",
         "seats": 4
     },
     "toros": {
@@ -4731,28 +4731,28 @@
         "class": 11,
         "doors": 3,
         "make": "",
-        "name": "towtruck2",
+        "name": "Towtruck",
         "seats": 2
     },
     "tr2": {
         "class": 11,
         "doors": 2,
         "make": "",
-        "name": "tr2",
+        "name": "Trailer",
         "seats": 0
     },
     "tr3": {
         "class": 11,
         "doors": 1,
         "make": "",
-        "name": "tr3",
+        "name": "Trailer",
         "seats": 0
     },
     "tr4": {
         "class": 11,
         "doors": 2,
         "make": "",
-        "name": "tr4",
+        "name": "Trailer",
         "seats": 0
     },
     "tractor": {
@@ -4773,35 +4773,35 @@
         "class": 11,
         "doors": 3,
         "make": "Stanley",
-        "name": "tractor3",
+        "name": "Fieldmaster",
         "seats": 1
     },
     "trailerlarge": {
         "class": 11,
         "doors": 1,
         "make": "",
-        "name": "trailerlarge",
+        "name": "Mobile Operations Center",
         "seats": 3
     },
     "trailerlogs": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "trailerlogs",
+        "name": "Trailer",
         "seats": 0
     },
     "trailers": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "trailers",
+        "name": "Trailer",
         "seats": 0
     },
     "trailers2": {
         "class": 11,
         "doors": 2,
         "make": "",
-        "name": "trailers2",
+        "name": "Trailer",
         "seats": 0
     },
     "trailers3": {
@@ -4815,21 +4815,21 @@
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "trailers4",
+        "name": "Trailer",
         "seats": 0
     },
     "trailersmall": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "trailersmall",
+        "name": "Trailer",
         "seats": 0
     },
     "trailersmall2": {
         "class": 19,
         "doors": 0,
         "make": "Vom Feuer",
-        "name": "trailersmall2",
+        "name": "Anti-Aircraft Trailer",
         "seats": 1,
         "weapons": true
     },
@@ -4844,14 +4844,14 @@
         "class": 17,
         "doors": 3,
         "make": "",
-        "name": "trash2",
+        "name": "Trashmaster",
         "seats": 4
     },
     "trflat": {
         "class": 11,
         "doors": 0,
         "make": "",
-        "name": "trflat",
+        "name": "Trailer",
         "seats": 0
     },
     "tribike": {
@@ -4879,14 +4879,14 @@
         "class": 9,
         "doors": 3,
         "make": "Vapid",
-        "name": "trophytruck",
+        "name": "Trophy Truck",
         "seats": 2
     },
     "trophytruck2": {
         "class": 9,
         "doors": 4,
         "make": "Vapid",
-        "name": "trophytruck2",
+        "name": "Desert Raid",
         "seats": 2
     },
     "tropic": {
@@ -4900,7 +4900,7 @@
         "class": 14,
         "doors": 0,
         "make": "Shitzu",
-        "name": "tropic2",
+        "name": "Tropic",
         "seats": 4
     },
     "tropos": {
@@ -4950,7 +4950,7 @@
         "class": 11,
         "doors": 2,
         "make": "",
-        "name": "tvtrailer",
+        "name": "Trailer",
         "seats": 0
     },
     "tyrant": {
@@ -4971,21 +4971,21 @@
         "class": 11,
         "doors": 3,
         "make": "",
-        "name": "utillitruck",
+        "name": "Utility Truck",
         "seats": 2
     },
     "utillitruck2": {
         "class": 11,
         "doors": 4,
         "make": "",
-        "name": "utillitruck2",
+        "name": "Utility Truck",
         "seats": 2
     },
     "utillitruck3": {
         "class": 11,
         "doors": 4,
         "make": "",
-        "name": "utillitruck3",
+        "name": "Utility Truck",
         "seats": 2
     },
     "vacca": {
@@ -5028,7 +5028,7 @@
         "class": 15,
         "doors": 2,
         "make": "",
-        "name": "valkyrie2",
+        "name": "Valkyrie MOD.0",
         "seats": 4,
         "weapons": true
     },
@@ -5064,7 +5064,7 @@
         "class": 6,
         "doors": 4,
         "make": "Bravado",
-        "name": "verlierer2",
+        "name": "Verlierer",
         "seats": 2
     },
     "verus": {
@@ -5198,14 +5198,14 @@
         "class": 4,
         "doors": 4,
         "make": "Declasse",
-        "name": "Voodoo",
+        "name": "Voodoo Custom",
         "seats": 2
     },
     "voodoo2": {
         "class": 4,
         "doors": 4,
         "make": "Declasse",
-        "name": "Voodoo Custom",
+        "name": "Voodoo",
         "seats": 2
     },
     "vortex": {
@@ -5240,14 +5240,14 @@
         "class": 1,
         "doors": 6,
         "make": "Albany",
-        "name": "washington",
+        "name": "Washington",
         "seats": 4
     },
     "wastelander": {
         "class": 17,
         "doors": 0,
         "make": "MTL",
-        "name": "wastelander",
+        "name": "Wastelander",
         "seats": 6
     },
     "weevil": {

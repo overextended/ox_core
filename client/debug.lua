@@ -24,13 +24,11 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
 
             if hash then
                 local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z + 10, 0.0, false, false)
-
-                local label = GetLabelText(model)
-                local make = GetLabelText(GetMakeNameFromVehicleModel(hash))
+                local make = GetMakeNameFromVehicleModel(hash)
 
                 vehicleData[model] = {
-                    name = label == 'NULL' and model or label,
-                    make = make == 'NULL' and '' or make,
+                    name = GetLabelText(GetDisplayNameFromVehicleModel(model)),
+                    make = make == '' and make or GetLabelText(make),
                     class = GetVehicleClass(vehicle),
                     seats = GetVehicleModelNumberOfSeats(hash),
                     weapons = DoesVehicleHaveWeapons(vehicle) or nil,
