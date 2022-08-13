@@ -91,8 +91,6 @@ function Ox.GetPlayer(player)
     return setmetatable(player, CPlayer)
 end
 
-lib.getPlayer = Ox.GetPlayer
-
 function Ox.GetPlayers(usemetatable, filter)
     local players = ox_core:GetPlayers(filter)
 
