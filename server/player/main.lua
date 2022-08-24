@@ -437,15 +437,13 @@ end
 
 ---Return player data for the given player id.
 ---@param source number
----@return CPlayer
+---@return CPlayer?
 function Ox.GetPlayer(source)
     local player = Player(source)
 
     if player?.charid then
         return player
     end
-
-    error(("no player exists with id '%s'"):format(source))
 end
 
 ---API entry point for triggering player methods.

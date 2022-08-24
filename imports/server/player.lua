@@ -83,12 +83,7 @@ end
 
 function Ox.GetPlayer(player)
     player = type(player) == 'table' and player.charid or ox_core:GetPlayer(player)
-
-    if not player then
-        error(("no player exists with id '%s'"):format(player))
-    end
-
-    return setmetatable(player, CPlayer)
+    return player and setmetatable(player, CPlayer)
 end
 
 function Ox.GetPlayers(usemetatable, filter)

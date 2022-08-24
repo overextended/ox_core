@@ -83,7 +83,7 @@ export class CPlayer {
 
 export function GetPlayer(player: number) {
   player = exports.ox_core.GetPlayer(player);
-  return new CPlayer(player);
+  return player ? new CPlayer(player) : null;
 }
 
 export function GetPlayers(useclass?: boolean, filter?: Record<string, unknown>) {
