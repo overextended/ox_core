@@ -151,13 +151,6 @@ function Player.saveAll()
     end
 end
 
----Remove character data from the database.
----@param charid number
-function Player.deleteCharacter(charid)
-    appearance:save(charid)
-    return db.deleteCharacter(charid)
-end
-
 ---Finalises player loading after they have selected a character.
 ---@param player CPlayer
 ---@param character table
