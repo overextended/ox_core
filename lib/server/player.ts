@@ -1,4 +1,4 @@
-import { GetAccounts } from './accounts';
+import { GetAccounts } from "./accounts";
 
 const exp = exports.ox_core.CPlayer;
 

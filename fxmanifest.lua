@@ -38,11 +38,13 @@ server_scripts {
     'server/functions.lua',
     'server/groups.lua',
     'server/accounts.lua',
+    'server/player/db.lua',
+    'server/player/registry.lua',
+    'server/player/class.lua',
     'server/player/events.lua',
     'server/player/main.lua',
     'server/vehicle/main.lua',
     'server/vehicle/commands.lua',
-    'server/main.lua',
     'server/debug.lua',
 }
 
