@@ -10,8 +10,19 @@ Shared = {
     DEBUG = GetConvarInt('ox:debug', 0) == 1,
 }
 
-function Resource(name)
-    return GetResourceState(name) ~= 'missing'
+local expCache = {}
+
+function GetExport(name)
+    local exp = expCache[name]
+
+    if exp then
+        return exp
+    end
+
+    if GetResourceState(name) ~= 'missing' then
+        expCache[name] = exports[name]
+        return expCache[name]
+    end
 end
 
 function json.load(file)
