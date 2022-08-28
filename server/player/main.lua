@@ -1,19 +1,4 @@
-local Query = {
-    SELECT_USERID = ('SELECT userid FROM users WHERE %s = ?'):format(Server.PRIMARY_IDENTIFIER),
-    INSERT_USERID = 'INSERT INTO users (username, license, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
-    SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ? AND deleted IS NULL',
-    SELECT_CHARACTER = 'SELECT is_dead, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number FROM characters WHERE charid = ?',
-    INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, gender, dateofbirth, phone_number) VALUES (?, ?, ?, ?, ?, ?)',
-    UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ? WHERE charid = ?',
-    DELETE_CHARACTER = 'UPDATE characters SET deleted = curdate() WHERE charid = ?',
-    SELECT_USER_GROUPS = 'SELECT name, grade FROM user_groups WHERE charid = ?',
-}
-
-local cfxPlayer = Player
-local Player = {
-    count = 0,
-    list = {},
-}
+local Player = {}
 _ENV.Player = Player
 
 ---Trigger a function when a player is loaded or the resource restarts.
@@ -60,93 +45,31 @@ if npwd then
     end)
 end
 
----@class CPlayer
-local CPlayer = {}
-CPlayer.__index = CPlayer
-local playerData = {}
-
----Returns the player's statebag.
----@return table<string, unknown>
-function CPlayer:getState()
-    return cfxPlayer(self.source).state
-end
-
----Load groups for the player's current character.
-function CPlayer:loadGroups()
-    local results = MySQL.query.await(Query.SELECT_USER_GROUPS, { self.charid })
-    self.groups = {}
-
-    if results then
-        for i = 1, #results do
-            local data = results[i]
-            local group = Ox.GetGroup(data.name)
-
-            if group then
-                group:add(self, data.grade)
-            end
-        end
-    end
-end
+local db = db.player
 
 ---Update the database with a player's current data.
-function CPlayer:save()
-    if self.charid then
-        for name, grade in pairs(self.groups) do
+function Player.save(player)
+    if player.charid then
+        for name, grade in pairs(player.groups) do
             local group = Ox.GetGroup(name)
 
             if group then
-                group:remove(self, grade)
+                group:remove(player, grade)
             end
         end
 
-        local coords = GetEntityCoords(self.ped)
+        local coords = GetEntityCoords(player.ped)
 
-        MySQL.prepare.await(Query.UPDATE_CHARACTER, {
+        db.updateCharacter({
             coords.x,
             coords.y,
             coords.z,
-            GetEntityHeading(self.ped),
-            self.dead or false,
+            GetEntityHeading(player.ped),
+            player.dead or false,
             os.date('%Y-%m-%d', os.time()),
-            self.charid
+            player.charid
         })
     end
-end
-
--- Placeholder
-local accounts = {}
-
----@param account? string return the amount in the given account
----@return number | table<string, number>
----Leave account undefined to get a table of all accounts and amounts
-function CPlayer:getAccount(account)
-    return accounts.get(self.source, account)
-end
-
----@param account string name of the account to adjust
----@param amount number
-function CPlayer:addAccount(account, amount)
-    return accounts.add(self.source, account, amount)
-end
-
----@param account string name of the account to adjust
----@param amount number
-function CPlayer:removeAccount(account, amount)
-    return accounts.remove(self.source, account, amount)
-end
-
----@param account string name of the account to adjust
----@param amount number
-function CPlayer:setAccount(account, amount)
-    return accounts.set(self.source, account, amount)
-end
-
-function CPlayer:saveAccount(account)
-    return accounts.save(self.source, account)
-end
-
-function CPlayer:saveAccounts(remove)
-    return accounts.saveAll(self.source, remove)
 end
 
 local appearance = exports.ox_appearance
@@ -155,8 +78,8 @@ local appearance = exports.ox_appearance
 ---@param source number
 ---@param userid number
 ---@return table
-local function selectCharacters(source, userid)
-    local characters = MySQL.query.await(Query.SELECT_CHARACTERS, { userid }) or {}
+function Player.selectCharacters(source, userid)
+    local characters = db.selectCharacters(userid)
 
     for i = 1, #characters do
         local character = characters[i]
@@ -166,177 +89,37 @@ local function selectCharacters(source, userid)
     return characters
 end
 
----Save the player and return to character selection.
-function CPlayer:logout()
-    if npwd then
-        npwd:unloadPlayer(self.source)
-    end
-
-    TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
-
-    self:save()
-    self.charid = nil
-    self.characters = selectCharacters(self.source, self.userid)
-    local data = playerData[self.source]
-
-    playerData[self.source] = {
-        license = data.license,
-        steam = data.steam,
-        fivem = data.fivem,
-        discord = data.discord,
-    }
-
-    TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
-end
-
----Return player metadata.
----@param index? string
----@return unknown
-function CPlayer:get(index)
-    local data = playerData[self.source]
-    return index and data[index] or data
-end
-
----Updates player metadata with the new value.
----@param index string
----@param value any
-function CPlayer:set(index, value, replicate)
-    playerData[self.source][index] = value
-
-    if replicate then
-        TriggerClientEvent('ox:setPlayerData', self.source, index, value)
-    end
-end
-
----Updates the player's grade in the given group.
----@param name string
----@param grade number
-function CPlayer:setGroup(name, grade)
-    Ox.GetGroup(name):set(self, grade)
-end
-
----Get the player's grade for the given group.
----@param name string
----@return number
-function CPlayer:getGroup(name)
-    return self.groups[name]
-end
-
--- Likely temporary
-function CPlayer:hasGroup(filter)
-    local type = type(filter)
-
-    if type == 'string' then
-        local grade = self.groups[filter]
-
-        if grade then
-            return filter, grade
-        end
-    elseif type == 'table' then
-        local tabletype = table.type(filter)
-
-        if tabletype == 'hash' then
-            for name, grade in pairs(filter) do
-                local playerGrade = self.groups[name]
-
-                if playerGrade and grade <= playerGrade then
-                    return name, playerGrade
-                end
-            end
-        elseif tabletype == 'array' then
-            for i = 1, #filter do
-                local name = filter[i]
-                local grade = self.groups[name]
-
-                if grade then
-                    return name, grade
-                end
-            end
-        end
-    else
-        error(("received '%s' when checking player group"):format(filter))
-    end
-end
-
----Check if another player is range of the player.
----@param target number
----@return boolean
-function CPlayer:isPlayerInScope(target)
-    return self:get('inScope')[target]
-end
-
-function CPlayer:triggerScopedEvent(eventName, ...)
-    local inScope = self:get('inScope')
-
-    for id in pairs(inScope) do
-        TriggerClientEvent(eventName, id, ...)
-    end
-end
-
-setmetatable(Player, {
-    __add = function(self, player)
-        self.list[player.source] = player
-        self.count += 1
-    end,
-
-    __sub = function(self, player)
-        if player.charid then player:save() end
-
-        TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
-        playerData[player.source] = nil
-        self.list[player.source] = nil
-        self.count -= 1
-    end,
-
-    ---@return CPlayer
-    __call = function(self, source)
-        return self.list[source]
-    end
-})
-
 ---Creates an instance of CPlayer.
 ---@param source number
 function Player.new(source)
-    if not Player(source) then
-        local identifiers = Ox.GetIdentifiers(source)
-        local primary = identifiers[Server.PRIMARY_IDENTIFIER]
-        local userid = MySQL.scalar.await(Query.SELECT_USERID, { primary })
-        local username = GetPlayerName(source)
+    local identifiers = Ox.GetIdentifiers(source)
+    local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
+    local username = GetPlayerName(source)
 
-        if not userid then
-            userid = MySQL.prepare.await(Query.INSERT_USERID, {
-                username,
-                identifiers.license,
-                identifiers.steam,
-                identifiers.fivem,
-                identifiers.discord,
-            }) --[[@as number]]
-        end
-
-        ---@type CPlayer
-        local self = setmetatable({
-            source = source,
-            userid = userid,
-            username = username,
-            characters = selectCharacters(source, userid),
-            ped = GetPlayerPed(source),
-        }, CPlayer)
-
-        local data = identifiers
-        playerData[source] = data
-
-        local state = self:getState()
-        state:set('userid', self.userid, true)
-
-        for type, identifier in pairs(identifiers) do
-            state:set(type, identifier, false)
-        end
-
-        data.inScope = {}
-
-        TriggerClientEvent('ox:selectCharacter', source, self.characters)
-        return Player + self
+    if not userid then
+        userid = db.createUser(username, identifiers) --[[@as number]]
     end
+
+    ---@type CPlayer
+    local self = setmetatable({
+        source = source,
+        userid = userid,
+        username = username,
+        characters = Player.selectCharacters(source, userid),
+        ped = GetPlayerPed(source),
+    }, CPlayer)
+
+    local data = identifiers
+    self.init(data)
+
+    local state = self.getState()
+    state:set('userid', self.userid, true)
+
+    for type, identifier in pairs(identifiers) do
+        state:set(type, identifier, false)
+    end
+
+    TriggerClientEvent('ox:selectCharacter', source, self.characters)
 end
 
 ---Saves all data stored in players.list.
@@ -345,7 +128,7 @@ function Player.saveAll()
     local size = 0
     local date = os.date('%Y-%m-%d', os.time())
 
-    for playerId, player in pairs(Player.list) do
+    for playerId, player in pairs(PlayerRegistry) do
         if player.charid then
             size += 1
             local entity = GetPlayerPed(playerId)
@@ -364,126 +147,61 @@ function Player.saveAll()
     end
 
     if size > 0 then
-        MySQL.prepare.await(Query.UPDATE_CHARACTER, parameters)
+        db.updateCharacter(parameters)
     end
-end
-
----Insert new character data into the database.
----@param userid number
----@param firstName string
----@param lastName string
----@param gender string
----@param date number
----@param phone_number number?
----@return unknown
-function Player.registerCharacter(userid, firstName, lastName, gender, date, phone_number)
-    return MySQL.prepare.await(Query.INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
 ---Remove character data from the database.
 ---@param charid number
 function Player.deleteCharacter(charid)
     appearance:save(charid)
-    return MySQL.update(Query.DELETE_CHARACTER, { charid })
+    return db.deleteCharacter(charid)
 end
 
 ---Finalises player loading after they have selected a character.
----@param self CPlayer
+---@param player CPlayer
 ---@param character table
-function Player.loaded(self, character)
-    local result = MySQL.single.await(Query.SELECT_CHARACTER, { self.charid })
+function Player.loaded(player, character)
+    local result = db.selectCharacterData(player.charid)
 
     if result then
-        self.dead = result.is_dead
+        player.dead = result.is_dead
         result.is_dead = nil
+        local data = player.get()
 
         for k, v in pairs(result) do
-            playerData[self.source][k] = v
+            data[k] = v
         end
     end
 
-    self.name = ('%s %s'):format(self.firstname, self.lastname)
-    self:loadGroups()
+    player.name = ('%s %s'):format(player.firstname, player.lastname)
+    player.charid = character.charid
+    player.firstname = character.firstname
+    player.lastname = character.lastname
+
+    result = db.selectCharacterGroups(player.charid)
+    player.groups = {}
+
+    if result then
+        for i = 1, #result do
+            local data = result[i]
+            local group = Ox.GetGroup(data.name)
+
+            if group then
+                group:add(player, data.grade)
+            end
+        end
+    end
 
     for _, load in pairs(loadResource) do
-        load(self)
+        load(player)
     end
 
-    local state = self:getState()
-    state:set('dead', self.dead, true)
-    state:set('name', self.name, true)
-    appearance:load(self.source, self.charid)
+    local state = player.getState()
+    state:set('dead', player.dead, true)
+    state:set('name', player.name, true)
+    appearance:load(player.source, player.charid)
 
-    TriggerEvent('ox:playerLoaded', self.source, self.userid, self.charid)
-    TriggerClientEvent('ox:playerLoaded', self.source, self, character.x and vec4(character.x, character.y, character.z, character.heading))
-end
-
------------------------------------------------------------------------------------------------
--- Interface
------------------------------------------------------------------------------------------------
-
-function Ox.PlayerExports()
-    return {
-        set = true,
-        get = true,
-        setGroup = true,
-        getGroup = true,
-        isPlayerInScope = true,
-        triggerScopedEvent = true,
-    }
-end
-
----Return player data for the given player id.
----@param source number
----@return CPlayer?
-function Ox.GetPlayer(source)
-    local player = Player(source)
-
-    if player?.charid then
-        return player
-    end
-end
-
----API entry point for triggering player methods.
----@param source number
----@param method string
----@param ... unknown
----@return unknown
-function Ox.CPlayer(source, method, ...)
-    local player = Player(source)
-    return player[method](player, ...)
-end
-
-local function filterPlayer(player, filter)
-    local metadata = player:get()
-
-    for k, v in pairs(filter) do
-        if k == 'groups' then
-            if not player:hasGroup(v) then
-                return
-            end
-        elseif player[k] ~= v and metadata[k] ~= v then
-            return
-        end
-    end
-
-    return true
-end
-
----Return all player data.
----@return table
-function Ox.GetPlayers(filter)
-    local size = 0
-    local players = {}
-
-    for _, player in pairs(Player.list) do
-        if player.charid then
-            if not filter or filterPlayer(player, filter) then
-                size += 1
-                players[size] = player
-            end
-        end
-    end
-
-    return players
+    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
+    TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading))
 end

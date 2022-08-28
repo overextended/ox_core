@@ -12,7 +12,7 @@ lib.addCommand('group.admin', 'car', function(source, args)
     end
 
     if args.owner and args.owner > 0 then
-        args.owner = Player(args.owner)?.charid
+        args.owner = Ox.GetPlayer(args.owner)?.charid
     end
 
     local vehicle = Ox.CreateVehicle({
