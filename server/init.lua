@@ -8,7 +8,7 @@ SetConvarReplicated('inventory:trimplate ', 'false')
 ---@diagnostic disable-next-line: param-type-mismatch
 SetConvarReplicated('pe-basicloading:disableAutoShutdown', 1)
 
-if Resource('npwd') then
+if GetExport('npwd') then
     SetConvar('npwd:useResourceIntegration', 'true')
     SetConvar('npwd:database', json.encode({
         playerTable = 'characters',

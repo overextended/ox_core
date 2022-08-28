@@ -48,7 +48,7 @@ Player.loadResource('ox_inventory', function(self)
     })
 end)
 
-local npwd = Resource('npwd') and exports.npwd
+local npwd = GetExport('npwd')
 
 if npwd then
     Player.loadResource('npwd', function(self)
