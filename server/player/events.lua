@@ -45,6 +45,8 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     Player.loaded(player, character)
 end)
 
+local appearance = exports.ox_appearance
+
 RegisterNetEvent('ox:deleteCharacter', function(slot)
     if type(slot) == 'number' and slot < 11 then
         slot += 1
@@ -55,6 +57,7 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 
             if charid then
                 TriggerEvent('ox:characterDeleted', player.source, player.userid, charid)
+                appearance:save(charid)
                 db.deleteCharacter(charid)
                 return table.remove(player.characters, slot)
             end
