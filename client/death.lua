@@ -43,11 +43,11 @@ function OnPlayerDeath(login)
             wasted = false
         end)
 
-        PushScaleformMovieFunction(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
-        BeginTextComponent('STRING')
-        AddTextComponentString('~r~wasted')
-        EndTextComponent()
-        PopScaleformMovieFunctionVoid()
+        BeginScaleformMovieMethod(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
+        BeginTextCommandScaleformString('STRING')
+        AddTextComponentSubstringPlayerName('~r~wasted')
+        EndTextCommandScaleformString()
+        EndScaleformMovieMethod()
 
         PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS')
 
