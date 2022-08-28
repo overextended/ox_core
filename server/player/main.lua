@@ -16,28 +16,26 @@ local Player = {
 }
 _ENV.Player = Player
 
-local loadResource = {}
+---Trigger a function when a player is loaded or the resource restarts.
+local loadResource = setmetatable({}, {
+    __call = function(self, resource, cb)
+        self[resource] = cb
 
----Trigger a function when the player is loaded or the resource restarts.
----@param resource string
----@param cb function
-function Player.loadResource(resource, cb)
-    loadResource[resource] = cb
-
-    AddEventHandler('onServerResourceStart', function(res)
-        if res == resource then
-            for _, player in pairs(Player.list) do
-                if not player.characters then
-                    cb(player)
+        AddEventHandler('onServerResourceStart', function(res)
+            if res == resource then
+                for _, player in pairs(PlayerRegistry) do
+                    if not player.characters then
+                        cb(player)
+                    end
                 end
             end
-        end
-    end)
-end
+        end)
+    end
+}) --[[@as fun(resource: string, cb: function)]]
 
 local ox_inventory = exports.ox_inventory
 
-Player.loadResource('ox_inventory', function(self)
+loadResource('ox_inventory', function(self)
     ox_inventory:setPlayerInventory({
         source = self.source,
         identifier = self.charid,
@@ -51,7 +49,7 @@ end)
 local npwd = GetExport('npwd')
 
 if npwd then
-    Player.loadResource('npwd', function(self)
+    loadResource('npwd', function(self)
         npwd:newPlayer({
             source = self.source,
             identifier = self.charid,
