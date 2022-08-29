@@ -113,7 +113,6 @@ function Vehicle.saveAll(resource)
     end
 end
 
-AddEventHandler('onResourceStop', Vehicle.saveAll)
 
 ---@param id number
 ---@param owner number | boolean | nil
@@ -273,40 +272,5 @@ function Ox.VehicleExports()
     }
 end
 
----Return vehicle data for the given entity id.
----@param entity number
----@return table
-function Ox.GetVehicle(entity)
-    return Vehicle(entity)
-end
-
----Return vehicle data for the given network id.
----@param netId number
----@return table
-function Ox.GetVehicleFromNetId(netId)
-    return Vehicle(NetworkGetEntityFromNetworkId(netId))
-end
-
----API entry point for triggering vehicle methods.
----@param entity number
----@param method string
----@param ... unknown
----@return unknown
-function Ox.CVehicle(entity, method, ...)
-    local vehicle = Vehicle(entity)
-    return vehicle and vehicle[method](...)
-end
-
----Return all vehicle data.
----@return table
-function Ox.GetVehicles()
-    local size = 0
-    local vehicles = {}
-
-    for _, v in pairs(Vehicle.list) do
-        size += 1
-        vehicles[size] = v
-    end
-
-    return vehicles
-end
+AddEventHandler('onResourceStop', Vehicle.saveAll)
+AddEventHandler('txAdmin:events:serverShuttingDown', function() Vehicle.saveAll() end)
