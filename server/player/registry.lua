@@ -101,3 +101,11 @@ AddEventHandler('playerDropped', function()
         return player.logout(true)
     end
 end)
+
+---@todo proper logout system, and make the command admin-only
+RegisterCommand('logout', function(source)
+    CreateThread(function()
+        local player = Ox.GetPlayer(source)
+        return player and player.logout()
+    end)
+end)

@@ -122,7 +122,7 @@ function Player.new(source)
     TriggerClientEvent('ox:selectCharacter', source, self.characters)
 end
 
----Saves all data stored in players.list.
+---Saves the data for all active players.
 function Player.saveAll()
     local parameters = {}
     local size = 0
@@ -198,3 +198,9 @@ function Player.loaded(player, character)
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
     TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading))
 end
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource == 'ox_core' then
+        Player.saveAll()
+    end
+end)

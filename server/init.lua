@@ -2,6 +2,8 @@ Server = {
     PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'fivem'),
 }
 
+db = {}
+
 SetConvarReplicated('inventory:framework', 'ox')
 SetConvarReplicated('inventory:trimplate ', 'false')
 
@@ -15,18 +17,3 @@ if GetExport('npwd') then
         identifierColumn = 'charid',
     }))
 end
-
-db = {}
-
-AddEventHandler('onResourceStop', function(resource)
-    if resource == 'ox_core' then
-        Player.saveAll()
-    end
-end)
-
-RegisterCommand('logout', function(source)
-    CreateThread(function()
-        local player = Ox.GetPlayer(source)
-        return player and player.logout()
-    end)
-end)
