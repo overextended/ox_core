@@ -58,7 +58,7 @@ function Vehicle.saveAll(resource)
     end
 end
 
----@param id number
+---@param id number?
 ---@param owner number | boolean | nil
 ---@param plate string
 ---@param model string
@@ -181,13 +181,12 @@ function Ox.CreateVehicle(data, coords, heading)
         vehicleId = db.createVehicle(plate, owner, model, modelData.class, data, stored)
     end
 
-    if vehicleId then
-        if stored then
-            return vehicleId
-        end
 
-        return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
+    if stored then
+        return vehicleId
     end
+
+    return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
 end
 
 ---Creates a unique vehicle license plate.
