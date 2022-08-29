@@ -73,26 +73,16 @@ AddEventHandler('playerConnecting', function(_, _, deferrals)
     deferrals.done()
 end)
 
-local function onServerShutdown()
-    if not serverLockdown then
-        serverLockdown = 'The server is about to restart. You cannot join at this time.'
-    end
+AddEventHandler('txAdmin:events:serverShuttingDown', function()
+    serverLockdown = 'The server is about to restart. You cannot join at this time.'
 
     Player.saveAll()
 
-    for playerId, player in pairs(Player.list) do
+    for playerId, player in pairs(PlayerRegistry) do
         player.charid = nil
         DropPlayer(playerId, 'Server is restarting.')
     end
-end
-
-AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
-    if eventData.secondsRemaining == 60 then
-        serverLockdown = 'The server is about to restart. You cannot join at this time.'
-    end
 end)
-
-AddEventHandler('txAdmin:events:serverShuttingDown', onServerShutdown)
 
 AddEventHandler('playerDropped', function()
     local player = Ox.GetPlayer(source)
