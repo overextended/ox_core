@@ -1,107 +1,52 @@
-local Query = {
-    DELETE_VEHICLE = 'DELETE FROM vehicles WHERE id = ?',
-    INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)',
-    PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?',
-    SELECT_VEHICLE = 'SELECT owner, plate, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL',
-    UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?',
-    UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?',
-}
+local Vehicle = {}
+_ENV.Vehicle = Vehicle
 
-MySQL.ready(function()
-    MySQL.query('UPDATE vehicles SET stored = ? WHERE stored IS NULL', { 'impound' })
-end)
+local db = db.vehicle
 
-local CVehicle = {}
-local vehicleData = {}
+---Removes a vehicle from the vehicle registry and despawns the entity.  
+---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
+---@param vehicle CVehicle
+---@param removeEntry boolean?
+---@param metadata table
+function Vehicle.despawn(vehicle, removeEntry, metadata)
+    local entity = vehicle.entity
 
-function CVehicle:__index(index)
-    local value = vehicleData[self.entity][index]
-
-    if value then
-        return value
+    if vehicle.owner ~= false then
+        if removeEntry then
+            db.deleteVehicle(vehicle.id)
+        elseif metadata then
+            db.updateVehicle({
+                vehicle.plate,
+                vehicle.stored,
+                json.encode(metadata),
+                vehicle.id
+            })
+        end
     end
 
-    local method = CVehicle[index]
-
-    return method and function(...)
-        return method(self, ...)
-    end
+    VehicleRegistry[entity] = nil
+    DeleteEntity(entity)
 end
-
-function CVehicle:get(index)
-    local data = vehicleData[self.entity]
-    return index and data[index] or data
-end
-
-function CVehicle:set(index, value)
-    if index == 'properties' and value.plate then
-        self.plate = value.plate
-    end
-
-    vehicleData[self.entity][index] = value
-end
-
-function CVehicle:getState()
-    return Entity(self.entity).state
-end
-
-function CVehicle:despawn()
-    DeleteEntity(self.entity)
-    return Vehicle - self
-end
-
-function CVehicle:delete()
-    if self.owner ~= false then
-        MySQL.prepare(Query.DELETE_VEHICLE, { self.id })
-    end
-
-    self.despawn()
-end
-
-function CVehicle:store(value)
-    if self.owner ~= false then
-        MySQL.prepare(Query.UPDATE_VEHICLE, { self.plate, value or 'impound', json.encode(self.get()), self.id })
-    end
-
-    self.despawn()
-end
-
-Vehicle = setmetatable({
-    list = {},
-}, {
-    __add = function(self, vehicle)
-        self.list[vehicle.entity] = vehicle
-        return vehicle
-    end,
-
-    __sub = function(self, vehicle)
-        self.list[vehicle.entity] = nil
-    end,
-
-    __call = function(self, entity)
-        return self.list[entity]
-    end
-})
 
 ---Save all vehicles for the resource and despawn them.
 ---@param resource string?
 function Vehicle.saveAll(resource)
-    if resource == cache.resource then
+    if resource == 'ox_core' then
         resource = nil
     end
 
     local parameters = {}
     local size = 0
 
-    for _, vehicle in pairs(Vehicle.list) do
+    for _, vehicle in pairs(VehicleRegistry) do
         if not resource or resource == vehicle.script then
             if vehicle.owner ~= false then
                 size += 1
-                parameters[size] = { vehicle.plate, 'impound', json.encode(vehicle.get()), vehicle.id }
+                parameters[size] = { vehicle.plate, vehicle.stored or 'impound', json.encode(vehicle.get()), vehicle.id }
             end
 
             if resource then
-                vehicle.despawn()
+                vehicle.store()
             else
                 DeleteEntity(vehicle.entity)
             end
@@ -109,10 +54,9 @@ function Vehicle.saveAll(resource)
     end
 
     if size > 0 then
-        MySQL.prepare(Query.UPDATE_VEHICLE, parameters)
+        db.updateVehicle(parameters)
     end
 end
-
 
 ---@param id number
 ---@param owner number | boolean | nil
@@ -122,7 +66,7 @@ end
 ---@param data table
 ---@param coords vector3
 ---@param heading number
----@return number?
+---@return table?
 local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
     local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
@@ -137,7 +81,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
             model = model,
         }, CVehicle)
 
-        vehicleData[self.entity] = data
+        self.init(data)
 
         local state = self.getState()
         state:set('owner', self.owner, true)
@@ -147,10 +91,10 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
         end
 
         if owner ~= false then
-            MySQL.prepare(Query.UPDATE_STORED, { nil, self.id })
+            db.setStored(nil, self.id)
         end
 
-        return Vehicle + self --[[@as number]]
+        return self
     end
 end
 
@@ -162,7 +106,7 @@ end
 ---@param data table | number
 ---@param coords vector3
 ---@param heading? number
----@return number?
+---@return table | number | nil
 function Ox.CreateVehicle(data, coords, heading)
     local script = GetInvokingResource()
 
@@ -187,7 +131,7 @@ function Ox.CreateVehicle(data, coords, heading)
             end
         end
 
-        local vehicle = MySQL.prepare.await(Query.SELECT_VEHICLE, { data })
+        local vehicle = db.getVehicleFromId(data)
 
         if not vehicle then
             error(("Failed to spawn vehicle with id '%s' (invalid id or already spawned)"):format(data))
@@ -234,15 +178,16 @@ function Ox.CreateVehicle(data, coords, heading)
     local vehicleId
 
     if owner ~= false then
-        vehicleId = MySQL.prepare.await(Query.INSERT_VEHICLE,
-            { plate, owner, model, modelData.class, json.encode(data), stored }) --[[@as number]]
+        vehicleId = db.createVehicle(plate, owner, model, modelData.class, data, stored)
     end
 
-    if stored then
-        return vehicleId
-    end
+    if vehicleId then
+        if stored then
+            return vehicleId
+        end
 
-    return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
+        return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
+    end
 end
 
 ---Creates a unique vehicle license plate.
@@ -257,9 +202,7 @@ function Ox.GeneratePlate()
 
         local str = table.concat(plate)
 
-        if not MySQL.scalar.await(Query.PLATE_EXISTS, { str }) then
-            return str
-        end
+        if db.isPlateAvailable(str) then return str end
     end
 end
 

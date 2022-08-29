@@ -1,5 +1,5 @@
 local function deleteVehicle(entity)
-    local vehicle = Vehicle(entity)
+    local vehicle = Ox.GetVehicle(entity)
     return vehicle and vehicle.store() or DeleteEntity(entity)
 end
 
@@ -44,7 +44,7 @@ lib.addCommand('group.admin', 'dv', function(source, args)
 
     for i = 1, #vehicles do
         entity = NetworkGetEntityFromNetworkId(vehicles[i])
-        local vehicle = Vehicle(entity)
+        local vehicle = Ox.GetVehicle(entity)
 
         if vehicle then
             if args.owned == 'true' then
