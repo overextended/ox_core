@@ -1,6 +1,6 @@
 {
   "name": "@overextended/ox_core",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "author": "Overextended",
   "description": "Player and vehicle wrapper for ox_core",
   "types": "./server/index.d.ts",
