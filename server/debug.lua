@@ -13,5 +13,5 @@ lib.addCommand('group.admin', 'parsevehicles', function(source, args)
         end
     end
 
-    SaveResourceFile('ox_core', 'files/vehicles.json', json.encode(vehicleData, { indent = true, sort_keys = true }), -1)
+    SaveResourceFile('ox_core', 'shared/files/vehicles.json', json.encode(vehicleData, { indent = true, sort_keys = true }), -1)
 end, { 'processAll' })

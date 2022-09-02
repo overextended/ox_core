@@ -1,4 +1,4 @@
-local vehicles = json.load('files/vehicles.json')
+local vehicles = json.load('shared/files/vehicles.json')
 
 local function filterData(model, data, filter)
     if filter.model and not model:find(filter.model) then return end
