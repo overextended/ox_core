@@ -14,7 +14,8 @@ CGroup.__index = CGroup
 ---@param grade number
 function CGroup:add(player, grade)
     lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    player.groups[self.name] = grade
+    local playerGroups = player.get('groups')
+    playerGroups[self.name] = grade
     GlobalState[('%s:count'):format(self.name)] += 1
 end
 
@@ -23,7 +24,8 @@ end
 ---@param grade number
 function CGroup:remove(player, grade)
     lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    player.groups[self.name] = nil
+    local playerGroups = player.get('groups')
+    playerGroups[self.name] = nil
     GlobalState[('%s:count'):format(self.name)] -= 1
 end
 
@@ -38,7 +40,7 @@ function CGroup:set(player, grade)
         error(("Attempted to set group '%s' to invalid grade '%s for player.%s"):format(self.name, grade, player.source))
     end
 
-    local currentGrade = player.groups[self.name]
+    local currentGrade = player.get('groups')[self.name]
 
     if currentGrade then
         self:remove(player, currentGrade)

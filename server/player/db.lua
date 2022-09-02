@@ -27,10 +27,10 @@ function db.player.selectCharacters(userid)
     return MySQL.query.await(SELECT_CHARACTERS, { userid }) or {}
 end
 
-local SELECT_CHARACTER_DATA = 'SELECT is_dead, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number FROM characters WHERE charid = ?'
+local SELECT_CHARACTER_DATA = 'SELECT is_dead AS isDead, gender, DATE_FORMAT(dateofbirth, "%d/%m/%Y") AS dateofbirth, phone_number as phoneNumber FROM characters WHERE charid = ?'
 ---Select metadata for a character.
 ---@param charid any
----@return {[string]: string | number | boolean}?
+---@return { isDead: boolean, gender: string, dateofbirth: string, phoneNumber: string }?
 function db.player.selectCharacterData(charid)
     return MySQL.single.await(SELECT_CHARACTER_DATA, { charid })
 end

@@ -25,9 +25,9 @@ loadResource('ox_inventory', function(self)
         source = self.source,
         identifier = self.charid,
         name = self.name,
-        sex = self.gender,
-        dateofbirth = self.dob,
-        groups = self.groups,
+        sex = self.get('gender'),
+        dateofbirth = self.get('dateofbirth'),
+        groups = self.get('groups'),
     })
 end)
 
@@ -38,7 +38,7 @@ if npwd then
         npwd:newPlayer({
             source = self.source,
             identifier = self.charid,
-            phoneNumber = self.phone_number,
+            phoneNumber = self.get('phoneNumber'),
             firstname = self.firstname,
             lastname = self.lastname
         })
@@ -65,7 +65,7 @@ function Player.save(player)
             coords.y,
             coords.z,
             GetEntityHeading(player.ped),
-            player.dead or false,
+            player.get('isDead') or false,
             os.date('%Y-%m-%d', os.time()),
             player.charid
         })
@@ -136,7 +136,7 @@ function Player.saveAll()
                 coords.y,
                 coords.z,
                 GetEntityHeading(entity),
-                player.dead or false,
+                player.get('isDead') or false,
                 date,
                 player.charid
             }
@@ -152,15 +152,11 @@ end
 ---@param player CPlayer
 ---@param character table
 function Player.loaded(player, character)
-    local result = db.selectCharacterData(player.charid)
+    local result = db.selectCharacterData(character.charid)
 
     if result then
-        player.dead = result.is_dead
-        result.is_dead = nil
-        local data = player.get()
-
         for k, v in pairs(result) do
-            data[k] = v
+            player.set(k, v)
         end
     end
 
@@ -168,9 +164,9 @@ function Player.loaded(player, character)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
+    player.set('groups', {})
 
     result = db.selectCharacterGroups(player.charid)
-    player.groups = {}
 
     if result then
         for i = 1, #result do
@@ -188,12 +184,17 @@ function Player.loaded(player, character)
     end
 
     local state = player.getState()
-    state:set('dead', player.dead, true)
+    state:set('dead', player.get('isDead'), true)
     state:set('name', player.name, true)
     appearance:load(player.source, player.charid)
 
+    -- set groups onto player obj temporarily, for sending to the client
+    player.groups = player.get('groups')
+
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
     TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading))
+
+    player.groups = nil
 end
 
 AddEventHandler('onResourceStop', function(resource)

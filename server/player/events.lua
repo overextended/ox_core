@@ -67,12 +67,11 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
     error(('ox:deleteCharacter received invalid slot. Received %s'):format(slot))
 end)
 
-RegisterNetEvent('ox:playerDeath', function(dead)
+RegisterNetEvent('ox:playerDeath', function(state)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        player.dead = dead
-        player.getState().dead = dead
+        player.set('isDead', state)
     end
 end)
 
