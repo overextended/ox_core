@@ -10,6 +10,14 @@ Shared = {
     DEBUG = GetConvarInt('ox:debug', 0) == 1,
 }
 
+---Throws a formatted type error
+---@param variable string
+---@param expected string
+---@param received string
+function TypeError(variable, expected, received)
+    error(("expected %s to have type '%s' (received %s)"):format(variable, expected, received))
+end
+
 local expCache = {}
 
 function GetExport(name)

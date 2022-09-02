@@ -119,7 +119,7 @@ function Ox.CreateVehicle(data, coords, heading)
                     coords = vector3(coords[1], coords[2], coords[3])
                 end
             elseif type ~= 'vector3' then
-                error(("Expected coords to be 'vector3' but received '%s' instead"):format(type))
+                TypeError('coords', 'vector3', type)
             end
         end
 
@@ -127,7 +127,7 @@ function Ox.CreateVehicle(data, coords, heading)
             local type = type(heading)
 
             if type ~= 'number' then
-                error(("Expected heading to be 'number' but received '%s' instead"):format(type))
+                TypeError('heading', 'number', type)
             end
         end
 
@@ -151,7 +151,7 @@ function Ox.CreateVehicle(data, coords, heading)
         local type = type(data.model)
 
         if type ~= 'string' then
-            error(("Expected data.model to be 'string' but received '%s' instead"):format(type))
+            TypeError('data.model', 'string', type)
         end
     end
 

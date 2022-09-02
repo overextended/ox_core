@@ -126,7 +126,7 @@ function CPlayer:hasGroup(filter)
             end
         end
     else
-        error(("received '%s' when checking player group"):format(filter))
+        error(("No group exists with name '%s'"):format(filter))
     end
 end
 

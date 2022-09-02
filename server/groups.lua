@@ -35,7 +35,7 @@ function CGroup:set(player, grade)
     if not grade then grade = 0 end
 
     if not self.grades[grade] and grade > 0 then
-        error(("attempted to set invalid grade '%s' for group '%s' on 'player.%s'"):format(grade, self.name, player.source))
+        error(("Attempted to set group '%s' to invalid grade '%s for player.%s"):format(self.name, grade, player.source))
     end
 
     local currentGrade = player.groups[self.name]
@@ -135,10 +135,9 @@ end, {'target:number', 'group:string', 'grade:number'})
 function Ox.GetGroup(name)
     local group = groups[name]
 
-    if group then
-        return groups[name]
+    if not group then
+        error(("No group exists with name '%s'"):format(filter))
     end
 
-    print(("^1no group exists with name '%s'^0"):format(name))
+    return group
 end
-
