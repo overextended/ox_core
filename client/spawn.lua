@@ -160,8 +160,9 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 	SetPlayerData(data)
 
 	cache.ped = PlayerPedId()
+    player.isDead = LocalPlayer.state.dead or false
 
-	if player.dead then
+	if player.isDead then
 		OnPlayerDeath(true)
 	end
 
@@ -169,7 +170,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 		Wait(200)
 		cache.ped = PlayerPedId()
 
-		if not player.dead and IsPedDeadOrDying(cache.ped) then
+		if not player.isDead and IsPedDeadOrDying(cache.ped) then
 			OnPlayerDeath()
 		end
 	end

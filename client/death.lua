@@ -14,7 +14,7 @@ local anims = {
 }
 
 function OnPlayerDeath(login)
-    player.dead = true
+    player.isDead = true
 
     for i = 1, #anims do
         lib.requestAnimDict(anims[i][1])
@@ -60,7 +60,7 @@ function OnPlayerDeath(login)
     end
 
     CreateThread(function()
-        while player.dead do
+        while player.isDead do
             DisableFirstPersonCamThisFrame()
             Wait(0)
         end
@@ -84,7 +84,7 @@ function OnPlayerDeath(login)
     local timeout = 50
     local bleedOut
 
-    while player.dead do
+    while player.isDead do
         local anim = cache.vehicle and anims[2] or anims[1]
 
         if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
@@ -93,7 +93,7 @@ function OnPlayerDeath(login)
 
         timeout -= 1
         if timeout < 1 then
-            player.dead = false
+            player.isDead = false
             bleedOut = true
         end
 
