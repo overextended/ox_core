@@ -91,8 +91,7 @@ end
 
 ---Creates an instance of CPlayer.
 ---@param source number
-function Player.new(source)
-    local identifiers = Ox.GetIdentifiers(source)
+function Player.new(source, identifiers)
     local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
     local username = GetPlayerName(source)
 
@@ -119,7 +118,7 @@ function Player.new(source)
         state:set(type, identifier, false)
     end
 
-    TriggerClientEvent('ox:selectCharacter', source, self.characters)
+    return self
 end
 
 ---Saves the data for all active players.

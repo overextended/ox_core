@@ -52,7 +52,6 @@ local playerData = {}
 ---@param data table
 function CPlayer:init(data)
     if not playerData[self.source] then
-        PlayerRegistry[self.source] = self
         data.inScope = {}
         playerData[self.source] = data
     end

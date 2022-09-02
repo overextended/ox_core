@@ -1,6 +1,9 @@
 local PlayerRegistry = {}
 _ENV.PlayerRegistry = PlayerRegistry
 
+local ConnectingPlayers = {}
+local ActiveIdentifiers = {}
+
 ---Returns an instance of CPlayer belonging to the given playerId.
 ---@param playerId number
 ---@return CPlayer
@@ -54,21 +57,48 @@ RegisterNetEvent('ox:playerJoined', function()
         return DropPlayer(source, serverLockdown)
     end
 
-    Player.new(source)
+    local player = PlayerRegistry[source]
+
+    if not player then
+        local identifiers = Ox.GetIdentifiers(source)
+        ActiveIdentifiers[identifiers[Server.PRIMARY_IDENTIFIER]] = true
+        player = Player.new(source, identifiers)
+        PlayerRegistry[player.source] = player
+    end
+
+    TriggerClientEvent('ox:selectCharacter', player.source, player.characters)
+end)
+
+AddEventHandler('playerJoining', function(tempId)
+    tempId = tonumber(source) --[[@as number why the hell is this a string]]
+    local player = ConnectingPlayers[tempId]
+
+    if player then
+        ConnectingPlayers[tempId] = nil
+        PlayerRegistry[player.source] = player
+    end
 end)
 
 AddEventHandler('playerConnecting', function(_, _, deferrals)
+    local tempId = source
     deferrals.defer()
 
     if serverLockdown then
         return deferrals.done(serverLockdown)
     end
 
-    local identifier = Ox.GetIdentifiers(source)?[Server.PRIMARY_IDENTIFIER]
+    local identifiers = Ox.GetIdentifiers(source)
+    local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
 
-    if not identifier then
-        return deferrals.done(('Could not register an account, unable to determine "%s" identifier.'):format(Server.PRIMARY_IDENTIFIER))
+    if not primaryIdentifier then
+        return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
+    elseif not Shared.DEBUG and ActiveIdentifiers[primaryIdentifier] then
+        return deferrals.done(("identifier '%s:%s' is already active."):format(Server.PRIMARY_IDENTIFIER, primaryIdentifier))
     end
+
+    ActiveIdentifiers[primaryIdentifier] = true
+    local player = Player.new(tempId, identifiers)
+    ConnectingPlayers[player.source] = player
 
     deferrals.done()
 end)
@@ -85,17 +115,25 @@ AddEventHandler('txAdmin:events:serverShuttingDown', function()
 end)
 
 AddEventHandler('playerDropped', function()
-    local player = Ox.GetPlayer(source)
+    local player = PlayerRegistry[source]
+    local primaryIdentifier
 
     if player then
-        return player.logout(true)
+        primaryIdentifier = player.get(Server.PRIMARY_IDENTIFIER)
+        player.logout(true)
+    else
+        primaryIdentifier = Ox.GetIdentifiers(source)?[Server.PRIMARY_IDENTIFIER]
+    end
+
+    if primaryIdentifier then
+        ActiveIdentifiers[primaryIdentifier] = nil
     end
 end)
 
 ---@todo proper logout system, and make the command admin-only
 RegisterCommand('logout', function(source)
     CreateThread(function()
-        local player = Ox.GetPlayer(source)
+        local player = PlayerRegistry[source]
         return player and player.logout()
     end)
 end)
