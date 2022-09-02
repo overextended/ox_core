@@ -74,7 +74,8 @@ end
 ---@return unknown
 function CPlayer:get(key)
     local data = playerData[self.source]
-    return key and data[key] or data
+    if not key then return data end
+    return data[key]
 end
 
 ---Sets the player's grade for the given group.
