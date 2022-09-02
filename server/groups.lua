@@ -136,7 +136,11 @@ function Ox.GetGroup(name)
     local group = groups[name]
 
     if not group then
-        error(("No group exists with name '%s'"):format(filter))
+        if GetInvokingResource() ~= 'oxmysql' then
+            error(("No group exists with name '%s'"):format(name))
+        end
+
+        print(("^1No group exists with name '%s'^0"):format(name))
     end
 
     return group
