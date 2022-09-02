@@ -153,6 +153,8 @@ local npwd = GetExport('npwd')
 
 ---@param dropped boolean?
 function CPlayer:logout(dropped)
+    if not self.charid then return end
+
     Player.save(self)
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
 

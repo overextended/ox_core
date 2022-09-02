@@ -167,7 +167,7 @@ function Player.loaded(player, character)
         end
     end
 
-    player.name = ('%s %s'):format(player.firstname, player.lastname)
+    player.name = ('%s %s'):format(character.firstname, character.lastname)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
