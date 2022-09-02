@@ -104,12 +104,10 @@ function Player.new(source, identifiers)
         source = source,
         userid = userid,
         username = username,
-        characters = Player.selectCharacters(source, userid),
         ped = GetPlayerPed(source),
     }, CPlayer)
 
-    local data = identifiers
-    self.init(data)
+    self.init(identifiers)
 
     local state = self.getState()
     state:set('userid', self.userid, true)

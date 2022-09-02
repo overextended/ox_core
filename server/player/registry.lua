@@ -66,6 +66,8 @@ RegisterNetEvent('ox:playerJoined', function()
         PlayerRegistry[player.source] = player
     end
 
+    player.characters = Player.selectCharacters(player.source, player.userid)
+
     TriggerClientEvent('ox:selectCharacter', player.source, player.characters)
 end)
 
