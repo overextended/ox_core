@@ -50,7 +50,7 @@ local db = db.player
 ---Update the database with a player's current data.
 function Player.save(player)
     if player.charid then
-        for name, grade in pairs(player.groups) do
+        for name, grade in pairs(player.get('groups')) do
             local group = Ox.GetGroup(name)
 
             if group then

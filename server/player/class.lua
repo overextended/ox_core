@@ -89,7 +89,7 @@ end
 ---@param name string
 ---@return number?
 function CPlayer:getGroup(name)
-    return self.groups[name]
+    return self.get('groups')[name]
 end
 
 ---Checks if the player has any groups matching the filter, returning the first match.  
@@ -98,9 +98,10 @@ end
 ---@return string? group, number? grade
 function CPlayer:hasGroup(filter)
     local type = type(filter)
+    local groups = self.get('groups')
 
     if type == 'string' then
-        local grade = self.groups[filter]
+        local grade = groups[filter]
 
         if grade then
             return filter, grade
@@ -110,7 +111,7 @@ function CPlayer:hasGroup(filter)
 
         if tabletype == 'hash' then
             for name, grade in pairs(filter) do
-                local playerGrade = self.groups[name]
+                local playerGrade = groups[name]
 
                 if playerGrade and grade <= playerGrade then
                     return name --[[@as string]], playerGrade --[[@as number]]
@@ -119,7 +120,7 @@ function CPlayer:hasGroup(filter)
         elseif tabletype == 'array' then
             for i = 1, #filter do
                 local name = filter[i]
-                local grade = self.groups[name]
+                local grade = groups[name]
 
                 if grade then
                     return name, grade --[[@as number]]

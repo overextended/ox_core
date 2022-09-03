@@ -79,7 +79,7 @@ RegisterNetEvent('ox:setPlayerInService', function(job)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        if job and player.groups[job] then
+        if job and player.get('groups')[job] then
             return player.set('inService', job)
         end
 
