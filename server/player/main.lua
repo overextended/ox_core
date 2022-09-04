@@ -54,7 +54,7 @@ function Player.save(player)
             local group = Ox.GetGroup(name)
 
             if group then
-                group:remove(player, grade)
+                group.remove(player, grade)
             end
         end
 
@@ -173,8 +173,10 @@ function Player.loaded(player, character)
             local data = result[i]
             local group = Ox.GetGroup(data.name)
 
+            print('add group', data.name, player, player.get)
+
             if group then
-                group:add(player, data.grade)
+                group.add(player, data.grade)
             end
         end
     end

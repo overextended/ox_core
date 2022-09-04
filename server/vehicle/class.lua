@@ -17,7 +17,6 @@
 local CVehicle = {}
 _ENV.CVehicle = CVehicle
 
----Used to lookup CVehicle when an index does not exist on a vehicle, providing class methods.
 ---@param index string
 ---@return function?
 function CVehicle:__index(index)

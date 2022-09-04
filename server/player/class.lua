@@ -17,7 +17,6 @@
 local CPlayer = {}
 _ENV.CPlayer = CPlayer
 
----Used to lookup CPlayer when an index does not exist on a player, providing class methods.
 ---@param index string
 ---@return function?
 function CPlayer:__index(index)
