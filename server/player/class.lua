@@ -14,20 +14,7 @@
 ---@field triggerScopedEvent fun(event: string, ...: any)
 
 ---@type CPlayer
-local CPlayer = {}
-_ENV.CPlayer = CPlayer
-
----@param index string
----@return function?
-function CPlayer:__index(index)
-    local method = CPlayer[index]
-
-    if method then
-        return function(...)
-            return method(self, ...)
-        end
-    end
-end
+local CPlayer = Class.new('CPlayer')
 
 ---Backing method for imported method calls.
 ---@param source number

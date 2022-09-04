@@ -1,17 +1,4 @@
-local CGroup = {}
-_ENV.CGroup = CGroup
-
----@param index string
----@return function?
-function CGroup:__index(index)
-    local method = CGroup[index]
-
-    if method then
-        return function(...)
-            return method(self, ...)
-        end
-    end
-end
+local CGroup = Class.new('CGroup')
 
 ---Adds a player to a group and grants permissions based on their grade.
 ---@param player CPlayer

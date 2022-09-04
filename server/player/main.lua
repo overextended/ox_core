@@ -173,8 +173,6 @@ function Player.loaded(player, character)
             local data = result[i]
             local group = Ox.GetGroup(data.name)
 
-            print('add group', data.name, player, player.get)
-
             if group then
                 group.add(player, data.grade)
             end

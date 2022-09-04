@@ -36,6 +36,7 @@ server_scripts {
 	'@oxmysql/lib/MySQL.lua',
     'server/init.lua',
     'server/functions.lua',
+    'server/class.lua',
     'server/groups/db.lua',
     'server/groups/registry.lua',
     'server/groups/class.lua',

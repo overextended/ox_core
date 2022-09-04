@@ -14,20 +14,7 @@
 
 
 ---@type CVehicle
-local CVehicle = {}
-_ENV.CVehicle = CVehicle
-
----@param index string
----@return function?
-function CVehicle:__index(index)
-    local method = CVehicle[index]
-
-    if method then
-        return function(...)
-            return method(self, ...)
-        end
-    end
-end
+local CVehicle = Class.new('CVehicle')
 
 ---Backing method for imported method calls.
 ---@param source number
