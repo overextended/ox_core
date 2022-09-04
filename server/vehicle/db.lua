@@ -42,7 +42,7 @@ function db.getVehicleFromId(id)
 end
 
 local UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?'
-function db.vehicle.setStored(stored, id)
+---Updates the vehicles stored state. nil is used when it is spawned, otherwise it can be a garage name, impound, etc.
 ---@param stored string?
 ---@param id number
 function db.setStored(stored, id)
