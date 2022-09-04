@@ -20,7 +20,7 @@ function CGroup:remove(player, grade)
     GlobalState[('%s:count'):format(self.name)] -= 1
 end
 
-local db = db.groups
+local db = require 'vehicle.db'
 
 ---Sets a players grade in a group and updates their permissions.
 ---@param player CPlayer

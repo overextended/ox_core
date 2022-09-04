@@ -45,7 +45,7 @@ if npwd then
     end)
 end
 
-local db = db.player
+local db = require 'player.db'
 
 ---Update the database with a player's current data.
 function Player.save(player)

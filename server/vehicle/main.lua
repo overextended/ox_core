@@ -1,7 +1,7 @@
 local Vehicle = {}
 _ENV.Vehicle = Vehicle
 
-local db = db.vehicle
+local db = require 'vehicle.db'
 
 ---Removes a vehicle from the vehicle registry and despawns the entity.  
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.

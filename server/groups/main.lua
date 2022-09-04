@@ -1,4 +1,4 @@
-local db = db.groups
+local db = require 'groups.db'
 
 ---Load groups from the database and creates permission groups.
 local function loadGroups()

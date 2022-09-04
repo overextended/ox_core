@@ -21,7 +21,7 @@ AddEventHandler('playerLeftScope', function(data)
 end)
 
 local npwd = GetExport('npwd')
-local db = db.player
+local db = require 'player.db'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
     local player = Ox.GetPlayer(source)  --[[@as CPlayer]]
