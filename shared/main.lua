@@ -45,7 +45,7 @@ end
 
 local modules = setmetatable({}, {
     __index = function(self, path)
-        self[path] = true
+        self[path] = false
         local scriptPath = ('%s/%s.lua'):format(lib.service, path:gsub('%.', '/'))
         local resourceFile = LoadResourceFile(cache.resource, scriptPath)
 
@@ -62,7 +62,7 @@ local modules = setmetatable({}, {
             return error(err or ("^1unable to load module at path '%s^0"):format(scriptPath), 3)
         end
 
-        self[path] = chunk()
+        self[path] = chunk() or true
         return self[path]
     end
 })
@@ -72,7 +72,7 @@ local modules = setmetatable({}, {
 function require(modname)
     local module = modules[modname]
 
-    if module == true then
+    if module == false then
         error(("^1circular-dependency occurred when loading module '%s'^0"):format(modname), 2)
     end
 
