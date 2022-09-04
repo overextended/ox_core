@@ -42,3 +42,37 @@ function json.load(file)
 
     return t
 end
+
+local modules = setmetatable({}, {
+    __index = function(self, path)
+        self[path] = true
+        local scriptPath = ('%s/%s.lua'):format(lib.service, path:gsub('%.', '/'))
+        local resourceFile = LoadResourceFile(cache.resource, scriptPath)
+
+        if not resourceFile then
+            return error(("^1unable to load module at path '%s^0"):format(scriptPath), 3)
+        end
+
+        scriptPath = ('@@ox_core/%s'):format(scriptPath)
+        local chunk, err = load(resourceFile, scriptPath)
+
+        if err or not chunk then
+            return error(err or ("^1unable to load module at path '%s^0"):format(scriptPath), 3)
+        end
+
+        self[path] = chunk()
+        return self[path]
+    end
+})
+
+---@param modname string
+---@return unknown
+function require(modname)
+    local module = modules[modname]
+
+    if module == true then
+        error(("^1circular-dependency occurred when loading module '%s'^0"):format(modname), 2)
+    end
+
+    return module
+end
