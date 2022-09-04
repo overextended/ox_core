@@ -50,6 +50,7 @@ local modules = setmetatable({}, {
         local resourceFile = LoadResourceFile(cache.resource, scriptPath)
 
         if not resourceFile then
+            self[path] = nil
             return error(("^1unable to load module at path '%s^0"):format(scriptPath), 3)
         end
 
@@ -57,6 +58,7 @@ local modules = setmetatable({}, {
         local chunk, err = load(resourceFile, scriptPath)
 
         if err or not chunk then
+            self[path] = nil
             return error(err or ("^1unable to load module at path '%s^0"):format(scriptPath), 3)
         end
 
