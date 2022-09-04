@@ -34,21 +34,10 @@ client_scripts {
 
 server_scripts {
 	'@oxmysql/lib/MySQL.lua',
-    'server/init.lua',
     'server/functions.lua',
     'server/class.lua',
-    'server/groups/registry.lua',
-    'server/groups/class.lua',
-    'server/groups/main.lua',
+    'server/init.lua',
     'server/accounts.lua',
-    'server/player/registry.lua',
-    'server/player/class.lua',
-    'server/player/events.lua',
-    'server/player/main.lua',
-    'server/vehicle/registry.lua',
-    'server/vehicle/class.lua',
-    'server/vehicle/main.lua',
-    'server/vehicle/commands.lua',
     'server/debug.lua',
 }
 

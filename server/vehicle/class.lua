@@ -12,7 +12,6 @@
 ---@field delete function
 ---@field store fun(value: string?)
 
-
 ---@type CVehicle
 local CVehicle = Class.new('CVehicle')
 
@@ -27,6 +26,7 @@ function Ox.CVehicle(source, method, ...)
 end
 
 local vehicleData = {}
+local VehicleRegistry = require 'vehicle.registry'
 
 ---Triggered after vehicle instantiation to setup metadata.
 ---@param data table
@@ -68,3 +68,5 @@ function CVehicle:store(value)
     Vehicle.despawn(self, nil, vehicleData[self.entity])
     vehicleData[self.entity] = nil
 end
+
+return CVehicle

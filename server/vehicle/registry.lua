@@ -1,5 +1,4 @@
 local VehicleRegistry = {}
-_ENV.VehicleRegistry = VehicleRegistry
 
 ---Returns an instance of CVehicle for the given entityId.
 ---@param entityId number
@@ -28,3 +27,5 @@ function Ox.GetVehicles()
 
     return vehicles
 end
+
+return VehicleRegistry

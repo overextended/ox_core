@@ -1,4 +1,6 @@
 local db = require 'groups.db'
+local GroupRegistry = require 'groups.registry'
+local CGroup = require 'groups.class'
 
 ---Load groups from the database and creates permission groups.
 local function loadGroups()

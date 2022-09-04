@@ -26,10 +26,8 @@ function Ox.CPlayer(source, method, ...)
     return player and CPlayer[method](player, ...)
 end
 
-local cfxPlayer = Player
-
 function CPlayer:getState()
-    return cfxPlayer(self.source).state
+    return CfxPlayer(self.source).state
 end
 
 local playerData = {}
@@ -68,7 +66,7 @@ end
 ---@param name string
 ---@param grade number?
 function CPlayer:setGroup(name, grade)
-    Ox.GetGroup(name):set(self, grade)
+    Ox.GetGroup(name).set(self, grade)
 end
 
 ---Gets the player's grade for the given group.
@@ -78,8 +76,8 @@ function CPlayer:getGroup(name)
     return self.get('groups')[name]
 end
 
----Checks if the player has any groups matching the filter, returning the first match.  
----The filter be the group, an array of groups, or a map where key is the group and value is the minimum grade.  
+---Checks if the player has any groups matching the filter, returning the first match.
+---The filter be the group, an array of groups, or a map where key is the group and value is the minimum grade.
 ---@param filter string | string[] | { [string]: number }
 ---@return string? group, number? grade
 function CPlayer:hasGroup(filter)
@@ -100,7 +98,7 @@ function CPlayer:hasGroup(filter)
                 local playerGrade = groups[name]
 
                 if playerGrade and grade <= playerGrade then
-                    return name --[[@as string]], playerGrade --[[@as number]]
+                    return name--[[@as string]] , playerGrade --[[@as number]]
                 end
             end
         elseif tabletype == 'array' then
@@ -142,12 +140,11 @@ local npwd = GetExport('npwd')
 function CPlayer:logout(dropped)
     if not self.charid then return end
 
-    Player.save(self)
+    Player.save(self, dropped)
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
 
     if dropped then
         playerData[self.source] = nil
-        PlayerRegistry[self.source] = nil
     else
         if npwd then
             npwd:unloadPlayer(self.source)
@@ -177,3 +174,5 @@ end
 function Ox.GetPlayerExports()
     return playerExports
 end
+
+return CPlayer

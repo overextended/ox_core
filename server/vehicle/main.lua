@@ -2,6 +2,7 @@ local Vehicle = {}
 _ENV.Vehicle = Vehicle
 
 local db = require 'vehicle.db'
+local VehicleRegistry = require 'vehicle.registry'
 
 ---Removes a vehicle from the vehicle registry and despawns the entity.  
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
@@ -58,6 +59,9 @@ function Vehicle.saveAll(resource)
     end
 end
 
+---@class CVehicle
+local CVehicle = require 'vehicle.class'
+
 ---@param id number?
 ---@param owner number | boolean | nil
 ---@param plate string
@@ -66,11 +70,12 @@ end
 ---@param data table
 ---@param coords vector3
 ---@param heading number
----@return table?
+---@return CVehicle?
 local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
     local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
 
     if entity then
+        ---@type CVehicle
         local self = setmetatable({
             id = id,
             netid = NetworkGetNetworkIdFromEntity(entity),

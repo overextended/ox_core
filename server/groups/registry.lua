@@ -1,5 +1,4 @@
 local GroupRegistry = {}
-_ENV.GroupRegistry = GroupRegistry
 
 ---Return data associated with the given group name.
 ---@param name string
@@ -17,3 +16,5 @@ function Ox.GetGroup(name)
 
     return group
 end
+
+return GroupRegistry

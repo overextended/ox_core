@@ -1,8 +1,6 @@
 local PlayerRegistry = {}
-_ENV.PlayerRegistry = PlayerRegistry
-
-local ConnectingPlayers = {}
-local ActiveIdentifiers = {}
+local connectingPlayers = {}
+local activeIdentifiers = {}
 
 ---Returns an instance of CPlayer belonging to the given playerId.
 ---@param playerId number
@@ -61,7 +59,7 @@ RegisterNetEvent('ox:playerJoined', function()
 
     if not player then
         local identifiers = Ox.GetIdentifiers(source)
-        ActiveIdentifiers[identifiers[Server.PRIMARY_IDENTIFIER]] = true
+        activeIdentifiers[identifiers[Server.PRIMARY_IDENTIFIER]] = true
         player = Player.new(source, identifiers)
         PlayerRegistry[player.source] = player
     end
@@ -73,10 +71,10 @@ end)
 
 AddEventHandler('playerJoining', function(tempId)
     tempId = tonumber(source) --[[@as number why the hell is this a string]]
-    local player = ConnectingPlayers[tempId]
+    local player = connectingPlayers[tempId]
 
     if player then
-        ConnectingPlayers[tempId] = nil
+        connectingPlayers[tempId] = nil
         PlayerRegistry[player.source] = player
     end
 end)
@@ -94,13 +92,13 @@ AddEventHandler('playerConnecting', function(_, _, deferrals)
 
     if not primaryIdentifier then
         return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
-    elseif not Shared.DEBUG and ActiveIdentifiers[primaryIdentifier] then
+    elseif not Shared.DEBUG and activeIdentifiers[primaryIdentifier] then
         return deferrals.done(("identifier '%s:%s' is already active."):format(Server.PRIMARY_IDENTIFIER, primaryIdentifier))
     end
 
-    ActiveIdentifiers[primaryIdentifier] = true
+    activeIdentifiers[primaryIdentifier] = true
     local player = Player.new(tempId, identifiers)
-    ConnectingPlayers[player.source] = player
+    connectingPlayers[player.source] = player
 
     deferrals.done()
 end)
@@ -128,7 +126,7 @@ AddEventHandler('playerDropped', function()
     end
 
     if primaryIdentifier then
-        ActiveIdentifiers[primaryIdentifier] = nil
+        activeIdentifiers[primaryIdentifier] = nil
     end
 end)
 
@@ -139,3 +137,5 @@ RegisterCommand('logout', function(source)
         return player and player.logout()
     end)
 end)
+
+return PlayerRegistry

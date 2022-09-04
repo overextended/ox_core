@@ -1,3 +1,9 @@
+---@class CGroup
+---@field add fun(player: CPlayer, grade: number?)
+---@field remove fun(player: CPlayer, grade: number?)
+---@field set fun(player: CPlayer, grade: number?)
+
+---@type CGroup
 local CGroup = Class.new('CGroup')
 
 ---Adds a player to a group and grants permissions based on their grade.
@@ -20,7 +26,7 @@ function CGroup:remove(player, grade)
     GlobalState[('%s:count'):format(self.name)] -= 1
 end
 
-local db = require 'vehicle.db'
+local db = require 'groups.db'
 
 ---Sets a players grade in a group and updates their permissions.
 ---@param player CPlayer
@@ -36,7 +42,7 @@ function CGroup:set(player, grade)
     local currentGrade = player.get('groups')[self.name]
 
     if currentGrade then
-        self:remove(player, currentGrade)
+        self.remove(player, currentGrade)
     end
 
     if grade < 1 then
@@ -45,7 +51,7 @@ function CGroup:set(player, grade)
         db.removeCharacterGroup(player.charid, self.name)
     else
         db.updateCharacterGroup(player.charid, self.name, grade)
-        self:add(player, grade)
+        self.add(player, grade)
     end
 
     TriggerEvent('ox:setGroup', player.source, self.name, grade)
@@ -53,3 +59,5 @@ function CGroup:set(player, grade)
 
     return true
 end
+
+return CGroup

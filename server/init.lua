@@ -15,3 +15,7 @@ if GetExport('npwd') then
         identifierColumn = 'charid',
     }))
 end
+
+require 'groups.main'
+require 'player.main'
+require 'vehicle.main'

@@ -1,5 +1,10 @@
+CfxPlayer = Player
 local Player = {}
 _ENV.Player = Player
+
+local PlayerRegistry = require 'player.registry'
+
+require 'player.events'
 
 ---Trigger a function when a player is loaded or the resource restarts.
 local loadResource = setmetatable({}, {
@@ -48,7 +53,9 @@ end
 local db = require 'player.db'
 
 ---Update the database with a player's current data.
-function Player.save(player)
+---@param player CPlayer
+---@param dropped boolean?
+function Player.save(player, dropped)
     if player.charid then
         for name, grade in pairs(player.get('groups')) do
             local group = Ox.GetGroup(name)
@@ -70,6 +77,10 @@ function Player.save(player)
             player.charid
         })
     end
+
+    if dropped then
+        PlayerRegistry[player.source] = nil
+    end
 end
 
 local appearance = exports.ox_appearance
@@ -89,8 +100,11 @@ function Player.selectCharacters(source, userid)
     return characters
 end
 
+local CPlayer = require 'player.class'
+
 ---Creates an instance of CPlayer.
 ---@param source number
+---@return CPlayer
 function Player.new(source, identifiers)
     local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
     local username = GetPlayerName(source)
