@@ -37,7 +37,7 @@ function CPlayer:getCoords()
 end
 
 function CPlayer:getAccounts()
-    return exp:GetAccounts(self.charid)
+    return Ox.GetAccounts(self.charid)
 end
 
 function Ox.GetPlayer(playerId)
