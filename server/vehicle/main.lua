@@ -4,6 +4,8 @@ _ENV.Vehicle = Vehicle
 local db = require 'vehicle.db'
 local VehicleRegistry = require 'vehicle.registry'
 
+require 'vehicle.commands'
+
 ---Removes a vehicle from the vehicle registry and despawns the entity.  
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
 ---@param vehicle CVehicle
