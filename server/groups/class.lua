@@ -50,7 +50,7 @@ function CGroup:set(player, grade)
         grade = nil
         db.removeCharacterGroup(player.charid, self.name)
     else
-        db.updateCharacterGroup(player.charid, self.name, grade)
+        db.addCharacterGroup(player.charid, self.name, grade)
         self.add(player, grade)
     end
 
