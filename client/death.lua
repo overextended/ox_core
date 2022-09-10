@@ -67,8 +67,8 @@ function OnPlayerDeath(login)
     end)
 
     local coords = GetEntityCoords(cache.ped) --[[@as vector]]
-
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
+    cache.ped = PlayerPedId()
 
     if cache.vehicle then
         SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
