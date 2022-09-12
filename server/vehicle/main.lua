@@ -6,7 +6,7 @@ local VehicleRegistry = require 'vehicle.registry'
 
 require 'vehicle.commands'
 
----Removes a vehicle from the vehicle registry and despawns the entity.  
+---Removes a vehicle from the vehicle registry and despawns the entity.
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
 ---@param vehicle CVehicle
 ---@param removeEntry boolean?
@@ -73,10 +73,25 @@ local CVehicle = require 'vehicle.class'
 ---@param coords vector3
 ---@param heading number
 ---@return CVehicle?
-local function spawnVehicle(id, owner, plate, model, script, data, coords, heading)
-    local entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
+local function spawnVehicle(id, owner, plate, model, script, data, coords, heading, vehicleType)
+    local entity
 
-    if entity then
+    if vehicleType == 'automobile' then
+        entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
+    else
+        entity = CreateVehicle(joaat(model), coords.x, coords.y, coords.z, heading, true, true)
+
+        for i = 1, 100 do
+            if DoesEntityExist(entity) then break end
+            Wait(0)
+        end
+    end
+
+    if DoesEntityExist(entity) then
+        if vehicleType ~= 'automobile' then
+            print(("^3Spawned vehicle of type '%s' - only automobile is is properly supported / tested^0"):format(vehicleType))
+        end
+
         ---@type CVehicle
         local self = setmetatable({
             id = id,
@@ -102,6 +117,8 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
         end
 
         return self
+    else
+        print(("^1Failed to spawn vehicle '%s'^0"):format(model))
     end
 end
 
@@ -145,13 +162,14 @@ function Ox.CreateVehicle(data, coords, heading)
         end
 
         vehicle.data = json.decode(vehicle.data--[[@as string]] )
+        local modelData = Ox.GetVehicleData(vehicle.model)
 
-        if not Ox.GetVehicleData(vehicle.model) then
+        if not modelData then
             error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
         end
 
         return spawnVehicle(data, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords,
-            heading or 90.0)
+            heading or 90.0, modelData.type)
     end
 
     do
@@ -188,12 +206,11 @@ function Ox.CreateVehicle(data, coords, heading)
         vehicleId = db.createVehicle(plate, owner, model, modelData.class, data, stored)
     end
 
-
     if stored then
         return vehicleId
     end
 
-    return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0)
+    return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
 ---Creates a unique vehicle license plate.
