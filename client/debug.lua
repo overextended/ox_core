@@ -25,6 +25,32 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
             if hash then
                 local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z + 10, 0.0, false, false)
                 local make = GetMakeNameFromVehicleModel(hash)
+                local type
+
+                if IsThisModelACar(model) then
+                    type = 'automobile'
+                elseif IsThisModelABicycle(model) then
+                    type = 'bicycle'
+                elseif IsThisModelABike(model) then
+                    type = 'bike'
+                elseif IsThisModelABoat(model) then
+                    type = 'boat'
+                elseif IsThisModelAHeli(model) then
+                    type = 'heli'
+                elseif IsThisModelAPlane(model) then
+                    type = 'plane'
+                elseif IsThisModelAQuadbike(model) then
+                    type = 'quadbike'
+                elseif IsThisModelAnAmphibiousCar(model) then
+                    type = 'amphibious_automobile'
+                elseif IsThisModelAnAmphibiousQuadbike(model) then
+                    type = 'amphibious_quadbike'
+                elseif IsThisModelATrain(model) then
+                    type = 'train'
+                else
+                    local class = GetVehicleClass(vehicle)
+                    type = (class == 5 and 'submarinecar') or (class == 14 and 'submarine') or (class == 16 and 'blimp') or 'trailer'
+                end
 
                 vehicleData[model] = {
                     name = GetLabelText(GetDisplayNameFromVehicleModel(model)),
@@ -33,6 +59,7 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                     seats = GetVehicleModelNumberOfSeats(hash),
                     weapons = DoesVehicleHaveWeapons(vehicle) or nil,
                     doors = GetNumberOfVehicleDoors(vehicle),
+                    type = type,
                 }
 
                 SetVehicleAsNoLongerNeeded(vehicle)
