@@ -27,33 +27,34 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                 local make = GetMakeNameFromVehicleModel(hash)
                 local type
 
-                if IsThisModelACar(model) then
+                if IsThisModelACar(hash) then
                     type = 'automobile'
-                elseif IsThisModelABicycle(model) then
+                elseif IsThisModelABicycle(hash) then
                     type = 'bicycle'
-                elseif IsThisModelABike(model) then
+                elseif IsThisModelABike(hash) then
                     type = 'bike'
-                elseif IsThisModelABoat(model) then
+                elseif IsThisModelABoat(hash) then
                     type = 'boat'
-                elseif IsThisModelAHeli(model) then
+                elseif IsThisModelAHeli(hash) then
                     type = 'heli'
-                elseif IsThisModelAPlane(model) then
+                elseif IsThisModelAPlane(hash) then
                     type = 'plane'
-                elseif IsThisModelAQuadbike(model) then
+                elseif IsThisModelAQuadbike(hash) then
                     type = 'quadbike'
-                elseif IsThisModelAnAmphibiousCar(model) then
+                elseif IsThisModelAnAmphibiousCar(hash) then
                     type = 'amphibious_automobile'
-                elseif IsThisModelAnAmphibiousQuadbike(model) then
+                elseif IsThisModelAnAmphibiousQuadbike(hash) then
                     type = 'amphibious_quadbike'
-                elseif IsThisModelATrain(model) then
+                elseif IsThisModelATrain(hash) then
                     type = 'train'
                 else
                     local class = GetVehicleClass(vehicle)
                     type = (class == 5 and 'submarinecar') or (class == 14 and 'submarine') or (class == 16 and 'blimp') or 'trailer'
                 end
 
+
                 vehicleData[model] = {
-                    name = GetLabelText(GetDisplayNameFromVehicleModel(model)),
+                    name = GetLabelText(GetDisplayNameFromVehicleModel(hash)),
                     make = make == '' and make or GetLabelText(make),
                     class = GetVehicleClass(vehicle),
                     seats = GetVehicleModelNumberOfSeats(hash),
