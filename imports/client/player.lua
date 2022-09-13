@@ -68,8 +68,6 @@ function CPlayer:hasGroup(filter)
                 end
             end
         end
-    else
-        error(("No group exists with name '%s'"):format(filter))
     end
 end
 
