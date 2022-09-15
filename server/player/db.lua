@@ -77,7 +77,7 @@ function db.updateMetadata(parameters)
     MySQL.prepare.await(UPDATE_METADATA, parameters)
 end
 
-local SELECT_METADATA = 'SELECT metadata FROM characters where charid = ?'
+local SELECT_METADATA = 'SELECT metadata FROM characters WHERE charid = ?'
 ---Update metadata for character.
 ---@param charid
 ---@return string?
