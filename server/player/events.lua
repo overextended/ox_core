@@ -35,7 +35,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
             lastname = data.lastName,
             charid = db.createCharacter(player.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
         }
-    elseif type(data) == 'number' and data < 10 then
+    elseif type(data) == 'number' and data < Shared.CHARACTER_SLOTS then
         character = player.characters[data]
     else
         error(('ox:selectCharacter received invalid slot. Received %s'):format(data))
@@ -48,7 +48,7 @@ end)
 local appearance = exports.ox_appearance
 
 RegisterNetEvent('ox:deleteCharacter', function(slot)
-    if type(slot) == 'number' and slot < 11 then
+    if type(slot) == 'number' and slot <= Shared.CHARACTER_SLOTS then
         slot += 1
         local player = Ox.GetPlayer(source)
 
