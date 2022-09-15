@@ -4,6 +4,7 @@
 ---@field userid number
 ---@field charid number
 ---@field set fun(key: string, value: any, replicated: boolean)
+---@field setdb fun(key: string, value: any, replicated: boolean)
 ---@field get fun(key: string): any
 ---@field getCoords fun(): vector3
 ---@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
@@ -12,6 +13,8 @@
 ---@field hasGroup fun(filter: string | string[] | { [string]: number }): string?, number?
 ---@field isPlayerInScope fun(target: number): boolean
 ---@field triggerScopedEvent fun(event: string, ...: any)
+
+local db = require 'player.db'
 
 ---@type CPlayer
 local CPlayer = Class.new('CPlayer')
@@ -47,6 +50,19 @@ end
 ---@param replicated boolean
 function CPlayer:set(key, value, replicated)
     playerData[self.source][key] = value
+
+    if replicated then
+        TriggerClientEvent('ox:setPlayerData', self.source, key, value)
+    end
+end
+
+---Update the player's metadata and store in the DB, optionally syncing it with the client.
+---@param key string
+---@param value any
+---@param replicated boolean
+function CPlayer:setdb(key, value, replicated)
+    playerData[self.source][key] = value
+    db.updateMetadata({key, ('$.%s'):format(key), self.charid})
 
     if replicated then
         TriggerClientEvent('ox:setPlayerData', self.source, key, value)
