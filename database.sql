@@ -16,6 +16,9 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
 ;
 
+-- ADDS metatable column for people who are too dumb to understand it and if so dont be fivem dev
+-- ALTER TABLE `characters` ADD metadata JSON DEFAULT '{}' CHECK (JSON_VALID(`metadata`))
+
 CREATE DATABASE IF NOT EXISTS `overextended`
 /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */
 ;
@@ -47,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
   `inventory` longtext NOT NULL DEFAULT '[]',
+  `metadata` JSON DEFAULT '{}' CHECK (JSON_VALID(`metadata`)),
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,

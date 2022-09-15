@@ -70,4 +70,19 @@ function db.selectCharacterGroups(charid)
     return MySQL.query.await(SELECT_CHARACTER_GROUPS, { charid })
 end
 
+local UPDATE_METADATA = 'UPDATE characters SET metadata = JSON_SET(metadata, ?, ?) WHERE charid = ?'
+---Update metadata for character.
+---@param parameters { key: string, value: unknown, charid: number }
+function db.updateMetadata(parameters)
+    MySQL.prepare.await(UPDATE_METADATA, parameters)
+end
+
+local SELECT_METADATA = 'SELECT metadata FROM characters where charid = ?'
+---Update metadata for character.
+---@param charid
+---@return string?
+function db.selectMetdata(charid)
+    MySQL.query.await(SELECT_METADATA, charid)
+end
+
 return db
