@@ -8,6 +8,7 @@ Ox = setmetatable({}, {
 Shared = {
     CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
     DEBUG = GetConvarInt('ox:debug', 0) == 1,
+    DISABLE_REGEN = GetConvarInt('ox:disableRegen', 0) == 1,
 }
 
 ---Throws a formatted type error

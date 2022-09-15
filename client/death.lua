@@ -133,7 +133,7 @@ function OnPlayerDeath(login)
     ClearPedBloodDamage(cache.ped)
     SetEntityHealth(cache.ped, GetEntityMaxHealth(cache.ped))
     SetEntityInvincible(cache.ped, false)
-    SetPlayerHealthRechargeMultiplier(cache.playerId, 1.0)
+    if not Shared.DISABLE_REGEN then SetPlayerHealthRechargeMultiplier(cache.playerId, 1.0) end
     SetEveryoneIgnorePlayer(cache.playerId, false)
 
     AnimpostfxStop('DeathFailOut')
