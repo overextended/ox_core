@@ -1,23 +1,27 @@
 player = {}
 local CPlayer = {}
 CPlayer.__index = CPlayer
-local data = {}
+local playerData = {}
 
 function SetPlayerData(data)
     data.loaded = true
     player = setmetatable(data, CPlayer)
 end
 
+AddEventHandler('ox:playerLogout', function()
+    table.wipe(playerData)
+end)
+
 NetEventHandler('ox:setGroup', function(name, grade)
     player.groups[name] = grade
 end)
 
 NetEventHandler('ox:setPlayerData', function(index, value)
-    data[index] = value
+    playerData[index] = value
 end)
 
 function CPlayer:get(index)
-    return data[index]
+    return playerData[index]
 end
 
 ---API entry point for triggering player methods.
