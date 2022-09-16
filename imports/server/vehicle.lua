@@ -46,7 +46,7 @@ end
 
 function Ox.CreateVehicle(data, coords, heading)
     local vehicle = ox_core:CreateVehicle(data, coords, heading)
-    return setmetatable(vehicle, CVehicle)
+    return type(vehicle) == 'table' and setmetatable(vehicle, CVehicle) or vehicle
 end
 
 function Ox.GetVehicles(usemetatable)
