@@ -145,8 +145,11 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
 	if not player.appearance or not player.appearance.model then
 		local p = promise.new()
 
-        exports['fivem-appearance']:setPlayerAppearance({ model = 'mp_m_freemode_01' })
-		exports['fivem-appearance']:startPlayerCustomization(function(appearance)
+        local model = 'mp_m_freemode_01'
+        if data.gender == 'female' then model = 'mp_f_freemode_01' end
+
+        exports['fivem-appearance']:setPlayerAppearance({ model = model })
+        exports['fivem-appearance']:startPlayerCustomization(function(appearance)
 			if appearance then
 				TriggerServerEvent('ox_appearance:save', appearance)
 			end
