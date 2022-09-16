@@ -31,6 +31,10 @@ export class CPlayer {
     exp(this.source, "set", key, value, replicated);
   }
 
+  setdb(key: string, value: string | number | object, replicated: boolean) {
+    exp(this.source, "setdb", key, value, replicated);
+  }
+
   get(key?: string): any {
     return exp(this.source, "get", key);
   }
