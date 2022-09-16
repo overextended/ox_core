@@ -169,16 +169,11 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
 	SetPlayerData(data)
 
 	cache.ped = PlayerPedId()
-    player.isDead = LocalPlayer.state.dead or false
-    health = health or GetEntityMaxHealth(cache.ped)
+    health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
     armour = armour or GetPlayerMaxArmour(cache.playerId)
 
     SetEntityHealth(cache.ped, health)
     SetPedArmour(cache.ped, armour)
-
-	if player.isDead then
-		OnPlayerDeath(true)
-	end
 
 	while player.loaded do
 		Wait(200)

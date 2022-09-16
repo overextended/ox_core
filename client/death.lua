@@ -13,7 +13,7 @@ local anims = {
     {'dead', 'dead_a'},
 }
 
-function OnPlayerDeath(login)
+function OnPlayerDeath()
     player.isDead = true
 
     for i = 1, #anims do
@@ -22,42 +22,39 @@ function OnPlayerDeath(login)
 
     local scaleform = RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
 
-    while not HasScaleformMovieLoaded(scaleform) and not login do
+    while not HasScaleformMovieLoaded(scaleform) do
         Wait(10)
     end
 
     AnimpostfxPlay('DeathFailOut', 0, true)
     TriggerEvent('ox_inventory:disarm')
+    TriggerServerEvent('ox:playerDeath', true)
 
-    if not login then
-        TriggerServerEvent('ox:playerDeath', true)
+    PlaySoundFrontend(-1, 'MP_Flash', 'WastedSounds')
+    ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0)
 
-        PlaySoundFrontend(-1, 'MP_Flash', 'WastedSounds')
-        ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0)
+    Wait(1900)
 
-        Wait(1900)
+    local wasted = true
+    CreateThread(function()
+        Wait(4100)
+        wasted = false
+    end)
 
-        local wasted = true
-        CreateThread(function()
-            Wait(4100)
-            wasted = false
-        end)
+    BeginScaleformMovieMethod(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
+    BeginTextCommandScaleformString('STRING')
+    AddTextComponentSubstringPlayerName('~r~wasted')
+    EndTextCommandScaleformString()
+    EndScaleformMovieMethod()
 
-        BeginScaleformMovieMethod(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
-        BeginTextCommandScaleformString('STRING')
-        AddTextComponentSubstringPlayerName('~r~wasted')
-        EndTextCommandScaleformString()
-        EndScaleformMovieMethod()
+    PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS')
 
-        PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS')
-
-        while wasted do
-            DisableFirstPersonCamThisFrame()
-            DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
-            Wait(0)
-        end
-        -- perhaps add a flash so that the lack of animation isn't visible before it's set
+    while wasted do
+        DisableFirstPersonCamThisFrame()
+        DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
+        Wait(0)
     end
+    -- perhaps add a flash so that the lack of animation isn't visible before it's set
 
     CreateThread(function()
         while player.isDead do
