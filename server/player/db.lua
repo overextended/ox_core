@@ -48,7 +48,10 @@ function db.createCharacter(userid, firstName, lastName, gender, date, phone_num
     return MySQL.prepare.await(INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
 end
 
-local UPDATE_CHARACTER = 'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ? WHERE charid = ?'
+local UPDATE_CHARACTER = [[UPDATE characters SET
+    x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ?,
+    metadata = JSON_SET(metadata, "$.health", ?, "$.armour", ?)
+WHERE charid = ?]]
 ---Update character data for one or multiple characters.
 ---@param parameters { [number]: any } | { [number]: any }[]
 function db.updateCharacter(parameters)

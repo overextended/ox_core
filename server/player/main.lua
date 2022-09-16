@@ -52,6 +52,27 @@ end
 
 local db = require 'player.db'
 
+---Prepare parameters for updating character data.
+---@param player CPlayer
+---@param date string
+---@return table
+local function formatCharacterSaveData(player, date)
+    local playerPed = player.ped
+    local coords = GetEntityCoords(playerPed)
+
+    return {
+        coords.x,
+        coords.y,
+        coords.z,
+        GetEntityHeading(playerPed),
+        player.get('isDead') or false,
+        date,
+        GetEntityHealth(playerPed),
+        GetPedArmour(playerPed),
+        player.charid
+    }
+end
+
 ---Update the database with a player's current data.
 ---@param player CPlayer
 ---@param dropped boolean?
@@ -65,17 +86,7 @@ function Player.save(player, dropped)
             end
         end
 
-        local coords = GetEntityCoords(player.ped)
-
-        db.updateCharacter({
-            coords.x,
-            coords.y,
-            coords.z,
-            GetEntityHeading(player.ped),
-            player.get('isDead') or false,
-            os.date('%Y-%m-%d', os.time()),
-            player.charid
-        })
+        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())))
     end
 
     if dropped then
@@ -139,21 +150,10 @@ function Player.saveAll()
     local size = 0
     local date = os.date('%Y-%m-%d', os.time())
 
-    for playerId, player in pairs(PlayerRegistry) do
+    for _, player in pairs(PlayerRegistry) do
         if player.charid then
             size += 1
-            local entity = GetPlayerPed(playerId)
-            local coords = GetEntityCoords(entity)
-
-            parameters[size] = {
-                coords.x,
-                coords.y,
-                coords.z,
-                GetEntityHeading(entity),
-                player.get('isDead') or false,
-                date,
-                player.charid
-            }
+            parameters[size] = formatCharacterSaveData(player, date)
         end
     end
 
@@ -193,9 +193,9 @@ function Player.loaded(player, character)
         end
     end
 
-    result = db.selectMetadata(player.charid)
+    local metadata = db.selectMetadata(player.charid)
 
-    for k, v in pairs(result) do
+    for k, v in pairs(metadata) do
         player.set(k, v)
     end
 
@@ -212,7 +212,7 @@ function Player.loaded(player, character)
     player.groups = player.get('groups')
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
-    TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading))
+    TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading), metadata.health, metadata.armour)
 
     player.groups = nil
 end
