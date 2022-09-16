@@ -80,9 +80,10 @@ end
 local SELECT_METADATA = 'SELECT metadata FROM characters WHERE charid = ?'
 ---Update metadata for character.
 ---@param charid number
----@return string?
-function db.selectMetdata(charid)
-    return MySQL.scalar.await(SELECT_METADATA, { charid })
+---@return { [string]: string | number | table }
+function db.selectMetadata(charid)
+    local metadata = MySQL.scalar.await(SELECT_METADATA, { charid })
+    return metadata and json.decode(metadata) or {}
 end
 
 return db
