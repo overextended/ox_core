@@ -196,6 +196,10 @@ function Player.loaded(player, character)
     local metadata = db.selectMetadata(player.charid)
 
     for k, v in pairs(metadata) do
+        if type(v) == 'string' then
+            v = json.decode(v) or v
+        end
+
         player.set(k, v)
     end
 
