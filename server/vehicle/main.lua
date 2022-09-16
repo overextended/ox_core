@@ -182,7 +182,7 @@ function Ox.CreateVehicle(data, coords, heading)
 
     local owner = data.owner or false --[[@as boolean?]]
     local model = data.model:lower()
-    local stored = data.stored
+    local stored = data.stored or not coords and 'impound'
     local plate = Ox.GeneratePlate()
     local modelData = Ox.GetVehicleData(model)
 
