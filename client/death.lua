@@ -124,13 +124,15 @@ function OnPlayerDeath(login)
     end
 
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.w, false, false)
+    cache.ped = PlayerPedId()
+    local maxHealth = GetEntityMaxHealth(cache.ped)
 
     if cache.vehicle and not bleedOut then
         SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
     end
 
     ClearPedBloodDamage(cache.ped)
-    SetEntityHealth(cache.ped, GetEntityMaxHealth(cache.ped))
+    SetEntityHealth(cache.ped, maxHealth)
     SetEntityInvincible(cache.ped, false)
     SetEveryoneIgnorePlayer(cache.playerId, false)
 

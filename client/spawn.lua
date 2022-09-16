@@ -102,7 +102,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
 
 	SetCamActive(cam, true)
-	RenderScriptCams(false, false, 0, true, true)
+	RenderScriptCams(true, false, 0, true, true)
 	PointCamAtCoord(cam, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z + 0.1)
 
 	player.appearance = {}
@@ -167,9 +167,11 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
 
 	cache.ped = PlayerPedId()
     player.isDead = LocalPlayer.state.dead or false
+    health = health or GetEntityMaxHealth(cache.ped)
+    armour = armour or GetPlayerMaxArmour(cache.playerId)
 
-    SetEntityHealth(cache.ped, health or GetEntityMaxHealth(cache.ped))
-    SetPedArmour(cache.ped, armour or GetPlayerMaxArmour(cache.playerId))
+    SetEntityHealth(cache.ped, health)
+    SetPedArmour(cache.ped, armour)
 
 	if player.isDead then
 		OnPlayerDeath(true)
