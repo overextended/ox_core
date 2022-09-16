@@ -193,13 +193,10 @@ function Player.loaded(player, character)
         end
     end
 
-    result = db.selectMetdata(player.charid)
-    local metadata = json.decode(result)
+    result = db.selectMetadata(player.charid)
 
-    if result then
-        for k, v in pairs(metadata) do
-            player.set(k, v)
-        end
+    for k, v in pairs(result) do
+        player.set(k, v)
     end
 
     for _, load in pairs(loadResource) do
