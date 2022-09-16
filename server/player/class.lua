@@ -62,7 +62,7 @@ end
 ---@param replicated boolean
 function CPlayer:setdb(key, value, replicated)
     playerData[self.source][key] = value
-    db.updateMetadata({key, ('$.%s'):format(key), self.charid})
+    db.updateMetadata({('$.%s'):format(key), value, self.charid})
 
     if replicated then
         TriggerClientEvent('ox:setPlayerData', self.source, key, value)
