@@ -128,12 +128,17 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	SetNuiFocusKeepInput(false)
 end)
 
-RegisterNetEvent('ox:playerLoaded', function(data, spawn)
+---@param data table
+---@param spawn vector4?
+---@param health number?
+---@param armour number?
+RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cam, false)
     SetLocalPlayerInvisibleLocally(false)
     SetPedAoBlobRendering(cache.ped, true)
+
 	cam = nil
 	hidePlayer = nil
 
@@ -162,6 +167,9 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn)
 
 	cache.ped = PlayerPedId()
     player.isDead = LocalPlayer.state.dead or false
+
+    SetEntityHealth(cache.ped, health or GetEntityMaxHealth(cache.ped))
+    SetPedArmour(cache.ped, armour or GetPlayerMaxArmour(cache.playerId))
 
 	if player.isDead then
 		OnPlayerDeath(true)
