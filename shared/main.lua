@@ -46,7 +46,7 @@ end
 local modules = setmetatable({}, {
     __index = function(self, path)
         self[path] = false
-        local scriptPath = ('%s/%s.lua'):format(lib.service, path:gsub('%.', '/'))
+        local scriptPath = ('%s/%s.lua'):format(lib.context, path:gsub('%.', '/'))
         local resourceFile = LoadResourceFile(cache.resource, scriptPath)
 
         if not resourceFile then

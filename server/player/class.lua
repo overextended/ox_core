@@ -18,6 +18,17 @@ local db = require 'player.db'
 
 ---@type CPlayer
 local CPlayer = Class.new('CPlayer')
+local playerExports = {}
+
+function CPlayer:__newindex(key, value)
+    rawset(self, key, value)
+    playerExports[key] = true
+end
+
+---@return { [string]: true }
+function Ox.GetPlayerExports()
+    return playerExports
+end
 
 ---Backing method for imported method calls.
 ---@param source number
@@ -177,16 +188,6 @@ function CPlayer:logout(dropped)
 
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
     end
-end
-
-local playerExports = {}
-
-for k in pairs(CPlayer) do
-    playerExports[k] = true
-end
-
-function Ox.GetPlayerExports()
-    return playerExports
 end
 
 return CPlayer
