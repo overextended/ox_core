@@ -50,10 +50,9 @@ export class CVehicle implements ICVehicle {
   }
 }
 
-export function GetVehicle(vehicle: number | ICVehicle) {
-  vehicle =
-    typeof vehicle === "object" && vehicle?.entity ? vehicle : (exports.ox_core.GetVehicle(vehicle) as ICVehicle);
-  return new CVehicle(vehicle);
+export function GetVehicle(vehicleId: number): CVehicle | number {
+  const vehicle = exports.ox_core.GetVehicle(vehicleId);
+  return typeof vehicle === "object" ? new CVehicle(vehicle) : vehicle;
 }
 
 export function GetVehicleFromNetId(netid: number) {
@@ -75,7 +74,7 @@ export function GetVehicles(useclass?: boolean) {
 
   if (useclass) {
     for (let i = 0; i === vehicles.length - 1; i++) {
-      vehicles[i] = GetVehicle(vehicles[i]);
+      vehicles[i] = new CVehicle(vehicles[i]);
     }
   }
 
