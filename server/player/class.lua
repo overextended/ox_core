@@ -171,8 +171,8 @@ local npwd = GetExport('npwd')
 function CPlayer:logout(dropped)
     if not self.charid then return end
 
-    Player.save(self, dropped)
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
+    Player.save(self, dropped)
 
     if dropped then
         playerData[self.source] = nil
