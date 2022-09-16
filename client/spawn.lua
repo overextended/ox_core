@@ -82,6 +82,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		SetMaxWantedLevel(0)
 		NetworkSetFriendlyFireOption(true)
 		SetPlayerInvincible(cache.playerId, false)
+        SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
 	end)
 
 	SetPlayerInvincible(cache.playerId, true)

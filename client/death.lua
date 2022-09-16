@@ -76,7 +76,6 @@ function OnPlayerDeath(login)
 
     SetEntityInvincible(cache.ped, true)
     SetEntityHealth(cache.ped, 100)
-    SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
     SetEveryoneIgnorePlayer(cache.playerId, true)
 
     local playerState = LocalPlayer.state
@@ -133,7 +132,6 @@ function OnPlayerDeath(login)
     ClearPedBloodDamage(cache.ped)
     SetEntityHealth(cache.ped, GetEntityMaxHealth(cache.ped))
     SetEntityInvincible(cache.ped, false)
-    SetPlayerHealthRechargeMultiplier(cache.playerId, 1.0)
     SetEveryoneIgnorePlayer(cache.playerId, false)
 
     AnimpostfxStop('DeathFailOut')
