@@ -102,7 +102,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
 
 	SetCamActive(cam, true)
-	RenderScriptCams(cam, false, 0, true, true)
+	RenderScriptCams(false, false, 0, true, true)
 	PointCamAtCoord(cam, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z + 0.1)
 
 	player.appearance = {}

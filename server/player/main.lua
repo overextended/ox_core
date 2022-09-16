@@ -86,7 +86,7 @@ function Player.save(player, dropped)
             end
         end
 
-        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())))
+        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time()) --[[@as string]]))
     end
 
     if dropped then
@@ -153,7 +153,7 @@ function Player.saveAll()
     for _, player in pairs(PlayerRegistry) do
         if player.charid then
             size += 1
-            parameters[size] = formatCharacterSaveData(player, date)
+            parameters[size] = formatCharacterSaveData(player, date --[[@as string]])
         end
     end
 
