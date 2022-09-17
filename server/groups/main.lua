@@ -1,6 +1,7 @@
-local db = require 'groups.db'
+---@type { [string]: CGroup}
 local GroupRegistry = require 'groups.registry'
 local CGroup = require 'groups.class'
+local db = require 'groups.db'
 
 ---Load groups from the database and creates permission groups.
 local function loadGroups()

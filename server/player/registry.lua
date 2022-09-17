@@ -1,5 +1,10 @@
+---@type { [number]: CPlayer }
 local PlayerRegistry = {}
+
+---@type { [number]: CPlayer }
 local connectingPlayers = {}
+
+---@type { [string]: true }
 local activeIdentifiers = {}
 
 ---Returns an instance of CPlayer belonging to the given playerId.

@@ -1,3 +1,4 @@
+---@type { [number]: CVehicle }
 local VehicleRegistry = {}
 
 ---Returns an instance of CVehicle for the given entityId.
