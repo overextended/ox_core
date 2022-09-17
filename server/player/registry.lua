@@ -34,7 +34,20 @@ local function filterPlayer(player, filter)
     return true
 end
 
----Returns an array of all players matching the filter parameters.
+---Returns the first player that matches the filter properties.
+---@param filter table
+---@return CPlayer?
+function Ox.GetPlayerByFilter(filter)
+    for _, player in pairs(PlayerRegistry) do
+        if player.charid then
+            if filterPlayer(player, filter) then
+                return player
+            end
+        end
+    end
+end
+
+---Returns an array of all players matching the filter properties.
 ---@param filter table?
 ---@return CPlayer[]
 function Ox.GetPlayers(filter)
