@@ -73,6 +73,11 @@ export function GetPlayer(player: number) {
   return player ? new CPlayer(player) : null;
 }
 
+export function GetPlayerByFilter(filter: Record<string, unknown>) {
+  const player = exports.ox_core.GetPlayer(filter);
+  return player ? new CPlayer(player) : null;
+}
+
 export function GetPlayers(useclass?: boolean, filter?: Record<string, unknown>) {
   const players: CPlayer[] = exports.ox_core.GetPlayers(filter);
 
