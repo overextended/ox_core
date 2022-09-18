@@ -229,14 +229,5 @@ function Ox.GeneratePlate()
     end
 end
 
-function Ox.VehicleExports()
-    return {
-        set = true,
-        get = true,
-        delete = true,
-        store = true,
-    }
-end
-
 AddEventHandler('onResourceStop', Vehicle.saveAll)
 AddEventHandler('txAdmin:events:serverShuttingDown', function() Vehicle.saveAll() end)

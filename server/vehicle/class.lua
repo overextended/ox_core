@@ -1,11 +1,13 @@
 ---@class CVehicle
 ---@field id number
----@field owner number
+---@field owner? number
 ---@field netid number
 ---@field entity number
 ---@field model string
 ---@field plate string
 ---@field script string
+---@field stored? string
+---@field init fun(data: table)
 ---@field set fun(key: string, value: any)
 ---@field get fun(key: string): any
 ---@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
@@ -13,7 +15,22 @@
 ---@field store fun(value: string?)
 
 ---@type CVehicle
-local CVehicle = Class.new('CVehicle')
+local CVehicle = Class.new()
+
+---@type { [string]: true }
+local vehicleExports = {}
+
+setmetatable(CVehicle, {
+    __newindex = function(self, key, value)
+        rawset(self, key, value)
+        vehicleExports[key] = true
+    end
+})
+
+---@return { [string]: true }
+function Ox.GetVehicleExports()
+    return vehicleExports
+end
 
 ---Backing method for imported method calls.
 ---@param source number
