@@ -45,6 +45,11 @@ function Ox.GetPlayer(playerId)
     return player and setmetatable(player, CPlayer)
 end
 
+function Ox.GetPlayerByFilter(filter)
+    local player = exp:GetPlayerByFilter(filter)
+    return player and setmetatable(player, CPlayer)
+end
+
 function Ox.GetPlayers(usemetatable, filter)
     local players = exp:GetPlayers(filter)
 
