@@ -178,7 +178,6 @@ function Player.loaded(player, character)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
-    player.gender = result.gender
     player.set('groups', {})
 
     result = db.selectCharacterGroups(player.charid)

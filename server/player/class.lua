@@ -3,6 +3,8 @@
 ---@field source number
 ---@field userid number
 ---@field charid number
+---@field characters? table
+---@field init fun(data: table)
 ---@field set fun(key: string, value: any, replicated: boolean)
 ---@field setdb fun(key: string, value: any, replicated: boolean)
 ---@field get fun(key: string): any
@@ -17,7 +19,9 @@
 local db = require 'player.db'
 
 ---@type CPlayer
-local CPlayer = Class.new('CPlayer')
+local CPlayer = Class.new()
+
+---@type { [string]: true }
 local playerExports = {}
 
 setmetatable(CPlayer, {
@@ -81,7 +85,7 @@ function CPlayer:setdb(key, value, replicated)
     end
 
     playerData[self.source][key] = value
-    db.updateMetadata({('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid})
+    db.updateMetadata({ ('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid })
 
     if replicated then
         TriggerClientEvent('ox:setPlayerData', self.source, key, value)
