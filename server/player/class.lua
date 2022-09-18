@@ -20,10 +20,12 @@ local db = require 'player.db'
 local CPlayer = Class.new('CPlayer')
 local playerExports = {}
 
-function CPlayer:__newindex(key, value)
-    rawset(self, key, value)
-    playerExports[key] = true
-end
+setmetatable(CPlayer, {
+    __newindex = function(self, key, value)
+        rawset(self, key, value)
+        playerExports[key] = true
+    end
+})
 
 ---@return { [string]: true }
 function Ox.GetPlayerExports()
