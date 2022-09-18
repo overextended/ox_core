@@ -1,10 +1,13 @@
 ---@class CGroup
+---@field name string
+---@field grades number[]
+---@field principal string
 ---@field add fun(player: CPlayer, grade: number?)
 ---@field remove fun(player: CPlayer, grade: number?)
 ---@field set fun(player: CPlayer, grade: number?)
 
 ---@type CGroup
-local CGroup = Class.new('CGroup')
+local CGroup = Class.new()
 
 ---Adds a player to a group and grants permissions based on their grade.
 ---@param player CPlayer
