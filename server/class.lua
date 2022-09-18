@@ -1,9 +1,8 @@
 local Class = {}
 _ENV.Class = Class
 
-function Class.new(name)
+function Class.new()
     local class = {}
-    _ENV[name] = class
 
     function class:__index(index)
         local method = class[index]
