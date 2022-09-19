@@ -3,7 +3,7 @@ local CVehicle = {}
 local vehicleExports = {}
 setmetatable(vehicleExports, {
     __index = function(_, index)
-        vehicleExports = Ox.GetPlayerExports()
+        vehicleExports = Ox.GetVehicleExports()
         return vehicleExports[index]
     end
 })
