@@ -1,4 +1,8 @@
-local vehicles = json.load('shared/files/vehicles.json')
+---@type { [string]: { [string]: number } }
+local topStats = json.load('shared/files/topVehicleStats.json')
+
+---@type { [string]: { [string]: number }}
+local vehicleList = json.load('shared/files/vehicles.json')
 
 local function filterData(model, data, filter)
     if filter.model and not model:find(filter.model) then return end
@@ -14,25 +18,41 @@ local function filterData(model, data, filter)
     return true
 end
 
-function Ox.GetVehicleData(filter)
-    if type(filter) == 'table' then
-        local rv = {}
-
-        if table.type(filter) == 'array' then
-            for i = 1, #filter do
-                local model = filter[i]
-                rv[model] = vehicles[model]
-            end
-        else
-            for model, data in pairs(vehicles) do
-                if filterData(model, data, filter) then
-                    rv[model] = data
-                end
-            end
-        end
-
-        return rv
+---@param filter 'land' | 'air' | 'sea' | nil
+---@return { [string]: { [string]: number } } | nil
+function Ox.GetTopVehicleStats(filter)
+    if filter then
+        return topStats[filter]
     end
 
-    return vehicles[filter]
+    return topStats
+end
+
+---@param filter string | string[] | { [string]: string | number } | nil
+---@return { [string]: { [string]: number } } | nil
+function Ox.GetVehicleData(filter)
+    if filter then
+        if type(filter) == 'table' then
+            local rv = {}
+
+            if table.type(filter) == 'array' then
+                for i = 1, #filter do
+                    local model = filter[i]
+                    rv[model] = vehicleList[model]
+                end
+            else
+                for model, data in pairs(vehicleList) do
+                    if filterData(model, data, filter) then
+                        rv[model] = data
+                    end
+                end
+            end
+
+            return rv
+        end
+
+        return vehicleList[filter]
+    end
+
+    return vehicleList
 end
