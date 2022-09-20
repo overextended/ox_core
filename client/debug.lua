@@ -98,6 +98,46 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                     end
                 end
 
+                -- super arbitrary and unbalanced vehicle pricing algorithm
+                local price = stats.braking + stats.acceleration + stats.speed + stats.handling
+
+                if GetVehicleHasKers(vehicle) then price *= 1.2 end
+                if GetCanVehicleJump(vehicle) then price *= 1.5 end
+                if GetVehicleHasParachute(vehicle) then price *= 1.5 end
+                if GetHasRocketBoost(vehicle) then price *= 3 end
+                if data.weapons then price *= 5 end
+
+                if vType == 'automobile' then
+                    price *= 1600
+                elseif vType == 'bicycle' then
+                    price *= 150
+                elseif vType == 'bike' then
+                    price *= 500
+                elseif vType == 'boat' then
+                    price *= 6000
+                elseif vType == 'heli' then
+                    price *= 90000
+                elseif vType == 'plane' then
+                    price *= 16000
+                elseif vType == 'quadbike' then
+                    price *= 600
+                elseif vType == 'amphibious_automobile' then
+                    price *= 8000
+                elseif vType == 'amphibious_quadbike' then
+                    price *= 6200
+                elseif vType == 'train' then
+                    price *= 6000
+                elseif vType == 'submarinecar' then
+                    price *= 18000
+                elseif vType == 'submarine' then
+                    price *= 17200
+                elseif vType == 'blimp' then
+                    price *= 12000
+                elseif vType == 'trailer' then
+                    price *= 10000
+                end
+
+                data.price = math.floor(price)
                 vehicleData[model] = data
 
                 SetVehicleAsNoLongerNeeded(vehicle)

@@ -7,6 +7,7 @@
     "handling": 0.69999998807907,
     "make": "Truffade",
     "name": "Adder",
+    "price": 86065,
     "seats": 2,
     "speed": 51.77096176147461,
     "type": "automobile"
@@ -19,6 +20,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Airport Bus",
+    "price": 42321,
     "seats": 16,
     "speed": 25.58089447021484,
     "type": "automobile"
@@ -31,6 +33,7 @@
     "handling": 0.43999999761581,
     "make": "",
     "name": "Airtug",
+    "price": 18786,
     "seats": 2,
     "speed": 10.94174194335937,
     "type": "automobile"
@@ -43,6 +46,7 @@
     "handling": 5.88000011444091,
     "make": "",
     "name": "Akula",
+    "price": 34398523,
     "seats": 4,
     "speed": 61.0891227722168,
     "type": "heli",
@@ -56,6 +60,7 @@
     "handling": 0.78000003099441,
     "make": "Dinka",
     "name": "Akuma",
+    "price": 25356,
     "seats": 2,
     "speed": 48.33333587646484,
     "type": "bike"
@@ -68,6 +73,7 @@
     "handling": 13.52400016784668,
     "make": "",
     "name": "RO-86 Alkonost",
+    "price": 1933450,
     "seats": 10,
     "speed": 82.6192398071289,
     "type": "plane"
@@ -80,6 +86,7 @@
     "handling": 0.71000003814697,
     "make": "Albany",
     "name": "Alpha",
+    "price": 82526,
     "seats": 2,
     "speed": 49.5388069152832,
     "type": "automobile"
@@ -92,6 +99,7 @@
     "handling": 20.57999992370605,
     "make": "Buckingham",
     "name": "Alpha-Z1",
+    "price": 2587839,
     "seats": 1,
     "speed": 100.0,
     "type": "plane"
@@ -104,6 +112,7 @@
     "handling": 0.56000000238418,
     "make": "",
     "name": "Ambulance",
+    "price": 66002,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -116,6 +125,7 @@
     "handling": 4.60599994659423,
     "make": "",
     "name": "Annihilator",
+    "price": 5278061,
     "seats": 6,
     "speed": 47.25648880004883,
     "type": "heli"
@@ -128,6 +138,7 @@
     "handling": 5.29200029373168,
     "make": "",
     "name": "Annihilator Stealth",
+    "price": 5947464,
     "seats": 6,
     "speed": 52.70955276489258,
     "type": "heli"
@@ -140,6 +151,7 @@
     "handling": 0.58999997377395,
     "make": "HVY",
     "name": "APC",
+    "price": 192050,
     "seats": 4,
     "speed": 23.0063304901123,
     "type": "automobile",
@@ -153,6 +165,7 @@
     "handling": 0.66500002145767,
     "make": "Ocelot",
     "name": "Ardent",
+    "price": 79425,
     "seats": 2,
     "speed": 47.79095840454101,
     "type": "automobile"
@@ -162,6 +175,7 @@
     "doors": 0,
     "make": "",
     "name": "Army Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -170,6 +184,7 @@
     "doors": 0,
     "make": "",
     "name": "Army Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -178,6 +193,7 @@
     "doors": 0,
     "make": "",
     "name": "Army Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -189,6 +205,7 @@
     "handling": 0.61400002241134,
     "make": "Maxwell",
     "name": "Asbo",
+    "price": 63020,
     "seats": 2,
     "speed": 38.07009124755859,
     "type": "automobile"
@@ -201,6 +218,7 @@
     "handling": 0.57999998331069,
     "make": "Declasse",
     "name": "Asea",
+    "price": 63374,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -213,6 +231,7 @@
     "handling": 0.57999998331069,
     "make": "Declasse",
     "name": "Asea",
+    "price": 63374,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -225,6 +244,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Asterope",
+    "price": 64174,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -237,6 +257,7 @@
     "handling": 0.7039999961853,
     "make": "Pfister",
     "name": "Astron",
+    "price": 81719,
     "seats": 4,
     "speed": 49.56666946411133,
     "type": "automobile"
@@ -249,6 +270,7 @@
     "handling": 0.75700002908706,
     "make": "Overflod",
     "name": "Autarch",
+    "price": 85798,
     "seats": 2,
     "speed": 51.28990173339844,
     "type": "automobile"
@@ -261,6 +283,7 @@
     "handling": 0.65000003576278,
     "make": "LCC",
     "name": "Avarus",
+    "price": 23028,
     "seats": 1,
     "speed": 44.13693237304687,
     "type": "bike"
@@ -273,6 +296,7 @@
     "handling": 8.81999969482421,
     "make": "Mammoth",
     "name": "Avenger",
+    "price": 9767129,
     "seats": 3,
     "speed": 95.98338317871094,
     "type": "plane",
@@ -286,6 +310,7 @@
     "handling": 8.81999969482421,
     "make": "Mammoth",
     "name": "Avenger",
+    "price": 1953425,
     "seats": 3,
     "speed": 95.98338317871094,
     "type": "plane"
@@ -298,6 +323,7 @@
     "handling": 10.88000011444091,
     "make": "Kraken",
     "name": "Avisa",
+    "price": 804616,
     "seats": 4,
     "speed": 25.00000190734863,
     "type": "submarine"
@@ -310,6 +336,7 @@
     "handling": 0.58999997377395,
     "make": "Western",
     "name": "Bagger",
+    "price": 19934,
     "seats": 2,
     "speed": 37.86860275268555,
     "type": "bike"
@@ -319,6 +346,7 @@
     "doors": 0,
     "make": "",
     "name": "Baletrailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -330,6 +358,7 @@
     "handling": 0.58999997377395,
     "make": "Gallivanter",
     "name": "Baller",
+    "price": 65628,
     "seats": 4,
     "speed": 39.6176528930664,
     "type": "automobile"
@@ -342,6 +371,7 @@
     "handling": 0.65000003576278,
     "make": "Gallivanter",
     "name": "Baller",
+    "price": 74432,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -354,6 +384,7 @@
     "handling": 0.65500003099441,
     "make": "Gallivanter",
     "name": "Baller LE",
+    "price": 74448,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -366,6 +397,7 @@
     "handling": 0.65000003576278,
     "make": "Gallivanter",
     "name": "Baller LE LWB",
+    "price": 74384,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -378,6 +410,7 @@
     "handling": 0.65000003576278,
     "make": "Gallivanter",
     "name": "Baller LE (Armored)",
+    "price": 74400,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -390,6 +423,7 @@
     "handling": 0.64499998092651,
     "make": "Gallivanter",
     "name": "Baller LE LWB (Armored)",
+    "price": 74335,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -402,6 +436,7 @@
     "handling": 0.68250000476837,
     "make": "Gallivanter",
     "name": "Baller ST",
+    "price": 77229,
     "seats": 4,
     "speed": 46.58333587646484,
     "type": "automobile"
@@ -414,6 +449,7 @@
     "handling": 0.81999999284744,
     "make": "Bravado",
     "name": "Banshee",
+    "price": 79495,
     "seats": 2,
     "speed": 47.5245246887207,
     "type": "automobile"
@@ -426,6 +462,7 @@
     "handling": 0.72750002145767,
     "make": "Bravado",
     "name": "Banshee 900R",
+    "price": 74887,
     "seats": 2,
     "speed": 44.72949981689453,
     "type": "automobile"
@@ -438,6 +475,7 @@
     "handling": 0.49000000953674,
     "make": "",
     "name": "Barracks",
+    "price": 53283,
     "seats": 10,
     "speed": 32.40209197998047,
     "type": "automobile"
@@ -450,6 +488,7 @@
     "handling": 0.61000001430511,
     "make": "HVY",
     "name": "Barracks Semi",
+    "price": 60073,
     "seats": 2,
     "speed": 35.70579147338867,
     "type": "automobile"
@@ -462,6 +501,7 @@
     "handling": 0.49000000953674,
     "make": "",
     "name": "Barracks",
+    "price": 53283,
     "seats": 10,
     "speed": 32.40209197998047,
     "type": "automobile"
@@ -474,6 +514,7 @@
     "handling": 0.60250002145767,
     "make": "",
     "name": "Barrage",
+    "price": 332904,
     "seats": 4,
     "speed": 39.93803024291992,
     "type": "automobile",
@@ -487,6 +528,7 @@
     "handling": 0.68000000715255,
     "make": "Pegassi",
     "name": "Bati 801",
+    "price": 25838,
     "seats": 2,
     "speed": 49.29603958129883,
     "type": "bike"
@@ -499,6 +541,7 @@
     "handling": 0.68000000715255,
     "make": "Pegassi",
     "name": "Bati 801RR",
+    "price": 25838,
     "seats": 2,
     "speed": 49.29603958129883,
     "type": "bike"
@@ -511,6 +554,7 @@
     "handling": 0.54000002145767,
     "make": "Vapid",
     "name": "Benson",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -523,6 +567,7 @@
     "handling": 21.07000160217285,
     "make": "Western",
     "name": "Besra",
+    "price": 2373206,
     "seats": 1,
     "speed": 87.70580291748047,
     "type": "plane"
@@ -535,6 +580,7 @@
     "handling": 0.69999998807907,
     "make": "Grotti",
     "name": "Bestia GTS",
+    "price": 79703,
     "seats": 2,
     "speed": 47.79460525512695,
     "type": "automobile"
@@ -547,6 +593,7 @@
     "handling": 0.6700000166893,
     "make": "Nagasaki",
     "name": "BF400",
+    "price": 23103,
     "seats": 2,
     "speed": 44.14794921875,
     "type": "bike"
@@ -559,6 +606,7 @@
     "handling": 0.60000002384185,
     "make": "BF",
     "name": "Injection",
+    "price": 67551,
     "seats": 2,
     "speed": 40.77992248535156,
     "type": "automobile"
@@ -571,6 +619,7 @@
     "handling": 0.5,
     "make": "HVY",
     "name": "Biff",
+    "price": 56668,
     "seats": 2,
     "speed": 34.4979019165039,
     "type": "automobile"
@@ -583,6 +632,7 @@
     "handling": 0.63999998569488,
     "make": "BF",
     "name": "Bifta",
+    "price": 74872,
     "seats": 2,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -595,6 +645,7 @@
     "handling": 0.57999998331069,
     "make": "Bravado",
     "name": "Bison",
+    "price": 62297,
     "seats": 6,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -607,6 +658,7 @@
     "handling": 0.57999998331069,
     "make": "Bravado",
     "name": "Bison",
+    "price": 62297,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -619,6 +671,7 @@
     "handling": 0.57999998331069,
     "make": "Bravado",
     "name": "Bison",
+    "price": 62297,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -631,6 +684,7 @@
     "handling": 0.56999999284744,
     "make": "Karin",
     "name": "BeeJay XL",
+    "price": 60692,
     "seats": 4,
     "speed": 36.37292861938476,
     "type": "automobile"
@@ -643,6 +697,7 @@
     "handling": 0.7039999961853,
     "make": "Vapid",
     "name": "Blade",
+    "price": 70520,
     "seats": 2,
     "speed": 42.24706649780273,
     "type": "automobile"
@@ -655,6 +710,7 @@
     "handling": 0.57999998331069,
     "make": "Nagasaki",
     "name": "Blazer",
+    "price": 21457,
     "seats": 1,
     "speed": 33.98312377929687,
     "type": "quadbike"
@@ -667,6 +723,7 @@
     "handling": 0.5,
     "make": "Nagasaki",
     "name": "Blazer Lifeguard",
+    "price": 15679,
     "seats": 1,
     "speed": 24.71211814880371,
     "type": "quadbike"
@@ -679,6 +736,7 @@
     "handling": 0.57999998331069,
     "make": "Nagasaki",
     "name": "Hot Rod Blazer",
+    "price": 21457,
     "seats": 1,
     "speed": 33.98312377929687,
     "type": "quadbike"
@@ -691,6 +749,7 @@
     "handling": 0.62999999523162,
     "make": "Nagasaki",
     "name": "Street Blazer",
+    "price": 24453,
     "seats": 1,
     "speed": 38.87601852416992,
     "type": "quadbike"
@@ -703,6 +762,7 @@
     "handling": 0.65200001001358,
     "make": "Nagasaki",
     "name": "Blazer Aqua",
+    "price": 25680,
     "seats": 1,
     "speed": 40.87734603881836,
     "type": "quadbike"
@@ -715,6 +775,7 @@
     "handling": 5.68400001525878,
     "make": "",
     "name": "Atomic Blimp",
+    "price": 1024161,
     "seats": 4,
     "speed": 70.0,
     "type": "blimp"
@@ -727,6 +788,7 @@
     "handling": 6.07600021362304,
     "make": "",
     "name": "Xero Blimp",
+    "price": 1036862,
     "seats": 4,
     "speed": 70.0,
     "type": "blimp"
@@ -739,6 +801,7 @@
     "handling": 5.68400001525878,
     "make": "",
     "name": "Blimp",
+    "price": 1024161,
     "seats": 4,
     "speed": 70.0,
     "type": "blimp"
@@ -751,6 +814,7 @@
     "handling": 0.61000001430511,
     "make": "Dinka",
     "name": "Blista",
+    "price": 69371,
     "seats": 2,
     "speed": 41.91736602783203,
     "type": "automobile"
@@ -763,6 +827,7 @@
     "handling": 0.61000001430511,
     "make": "Dinka",
     "name": "Blista Compact",
+    "price": 69291,
     "seats": 2,
     "speed": 41.91736602783203,
     "type": "automobile"
@@ -775,6 +840,7 @@
     "handling": 0.61000001430511,
     "make": "Dinka",
     "name": "Go Go Monkey Blista",
+    "price": 69291,
     "seats": 2,
     "speed": 41.91736602783203,
     "type": "automobile"
@@ -787,6 +853,7 @@
     "handling": 0.54000002145767,
     "make": "",
     "name": "BMX",
+    "price": 2735,
     "seats": 1,
     "speed": 14.53347015380859,
     "type": "bicycle"
@@ -796,6 +863,7 @@
     "doors": 0,
     "make": "",
     "name": "Boat Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -807,6 +875,7 @@
     "handling": 0.56000000238418,
     "make": "Vapid",
     "name": "Bobcat XL",
+    "price": 58720,
     "seats": 2,
     "speed": 35.16010665893555,
     "type": "automobile"
@@ -819,6 +888,7 @@
     "handling": 0.59500002861022,
     "make": "Canis",
     "name": "Bodhi",
+    "price": 59867,
     "seats": 4,
     "speed": 35.50739669799805,
     "type": "automobile"
@@ -831,6 +901,7 @@
     "handling": 5.39000034332275,
     "make": "",
     "name": "RM-10 Bombushka",
+    "price": 3941039,
     "seats": 6,
     "speed": 36.51483917236328,
     "type": "plane",
@@ -844,6 +915,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Boxville",
+    "price": 47273,
     "seats": 6,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -856,6 +928,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Boxville",
+    "price": 47273,
     "seats": 6,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -868,6 +941,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Boxville",
+    "price": 47273,
     "seats": 4,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -880,6 +954,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Boxville",
+    "price": 47273,
     "seats": 6,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -892,6 +967,7 @@
     "handling": 0.69999998807907,
     "make": "Brute",
     "name": "Armored Boxville",
+    "price": 326707,
     "seats": 5,
     "speed": 39.46840286254883,
     "type": "automobile",
@@ -905,6 +981,7 @@
     "handling": 0.66000002622604,
     "make": "Coil",
     "name": "Brawler",
+    "price": 77578,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -917,6 +994,7 @@
     "handling": 0.57999998331069,
     "make": "MTL",
     "name": "Brickade",
+    "price": 54416,
     "seats": 6,
     "speed": 32.83029556274414,
     "type": "automobile"
@@ -929,6 +1007,7 @@
     "handling": 0.76999998092651,
     "make": "Grotti",
     "name": "Brioso R/A",
+    "price": 69113,
     "seats": 2,
     "speed": 41.5360221862793,
     "type": "automobile"
@@ -941,6 +1020,7 @@
     "handling": 0.55900001525878,
     "make": "Grotti",
     "name": "Brioso 300",
+    "price": 54291,
     "seats": 2,
     "speed": 32.94415283203125,
     "type": "automobile"
@@ -953,6 +1033,7 @@
     "handling": 0.59600001573562,
     "make": "Grotti",
     "name": "Brioso 300 Widebody",
+    "price": 61333,
     "seats": 2,
     "speed": 37.27137756347656,
     "type": "automobile"
@@ -965,6 +1046,7 @@
     "handling": 0.63999998569488,
     "make": "Benefactor",
     "name": "Apocalypse Bruiser",
+    "price": 63687,
     "seats": 4,
     "speed": 38.40470886230469,
     "type": "automobile"
@@ -977,6 +1059,7 @@
     "handling": 0.63999998569488,
     "make": "Benefactor",
     "name": "Future Shock Bruiser",
+    "price": 63687,
     "seats": 4,
     "speed": 38.40470886230469,
     "type": "automobile"
@@ -989,6 +1072,7 @@
     "handling": 0.63999998569488,
     "make": "Benefactor",
     "name": "Nightmare Bruiser",
+    "price": 63687,
     "seats": 4,
     "speed": 38.40470886230469,
     "type": "automobile"
@@ -1001,6 +1085,7 @@
     "handling": 0.65000003576278,
     "make": "Declasse",
     "name": "Apocalypse Brutus",
+    "price": 70122,
     "seats": 2,
     "speed": 42.30678939819336,
     "type": "automobile"
@@ -1013,6 +1098,7 @@
     "handling": 0.65000003576278,
     "make": "Declasse",
     "name": "Future Shock Brutus",
+    "price": 70122,
     "seats": 2,
     "speed": 42.30678939819336,
     "type": "automobile"
@@ -1025,6 +1111,7 @@
     "handling": 0.65000003576278,
     "make": "Declasse",
     "name": "Nightmare Brutus",
+    "price": 70122,
     "seats": 2,
     "speed": 42.30678939819336,
     "type": "automobile"
@@ -1037,6 +1124,7 @@
     "handling": 0.65000003576278,
     "make": "Albany",
     "name": "Roosevelt",
+    "price": 69018,
     "seats": 6,
     "speed": 41.66667175292969,
     "type": "automobile"
@@ -1049,6 +1137,7 @@
     "handling": 0.73500001430511,
     "make": "Albany",
     "name": "Fränken Stange",
+    "price": 74624,
     "seats": 4,
     "speed": 45.0,
     "type": "automobile"
@@ -1061,6 +1150,7 @@
     "handling": 0.65000003576278,
     "make": "Albany",
     "name": "Roosevelt Valor",
+    "price": 69018,
     "seats": 6,
     "speed": 41.66667175292969,
     "type": "automobile"
@@ -1073,6 +1163,7 @@
     "handling": 0.66000002622604,
     "make": "Albany",
     "name": "Buccaneer",
+    "price": 76634,
     "seats": 2,
     "speed": 46.15661239624023,
     "type": "automobile"
@@ -1085,6 +1176,7 @@
     "handling": 0.66000002622604,
     "make": "Albany",
     "name": "Buccaneer Custom",
+    "price": 76634,
     "seats": 2,
     "speed": 46.15661239624023,
     "type": "automobile"
@@ -1097,6 +1189,7 @@
     "handling": 0.65000003576278,
     "make": "Bravado",
     "name": "Buffalo",
+    "price": 75156,
     "seats": 4,
     "speed": 45.15265274047851,
     "type": "automobile"
@@ -1109,6 +1202,7 @@
     "handling": 0.6700000166893,
     "make": "Bravado",
     "name": "Buffalo S",
+    "price": 77026,
     "seats": 4,
     "speed": 46.2816047668457,
     "type": "automobile"
@@ -1121,6 +1215,7 @@
     "handling": 0.68999999761581,
     "make": "Bravado",
     "name": "Sprunk Buffalo",
+    "price": 80264,
     "seats": 4,
     "speed": 48.16517639160156,
     "type": "automobile"
@@ -1133,6 +1228,7 @@
     "handling": 0.72250002622604,
     "make": "Bravado",
     "name": "Buffalo STX",
+    "price": 80516,
     "seats": 4,
     "speed": 48.30803298950195,
     "type": "automobile"
@@ -1145,6 +1241,7 @@
     "handling": 0.51999998092651,
     "make": "HVY",
     "name": "Dozer",
+    "price": 9376,
     "seats": 1,
     "speed": 5.00000047683715,
     "type": "automobile"
@@ -1157,6 +1254,7 @@
     "handling": 0.71000003814697,
     "make": "Vapid",
     "name": "Bullet",
+    "price": 82565,
     "seats": 2,
     "speed": 49.76317977905273,
     "type": "automobile"
@@ -1169,6 +1267,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -1181,6 +1280,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Bugstars Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -1193,6 +1293,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -1205,6 +1306,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -1217,6 +1319,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -1229,6 +1332,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Bus",
+    "price": 42481,
     "seats": 16,
     "speed": 25.58089447021484,
     "type": "automobile"
@@ -1241,6 +1345,7 @@
     "handling": 5.39000034332275,
     "make": "",
     "name": "Buzzard Attack Chopper",
+    "price": 6462758,
     "seats": 4,
     "speed": 57.9072265625,
     "type": "heli"
@@ -1253,6 +1358,7 @@
     "handling": 5.39000034332275,
     "make": "",
     "name": "Buzzard",
+    "price": 6462758,
     "seats": 4,
     "speed": 57.9072265625,
     "type": "heli"
@@ -1262,6 +1368,7 @@
     "doors": 2,
     "make": "",
     "name": "Cable Car",
+    "price": 194680,
     "seats": 4,
     "type": "train"
   },
@@ -1273,6 +1380,7 @@
     "handling": 0.68000000715255,
     "make": "",
     "name": "Caddy",
+    "price": 36554,
     "seats": 2,
     "speed": 21.66666984558105,
     "type": "automobile"
@@ -1285,6 +1393,7 @@
     "handling": 0.68000000715255,
     "make": "",
     "name": "Caddy",
+    "price": 36554,
     "seats": 2,
     "speed": 21.66666984558105,
     "type": "automobile"
@@ -1297,6 +1406,7 @@
     "handling": 0.68000000715255,
     "make": "",
     "name": "Caddy",
+    "price": 36022,
     "seats": 2,
     "speed": 21.33420372009277,
     "type": "automobile"
@@ -1309,6 +1419,7 @@
     "handling": 0.71850001811981,
     "make": "Karin",
     "name": "Calico GTF",
+    "price": 82150,
     "seats": 2,
     "speed": 49.46210098266601,
     "type": "automobile"
@@ -1321,6 +1432,7 @@
     "handling": 0.5,
     "make": "Brute",
     "name": "Camper",
+    "price": 50131,
     "seats": 2,
     "speed": 30.46200180053711,
     "type": "automobile"
@@ -1333,6 +1445,7 @@
     "handling": 0.65000003576278,
     "make": "Vapid",
     "name": "Caracara",
+    "price": 318426,
     "seats": 5,
     "speed": 38.61330795288086,
     "type": "automobile",
@@ -1346,6 +1459,7 @@
     "handling": 0.65000003576278,
     "make": "Vapid",
     "name": "Caracara 4x4",
+    "price": 64784,
     "seats": 4,
     "speed": 39.27035903930664,
     "type": "automobile"
@@ -1358,6 +1472,7 @@
     "handling": 0.73000001907348,
     "make": "Grotti",
     "name": "Carbonizzare",
+    "price": 80346,
     "seats": 2,
     "speed": 48.33676528930664,
     "type": "automobile"
@@ -1370,6 +1485,7 @@
     "handling": 0.68000000715255,
     "make": "Nagasaki",
     "name": "Carbon RS",
+    "price": 24649,
     "seats": 2,
     "speed": 47.01816177368164,
     "type": "bike"
@@ -1382,6 +1498,7 @@
     "handling": 4.99800014495849,
     "make": "",
     "name": "Cargobob",
+    "price": 5616986,
     "seats": 10,
     "speed": 49.91996002197265,
     "type": "heli"
@@ -1394,6 +1511,7 @@
     "handling": 4.99800014495849,
     "make": "",
     "name": "Cargobob",
+    "price": 5616986,
     "seats": 10,
     "speed": 49.91996002197265,
     "type": "heli"
@@ -1406,6 +1524,7 @@
     "handling": 4.99800014495849,
     "make": "",
     "name": "Cargobob",
+    "price": 5616986,
     "seats": 10,
     "speed": 49.91996002197265,
     "type": "heli"
@@ -1418,6 +1537,7 @@
     "handling": 4.99800014495849,
     "make": "",
     "name": "Cargobob",
+    "price": 5616986,
     "seats": 2,
     "speed": 49.91996002197265,
     "type": "heli"
@@ -1430,6 +1550,7 @@
     "handling": 6.17400026321411,
     "make": "",
     "name": "Cargo Plane",
+    "price": 1537948,
     "seats": 2,
     "speed": 78.90234375,
     "type": "plane"
@@ -1442,6 +1563,7 @@
     "handling": 0.69999998807907,
     "make": "Lampadati",
     "name": "Casco",
+    "price": 83125,
     "seats": 2,
     "speed": 50.33333969116211,
     "type": "automobile"
@@ -1454,6 +1576,7 @@
     "handling": 0.57999998331069,
     "make": "Albany",
     "name": "Cavalcade",
+    "price": 63694,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -1466,6 +1589,7 @@
     "handling": 0.57999998331069,
     "make": "Albany",
     "name": "Cavalcade",
+    "price": 63694,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -1478,6 +1602,7 @@
     "handling": 0.56999999284744,
     "make": "MTL",
     "name": "Apocalypse Cerberus",
+    "price": 305773,
     "seats": 2,
     "speed": 37.21166610717773,
     "type": "automobile",
@@ -1491,6 +1616,7 @@
     "handling": 0.56999999284744,
     "make": "MTL",
     "name": "Future Shock Cerberus",
+    "price": 305773,
     "seats": 2,
     "speed": 37.21166610717773,
     "type": "automobile",
@@ -1504,6 +1630,7 @@
     "handling": 0.56999999284744,
     "make": "MTL",
     "name": "Nightmare Cerberus",
+    "price": 305773,
     "seats": 2,
     "speed": 37.21166610717773,
     "type": "automobile",
@@ -1517,6 +1644,7 @@
     "handling": 0.73900002241134,
     "make": "Dewbauchee",
     "name": "Champion",
+    "price": 86582,
     "seats": 2,
     "speed": 51.86634063720703,
     "type": "automobile"
@@ -1529,6 +1657,7 @@
     "handling": 0.64499998092651,
     "make": "RUNE",
     "name": "Cheburek",
+    "price": 74166,
     "seats": 4,
     "speed": 44.64396286010742,
     "type": "automobile"
@@ -1541,6 +1670,7 @@
     "handling": 0.69999998807907,
     "make": "Grotti",
     "name": "Cheetah",
+    "price": 82927,
     "seats": 2,
     "speed": 50.00952911376953,
     "type": "automobile"
@@ -1553,6 +1683,7 @@
     "handling": 0.68000000715255,
     "make": "Grotti",
     "name": "Cheetah Classic",
+    "price": 82724,
     "seats": 2,
     "speed": 49.92303466796875,
     "type": "automobile"
@@ -1565,6 +1696,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Chernobog",
+    "price": 186457,
     "seats": 2,
     "speed": 22.58722496032715,
     "type": "automobile",
@@ -1578,6 +1710,7 @@
     "handling": 0.65500003099441,
     "make": "Nagasaki",
     "name": "Chimera",
+    "price": 22412,
     "seats": 1,
     "speed": 35.42488479614258,
     "type": "quadbike"
@@ -1590,6 +1723,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Chino",
+    "price": 58651,
     "seats": 2,
     "speed": 35.27692794799805,
     "type": "automobile"
@@ -1602,6 +1736,7 @@
     "handling": 0.58999997377395,
     "make": "Vapid",
     "name": "Chino Custom",
+    "price": 60394,
     "seats": 2,
     "speed": 36.34652709960937,
     "type": "automobile"
@@ -1614,6 +1749,7 @@
     "handling": 0.73350000381469,
     "make": "Lampadati",
     "name": "Cinquemila",
+    "price": 80476,
     "seats": 4,
     "speed": 48.23599243164062,
     "type": "automobile"
@@ -1626,6 +1762,7 @@
     "handling": 0.69800001382827,
     "make": "Western",
     "name": "Cliffhanger",
+    "price": 25621,
     "seats": 2,
     "speed": 49.12712097167969,
     "type": "bike"
@@ -1638,6 +1775,7 @@
     "handling": 0.68000000715255,
     "make": "Vapid",
     "name": "Clique",
+    "price": 76525,
     "seats": 2,
     "speed": 45.99813461303711,
     "type": "automobile"
@@ -1650,6 +1788,7 @@
     "handling": 0.61750000715255,
     "make": "BF",
     "name": "Club",
+    "price": 69335,
     "seats": 2,
     "speed": 41.75986099243164,
     "type": "automobile"
@@ -1662,6 +1801,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Dashound",
+    "price": 42321,
     "seats": 10,
     "speed": 25.58089447021484,
     "type": "automobile"
@@ -1674,6 +1814,7 @@
     "handling": 0.64499998092651,
     "make": "Enus",
     "name": "Cognoscenti 55",
+    "price": 76441,
     "seats": 4,
     "speed": 46.29608154296875,
     "type": "automobile"
@@ -1686,6 +1827,7 @@
     "handling": 0.63999998569488,
     "make": "Enus",
     "name": "Cognoscenti 55 (Armored)",
+    "price": 75535,
     "seats": 4,
     "speed": 45.75963973999023,
     "type": "automobile"
@@ -1698,6 +1840,7 @@
     "handling": 0.63999998569488,
     "make": "Enus",
     "name": "Cognoscenti Cabrio",
+    "price": 74712,
     "seats": 2,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -1710,6 +1853,7 @@
     "handling": 0.63999998569488,
     "make": "Enus",
     "name": "Cognoscenti",
+    "price": 75535,
     "seats": 4,
     "speed": 45.75963973999023,
     "type": "automobile"
@@ -1722,6 +1866,7 @@
     "handling": 0.63499999046325,
     "make": "Enus",
     "name": "Cognoscenti (Armored)",
+    "price": 74605,
     "seats": 4,
     "speed": 45.2182502746582,
     "type": "automobile"
@@ -1734,6 +1879,7 @@
     "handling": 0.72000002861022,
     "make": "Pfister",
     "name": "Comet",
+    "price": 83289,
     "seats": 2,
     "speed": 50.19610977172851,
     "type": "automobile"
@@ -1746,6 +1892,7 @@
     "handling": 0.72000002861022,
     "make": "Pfister",
     "name": "Comet Retro Custom",
+    "price": 83253,
     "seats": 2,
     "speed": 50.17370986938476,
     "type": "automobile"
@@ -1758,6 +1905,7 @@
     "handling": 0.67250001430511,
     "make": "Pfister",
     "name": "Comet Safari",
+    "price": 78289,
     "seats": 2,
     "speed": 47.16596603393555,
     "type": "automobile"
@@ -1770,6 +1918,7 @@
     "handling": 0.69999998807907,
     "make": "Pfister",
     "name": "Comet SR",
+    "price": 78583,
     "seats": 2,
     "speed": 46.89459991455078,
     "type": "automobile"
@@ -1782,6 +1931,7 @@
     "handling": 0.72600001096725,
     "make": "Pfister",
     "name": "Comet S2",
+    "price": 83378,
     "seats": 2,
     "speed": 50.15961837768555,
     "type": "automobile"
@@ -1794,6 +1944,7 @@
     "handling": 0.72949999570846,
     "make": "Pfister",
     "name": "Comet S2 Cabrio",
+    "price": 83759,
     "seats": 2,
     "speed": 50.38060760498047,
     "type": "automobile"
@@ -1806,6 +1957,7 @@
     "handling": 5.664400100708,
     "make": "Buckingham",
     "name": "Conada",
+    "price": 6931736,
     "seats": 4,
     "speed": 62.16899108886719,
     "type": "heli"
@@ -1818,6 +1970,7 @@
     "handling": 0.63999998569488,
     "make": "Vapid",
     "name": "Contender",
+    "price": 68578,
     "seats": 4,
     "speed": 41.36146926879883,
     "type": "automobile"
@@ -1830,6 +1983,7 @@
     "handling": 0.71000003814697,
     "make": "Invetero",
     "name": "Coquette",
+    "price": 83674,
     "seats": 2,
     "speed": 50.45626068115234,
     "type": "automobile"
@@ -1842,6 +1996,7 @@
     "handling": 0.72000002861022,
     "make": "Invetero",
     "name": "Coquette Classic",
+    "price": 81755,
     "seats": 2,
     "speed": 49.5373649597168,
     "type": "automobile"
@@ -1854,6 +2009,7 @@
     "handling": 0.6700000166893,
     "make": "Invetero",
     "name": "Coquette BlackFin",
+    "price": 74621,
     "seats": 2,
     "speed": 45.07814788818359,
     "type": "automobile"
@@ -1866,6 +2022,7 @@
     "handling": 0.69999998807907,
     "make": "Invetero",
     "name": "Coquette D10",
+    "price": 80771,
     "seats": 2,
     "speed": 48.86213302612305,
     "type": "automobile"
@@ -1878,6 +2035,7 @@
     "handling": 0.78000003099441,
     "make": "Lampadati",
     "name": "Corsita",
+    "price": 87616,
     "seats": 2,
     "speed": 52.28006744384765,
     "type": "automobile"
@@ -1890,6 +2048,7 @@
     "handling": 0.45999997854232,
     "make": "",
     "name": "Cruiser",
+    "price": 2751,
     "seats": 1,
     "speed": 15.00000190734863,
     "type": "bicycle"
@@ -1902,6 +2061,7 @@
     "handling": 0.56000000238418,
     "make": "Canis",
     "name": "Crusader",
+    "price": 59206,
     "seats": 4,
     "speed": 35.96390533447265,
     "type": "automobile"
@@ -1914,6 +2074,7 @@
     "handling": 5.88000011444091,
     "make": "",
     "name": "Cuban 800",
+    "price": 1489140,
     "seats": 2,
     "speed": 76.79570770263672,
     "type": "plane"
@@ -1926,6 +2087,7 @@
     "handling": 0.54000002145767,
     "make": "HVY",
     "name": "Cutter",
+    "price": 22017,
     "seats": 1,
     "speed": 12.76115703582763,
     "type": "automobile"
@@ -1938,6 +2100,7 @@
     "handling": 0.6525000333786,
     "make": "Coil",
     "name": "Cyclone",
+    "price": 68875,
     "seats": 2,
     "speed": 40.92190170288086,
     "type": "automobile"
@@ -1950,6 +2113,7 @@
     "handling": 0.70600003004074,
     "make": "Ubermacht",
     "name": "Cypher",
+    "price": 75676,
     "seats": 2,
     "speed": 45.5657958984375,
     "type": "automobile"
@@ -1962,6 +2126,7 @@
     "handling": 0.63999998569488,
     "make": "Western",
     "name": "Daemon",
+    "price": 22321,
     "seats": 2,
     "speed": 43.14252090454101,
     "type": "bike"
@@ -1974,6 +2139,7 @@
     "handling": 0.64200001955032,
     "make": "Western",
     "name": "Daemon",
+    "price": 22423,
     "seats": 2,
     "speed": 43.34285736083984,
     "type": "bike"
@@ -1986,6 +2152,7 @@
     "handling": 0.69249999523162,
     "make": "Western",
     "name": "Apocalypse Deathbike",
+    "price": 25195,
     "seats": 1,
     "speed": 48.28650665283203,
     "type": "bike"
@@ -1998,6 +2165,7 @@
     "handling": 0.69249999523162,
     "make": "Western",
     "name": "Future Shock Deathbike",
+    "price": 25195,
     "seats": 1,
     "speed": 48.28650665283203,
     "type": "bike"
@@ -2010,6 +2178,7 @@
     "handling": 0.69249999523162,
     "make": "Western",
     "name": "Nightmare Deathbike",
+    "price": 25195,
     "seats": 1,
     "speed": 48.28650665283203,
     "type": "bike"
@@ -2022,6 +2191,7 @@
     "handling": 0.78500002622604,
     "make": "Shitzu",
     "name": "Defiler",
+    "price": 25616,
     "seats": 1,
     "speed": 48.84364700317383,
     "type": "bike"
@@ -2034,6 +2204,7 @@
     "handling": 0.67250001430511,
     "make": "Enus",
     "name": "Deity",
+    "price": 73581,
     "seats": 4,
     "speed": 44.37370681762695,
     "type": "automobile"
@@ -2046,6 +2217,7 @@
     "handling": 0.6075000166893,
     "make": "Imponte",
     "name": "Deluxo",
+    "price": 70738,
     "seats": 2,
     "speed": 42.67658996582031,
     "type": "automobile"
@@ -2058,6 +2230,7 @@
     "handling": 0.84999996423721,
     "make": "Principe",
     "name": "Deveste Eight",
+    "price": 87916,
     "seats": 2,
     "speed": 52.67778778076172,
     "type": "automobile"
@@ -2070,6 +2243,7 @@
     "handling": 0.6700000166893,
     "make": "Schyster",
     "name": "Deviant",
+    "price": 70267,
     "seats": 2,
     "speed": 42.45703506469726,
     "type": "automobile"
@@ -2082,6 +2256,7 @@
     "handling": 0.69200003147125,
     "make": "Principe",
     "name": "Diabolus",
+    "price": 24745,
     "seats": 1,
     "speed": 47.28666687011719,
     "type": "bike"
@@ -2094,6 +2269,7 @@
     "handling": 0.69999998807907,
     "make": "Principe",
     "name": "Diabolus Custom",
+    "price": 24901,
     "seats": 1,
     "speed": 47.53334045410156,
     "type": "bike"
@@ -2106,6 +2282,7 @@
     "handling": 0.48000001907348,
     "make": "Karin",
     "name": "Dilettante",
+    "price": 40298,
     "seats": 4,
     "speed": 24.00658226013183,
     "type": "automobile"
@@ -2118,6 +2295,7 @@
     "handling": 0.48000001907348,
     "make": "Karin",
     "name": "Dilettante",
+    "price": 40298,
     "seats": 4,
     "speed": 24.00658226013183,
     "type": "automobile"
@@ -2130,6 +2308,7 @@
     "handling": 16.38000106811523,
     "make": "Nagasaki",
     "name": "Dinghy",
+    "price": 446680,
     "seats": 4,
     "speed": 41.66667175292969,
     "type": "boat"
@@ -2142,6 +2321,7 @@
     "handling": 16.38000106811523,
     "make": "Nagasaki",
     "name": "Dinghy",
+    "price": 446680,
     "seats": 2,
     "speed": 41.66667175292969,
     "type": "boat"
@@ -2154,6 +2334,7 @@
     "handling": 16.38000106811523,
     "make": "Nagasaki",
     "name": "Dinghy",
+    "price": 446680,
     "seats": 4,
     "speed": 41.66667175292969,
     "type": "boat"
@@ -2166,6 +2347,7 @@
     "handling": 16.38000106811523,
     "make": "Nagasaki",
     "name": "Dinghy",
+    "price": 446680,
     "seats": 4,
     "speed": 41.66667175292969,
     "type": "boat"
@@ -2178,6 +2360,7 @@
     "handling": 16.38000106811523,
     "make": "Nagasaki",
     "name": "Weaponized Dinghy",
+    "price": 2233400,
     "seats": 5,
     "speed": 41.66667175292969,
     "type": "boat",
@@ -2191,6 +2374,7 @@
     "handling": 0.55000001192092,
     "make": "Bravado",
     "name": "Duneloader",
+    "price": 55231,
     "seats": 2,
     "speed": 33.19979858398437,
     "type": "automobile"
@@ -2200,6 +2384,7 @@
     "doors": 0,
     "make": "",
     "name": "NULL",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -2211,6 +2396,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Docktug",
+    "price": 41473,
     "seats": 1,
     "speed": 24.64064598083496,
     "type": "automobile"
@@ -2223,6 +2409,7 @@
     "handling": 4.90000009536743,
     "make": "Mammoth",
     "name": "Dodo",
+    "price": 1321065,
     "seats": 4,
     "speed": 69.36756134033203,
     "type": "plane"
@@ -2235,6 +2422,7 @@
     "handling": 0.6700000166893,
     "make": "Vapid",
     "name": "Dominator",
+    "price": 80149,
     "seats": 2,
     "speed": 48.33333587646484,
     "type": "automobile"
@@ -2247,6 +2435,7 @@
     "handling": 0.68999999761581,
     "make": "Vapid",
     "name": "Pisswasser Dominator",
+    "price": 81440,
     "seats": 2,
     "speed": 49.00000381469726,
     "type": "automobile"
@@ -2259,6 +2448,7 @@
     "handling": 0.7150000333786,
     "make": "Vapid",
     "name": "Dominator GTX",
+    "price": 77862,
     "seats": 2,
     "speed": 47.11404037475586,
     "type": "automobile"
@@ -2271,6 +2461,7 @@
     "handling": 0.75499999523162,
     "make": "Vapid",
     "name": "Apocalypse Dominator",
+    "price": 80565,
     "seats": 2,
     "speed": 48.42326354980469,
     "type": "automobile"
@@ -2283,6 +2474,7 @@
     "handling": 0.75499999523162,
     "make": "Vapid",
     "name": "Future Shock Dominator",
+    "price": 80565,
     "seats": 2,
     "speed": 48.42326354980469,
     "type": "automobile"
@@ -2295,6 +2487,7 @@
     "handling": 0.75499999523162,
     "make": "Vapid",
     "name": "Nightmare Dominator",
+    "price": 80565,
     "seats": 2,
     "speed": 48.42326354980469,
     "type": "automobile"
@@ -2307,6 +2500,7 @@
     "handling": 0.72200000286102,
     "make": "Vapid",
     "name": "Dominator ASP",
+    "price": 83320,
     "seats": 2,
     "speed": 50.09132385253906,
     "type": "automobile"
@@ -2319,6 +2513,7 @@
     "handling": 0.68270003795623,
     "make": "Vapid",
     "name": "Dominator GTT",
+    "price": 76296,
     "seats": 2,
     "speed": 45.94960403442383,
     "type": "automobile"
@@ -2331,6 +2526,7 @@
     "handling": 0.68999999761581,
     "make": "Dinka",
     "name": "Double-T",
+    "price": 25173,
     "seats": 2,
     "speed": 47.94734191894531,
     "type": "bike"
@@ -2343,6 +2539,7 @@
     "handling": 0.72200000286102,
     "make": "Obey",
     "name": "8F Drafter",
+    "price": 79907,
     "seats": 2,
     "speed": 47.87838363647461,
     "type": "automobile"
@@ -2355,6 +2552,7 @@
     "handling": 0.72250002622604,
     "make": "Declasse",
     "name": "Draugur",
+    "price": 72622,
     "seats": 4,
     "speed": 43.83999633789062,
     "type": "automobile"
@@ -2367,6 +2565,7 @@
     "handling": 0.57999998331069,
     "make": "Benefactor",
     "name": "Dubsta",
+    "price": 62617,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -2379,6 +2578,7 @@
     "handling": 0.57999998331069,
     "make": "Benefactor",
     "name": "Dubsta",
+    "price": 62617,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -2391,6 +2591,7 @@
     "handling": 0.66000002622604,
     "make": "Benefactor",
     "name": "Dubsta 6x6",
+    "price": 64556,
     "seats": 6,
     "speed": 38.80767822265625,
     "type": "automobile"
@@ -2403,6 +2604,7 @@
     "handling": 0.69999998807907,
     "make": "Imponte",
     "name": "Dukes",
+    "price": 79383,
     "seats": 2,
     "speed": 47.79460525512695,
     "type": "automobile"
@@ -2415,6 +2617,7 @@
     "handling": 0.73000001907348,
     "make": "Imponte",
     "name": "Duke O'Death",
+    "price": 77611,
     "seats": 2,
     "speed": 46.52687835693359,
     "type": "automobile"
@@ -2427,6 +2630,7 @@
     "handling": 0.69499999284744,
     "make": "Imponte",
     "name": "Beater Dukes",
+    "price": 78577,
     "seats": 2,
     "speed": 47.35071563720703,
     "type": "automobile"
@@ -2439,6 +2643,7 @@
     "handling": 0.56999999284744,
     "make": "HVY",
     "name": "Dump",
+    "price": 24629,
     "seats": 1,
     "speed": 14.33333396911621,
     "type": "automobile"
@@ -2451,6 +2656,7 @@
     "handling": 0.62999999523162,
     "make": "BF",
     "name": "Dune Buggy",
+    "price": 64617,
     "seats": 2,
     "speed": 38.87601852416992,
     "type": "automobile"
@@ -2463,6 +2669,7 @@
     "handling": 0.62000000476837,
     "make": "BF",
     "name": "Space Docker",
+    "price": 63085,
     "seats": 2,
     "speed": 37.93818664550781,
     "type": "automobile"
@@ -2475,6 +2682,7 @@
     "handling": 0.62999999523162,
     "make": "BF",
     "name": "Dune FAV",
+    "price": 323088,
     "seats": 2,
     "speed": 38.87601852416992,
     "type": "automobile",
@@ -2488,6 +2696,7 @@
     "handling": 0.7039999961853,
     "make": "BF",
     "name": "Ramp Buggy",
+    "price": 82003,
     "seats": 2,
     "speed": 49.22416305541992,
     "type": "automobile"
@@ -2500,6 +2709,7 @@
     "handling": 0.69999998807907,
     "make": "BF",
     "name": "Ramp Buggy",
+    "price": 81376,
     "seats": 2,
     "speed": 48.84003829956055,
     "type": "automobile"
@@ -2512,6 +2722,7 @@
     "handling": 4.90000009536743,
     "make": "",
     "name": "Duster",
+    "price": 1321065,
     "seats": 2,
     "speed": 69.36756134033203,
     "type": "plane"
@@ -2524,6 +2735,7 @@
     "handling": 0.56000000238418,
     "make": "Weeny",
     "name": "Dynasty",
+    "price": 58840,
     "seats": 4,
     "speed": 35.63525772094726,
     "type": "automobile"
@@ -2536,6 +2748,7 @@
     "handling": 0.71000003814697,
     "make": "Annis",
     "name": "Elegy Retro Custom",
+    "price": 78735,
     "seats": 2,
     "speed": 47.16971206665039,
     "type": "automobile"
@@ -2548,6 +2761,7 @@
     "handling": 0.71000003814697,
     "make": "Annis",
     "name": "Elegy RH8",
+    "price": 80339,
     "seats": 2,
     "speed": 48.67240142822265,
     "type": "automobile"
@@ -2560,6 +2774,7 @@
     "handling": 0.70499998331069,
     "make": "Vapid",
     "name": "Ellie",
+    "price": 75782,
     "seats": 2,
     "speed": 45.83406829833984,
     "type": "automobile"
@@ -2572,6 +2787,7 @@
     "handling": 0.75800001621246,
     "make": "Progen",
     "name": "Emerus",
+    "price": 85112,
     "seats": 2,
     "speed": 50.85939788818359,
     "type": "automobile"
@@ -2584,6 +2800,7 @@
     "handling": 0.51999998092651,
     "make": "Albany",
     "name": "Emperor",
+    "price": 56110,
     "seats": 4,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -2596,6 +2813,7 @@
     "handling": 0.51999998092651,
     "make": "Albany",
     "name": "Emperor",
+    "price": 56110,
     "seats": 4,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -2608,6 +2826,7 @@
     "handling": 0.51999998092651,
     "make": "Albany",
     "name": "Emperor",
+    "price": 56110,
     "seats": 4,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -2620,6 +2839,7 @@
     "handling": 0.68000000715255,
     "make": "Dinka",
     "name": "Enduro",
+    "price": 20848,
     "seats": 2,
     "speed": 39.66667175292969,
     "type": "bike"
@@ -2632,6 +2852,7 @@
     "handling": 0.73500001430511,
     "make": "Overflod",
     "name": "Entity XXR",
+    "price": 89286,
     "seats": 2,
     "speed": 53.71408462524414,
     "type": "automobile"
@@ -2644,6 +2865,7 @@
     "handling": 0.71000003814697,
     "make": "Overflod",
     "name": "Entity XF",
+    "price": 84601,
     "seats": 2,
     "speed": 50.93577575683594,
     "type": "automobile"
@@ -2656,6 +2878,7 @@
     "handling": 0.67500001192092,
     "make": "Pegassi",
     "name": "Esskey",
+    "price": 23138,
     "seats": 2,
     "speed": 44.10639572143555,
     "type": "bike"
@@ -2668,6 +2891,7 @@
     "handling": 0.7039999961853,
     "make": "Annis",
     "name": "Euros",
+    "price": 78840,
     "seats": 2,
     "speed": 47.34752655029297,
     "type": "automobile"
@@ -2680,6 +2904,7 @@
     "handling": 0.67500001192092,
     "make": "Karin",
     "name": "Everon",
+    "price": 68803,
     "seats": 4,
     "speed": 41.73223114013672,
     "type": "automobile"
@@ -2692,6 +2917,7 @@
     "handling": 0.63999998569488,
     "make": "Dewbauchee",
     "name": "Exemplar",
+    "price": 79891,
     "seats": 4,
     "speed": 48.13213348388672,
     "type": "automobile"
@@ -2704,6 +2930,7 @@
     "handling": 0.62000000476837,
     "make": "Ocelot",
     "name": "F620",
+    "price": 79607,
     "seats": 2,
     "speed": 47.99484634399414,
     "type": "automobile"
@@ -2716,6 +2943,7 @@
     "handling": 0.66000002622604,
     "make": "Willard",
     "name": "Faction",
+    "price": 77450,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -2728,6 +2956,7 @@
     "handling": 0.66000002622604,
     "make": "Willard",
     "name": "Faction Custom",
+    "price": 77450,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -2740,6 +2969,7 @@
     "handling": 0.57999998331069,
     "make": "Willard",
     "name": "Faction Custom Donk",
+    "price": 58971,
     "seats": 2,
     "speed": 35.27692794799805,
     "type": "automobile"
@@ -2752,6 +2982,7 @@
     "handling": 0.58999997377395,
     "make": "Vulcar",
     "name": "Fagaloa",
+    "price": 57546,
     "seats": 2,
     "speed": 34.39128112792969,
     "type": "automobile"
@@ -2764,6 +2995,7 @@
     "handling": 0.57749998569488,
     "make": "Pegassi",
     "name": "Faggio Sport",
+    "price": 14728,
     "seats": 2,
     "speed": 28.28267860412597,
     "type": "bike"
@@ -2776,6 +3008,7 @@
     "handling": 0.48000001907348,
     "make": "Pegassi",
     "name": "Faggio",
+    "price": 12263,
     "seats": 2,
     "speed": 23.54771995544433,
     "type": "bike"
@@ -2788,6 +3021,7 @@
     "handling": 0.57499998807907,
     "make": "Pegassi",
     "name": "Faggio Mod",
+    "price": 14291,
     "seats": 2,
     "speed": 27.41375160217285,
     "type": "bike"
@@ -2800,6 +3034,7 @@
     "handling": 0.66000002622604,
     "make": "",
     "name": "FIB",
+    "price": 76794,
     "seats": 4,
     "speed": 46.15661239624023,
     "type": "automobile"
@@ -2812,6 +3047,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "FIB",
+    "price": 62617,
     "seats": 8,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -2824,6 +3060,7 @@
     "handling": 0.68500000238418,
     "make": "Pegassi",
     "name": "FCR 1000",
+    "price": 24321,
     "seats": 1,
     "speed": 46.45256805419922,
     "type": "bike"
@@ -2836,6 +3073,7 @@
     "handling": 0.68999999761581,
     "make": "Pegassi",
     "name": "FCR 1000 Custom",
+    "price": 24491,
     "seats": 1,
     "speed": 46.73333740234375,
     "type": "bike"
@@ -2848,6 +3086,7 @@
     "handling": 0.62000000476837,
     "make": "Lampadati",
     "name": "Felon",
+    "price": 76088,
     "seats": 4,
     "speed": 45.79519271850586,
     "type": "automobile"
@@ -2860,6 +3099,7 @@
     "handling": 0.62000000476837,
     "make": "Lampadati",
     "name": "Felon GT",
+    "price": 72343,
     "seats": 2,
     "speed": 43.4549674987793,
     "type": "automobile"
@@ -2872,6 +3112,7 @@
     "handling": 0.72000002861022,
     "make": "Benefactor",
     "name": "Feltzer",
+    "price": 82235,
     "seats": 2,
     "speed": 49.5373649597168,
     "type": "automobile"
@@ -2884,6 +3125,7 @@
     "handling": 0.68000000715255,
     "make": "Benefactor",
     "name": "Stirling GT",
+    "price": 76445,
     "seats": 2,
     "speed": 45.99813461303711,
     "type": "automobile"
@@ -2896,6 +3138,7 @@
     "handling": 0.54000002145767,
     "make": "MTL",
     "name": "Fire Truck",
+    "price": 323966,
     "seats": 8,
     "speed": 39.29586791992187,
     "type": "automobile",
@@ -2909,6 +3152,7 @@
     "handling": 0.51499998569488,
     "make": "",
     "name": "Fixter",
+    "price": 2835,
     "seats": 1,
     "speed": 17.8510456085205,
     "type": "bicycle"
@@ -2921,6 +3165,7 @@
     "handling": 0.69999998807907,
     "make": "Vapid",
     "name": "Flash GT",
+    "price": 73890,
     "seats": 2,
     "speed": 44.16146850585937,
     "type": "automobile"
@@ -2933,6 +3178,7 @@
     "handling": 0.51999998092651,
     "make": "MTL",
     "name": "Flatbed",
+    "price": 46633,
     "seats": 2,
     "speed": 28.23610877990722,
     "type": "automobile"
@@ -2945,6 +3191,7 @@
     "handling": 0.74550002813339,
     "make": "Vapid",
     "name": "FMJ",
+    "price": 88017,
     "seats": 2,
     "speed": 52.80000305175781,
     "type": "automobile"
@@ -2957,6 +3204,7 @@
     "handling": 0.56000000238418,
     "make": "HVY",
     "name": "Forklift",
+    "price": 17664,
     "seats": 1,
     "speed": 10.00000095367431,
     "type": "automobile"
@@ -2969,6 +3217,7 @@
     "handling": 1.12999999523162,
     "make": "Progen",
     "name": "PR4",
+    "price": 106933,
     "seats": 1,
     "speed": 52.56473541259765,
     "type": "automobile"
@@ -2981,6 +3230,7 @@
     "handling": 1.125,
     "make": "Ocelot",
     "name": "R88",
+    "price": 106571,
     "seats": 1,
     "speed": 52.38605499267578,
     "type": "automobile"
@@ -2993,6 +3243,7 @@
     "handling": 0.56000000238418,
     "make": "Fathom",
     "name": "FQ 2",
+    "price": 65442,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -3005,6 +3256,7 @@
     "handling": 0.62000000476837,
     "make": "Canis",
     "name": "Freecrawler",
+    "price": 60453,
     "seats": 4,
     "speed": 36.62343597412109,
     "type": "automobile"
@@ -3014,6 +3266,7 @@
     "doors": 1,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 2,
     "type": "train"
   },
@@ -3022,6 +3275,7 @@
     "doors": 0,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 0,
     "type": "train"
   },
@@ -3030,6 +3284,7 @@
     "doors": 0,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 0,
     "type": "train"
   },
@@ -3038,6 +3293,7 @@
     "doors": 2,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 2,
     "type": "train"
   },
@@ -3046,6 +3302,7 @@
     "doors": 0,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 2,
     "type": "train"
   },
@@ -3054,6 +3311,7 @@
     "doors": 1,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 2,
     "type": "train"
   },
@@ -3062,6 +3320,7 @@
     "doors": 0,
     "make": "",
     "name": "NULL",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -3073,6 +3332,7 @@
     "handling": 5.48799991607666,
     "make": "",
     "name": "Frogger",
+    "price": 6367865,
     "seats": 4,
     "speed": 56.66811752319336,
     "type": "heli"
@@ -3085,6 +3345,7 @@
     "handling": 5.48799991607666,
     "make": "",
     "name": "Frogger",
+    "price": 6367865,
     "seats": 4,
     "speed": 56.66811752319336,
     "type": "heli"
@@ -3097,6 +3358,7 @@
     "handling": 0.57999998331069,
     "make": "Cheval",
     "name": "Fugitive",
+    "price": 67317,
     "seats": 4,
     "speed": 40.393310546875,
     "type": "automobile"
@@ -3109,6 +3371,7 @@
     "handling": 0.74500000476837,
     "make": "Grotti",
     "name": "Furia",
+    "price": 83110,
     "seats": 2,
     "speed": 49.83378219604492,
     "type": "automobile"
@@ -3121,6 +3384,7 @@
     "handling": 0.7150000333786,
     "make": "Lampadati",
     "name": "Furore GT",
+    "price": 84346,
     "seats": 2,
     "speed": 50.66667175292969,
     "type": "automobile"
@@ -3133,6 +3397,7 @@
     "handling": 0.69999998807907,
     "make": "Schyster",
     "name": "Fusilade",
+    "price": 81251,
     "seats": 2,
     "speed": 48.86213302612305,
     "type": "automobile"
@@ -3145,6 +3410,7 @@
     "handling": 0.6700000166893,
     "make": "Karin",
     "name": "Futo",
+    "price": 74336,
     "seats": 2,
     "speed": 45.0,
     "type": "automobile"
@@ -3157,6 +3423,7 @@
     "handling": 0.67650002241134,
     "make": "Karin",
     "name": "Futo GTX",
+    "price": 75463,
     "seats": 2,
     "speed": 45.66667175292969,
     "type": "automobile"
@@ -3169,6 +3436,7 @@
     "handling": 0.69249999523162,
     "make": "Western",
     "name": "Gargoyle",
+    "price": 25195,
     "seats": 2,
     "speed": 48.28650665283203,
     "type": "bike"
@@ -3181,6 +3449,7 @@
     "handling": 0.68000000715255,
     "make": "Bravado",
     "name": "Gauntlet",
+    "price": 78237,
     "seats": 2,
     "speed": 47.01816177368164,
     "type": "automobile"
@@ -3193,6 +3462,7 @@
     "handling": 0.69499999284744,
     "make": "Bravado",
     "name": "Redwood Gauntlet",
+    "price": 80506,
     "seats": 2,
     "speed": 48.406494140625,
     "type": "automobile"
@@ -3205,6 +3475,7 @@
     "handling": 0.66000002622604,
     "make": "Bravado",
     "name": "Gauntlet Classic",
+    "price": 73572,
     "seats": 2,
     "speed": 44.14266586303711,
     "type": "automobile"
@@ -3217,6 +3488,7 @@
     "handling": 0.74000000953674,
     "make": "Bravado",
     "name": "Gauntlet Hellfire",
+    "price": 81048,
     "seats": 2,
     "speed": 48.65534210205078,
     "type": "automobile"
@@ -3229,6 +3501,7 @@
     "handling": 0.6700000166893,
     "make": "Bravado",
     "name": "Gauntlet Classic Custom",
+    "price": 80250,
     "seats": 2,
     "speed": 48.29679489135742,
     "type": "automobile"
@@ -3241,6 +3514,7 @@
     "handling": 0.69499999284744,
     "make": "Vapid",
     "name": "GB200",
+    "price": 74534,
     "seats": 2,
     "speed": 44.5739517211914,
     "type": "automobile"
@@ -3253,6 +3527,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Gang Burrito",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -3265,6 +3540,7 @@
     "handling": 0.56000000238418,
     "make": "Declasse",
     "name": "Gang Burrito",
+    "price": 66162,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -3277,6 +3553,7 @@
     "handling": 0.61500000953674,
     "make": "Benefactor",
     "name": "Glendale",
+    "price": 65948,
     "seats": 4,
     "speed": 39.71796417236328,
     "type": "automobile"
@@ -3289,6 +3566,7 @@
     "handling": 0.6129999756813,
     "make": "Benefactor",
     "name": "Glendale Custom",
+    "price": 66105,
     "seats": 4,
     "speed": 39.8451042175293,
     "type": "automobile"
@@ -3301,6 +3579,7 @@
     "handling": 0.75,
     "make": "Progen",
     "name": "GP1",
+    "price": 84220,
     "seats": 2,
     "speed": 50.31808090209961,
     "type": "automobile"
@@ -3310,6 +3589,7 @@
     "doors": 1,
     "make": "",
     "name": "NULL",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -3321,6 +3601,7 @@
     "handling": 0.56999999284744,
     "make": "Declasse",
     "name": "Granger",
+    "price": 60692,
     "seats": 8,
     "speed": 36.37292861938476,
     "type": "automobile"
@@ -3333,6 +3614,7 @@
     "handling": 0.58749997615814,
     "make": "Declasse",
     "name": "Granger 3600LX",
+    "price": 57057,
     "seats": 8,
     "speed": 34.02568435668945,
     "type": "automobile"
@@ -3345,6 +3627,7 @@
     "handling": 0.66200000047683,
     "make": "Bravado",
     "name": "Greenwood",
+    "price": 78897,
     "seats": 4,
     "speed": 47.66667175292969,
     "type": "automobile"
@@ -3357,6 +3640,7 @@
     "handling": 0.57999998331069,
     "make": "Bravado",
     "name": "Gresley",
+    "price": 63694,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -3369,6 +3653,7 @@
     "handling": 0.71375000476837,
     "make": "Pfister",
     "name": "Growler",
+    "price": 82635,
     "seats": 2,
     "speed": 49.7596206665039,
     "type": "automobile"
@@ -3381,6 +3666,7 @@
     "handling": 0.6700000166893,
     "make": "Grotti",
     "name": "GT500",
+    "price": 76158,
     "seats": 2,
     "speed": 45.86911392211914,
     "type": "automobile"
@@ -3393,6 +3679,7 @@
     "handling": 0.58999997377395,
     "make": "Vapid",
     "name": "Guardian",
+    "price": 65628,
     "seats": 6,
     "speed": 39.6176528930664,
     "type": "automobile"
@@ -3405,6 +3692,7 @@
     "handling": 0.56000000238418,
     "make": "Emperor",
     "name": "Habanero",
+    "price": 65442,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -3417,6 +3705,7 @@
     "handling": 0.69499999284744,
     "make": "Shitzu",
     "name": "Hakuchou",
+    "price": 25975,
     "seats": 2,
     "speed": 49.54116058349609,
     "type": "bike"
@@ -3429,6 +3718,7 @@
     "handling": 0.88499999046325,
     "make": "Shitzu",
     "name": "Hakuchou Drag",
+    "price": 27374,
     "seats": 2,
     "speed": 52.03866958618164,
     "type": "bike"
@@ -3441,6 +3731,7 @@
     "handling": 0.54000002145767,
     "make": "Bravado",
     "name": "Half-track",
+    "price": 174666,
     "seats": 3,
     "speed": 20.933349609375,
     "type": "automobile",
@@ -3454,6 +3745,7 @@
     "handling": 0.51999998092651,
     "make": "",
     "name": "Dock Handler",
+    "price": 14549,
     "seats": 1,
     "speed": 8.33333396911621,
     "type": "automobile"
@@ -3466,6 +3758,7 @@
     "handling": 0.54000002145767,
     "make": "JoBuilt",
     "name": "Hauler",
+    "price": 48240,
     "seats": 2,
     "speed": 28.650146484375,
     "type": "automobile"
@@ -3478,6 +3771,7 @@
     "handling": 0.69999998807907,
     "make": "JoBuilt",
     "name": "Hauler Custom",
+    "price": 70102,
     "seats": 2,
     "speed": 41.94424057006836,
     "type": "automobile"
@@ -3490,6 +3784,7 @@
     "handling": 5.39000034332275,
     "make": "Nagasaki",
     "name": "Havok",
+    "price": 6462758,
     "seats": 1,
     "speed": 57.9072265625,
     "type": "heli"
@@ -3502,6 +3797,7 @@
     "handling": 0.62999999523162,
     "make": "Annis",
     "name": "Hellion",
+    "price": 66525,
     "seats": 2,
     "speed": 40.3984146118164,
     "type": "automobile"
@@ -3514,6 +3810,7 @@
     "handling": 0.66500002145767,
     "make": "Albany",
     "name": "Hermes",
+    "price": 68776,
     "seats": 2,
     "speed": 41.26047134399414,
     "type": "automobile"
@@ -3526,6 +3823,7 @@
     "handling": 0.63999998569488,
     "make": "LCC",
     "name": "Hexer",
+    "price": 22521,
     "seats": 2,
     "speed": 43.14252090454101,
     "type": "bike"
@@ -3538,6 +3836,7 @@
     "handling": 0.68000000715255,
     "make": "Vapid",
     "name": "Hotknife",
+    "price": 74328,
     "seats": 2,
     "speed": 45.04543685913086,
     "type": "automobile"
@@ -3550,6 +3849,7 @@
     "handling": 0.7150000333786,
     "make": "Declasse",
     "name": "Hotring Sabre",
+    "price": 79724,
     "seats": 2,
     "speed": 48.07754135131836,
     "type": "automobile"
@@ -3562,6 +3862,7 @@
     "handling": 20.57999992370605,
     "make": "Buckingham",
     "name": "Howard NX-25",
+    "price": 2587839,
     "seats": 1,
     "speed": 100.0,
     "type": "plane"
@@ -3574,6 +3875,7 @@
     "handling": 5.48799991607666,
     "make": "",
     "name": "FH-1 Hunter",
+    "price": 32734671,
     "seats": 2,
     "speed": 58.55425643920898,
     "type": "heli",
@@ -3587,6 +3889,7 @@
     "handling": 0.64499998092651,
     "make": "Enus",
     "name": "Huntley S",
+    "price": 74869,
     "seats": 4,
     "speed": 45.33333587646484,
     "type": "automobile"
@@ -3599,6 +3902,7 @@
     "handling": 0.68000000715255,
     "make": "Vapid",
     "name": "Hustler",
+    "price": 72900,
     "seats": 2,
     "speed": 44.1528091430664,
     "type": "automobile"
@@ -3611,6 +3915,7 @@
     "handling": 8.81999969482421,
     "make": "Mammoth",
     "name": "Hydra",
+    "price": 2193367,
     "seats": 1,
     "speed": 109.7642593383789,
     "type": "plane"
@@ -3623,6 +3928,7 @@
     "handling": 0.76350003480911,
     "make": "Pegassi",
     "name": "Ignus",
+    "price": 87219,
     "seats": 2,
     "speed": 52.36531066894531,
     "type": "automobile"
@@ -3635,6 +3941,7 @@
     "handling": 1.04000008106231,
     "make": "Overflod",
     "name": "Imorgon",
+    "price": 76854,
     "seats": 2,
     "speed": 45.49897766113281,
     "type": "automobile"
@@ -3647,6 +3954,7 @@
     "handling": 0.68999999761581,
     "make": "Declasse",
     "name": "Impaler",
+    "price": 74584,
     "seats": 2,
     "speed": 45.01528167724609,
     "type": "automobile"
@@ -3659,6 +3967,7 @@
     "handling": 0.75999999046325,
     "make": "Declasse",
     "name": "Apocalypse Impaler",
+    "price": 84076,
     "seats": 2,
     "speed": 50.70779418945312,
     "type": "automobile"
@@ -3671,6 +3980,7 @@
     "handling": 0.75999999046325,
     "make": "Declasse",
     "name": "Future Shock Impaler",
+    "price": 84076,
     "seats": 2,
     "speed": 50.70779418945312,
     "type": "automobile"
@@ -3683,6 +3993,7 @@
     "handling": 0.75999999046325,
     "make": "Declasse",
     "name": "Nightmare Impaler",
+    "price": 84076,
     "seats": 2,
     "speed": 50.70779418945312,
     "type": "automobile"
@@ -3695,6 +4006,7 @@
     "handling": 0.74500000476837,
     "make": "Vapid",
     "name": "Apocalypse Imperator",
+    "price": 80296,
     "seats": 2,
     "speed": 48.57513046264648,
     "type": "automobile"
@@ -3707,6 +4019,7 @@
     "handling": 0.74500000476837,
     "make": "Vapid",
     "name": "Future Shock Imperator",
+    "price": 80296,
     "seats": 2,
     "speed": 48.57513046264648,
     "type": "automobile"
@@ -3719,6 +4032,7 @@
     "handling": 0.74500000476837,
     "make": "Vapid",
     "name": "Nightmare Imperator",
+    "price": 80296,
     "seats": 2,
     "speed": 48.57513046264648,
     "type": "automobile"
@@ -3731,6 +4045,7 @@
     "handling": 0.72000002861022,
     "make": "Pegassi",
     "name": "Infernus",
+    "price": 81077,
     "seats": 2,
     "speed": 49.1131362915039,
     "type": "automobile"
@@ -3743,6 +4058,7 @@
     "handling": 0.71000003814697,
     "make": "Pegassi",
     "name": "Infernus Classic",
+    "price": 79349,
     "seats": 2,
     "speed": 48.05327224731445,
     "type": "automobile"
@@ -3755,6 +4071,7 @@
     "handling": 0.51999998092651,
     "make": "Vulcar",
     "name": "Ingot",
+    "price": 53344,
     "seats": 4,
     "speed": 32.0801773071289,
     "type": "automobile"
@@ -3767,6 +4084,7 @@
     "handling": 0.69999998807907,
     "make": "LCC",
     "name": "Innovation",
+    "price": 23509,
     "seats": 2,
     "speed": 45.0,
     "type": "bike"
@@ -3779,6 +4097,7 @@
     "handling": 0.62000000476837,
     "make": "HVY",
     "name": "Insurgent Pick-Up",
+    "price": 295229,
     "seats": 9,
     "speed": 35.44364547729492,
     "type": "automobile",
@@ -3792,6 +4111,7 @@
     "handling": 0.62000000476837,
     "make": "HVY",
     "name": "Insurgent",
+    "price": 59045,
     "seats": 6,
     "speed": 35.44364547729492,
     "type": "automobile"
@@ -3804,6 +4124,7 @@
     "handling": 0.62000000476837,
     "make": "HVY",
     "name": "Insurgent Pick-Up Custom",
+    "price": 295229,
     "seats": 9,
     "speed": 35.44364547729492,
     "type": "automobile",
@@ -3817,6 +4138,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Intruder",
+    "price": 65682,
     "seats": 4,
     "speed": 39.37129592895508,
     "type": "automobile"
@@ -3829,6 +4151,7 @@
     "handling": 0.61000001430511,
     "make": "Weeny",
     "name": "Issi",
+    "price": 69371,
     "seats": 2,
     "speed": 41.91736602783203,
     "type": "automobile"
@@ -3841,6 +4164,7 @@
     "handling": 0.63999998569488,
     "make": "Weeny",
     "name": "Issi Classic",
+    "price": 65593,
     "seats": 2,
     "speed": 39.7958755493164,
     "type": "automobile"
@@ -3853,6 +4177,7 @@
     "handling": 0.72000002861022,
     "make": "Weeny",
     "name": "Apocalypse Issi",
+    "price": 74235,
     "seats": 2,
     "speed": 44.93746566772461,
     "type": "automobile"
@@ -3865,6 +4190,7 @@
     "handling": 0.72000002861022,
     "make": "Weeny",
     "name": "Future Shock Issi",
+    "price": 74235,
     "seats": 2,
     "speed": 44.93746566772461,
     "type": "automobile"
@@ -3877,6 +4203,7 @@
     "handling": 0.72000002861022,
     "make": "Weeny",
     "name": "Nightmare Issi",
+    "price": 74235,
     "seats": 2,
     "speed": 44.93746566772461,
     "type": "automobile"
@@ -3889,6 +4216,7 @@
     "handling": 0.68500000238418,
     "make": "Weeny",
     "name": "Issi Sport",
+    "price": 70443,
     "seats": 2,
     "speed": 42.0374755859375,
     "type": "automobile"
@@ -3901,6 +4229,7 @@
     "handling": 0.71649998426437,
     "make": "Progen",
     "name": "Itali GTB",
+    "price": 86900,
     "seats": 2,
     "speed": 52.15953826904297,
     "type": "automobile"
@@ -3913,6 +4242,7 @@
     "handling": 0.72000002861022,
     "make": "Progen",
     "name": "Itali GTB Custom",
+    "price": 87587,
     "seats": 2,
     "speed": 52.48212432861328,
     "type": "automobile"
@@ -3925,6 +4255,7 @@
     "handling": 0.78000003099441,
     "make": "Grotti",
     "name": "Itali GTO",
+    "price": 87475,
     "seats": 2,
     "speed": 52.39223480224609,
     "type": "automobile"
@@ -3937,6 +4268,7 @@
     "handling": 0.78125,
     "make": "Grotti",
     "name": "Itali RSX",
+    "price": 87682,
     "seats": 2,
     "speed": 52.2691764831543,
     "type": "automobile"
@@ -3949,6 +4281,7 @@
     "handling": 0.61150002479553,
     "make": "Obey",
     "name": "I-Wagen",
+    "price": 55888,
     "seats": 4,
     "speed": 33.3124885559082,
     "type": "automobile"
@@ -3961,6 +4294,7 @@
     "handling": 0.60000002384185,
     "make": "Ocelot",
     "name": "Jackal",
+    "price": 76324,
     "seats": 4,
     "speed": 45.98254776000976,
     "type": "automobile"
@@ -3973,6 +4307,7 @@
     "handling": 0.63999998569488,
     "make": "Dewbauchee",
     "name": "JB 700",
+    "price": 82400,
     "seats": 2,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -3985,6 +4320,7 @@
     "handling": 0.63999998569488,
     "make": "Dewbauchee",
     "name": "JB 700W",
+    "price": 82400,
     "seats": 2,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -3997,6 +4333,7 @@
     "handling": 0.68000000715255,
     "make": "Dinka",
     "name": "Jester",
+    "price": 76685,
     "seats": 2,
     "speed": 45.99813461303711,
     "type": "automobile"
@@ -4009,6 +4346,7 @@
     "handling": 0.68999999761581,
     "make": "Dinka",
     "name": "Jester (Racecar)",
+    "price": 78165,
     "seats": 2,
     "speed": 46.90339660644531,
     "type": "automobile"
@@ -4021,6 +4359,7 @@
     "handling": 0.69999998807907,
     "make": "Dinka",
     "name": "Jester Classic",
+    "price": 80462,
     "seats": 2,
     "speed": 48.31898880004883,
     "type": "automobile"
@@ -4033,6 +4372,7 @@
     "handling": 0.70910000801086,
     "make": "Dinka",
     "name": "Jester RR",
+    "price": 79879,
     "seats": 2,
     "speed": 48.03665161132812,
     "type": "automobile"
@@ -4045,6 +4385,7 @@
     "handling": 6.17400026321411,
     "make": "",
     "name": "Jet",
+    "price": 1537948,
     "seats": 2,
     "speed": 78.90234375,
     "type": "plane"
@@ -4057,6 +4398,7 @@
     "handling": 17.38000106811523,
     "make": "Shitzu",
     "name": "Jetmax",
+    "price": 478680,
     "seats": 2,
     "speed": 45.0,
     "type": "boat"
@@ -4069,6 +4411,7 @@
     "handling": 0.50999999046325,
     "make": "Zirconium",
     "name": "Journey",
+    "price": 52886,
     "seats": 6,
     "speed": 32.16410827636719,
     "type": "automobile"
@@ -4081,6 +4424,7 @@
     "handling": 0.67750000953674,
     "make": "Enus",
     "name": "Jubilee",
+    "price": 71210,
     "seats": 4,
     "speed": 42.78135299682617,
     "type": "automobile"
@@ -4093,6 +4437,7 @@
     "handling": 0.75800001621246,
     "make": "Ocelot",
     "name": "Jugular",
+    "price": 81412,
     "seats": 4,
     "speed": 48.64662170410156,
     "type": "automobile"
@@ -4105,6 +4450,7 @@
     "handling": 0.63999998569488,
     "make": "Canis",
     "name": "Kalahari",
+    "price": 59046,
     "seats": 2,
     "speed": 35.00400161743164,
     "type": "automobile"
@@ -4117,6 +4463,7 @@
     "handling": 0.63499999046325,
     "make": "Canis",
     "name": "Kamacho",
+    "price": 67315,
     "seats": 4,
     "speed": 40.88221740722656,
     "type": "automobile"
@@ -4129,6 +4476,7 @@
     "handling": 0.69999998807907,
     "make": "Dinka",
     "name": "Blista Kanjo",
+    "price": 73478,
     "seats": 2,
     "speed": 44.40419387817383,
     "type": "automobile"
@@ -4141,6 +4489,7 @@
     "handling": 0.69499999284744,
     "make": "Dinka",
     "name": "Kanjo SJ",
+    "price": 73789,
     "seats": 2,
     "speed": 44.65835571289062,
     "type": "automobile"
@@ -4153,6 +4502,7 @@
     "handling": 0.53000003099441,
     "make": "Hijak",
     "name": "Khamelion",
+    "price": 53292,
     "seats": 2,
     "speed": 31.72763633728027,
     "type": "automobile"
@@ -4165,6 +4515,7 @@
     "handling": 0.48000001907348,
     "make": "",
     "name": "TM-02 Khanjali",
+    "price": 151216,
     "seats": 4,
     "speed": 18.12208366394043,
     "type": "automobile",
@@ -4178,6 +4529,7 @@
     "handling": 0.7470000386238,
     "make": "Lampadati",
     "name": "Komoda",
+    "price": 83129,
     "seats": 4,
     "speed": 49.891845703125,
     "type": "automobile"
@@ -4190,6 +4542,7 @@
     "handling": 5.62999963760376,
     "make": "RUNE",
     "name": "Kosatka",
+    "price": 624016,
     "seats": 1,
     "speed": 25.00000190734863,
     "type": "submarine"
@@ -4202,6 +4555,7 @@
     "handling": 0.75400000810623,
     "make": "Benefactor",
     "name": "Krieger",
+    "price": 87715,
     "seats": 2,
     "speed": 52.5740737915039,
     "type": "automobile"
@@ -4214,6 +4568,7 @@
     "handling": 0.68999999761581,
     "make": "Karin",
     "name": "Kuruma",
+    "price": 77445,
     "seats": 4,
     "speed": 46.90339660644531,
     "type": "automobile"
@@ -4226,6 +4581,7 @@
     "handling": 0.68999999761581,
     "make": "Karin",
     "name": "Kuruma (Armored)",
+    "price": 75885,
     "seats": 4,
     "speed": 45.92852401733398,
     "type": "automobile"
@@ -4238,6 +4594,7 @@
     "handling": 0.56000000238418,
     "make": "Dundreary",
     "name": "Landstalker",
+    "price": 61393,
     "seats": 4,
     "speed": 36.83084106445312,
     "type": "automobile"
@@ -4250,6 +4607,7 @@
     "handling": 0.56999999284744,
     "make": "Dundreary",
     "name": "Landstalker XL",
+    "price": 62744,
     "seats": 4,
     "speed": 37.65536499023437,
     "type": "automobile"
@@ -4262,6 +4620,7 @@
     "handling": 19.60000038146972,
     "make": "",
     "name": "P-996 LAZER",
+    "price": 2374069,
     "seats": 1,
     "speed": 91.28709411621094,
     "type": "plane"
@@ -4274,6 +4633,7 @@
     "handling": 0.75099998712539,
     "make": "Annis",
     "name": "RE-7B",
+    "price": 84125,
     "seats": 2,
     "speed": 50.35628128051758,
     "type": "automobile"
@@ -4286,6 +4646,7 @@
     "handling": 0.66000002622604,
     "make": "Principe",
     "name": "Lectro",
+    "price": 27225,
     "seats": 2,
     "speed": 43.2353286743164,
     "type": "bike"
@@ -4298,6 +4659,7 @@
     "handling": 0.57999998331069,
     "make": "Declasse",
     "name": "Lifeguard",
+    "price": 62617,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -4310,6 +4672,7 @@
     "handling": 0.65000003576278,
     "make": "Benefactor",
     "name": "Turreted Limo",
+    "price": 327922,
     "seats": 5,
     "speed": 39.27035903930664,
     "type": "automobile",
@@ -4323,6 +4686,7 @@
     "handling": 0.75650000572204,
     "make": "Benefactor",
     "name": "LM87",
+    "price": 84509,
     "seats": 1,
     "speed": 50.33531188964844,
     "type": "automobile"
@@ -4335,6 +4699,7 @@
     "handling": 0.71399998664855,
     "make": "Ocelot",
     "name": "Locust",
+    "price": 81371,
     "seats": 2,
     "speed": 48.80894470214844,
     "type": "automobile"
@@ -4347,6 +4712,7 @@
     "handling": 18.38000106811523,
     "make": "Shitzu",
     "name": "Longfin",
+    "price": 500680,
     "seats": 4,
     "speed": 46.66666793823242,
     "type": "boat"
@@ -4359,6 +4725,7 @@
     "handling": 0.6700000166893,
     "make": "Albany",
     "name": "Lurcher",
+    "price": 78245,
     "seats": 2,
     "speed": 47.14347457885742,
     "type": "automobile"
@@ -4371,6 +4738,7 @@
     "handling": 7.93800020217895,
     "make": "Buckingham",
     "name": "Luxor",
+    "price": 1818934,
     "seats": 10,
     "speed": 90.61445617675781,
     "type": "plane"
@@ -4383,6 +4751,7 @@
     "handling": 8.03600025177002,
     "make": "Buckingham",
     "name": "Luxor Deluxe",
+    "price": 1834048,
     "seats": 8,
     "speed": 91.22515106201172,
     "type": "plane"
@@ -4395,6 +4764,7 @@
     "handling": 0.69499999284744,
     "make": "Ocelot",
     "name": "Lynx",
+    "price": 81739,
     "seats": 2,
     "speed": 49.07719421386719,
     "type": "automobile"
@@ -4407,6 +4777,7 @@
     "handling": 0.72000002861022,
     "make": "Declasse",
     "name": "Mamba",
+    "price": 81429,
     "seats": 2,
     "speed": 49.33333969116211,
     "type": "automobile"
@@ -4419,6 +4790,7 @@
     "handling": 4.90000009536743,
     "make": "",
     "name": "Mammatus",
+    "price": 1321065,
     "seats": 4,
     "speed": 69.36756134033203,
     "type": "plane"
@@ -4431,6 +4803,7 @@
     "handling": 0.54000002145767,
     "make": "Albany",
     "name": "Manana",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -4443,6 +4816,7 @@
     "handling": 0.62000000476837,
     "make": "Albany",
     "name": "Manana Custom",
+    "price": 71516,
     "seats": 2,
     "speed": 43.56295013427734,
     "type": "automobile"
@@ -4455,6 +4829,7 @@
     "handling": 0.67500001192092,
     "make": "Maibatsu",
     "name": "Manchez",
+    "price": 23138,
     "seats": 2,
     "speed": 44.10639572143555,
     "type": "bike"
@@ -4467,6 +4842,7 @@
     "handling": 0.64499998092651,
     "make": "Maibatsu",
     "name": "Manchez Scout",
+    "price": 21545,
     "seats": 1,
     "speed": 41.38006973266601,
     "type": "bike"
@@ -4479,6 +4855,7 @@
     "handling": 2.87999987602233,
     "make": "Dinka",
     "name": "Marquis",
+    "price": 94680,
     "seats": 4,
     "speed": 10.00000095367431,
     "type": "boat"
@@ -4491,6 +4868,7 @@
     "handling": 0.78000003099441,
     "make": "Cheval",
     "name": "Marshall",
+    "price": 57276,
     "seats": 2,
     "speed": 33.96766662597656,
     "type": "automobile"
@@ -4503,6 +4881,7 @@
     "handling": 0.74400001764297,
     "make": "Dewbauchee",
     "name": "Massacro",
+    "price": 83972,
     "seats": 2,
     "speed": 50.47478866577148,
     "type": "automobile"
@@ -4515,6 +4894,7 @@
     "handling": 0.74400001764297,
     "make": "Dewbauchee",
     "name": "Massacro (Racecar)",
+    "price": 83972,
     "seats": 2,
     "speed": 50.47478866577148,
     "type": "automobile"
@@ -4527,6 +4907,7 @@
     "handling": 5.0959997177124,
     "make": "",
     "name": "Maverick",
+    "price": 6031333,
     "seats": 4,
     "speed": 54.06753540039062,
     "type": "heli"
@@ -4539,6 +4920,7 @@
     "handling": 0.57999998331069,
     "make": "HVY",
     "name": "Menacer",
+    "price": 265392,
     "seats": 5,
     "speed": 31.79404067993164,
     "type": "automobile",
@@ -4552,6 +4934,7 @@
     "handling": 0.55000001192092,
     "make": "Canis",
     "name": "Mesa",
+    "price": 57125,
     "seats": 4,
     "speed": 34.68315505981445,
     "type": "automobile"
@@ -4564,6 +4947,7 @@
     "handling": 0.55000001192092,
     "make": "Canis",
     "name": "Mesa",
+    "price": 57125,
     "seats": 4,
     "speed": 34.68315505981445,
     "type": "automobile"
@@ -4576,6 +4960,7 @@
     "handling": 0.55000001192092,
     "make": "Canis",
     "name": "Mesa",
+    "price": 57125,
     "seats": 4,
     "speed": 34.68315505981445,
     "type": "automobile"
@@ -4585,6 +4970,7 @@
     "doors": 4,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 4,
     "type": "train"
   },
@@ -4596,6 +4982,7 @@
     "handling": 0.66250002384185,
     "make": "Lampadati",
     "name": "Michelli GT",
+    "price": 74020,
     "seats": 2,
     "speed": 44.568115234375,
     "type": "automobile"
@@ -4608,6 +4995,7 @@
     "handling": 13.7200002670288,
     "make": "Nagasaki",
     "name": "Ultralight",
+    "price": 987645,
     "seats": 1,
     "speed": 30.15113449096679,
     "type": "plane"
@@ -4620,6 +5008,7 @@
     "handling": 8.13399982452392,
     "make": "Buckingham",
     "name": "Miljet",
+    "price": 1849116,
     "seats": 16,
     "speed": 91.83216857910156,
     "type": "plane"
@@ -4632,6 +5021,7 @@
     "handling": 0.43999999761581,
     "make": "",
     "name": "Invade and Persuade Tank",
+    "price": 124556,
     "seats": 1,
     "speed": 9.72974395751953,
     "type": "automobile",
@@ -4645,6 +5035,7 @@
     "handling": 0.53000003099441,
     "make": "Vapid",
     "name": "Minivan",
+    "price": 58370,
     "seats": 4,
     "speed": 35.40166473388672,
     "type": "automobile"
@@ -4657,6 +5048,7 @@
     "handling": 0.53000003099441,
     "make": "Vapid",
     "name": "Minivan Custom",
+    "price": 58450,
     "seats": 4,
     "speed": 35.40166473388672,
     "type": "automobile"
@@ -4669,6 +5061,7 @@
     "handling": 0.49000000953674,
     "make": "HVY",
     "name": "Mixer",
+    "price": 53283,
     "seats": 2,
     "speed": 32.40209197998047,
     "type": "automobile"
@@ -4681,6 +5074,7 @@
     "handling": 0.49000000953674,
     "make": "HVY",
     "name": "Mixer",
+    "price": 53283,
     "seats": 2,
     "speed": 32.40209197998047,
     "type": "automobile"
@@ -4693,6 +5087,7 @@
     "handling": 5.88000011444091,
     "make": "Mammoth",
     "name": "Mogul",
+    "price": 7445703,
     "seats": 3,
     "speed": 76.79570770263672,
     "type": "plane",
@@ -4706,6 +5101,7 @@
     "handling": 14.70000076293945,
     "make": "",
     "name": "V-65 Molotok",
+    "price": 2145700,
     "seats": 1,
     "speed": 91.28709411621094,
     "type": "plane"
@@ -4718,6 +5114,7 @@
     "handling": 0.66000002622604,
     "make": "Pegassi",
     "name": "Monroe",
+    "price": 82544,
     "seats": 2,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -4730,6 +5127,7 @@
     "handling": 0.78000003099441,
     "make": "Vapid",
     "name": "Liberator",
+    "price": 57276,
     "seats": 2,
     "speed": 33.96766662597656,
     "type": "automobile"
@@ -4742,6 +5140,7 @@
     "handling": 0.79000002145767,
     "make": "Bravado",
     "name": "Apocalypse Sasquatch",
+    "price": 64365,
     "seats": 2,
     "speed": 38.37865829467773,
     "type": "automobile"
@@ -4754,6 +5153,7 @@
     "handling": 0.79000002145767,
     "make": "Bravado",
     "name": "Future Shock Sasquatch",
+    "price": 64365,
     "seats": 2,
     "speed": 38.37865829467773,
     "type": "automobile"
@@ -4766,6 +5166,7 @@
     "handling": 0.79000002145767,
     "make": "Bravado",
     "name": "Nightmare Sasquatch",
+    "price": 64365,
     "seats": 2,
     "speed": 38.37865829467773,
     "type": "automobile"
@@ -4778,6 +5179,7 @@
     "handling": 0.58999997377395,
     "make": "Declasse",
     "name": "Moonbeam",
+    "price": 68586,
     "seats": 4,
     "speed": 41.66667175292969,
     "type": "automobile"
@@ -4790,6 +5192,7 @@
     "handling": 0.58999997377395,
     "make": "Declasse",
     "name": "Moonbeam Custom",
+    "price": 68586,
     "seats": 4,
     "speed": 41.66667175292969,
     "type": "automobile"
@@ -4802,6 +5205,7 @@
     "handling": 0.43000000715255,
     "make": "",
     "name": "Lawn Mower",
+    "price": 12234,
     "seats": 1,
     "speed": 6.66666746139526,
     "type": "automobile"
@@ -4814,6 +5218,7 @@
     "handling": 0.49000000953674,
     "make": "Maibatsu",
     "name": "Mule",
+    "price": 47273,
     "seats": 6,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -4826,6 +5231,7 @@
     "handling": 0.49000000953674,
     "make": "Maibatsu",
     "name": "Mule",
+    "price": 47273,
     "seats": 2,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -4838,6 +5244,7 @@
     "handling": 0.55000001192092,
     "make": "Maibatsu",
     "name": "Mule",
+    "price": 52599,
     "seats": 6,
     "speed": 31.90465545654297,
     "type": "automobile"
@@ -4850,6 +5257,7 @@
     "handling": 0.49000000953674,
     "make": "Maibatsu",
     "name": "Mule Custom",
+    "price": 47273,
     "seats": 4,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -4862,6 +5270,7 @@
     "handling": 0.55000001192092,
     "make": "Maibatsu",
     "name": "Mule",
+    "price": 52599,
     "seats": 6,
     "speed": 31.90465545654297,
     "type": "automobile"
@@ -4874,6 +5283,7 @@
     "handling": 0.62000000476837,
     "make": "Vulcar",
     "name": "Nebula Turbo",
+    "price": 62877,
     "seats": 2,
     "speed": 37.93818664550781,
     "type": "automobile"
@@ -4886,6 +5296,7 @@
     "handling": 0.68000000715255,
     "make": "Principe",
     "name": "Nemesis",
+    "price": 23612,
     "seats": 2,
     "speed": 45.04543685913086,
     "type": "bike"
@@ -4898,6 +5309,7 @@
     "handling": 0.76700001955032,
     "make": "Vysser",
     "name": "Neo",
+    "price": 85696,
     "seats": 2,
     "speed": 51.20661544799805,
     "type": "automobile"
@@ -4910,6 +5322,7 @@
     "handling": 0.63050001859664,
     "make": "Pfister",
     "name": "Neon",
+    "price": 65765,
     "seats": 4,
     "speed": 38.92243576049805,
     "type": "automobile"
@@ -4922,6 +5335,7 @@
     "handling": 0.71750003099441,
     "make": "Truffade",
     "name": "Nero",
+    "price": 87515,
     "seats": 2,
     "speed": 52.64204025268555,
     "type": "automobile"
@@ -4934,6 +5348,7 @@
     "handling": 0.72005003690719,
     "make": "Truffade",
     "name": "Nero Custom",
+    "price": 88062,
     "seats": 2,
     "speed": 52.87897491455078,
     "type": "automobile"
@@ -4946,6 +5361,7 @@
     "handling": 0.68999999761581,
     "make": "Western",
     "name": "Nightblade",
+    "price": 24551,
     "seats": 2,
     "speed": 46.90339660644531,
     "type": "bike"
@@ -4958,6 +5374,7 @@
     "handling": 0.62999999523162,
     "make": "Imponte",
     "name": "Nightshade",
+    "price": 67005,
     "seats": 2,
     "speed": 40.3984146118164,
     "type": "automobile"
@@ -4970,6 +5387,7 @@
     "handling": 0.65000003576278,
     "make": "HVY",
     "name": "Nightshark",
+    "price": 61604,
     "seats": 4,
     "speed": 36.83302307128906,
     "type": "automobile"
@@ -4982,6 +5400,7 @@
     "handling": 8.13399982452392,
     "make": "Buckingham",
     "name": "Nimbus",
+    "price": 1896246,
     "seats": 8,
     "speed": 94.55620574951172,
     "type": "plane"
@@ -4994,6 +5413,7 @@
     "handling": 0.71000003814697,
     "make": "Obey",
     "name": "9F",
+    "price": 81139,
     "seats": 2,
     "speed": 48.67240142822265,
     "type": "automobile"
@@ -5006,6 +5426,7 @@
     "handling": 0.71000003814697,
     "make": "Obey",
     "name": "9F Cabrio",
+    "price": 81139,
     "seats": 2,
     "speed": 48.67240142822265,
     "type": "automobile"
@@ -5018,6 +5439,7 @@
     "handling": 14.70000076293945,
     "make": "",
     "name": "P-45 Nokota",
+    "price": 2079976,
     "seats": 1,
     "speed": 87.70580291748047,
     "type": "plane"
@@ -5030,6 +5452,7 @@
     "handling": 0.68000000715255,
     "make": "Lampadati",
     "name": "Novak",
+    "price": 78077,
     "seats": 4,
     "speed": 47.01816177368164,
     "type": "automobile"
@@ -5042,6 +5465,7 @@
     "handling": 0.68500000238418,
     "make": "Obey",
     "name": "Omnis",
+    "price": 73163,
     "seats": 2,
     "speed": 43.73736953735351,
     "type": "automobile"
@@ -5054,6 +5478,7 @@
     "handling": 0.95999997854232,
     "make": "Obey",
     "name": "Omnis e-GT",
+    "price": 80374,
     "seats": 4,
     "speed": 47.69437026977539,
     "type": "automobile"
@@ -5066,6 +5491,7 @@
     "handling": 1.13999998569488,
     "make": "Benefactor",
     "name": "BR8",
+    "price": 106997,
     "seats": 1,
     "speed": 52.52767181396484,
     "type": "automobile"
@@ -5078,6 +5504,7 @@
     "handling": 1.03499996662139,
     "make": "Declasse",
     "name": "DR1",
+    "price": 107315,
     "seats": 1,
     "speed": 53.0537223815918,
     "type": "automobile"
@@ -5090,6 +5517,7 @@
     "handling": 0.78000003099441,
     "make": "Pegassi",
     "name": "Oppressor",
+    "price": 76316,
     "seats": 1,
     "speed": 48.4977912902832,
     "type": "bike"
@@ -5102,6 +5530,7 @@
     "handling": 0.75999999046325,
     "make": "Pegassi",
     "name": "Oppressor Mk II",
+    "price": 74148,
     "seats": 1,
     "speed": 47.0926513671875,
     "type": "bike"
@@ -5114,6 +5543,7 @@
     "handling": 0.63999998569488,
     "make": "Ubermacht",
     "name": "Oracle XS",
+    "price": 75192,
     "seats": 4,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -5126,6 +5556,7 @@
     "handling": 0.65000003576278,
     "make": "Ubermacht",
     "name": "Oracle",
+    "price": 76907,
     "seats": 4,
     "speed": 46.24733734130859,
     "type": "automobile"
@@ -5138,6 +5569,7 @@
     "handling": 0.74000000953674,
     "make": "Pegassi",
     "name": "Osiris",
+    "price": 82889,
     "seats": 2,
     "speed": 49.6558723449707,
     "type": "automobile"
@@ -5150,6 +5582,7 @@
     "handling": 0.85500001907348,
     "make": "Nagasaki",
     "name": "Outlaw",
+    "price": 60938,
     "seats": 2,
     "speed": 36.15646743774414,
     "type": "automobile"
@@ -5162,6 +5595,7 @@
     "handling": 0.58999997377395,
     "make": "MTL",
     "name": "Packer",
+    "price": 60714,
     "seats": 2,
     "speed": 36.34652709960937,
     "type": "automobile"
@@ -5174,6 +5608,7 @@
     "handling": 0.65000003576278,
     "make": "Benefactor",
     "name": "Panto",
+    "price": 67549,
     "seats": 2,
     "speed": 40.69873809814453,
     "type": "automobile"
@@ -5186,6 +5621,7 @@
     "handling": 0.55000001192092,
     "make": "Bravado",
     "name": "Paradise",
+    "price": 63310,
     "seats": 4,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -5198,6 +5634,7 @@
     "handling": 0.70899999141693,
     "make": "Enus",
     "name": "Paragon R",
+    "price": 75255,
     "seats": 2,
     "speed": 44.99695205688476,
     "type": "automobile"
@@ -5210,6 +5647,7 @@
     "handling": 0.70749998092651,
     "make": "Enus",
     "name": "Paragon R (Armored)",
+    "price": 74900,
     "seats": 2,
     "speed": 44.82796478271484,
     "type": "automobile"
@@ -5222,6 +5660,7 @@
     "handling": 0.70100003480911,
     "make": "Ocelot",
     "name": "Pariah",
+    "price": 81207,
     "seats": 2,
     "speed": 48.73278427124023,
     "type": "automobile"
@@ -5234,6 +5673,7 @@
     "handling": 0.57999998331069,
     "make": "Mammoth",
     "name": "Patriot",
+    "price": 63246,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5246,6 +5686,7 @@
     "handling": 0.56000000238418,
     "make": "Mammoth",
     "name": "Patriot Stretch",
+    "price": 59238,
     "seats": 6,
     "speed": 35.96390533447265,
     "type": "automobile"
@@ -5258,6 +5699,7 @@
     "handling": 0.61000001430511,
     "make": "Mammoth",
     "name": "Patriot Mil-Spec",
+    "price": 62402,
     "seats": 4,
     "speed": 37.67625427246094,
     "type": "automobile"
@@ -5270,6 +5712,7 @@
     "handling": 15.88000011444091,
     "make": "",
     "name": "Kurtz 31 Patrol Boat",
+    "price": 2153400,
     "seats": 4,
     "speed": 40.00000381469726,
     "type": "boat",
@@ -5283,6 +5726,7 @@
     "handling": 0.51999998092651,
     "make": "",
     "name": "Prison Bus",
+    "price": 46633,
     "seats": 11,
     "speed": 28.23610877990722,
     "type": "automobile"
@@ -5295,6 +5739,7 @@
     "handling": 0.50999999046325,
     "make": "",
     "name": "Festival Bus",
+    "price": 38412,
     "seats": 11,
     "speed": 23.11774253845215,
     "type": "automobile"
@@ -5307,6 +5752,7 @@
     "handling": 0.63999998569488,
     "make": "Shitzu",
     "name": "PCJ 600",
+    "price": 20997,
     "seats": 2,
     "speed": 39.7958755493164,
     "type": "bike"
@@ -5319,6 +5765,7 @@
     "handling": 0.68000000715255,
     "make": "Ocelot",
     "name": "Penetrator",
+    "price": 81919,
     "seats": 2,
     "speed": 49.4194221496582,
     "type": "automobile"
@@ -5331,6 +5778,7 @@
     "handling": 0.60000002384185,
     "make": "Maibatsu",
     "name": "Penumbra",
+    "price": 67839,
     "seats": 2,
     "speed": 40.77992248535156,
     "type": "automobile"
@@ -5343,6 +5791,7 @@
     "handling": 0.68000000715255,
     "make": "Maibatsu",
     "name": "Penumbra FF",
+    "price": 74920,
     "seats": 2,
     "speed": 45.04543685913086,
     "type": "automobile"
@@ -5355,6 +5804,7 @@
     "handling": 0.54000002145767,
     "make": "Vapid",
     "name": "Peyote",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -5367,6 +5817,7 @@
     "handling": 0.72450000047683,
     "make": "Vapid",
     "name": "Peyote Gasser",
+    "price": 77875,
     "seats": 2,
     "speed": 46.70328903198242,
     "type": "automobile"
@@ -5379,6 +5830,7 @@
     "handling": 0.58499997854232,
     "make": "Vapid",
     "name": "Peyote Custom",
+    "price": 70150,
     "seats": 2,
     "speed": 42.77414321899414,
     "type": "automobile"
@@ -5391,6 +5843,7 @@
     "handling": 0.73600000143051,
     "make": "Pfister",
     "name": "811",
+    "price": 88499,
     "seats": 2,
     "speed": 53.10000610351562,
     "type": "automobile"
@@ -5403,6 +5856,7 @@
     "handling": 0.58999997377395,
     "make": "JoBuilt",
     "name": "Phantom",
+    "price": 56656,
     "seats": 2,
     "speed": 33.81060791015625,
     "type": "automobile"
@@ -5415,6 +5869,7 @@
     "handling": 0.68000000715255,
     "make": "JoBuilt",
     "name": "Phantom Wedge",
+    "price": 72230,
     "seats": 5,
     "speed": 43.31406784057617,
     "type": "automobile"
@@ -5427,6 +5882,7 @@
     "handling": 0.68000000715255,
     "make": "JoBuilt",
     "name": "Phantom Custom",
+    "price": 69772,
     "seats": 5,
     "speed": 41.77765655517578,
     "type": "automobile"
@@ -5439,6 +5895,7 @@
     "handling": 0.66000002622604,
     "make": "Imponte",
     "name": "Phoenix",
+    "price": 78433,
     "seats": 2,
     "speed": 47.28085327148437,
     "type": "automobile"
@@ -5451,6 +5908,7 @@
     "handling": 0.60000002384185,
     "make": "Cheval",
     "name": "Picador",
+    "price": 67839,
     "seats": 2,
     "speed": 40.77992248535156,
     "type": "automobile"
@@ -5463,6 +5921,7 @@
     "handling": 0.64499998092651,
     "make": "Lampadati",
     "name": "Pigalle",
+    "price": 82282,
     "seats": 2,
     "speed": 49.66666793823242,
     "type": "automobile"
@@ -5475,6 +5934,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Police Cruiser",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -5487,6 +5947,7 @@
     "handling": 0.66000002622604,
     "make": "",
     "name": "Police Cruiser",
+    "price": 76794,
     "seats": 4,
     "speed": 46.15661239624023,
     "type": "automobile"
@@ -5499,6 +5960,7 @@
     "handling": 0.68000000715255,
     "make": "",
     "name": "Police Cruiser",
+    "price": 80470,
     "seats": 4,
     "speed": 48.11406707763672,
     "type": "automobile"
@@ -5511,6 +5973,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Unmarked Cruiser",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -5523,6 +5986,7 @@
     "handling": 0.65000003576278,
     "make": "",
     "name": "Police Bike",
+    "price": 23078,
     "seats": 1,
     "speed": 44.13693237304687,
     "type": "bike"
@@ -5535,6 +5999,7 @@
     "handling": 0.56000000238418,
     "make": "",
     "name": "Police Rancher",
+    "price": 58720,
     "seats": 4,
     "speed": 35.16010665893555,
     "type": "automobile"
@@ -5547,6 +6012,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Police Roadcruiser",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -5559,6 +6025,7 @@
     "handling": 0.54000002145767,
     "make": "",
     "name": "Police Transporter",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -5571,6 +6038,7 @@
     "handling": 5.19399976730346,
     "make": "",
     "name": "Police Maverick",
+    "price": 6293144,
     "seats": 4,
     "speed": 56.59622192382812,
     "type": "heli"
@@ -5583,6 +6051,7 @@
     "handling": 0.54000002145767,
     "make": "Brute",
     "name": "Pony",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -5595,6 +6064,7 @@
     "handling": 0.54000002145767,
     "make": "Brute",
     "name": "Pony",
+    "price": 61195,
     "seats": 4,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -5607,6 +6077,7 @@
     "handling": 0.67500001192092,
     "make": "Dinka",
     "name": "Postlude",
+    "price": 69683,
     "seats": 2,
     "speed": 42.18231582641601,
     "type": "automobile"
@@ -5619,6 +6090,7 @@
     "handling": 0.51999998092651,
     "make": "MTL",
     "name": "Pounder",
+    "price": 55550,
     "seats": 2,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -5631,6 +6103,7 @@
     "handling": 0.54000002145767,
     "make": "MTL",
     "name": "Pounder Custom",
+    "price": 60635,
     "seats": 8,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -5643,6 +6116,7 @@
     "handling": 0.60000002384185,
     "make": "Bollokan",
     "name": "Prairie",
+    "price": 67519,
     "seats": 2,
     "speed": 40.77992248535156,
     "type": "automobile"
@@ -5655,6 +6129,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Park Ranger",
+    "price": 62617,
     "seats": 8,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -5667,6 +6142,7 @@
     "handling": 14.38000011444091,
     "make": "",
     "name": "Police Predator",
+    "price": 412680,
     "seats": 4,
     "speed": 40.00000381469726,
     "type": "boat"
@@ -5679,6 +6155,7 @@
     "handling": 0.57999998331069,
     "make": "Declasse",
     "name": "Premier",
+    "price": 63694,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5691,6 +6168,7 @@
     "handling": 0.69850003719329,
     "make": "Karin",
     "name": "Previon",
+    "price": 78200,
     "seats": 2,
     "speed": 47.00852584838867,
     "type": "automobile"
@@ -5703,6 +6181,7 @@
     "handling": 0.57999998331069,
     "make": "Albany",
     "name": "Primo",
+    "price": 64174,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5715,6 +6194,7 @@
     "handling": 0.57999998331069,
     "make": "Albany",
     "name": "Primo Custom",
+    "price": 64174,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5724,6 +6204,7 @@
     "doors": 2,
     "make": "",
     "name": "NULL",
+    "price": 5668,
     "seats": 2,
     "type": "trailer"
   },
@@ -5735,6 +6216,7 @@
     "handling": 0.75499999523162,
     "make": "Grotti",
     "name": "X80 Proto",
+    "price": 88458,
     "seats": 2,
     "speed": 53.0565185546875,
     "type": "automobile"
@@ -5747,6 +6229,7 @@
     "handling": 11.27000045776367,
     "make": "Buckingham",
     "name": "Pyro",
+    "price": 2140960,
     "seats": 2,
     "speed": 100.0,
     "type": "plane"
@@ -5759,6 +6242,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Radius",
+    "price": 65522,
     "seats": 4,
     "speed": 39.37129592895508,
     "type": "automobile"
@@ -5771,6 +6255,7 @@
     "handling": 0.625,
     "make": "Coil",
     "name": "Raiden",
+    "price": 64370,
     "seats": 4,
     "speed": 38.06157302856445,
     "type": "automobile"
@@ -5780,6 +6265,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -5791,6 +6277,7 @@
     "handling": 0.71000003814697,
     "make": "MTL",
     "name": "Dune",
+    "price": 67837,
     "seats": 2,
     "speed": 40.75856781005859,
     "type": "automobile"
@@ -5803,6 +6290,7 @@
     "handling": 0.56000000238418,
     "make": "Declasse",
     "name": "Rancher XL",
+    "price": 58720,
     "seats": 4,
     "speed": 35.16010665893555,
     "type": "automobile"
@@ -5815,6 +6303,7 @@
     "handling": 0.56000000238418,
     "make": "Declasse",
     "name": "Rancher XL",
+    "price": 58720,
     "seats": 4,
     "speed": 35.16010665893555,
     "type": "automobile"
@@ -5827,6 +6316,7 @@
     "handling": 0.74000000953674,
     "make": "Dewbauchee",
     "name": "Rapid GT",
+    "price": 83599,
     "seats": 2,
     "speed": 50.14981460571289,
     "type": "automobile"
@@ -5839,6 +6329,7 @@
     "handling": 0.74000000953674,
     "make": "Dewbauchee",
     "name": "Rapid GT",
+    "price": 83599,
     "seats": 2,
     "speed": 50.14981460571289,
     "type": "automobile"
@@ -5851,6 +6342,7 @@
     "handling": 0.68000000715255,
     "make": "Dewbauchee",
     "name": "Rapid GT Classic",
+    "price": 77766,
     "seats": 2,
     "speed": 47.12418365478515,
     "type": "automobile"
@@ -5863,6 +6355,7 @@
     "handling": 0.67500001192092,
     "make": "BF",
     "name": "Raptor",
+    "price": 72091,
     "seats": 2,
     "speed": 42.8873176574707,
     "type": "automobile"
@@ -5875,6 +6368,7 @@
     "handling": 0.59500002861022,
     "make": "Western",
     "name": "Rat Bike",
+    "price": 19441,
     "seats": 2,
     "speed": 36.87216567993164,
     "type": "bike"
@@ -5887,6 +6381,7 @@
     "handling": 0.60000002384185,
     "make": "",
     "name": "Rat-Loader",
+    "price": 61779,
     "seats": 2,
     "speed": 37.39198684692383,
     "type": "automobile"
@@ -5899,6 +6394,7 @@
     "handling": 0.62000000476837,
     "make": "Bravado",
     "name": "Rat-Truck",
+    "price": 65562,
     "seats": 2,
     "speed": 39.41659927368164,
     "type": "automobile"
@@ -5911,6 +6407,7 @@
     "handling": 0.51999998092651,
     "make": "",
     "name": "RC Bandito",
+    "price": 44530,
     "seats": 1,
     "speed": 26.37177276611328,
     "type": "automobile"
@@ -5923,6 +6420,7 @@
     "handling": 0.74500000476837,
     "make": "Pegassi",
     "name": "Reaper",
+    "price": 82990,
     "seats": 2,
     "speed": 49.6593132019043,
     "type": "automobile"
@@ -5935,6 +6433,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Rusty Rebel",
+    "price": 63694,
     "seats": 2,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5947,6 +6446,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Rebel",
+    "price": 63694,
     "seats": 2,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -5959,6 +6459,7 @@
     "handling": 0.7150000333786,
     "make": "Ubermacht",
     "name": "Rebla GTS",
+    "price": 77543,
     "seats": 4,
     "speed": 46.56448364257812,
     "type": "automobile"
@@ -5971,6 +6472,7 @@
     "handling": 0.78850001096725,
     "make": "Western",
     "name": "Reever",
+    "price": 26269,
     "seats": 1,
     "speed": 50.04156112670898,
     "type": "bike"
@@ -5983,6 +6485,7 @@
     "handling": 0.51999998092651,
     "make": "Dundreary",
     "name": "Regina",
+    "price": 50997,
     "seats": 4,
     "speed": 30.61322212219238,
     "type": "automobile"
@@ -5995,6 +6498,7 @@
     "handling": 0.70700001716613,
     "make": "Annis",
     "name": "Remus",
+    "price": 78314,
     "seats": 2,
     "speed": 47.01226043701172,
     "type": "automobile"
@@ -6007,6 +6511,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Rental Shuttle Bus",
+    "price": 42321,
     "seats": 10,
     "speed": 25.58089447021484,
     "type": "automobile"
@@ -6019,6 +6524,7 @@
     "handling": 0.6075000166893,
     "make": "Vapid",
     "name": "Retinue",
+    "price": 70738,
     "seats": 2,
     "speed": 42.67658996582031,
     "type": "automobile"
@@ -6031,6 +6537,7 @@
     "handling": 0.65750002861022,
     "make": "Vapid",
     "name": "Retinue Mk II",
+    "price": 76099,
     "seats": 2,
     "speed": 45.90726470947265,
     "type": "automobile"
@@ -6043,6 +6550,7 @@
     "handling": 0.73000001907348,
     "make": "Ubermacht",
     "name": "Revolter",
+    "price": 74872,
     "seats": 4,
     "speed": 44.9150276184082,
     "type": "automobile"
@@ -6055,6 +6563,7 @@
     "handling": 0.61000001430511,
     "make": "Declasse",
     "name": "Rhapsody",
+    "price": 68425,
     "seats": 2,
     "speed": 41.32571411132812,
     "type": "automobile"
@@ -6067,6 +6576,7 @@
     "handling": 0.71899998188018,
     "make": "Ubermacht",
     "name": "Rhinehart",
+    "price": 78276,
     "seats": 4,
     "speed": 46.97955322265625,
     "type": "automobile"
@@ -6079,6 +6589,7 @@
     "handling": 0.49000000953674,
     "make": "",
     "name": "Rhino Tank",
+    "price": 153066,
     "seats": 2,
     "speed": 18.33333587646484,
     "type": "automobile",
@@ -6092,6 +6603,7 @@
     "handling": 0.62999999523162,
     "make": "Vapid",
     "name": "Riata",
+    "price": 66525,
     "seats": 2,
     "speed": 40.3984146118164,
     "type": "automobile"
@@ -6104,6 +6616,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Police Riot",
+    "price": 56588,
     "seats": 8,
     "speed": 34.4979019165039,
     "type": "automobile"
@@ -6116,6 +6629,7 @@
     "handling": 0.54000002145767,
     "make": "",
     "name": "RCV",
+    "price": 295472,
     "seats": 6,
     "speed": 35.93408966064453,
     "type": "automobile",
@@ -6129,6 +6643,7 @@
     "handling": 0.54000002145767,
     "make": "",
     "name": "Ripley",
+    "price": 38773,
     "seats": 2,
     "speed": 23.33333396911621,
     "type": "automobile"
@@ -6141,6 +6656,7 @@
     "handling": 0.56999999284744,
     "make": "Obey",
     "name": "Rocoto",
+    "price": 67755,
     "seats": 4,
     "speed": 41.33716583251953,
     "type": "automobile"
@@ -6153,6 +6669,7 @@
     "handling": 9.80000019073486,
     "make": "Western",
     "name": "Rogue",
+    "price": 2070400,
     "seats": 2,
     "speed": 100.0,
     "type": "plane"
@@ -6165,6 +6682,7 @@
     "handling": 0.53000003099441,
     "make": "Chariot",
     "name": "Romero Hearse",
+    "price": 53105,
     "seats": 2,
     "speed": 32.01123428344726,
     "type": "automobile"
@@ -6177,6 +6695,7 @@
     "handling": 0.76200002431869,
     "make": "Western",
     "name": "Rampant Rocket",
+    "price": 26257,
     "seats": 1,
     "speed": 41.6182746887207,
     "type": "quadbike"
@@ -6189,6 +6708,7 @@
     "handling": 0.69200003147125,
     "make": "Dinka",
     "name": "RT3000",
+    "price": 80216,
     "seats": 2,
     "speed": 48.13142776489258,
     "type": "automobile"
@@ -6201,6 +6721,7 @@
     "handling": 0.51999998092651,
     "make": "JoBuilt",
     "name": "Rubble",
+    "price": 54789,
     "seats": 2,
     "speed": 33.33333587646484,
     "type": "automobile"
@@ -6213,6 +6734,7 @@
     "handling": 0.72000002861022,
     "make": "Pegassi",
     "name": "Ruffian",
+    "price": 24413,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "bike"
@@ -6225,6 +6747,7 @@
     "handling": 0.66000002622604,
     "make": "Imponte",
     "name": "Ruiner",
+    "price": 80117,
     "seats": 2,
     "speed": 48.33333587646484,
     "type": "automobile"
@@ -6237,6 +6760,7 @@
     "handling": 0.71000003814697,
     "make": "Imponte",
     "name": "Ruiner 2000",
+    "price": 186491,
     "seats": 2,
     "speed": 49.76317977905273,
     "type": "automobile"
@@ -6249,6 +6773,7 @@
     "handling": 0.66000002622604,
     "make": "Imponte",
     "name": "Ruiner",
+    "price": 80117,
     "seats": 2,
     "speed": 48.33333587646484,
     "type": "automobile"
@@ -6261,6 +6786,7 @@
     "handling": 0.68849998712539,
     "make": "Imponte",
     "name": "Ruiner ZZ-8",
+    "price": 80458,
     "seats": 2,
     "speed": 48.46974945068359,
     "type": "automobile"
@@ -6273,6 +6799,7 @@
     "handling": 0.55000001192092,
     "make": "Bravado",
     "name": "Rumpo",
+    "price": 63310,
     "seats": 4,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -6285,6 +6812,7 @@
     "handling": 0.55000001192092,
     "make": "Bravado",
     "name": "Rumpo",
+    "price": 63310,
     "seats": 2,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -6297,6 +6825,7 @@
     "handling": 0.56000000238418,
     "make": "Bravado",
     "name": "Rumpo Custom",
+    "price": 59206,
     "seats": 4,
     "speed": 35.96390533447265,
     "type": "automobile"
@@ -6309,6 +6838,7 @@
     "handling": 0.70499998331069,
     "make": "Hijak",
     "name": "Ruston",
+    "price": 78365,
     "seats": 2,
     "speed": 46.74825668334961,
     "type": "automobile"
@@ -6321,6 +6851,7 @@
     "handling": 0.75249999761581,
     "make": "Annis",
     "name": "S80RR",
+    "price": 83208,
     "seats": 1,
     "speed": 49.63021850585937,
     "type": "automobile"
@@ -6333,6 +6864,7 @@
     "handling": 0.66000002622604,
     "make": "Declasse",
     "name": "Sabre Turbo",
+    "price": 77450,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -6345,6 +6877,7 @@
     "handling": 0.66200000047683,
     "make": "Declasse",
     "name": "Sabre Turbo Custom",
+    "price": 77489,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -6357,6 +6890,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Sadler",
+    "price": 62297,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -6369,6 +6903,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Sadler",
+    "price": 62297,
     "seats": 4,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -6381,6 +6916,7 @@
     "handling": 0.66000002622604,
     "make": "Maibatsu",
     "name": "Sanchez (livery)",
+    "price": 20686,
     "seats": 2,
     "speed": 39.33333587646484,
     "type": "bike"
@@ -6393,6 +6929,7 @@
     "handling": 0.66000002622604,
     "make": "Maibatsu",
     "name": "Sanchez",
+    "price": 20686,
     "seats": 2,
     "speed": 39.33333587646484,
     "type": "bike"
@@ -6405,6 +6942,7 @@
     "handling": 0.78500002622604,
     "make": "LCC",
     "name": "Sanctus",
+    "price": 24351,
     "seats": 1,
     "speed": 46.5123176574707,
     "type": "bike"
@@ -6417,6 +6955,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Sandking XL",
+    "price": 63694,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -6429,6 +6968,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Sandking SWB",
+    "price": 63694,
     "seats": 2,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -6441,6 +6981,7 @@
     "handling": 4.58640003204345,
     "make": "",
     "name": "Savage",
+    "price": 6962237,
     "seats": 4,
     "speed": 65.19527435302735,
     "type": "heli"
@@ -6453,6 +6994,7 @@
     "handling": 0.61750000715255,
     "make": "Annis",
     "name": "Savestra",
+    "price": 72617,
     "seats": 2,
     "speed": 43.83115005493164,
     "type": "automobile"
@@ -6465,6 +7007,7 @@
     "handling": 0.68999999761581,
     "make": "Ubermacht",
     "name": "SC1",
+    "price": 79257,
     "seats": 2,
     "speed": 47.41621780395508,
     "type": "automobile"
@@ -6477,6 +7020,7 @@
     "handling": 0.48000001907348,
     "make": "HVY",
     "name": "Apocalypse Scarab",
+    "price": 39724,
     "seats": 4,
     "speed": 23.54771995544433,
     "type": "automobile"
@@ -6489,6 +7033,7 @@
     "handling": 0.48000001907348,
     "make": "HVY",
     "name": "Future Shock Scarab",
+    "price": 39724,
     "seats": 4,
     "speed": 23.54771995544433,
     "type": "automobile"
@@ -6501,6 +7046,7 @@
     "handling": 0.48000001907348,
     "make": "HVY",
     "name": "Nightmare Scarab",
+    "price": 39724,
     "seats": 4,
     "speed": 23.54771995544433,
     "type": "automobile"
@@ -6513,6 +7059,7 @@
     "handling": 0.57999998331069,
     "make": "Benefactor",
     "name": "Schafter",
+    "price": 65682,
     "seats": 4,
     "speed": 39.37129592895508,
     "type": "automobile"
@@ -6525,6 +7072,7 @@
     "handling": 0.68000000715255,
     "make": "Benefactor",
     "name": "Schafter V12",
+    "price": 83088,
     "seats": 4,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -6537,6 +7085,7 @@
     "handling": 0.57999998331069,
     "make": "Benefactor",
     "name": "Schafter LWB",
+    "price": 65602,
     "seats": 4,
     "speed": 39.37129592895508,
     "type": "automobile"
@@ -6549,6 +7098,7 @@
     "handling": 0.6700000166893,
     "make": "Benefactor",
     "name": "Schafter V12 (Armored)",
+    "price": 83008,
     "seats": 4,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -6561,6 +7111,7 @@
     "handling": 0.56499999761581,
     "make": "Benefactor",
     "name": "Schafter LWB (Armored)",
+    "price": 62476,
     "seats": 4,
     "speed": 37.47786331176758,
     "type": "automobile"
@@ -6573,6 +7124,7 @@
     "handling": 0.75,
     "make": "Benefactor",
     "name": "Schlagen GT",
+    "price": 86368,
     "seats": 2,
     "speed": 52.06058120727539,
     "type": "automobile"
@@ -6585,6 +7137,7 @@
     "handling": 0.6700000166893,
     "make": "Benefactor",
     "name": "Schwartzer",
+    "price": 80250,
     "seats": 2,
     "speed": 48.29679489135742,
     "type": "automobile"
@@ -6597,6 +7150,7 @@
     "handling": 0.55000001192092,
     "make": "",
     "name": "Scorcher",
+    "price": 2782,
     "seats": 1,
     "speed": 15.02997303009033,
     "type": "bicycle"
@@ -6609,6 +7163,7 @@
     "handling": 0.78000003099441,
     "make": "Declasse",
     "name": "Scramjet",
+    "price": 370681,
     "seats": 2,
     "speed": 49.35356140136719,
     "type": "automobile"
@@ -6621,6 +7176,7 @@
     "handling": 0.50999999046325,
     "make": "",
     "name": "Scrap Truck",
+    "price": 52886,
     "seats": 2,
     "speed": 32.16410827636719,
     "type": "automobile"
@@ -6633,6 +7189,7 @@
     "handling": 20.09000015258789,
     "make": "Western",
     "name": "Seabreeze",
+    "price": 2211729,
     "seats": 2,
     "speed": 81.649658203125,
     "type": "plane"
@@ -6645,6 +7202,7 @@
     "handling": 12.88000011444091,
     "make": "Speedophile",
     "name": "Seashark",
+    "price": 414680,
     "seats": 2,
     "speed": 43.33333969116211,
     "type": "boat"
@@ -6657,6 +7215,7 @@
     "handling": 12.88000011444091,
     "make": "Speedophile",
     "name": "Seashark",
+    "price": 414680,
     "seats": 2,
     "speed": 43.33333969116211,
     "type": "boat"
@@ -6669,6 +7228,7 @@
     "handling": 12.88000011444091,
     "make": "Speedophile",
     "name": "Seashark",
+    "price": 414680,
     "seats": 2,
     "speed": 43.33333969116211,
     "type": "boat"
@@ -6681,6 +7241,7 @@
     "handling": 5.19399976730346,
     "make": "",
     "name": "Sea Sparrow",
+    "price": 6293144,
     "seats": 2,
     "speed": 56.59622192382812,
     "type": "heli"
@@ -6693,6 +7254,7 @@
     "handling": 6.22300004959106,
     "make": "",
     "name": "Sparrow",
+    "price": 7760028,
     "seats": 2,
     "speed": 69.45439147949219,
     "type": "heli"
@@ -6705,6 +7267,7 @@
     "handling": 6.22300004959106,
     "make": "",
     "name": "Sparrow",
+    "price": 7760028,
     "seats": 2,
     "speed": 69.45439147949219,
     "type": "heli"
@@ -6717,6 +7280,7 @@
     "handling": 0.56000000238418,
     "make": "Canis",
     "name": "Seminole",
+    "price": 61393,
     "seats": 4,
     "speed": 36.83084106445312,
     "type": "automobile"
@@ -6729,6 +7293,7 @@
     "handling": 0.57999998331069,
     "make": "Canis",
     "name": "Seminole Frontier",
+    "price": 64904,
     "seats": 4,
     "speed": 38.98538208007812,
     "type": "automobile"
@@ -6741,6 +7306,7 @@
     "handling": 0.63999998569488,
     "make": "Ubermacht",
     "name": "Sentinel XS",
+    "price": 75585,
     "seats": 2,
     "speed": 45.49089813232422,
     "type": "automobile"
@@ -6753,6 +7319,7 @@
     "handling": 0.63999998569488,
     "make": "Ubermacht",
     "name": "Sentinel",
+    "price": 75585,
     "seats": 4,
     "speed": 45.49089813232422,
     "type": "automobile"
@@ -6765,6 +7332,7 @@
     "handling": 0.64499998092651,
     "make": "Ubermacht",
     "name": "Sentinel Classic",
+    "price": 74166,
     "seats": 2,
     "speed": 44.64396286010742,
     "type": "automobile"
@@ -6777,6 +7345,7 @@
     "handling": 0.67500001192092,
     "make": "Ubermacht",
     "name": "Sentinel Classic Widebody",
+    "price": 78990,
     "seats": 2,
     "speed": 47.51882934570312,
     "type": "automobile"
@@ -6789,6 +7358,7 @@
     "handling": 0.57999998331069,
     "make": "Benefactor",
     "name": "Serrano",
+    "price": 66517,
     "seats": 4,
     "speed": 40.393310546875,
     "type": "automobile"
@@ -6801,6 +7371,7 @@
     "handling": 0.7150000333786,
     "make": "Dewbauchee",
     "name": "Seven-70",
+    "price": 84734,
     "seats": 2,
     "speed": 50.90917205810547,
     "type": "automobile"
@@ -6813,6 +7384,7 @@
     "handling": 7.93800020217895,
     "make": "Buckingham",
     "name": "Shamal",
+    "price": 1818934,
     "seats": 10,
     "speed": 90.61445617675781,
     "type": "plane"
@@ -6825,6 +7397,7 @@
     "handling": 0.71000003814697,
     "make": "Emperor",
     "name": "ETR1",
+    "price": 81139,
     "seats": 2,
     "speed": 48.67240142822265,
     "type": "automobile"
@@ -6837,6 +7410,7 @@
     "handling": 0.62000000476837,
     "make": "",
     "name": "Sheriff Cruiser",
+    "price": 71186,
     "seats": 4,
     "speed": 43.03151702880859,
     "type": "automobile"
@@ -6849,6 +7423,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Sheriff SUV",
+    "price": 62617,
     "seats": 8,
     "speed": 37.55594253540039,
     "type": "automobile"
@@ -6861,6 +7436,7 @@
     "handling": 0.74250000715255,
     "make": "Nagasaki",
     "name": "Shinobi",
+    "price": 27244,
     "seats": 1,
     "speed": 52.13333892822265,
     "type": "bike"
@@ -6873,6 +7449,7 @@
     "handling": 0.78000003099441,
     "make": "Nagasaki",
     "name": "Shotaro",
+    "price": 26899,
     "seats": 1,
     "speed": 51.21821212768555,
     "type": "bike"
@@ -6885,6 +7462,7 @@
     "handling": 4.7039999961853,
     "make": "",
     "name": "Skylift",
+    "price": 5363475,
     "seats": 2,
     "speed": 47.93147277832031,
     "type": "heli"
@@ -6897,6 +7475,7 @@
     "handling": 0.60500001907348,
     "make": "Vapid",
     "name": "Slamtruck",
+    "price": 62937,
     "seats": 2,
     "speed": 37.90615844726562,
     "type": "automobile"
@@ -6909,6 +7488,7 @@
     "handling": 0.625,
     "make": "Vapid",
     "name": "Slamvan",
+    "price": 66207,
     "seats": 2,
     "speed": 39.90991592407226,
     "type": "automobile"
@@ -6921,6 +7501,7 @@
     "handling": 0.62999999523162,
     "make": "Vapid",
     "name": "Lost Slamvan",
+    "price": 67165,
     "seats": 4,
     "speed": 40.3984146118164,
     "type": "automobile"
@@ -6933,6 +7514,7 @@
     "handling": 0.62999999523162,
     "make": "Vapid",
     "name": "Slamvan Custom",
+    "price": 67005,
     "seats": 2,
     "speed": 40.3984146118164,
     "type": "automobile"
@@ -6945,6 +7527,7 @@
     "handling": 0.65000003576278,
     "make": "Vapid",
     "name": "Apocalypse Slamvan",
+    "price": 68476,
     "seats": 2,
     "speed": 41.47795104980469,
     "type": "automobile"
@@ -6957,6 +7540,7 @@
     "handling": 0.65000003576278,
     "make": "Vapid",
     "name": "Future Shock Slamvan",
+    "price": 68476,
     "seats": 2,
     "speed": 41.47795104980469,
     "type": "automobile"
@@ -6969,6 +7553,7 @@
     "handling": 0.65000003576278,
     "make": "Vapid",
     "name": "Nightmare Slamvan",
+    "price": 68476,
     "seats": 2,
     "speed": 41.47795104980469,
     "type": "automobile"
@@ -6981,6 +7566,7 @@
     "handling": 0.73800003528594,
     "make": "Benefactor",
     "name": "SM722",
+    "price": 80260,
     "seats": 2,
     "speed": 48.21653747558594,
     "type": "automobile"
@@ -6993,6 +7579,7 @@
     "handling": 0.65000003576278,
     "make": "Western",
     "name": "Sovereign",
+    "price": 23078,
     "seats": 1,
     "speed": 44.13693237304687,
     "type": "bike"
@@ -7005,6 +7592,7 @@
     "handling": 0.69999998807907,
     "make": "Dewbauchee",
     "name": "Specter",
+    "price": 81060,
     "seats": 2,
     "speed": 48.64254760742187,
     "type": "automobile"
@@ -7017,6 +7605,7 @@
     "handling": 0.71000003814697,
     "make": "Dewbauchee",
     "name": "Specter Custom",
+    "price": 82332,
     "seats": 2,
     "speed": 49.3176040649414,
     "type": "automobile"
@@ -7029,6 +7618,7 @@
     "handling": 16.38000106811523,
     "make": "Pegassi",
     "name": "Speeder",
+    "price": 462680,
     "seats": 4,
     "speed": 44.33333587646484,
     "type": "boat"
@@ -7041,6 +7631,7 @@
     "handling": 16.38000106811523,
     "make": "Pegassi",
     "name": "Speeder",
+    "price": 462680,
     "seats": 4,
     "speed": 44.33333587646484,
     "type": "boat"
@@ -7053,6 +7644,7 @@
     "handling": 0.56000000238418,
     "make": "Vapid",
     "name": "Speedo",
+    "price": 66002,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -7065,6 +7657,7 @@
     "handling": 0.56000000238418,
     "make": "Vapid",
     "name": "Clown Van",
+    "price": 66002,
     "seats": 4,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -7077,6 +7670,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Speedo Custom",
+    "price": 70653,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -7089,6 +7683,7 @@
     "handling": 0.57999998331069,
     "make": "Mammoth",
     "name": "Squaddie",
+    "price": 63238,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -7101,6 +7696,7 @@
     "handling": 11.88000011444091,
     "make": "Shitzu",
     "name": "Squalo",
+    "price": 362680,
     "seats": 2,
     "speed": 36.66667175292969,
     "type": "boat"
@@ -7113,6 +7709,7 @@
     "handling": 0.57999998331069,
     "make": "Enus",
     "name": "Stafford",
+    "price": 62882,
     "seats": 4,
     "speed": 38.07186126708984,
     "type": "automobile"
@@ -7125,6 +7722,7 @@
     "handling": 0.6700000166893,
     "make": "Declasse",
     "name": "Stallion",
+    "price": 74781,
     "seats": 2,
     "speed": 45.07814788818359,
     "type": "automobile"
@@ -7137,6 +7735,7 @@
     "handling": 0.68999999761581,
     "make": "Declasse",
     "name": "Burger Shot Stallion",
+    "price": 79092,
     "seats": 2,
     "speed": 47.73262786865234,
     "type": "automobile"
@@ -7149,6 +7748,7 @@
     "handling": 0.57999998331069,
     "make": "Vapid",
     "name": "Stanier",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -7161,6 +7761,7 @@
     "handling": 12.25,
     "make": "",
     "name": "LF-22 Starling",
+    "price": 5890500,
     "seats": 1,
     "speed": 87.5,
     "type": "plane"
@@ -7173,6 +7774,7 @@
     "handling": 0.63999998569488,
     "make": "Grotti",
     "name": "Stinger",
+    "price": 74712,
     "seats": 2,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -7185,6 +7787,7 @@
     "handling": 0.63999998569488,
     "make": "Grotti",
     "name": "Stinger GT",
+    "price": 74712,
     "seats": 2,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -7197,6 +7800,7 @@
     "handling": 0.5,
     "make": "Brute",
     "name": "Stockade",
+    "price": 56588,
     "seats": 4,
     "speed": 34.4979019165039,
     "type": "automobile"
@@ -7209,6 +7813,7 @@
     "handling": 0.5,
     "make": "Brute",
     "name": "Stockade",
+    "price": 56588,
     "seats": 4,
     "speed": 34.4979019165039,
     "type": "automobile"
@@ -7221,6 +7826,7 @@
     "handling": 0.58999997377395,
     "make": "Zirconium",
     "name": "Stratum",
+    "price": 68894,
     "seats": 4,
     "speed": 41.65886688232422,
     "type": "automobile"
@@ -7233,6 +7839,7 @@
     "handling": 0.59250003099441,
     "make": "Benefactor",
     "name": "Streiter",
+    "price": 71204,
     "seats": 4,
     "speed": 42.89777374267578,
     "type": "automobile"
@@ -7245,6 +7852,7 @@
     "handling": 0.55000001192092,
     "make": "Dundreary",
     "name": "Stretch",
+    "price": 63950,
     "seats": 6,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -7257,6 +7865,7 @@
     "handling": 15.68000030517578,
     "make": "",
     "name": "B-11 Strikeforce",
+    "price": 1810529,
     "seats": 1,
     "speed": 70.71067810058594,
     "type": "plane"
@@ -7269,6 +7878,7 @@
     "handling": 0.6700000166893,
     "make": "Ocelot",
     "name": "Stromberg",
+    "price": 76526,
     "seats": 2,
     "speed": 45.86911392211914,
     "type": "automobile"
@@ -7281,6 +7891,7 @@
     "handling": 0.74000000953674,
     "make": "Nagasaki",
     "name": "Stryder",
+    "price": 26711,
     "seats": 2,
     "speed": 42.21869277954101,
     "type": "quadbike"
@@ -7293,6 +7904,7 @@
     "handling": 9.80000019073486,
     "make": "",
     "name": "Mallard",
+    "price": 1702472,
     "seats": 1,
     "speed": 79.05693817138672,
     "type": "plane"
@@ -7305,6 +7917,7 @@
     "handling": 8.38000011444091,
     "make": "",
     "name": "Submersible",
+    "price": 718616,
     "seats": 1,
     "speed": 25.00000190734863,
     "type": "submarine"
@@ -7317,6 +7930,7 @@
     "handling": 10.38000011444091,
     "make": "",
     "name": "Kraken",
+    "price": 787416,
     "seats": 1,
     "speed": 25.00000190734863,
     "type": "submarine"
@@ -7329,6 +7943,7 @@
     "handling": 0.68999999761581,
     "make": "Dinka",
     "name": "Sugoi",
+    "price": 75269,
     "seats": 4,
     "speed": 45.19332122802734,
     "type": "automobile"
@@ -7341,6 +7956,7 @@
     "handling": 0.63999998569488,
     "make": "Karin",
     "name": "Sultan",
+    "price": 74392,
     "seats": 4,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -7353,6 +7969,7 @@
     "handling": 0.71000003814697,
     "make": "Karin",
     "name": "Sultan Classic",
+    "price": 77184,
     "seats": 4,
     "speed": 46.7005615234375,
     "type": "automobile"
@@ -7365,6 +7982,7 @@
     "handling": 0.71850001811981,
     "make": "Karin",
     "name": "Sultan RS Classic",
+    "price": 78067,
     "seats": 2,
     "speed": 47.21490478515625,
     "type": "automobile"
@@ -7377,6 +7995,7 @@
     "handling": 0.71000003814697,
     "make": "Karin",
     "name": "Sultan RS",
+    "price": 82197,
     "seats": 2,
     "speed": 49.33333969116211,
     "type": "automobile"
@@ -7389,6 +8008,7 @@
     "handling": 11.88000011444091,
     "make": "Shitzu",
     "name": "Suntrap",
+    "price": 362680,
     "seats": 4,
     "speed": 36.66667175292969,
     "type": "boat"
@@ -7401,6 +8021,7 @@
     "handling": 0.63999998569488,
     "make": "Enus",
     "name": "Super Diamond",
+    "price": 74712,
     "seats": 4,
     "speed": 45.19531631469726,
     "type": "automobile"
@@ -7413,6 +8034,7 @@
     "handling": 5.63500022888183,
     "make": "Buckingham",
     "name": "SuperVolito",
+    "price": 6905749,
     "seats": 4,
     "speed": 61.96861267089844,
     "type": "heli"
@@ -7425,6 +8047,7 @@
     "handling": 5.63500022888183,
     "make": "Buckingham",
     "name": "SuperVolito Carbon",
+    "price": 6905749,
     "seats": 4,
     "speed": 61.96861267089844,
     "type": "heli"
@@ -7437,6 +8060,7 @@
     "handling": 0.72000002861022,
     "make": "Benefactor",
     "name": "Surano",
+    "price": 83971,
     "seats": 2,
     "speed": 50.42197036743164,
     "type": "automobile"
@@ -7449,6 +8073,7 @@
     "handling": 0.48000001907348,
     "make": "BF",
     "name": "Surfer",
+    "price": 34505,
     "seats": 2,
     "speed": 20.68594741821289,
     "type": "automobile"
@@ -7461,6 +8086,7 @@
     "handling": 0.48000001907348,
     "make": "BF",
     "name": "Surfer",
+    "price": 34505,
     "seats": 2,
     "speed": 20.68594741821289,
     "type": "automobile"
@@ -7473,6 +8099,7 @@
     "handling": 0.48000001907348,
     "make": "Cheval",
     "name": "Surge",
+    "price": 40605,
     "seats": 4,
     "speed": 24.19865226745605,
     "type": "automobile"
@@ -7485,6 +8112,7 @@
     "handling": 5.4390001296997,
     "make": "Buckingham",
     "name": "Swift",
+    "price": 6504898,
     "seats": 4,
     "speed": 58.23143768310547,
     "type": "heli"
@@ -7497,6 +8125,7 @@
     "handling": 5.53700017929077,
     "make": "Buckingham",
     "name": "Swift Deluxe",
+    "price": 6588870,
     "seats": 4,
     "speed": 58.8757209777832,
     "type": "heli"
@@ -7509,6 +8138,7 @@
     "handling": 0.76999998092651,
     "make": "Ocelot",
     "name": "Swinger",
+    "price": 81274,
     "seats": 2,
     "speed": 48.64132308959961,
     "type": "automobile"
@@ -7521,6 +8151,7 @@
     "handling": 0.74500000476837,
     "make": "Progen",
     "name": "T20",
+    "price": 83022,
     "seats": 2,
     "speed": 49.67927169799805,
     "type": "automobile"
@@ -7533,6 +8164,7 @@
     "handling": 0.49000000953674,
     "make": "",
     "name": "Taco Van",
+    "price": 47273,
     "seats": 1,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -7545,6 +8177,7 @@
     "handling": 0.57999998331069,
     "make": "Obey",
     "name": "Tailgater",
+    "price": 64174,
     "seats": 4,
     "speed": 38.42887115478515,
     "type": "automobile"
@@ -7557,6 +8190,7 @@
     "handling": 0.65750002861022,
     "make": "Obey",
     "name": "Tailgater S",
+    "price": 77411,
     "seats": 4,
     "speed": 46.56702041625976,
     "type": "automobile"
@@ -7569,6 +8203,7 @@
     "handling": 0.7369999885559,
     "make": "Cheval",
     "name": "Taipan",
+    "price": 89537,
     "seats": 2,
     "speed": 53.86687088012695,
     "type": "automobile"
@@ -7581,6 +8216,7 @@
     "handling": 0.65000003576278,
     "make": "Declasse",
     "name": "Tampa",
+    "price": 70442,
     "seats": 2,
     "speed": 42.30678939819336,
     "type": "automobile"
@@ -7593,6 +8229,7 @@
     "handling": 0.71000003814697,
     "make": "Declasse",
     "name": "Drift Tampa",
+    "price": 75751,
     "seats": 2,
     "speed": 45.80493927001953,
     "type": "automobile"
@@ -7605,6 +8242,7 @@
     "handling": 0.71000003814697,
     "make": "Declasse",
     "name": "Weaponized Tampa",
+    "price": 378759,
     "seats": 2,
     "speed": 45.80493927001953,
     "type": "automobile",
@@ -7615,6 +8253,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -7623,6 +8262,7 @@
     "doors": 0,
     "make": "",
     "name": "NULL",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -7631,6 +8271,7 @@
     "doors": 0,
     "make": "",
     "name": "Freight Train",
+    "price": 194680,
     "seats": 2,
     "type": "train"
   },
@@ -7642,6 +8283,7 @@
     "handling": 0.57999998331069,
     "make": "",
     "name": "Taxi",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -7654,6 +8296,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Technical",
+    "price": 319270,
     "seats": 3,
     "speed": 38.42887115478515,
     "type": "automobile",
@@ -7667,6 +8310,7 @@
     "handling": 0.62999999523162,
     "make": "Karin",
     "name": "Technical Aqua",
+    "price": 329551,
     "seats": 3,
     "speed": 39.6138801574707,
     "type": "automobile",
@@ -7680,6 +8324,7 @@
     "handling": 0.57999998331069,
     "make": "Karin",
     "name": "Technical Custom",
+    "price": 319270,
     "seats": 3,
     "speed": 38.42887115478515,
     "type": "automobile",
@@ -7693,6 +8338,7 @@
     "handling": 0.74000000953674,
     "make": "Pegassi",
     "name": "Tempesta",
+    "price": 81980,
     "seats": 2,
     "speed": 49.13776016235351,
     "type": "automobile"
@@ -7705,6 +8351,7 @@
     "handling": 0.73449999094009,
     "make": "Obey",
     "name": "10F",
+    "price": 82128,
     "seats": 2,
     "speed": 49.14128494262695,
     "type": "automobile"
@@ -7717,6 +8364,7 @@
     "handling": 0.73600000143051,
     "make": "Obey",
     "name": "10F Widebody",
+    "price": 82729,
     "seats": 2,
     "speed": 49.46413040161133,
     "type": "automobile"
@@ -7729,6 +8377,7 @@
     "handling": 0.54000002145767,
     "make": "Benefactor",
     "name": "Terrorbyte",
+    "price": 253348,
     "seats": 2,
     "speed": 30.71854591369629,
     "type": "automobile",
@@ -7742,6 +8391,7 @@
     "handling": 0.51749998331069,
     "make": "Pegassi",
     "name": "Tezeract",
+    "price": 76330,
     "seats": 2,
     "speed": 45.8514518737793,
     "type": "automobile"
@@ -7754,6 +8404,7 @@
     "handling": 0.72000002861022,
     "make": "Truffade",
     "name": "Thrax",
+    "price": 83929,
     "seats": 2,
     "speed": 50.19610977172851,
     "type": "automobile"
@@ -7766,6 +8417,7 @@
     "handling": 0.64499998092651,
     "make": "Dinka",
     "name": "Thrust",
+    "price": 25865,
     "seats": 2,
     "speed": 49.32046508789062,
     "type": "bike"
@@ -7778,6 +8430,7 @@
     "handling": 6.8600001335144,
     "make": "Mammoth",
     "name": "Thruster",
+    "price": 6768641,
     "seats": 1,
     "speed": 57.53988647460937,
     "type": "heli"
@@ -7790,6 +8443,7 @@
     "handling": 0.75950002670288,
     "make": "Lampadati",
     "name": "Tigon",
+    "price": 86363,
     "seats": 2,
     "speed": 51.71791076660156,
     "type": "automobile"
@@ -7802,6 +8456,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Tipper",
+    "price": 47273,
     "seats": 2,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -7814,6 +8469,7 @@
     "handling": 0.49000000953674,
     "make": "Brute",
     "name": "Tipper",
+    "price": 47273,
     "seats": 2,
     "speed": 28.69607162475586,
     "type": "automobile"
@@ -7826,6 +8482,7 @@
     "handling": 6.07600021362304,
     "make": "",
     "name": "Titan",
+    "price": 1521752,
     "seats": 10,
     "speed": 78.20576477050781,
     "type": "plane"
@@ -7838,6 +8495,7 @@
     "handling": 0.68000000715255,
     "make": "Pegassi",
     "name": "Toreador",
+    "price": 235089,
     "seats": 4,
     "speed": 46.9970474243164,
     "type": "automobile"
@@ -7850,6 +8508,7 @@
     "handling": 0.68000000715255,
     "make": "Pegassi",
     "name": "Torero",
+    "price": 78457,
     "seats": 2,
     "speed": 47.55603408813476,
     "type": "automobile"
@@ -7862,6 +8521,7 @@
     "handling": 0.76499998569488,
     "make": "Pegassi",
     "name": "Torero XO",
+    "price": 87548,
     "seats": 2,
     "speed": 52.41771697998047,
     "type": "automobile"
@@ -7874,6 +8534,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Tornado",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -7886,6 +8547,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Tornado",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -7898,6 +8560,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Tornado",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -7910,6 +8573,7 @@
     "handling": 0.54000002145767,
     "make": "Declasse",
     "name": "Tornado",
+    "price": 60635,
     "seats": 2,
     "speed": 36.94717788696289,
     "type": "automobile"
@@ -7922,6 +8586,7 @@
     "handling": 0.54100000858306,
     "make": "Declasse",
     "name": "Tornado Custom",
+    "price": 60890,
     "seats": 2,
     "speed": 37.09928894042969,
     "type": "automobile"
@@ -7934,6 +8599,7 @@
     "handling": 0.66000002622604,
     "make": "Declasse",
     "name": "Tornado Rat Rod",
+    "price": 66096,
     "seats": 2,
     "speed": 40.12054061889648,
     "type": "automobile"
@@ -7946,6 +8612,7 @@
     "handling": 18.38000106811523,
     "make": "Lampadati",
     "name": "Toro",
+    "price": 486680,
     "seats": 4,
     "speed": 44.33333587646484,
     "type": "boat"
@@ -7958,6 +8625,7 @@
     "handling": 18.38000106811523,
     "make": "Lampadati",
     "name": "Toro",
+    "price": 486680,
     "seats": 4,
     "speed": 44.33333587646484,
     "type": "boat"
@@ -7970,6 +8638,7 @@
     "handling": 0.69999998807907,
     "make": "Pegassi",
     "name": "Toros",
+    "price": 81091,
     "seats": 4,
     "speed": 48.86213302612305,
     "type": "automobile"
@@ -7982,6 +8651,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Tourbus",
+    "price": 42321,
     "seats": 10,
     "speed": 25.58089447021484,
     "type": "automobile"
@@ -7994,6 +8664,7 @@
     "handling": 0.53000003099441,
     "make": "",
     "name": "Towtruck",
+    "price": 57488,
     "seats": 2,
     "speed": 35.00000381469726,
     "type": "automobile"
@@ -8006,6 +8677,7 @@
     "handling": 0.53000003099441,
     "make": "",
     "name": "Towtruck",
+    "price": 54821,
     "seats": 2,
     "speed": 33.33333587646484,
     "type": "automobile"
@@ -8015,6 +8687,7 @@
     "doors": 2,
     "make": "",
     "name": "Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -8023,6 +8696,7 @@
     "doors": 1,
     "make": "",
     "name": "Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -8031,6 +8705,7 @@
     "doors": 2,
     "make": "",
     "name": "Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -8042,6 +8717,7 @@
     "handling": 0.45999997854232,
     "make": "",
     "name": "Tractor",
+    "price": 22677,
     "seats": 1,
     "speed": 13.33333492279052,
     "type": "automobile"
@@ -8054,6 +8730,7 @@
     "handling": 0.53000003099441,
     "make": "Stanley",
     "name": "Fieldmaster",
+    "price": 24703,
     "seats": 1,
     "speed": 14.4593801498413,
     "type": "automobile"
@@ -8066,6 +8743,7 @@
     "handling": 0.53000003099441,
     "make": "Stanley",
     "name": "Fieldmaster",
+    "price": 24703,
     "seats": 1,
     "speed": 14.4593801498413,
     "type": "automobile"
@@ -8075,6 +8753,7 @@
     "doors": 1,
     "make": "",
     "name": "Mobile Operations Center",
+    "price": 5668,
     "seats": 3,
     "type": "trailer"
   },
@@ -8083,6 +8762,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5748,
     "seats": 0,
     "type": "trailer"
   },
@@ -8091,6 +8771,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8099,6 +8780,7 @@
     "doors": 2,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8107,6 +8789,7 @@
     "doors": 1,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8115,6 +8798,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8123,6 +8807,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8131,6 +8816,7 @@
     "doors": 0,
     "make": "Vom Feuer",
     "name": "Anti-Aircraft Trailer",
+    "price": 28341,
     "seats": 1,
     "type": "trailer",
     "weapons": true
@@ -8143,6 +8829,7 @@
     "handling": 0.50999999046325,
     "make": "",
     "name": "Trashmaster",
+    "price": 59939,
     "seats": 4,
     "speed": 36.5223503112793,
     "type": "automobile"
@@ -8155,6 +8842,7 @@
     "handling": 0.50999999046325,
     "make": "",
     "name": "Trashmaster",
+    "price": 59939,
     "seats": 4,
     "speed": 36.5223503112793,
     "type": "automobile"
@@ -8164,6 +8852,7 @@
     "doors": 0,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8175,6 +8864,7 @@
     "handling": 0.51499998569488,
     "make": "",
     "name": "Whippet Race Bike",
+    "price": 3622,
     "seats": 1,
     "speed": 21.0,
     "type": "bicycle"
@@ -8187,6 +8877,7 @@
     "handling": 0.51499998569488,
     "make": "",
     "name": "Endurex Race Bike",
+    "price": 3622,
     "seats": 1,
     "speed": 21.0,
     "type": "bicycle"
@@ -8199,6 +8890,7 @@
     "handling": 0.51499998569488,
     "make": "",
     "name": "Tri-Cycles Race Bike",
+    "price": 3622,
     "seats": 1,
     "speed": 21.0,
     "type": "bicycle"
@@ -8211,6 +8903,7 @@
     "handling": 0.71899998188018,
     "make": "Vapid",
     "name": "Trophy Truck",
+    "price": 71559,
     "seats": 2,
     "speed": 43.36665344238281,
     "type": "automobile"
@@ -8223,6 +8916,7 @@
     "handling": 0.71899998188018,
     "make": "Vapid",
     "name": "Desert Raid",
+    "price": 71559,
     "seats": 2,
     "speed": 43.36665344238281,
     "type": "automobile"
@@ -8235,6 +8929,7 @@
     "handling": 13.38000011444091,
     "make": "Shitzu",
     "name": "Tropic",
+    "price": 390680,
     "seats": 4,
     "speed": 38.33333587646484,
     "type": "boat"
@@ -8247,6 +8942,7 @@
     "handling": 13.38000011444091,
     "make": "Shitzu",
     "name": "Tropic",
+    "price": 390680,
     "seats": 4,
     "speed": 38.33333587646484,
     "type": "boat"
@@ -8259,6 +8955,7 @@
     "handling": 0.60500001907348,
     "make": "Lampadati",
     "name": "Tropos Rallye",
+    "price": 71140,
     "seats": 2,
     "speed": 42.93286895751953,
     "type": "automobile"
@@ -8271,6 +8968,7 @@
     "handling": 2.57999992370605,
     "make": "",
     "name": "Tug",
+    "price": 67079,
     "seats": 1,
     "speed": 6.0,
     "type": "boat"
@@ -8283,6 +8981,7 @@
     "handling": 4.90000009536743,
     "make": "Mammoth",
     "name": "Tula",
+    "price": 6605325,
     "seats": 5,
     "speed": 69.36756134033203,
     "type": "plane",
@@ -8296,6 +8995,7 @@
     "handling": 0.69999998807907,
     "make": "Declasse",
     "name": "Tulip",
+    "price": 80611,
     "seats": 4,
     "speed": 48.86213302612305,
     "type": "automobile"
@@ -8308,6 +9008,7 @@
     "handling": 0.77000004053115,
     "make": "Grotti",
     "name": "Turismo Classic",
+    "price": 81835,
     "seats": 2,
     "speed": 49.5373649597168,
     "type": "automobile"
@@ -8320,6 +9021,7 @@
     "handling": 0.73299998044967,
     "make": "Grotti",
     "name": "Turismo R",
+    "price": 85403,
     "seats": 2,
     "speed": 51.09108352661133,
     "type": "automobile"
@@ -8329,6 +9031,7 @@
     "doors": 2,
     "make": "",
     "name": "Trailer",
+    "price": 5668,
     "seats": 0,
     "type": "trailer"
   },
@@ -8340,6 +9043,7 @@
     "handling": 0.72000002861022,
     "make": "Overflod",
     "name": "Tyrant",
+    "price": 88321,
     "seats": 2,
     "speed": 53.14107131958008,
     "type": "automobile"
@@ -8352,6 +9056,7 @@
     "handling": 0.75099998712539,
     "make": "Progen",
     "name": "Tyrus",
+    "price": 84350,
     "seats": 2,
     "speed": 50.39723587036133,
     "type": "automobile"
@@ -8364,6 +9069,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Utility Truck",
+    "price": 50131,
     "seats": 2,
     "speed": 30.46200180053711,
     "type": "automobile"
@@ -8376,6 +9082,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Utility Truck",
+    "price": 50131,
     "seats": 2,
     "speed": 30.46200180053711,
     "type": "automobile"
@@ -8388,6 +9095,7 @@
     "handling": 0.5,
     "make": "",
     "name": "Utility Truck",
+    "price": 50131,
     "seats": 2,
     "speed": 30.46200180053711,
     "type": "automobile"
@@ -8400,6 +9108,7 @@
     "handling": 0.68000000715255,
     "make": "Pegassi",
     "name": "Vacca",
+    "price": 83666,
     "seats": 2,
     "speed": 50.31173324584961,
     "type": "automobile"
@@ -8412,6 +9121,7 @@
     "handling": 0.65000003576278,
     "make": "Shitzu",
     "name": "Vader",
+    "price": 22163,
     "seats": 2,
     "speed": 42.30678939819336,
     "type": "bike"
@@ -8424,6 +9134,7 @@
     "handling": 0.75,
     "make": "Dewbauchee",
     "name": "Vagner",
+    "price": 87808,
     "seats": 2,
     "speed": 52.64045333862305,
     "type": "automobile"
@@ -8436,6 +9147,7 @@
     "handling": 0.71250003576278,
     "make": "Maxwell",
     "name": "Vagrant",
+    "price": 77576,
     "seats": 2,
     "speed": 46.81513214111328,
     "type": "automobile"
@@ -8448,6 +9160,7 @@
     "handling": 5.19399976730346,
     "make": "",
     "name": "Valkyrie",
+    "price": 30580487,
     "seats": 4,
     "speed": 54.72616195678711,
     "type": "heli",
@@ -8461,6 +9174,7 @@
     "handling": 5.19399976730346,
     "make": "",
     "name": "Valkyrie MOD.0",
+    "price": 30580487,
     "seats": 4,
     "speed": 54.72616195678711,
     "type": "heli",
@@ -8474,6 +9188,7 @@
     "handling": 0.71000003814697,
     "make": "Declasse",
     "name": "Vamos",
+    "price": 75751,
     "seats": 2,
     "speed": 45.80493927001953,
     "type": "automobile"
@@ -8486,6 +9201,7 @@
     "handling": 0.7039999961853,
     "make": "Emperor",
     "name": "Vectre",
+    "price": 73202,
     "seats": 2,
     "speed": 44.12357711791992,
     "type": "automobile"
@@ -8498,6 +9214,7 @@
     "handling": 5.58599996566772,
     "make": "",
     "name": "Velum",
+    "price": 1439638,
     "seats": 4,
     "speed": 74.63624572753906,
     "type": "plane"
@@ -8510,6 +9227,7 @@
     "handling": 5.58599996566772,
     "make": "",
     "name": "Velum 5-Seater",
+    "price": 1439638,
     "seats": 5,
     "speed": 74.63624572753906,
     "type": "plane"
@@ -8522,6 +9240,7 @@
     "handling": 0.7150000333786,
     "make": "Bravado",
     "name": "Verlierer",
+    "price": 83280,
     "seats": 2,
     "speed": 50.00000381469726,
     "type": "automobile"
@@ -8534,6 +9253,7 @@
     "handling": 0.51499998569488,
     "make": "Dinka",
     "name": "Verus",
+    "price": 16526,
     "seats": 2,
     "speed": 26.63416862487793,
     "type": "quadbike"
@@ -8546,6 +9266,7 @@
     "handling": 9.01600074768066,
     "make": "Buckingham",
     "name": "Vestra",
+    "price": 1982877,
     "seats": 2,
     "speed": 97.1397476196289,
     "type": "plane"
@@ -8558,6 +9279,7 @@
     "handling": 0.49000000953674,
     "make": "",
     "name": "Vetir",
+    "price": 38828,
     "seats": 10,
     "speed": 23.36758422851562,
     "type": "automobile"
@@ -8570,6 +9292,7 @@
     "handling": 0.82999998331069,
     "make": "Dinka",
     "name": "Veto Classic",
+    "price": 42608,
     "seats": 1,
     "speed": 25.00000190734863,
     "type": "automobile"
@@ -8582,6 +9305,7 @@
     "handling": 0.80750000476837,
     "make": "Dinka",
     "name": "Veto Modern",
+    "price": 45282,
     "seats": 1,
     "speed": 26.66666984558105,
     "type": "automobile"
@@ -8594,6 +9318,7 @@
     "handling": 0.6700000166893,
     "make": "Declasse",
     "name": "Vigero",
+    "price": 77482,
     "seats": 2,
     "speed": 46.66666793823242,
     "type": "automobile"
@@ -8606,6 +9331,7 @@
     "handling": 0.82449996471405,
     "make": "Declasse",
     "name": "Vigero ZX",
+    "price": 82143,
     "seats": 2,
     "speed": 49.20095062255859,
     "type": "automobile"
@@ -8618,6 +9344,7 @@
     "handling": 0.75499999523162,
     "make": "",
     "name": "Vigilante",
+    "price": 261085,
     "seats": 2,
     "speed": 52.24285507202148,
     "type": "automobile"
@@ -8630,6 +9357,7 @@
     "handling": 0.64300000667572,
     "make": "Dinka",
     "name": "Vindicator",
+    "price": 31055,
     "seats": 2,
     "speed": 49.33333969116211,
     "type": "bike"
@@ -8642,6 +9370,7 @@
     "handling": 0.58999997377395,
     "make": "Albany",
     "name": "Virgo",
+    "price": 60554,
     "seats": 2,
     "speed": 36.34652709960937,
     "type": "automobile"
@@ -8654,6 +9383,7 @@
     "handling": 0.59100002050399,
     "make": "Dundreary",
     "name": "Virgo Classic Custom",
+    "price": 60758,
     "seats": 2,
     "speed": 36.4521255493164,
     "type": "automobile"
@@ -8666,6 +9396,7 @@
     "handling": 0.58999997377395,
     "make": "Dundreary",
     "name": "Virgo Classic",
+    "price": 60554,
     "seats": 2,
     "speed": 36.34652709960937,
     "type": "automobile"
@@ -8678,6 +9409,7 @@
     "handling": 0.68000000715255,
     "make": "Lampadati",
     "name": "Viseris",
+    "price": 78246,
     "seats": 2,
     "speed": 47.12418365478515,
     "type": "automobile"
@@ -8690,6 +9422,7 @@
     "handling": 0.73500001430511,
     "make": "Grotti",
     "name": "Visione",
+    "price": 85576,
     "seats": 2,
     "speed": 51.37555313110351,
     "type": "automobile"
@@ -8702,6 +9435,7 @@
     "handling": 6.36999988555908,
     "make": "",
     "name": "Volatol",
+    "price": 7850645,
     "seats": 4,
     "speed": 80.27928161621094,
     "type": "plane",
@@ -8715,6 +9449,7 @@
     "handling": 5.39000034332275,
     "make": "Buckingham",
     "name": "Volatus",
+    "price": 6589212,
     "seats": 4,
     "speed": 59.24041366577148,
     "type": "heli"
@@ -8727,6 +9462,7 @@
     "handling": 0.56000000238418,
     "make": "Coil",
     "name": "Voltic",
+    "price": 60326,
     "seats": 2,
     "speed": 35.96390533447265,
     "type": "automobile"
@@ -8739,6 +9475,7 @@
     "handling": 0.56000000238418,
     "make": "Coil",
     "name": "Rocket Voltic",
+    "price": 180978,
     "seats": 2,
     "speed": 35.96390533447265,
     "type": "automobile"
@@ -8751,6 +9488,7 @@
     "handling": 0.56000000238418,
     "make": "Declasse",
     "name": "Voodoo Custom",
+    "price": 66162,
     "seats": 2,
     "speed": 39.91169738769531,
     "type": "automobile"
@@ -8763,6 +9501,7 @@
     "handling": 0.55000001192092,
     "make": "Declasse",
     "name": "Voodoo",
+    "price": 63070,
     "seats": 2,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -8775,6 +9514,7 @@
     "handling": 0.78250002861022,
     "make": "Pegassi",
     "name": "Vortex",
+    "price": 25612,
     "seats": 1,
     "speed": 48.83909225463867,
     "type": "bike"
@@ -8787,6 +9527,7 @@
     "handling": 0.75900000333786,
     "make": "Albany",
     "name": "V-STR",
+    "price": 79649,
     "seats": 4,
     "speed": 48.0181770324707,
     "type": "automobile"
@@ -8799,6 +9540,7 @@
     "handling": 0.625,
     "make": "Vulcar",
     "name": "Warrener",
+    "price": 64367,
     "seats": 4,
     "speed": 38.40941619873047,
     "type": "automobile"
@@ -8811,6 +9553,7 @@
     "handling": 0.64499998092651,
     "make": "Vulcar",
     "name": "Warrener HKR",
+    "price": 67374,
     "seats": 2,
     "speed": 40.2493667602539,
     "type": "automobile"
@@ -8823,6 +9566,7 @@
     "handling": 0.57999998331069,
     "make": "Albany",
     "name": "Washington",
+    "price": 71053,
     "seats": 4,
     "speed": 42.72843170166015,
     "type": "automobile"
@@ -8835,6 +9579,7 @@
     "handling": 0.71000003814697,
     "make": "MTL",
     "name": "Wastelander",
+    "price": 67837,
     "seats": 6,
     "speed": 40.75856781005859,
     "type": "automobile"
@@ -8847,6 +9592,7 @@
     "handling": 0.56800001859664,
     "make": "BF",
     "name": "Weevil",
+    "price": 53983,
     "seats": 2,
     "speed": 32.72371673583984,
     "type": "automobile"
@@ -8859,6 +9605,7 @@
     "handling": 0.71750003099441,
     "make": "BF",
     "name": "Weevil Custom",
+    "price": 83800,
     "seats": 2,
     "speed": 50.54551315307617,
     "type": "automobile"
@@ -8871,6 +9618,7 @@
     "handling": 0.66000002622604,
     "make": "Enus",
     "name": "Windsor",
+    "price": 79422,
     "seats": 2,
     "speed": 47.9991455078125,
     "type": "automobile"
@@ -8883,6 +9631,7 @@
     "handling": 0.65900003910064,
     "make": "Enus",
     "name": "Windsor Drop",
+    "price": 79252,
     "seats": 4,
     "speed": 47.89471054077148,
     "type": "automobile"
@@ -8895,6 +9644,7 @@
     "handling": 0.53000003099441,
     "make": "Vapid",
     "name": "Winky",
+    "price": 49504,
     "seats": 3,
     "speed": 30.00000381469726,
     "type": "automobile"
@@ -8907,6 +9657,7 @@
     "handling": 0.59500002861022,
     "make": "Western",
     "name": "Wolfsbane",
+    "price": 19441,
     "seats": 2,
     "speed": 36.87216567993164,
     "type": "bike"
@@ -8919,6 +9670,7 @@
     "handling": 0.74400001764297,
     "make": "Ocelot",
     "name": "XA-21",
+    "price": 82892,
     "seats": 2,
     "speed": 49.59992980957031,
     "type": "automobile"
@@ -8931,6 +9683,7 @@
     "handling": 0.63999998569488,
     "make": "Benefactor",
     "name": "XLS",
+    "price": 72768,
     "seats": 4,
     "speed": 44.00000381469726,
     "type": "automobile"
@@ -8943,6 +9696,7 @@
     "handling": 0.64499998092651,
     "make": "Benefactor",
     "name": "XLS (Armored)",
+    "price": 72800,
     "seats": 4,
     "speed": 44.00000381469726,
     "type": "automobile"
@@ -8955,6 +9709,7 @@
     "handling": 0.66500002145767,
     "make": "Declasse",
     "name": "Yosemite",
+    "price": 69338,
     "seats": 2,
     "speed": 41.63625717163086,
     "type": "automobile"
@@ -8967,6 +9722,7 @@
     "handling": 0.77500003576278,
     "make": "Declasse",
     "name": "Drift Yosemite",
+    "price": 74171,
     "seats": 2,
     "speed": 44.33733367919922,
     "type": "automobile"
@@ -8979,6 +9735,7 @@
     "handling": 0.65500003099441,
     "make": "Declasse",
     "name": "Yosemite Rancher",
+    "price": 66896,
     "seats": 2,
     "speed": 40.40014266967773,
     "type": "automobile"
@@ -8991,6 +9748,7 @@
     "handling": 0.51999998092651,
     "make": "Bravado",
     "name": "Youga",
+    "price": 55630,
     "seats": 2,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -9003,6 +9761,7 @@
     "handling": 0.51999998092651,
     "make": "Bravado",
     "name": "Youga Classic",
+    "price": 55630,
     "seats": 4,
     "speed": 33.8088493347168,
     "type": "automobile"
@@ -9015,6 +9774,7 @@
     "handling": 0.55000001192092,
     "make": "Bravado",
     "name": "Youga Classic 4x4",
+    "price": 63150,
     "seats": 4,
     "speed": 38.44937133789062,
     "type": "automobile"
@@ -9027,6 +9787,7 @@
     "handling": 0.53799998760223,
     "make": "Vapid",
     "name": "Youga Custom",
+    "price": 60252,
     "seats": 4,
     "speed": 36.64166259765625,
     "type": "automobile"
@@ -9039,6 +9800,7 @@
     "handling": 0.65000003576278,
     "make": "Karin",
     "name": "190z",
+    "price": 73299,
     "seats": 2,
     "speed": 43.94242095947265,
     "type": "automobile"
@@ -9051,6 +9813,7 @@
     "handling": 0.76800000667572,
     "make": "Overflod",
     "name": "Zeno",
+    "price": 89601,
     "seats": 2,
     "speed": 53.64493560791015,
     "type": "automobile"
@@ -9063,6 +9826,7 @@
     "handling": 0.73400002717971,
     "make": "Pegassi",
     "name": "Zentorno",
+    "price": 82795,
     "seats": 2,
     "speed": 49.65903091430664,
     "type": "automobile"
@@ -9075,6 +9839,7 @@
     "handling": 0.56000000238418,
     "make": "RUNE",
     "name": "Zhaba",
+    "price": 50950,
     "seats": 4,
     "speed": 30.30405044555664,
     "type": "automobile"
@@ -9087,6 +9852,7 @@
     "handling": 0.60000002384185,
     "make": "Ubermacht",
     "name": "Zion",
+    "price": 77752,
     "seats": 2,
     "speed": 46.87505340576172,
     "type": "automobile"
@@ -9099,6 +9865,7 @@
     "handling": 0.60000002384185,
     "make": "Ubermacht",
     "name": "Zion Cabrio",
+    "price": 77752,
     "seats": 2,
     "speed": 46.87505340576172,
     "type": "automobile"
@@ -9111,6 +9878,7 @@
     "handling": 0.68500000238418,
     "make": "Ubermacht",
     "name": "Zion Classic",
+    "price": 74281,
     "seats": 2,
     "speed": 44.58576583862305,
     "type": "automobile"
@@ -9123,6 +9891,7 @@
     "handling": 0.6700000166893,
     "make": "Western",
     "name": "Zombie Bobber",
+    "price": 23182,
     "seats": 1,
     "speed": 44.6053237915039,
     "type": "bike"
@@ -9135,6 +9904,7 @@
     "handling": 0.6700000166893,
     "make": "Western",
     "name": "Zombie Chopper",
+    "price": 23182,
     "seats": 2,
     "speed": 44.6053237915039,
     "type": "bike"
@@ -9147,6 +9917,7 @@
     "handling": 0.75450003147125,
     "make": "Pegassi",
     "name": "Zorrusso",
+    "price": 85159,
     "seats": 2,
     "speed": 50.895751953125,
     "type": "automobile"
@@ -9159,6 +9930,7 @@
     "handling": 0.71000003814697,
     "make": "Annis",
     "name": "ZR350",
+    "price": 79974,
     "seats": 2,
     "speed": 48.09377288818359,
     "type": "automobile"
@@ -9171,6 +9943,7 @@
     "handling": 0.73000001907348,
     "make": "Annis",
     "name": "Apocalypse ZR380",
+    "price": 83632,
     "seats": 2,
     "speed": 50.39004898071289,
     "type": "automobile"
@@ -9183,6 +9956,7 @@
     "handling": 0.73000001907348,
     "make": "Annis",
     "name": "Future Shock ZR380",
+    "price": 83632,
     "seats": 2,
     "speed": 50.39004898071289,
     "type": "automobile"
@@ -9195,6 +9969,7 @@
     "handling": 0.73000001907348,
     "make": "Annis",
     "name": "Nightmare ZR380",
+    "price": 83632,
     "seats": 2,
     "speed": 50.39004898071289,
     "type": "automobile"
@@ -9207,6 +9982,7 @@
     "handling": 0.68000000715255,
     "make": "Truffade",
     "name": "Z-Type",
+    "price": 84821,
     "seats": 2,
     "speed": 51.33333587646484,
     "type": "automobile"
