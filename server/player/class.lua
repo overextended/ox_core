@@ -39,11 +39,14 @@ end
 ---Backing method for imported method calls.
 ---@param source number
 ---@param method string
----@param ... unknown
----@return unknown
+---@param ... unknown?
+---@return unknown?
 function Ox.CPlayer(source, method, ...)
     local player = Ox.GetPlayer(source)
-    return player and CPlayer[method](player, ...)
+
+    if player then
+        return CPlayer[method](player, ...)
+    end
 end
 
 function CPlayer:getState()

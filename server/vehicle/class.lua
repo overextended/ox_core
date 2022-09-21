@@ -35,11 +35,14 @@ end
 ---Backing method for imported method calls.
 ---@param source number
 ---@param method string
----@param ... unknown
----@return unknown
+---@param ... unknown?
+---@return unknown?
 function Ox.CVehicle(source, method, ...)
     local vehicle = Ox.GetVehicle(source)
-    return vehicle and CVehicle[method](vehicle, ...)
+
+    if vehicle then
+        return CVehicle[method](vehicle, ...)
+    end
 end
 
 local vehicleData = {}
