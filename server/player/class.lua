@@ -83,12 +83,12 @@ end
 function CPlayer:setdb(key, value, replicated)
     local vType = type(value)
 
-    if vType ~= 'string' and vType ~= 'number' and vType ~= 'table' then
+    if value and vType ~= 'string' and vType ~= 'number' and vType ~= 'table' and vType ~= 'boolean' then
         TypeError(key, 'string | number | table', vType)
     end
 
     playerData[self.source][key] = value
-    db.updateMetadata({ ('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid })
+    db.updateMetadata(('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid)
 
     if replicated then
         TriggerClientEvent('ox:setPlayerData', self.source, key, value)

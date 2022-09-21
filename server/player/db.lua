@@ -74,10 +74,17 @@ function db.selectCharacterGroups(charid)
 end
 
 local UPDATE_METADATA = 'UPDATE characters SET metadata = JSON_SET(metadata, ?, ?) WHERE charid = ?'
+local REMOVE_METADATA = 'UPDATE characters SET metadata = JSON_REMOVE(metadata, ?) WHERE charid = ?'
 ---Update metadata for character.
----@param parameters { key: string, value: unknown, charid: number }
-function db.updateMetadata(parameters)
-    MySQL.prepare.await(UPDATE_METADATA, parameters)
+---@param key string
+---@param value any
+---@param charid number
+function db.updateMetadata(key, value, charid)
+    if value ~= nil then
+        return MySQL.prepare(UPDATE_METADATA, { key, value, charid })
+    end
+
+    MySQL.prepare(REMOVE_METADATA, { key, charid })
 end
 
 local SELECT_METADATA = 'SELECT metadata FROM characters WHERE charid = ?'
