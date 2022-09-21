@@ -1,7 +1,27 @@
----@type { [string]: { [string]: number } }
+---@class VehicleStats
+---@field acceleration number
+---@field braking number
+---@field handling number
+---@field speed number
+
+---@class TopVehicleStats
+---@field air VehicleStats
+---@field land VehicleStats
+---@field sea VehicleStats
+
+---@class VehicleData : VehicleStats
+---@field class number
+---@field doors number
+---@field make string
+---@field name string
+---@field price number
+---@field seats number
+---@field type string
+
+---@type TopVehicleStats
 local topStats = json.load('shared/files/topVehicleStats.json')
 
----@type { [string]: { [string]: number }}
+---@type VehicleData
 local vehicleList = json.load('shared/files/vehicles.json')
 
 local function filterData(model, data, filter)
@@ -19,7 +39,7 @@ local function filterData(model, data, filter)
 end
 
 ---@param filter 'land' | 'air' | 'sea' | nil
----@return { [string]: { [string]: number } } | nil
+---@return TopVehicleStats?
 function Ox.GetTopVehicleStats(filter)
     if filter then
         return topStats[filter]
@@ -29,7 +49,7 @@ function Ox.GetTopVehicleStats(filter)
 end
 
 ---@param filter string | string[] | { [string]: string | number } | nil
----@return { [string]: { [string]: number } } | nil
+---@return VehicleData?
 function Ox.GetVehicleData(filter)
     if filter then
         if type(filter) == 'table' then
