@@ -6,11 +6,12 @@ end
 
 AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value, reserved, replicated)
     if value then
-        Wait(0)
+        Wait(500)
         local netId = tonumber(bagName:gsub('entity:', ''), 10)
         local entity = NetworkGetEntityFromNetworkId(netId)
 
         if NetworkGetEntityOwner(entity) == cache.playerId then
+            SetVehicleOnGroundProperly(entity)
             lib.setVehicleProperties(entity, value)
             Entity(entity).state:set('vehicleProperties', nil, true)
         end
