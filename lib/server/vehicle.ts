@@ -1,5 +1,28 @@
 const exp = exports.ox_core.CVehicle;
 
+export interface VehicleStats {
+  acceleration: number;
+  braking: number;
+  handling: number;
+  speed: number;
+}
+
+export interface TopVehicleStats {
+  air: VehicleStats;
+  land: VehicleStats;
+  sea: VehicleStats;
+}
+
+export interface VehicleData extends VehicleStats {
+  class: number;
+  doors: number;
+  make: string;
+  name: string;
+  price: number;
+  seats: number;
+  type: string;
+}
+
 interface ICVehicle {
   owner: number;
   id: number;
