@@ -108,8 +108,8 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
         local state = self.getState()
         state:set('owner', self.owner, true)
 
-        if next(data.properties) then
-            state:set('vehicleProperties', data.properties, true)
+        if next(data) then
+            state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
         end
 
         if owner ~= false then
@@ -191,7 +191,8 @@ function Ox.CreateVehicle(data, coords, heading)
     end
 
     data = {
-        properties = data.properties or {}
+        properties = data.properties or {},
+        lockStatus = data.lockStatus or 1,
     }
 
     data.properties.plate = plate
