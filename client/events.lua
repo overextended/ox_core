@@ -4,15 +4,16 @@ function NetEventHandler(event, fn)
     end)
 end
 
-AddStateBagChangeHandler('vehicleProperties', nil, function(bagName, key, value, reserved, replicated)
+AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reserved, replicated)
     if value then
         Wait(500)
         local netId = tonumber(bagName:gsub('entity:', ''), 10)
-        local entity = NetworkGetEntityFromNetworkId(netId)
+        local entity = NetworkDoesNetworkIdExist(netId) and NetworkGetEntityFromNetworkId(netId)
 
-        if NetworkGetEntityOwner(entity) == cache.playerId then
+        if entity and NetworkGetEntityOwner(entity) == cache.playerId then
+            lib.setVehicleProperties(entity, value[1])
             SetVehicleOnGroundProperly(entity)
-            lib.setVehicleProperties(entity, value)
+            SetVehicleDoorsLocked(entity, value[2])
             Entity(entity).state:set('vehicleProperties', nil, true)
         end
     end
