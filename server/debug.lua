@@ -11,15 +11,23 @@ lib.addCommand('group.admin', 'parsevehicles', function(source, args)
                 end
             end
 
-            for vtype, data in pairs(Ox.GetTopVehicleStats()) do
-                for stat, value in pairs(data) do
-                    if not topStats[vtype][stat] or value > topStats[vtype][stat] then
-                        topStats[vtype][stat] = value
+            local topVehicleStats = Ox.GetTopVehicleStats() or {}
+
+            if topVehicleStats then
+                for vtype, data in pairs(topVehicleStats) do
+                    if not topStats[vtype] then topStats[vtype] = {} end
+
+                    for stat, value in pairs(data) do
+                        local newValue = topStats[vtype][stat]
+
+                        if newValue and newValue > value then
+                            topVehicleStats[vtype][stat] = newValue
+                        end
                     end
                 end
             end
 
-            SaveResourceFile('ox_core', 'shared/files/topVehicleStats.json', json.encode(topStats, {
+            SaveResourceFile('ox_core', 'shared/files/topVehicleStats.json', json.encode(topVehicleStats, {
                 indent = true, sort_keys = true, indent_count = 2
             }), -1)
 
