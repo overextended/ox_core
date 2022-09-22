@@ -14,7 +14,7 @@ require 'vehicle.commands'
 function Vehicle.despawn(vehicle, removeEntry, metadata)
     local entity = vehicle.entity
 
-    if vehicle.owner ~= false then
+    if (vehicle.owner or vehicle.group) ~= false then
         if removeEntry then
             db.deleteVehicle(vehicle.id)
         elseif metadata then
@@ -43,7 +43,7 @@ function Vehicle.saveAll(resource)
 
     for _, vehicle in pairs(VehicleRegistry) do
         if not resource or resource == vehicle.script then
-            if vehicle.owner ~= false then
+            if (vehicle.owner or vehicle.group) ~= false then
                 size += 1
                 parameters[size] = { vehicle.plate, vehicle.stored or 'impound', json.encode(vehicle.get()), vehicle.id }
             end
@@ -66,6 +66,7 @@ local CVehicle = require 'vehicle.class'
 
 ---@param id number?
 ---@param owner number | boolean | nil
+---@param group string | boolean | nil
 ---@param plate string
 ---@param model string
 ---@param script string
@@ -73,7 +74,7 @@ local CVehicle = require 'vehicle.class'
 ---@param coords vector3
 ---@param heading number
 ---@return CVehicle?
-local function spawnVehicle(id, owner, plate, model, script, data, coords, heading, vehicleType)
+local function spawnVehicle(id, owner, group, plate, model, script, data, coords, heading, vehicleType)
     local entity
 
     if vehicleType == 'automobile' then
@@ -97,6 +98,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
             id = id,
             netid = NetworkGetNetworkIdFromEntity(entity),
             owner = owner,
+            group = group,
             entity = entity,
             script = script,
             plate = plate,
@@ -112,7 +114,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
             state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
         end
 
-        if owner ~= false then
+        if (owner or group) ~= false then
             db.setStored(nil, self.id)
         end
 
@@ -168,7 +170,7 @@ function Ox.CreateVehicle(data, coords, heading)
             error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
         end
 
-        return spawnVehicle(data, vehicle.owner, vehicle.plate, vehicle.model, script, vehicle.data, coords,
+        return spawnVehicle(data, vehicle.owner, vehicle.group, vehicle.plate, vehicle.model, script, vehicle.data, coords,
             heading or 90.0, modelData.type)
     end
 
@@ -181,6 +183,7 @@ function Ox.CreateVehicle(data, coords, heading)
     end
 
     local owner = data.owner or false --[[@as boolean?]]
+    local group = data.group or false --[[@as boolean?]]
     local model = data.model:lower()
     local stored = data.stored or not coords and 'impound' or nil
     local plate = Ox.GeneratePlate()
@@ -201,17 +204,21 @@ function Ox.CreateVehicle(data, coords, heading)
         owner = nil
     end
 
+    if group and type(group) ~= 'string' then
+        group = nil
+    end
+
     local vehicleId
 
-    if owner ~= false then
-        vehicleId = db.createVehicle(plate, owner, model, modelData.class, data, stored)
+    if (owner or group) ~= false then
+        vehicleId = db.createVehicle(plate, owner, group, model, modelData.class, data, stored)
     end
 
     if stored then
         return vehicleId
     end
 
-    return spawnVehicle(vehicleId, owner, plate, model, script, data, coords, heading or 90.0, modelData.type)
+    return spawnVehicle(vehicleId, owner, group, plate, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
 ---Creates a unique vehicle license plate.

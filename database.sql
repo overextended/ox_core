@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `plate` CHAR(8) NOT NULL DEFAULT '',
   `owner` INT(11) UNSIGNED NULL DEFAULT NULL,
+  `group` varchar(50) NULL DEFAULT NULL,
   `model` VARCHAR(20) NOT NULL,
   `class` TINYINT(1) NULL DEFAULT NULL,
   `data` LONGTEXT NOT NULL,
@@ -120,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   UNIQUE INDEX `plate` (`plate`) USING BTREE,
   INDEX `FK_vehicles_characters` (`owner`) USING BTREE,
   CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `overextended`.`characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
+  CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
