@@ -13,6 +13,7 @@
 ---@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
 ---@field delete function
 ---@field setStored fun(value?: string, despawn?: boolean)
+---@field setOwner fun(newOwner?: string)
 
 ---@type CVehicle
 local CVehicle = Class.new()
@@ -103,4 +104,11 @@ function CVehicle:setStored(value, despawn)
         vehicleData[self.entity] = nil
     end
 end
+
+function CVehicle:setOwner(newOwner)
+    db.setOwner(newOwner, self.id)
+    self.owner = newOwner
+    self.getState():set('owner', newOwner, true)
+end
+
 return CVehicle

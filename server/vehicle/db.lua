@@ -42,11 +42,19 @@ function db.getVehicleFromId(id)
 end
 
 local UPDATE_STORED = 'UPDATE vehicles SET stored = ? WHERE id = ?'
----Updates the vehicles stored state. nil is used when it is spawned, otherwise it can be a garage name, impound, etc.
+---Updates a vehicle's stored state. nil is used when it is spawned, otherwise it can be a garage name, impound, etc.
 ---@param stored string?
 ---@param id number
 function db.setStored(stored, id)
-    MySQL.prepare(UPDATE_STORED, { stored, id })
+    MySQL.prepare.await(UPDATE_STORED, { stored, id })
+end
+
+local UPDATE_OWNER = 'UPDATE vehicles SET owner = ? WHERE id = ?'
+---Updates a vehicle's owner.
+---@param owner number?
+---@param id number
+function db.setOwner(owner, id)
+    MySQL.prepare.await(UPDATE_OWNER, { owner, id })
 end
 
 local UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?'
