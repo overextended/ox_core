@@ -1,6 +1,7 @@
 ---@class CVehicle
 ---@field id number
 ---@field owner? number
+---@field group? string
 ---@field netid number
 ---@field entity number
 ---@field model string

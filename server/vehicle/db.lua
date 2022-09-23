@@ -13,17 +13,18 @@ function db.deleteVehicle(id)
     MySQL.prepare(DELETE_VEHICLE, { id })
 end
 
-local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)'
+local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, group, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?)'
 ---Creates a new database entry and returns the vehicleId.
 ---@param plate string
 ---@param owner number | boolean | nil
+---@param group string | boolean | nil
 ---@param model string
 ---@param class number
 ---@param data table
 ---@param stored string?
 ---@return number?
-function db.createVehicle(plate, owner, model, class, data, stored)
-    return MySQL.prepare.await(INSERT_VEHICLE, { plate, owner, model, class, json.encode(data), stored })
+function db.createVehicle(plate, owner, group, model, class, data, stored)
+    return MySQL.prepare.await(INSERT_VEHICLE, { plate, owner, group, model, class, json.encode(data), stored })
 end
 
 local PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?'
@@ -34,7 +35,7 @@ function db.isPlateAvailable(plate)
     return not MySQL.scalar.await(PLATE_EXISTS, { plate })
 end
 
-local SELECT_VEHICLE = 'SELECT owner, plate, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL'
+local SELECT_VEHICLE = 'SELECT owner, group, plate, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL'
 ---Fetch vehicle data for the given id.
 ---@param id number
 function db.getVehicleFromId(id)
