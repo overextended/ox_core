@@ -12,8 +12,10 @@
 ---@field set fun(key: string, value: any)
 ---@field get fun(key: string): any
 ---@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
----@field delete function
----@field store fun(value: string?)
+---@field delete fun()
+---@field despawn fun()
+---@field setStored fun(value?: string, despawn?: boolean)
+---@field setOwner fun(newOwner?: string)
 
 ---@type CVehicle
 local CVehicle = Class.new()
@@ -84,10 +86,35 @@ function CVehicle:delete()
     vehicleData[self.entity] = nil
 end
 
+function CVehicle:despawn()
+    Vehicle.despawn(self, nil, vehicleData[self.entity])
+    vehicleData[self.entity] = nil
+end
+
+---@deprecated
 function CVehicle:store(value)
+    print(('^2vehicle.store has been deprecated and will be removed (invoked by %s)^0'):format(GetInvokingResource()))
+    print('^2use vehicle.setStored(value, despawn) instead^0')
     self.stored = value or self.stored or 'impound'
     Vehicle.despawn(self, nil, vehicleData[self.entity])
     vehicleData[self.entity] = nil
+end
+
+local db = require 'vehicle.db'
+
+function CVehicle:setStored(value, despawn)
+    db.setStored(value, self.id)
+    self.stored = value
+
+    if despawn then
+        self.despawn()
+    end
+end
+
+function CVehicle:setOwner(newOwner)
+    db.setOwner(newOwner, self.id)
+    self.owner = newOwner
+    self.getState():set('owner', newOwner, true)
 end
 
 return CVehicle

@@ -6,7 +6,7 @@ end
 
 AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reserved, replicated)
     if value then
-        Wait(500)
+        Wait(50)
         local netId = tonumber(bagName:gsub('entity:', ''), 10)
         local entity = NetworkDoesNetworkIdExist(netId) and NetworkGetEntityFromNetworkId(netId)
 
