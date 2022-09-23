@@ -49,7 +49,7 @@ function Vehicle.saveAll(resource)
             end
 
             if resource then
-                vehicle.store()
+                vehicle.despawn()
             else
                 DeleteEntity(vehicle.entity)
             end

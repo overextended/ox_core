@@ -11,7 +11,8 @@
 ---@field set fun(key: string, value: any)
 ---@field get fun(key: string): any
 ---@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
----@field delete function
+---@field delete fun()
+---@field despawn fun()
 ---@field setStored fun(value?: string, despawn?: boolean)
 ---@field setOwner fun(newOwner?: string)
 
@@ -84,6 +85,11 @@ function CVehicle:delete()
     vehicleData[self.entity] = nil
 end
 
+function CVehicle:despawn()
+    Vehicle.despawn(self, nil, vehicleData[self.entity])
+    vehicleData[self.entity] = nil
+end
+
 ---@deprecated
 function CVehicle:store(value)
     print(('^2vehicle.store has been deprecated and will be removed (invoked by %s)^0'):format(GetInvokingResource()))
@@ -100,8 +106,7 @@ function CVehicle:setStored(value, despawn)
     self.stored = value
 
     if despawn then
-        Vehicle.despawn(self, nil, vehicleData[self.entity])
-        vehicleData[self.entity] = nil
+        self.despawn()
     end
 end
 

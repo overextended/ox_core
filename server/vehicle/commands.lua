@@ -1,6 +1,6 @@
 local function deleteVehicle(entity)
     local vehicle = Ox.GetVehicle(entity)
-    return vehicle and vehicle.store() or DeleteEntity(entity)
+    return vehicle and vehicle.despawn() or DeleteEntity(entity)
 end
 
 lib.addCommand('group.admin', 'car', function(source, args)
@@ -48,7 +48,7 @@ lib.addCommand('group.admin', 'dv', function(source, args)
 
         if vehicle then
             if args.owned == 'true' then
-                vehicle.store()
+                vehicle.despawn()
             end
         else
             DeleteEntity(entity)
