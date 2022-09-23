@@ -117,4 +117,9 @@ function CVehicle:setOwner(newOwner)
     self.getState():set('owner', newOwner, true)
 end
 
+function CVehicle:setGroup(newGroup)
+    db.setGroup(newGroup, self.id)
+    self.group = newGroup
+end
+
 return CVehicle

@@ -58,6 +58,14 @@ function db.setOwner(owner, id)
     MySQL.prepare.await(UPDATE_OWNER, { owner or nil, id })
 end
 
+local UPDATE_GROUP = 'UPDATE vehicles SET `group` = ? WHERE id = ?'
+---Updates a vehicle's owner.
+---@param group string?
+---@param id number
+function db.setGroup(group, id)
+    MySQL.prepare.await(UPDATE_GROUP, { group or nil, id })
+end
+
 local UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?'
 ---Update vehicle data for one or multiple vehicles.
 ---@param parameters { [number]: any } | { [number]: any }[]
