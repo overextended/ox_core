@@ -14,7 +14,7 @@ require 'vehicle.commands'
 function Vehicle.despawn(vehicle, removeEntry, metadata)
     local entity = vehicle.entity
 
-    if (vehicle.owner or vehicle.group) ~= false then
+    if vehicle.owner ~= false or vehicle.group then
         if removeEntry then
             db.deleteVehicle(vehicle.id)
         elseif metadata then
@@ -64,9 +64,9 @@ end
 ---@class CVehicle
 local CVehicle = require 'vehicle.class'
 
----@param id number?
----@param owner number | boolean | nil
----@param group string | boolean | nil
+---@param id? number
+---@param owner? number | boolean
+---@param group? string | boolean
 ---@param plate string
 ---@param model string
 ---@param script string
@@ -75,8 +75,7 @@ local CVehicle = require 'vehicle.class'
 ---@param heading number
 ---@param vType string
 ---@return CVehicle?
-
-local function spawnVehicle(id, owner, plate, model, script, data, coords, heading, vType)
+local function spawnVehicle(id, owner, group, plate, model, script, data, coords, heading, vType)
     -- New native seems to be missing some types, for now we'll convert to known types
     -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
     if vType == 'bicycle' or vType == 'quadbike' or vType == 'amphibious_quadbike' then
@@ -88,7 +87,6 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
 
     end
 
-    ---@diagnostic disable-next-line: undefined-global
     local entity = Citizen.InvokeNative(`CREATE_VEHICLE_SERVER_SETTER`, joaat(model), vType, coords.x, coords.y, coords.z, heading)
 
     if DoesEntityExist(entity) then
@@ -123,7 +121,7 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
             state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
         end
 
-        if (owner or group) ~= false then
+        if owner ~= false or group then
             db.setStored(nil, self.id)
         end
 
@@ -219,7 +217,7 @@ function Ox.CreateVehicle(data, coords, heading)
 
     local vehicleId
 
-    if (owner or group) ~= false then
+    if owner ~= false or group then
         vehicleId = db.createVehicle(plate, owner, group, model, modelData.class, data, stored)
     end
 
