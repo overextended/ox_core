@@ -15,7 +15,8 @@
 ---@field delete fun()
 ---@field despawn fun()
 ---@field setStored fun(value?: string, despawn?: boolean)
----@field setOwner fun(newOwner?: string)
+---@field setOwner fun(newOwner?: number)
+---@field setGroup fun(newOwner?: string)
 
 ---@type CVehicle
 local CVehicle = Class.new()
