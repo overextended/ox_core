@@ -72,26 +72,23 @@ local CVehicle = require 'vehicle.class'
 ---@param data table
 ---@param coords vector3
 ---@param heading number
+---@param vType string
 ---@return CVehicle?
-local function spawnVehicle(id, owner, plate, model, script, data, coords, heading, vehicleType)
-    local entity
-
-    if vehicleType == 'automobile' then
-        entity = Citizen.InvokeNative(`CREATE_AUTOMOBILE`, joaat(model), coords.x, coords.y, coords.z, heading)
-    else
-        entity = CreateVehicle(joaat(model), coords.x, coords.y, coords.z, heading, true, true)
-
-        for i = 1, 100 do
-            if DoesEntityExist(entity) then break end
-            Wait(0)
-        end
+local function spawnVehicle(id, owner, plate, model, script, data, coords, heading, vType)
+    -- New native seems to be missing some types, for now we'll convert to known types
+    -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
+    if vType == 'bicycle' or vType == 'quadbike' or vType == 'amphibious_quadbike' then
+        vType = 'bike'
+    elseif vType == 'amphibious_automobile' or vType == 'submarinecar' then
+        vType = 'automobile'
+    elseif vType == 'blimp' then
+        vType = 'plane'
     end
 
-    if DoesEntityExist(entity) then
-        if vehicleType ~= 'automobile' then
-            print(("^3Spawned vehicle of type '%s' - only automobile is is properly supported / tested^0"):format(vehicleType))
-        end
+    ---@diagnostic disable-next-line: undefined-global
+    local entity = Citizen.InvokeNative(`CREATE_VEHICLE_SERVER_SETTER`, joaat(model), vType, coords.x, coords.y, coords.z, heading)
 
+    if DoesEntityExist(entity) then
         ---@type CVehicle
         local self = setmetatable({
             id = id,
