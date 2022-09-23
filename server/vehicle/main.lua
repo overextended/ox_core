@@ -89,6 +89,16 @@ local function spawnVehicle(id, owner, plate, model, script, data, coords, headi
     local entity = Citizen.InvokeNative(`CREATE_VEHICLE_SERVER_SETTER`, joaat(model), vType, coords.x, coords.y, coords.z, heading)
 
     if DoesEntityExist(entity) then
+        Wait(100)
+
+        for i = -1, 0 do
+            local ped = GetPedInVehicleSeat(entity, i)
+
+            if ped > 0 then
+                DeleteEntity(ped)
+            end
+        end
+
         ---@type CVehicle
         local self = setmetatable({
             id = id,
