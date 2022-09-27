@@ -52,6 +52,18 @@ if npwd then
     end)
 end
 
+local pefcl = GetExport('pefcl')
+
+if pefcl then
+    loadResource('npwd', function(player)
+        pefcl:loadPlayer(source, {
+            source = player.source,
+            identifier = player.charid,
+            name = player.name
+        })
+    end)
+end
+
 local db = require 'player.db'
 
 ---Prepare parameters for updating character data.

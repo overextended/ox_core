@@ -175,6 +175,7 @@ function CPlayer:triggerScopedEvent(eventName, ...)
 end
 
 local npwd = GetExport('npwd')
+local pefcl = GetExport('pefcl')
 
 ---@param dropped boolean?
 function CPlayer:logout(dropped)
@@ -188,6 +189,10 @@ function CPlayer:logout(dropped)
     else
         if npwd then
             npwd:unloadPlayer(self.source)
+        end
+
+        if pefcl then
+            pefcl:unloadPlayer(self.source)
         end
 
         self.charid = nil
