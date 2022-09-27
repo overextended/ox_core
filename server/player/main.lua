@@ -23,29 +23,31 @@ local loadResource = setmetatable({}, {
     end
 }) --[[@as fun(resource: string, cb: function)]]
 
-local ox_inventory = exports.ox_inventory
+local ox_inventory = GetExport('ox_inventory')
 
-loadResource('ox_inventory', function(self)
-    ox_inventory:setPlayerInventory({
-        source = self.source,
-        identifier = self.charid,
-        name = self.name,
-        sex = self.get('gender'),
-        dateofbirth = self.get('dateofbirth'),
-        groups = self.get('groups'),
-    })
-end)
+if ox_inventory then
+    loadResource('ox_inventory', function(player)
+        ox_inventory:setPlayerInventory({
+            source = player.source,
+            identifier = player.charid,
+            name = player.name,
+            sex = player.get('gender'),
+            dateofbirth = player.get('dateofbirth'),
+            groups = player.get('groups'),
+        })
+    end)
+end
 
 local npwd = GetExport('npwd')
 
 if npwd then
-    loadResource('npwd', function(self)
+    loadResource('npwd', function(player)
         npwd:newPlayer({
-            source = self.source,
-            identifier = self.charid,
-            phoneNumber = self.get('phoneNumber'),
-            firstname = self.firstname,
-            lastname = self.lastname
+            source = player.source,
+            identifier = player.charid,
+            phoneNumber = player.get('phoneNumber'),
+            firstname = player.firstname,
+            lastname = player.lastname
         })
     end)
 end
@@ -86,7 +88,7 @@ function Player.save(player, dropped)
             end
         end
 
-        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time()) --[[@as string]]))
+        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())--[[@as string]] ))
     end
 
     if dropped then
@@ -125,23 +127,23 @@ function Player.new(source, identifiers)
     end
 
     ---@type CPlayer
-    local self = setmetatable({
+    local player = setmetatable({
         source = source,
         userid = userid,
         username = username,
         ped = GetPlayerPed(source),
     }, CPlayer)
 
-    self.init(identifiers)
+    player.init(identifiers)
 
-    local state = self.getState()
-    state:set('userid', self.userid, true)
+    local state = player.getState()
+    state:set('userid', player.userid, true)
 
     for type, identifier in pairs(identifiers) do
         state:set(type, identifier, false)
     end
 
-    return self
+    return player
 end
 
 ---Saves the data for all active players.
@@ -153,7 +155,7 @@ function Player.saveAll()
     for _, player in pairs(PlayerRegistry) do
         if player.charid then
             size += 1
-            parameters[size] = formatCharacterSaveData(player, date --[[@as string]])
+            parameters[size] = formatCharacterSaveData(player, date--[[@as string]] )
         end
     end
 
@@ -214,9 +216,10 @@ function Player.loaded(player, character)
 
     -- set groups onto player obj temporarily, for sending to the client
     player.groups = player.get('groups')
+    local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
-    TriggerClientEvent('ox:playerLoaded', player.source, player, character.x and vec4(character.x, character.y, character.z, character.heading), metadata.health, metadata.armour)
+    TriggerClientEvent('ox:playerLoaded', player.source, player, coords, metadata.health, metadata.armour)
 
     player.groups = nil
 end
