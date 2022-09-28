@@ -55,7 +55,7 @@ end
 local pefcl = GetExport('pefcl')
 
 if pefcl then
-    loadResource('npwd', function(player)
+    loadResource('pefcl', function(player)
         pefcl:loadPlayer(source, {
             source = player.source,
             identifier = player.charid,
