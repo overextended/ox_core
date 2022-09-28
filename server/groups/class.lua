@@ -45,6 +45,8 @@ function CGroup:set(player, grade)
     local currentGrade = player.get('groups')[self.name]
 
     if currentGrade then
+        if currentGrade == grade then return end
+
         self.remove(player, currentGrade)
     end
 
