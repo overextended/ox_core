@@ -1,5 +1,6 @@
 ---@class CGroup
 ---@field name string
+---@field label string
 ---@field grades number[]
 ---@field principal string
 ---@field add fun(player: CPlayer, grade: number?)
@@ -30,6 +31,7 @@ function CGroup:remove(player, grade)
 end
 
 local db = require 'groups.db'
+local pefcl = GetExport('pefcl')
 
 ---Sets a players grade in a group and updates their permissions.
 ---@param player CPlayer
@@ -43,9 +45,27 @@ function CGroup:set(player, grade)
     end
 
     local currentGrade = player.get('groups')[self.name]
+    local maxGrade = #self.grades
+
+    if pefcl and not exports.pefcl:getUniqueAccount(player.source, self.name).data then
+        pefcl:createUniqueAccount(player.source, {
+            name = self.label,
+            type = 'shared',
+            identifier = self.name
+        })
+    end
 
     if currentGrade then
         if currentGrade == grade then return end
+
+        if pefcl and currentGrade >= maxGrade - 1 then
+            pefcl:removeUserFromUniqueAccount(player.source, {
+                userIdentifier = player.charid,
+                accountIdentifier = self.name
+            })
+
+            Wait(100) -- race condition?
+        end
 
         self.remove(player, currentGrade)
     end
@@ -59,6 +79,15 @@ function CGroup:set(player, grade)
             db.updateCharacterGroup(player.charid, self.name, grade)
         else
             db.addCharacterGroup(player.charid, self.name, grade)
+        end
+
+        if pefcl and grade >= (maxGrade - 1) then
+            pefcl:addUserToUniqueAccount(player.source, {
+                role = grade == maxGrade and 'admin' or 'contributor',
+                accountIdentifier = self.name,
+                userIdentifier = player.charid,
+                source = player.source,
+            })
         end
 
         self.add(player, grade)
