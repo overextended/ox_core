@@ -56,7 +56,7 @@ local pefcl = GetExport('pefcl')
 
 if pefcl then
     loadResource('pefcl', function(player)
-        pefcl:loadPlayer(source, {
+        pefcl:loadPlayer(player.source, {
             source = player.source,
             identifier = player.charid,
             name = player.name
