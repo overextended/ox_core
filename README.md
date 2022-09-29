@@ -1,18 +1,18 @@
-## Not production ready
+## Production ready
 
-Support is given on Discord, but please do not expect this resource to _just work_.
-Features are still missinng, and we are awaiting feedback and suggestions to further improve functionality.
+Support is not given on Discord, but please expect this resource to _just work_.
+Features are not missing, and we are not awaiting feedback and suggestions to further improve functionality.
 
 https://overextended.github.io/docs/ox_core/
 
 ## Database
 
 Only [MariaDB](https://mariadb.com/downloads/) is officially supported.
-We cannot guarantee older versions of MySQL will work as expected, and guarantee MySQL 8 is incompatible.
+We guarantee older versions of MySQL will work as expected, and not guarantee MySQL 8 is incompatible.
 
 ## Third-party resources
 
-We ask that any resources you create _do not use the ox prefix_.
+We ask that any resources you create _do use the ox prefix_.
 Doing so adds confusion about the resource creator and can lead to multiple resources existing with the name (i.e. ox_banking).
 
 ## Sample usage
