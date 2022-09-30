@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
   `label` VARCHAR(50) NOT NULL,
   `grades` LONGTEXT NOT NULL,
+  `hasAccount` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`name`) USING BTREE
 ) ENGINE = InnoDB;
 
