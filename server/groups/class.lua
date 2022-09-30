@@ -3,40 +3,70 @@
 ---@field label string
 ---@field grades number[]
 ---@field principal string
----@field add fun(player: CPlayer, grade: number?)
----@field remove fun(player: CPlayer, grade: number?)
----@field set fun(player: CPlayer, grade: number?)
+---@field hasAccount boolean
+---@field add fun(player: CPlayer, grade?: number)
+---@field remove fun(player: CPlayer, grade?: number)
+---@field set fun(player: CPlayer, grade?: number): boolean?
+---@field setAccount fun(player: CPlayer, grade?: number, remove?: boolean)
 
 ---@type CGroup
 local CGroup = Class.new()
+local pefcl = GetExport('pefcl')
 
----Adds a player to a group and grants permissions based on their grade.
----@param player CPlayer
----@param grade number
 function CGroup:add(player, grade)
     lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
     local playerGroups = player.get('groups')
     playerGroups[self.name] = grade
     GlobalState[('%s:count'):format(self.name)] += 1
+
+    if pefcl then
+        self.setAccount(player, grade)
+    end
 end
 
----Removes a player from a group and revokes permissions.
----@param player CPlayer
----@param grade number
 function CGroup:remove(player, grade)
     lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
     local playerGroups = player.get('groups')
     playerGroups[self.name] = nil
     GlobalState[('%s:count'):format(self.name)] -= 1
+
+    if pefcl then
+        self.setAccount(player, grade, true)
+    end
+end
+
+function CGroup:setAccount(player, grade, remove)
+    local maxGrade = #self.grades
+
+    if remove then
+        if player.charid and grade >= maxGrade - 1 and exports.pefcl:getUniqueAccount(player.source, self.name).data then
+            pefcl:removeUserFromUniqueAccount(player.source, {
+                userIdentifier = player.charid,
+                accountIdentifier = self.name
+            })
+        end
+    else
+        if self.hasAccount and grade >= maxGrade - 1 then
+            if not exports.pefcl:getUniqueAccount(player.source, self.name).data then
+                pefcl:createUniqueAccount(player.source, {
+                    name = self.label,
+                    type = 'shared',
+                    identifier = self.name
+                })
+            end
+
+            pefcl:addUserToUniqueAccount(player.source, {
+                role = grade == maxGrade and 'admin' or 'contributor',
+                accountIdentifier = self.name,
+                userIdentifier = player.charid,
+                source = player.source,
+            })
+        end
+    end
 end
 
 local db = require 'groups.db'
-local pefcl = GetExport('pefcl')
 
----Sets a players grade in a group and updates their permissions.
----@param player CPlayer
----@param grade number?
----@return boolean?
 function CGroup:set(player, grade)
     if not grade then grade = 0 end
 
@@ -45,28 +75,9 @@ function CGroup:set(player, grade)
     end
 
     local currentGrade = player.get('groups')[self.name]
-    local maxGrade = #self.grades
-
-    if pefcl and not exports.pefcl:getUniqueAccount(player.source, self.name).data then
-        pefcl:createUniqueAccount(player.source, {
-            name = self.label,
-            type = 'shared',
-            identifier = self.name
-        })
-    end
 
     if currentGrade then
         if currentGrade == grade then return end
-
-        if pefcl and currentGrade >= maxGrade - 1 then
-            pefcl:removeUserFromUniqueAccount(player.source, {
-                userIdentifier = player.charid,
-                accountIdentifier = self.name
-            })
-
-            Wait(100) -- race condition?
-        end
-
         self.remove(player, currentGrade)
     end
 
@@ -79,15 +90,6 @@ function CGroup:set(player, grade)
             db.updateCharacterGroup(player.charid, self.name, grade)
         else
             db.addCharacterGroup(player.charid, self.name, grade)
-        end
-
-        if pefcl and grade >= (maxGrade - 1) then
-            pefcl:addUserToUniqueAccount(player.source, {
-                role = grade == maxGrade and 'admin' or 'contributor',
-                accountIdentifier = self.name,
-                userIdentifier = player.charid,
-                source = player.source,
-            })
         end
 
         self.add(player, grade)

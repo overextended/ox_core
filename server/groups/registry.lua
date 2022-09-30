@@ -2,7 +2,7 @@ local GroupRegistry = {}
 
 ---Return data associated with the given group name.
 ---@param name string
----@return table?
+---@return CGroup?
 function Ox.GetGroup(name)
     local group = GroupRegistry[name]
 
