@@ -195,7 +195,6 @@ function CPlayer:logout(dropped)
             pefcl:unloadPlayer(self.source)
         end
 
-        self.charid = nil
         self.characters = Player.selectCharacters(self.source, self.userid)
         local data = playerData[self.source]
 

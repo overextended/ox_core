@@ -92,6 +92,10 @@ end
 ---@param dropped boolean?
 function Player.save(player, dropped)
     if player.charid then
+        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())--[[@as string]] ))
+
+        player.charid = nil
+
         for name, grade in pairs(player.get('groups')) do
             local group = Ox.GetGroup(name)
 
@@ -99,8 +103,6 @@ function Player.save(player, dropped)
                 group.remove(player, grade)
             end
         end
-
-        db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())--[[@as string]] ))
     end
 
     if dropped then
