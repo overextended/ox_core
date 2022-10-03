@@ -37,7 +37,6 @@ server_scripts {
     'server/functions.lua',
     'server/class.lua',
     'server/init.lua',
-    'server/accounts.lua',
     'server/debug.lua',
 }
 

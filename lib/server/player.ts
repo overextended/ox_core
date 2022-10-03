@@ -1,5 +1,3 @@
-import { GetAccounts } from "./accounts";
-
 const exp = exports.ox_core.CPlayer;
 
 export class CPlayer {
@@ -61,10 +59,6 @@ export class CPlayer {
 
   logout() {
     exp(this.source, "logout");
-  }
-
-  getAccounts() {
-    return GetAccounts(this.charid);
   }
 }
 

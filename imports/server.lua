@@ -21,6 +21,5 @@ local function import(path)
     return chunk()
 end
 
-import 'server/accounts'
 import 'server/player'
 import 'server/vehicle'

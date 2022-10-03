@@ -57,15 +57,6 @@ CREATE TABLE IF NOT EXISTS `characters` (
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `user_accounts` (
-  `charid` int(11) UNSIGNED NOT NULL,
-  `account` varchar(50) NOT NULL,
-  `balance` int(11) NOT NULL DEFAULT 0,
-  UNIQUE KEY `account` (`account`, `charid`) USING BTREE,
-  KEY `FK_user_accounts_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_user_accounts_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
   `label` VARCHAR(50) NOT NULL,
@@ -80,15 +71,6 @@ VALUES (
     'Los Santos Police Department',
     '["Cadet", "Officer", "Sergeant", "Captain", "Commander", "Chief"]'
   );
-
-CREATE TABLE `group_accounts` (
-  `group` VARCHAR(20) NOT NULL,
-  `account` VARCHAR(50) NOT NULL,
-  `balance` INT(11) NOT NULL DEFAULT '0',
-  UNIQUE INDEX `account` (`account`, `group`) USING BTREE,
-  INDEX `FK_group_accounts_ox_groups` (`group`) USING BTREE,
-  CONSTRAINT `FK_group_accounts_ox_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `user_groups` (
   `charid` int(11) UNSIGNED NOT NULL,

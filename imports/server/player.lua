@@ -36,10 +36,6 @@ function CPlayer:getCoords()
     return GetEntityCoords(self.ped)
 end
 
-function CPlayer:getAccounts()
-    return Ox.GetAccounts(self.charid)
-end
-
 function Ox.GetPlayer(playerId)
     local player = exp:GetPlayer(playerId)
     return player and setmetatable(player, CPlayer)
