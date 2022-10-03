@@ -88,15 +88,17 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	SetPlayerInvincible(cache.playerId, true)
 	StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
 
+	while IsPlayerTeleportActive() do Wait(0) end
+
 	if characters[1]?.appearance then
 		exports['fivem-appearance']:setPlayerAppearance(characters[1].appearance)
 	else
 		hidePlayer = true
 	end
 
-	while IsPlayerTeleportActive() do Wait(0) end
+	cache.ped = PlayerPedId()
 
-	local offset = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 4.7, 0.2)
+	local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
 	cam = CreateCameraWithParams('DEFAULT_SCRIPTED_CAMERA', offset.x, offset.y, offset.z, 0.0, 0.0, 0.0, 30.0, false, 0)
 
 	SetCamActive(cam, true)
