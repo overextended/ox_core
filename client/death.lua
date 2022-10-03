@@ -63,16 +63,20 @@ function OnPlayerDeath()
         end
     end)
 
-    local coords = GetEntityCoords(cache.ped) --[[@as vector]]
-    NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(cache.ped), false, false)
-    cache.ped = PlayerPedId()
+    local playerPed = PlayerPedId()
+    local coords = GetEntityCoords(playerPed) --[[@as vector]]
+
+    NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, GetEntityHeading(playerPed), false, false)
+    Wait(0)
+
+    playerPed = PlayerPedId()
 
     if cache.vehicle then
-        SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
+        SetPedIntoVehicle(playerPed, cache.vehicle, cache.seat)
     end
 
-    SetEntityInvincible(cache.ped, true)
-    SetEntityHealth(cache.ped, 100)
+    SetEntityInvincible(playerPed, true)
+    SetEntityHealth(playerPed, 100)
     SetEveryoneIgnorePlayer(cache.playerId, true)
 
     local playerState = LocalPlayer.state
@@ -81,10 +85,11 @@ function OnPlayerDeath()
     local bleedOut
 
     while player.isDead do
+        playerPed = PlayerPedId()
         local anim = cache.vehicle and anims[2] or anims[1]
 
-        if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
-            TaskPlayAnim(cache.ped, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
+        if not IsEntityPlayingAnim(playerPed, anim[1], anim[2], 3) then
+            TaskPlayAnim(playerPed, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
         end
 
         timeout -= 1
@@ -96,7 +101,7 @@ function OnPlayerDeath()
         Wait(200)
     end
 
-    coords = vec4(GetEntityCoords(cache.ped).xyz, GetEntityHeading(cache.ped)) --[[@as vector]]
+    coords = vec4(GetEntityCoords(playerPed).xyz, GetEntityHeading(playerPed)) --[[@as vector]]
 
     if bleedOut then
         local closest, distance = {}
@@ -121,16 +126,18 @@ function OnPlayerDeath()
     end
 
     NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.w, false, false)
-    cache.ped = PlayerPedId()
-    local maxHealth = GetEntityMaxHealth(cache.ped)
+    Wait(0)
+
+    playerPed = PlayerPedId()
+    local maxHealth = GetEntityMaxHealth(playerPed)
 
     if cache.vehicle and not bleedOut then
-        SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat)
+        SetPedIntoVehicle(playerPed, cache.vehicle, cache.seat)
     end
 
-    ClearPedBloodDamage(cache.ped)
-    SetEntityHealth(cache.ped, maxHealth)
-    SetEntityInvincible(cache.ped, false)
+    ClearPedBloodDamage(playerPed)
+    SetEntityHealth(playerPed, maxHealth)
+    SetEntityInvincible(playerPed, false)
     SetEveryoneIgnorePlayer(cache.playerId, false)
 
     AnimpostfxStop('DeathFailOut')
@@ -139,6 +146,6 @@ function OnPlayerDeath()
 
     playerState.dead = false
 
-    ClearPedTasks(cache.ped)
+    ClearPedTasks(playerPed)
     TriggerServerEvent('ox:playerDeath', false)
 end
