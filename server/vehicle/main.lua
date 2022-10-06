@@ -86,7 +86,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
         vType = 'heli'
     end
 
-    local entity = Citizen.InvokeNative(`CREATE_VEHICLE_SERVER_SETTER`, joaat(model), vType, coords.x, coords.y, coords.z, heading)
+    local entity = CreateVehicleServerSetter(joaat(model), vType, coords.x, coords.y, coords.z, heading)
 
     if DoesEntityExist(entity) then
         Wait(100)
