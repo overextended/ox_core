@@ -83,8 +83,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
     elseif vType == 'amphibious_automobile' or vType == 'submarinecar' then
         vType = 'automobile'
     elseif vType == 'blimp' then
-        vType = 'plane'
-
+        vType = 'heli'
     end
 
     local entity = Citizen.InvokeNative(`CREATE_VEHICLE_SERVER_SETTER`, joaat(model), vType, coords.x, coords.y, coords.z, heading)
