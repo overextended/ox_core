@@ -35,7 +35,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
             lastname = data.lastName,
             charid = db.createCharacter(player.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
         }
-    elseif type(data) == 'number' and data < Shared.CHARACTER_SLOTS then
+    elseif type(data) == 'number' and data <= Shared.CHARACTER_SLOTS then
         character = player.characters[data]
     else
         error(('ox:selectCharacter received invalid slot. Received %s'):format(data))
