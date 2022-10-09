@@ -16,7 +16,6 @@ AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reser
             local ped = GetPedInVehicleSeat(entity, i)
 
             if ped ~= cache.ped and ped > 0 and NetworkGetEntityOwner(ped) == cache.playerId then
-                SetEntityAsMissionEntity()
                 DeleteEntity(ped)
             end
         end
