@@ -21,15 +21,19 @@ export class CPlayer {
     this.lastname = data.lastname;
   }
 
+  getState() {
+    return Player(this.source).state;
+  }
+
   getCoords() {
     return GetEntityCoords(this.ped);
   }
 
-  set(key: string, value: any, replicated: boolean) {
+  set(key: string, value: any, replicated?: boolean) {
     exp(this.source, "set", key, value, replicated);
   }
 
-  setdb(key: string, value: string | number | object, replicated: boolean) {
+  setdb(key: string, value: string | number | object | boolean | null, replicated?: boolean) {
     exp(this.source, "setdb", key, value, replicated);
   }
 
