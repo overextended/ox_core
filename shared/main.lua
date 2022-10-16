@@ -6,9 +6,11 @@ Ox = setmetatable({}, {
 })
 
 Shared = {
+    SV_LAN = GetConvar('sv_lan', 'false') == 'true',
     CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
-    DEBUG = GetConvarInt('ox:debug', 0) == 1,
 }
+
+Shared.DEBUG = Shared.SV_LAN or GetConvarInt('ox:debug', 0) == 1
 
 ---Throws a formatted type error
 ---@param variable string
