@@ -203,6 +203,7 @@ function CPlayer:logout(dropped)
             steam = data.steam,
             fivem = data.fivem,
             discord = data.discord,
+            inScope = table.wipe(data.inScope),
         }
 
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
