@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `lastname` varchar(50) NOT NULL,
   `gender` varchar(50) NOT NULL,
   `dateofbirth` date NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
   `last_played` date NOT NULL DEFAULT curdate(),
   `is_dead` tinyint(1) NOT NULL DEFAULT 0,
   `x` float DEFAULT NULL,
