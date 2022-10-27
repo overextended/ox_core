@@ -12,14 +12,6 @@ AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reser
 
         if not entity then return end
 
-        for i = -1, 0 do
-            local ped = GetPedInVehicleSeat(entity, i)
-
-            if ped ~= cache.ped and ped > 0 and NetworkGetEntityOwner(ped) == cache.playerId then
-                DeleteEntity(ped)
-            end
-        end
-
         if NetworkGetEntityOwner(entity) == cache.playerId then
             lib.setVehicleProperties(entity, value[1])
             SetVehicleOnGroundProperly(entity)

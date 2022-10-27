@@ -114,6 +114,9 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
             db.setStored(nil, self.id)
         end
 
+        -- Prevents population peds from spawning with the vehicle.
+        TaskEveryoneLeaveVehicle(entity)
+
         return self
     else
         print(("^1Failed to spawn vehicle '%s'^0"):format(model))
