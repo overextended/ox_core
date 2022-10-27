@@ -62,13 +62,15 @@ export class CPlayer {
 
 export let player: CPlayer | undefined = exports.ox_core.GetPlayerData();
 
-function getPlayerProxy() {
-  return new Proxy(new CPlayer(player), {
+function getPlayerProxy(data: CPlayer) {
+  return new Proxy(new CPlayer(data), {
     get(target, key: string) {
-      const result = key ? target[key] : target;
-      if (result !== undefined) return result;
+      if (key in target || typeof key !== 'string') {
+        return target[key]
+      }
 
       AddEventHandler(`ox:player:${key}`, (value: any) => {
+        ///@ts-ignore-error gotta love source being defined as "number" when it's string | number
         if (GetInvokingResource() == "ox_core" && source == "") {
           target[key] = value;
         }
@@ -80,7 +82,7 @@ function getPlayerProxy() {
   });
 }
 
-if (player) player = getPlayerProxy();
+if (player) player = getPlayerProxy(player);
 
 const registerNetEvent = (event: string, fn: (...args: any[]) => void) => {
   onNet(event, (...args: any[]) => {
@@ -89,7 +91,7 @@ const registerNetEvent = (event: string, fn: (...args: any[]) => void) => {
 };
 
 registerNetEvent("ox:playerLoaded", (data) => {
-  player = new CPlayer(data);
+  player = getPlayerProxy(data);
 });
 
 registerNetEvent("ox:setGroup", (name: string, grade: number) => {
