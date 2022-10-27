@@ -18,6 +18,7 @@ end)
 
 NetEventHandler('ox:setPlayerData', function(index, value)
     playerData[index] = value
+    TriggerEvent(('ox:player:%s'):format(index), value)
 end)
 
 function CPlayer:get(index)
