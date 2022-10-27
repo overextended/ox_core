@@ -24,6 +24,19 @@ function CPlayer:__index(index, ...)
             return ox_core:CPlayer(index, ...)
         end
     end
+
+    AddEventHandler(('ox:player:%s'):format(index), function(value)
+        if GetInvokingResource() == 'ox_core' and source == '' then
+            self[index] = value
+        end
+    end)
+
+    local value = self.get(index)
+
+    if value then
+        self[index] = value
+        return value
+    end
 end
 
 function CPlayer:getPed()

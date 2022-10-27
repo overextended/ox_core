@@ -7,6 +7,7 @@ export class CPlayer {
   charid: number;
   firstname: string;
   lastname: string;
+  [key: string]: any;
 
   constructor(data: any) {
     this.coords = data.coords;
@@ -61,7 +62,25 @@ export class CPlayer {
 
 export let player: CPlayer | undefined = exports.ox_core.GetPlayerData();
 
-if (player) player = new CPlayer(player);
+function getPlayerProxy() {
+  return new Proxy(new CPlayer(player), {
+    get(target, key: string) {
+      const result = key ? target[key] : target;
+      if (result !== undefined) return result;
+
+      AddEventHandler(`ox:player:${key}`, (value: any) => {
+        if (GetInvokingResource() == "ox_core" && source == "") {
+          target[key] = value;
+        }
+      });
+
+      target[key] = exp("get", key) || false;
+      return target[key];
+    },
+  });
+}
+
+if (player) player = getPlayerProxy();
 
 const registerNetEvent = (event: string, fn: (...args: any[]) => void) => {
   onNet(event, (...args: any[]) => {
