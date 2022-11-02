@@ -7,9 +7,10 @@ CPlayer.__index = CPlayer
 
 local playerData = {}
 
-function SetPlayerData(data)
+function SetPlayerData(data, gender)
     PlayerIsLoaded = true
     player = setmetatable(data, CPlayer)
+    playerData.gender = gender
 end
 
 AddEventHandler('ox:playerLogout', function()
