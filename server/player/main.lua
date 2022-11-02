@@ -231,10 +231,10 @@ function Player.loaded(player, character)
     player.groups = player.get('groups')
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    TriggerClientEvent('ox:playerLoaded', player.source, player, coords, metadata.health, metadata.armour)
+    TriggerClientEvent('ox:playerLoaded', player.source, player, coords, metadata.health, metadata.armour, player.get('gender'))
 
     player.groups = nil
-    player.ped = GetPlayerPed(source)
+    player.ped = GetPlayerPed(player.source)
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
 end
