@@ -145,7 +145,6 @@ function Player.new(source, identifiers)
         source = source,
         userid = userid,
         username = username,
-        ped = GetPlayerPed(source),
     }, CPlayer)
 
     player.init(identifiers)
@@ -232,10 +231,12 @@ function Player.loaded(player, character)
     player.groups = player.get('groups')
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
     TriggerClientEvent('ox:playerLoaded', player.source, player, coords, metadata.health, metadata.armour)
 
     player.groups = nil
+    player.ped = GetPlayerPed(source)
+
+    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
 end
 
 AddEventHandler('onResourceStop', function(resource)
