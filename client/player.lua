@@ -1,14 +1,16 @@
+PlayerIsLoaded = false
 player = {}
 local CPlayer = {}
 CPlayer.__index = CPlayer
 local playerData = {}
 
 function SetPlayerData(data)
-    data.loaded = true
+    PlayerIsLoaded = true
     player = setmetatable(data, CPlayer)
 end
 
 AddEventHandler('ox:playerLogout', function()
+    PlayerIsLoaded = false
     table.wipe(playerData)
 end)
 
@@ -35,7 +37,7 @@ function Ox.CPlayer(method, ...)
 end
 
 function Ox.GetPlayerData()
-    return player.loaded and player
+    return PlayerIsLoaded and player
 end
 
 function Ox.PlayerExports()

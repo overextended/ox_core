@@ -57,7 +57,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 		Wait(0)
 	end
 
-	if player.loaded then
+	if PlayerIsLoaded then
 		table.wipe(player)
 		TriggerEvent('ox:playerLogout')
 		ClearPedTasks(cache.ped)
@@ -65,7 +65,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	end
 
 	CreateThread(function()
-		while not player.loaded do
+		while not PlayerIsLoaded do
 			DisableAllControlActions(0)
 			ThefeedHideThisFrame()
 			HideHudAndRadarThisFrame()
@@ -174,7 +174,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
     SetEntityHealth(cache.ped, health)
     SetPedArmour(cache.ped, armour or 0)
 
-	while player.loaded do
+	while PlayerIsLoaded do
 		Wait(200)
 		cache.ped = PlayerPedId()
 
