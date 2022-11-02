@@ -13,8 +13,11 @@ local anims = {
     {'dead', 'dead_a'},
 }
 
+local playerState = LocalPlayer.state
+
 function OnPlayerDeath()
-    player.isDead = true
+    PlayerIsDead = true
+    playerState.dead = true
 
     for i = 1, #anims do
         lib.requestAnimDict(anims[i][1])
@@ -57,7 +60,7 @@ function OnPlayerDeath()
     -- perhaps add a flash so that the lack of animation isn't visible before it's set
 
     CreateThread(function()
-        while player.isDead do
+        while PlayerIsDead do
             DisableFirstPersonCamThisFrame()
             Wait(0)
         end
@@ -75,12 +78,10 @@ function OnPlayerDeath()
     SetEntityHealth(cache.ped, 100)
     SetEveryoneIgnorePlayer(cache.playerId, true)
 
-    local playerState = LocalPlayer.state
-    playerState.dead = true
     local timeout = 50
     local bleedOut
 
-    while player.isDead do
+    while PlayerIsDead do
         local anim = cache.vehicle and anims[2] or anims[1]
 
         if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
@@ -89,7 +90,7 @@ function OnPlayerDeath()
 
         timeout -= 1
         if timeout < 1 then
-            player.isDead = false
+            PlayerIsDead = false
             bleedOut = true
         end
 

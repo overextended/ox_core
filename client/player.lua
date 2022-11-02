@@ -1,7 +1,10 @@
 PlayerIsLoaded = false
+PlayerIsDead = false
 player = {}
+
 local CPlayer = {}
 CPlayer.__index = CPlayer
+
 local playerData = {}
 
 function SetPlayerData(data)
@@ -11,6 +14,7 @@ end
 
 AddEventHandler('ox:playerLogout', function()
     PlayerIsLoaded = false
+    PlayerIsDead = false
     table.wipe(playerData)
 end)
 

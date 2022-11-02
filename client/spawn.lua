@@ -178,7 +178,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour)
 		Wait(200)
 		cache.ped = PlayerPedId()
 
-		if not player.isDead and IsPedDeadOrDying(cache.ped) then
+		if not PlayerIsDead and IsPedDeadOrDying(cache.ped) then
 			OnPlayerDeath()
 		end
 	end
