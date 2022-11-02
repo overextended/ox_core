@@ -88,11 +88,12 @@ RegisterNetEvent('ox:playerJoined', function()
 end)
 
 AddEventHandler('playerJoining', function(tempId)
-    tempId = tonumber(source) --[[@as number why the hell is this a string]]
-    local player = connectingPlayers[tempId]
+    tempId = tonumber(tempId) --[[@as number why the hell is this a string]]
+    local identifiers = connectingPlayers[tempId]
 
-    if player then
+    if identifiers then
         connectingPlayers[tempId] = nil
+        local player = Player.new(source, identifiers)
         PlayerRegistry[player.source] = player
     end
 end)
@@ -115,10 +116,25 @@ AddEventHandler('playerConnecting', function(_, _, deferrals)
     end
 
     activeIdentifiers[primaryIdentifier] = true
-    local player = Player.new(tempId, identifiers)
-    connectingPlayers[player.source] = player
+    connectingPlayers[tempId] = identifiers
 
     deferrals.done()
+end)
+
+CreateThread(function()
+    while true do
+        Wait(30000)
+
+        -- If a player quits during the connection phase (and before joining), the tempId may stay
+        -- active for several minutes.
+        for tempId, identifiers in pairs(connectingPlayers) do
+            ---@diagnostic disable-next-line: param-type-mismatch
+            if not GetPlayerEndpoint(tempId) then
+                activeIdentifiers[identifiers[Server.PRIMARY_IDENTIFIER]] = nil
+                connectingPlayers[tempId] = nil
+            end
+        end
+    end
 end)
 
 AddEventHandler('txAdmin:events:serverShuttingDown', function()
