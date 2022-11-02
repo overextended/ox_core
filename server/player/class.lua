@@ -15,6 +15,7 @@
 ---@field hasGroup fun(filter: string | string[] | { [string]: number }): string?, number?
 ---@field isPlayerInScope fun(target: number): boolean
 ---@field triggerScopedEvent fun(event: string, ...: any)
+---@field logout fun(dropped?: boolean)
 
 local db = require 'player.db'
 
