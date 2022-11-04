@@ -228,12 +228,18 @@ function Player.loaded(player, character)
     appearance:load(player.source, player.charid)
 
     -- set groups onto player obj temporarily, for sending to the client
-    player.groups = player.get('groups')
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    TriggerClientEvent('ox:playerLoaded', player.source, player, coords, metadata.health, metadata.armour, player.get('gender'))
+    TriggerClientEvent('ox:loadPlayer', player.source, coords, {
+        firstname = player.firstname,
+        lastname = player.lastname,
+        name = player.name,
+        userid = player.userid,
+        charid = player.charid,
+        groups = player.get('groups'),
+        gender = player.get('gender'),
+    }, metadata.health, metadata.armour)
 
-    player.groups = nil
     player.ped = GetPlayerPed(player.source)
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
