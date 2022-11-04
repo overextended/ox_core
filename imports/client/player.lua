@@ -96,8 +96,10 @@ local function registerNetEvent(event, fn)
     end)
 end
 
-registerNetEvent('ox:playerLoaded', function(data)
-    player = setmetatable(data, CPlayer)
+AddEventHandler('ox:playerLoaded', function(data)
+    if not player then
+        player = setmetatable(data, CPlayer)
+    end
 end)
 
 registerNetEvent('ox:setGroup', function(name, grade)

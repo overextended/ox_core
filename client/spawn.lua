@@ -132,7 +132,7 @@ end)
 ---@param spawn vector4?
 ---@param health number?
 ---@param armour number?
-RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour, gender)
+RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cam, false)
@@ -146,7 +146,7 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour, gender
 		local p = promise.new()
 
         local model = 'mp_m_freemode_01'
-        if gender == 'female' then model = 'mp_f_freemode_01' end
+        if data.gender == 'female' then model = 'mp_f_freemode_01' end
 
         exports['fivem-appearance']:setPlayerAppearance({ model = model })
         exports['fivem-appearance']:startPlayerCustomization(function(appearance)
@@ -166,13 +166,14 @@ RegisterNetEvent('ox:playerLoaded', function(data, spawn, health, armour, gender
 	while IsPlayerTeleportActive() do Wait(0) end
 
 	NetworkEndTutorialSession()
-	SetPlayerData(data, gender)
+	SetPlayerData(data)
 
 	cache.ped = PlayerPedId()
     health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
 
     SetEntityHealth(cache.ped, health)
     SetPedArmour(cache.ped, armour or 0)
+    TriggerEvent('ox:playerLoaded', player)
 
 	while PlayerIsLoaded do
 		Wait(200)

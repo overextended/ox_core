@@ -65,8 +65,8 @@ export let player: CPlayer | undefined = exports.ox_core.GetPlayerData();
 function getPlayerProxy(data: CPlayer) {
   return new Proxy(new CPlayer(data), {
     get(target, key: string) {
-      if (key in target || typeof key !== 'string') {
-        return target[key]
+      if (key in target || typeof key !== "string") {
+        return target[key];
       }
 
       AddEventHandler(`ox:player:${key}`, (value: any) => {
@@ -90,8 +90,8 @@ const registerNetEvent = (event: string, fn: (...args: any[]) => void) => {
   });
 };
 
-registerNetEvent("ox:playerLoaded", (data) => {
-  player = getPlayerProxy(data);
+AddEventHandler("ox:playerLoaded", (data) => {
+  if (!player) player = getPlayerProxy(data);
 });
 
 registerNetEvent("ox:setGroup", (name: string, grade: number) => {
