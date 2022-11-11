@@ -1,0 +1,9 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+pnpm-debug.log*
+node_modules
+
+/web/build
+
+/lib/**/*.js*
+/lib/**/*.d.ts
