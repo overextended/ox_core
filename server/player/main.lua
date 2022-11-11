@@ -247,6 +247,10 @@ end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == 'ox_core' then
+        for _, player in pairs(PlayerRegistry) do
+            TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+        end
+
         Player.saveAll()
     end
 end)
