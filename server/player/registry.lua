@@ -12,11 +12,17 @@ local function AddPlayer(playerId, userId)
 
     PlayerRegistry[playerId] = player
     PlayerIdFromUserId[userId] = playerId
+
+    --[[ TODO: Will probably be used for a reconnection(on core restart) logic or so. ]]
+    player.getState():set('userId', userId, false)
 end
 
-local function RemovePlayer(player)
+local function RemovePlayer(player, reason)
     PlayerRegistry[player.source] = nil
     PlayerIdFromUserId[player.userid] = nil
+    
+    player.getState():set('userId', nil, false)
+    --[[ TODO: Log session ended ]]
 end
 
 local function AssignNonTemporaryId(player, newId)
@@ -139,11 +145,13 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
 
     if not primaryIdentifier then
         return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
-    elseif not Shared.DEBUG and PlayerRegistry[primaryIdentifier] then
-        return deferrals.done(("identifier '%s:%s' is already active."):format(Server.PRIMARY_IDENTIFIER, primaryIdentifier))
     end
 
     local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
+
+    if Ox.GetPlayerFromUserId(userid) then
+        return deferrals.done(("userId '%d' is already active."):format(userid))
+    end
 
     if not userid then
         userid = db.createUser(username, identifiers) --[[@as number]]
@@ -182,7 +190,7 @@ AddEventHandler('txAdmin:events:serverShuttingDown', function()
     end
 end)
 
-AddEventHandler('playerDropped', function()
+AddEventHandler('playerDropped', function(reason)
     local playerId = source
 
     local player = Ox.GetPlayer(playerId)
@@ -194,7 +202,7 @@ AddEventHandler('playerDropped', function()
         primaryIdentifier = player.get(Server.PRIMARY_IDENTIFIER)
         player.logout(true)
 
-        RemovePlayer(player)
+        RemovePlayer(player, ('Dropped, %s'):format(reason) )
     else
         primaryIdentifier = Ox.GetIdentifiers(playerId)?[Server.PRIMARY_IDENTIFIER]
     end
@@ -204,7 +212,7 @@ end)
 RegisterCommand('logout', function(playerId)
     CreateThread(function()
         local player = Ox.GetPlayer(playerId)
-        return player and player.logout()
+        return player and player.logout(false)
     end)
 end)
 
