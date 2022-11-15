@@ -24,7 +24,7 @@ AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reser
             lib.setVehicleProperties(entity, value[1])
             SetVehicleOnGroundProperly(entity)
             SetVehicleDoorsLocked(entity, value[2])
-            Entity(entity).state:set('vehicleProperties', nil, true)
+            Entity(entity).state:set('initVehicle', nil, true)
         end
     end
 end)
