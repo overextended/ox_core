@@ -12,9 +12,6 @@ local function AddPlayer(playerId, userId)
 
     PlayerRegistry[playerId] = player
     PlayerIdFromUserId[userId] = playerId
-
-    --[[ TODO: Will probably be used for a reconnection(on core restart) logic or so. ]]
-    player.getState():set('userId', userId, false)
 end
 
 local function RemovePlayer(player, reason)
@@ -34,6 +31,9 @@ local function AssignNonTemporaryId(player, newId)
     PlayerIdFromUserId[player.userid] = newId
     
     player.setAsJoined(newId)
+
+    --[[ TODO: Will probably be used for a reconnection(on core restart) logic or so. ]]
+    player.getState():set('userId', player.userid, false)
 end
 
 ---Returns an instance of CPlayer belonging to the given playerId.
