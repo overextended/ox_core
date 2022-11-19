@@ -53,7 +53,7 @@ const Sidebar: React.FC<Props> = (props) => {
       <Flex height="10%" justifyContent="center" alignItems="center">
         <Tooltip
           isDisabled={maxSlots <= characters.value.length ? false : true}
-          label="Maximum number of slots reached"
+          label={locale.ui.max_chars}
           hasArrow
         >
           <Link to="/create">

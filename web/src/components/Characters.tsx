@@ -8,6 +8,7 @@ import type { Character } from '../types';
 import React from 'react';
 import { useCharacters } from '../providers/CharactersProvider';
 import { fetchNui } from '../utils/fetchNui';
+import { useLocales } from '../providers/LocaleProvider';
 
 interface Props {
   setCharacter: React.Dispatch<React.SetStateAction<Character>>;
@@ -59,6 +60,7 @@ debugData([
 const Characters: React.FC<Props> = (props) => {
   const characters = useCharacters();
   const navigate = useNavigate();
+  const { locale } = useLocales();
 
   const deleteCharacter = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -112,8 +114,8 @@ const Characters: React.FC<Props> = (props) => {
             />
             <Box justifySelf="center" alignItems="center" maxW="80%">
               <Text fontSize="2xl">{`${character.firstname} ${character.lastname}`}</Text>
-              <Text fontSize="sm">{`Location: ${character.location}`}</Text>
-              <Text fontSize="sm">Last Played: {character.last_played}</Text>
+              <Text fontSize="sm">{`${locale.ui.char_location} ${character.location}`}</Text>
+              <Text fontSize="sm">{`${locale.ui.last_played} ${character.last_played}`}</Text>
             </Box>
           </Flex>
           <Divider />

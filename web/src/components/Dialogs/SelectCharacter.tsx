@@ -5,6 +5,7 @@ import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
 import { useVisibility } from '../../providers/VisibilityProvider';
 import { firstToUpper } from '../../utils/misc';
+import { useLocales } from '../../providers/LocaleProvider';
 
 interface Props {
   visible: boolean;
@@ -14,6 +15,7 @@ interface Props {
 
 const SelectCharacter: React.FC<Props> = (props) => {
   const frameVisibility = useVisibility();
+  const { locale } = useLocales();
 
   const playCharacter = () => {
     fetchNui('ox:selectCharacter', props.character.slot);
@@ -48,7 +50,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
               _focus={{ bg: 'green.500' }}
               onClick={() => playCharacter()}
             >
-              Select
+              {locale.ui.select}
             </Button>
             <Button
               ml={1}
@@ -56,7 +58,7 @@ const SelectCharacter: React.FC<Props> = (props) => {
               _focus={{ bg: 'red.500' }}
               onClick={() => props.setVisible(false)}
             >
-              Cancel
+              {locale.ui.cancel}
             </Button>
           </Box>
         </Flex>

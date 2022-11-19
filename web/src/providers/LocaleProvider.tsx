@@ -12,6 +12,7 @@ debugData([
       ui: {
         confirm: 'Confirm',
         cancel: 'Cancel',
+        select: 'Select',
         delete: 'Delete',
         firstname: 'First Name',
         lastname: 'Last Name',
@@ -22,6 +23,12 @@ debugData([
         create_char: 'Create Character',
         create_a_char: 'Create a new Character',
         irreversible_ation: 'This action is irreversible',
+        char_location: 'Location:',
+        last_played: 'Last Played:',
+        day: 'DD',
+        month: 'MM',
+        year: 'YYYY',
+        max_chars: 'Maximum number of slots reached'
       },
     },
   },
@@ -31,6 +38,7 @@ interface Locale {
   ui: {
     confirm: string,
     cancel: string,
+    select: string;
     delete: string,
     firstname: string,
     lastname: string,
@@ -41,6 +49,12 @@ interface Locale {
     create_char: string,
     create_a_char: string,
     irreversible_ation: string,
+    char_location: string,
+    last_played: string
+    day: string,
+    month: string,
+    year: string,
+    max_chars: string
   };
 }
 
@@ -57,6 +71,7 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
     ui: {
       confirm: '',
       cancel: '',
+      select: '',
       delete: '',
       firstname: '',
       lastname: '',
@@ -67,6 +82,12 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
       create_char: '',
       create_a_char: '',
       irreversible_ation: '',
+      char_location: '',
+      last_played: '',
+      day: '',
+      month: '',
+      year: '',
+      max_chars: ''
     },
   });
 

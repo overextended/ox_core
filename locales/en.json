@@ -2,6 +2,7 @@
   "ui": {
     "confirm": "Confirm",
     "cancel": "Cancel",
+    "select": "Select",
     "delete": "Delete",
     "firstname": "First Name",
     "lastname": "Last Name",
@@ -11,6 +12,12 @@
     "non_binary": "Non-Binary",
     "create_char": "Create Character",
     "create_a_char": "Create a new Character",
-    "irreversible_ation": "This action is irreversible"
+    "irreversible_ation": "This action is irreversible",
+    "char_location": "Location:",
+    "last_played": "Last Played:",
+    "day": "DD",
+    "month": "MM",
+    "year": "YYYY",
+    "max_chars": "Maximum number of slots reached"
     }
 }
