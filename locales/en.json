@@ -1,5 +1,8 @@
 {
   "ui": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
     "firstname": "First Name",
     "lastname": "Last Name",
     "gender": "Gender",
@@ -8,7 +11,6 @@
     "non_binary": "Non-Binary",
     "create_char": "Create Character",
     "create_a_char": "Create a new Character",
-    "confirm": "Confirm",
-    "cancel": "Cancel"
+    "irreversible_ation": "This action is irreversible"
     }
 }

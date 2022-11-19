@@ -10,16 +10,18 @@ debugData([
     action: 'setLocale',
     data: {
       ui: {
-        firstname: 'Confirm',
-        lastname: 'Cancel',
-        gender: 'Vehicle category',
-        male: 'No such vehicle category',
-        female: 'Vehicles',
-        create_char: 'No vehicles found',
-        create_a_char: 'No vehicles found',
-        confirm: 'No vehicles found',
-        cancel: 'No vehicles found',
-        non_binary: 'No vehicles found',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        delete: 'Delete',
+        firstname: 'First Name',
+        lastname: 'Last Name',
+        gender: 'Gender',
+        male: 'Male',
+        female: 'Female',
+        non_binary: 'Non-Binary',
+        create_char: 'Create Character',
+        create_a_char: 'Create a new Character',
+        irreversible_ation: 'This action is irreversible',
       },
     },
   },
@@ -27,16 +29,18 @@ debugData([
 
 interface Locale {
   ui: {
+    confirm: string,
+    cancel: string,
+    delete: string,
     firstname: string,
     lastname: string,
     gender: string,
     male: string,
     female: string,
+    non_binary: string,
     create_char: string,
     create_a_char: string,
-    confirm: string,
-    cancel: string,
-    non_binary: string,
+    irreversible_ation: string,
   };
 }
 
@@ -51,16 +55,18 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
   const isFirst = useIsFirstRender();
   const [locale, setLocale] = useState<Locale>({
     ui: {
+      confirm: '',
+      cancel: '',
+      delete: '',
       firstname: '',
       lastname: '',
       gender: '',
       male: '',
       female: '',
+      non_binary: '',
       create_char: '',
       create_a_char: '',
-      confirm: '',
-      cancel: '',
-      non_binary: '',
+      irreversible_ation: '',
     },
   });
 

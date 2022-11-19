@@ -13,6 +13,7 @@ import {
 import type { Character } from '../../types';
 import { fetchNui } from '../../utils/fetchNui';
 import { useCharacters } from '../../providers/CharactersProvider';
+import { useLocales } from '../../providers/LocaleProvider';
 
 interface Props {
   visible: boolean;
@@ -24,6 +25,7 @@ const DeleteCharacter: React.FC<Props> = (props) => {
   const [disableDelete, setDisableDelete] = React.useState(true);
 
   const characters = useCharacters();
+  const { locale } = useLocales();
 
   const handleDelete = () => {
     characters.setValue(characters.value.filter((_, i) => i !== props.character.slot));
@@ -57,7 +59,7 @@ const DeleteCharacter: React.FC<Props> = (props) => {
               fontSize="xl"
             >{`${props.character.firstname}  ${props.character.lastname}`}</Text>
             <Text fontWeight="bold" color="red.600">
-              This action is irreversible
+              {locale.ui.irreversible_ation}
             </Text>
           </VStack>
         </ModalBody>
@@ -70,14 +72,14 @@ const DeleteCharacter: React.FC<Props> = (props) => {
               isDisabled={disableDelete}
               onClick={() => handleDelete()}
             >
-              Delete
+              {locale.ui.delete}
             </Button>
             <Button
               _hover={{ bg: 'red.500' }}
               _focus={{ bg: 'red.500' }}
               onClick={() => props.setVisible(false)}
             >
-              Cancel
+              {locale.ui.cancel}
             </Button>
           </HStack>
         </ModalFooter>

@@ -1,5 +1,8 @@
 {
     "ui": {
+      "confirm": "Potvrdit",
+      "cancel": "Zrušit",
+      "delete": "Smazat",
       "firstname": "Křestní Jméno",
       "lastname": "Příjmení",
       "gender": "Pohlaví",
@@ -8,7 +11,6 @@
       "non_binary": "Nebinární",
       "create_char": "Vytvořit charakter",
       "create_a_char": "Vytvořit nový charakter",
-      "confirm": "Potvrdit",
-      "cancel": "Zrušit"
+      "irreversible_ation": "Tato akce je nevratná"
       }
   }

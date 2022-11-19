@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import type { Character } from '../types';
 import { useNuiEvent } from '../hooks/useNuiEvent';
 import { useCharacters } from '../providers/CharactersProvider';
+import { useLocales } from '../providers/LocaleProvider';
 
 interface Props {
   setCreateVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +19,7 @@ interface Props {
 const Sidebar: React.FC<Props> = (props) => {
   const [maxSlots, setMaxSlots] = useState(0);
   const characters = useCharacters();
+  const { locale } = useLocales();
 
   useNuiEvent('sendCharacters', (data: { characters: Character[]; maxSlots: number }) =>
     setMaxSlots(data.maxSlots)
@@ -67,7 +69,7 @@ const Sidebar: React.FC<Props> = (props) => {
               onClick={() => props.setCreateVisible(true)}
               isDisabled={maxSlots <= characters.value.length ? true : false}
             >
-              Create a character
+              {locale.ui.create_a_char}
             </Button>
           </Link>
         </Tooltip>
