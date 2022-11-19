@@ -6,6 +6,7 @@ import { useVisibility } from '../../providers/VisibilityProvider';
 import { useCharacters } from '../../providers/CharactersProvider';
 import { firstToUpper } from '../../utils/misc';
 import DateInput from './DateInput';
+import { useLocales } from '../../providers/LocaleProvider';
 
 interface Props {
   visible: boolean;
@@ -17,6 +18,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
   const [lastName, setLastName] = React.useState('');
   const [date, setDate] = React.useState('');
   const [gender, setGender] = React.useState('');
+  const { locale } = useLocales();
 
   const characters = useCharacters();
   const frameVisibility = useVisibility();
@@ -61,20 +63,20 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
         fontFamily="Poppins"
       >
         <Flex justifyContent="center" alignItems="center" direction="column" h="100%" p={1}>
-          <Text fontSize="lg">Create Character</Text>
+          <Text fontSize="lg">{locale.ui.create_char}</Text>
           <Input
-            placeholder="First name"
+            placeholder={locale.ui.firstname}
             value={firstName}
             onChange={(e) => setFirstName(firstToUpper(e.target.value))}
           ></Input>
           <Input
-            placeholder="Last name"
+            placeholder={locale.ui.lastname}
             value={lastName}
             onChange={(e) => setLastName(firstToUpper(e.target.value))}
           ></Input>
           <DateInput setDate={setDate} />
           <Select
-            placeholder="Gender"
+            placeholder={locale.ui.gender}
             borderRadius="none"
             value={gender}
             borderTop="none"
@@ -87,9 +89,9 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
               },
             }}
           >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="non-binary">Non-Binary</option>
+            <option value="male">{locale.ui.male}</option>
+            <option value="female">{locale.ui.female}</option>
+            <option value="non-binary">{locale.ui.non_binary}</option>
           </Select>
           <Spacer />
           <Box mb={3} mt={3}>
@@ -99,7 +101,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
               _focus={{ bg: 'green.500' }}
               onClick={() => createCharacter()}
             >
-              Confirm
+              {locale.ui.confirm}
             </Button>
             <Button
               ml={1}
@@ -107,7 +109,7 @@ const CreateCharacter: React.FC<Props> = (props: Props) => {
               _focus={{ bg: 'red.500' }}
               onClick={() => props.setVisible(false)}
             >
-              Cancel
+              {locale.ui.cancel}
             </Button>
           </Box>
         </Flex>

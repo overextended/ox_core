@@ -16,6 +16,18 @@ RegisterNUICallback('ox:setCharacter', function(data, cb)
 	end
 end)
 
+RegisterNUICallback('loadLocale', function(_, cb)
+    cb(1)
+    local resource = GetCurrentResourceName()
+    local locale = GetExternalKvpString('ox_lib', 'locale') or 'en'
+    local JSON = LoadResourceFile(resource, ('locales/%s.json'):format(locale)) or LoadResourceFile(resource, ('locales/en.json'):format(locale))
+    SendNUIMessage({
+        action = 'setLocale',
+        data = json.decode(JSON)
+    })
+end)
+
+
 RegisterNUICallback('ox:selectCharacter', function(data, cb)
 	cb(1)
 

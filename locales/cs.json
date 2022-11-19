@@ -1,0 +1,14 @@
+{
+    "ui": {
+      "firstname": "Křestní Jméno",
+      "lastname": "Příjmení",
+      "gender": "Pohlaví",
+      "male": "Muž",
+      "female": "Žena",
+      "non_binary": "Nebinární",
+      "create_char": "Vytvořit charakter",
+      "create_a_char": "Vytvořit nový charakter",
+      "confirm": "Potvrdit",
+      "cancel": "Zrušit"
+      }
+  }
