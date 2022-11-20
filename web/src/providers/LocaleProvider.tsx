@@ -1,9 +1,7 @@
 import { Context, createContext, useContext, useEffect, useState } from 'react';
-import { useIsFirstRender } from '../hooks/useIsFirstRender';
 import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { fetchNui } from '../utils/fetchNui';
-import { isEnvBrowser } from '../utils/misc';
 
 debugData([
   {
@@ -66,7 +64,6 @@ interface LocaleContextValue {
 const LocaleCtx = createContext<LocaleContextValue | null>(null);
 
 const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const isFirst = useIsFirstRender();
   const [locale, setLocale] = useState<Locale>({
     ui: {
       confirm: '',
@@ -92,7 +89,6 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
   });
 
   useEffect(() => {
-    if (!isFirst && !isEnvBrowser()) return;
     fetchNui('loadLocale');
   }, []);
 
