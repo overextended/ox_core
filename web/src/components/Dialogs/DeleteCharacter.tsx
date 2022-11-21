@@ -59,7 +59,7 @@ const DeleteCharacter: React.FC<Props> = (props) => {
               fontSize="xl"
             >{`${props.character.firstname}  ${props.character.lastname}`}</Text>
             <Text fontWeight="bold" color="red.600">
-              {locale.ui.irreversible_ation}
+              {locale.ui.irreversible_action}
             </Text>
           </VStack>
         </ModalBody>
