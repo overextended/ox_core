@@ -47,5 +47,6 @@ files {
     'web/build/**/*',
 	'imports/client.lua',
 	'imports/client/**.lua',
-	'shared/files/*.json'
+	'shared/files/*.json',
+    'locales/*.json',
 }

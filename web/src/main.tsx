@@ -8,6 +8,7 @@ import CharactersProvider from './providers/CharactersProvider';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './styles/theme';
 import { isEnvBrowser } from './utils/misc';
+import LocaleProvider from './providers/LocaleProvider';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
@@ -26,7 +27,9 @@ ReactDOM.render(
       <VisibilityProvider>
         <CharactersProvider>
           <BrowserRouter>
-            <App />
+          <LocaleProvider>
+              <App />
+            </LocaleProvider>
           </BrowserRouter>
         </CharactersProvider>
       </VisibilityProvider>

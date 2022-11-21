@@ -1,5 +1,6 @@
 import React from 'react';
 import { HStack, NumberInput, NumberInputField } from '@chakra-ui/react';
+import { useLocales } from '../../providers/LocaleProvider';
 
 interface Props {
   setDate: React.Dispatch<React.SetStateAction<string>>;
@@ -19,6 +20,7 @@ const DateInput: React.FC<Props> = ({ setDate }) => {
   const [day, setDay] = React.useState('');
   const [month, setMonth] = React.useState('');
   const [year, setYear] = React.useState('');
+  const { locale } = useLocales();
 
   React.useEffect(() => {
     switch (month) {
@@ -47,10 +49,10 @@ const DateInput: React.FC<Props> = ({ setDate }) => {
   return (
     <HStack>
       <NumberInput min={1} max={maxDay} value={day} onChange={(value) => setDay(value)}>
-        <NumberInputField placeholder="DD" sx={inputStyle} />
+        <NumberInputField placeholder={locale.ui.day} sx={inputStyle} />
       </NumberInput>
       <NumberInput min={1} max={12} value={month} onChange={(value) => setMonth(value)}>
-        <NumberInputField placeholder="MM" sx={inputStyle} />
+        <NumberInputField placeholder={locale.ui.month} sx={inputStyle} />
       </NumberInput>
       <NumberInput
         min={1900}
@@ -59,7 +61,7 @@ const DateInput: React.FC<Props> = ({ setDate }) => {
         onChange={(value) => setYear(value)}
         p={0}
       >
-        <NumberInputField placeholder="YYYY" sx={inputStyle} />
+        <NumberInputField placeholder={locale.ui.year} sx={inputStyle} />
       </NumberInput>
     </HStack>
   );
