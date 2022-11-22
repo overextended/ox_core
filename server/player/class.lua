@@ -200,4 +200,5 @@ function CPlayer:logout(dropped)
     end
 end
 
+local Class = require 'class'
 return Class.new(CPlayer)

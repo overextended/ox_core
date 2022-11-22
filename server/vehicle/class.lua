@@ -121,4 +121,5 @@ function CVehicle:setGroup(newGroup)
     self.group = newGroup
 end
 
+local Class = require 'class'
 return Class.new(CVehicle)

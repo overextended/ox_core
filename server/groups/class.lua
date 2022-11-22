@@ -106,4 +106,5 @@ function CGroup:set(player, grade)
     return true
 end
 
+local Class = require 'class'
 return Class.new(CGroup)

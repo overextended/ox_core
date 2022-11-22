@@ -1,5 +1,4 @@
 local Class = {}
-local type = type
 
 ---@generic T
 ---@param prototype T
@@ -16,4 +15,4 @@ function Class.new(prototype)
     return class
 end
 
-_ENV.Class = Class
+return Class
