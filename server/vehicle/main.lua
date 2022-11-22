@@ -4,31 +4,6 @@ local VehicleRegistry = require 'vehicle.registry'
 
 require 'vehicle.commands'
 
----Removes a vehicle from the vehicle registry and despawns the entity.
----removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
----@param vehicle CVehicle
----@param removeEntry boolean?
----@param metadata table
-function Vehicle.despawn(vehicle, removeEntry, metadata)
-    local entity = vehicle.entity
-
-    if vehicle.owner ~= false or vehicle.group then
-        if removeEntry then
-            db.deleteVehicle(vehicle.id)
-        elseif metadata then
-            db.updateVehicle({
-                vehicle.plate,
-                vehicle.stored,
-                json.encode(metadata),
-                vehicle.id
-            })
-        end
-    end
-
-    VehicleRegistry[entity] = nil
-    DeleteEntity(entity)
-end
-
 ---Save all vehicles for the resource and despawn them.
 ---@param resource string?
 function Vehicle.saveAll(resource)

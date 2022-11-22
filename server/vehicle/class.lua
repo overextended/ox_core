@@ -76,26 +76,41 @@ function CVehicle:getState()
     return Entity(self.entity).state
 end
 
-function CVehicle:delete()
-    Vehicle.despawn(self, true)
-    vehicleData[self.entity] = nil
+local db = require 'vehicle.db'
+
+---Removes a vehicle from the vehicle registry and despawns the entity.
+---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
+---@param vehicle CVehicle
+---@param removeEntry boolean?
+---@param metadata table
+local function despawnVehicle(vehicle, removeEntry, metadata)
+    local entity = vehicle.entity
+
+    if vehicle.owner ~= false or vehicle.group then
+        if removeEntry then
+            db.deleteVehicle(vehicle.id)
+        elseif metadata then
+            db.updateVehicle({
+                vehicle.plate,
+                vehicle.stored,
+                json.encode(metadata),
+                vehicle.id
+            })
+        end
+    end
+
+    VehicleRegistry[entity] = nil
+    vehicleData[entity] = nil
+    DeleteEntity(entity)
 end
 
 function CVehicle:despawn()
-    Vehicle.despawn(self, nil, vehicleData[self.entity])
-    vehicleData[self.entity] = nil
+    despawnVehicle(self, nil, vehicleData[self.entity])
 end
 
----@deprecated
-function CVehicle:store(value)
-    print(('^2vehicle.store has been deprecated and will be removed (invoked by %s)^0'):format(GetInvokingResource()))
-    print('^2use vehicle.setStored(value, despawn) instead^0')
-    self.stored = value or self.stored or 'impound'
-    Vehicle.despawn(self, nil, vehicleData[self.entity])
-    vehicleData[self.entity] = nil
+function CVehicle:delete()
+    despawnVehicle(self, true)
 end
-
-local db = require 'vehicle.db'
 
 ---@param value string
 ---@param despawn? boolean
