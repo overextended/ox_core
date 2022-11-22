@@ -1,0 +1,23 @@
+{
+  "ui": {
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "select": "Sélectionner",
+    "delete": "Effacer",
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "gender": "Sexe",
+    "male": "Homme",
+    "female": "Femme",
+    "non_binary": "Non-Binaire",
+    "create_char": "Créer personnage",
+    "create_a_char": "Créer un nouveau personnage",
+    "irreversible_action": "Cette action est irréversible",
+    "char_location": "Location:",
+    "last_played": "Dernier joué:",
+    "day": "JJ",
+    "month": "MM",
+    "year": "AAAA",
+    "max_chars": "Nombre maximum d'emplacements atteints"
+    }
+}
