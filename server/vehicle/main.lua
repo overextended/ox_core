@@ -1,6 +1,4 @@
 local Vehicle = {}
-_ENV.Vehicle = Vehicle
-
 local db = require 'vehicle.db'
 local VehicleRegistry = require 'vehicle.registry'
 
