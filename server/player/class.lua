@@ -45,15 +45,6 @@ end
 
 local playerData = {}
 
----Triggered after player instantiation to setup metadata.
----@param data table
-function CPlayer:init(data)
-    if not playerData[self.source] then
-        data.inScope = {}
-        playerData[self.source] = data
-    end
-end
-
 ---Update the player's metadata, optionally syncing it with the client.
 ---@param key string
 ---@param value any
@@ -215,9 +206,16 @@ function CPlayer:selectCharacters()
     return characters
 end
 
-    local state = self.getState()
-    
-    state:set('userid', self.userid, true)
+function CPlayer:setAsJoined(playerId)
+    self.source = playerId
+
+    if not playerData[playerId] then
+        local data = GetPlayerIdentifiers(playerId)
+        data.inScope = {}
+        playerData[playerId] = data
+    end
+
+    self:getState():set('userid', self.userid, true)
 end
 
 local Class = require 'class'
