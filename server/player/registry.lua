@@ -210,7 +210,7 @@ AddEventHandler('txAdmin:events:serverShuttingDown', function()
 
     for playerId, player in pairs(Ox.GetAllPlayers()) do
         player.charid = nil
-        DropPlayer(playerId, 'Server is restarting.')
+        DropPlayer(tostring(playerId), 'Server is restarting.')
     end
 end)
 

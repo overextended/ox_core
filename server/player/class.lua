@@ -163,7 +163,7 @@ function CPlayer:logout(dropped)
     if not self.charid then return end
 
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
-    Player.save(self, dropped)
+    Player.save(self)
 
     if dropped then
         playerData[self.source] = nil

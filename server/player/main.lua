@@ -89,7 +89,6 @@ end
 
 ---Update the database with a player's current data.
 ---@param player CPlayer
----@param dropped boolean?
 function Player.save(player)
     if player.charid then
         db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())--[[@as string]] ))
