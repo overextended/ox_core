@@ -200,5 +200,17 @@ function CPlayer:logout(dropped)
     end
 end
 
+function CPlayer:setAsJoined(nonTempId)
+    self.source = nonTempId
+
+    local identifiers = GetPlayerIdentifiers(nonTempId)
+
+    self.init(identifiers)
+
+    local state = self.getState()
+    
+    state:set('userid', self.userid, true)
+end
+
 local Class = require 'class'
 return Class.new(CPlayer)

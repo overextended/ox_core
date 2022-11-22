@@ -90,7 +90,7 @@ end
 ---Update the database with a player's current data.
 ---@param player CPlayer
 ---@param dropped boolean?
-function Player.save(player, dropped)
+function Player.save(player)
     if player.charid then
         db.updateCharacter(formatCharacterSaveData(player, os.date('%Y-%m-%d', os.time())--[[@as string]] ))
 
@@ -103,10 +103,6 @@ function Player.save(player, dropped)
                 group:remove(player, grade)
             end
         end
-    end
-
-    if dropped then
-        PlayerRegistry[player.source] = nil
     end
 end
 
@@ -132,8 +128,8 @@ local CPlayer = require 'player.class'
 ---Creates an instance of CPlayer.
 ---@param source number
 ---@return CPlayer
-function Player.new(source, identifiers)
-    local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
+function Player.new(source, userid)
+
     local username = GetPlayerName(source)
 
     if not userid then
@@ -146,15 +142,6 @@ function Player.new(source, identifiers)
         userid = userid,
         username = username,
     })
-
-    player:init(identifiers)
-
-    local state = player:getState()
-    state:set('userid', player.userid, true)
-
-    for type, identifier in pairs(identifiers) do
-        state:set(type, identifier, false)
-    end
 
     return player
 end
