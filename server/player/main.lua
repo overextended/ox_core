@@ -21,7 +21,7 @@ local loadResource = setmetatable({}, {
             end
         end)
     end
-}) --[[@as fun(resource: string, cb: function)]]
+})
 
 local ox_inventory = GetExport('ox_inventory')
 
@@ -31,9 +31,9 @@ if ox_inventory then
             source = player.source,
             identifier = player.charid,
             name = player.name,
-            sex = player.get('gender'),
-            dateofbirth = player.get('dateofbirth'),
-            groups = player.get('groups'),
+            sex = player:get('gender'),
+            dateofbirth = player:get('dateofbirth'),
+            groups = player:get('groups'),
         })
     end)
 end
@@ -45,7 +45,7 @@ if npwd then
         npwd:newPlayer({
             source = player.source,
             identifier = player.charid,
-            phoneNumber = player.get('phoneNumber'),
+            phoneNumber = player:get('phoneNumber'),
             firstname = player.firstname,
             lastname = player.lastname
         })
@@ -79,7 +79,7 @@ local function formatCharacterSaveData(player, date)
         coords.y,
         coords.z,
         GetEntityHeading(playerPed),
-        player.get('isDead') or false,
+        player:get('isDead') or false,
         date,
         GetEntityHealth(playerPed),
         GetPedArmour(playerPed),
@@ -96,11 +96,11 @@ function Player.save(player, dropped)
 
         player.charid = nil
 
-        for name, grade in pairs(player.get('groups')) do
+        for name, grade in pairs(player:get('groups')) do
             local group = Ox.GetGroup(name)
 
             if group then
-                group.remove(player, grade)
+                group:remove(player, grade)
             end
         end
     end
@@ -147,7 +147,7 @@ function Player.new(source, identifiers)
         username = username,
     })
 
-    player.init(identifiers)
+    player:init(identifiers)
 
     local state = player.getState()
     state:set('userid', player.userid, true)
@@ -185,7 +185,7 @@ function Player.loaded(player, character)
 
     if result then
         for k, v in pairs(result) do
-            player.set(k, v)
+            player:set(k, v)
         end
     end
 
@@ -193,7 +193,7 @@ function Player.loaded(player, character)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
-    player.set('groups', {})
+    player:set('groups', {})
 
     result = db.selectCharacterGroups(player.charid)
 
@@ -203,7 +203,7 @@ function Player.loaded(player, character)
             local group = Ox.GetGroup(data.name)
 
             if group then
-                group.add(player, data.grade)
+                group:add(player, data.grade)
             end
         end
     end
@@ -215,7 +215,7 @@ function Player.loaded(player, character)
             v = json.decode(v) or v
         end
 
-        player.set(k, v)
+        player:set(k, v)
     end
 
     for _, load in pairs(loadResource) do
@@ -223,7 +223,7 @@ function Player.loaded(player, character)
     end
 
     local state = player.getState()
-    state:set('dead', player.get('isDead'), true)
+    state:set('dead', player:get('isDead'), true)
     state:set('name', player.name, true)
     appearance:load(player.source, player.charid)
 
@@ -236,8 +236,8 @@ function Player.loaded(player, character)
         name = player.name,
         userid = player.userid,
         charid = player.charid,
-        groups = player.get('groups'),
-        gender = player.get('gender'),
+        groups = player:get('groups'),
+        gender = player:get('gender'),
     }, metadata.health, metadata.armour)
 
     player.ped = GetPlayerPed(player.source)

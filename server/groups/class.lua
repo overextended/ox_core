@@ -4,37 +4,40 @@
 ---@field grades number[]
 ---@field principal string
 ---@field hasAccount boolean
----@field add fun(player: CPlayer, grade?: number)
----@field remove fun(player: CPlayer, grade?: number)
----@field set fun(player: CPlayer, grade?: number): boolean?
----@field setAccount fun(player: CPlayer, grade?: number, remove?: boolean)
 
 ---@type CGroup
 local CGroup = {}
 local pefcl = GetExport('pefcl')
 
+---@param player CPlayer
+---@param grade number
 function CGroup:add(player, grade)
     lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player.get('groups')
+    local playerGroups = player:get('groups')
     playerGroups[self.name] = grade
     GlobalState[('%s:count'):format(self.name)] += 1
 
     if pefcl then
-        self.setAccount(player, grade)
+        self:setAccount(player, grade)
     end
 end
 
+---@param player CPlayer
+---@param grade number
 function CGroup:remove(player, grade)
     lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player.get('groups')
+    local playerGroups = player:get('groups')
     playerGroups[self.name] = nil
     GlobalState[('%s:count'):format(self.name)] -= 1
 
     if pefcl then
-        self.setAccount(player, grade, true)
+        self:setAccount(player, grade, true)
     end
 end
 
+---@param player CPlayer
+---@param grade number
+---@param remove? boolean
 function CGroup:setAccount(player, grade, remove)
     local maxGrade = #self.grades
 
@@ -67,6 +70,8 @@ end
 
 local db = require 'groups.db'
 
+---@param player CPlayer
+---@param grade? number
 function CGroup:set(player, grade)
     if not grade then grade = 0 end
 
@@ -74,11 +79,11 @@ function CGroup:set(player, grade)
         error(("Attempted to set group '%s' to invalid grade '%s for player.%s"):format(self.name, grade, player.source))
     end
 
-    local currentGrade = player.get('groups')[self.name]
+    local currentGrade = player:get('groups')[self.name]
 
     if currentGrade then
         if currentGrade == grade then return end
-        self.remove(player, currentGrade)
+        self:remove(player, currentGrade)
     end
 
     if grade < 1 then
@@ -92,7 +97,7 @@ function CGroup:set(player, grade)
             db.addCharacterGroup(player.charid, self.name, grade)
         end
 
-        self.add(player, grade)
+        self:add(player, grade)
     end
 
     TriggerEvent('ox:setGroup', player.source, self.name, grade)

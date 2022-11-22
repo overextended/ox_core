@@ -19,7 +19,7 @@ end
 ---@param filter table
 ---@return boolean?
 local function filterPlayer(player, filter)
-    local metadata = player.get()
+    local metadata = player:get()
 
     for k, v in pairs(filter) do
         if k == 'groups' then
@@ -153,8 +153,8 @@ AddEventHandler('playerDropped', function()
     local primaryIdentifier
 
     if player then
-        primaryIdentifier = player.get(Server.PRIMARY_IDENTIFIER)
-        player.logout(true)
+        primaryIdentifier = player:get(Server.PRIMARY_IDENTIFIER)
+        player:logout(true)
     else
         primaryIdentifier = Ox.GetIdentifiers(source)?[Server.PRIMARY_IDENTIFIER]
     end
@@ -168,7 +168,7 @@ end)
 RegisterCommand('logout', function(source)
     CreateThread(function()
         local player = PlayerRegistry[source]
-        return player and player.logout()
+        return player and player:logout()
     end)
 end)
 

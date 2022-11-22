@@ -4,7 +4,7 @@ AddEventHandler('playerEnteredScope', function(data)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        local inScope = player.get('inScope')
+        local inScope = player:get('inScope')
         inScope[target] = true
     end
 end)
@@ -15,7 +15,7 @@ AddEventHandler('playerLeftScope', function(data)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        local inScope = player.get('inScope')
+        local inScope = player:get('inScope')
         inScope[target] = nil
     end
 end)
@@ -24,7 +24,7 @@ local npwd = GetExport('npwd')
 local db = require 'player.db'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
-    local player = Ox.GetPlayer(source)  --[[@as CPlayer]]
+    local player = Ox.GetPlayer(source) --[[@as CPlayer]]
     local character
 
     if type(data) == 'table' then
@@ -71,7 +71,7 @@ RegisterNetEvent('ox:playerDeath', function(state)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        player.set('isDead', state)
+        player:set('isDead', state)
     end
 end)
 
@@ -79,11 +79,11 @@ RegisterNetEvent('ox:setPlayerInService', function(job)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        if job and player.get('groups')[job] then
-            return player.set('inService', job)
+        if job and player:get('groups')[job] then
+            return player:set('inService', job)
         end
 
-        player.set('inService', false)
+        player:set('inService', false)
     end
 end)
 

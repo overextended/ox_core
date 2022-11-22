@@ -8,15 +8,6 @@
 ---@field plate string
 ---@field script string
 ---@field stored? string
----@field init fun(data: table)
----@field set fun(key: string, value: any)
----@field get fun(key: string): any
----@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
----@field delete fun()
----@field despawn fun()
----@field setStored fun(value?: string, despawn?: boolean)
----@field setOwner fun(newOwner?: number)
----@field setGroup fun(newOwner?: string)
 
 ---@type CVehicle
 local CVehicle = {}
@@ -62,6 +53,8 @@ function CVehicle:init(data)
 end
 
 ---Gets the vehicle's metadata, returning the entire table if key is omitted.
+---@param index any
+---@return any
 function CVehicle:get(index)
     local data = vehicleData[self.entity]
     return index and data[index] or data
@@ -78,6 +71,7 @@ function CVehicle:set(key, value)
     vehicleData[self.entity][key] = value
 end
 
+---@return StateBag
 function CVehicle:getState()
     return Entity(self.entity).state
 end
@@ -103,21 +97,25 @@ end
 
 local db = require 'vehicle.db'
 
+---@param value string
+---@param despawn? boolean
 function CVehicle:setStored(value, despawn)
     db.setStored(value, self.id)
     self.stored = value
 
     if despawn then
-        self.despawn()
+        self:despawn()
     end
 end
 
+---@param newOwner? number
 function CVehicle:setOwner(newOwner)
     db.setOwner(newOwner, self.id)
     self.owner = newOwner
-    self.getState():set('owner', newOwner, true)
+    self:getState():set('owner', newOwner, true)
 end
 
+---@param newGroup? string
 function CVehicle:setGroup(newGroup)
     db.setGroup(newGroup, self.id)
     self.group = newGroup

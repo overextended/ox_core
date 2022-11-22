@@ -4,18 +4,6 @@
 ---@field userid number
 ---@field charid number
 ---@field characters? table
----@field init fun(data: table)
----@field set fun(key: string, value: any, replicated: boolean)
----@field setdb fun(key: string, value: any, replicated: boolean)
----@field get fun(key: string): any
----@field getCoords fun(): vector3
----@field getState fun(): { [string]: any, set: fun(self: table, key: string, value: any, replicated: boolean) }
----@field setGroup fun(name: string, grade: number?)
----@field getGroup fun(name: string): number?
----@field hasGroup fun(filter: string | string[] | { [string]: number }): string?, number?
----@field isPlayerInScope fun(target: number): boolean
----@field triggerScopedEvent fun(event: string, ...: any)
----@field logout fun(dropped?: boolean)
 
 local db = require 'player.db'
 
@@ -50,6 +38,7 @@ function Ox.CPlayer(source, method, ...)
     end
 end
 
+---@return StateBag
 function CPlayer:getState()
     return CfxPlayer(self.source).state
 end
@@ -79,13 +68,13 @@ end
 
 ---Update the player's metadata and store in the DB, optionally syncing it with the client.
 ---@param key string
----@param value string | number | table
+---@param value string | number | table | boolean
 ---@param replicated boolean
 function CPlayer:setdb(key, value, replicated)
     local vType = type(value)
 
     if value and vType ~= 'string' and vType ~= 'number' and vType ~= 'table' and vType ~= 'boolean' then
-        TypeError(key, 'string | number | table', vType)
+        TypeError(key, 'string | number | table | boolean', vType)
     end
 
     playerData[self.source][key] = value
@@ -98,7 +87,7 @@ end
 
 ---Gets the player's metadata, returning the entire table if key is omitted.
 ---@param key string
----@return unknown
+---@return any
 function CPlayer:get(key)
     local data = playerData[self.source]
     if not key then return data end
@@ -116,7 +105,7 @@ end
 ---@param name string
 ---@return number?
 function CPlayer:getGroup(name)
-    return self.get('groups')[name]
+    return self:get('groups')[name]
 end
 
 ---Checks if the player has any groups matching the filter, returning the first match.
@@ -125,7 +114,7 @@ end
 ---@return string? group, number? grade
 function CPlayer:hasGroup(filter)
     local type = type(filter)
-    local groups = self.get('groups')
+    local groups = self:get('groups')
 
     if type == 'string' then
         local grade = groups[filter]
@@ -161,14 +150,14 @@ end
 ---@param target number
 ---@return boolean
 function CPlayer:isPlayerInScope(target)
-    return self.get('inScope')[target]
+    return self:get('inScope')[target]
 end
 
 ---Trigger a client event for all players in range of the player.
 ---@param eventName string
 ---@param ... any
 function CPlayer:triggerScopedEvent(eventName, ...)
-    local inScope = self.get('inScope')
+    local inScope = self:get('inScope')
 
     for id in pairs(inScope) do
         TriggerClientEvent(eventName, id, ...)

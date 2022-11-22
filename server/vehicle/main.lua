@@ -45,11 +45,11 @@ function Vehicle.saveAll(resource)
         if not resource or resource == vehicle.script then
             if (vehicle.owner or vehicle.group) ~= false then
                 size += 1
-                parameters[size] = { vehicle.plate, vehicle.stored or 'impound', json.encode(vehicle.get()), vehicle.id }
+                parameters[size] = { vehicle.plate, vehicle.stored or 'impound', json.encode(vehicle:get()), vehicle.id }
             end
 
             if resource then
-                vehicle.despawn()
+                vehicle:despawn()
             else
                 DeleteEntity(vehicle.entity)
             end
@@ -99,7 +99,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
             model = model,
         })
 
-        vehicle.init(data)
+        vehicle:init(data)
 
         local state = vehicle.getState()
         state:set('owner', vehicle.owner, true)
