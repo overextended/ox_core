@@ -185,7 +185,7 @@ function CPlayer:logout(dropped)
             pefcl:unloadPlayer(self.source)
         end
 
-        self.characters = Player.selectCharacters(self.source, self.userid)
+        self.characters = self:selectCharacters()
         local data = playerData[self.source]
 
         playerData[self.source] = {
@@ -200,12 +200,20 @@ function CPlayer:logout(dropped)
     end
 end
 
-function CPlayer:setAsJoined(nonTempId)
-    self.source = nonTempId
+local appearance = exports.ox_appearance
 
-    local identifiers = GetPlayerIdentifiers(nonTempId)
+---Fetch all characters owned by the player from the database.
+---@return table
+function CPlayer:selectCharacters()
+    local characters = db.selectCharacters(self.userid)
 
-    self.init(identifiers)
+    for i = 1, #characters do
+        local character = characters[i]
+        character.appearance = appearance:load(self.source, character.charid)
+    end
+
+    return characters
+end
 
     local state = self.getState()
     

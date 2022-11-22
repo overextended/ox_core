@@ -108,44 +108,6 @@ end
 
 local appearance = exports.ox_appearance
 
----Fetch all characters owned by the player from the database.
----@param source number
----@param userid number
----@return table
-function Player.selectCharacters(source, userid)
-    local characters = db.selectCharacters(userid)
-
-    for i = 1, #characters do
-        local character = characters[i]
-        character.appearance = appearance:load(source, character.charid)
-    end
-
-    return characters
-end
-
-local CPlayer = require 'player.class'
-
----Creates an instance of CPlayer.
----@param source number
----@return CPlayer
-function Player.new(source, userid)
-
-    local username = GetPlayerName(source)
-
-    if not userid then
-        userid = db.createUser(username, identifiers) --[[@as number]]
-    end
-
-
-    local player = CPlayer.new({
-        source = source,
-        userid = userid,
-        username = username,
-    })
-
-    return player
-end
-
 ---Saves the data for all active players.
 function Player.saveAll()
     local parameters = {}

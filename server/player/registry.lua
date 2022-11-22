@@ -115,7 +115,7 @@ RegisterNetEvent('ox:playerJoined', function()
 
     local player = Ox.GetPlayer(playerId)
 
-    player.characters = Player.selectCharacters(playerId, player.userid)
+    player.characters = player:selectCharacters()
 
     TriggerClientEvent('ox:selectCharacter', playerId, player.characters)
 end)
