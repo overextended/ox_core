@@ -23,7 +23,7 @@ local function filterPlayer(player, filter)
 
     for k, v in pairs(filter) do
         if k == 'groups' then
-            if not player.hasGroup(v) then
+            if not player:hasGroup(v) then
                 return
             end
         elseif player[k] ~= v and metadata[k] ~= v then

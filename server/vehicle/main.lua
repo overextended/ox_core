@@ -101,7 +101,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
 
         vehicle:init(data)
 
-        local state = vehicle.getState()
+        local state = vehicle:getState()
         state:set('owner', vehicle.owner, true)
 
         if next(data) then

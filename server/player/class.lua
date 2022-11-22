@@ -98,7 +98,7 @@ end
 ---@param name string
 ---@param grade number?
 function CPlayer:setGroup(name, grade)
-    Ox.GetGroup(name).set(self, grade)
+    Ox.GetGroup(name):set(self, grade)
 end
 
 ---Gets the player's grade for the given group.

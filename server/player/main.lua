@@ -149,7 +149,7 @@ function Player.new(source, identifiers)
 
     player:init(identifiers)
 
-    local state = player.getState()
+    local state = player:getState()
     state:set('userid', player.userid, true)
 
     for type, identifier in pairs(identifiers) do
@@ -222,7 +222,7 @@ function Player.loaded(player, character)
         load(player)
     end
 
-    local state = player.getState()
+    local state = player:getState()
     state:set('dead', player:get('isDead'), true)
     state:set('name', player.name, true)
     appearance:load(player.source, player.charid)

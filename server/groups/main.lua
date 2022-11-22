@@ -63,5 +63,5 @@ lib.addCommand('group.admin', 'refreshgroups', loadGroups)
 
 lib.addCommand('group.admin', 'setgroup', function(source, args)
     local player = Ox.GetPlayer(args.target)
-    return player and player.setGroup(args.group, args.grade)
+    return player and player:setGroup(args.group, args.grade)
 end, { 'target:number', 'group:string', 'grade:number' })
