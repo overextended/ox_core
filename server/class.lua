@@ -1,18 +1,29 @@
 local Class = {}
-_ENV.Class = Class
+local type = type
 
-function Class.new()
+---@generic T
+---@param prototype T
+---@return { new: fun(obj): T}
+function Class.new(prototype)
     local class = {}
 
-    function class:__index(index)
-        local method = class[index]
+    function class.new(obj)
+        return setmetatable(obj, class)
+    end
 
-        if method then
+    function class:__index(index)
+        local value = prototype[index]
+
+        if type(value) == 'function' then
             return function(...)
-                return method(self, ...)
+                return value(self, ...)
             end
         end
+
+        return value
     end
 
     return class
 end
+
+_ENV.Class = Class

@@ -20,7 +20,7 @@
 local db = require 'player.db'
 
 ---@type CPlayer
-local CPlayer = Class.new()
+local CPlayer = {}
 
 ---@type { [string]: true }
 local playerExports = {}
@@ -211,4 +211,4 @@ function CPlayer:logout(dropped)
     end
 end
 
-return CPlayer
+return Class.new(CPlayer)

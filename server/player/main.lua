@@ -140,12 +140,12 @@ function Player.new(source, identifiers)
         userid = db.createUser(username, identifiers) --[[@as number]]
     end
 
-    ---@type CPlayer
-    local player = setmetatable({
+
+    local player = CPlayer.new({
         source = source,
         userid = userid,
         username = username,
-    }, CPlayer)
+    })
 
     player.init(identifiers)
 

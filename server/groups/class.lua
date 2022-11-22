@@ -10,7 +10,7 @@
 ---@field setAccount fun(player: CPlayer, grade?: number, remove?: boolean)
 
 ---@type CGroup
-local CGroup = Class.new()
+local CGroup = {}
 local pefcl = GetExport('pefcl')
 
 function CGroup:add(player, grade)
@@ -101,4 +101,4 @@ function CGroup:set(player, grade)
     return true
 end
 
-return CGroup
+return Class.new(CGroup)

@@ -61,7 +61,6 @@ function Vehicle.saveAll(resource)
     end
 end
 
----@class CVehicle
 local CVehicle = require 'vehicle.class'
 
 ---@param id? number
@@ -89,8 +88,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
     local entity = CreateVehicleServerSetter(joaat(model), vType, coords.x, coords.y, coords.z, heading)
 
     if DoesEntityExist(entity) then
-        ---@type CVehicle
-        local self = setmetatable({
+        local vehicle = CVehicle.new({
             id = id,
             netid = NetworkGetNetworkIdFromEntity(entity),
             owner = owner,
@@ -99,22 +97,22 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
             script = script,
             plate = plate,
             model = model,
-        }, CVehicle)
+        })
 
-        self.init(data)
+        vehicle.init(data)
 
-        local state = self.getState()
-        state:set('owner', self.owner, true)
+        local state = vehicle.getState()
+        state:set('owner', vehicle.owner, true)
 
         if next(data) then
             state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
         end
 
         if owner ~= false or group then
-            db.setStored(nil, self.id)
+            db.setStored(nil, vehicle.id)
         end
 
-        return self
+        return vehicle
     else
         print(("^1Failed to spawn vehicle '%s'^0"):format(model))
     end

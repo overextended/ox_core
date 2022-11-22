@@ -19,7 +19,7 @@
 ---@field setGroup fun(newOwner?: string)
 
 ---@type CVehicle
-local CVehicle = Class.new()
+local CVehicle = {}
 
 ---@type { [string]: true }
 local vehicleExports = {}
@@ -123,4 +123,4 @@ function CVehicle:setGroup(newGroup)
     self.group = newGroup
 end
 
-return CVehicle
+return Class.new(CVehicle)

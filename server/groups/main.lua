@@ -43,13 +43,13 @@ local function loadGroups()
                 parent = child
             end
 
-            GroupRegistry[group.name] = setmetatable({
+            GroupRegistry[group.name] = CGroup.new({
                 name = group.name,
                 label = group.label,
                 grades = group.grades,
                 principal = principal,
                 hasAccount = group.hasAccount,
-            }, CGroup)
+            })
 
             GlobalState[principal] = GroupRegistry[group.name]
             GlobalState[('%s:count'):format(group.name)] = 0
