@@ -1,3 +1,4 @@
+import { Provider } from 'jotai';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -16,6 +17,8 @@ if (isEnvBrowser()) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <CharacterSelector />
-  </React.StrictMode>
+    <Provider>
+      <CharacterSelector />
+    </Provider>
+  </React.StrictMode>,
 );
