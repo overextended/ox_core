@@ -1,39 +1,66 @@
 local db = require 'player.db'
 
----@type { [number]: CPlayer }
+---@type table<number, CPlayer>
 local PlayerRegistry = {}
-local PlayerIdFromUserId = {}
 
----@type { [number]: boolean }
+---@type table<number, number>
+local playerIdFromUserId = {}
+
+---@type table<number, true>
 local connectingPlayers = {}
 
-local function AddPlayer(playerId, userId)
-    local player = Player.new(playerId, userId)
+local CPlayer = require 'player.class'
+
+local function addPlayer(playerId, userId, identifiers, primaryIdentifier)
+    local username = GetPlayerName(playerId)
+
+    if not identifiers then
+        identifiers = Ox.GetIdentifiers(playerId)
+    end
+
+    if not primaryIdentifier then
+        primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+    end
+
+    if userId == nil then
+        userId = db.getUserFromIdentifier(primaryIdentifier)
+    end
+
+    if not userId then
+        userId = db.createUser(username, identifiers) --[[@as number]]
+    end
+
+    local player = CPlayer.new({
+        source = playerId,
+        userid = userId,
+        username = username,
+    })
 
     PlayerRegistry[playerId] = player
-    PlayerIdFromUserId[userId] = playerId
+    playerIdFromUserId[userId] = playerId
+
+    return player
 end
 
-local function RemovePlayer(player, reason)
+local function removePlayer(player, reason)
     PlayerRegistry[player.source] = nil
-    PlayerIdFromUserId[player.userid] = nil
-    
-    player.getState():set('userId', nil, false)
+    playerIdFromUserId[player.userid] = nil
+
+    player:getState():set('userId', nil, false)
     --[[ TODO: Log session ended ]]
 end
 
-local function AssignNonTemporaryId(player, newId)
-    local oldId = player.source
+local function assignNonTemporaryId(tempId, newId)
+    local player = PlayerRegistry[tempId]
 
-    PlayerRegistry[oldId] = nil
+    PlayerRegistry[tempId] = nil
     PlayerRegistry[newId] = player
+    playerIdFromUserId[player.userid] = newId
 
-    PlayerIdFromUserId[player.userid] = newId
-    
-    player.setAsJoined(newId)
+    player:setAsJoined(newId)
 
     --[[ TODO: Will probably be used for a reconnection(on core restart) logic or so. ]]
-    player.getState():set('userId', player.userid, false)
+    player:getState():set('userId', player.userid, false)
 end
 
 ---Returns an instance of CPlayer belonging to the given playerId.
@@ -44,9 +71,9 @@ function Ox.GetPlayer(playerId)
 end
 
 function Ox.GetPlayerFromUserId(userId)
-    local playerId = PlayerIdFromUserId[userId]
-    
-    return playerId and Ox.GetPlayer(playerId) or nil
+    local playerId = playerIdFromUserId[userId]
+
+    return playerId and PlayerRegistry[playerId] or nil
 end
 
 function Ox.GetAllPlayers()
@@ -113,7 +140,12 @@ RegisterNetEvent('ox:playerJoined', function()
         return DropPlayer(playerId, serverLockdown)
     end
 
-    local player = Ox.GetPlayer(playerId)
+    local player = PlayerRegistry[playerId]
+
+    if not player then
+        player = addPlayer(playerId)
+        player:setAsJoined(playerId)
+    end
 
     player.characters = player:selectCharacters()
 
@@ -122,14 +154,10 @@ end)
 
 AddEventHandler('playerJoining', function(tempId)
     local playerId = source
-
     tempId = tonumber(tempId) --[[@as number why the hell is this a string]]
-
     connectingPlayers[tempId] = nil
 
-    local player = Ox.GetPlayer(tempId)
-
-    AssignNonTemporaryId(player, playerId)
+    assignNonTemporaryId(tempId, playerId)
 end)
 
 AddEventHandler('playerConnecting', function(username, _, deferrals)
@@ -147,17 +175,13 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
         return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
     end
 
-    local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER])
+    local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER]) or false
 
     if Ox.GetPlayerFromUserId(userid) then
         return deferrals.done(("userId '%d' is already active."):format(userid))
     end
 
-    if not userid then
-        userid = db.createUser(username, identifiers) --[[@as number]]
-    end
-    
-    AddPlayer(tempId, userid)
+    addPlayer(tempId, userid, identifiers, primaryIdentifier)
 
     connectingPlayers[tempId] = true
 
@@ -192,27 +216,20 @@ end)
 
 AddEventHandler('playerDropped', function(reason)
     local playerId = source
-
-    local player = Ox.GetPlayer(playerId)
-    local primaryIdentifier
-
-    --[[ Why wouldn't there be a player here? ]]
+    local player = PlayerRegistry[playerId]
 
     if player then
-        primaryIdentifier = player.get(Server.PRIMARY_IDENTIFIER)
-        player.logout(true)
+        player:logout(true)
 
-        RemovePlayer(player, ('Dropped, %s'):format(reason) )
-    else
-        primaryIdentifier = Ox.GetIdentifiers(playerId)?[Server.PRIMARY_IDENTIFIER]
+        removePlayer(player, ('Dropped, %s'):format(reason) )
     end
 end)
 
 ---@todo proper logout system, and make the command admin-only
 RegisterCommand('logout', function(playerId)
     CreateThread(function()
-        local player = PlayerRegistry[source]
-        return player and player:logout()
+        local player = PlayerRegistry[playerId]
+        return player and player:logout(false)
     end)
 end)
 
