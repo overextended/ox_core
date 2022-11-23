@@ -98,10 +98,9 @@ function CPlayer:getGroup(name)
 end
 
 ---Gets all groups the player is in.
----@param name string
----@return number?
-function CPlayer:getGroups(name)
-    return self.private.groups[name]
+---@return table<string, number>
+function CPlayer:getGroups()
+    return self.private.groups
 end
 
 ---Checks if the player has any groups matching the filter, returning the first match.
