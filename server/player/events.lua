@@ -4,7 +4,7 @@ AddEventHandler('playerEnteredScope', function(data)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        local inScope = player:get('inScope')
+        local inScope = player.private.inScope
         inScope[target] = true
     end
 end)
@@ -15,7 +15,7 @@ AddEventHandler('playerLeftScope', function(data)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        local inScope = player:get('inScope')
+        local inScope = player.private.inScope
         inScope[target] = nil
     end
 end)
@@ -79,7 +79,7 @@ RegisterNetEvent('ox:setPlayerInService', function(job)
     local player = Ox.GetPlayer(source)
 
     if player and player.charid then
-        if job and player:get('groups')[job] then
+        if job and player.private.groups[job] then
             return player:set('inService', job)
         end
 

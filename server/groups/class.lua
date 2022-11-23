@@ -13,7 +13,7 @@ local pefcl = GetExport('pefcl')
 ---@param grade number
 function CGroup:add(player, grade)
     lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player:get('groups')
+    local playerGroups = player.private.groups
     playerGroups[self.name] = grade
     GlobalState[('%s:count'):format(self.name)] += 1
 
@@ -26,7 +26,7 @@ end
 ---@param grade number
 function CGroup:remove(player, grade)
     lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player:get('groups')
+    local playerGroups = player.private.groups
     playerGroups[self.name] = nil
     GlobalState[('%s:count'):format(self.name)] -= 1
 
@@ -79,7 +79,7 @@ function CGroup:set(player, grade)
         error(("Attempted to set group '%s' to invalid grade '%s for player.%s"):format(self.name, grade, player.source))
     end
 
-    local currentGrade = player:get('groups')[self.name]
+    local currentGrade = player.private.groups[self.name]
 
     if currentGrade then
         if currentGrade == grade then return end

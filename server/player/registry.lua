@@ -11,6 +11,11 @@ local connectingPlayers = {}
 
 local CPlayer = require 'player.class'
 
+local private_mt = {
+    __ext = 0,
+    __pack = function() return '' end,
+}
+
 local function addPlayer(playerId, userId, identifiers, primaryIdentifier)
     local username = GetPlayerName(playerId)
 
@@ -34,6 +39,11 @@ local function addPlayer(playerId, userId, identifiers, primaryIdentifier)
         source = playerId,
         userid = userId,
         username = username,
+        private = setmetatable({
+            inScope = {},
+            groups = {},
+            metadata = identifiers,
+        }, private_mt)
     })
 
     PlayerRegistry[playerId] = player
@@ -84,7 +94,7 @@ end
 ---@param filter table
 ---@return boolean?
 local function filterPlayer(player, filter)
-    local metadata = player:get()
+    local metadata = player.private.metadata
 
     for k, v in pairs(filter) do
         if k == 'groups' then

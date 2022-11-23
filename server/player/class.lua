@@ -43,14 +43,12 @@ function CPlayer:getState()
     return CfxPlayer(self.source).state
 end
 
-local playerData = {}
-
 ---Update the player's metadata, optionally syncing it with the client.
 ---@param key string
 ---@param value any
 ---@param replicated boolean
 function CPlayer:set(key, value, replicated)
-    playerData[self.source][key] = value
+    self.private.metadata[key] = value
 
     if replicated then
         TriggerClientEvent('ox:setPlayerData', self.source, key, value)
@@ -68,7 +66,7 @@ function CPlayer:setdb(key, value, replicated)
         TypeError(key, 'string | number | table | boolean', vType)
     end
 
-    playerData[self.source][key] = value
+    self.private.metadata[key] = value
     db.updateMetadata(('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid)
 
     if replicated then
@@ -80,9 +78,10 @@ end
 ---@param key string
 ---@return any
 function CPlayer:get(key)
-    local data = playerData[self.source]
-    if not key then return data end
-    return data[key]
+    local metadata = self.private.metadata
+    if not key then return metadata end
+
+    return metadata[key]
 end
 
 ---Sets the player's grade for the given group.
@@ -96,7 +95,14 @@ end
 ---@param name string
 ---@return number?
 function CPlayer:getGroup(name)
-    return self:get('groups')[name]
+    return self.private.groups[name]
+end
+
+---Gets all groups the player is in.
+---@param name string
+---@return number?
+function CPlayer:getGroups(name)
+    return self.private.groups[name]
 end
 
 ---Checks if the player has any groups matching the filter, returning the first match.
@@ -105,7 +111,7 @@ end
 ---@return string? group, number? grade
 function CPlayer:hasGroup(filter)
     local type = type(filter)
-    local groups = self:get('groups')
+    local groups = self.private.groups
 
     if type == 'string' then
         local grade = groups[filter]
@@ -137,18 +143,25 @@ function CPlayer:hasGroup(filter)
     end
 end
 
+---Gets all player ids in scope of the player.
+---@param target number
+---@return table<number, true>
+function CPlayer:getPlayersInScope(target)
+    return self.private.inScope
+end
+
 ---Check if the target playerId is in range of the player.
 ---@param target number
 ---@return boolean
 function CPlayer:isPlayerInScope(target)
-    return self:get('inScope')[target]
+    return self.private.inScope[target]
 end
 
 ---Trigger a client event for all players in range of the player.
 ---@param eventName string
 ---@param ... any
 function CPlayer:triggerScopedEvent(eventName, ...)
-    local inScope = self:get('inScope')
+    local inScope = self.private.inScope
 
     for id in pairs(inScope) do
         TriggerClientEvent(eventName, id, ...)
@@ -165,9 +178,7 @@ function CPlayer:logout(dropped)
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
     Player.save(self)
 
-    if dropped then
-        playerData[self.source] = nil
-    else
+    if not dropped then
         if npwd then
             npwd:unloadPlayer(self.source)
         end
@@ -177,14 +188,13 @@ function CPlayer:logout(dropped)
         end
 
         self.characters = self:selectCharacters()
-        local data = playerData[self.source]
+        local metadata = self.private.metadata
 
-        playerData[self.source] = {
-            license = data.license,
-            steam = data.steam,
-            fivem = data.fivem,
-            discord = data.discord,
-            inScope = table.wipe(data.inScope),
+        self.private.metadata = {
+            license = metadata.license,
+            steam = metadata.steam,
+            fivem = metadata.fivem,
+            discord = metadata.discord,
         }
 
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
@@ -208,13 +218,6 @@ end
 
 function CPlayer:setAsJoined(playerId)
     self.source = playerId
-
-    if not playerData[playerId] then
-        local data = Ox.GetIdentifiers(playerId)
-        data.inScope = {}
-        playerData[playerId] = data
-    end
-
     self:getState():set('userid', self.userid, true)
 end
 

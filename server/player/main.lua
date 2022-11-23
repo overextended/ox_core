@@ -33,7 +33,7 @@ if ox_inventory then
             name = player.name,
             sex = player:get('gender'),
             dateofbirth = player:get('dateofbirth'),
-            groups = player:get('groups'),
+            groups = player.private.groups,
         })
     end)
 end
@@ -95,7 +95,7 @@ function Player.save(player)
 
         player.charid = nil
 
-        for name, grade in pairs(player:get('groups')) do
+        for name, grade in pairs(player.private.groups) do
             local group = Ox.GetGroup(name)
 
             if group then
@@ -141,7 +141,7 @@ function Player.loaded(player, character)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
-    player:set('groups', {})
+    table.wipe(player.private.groups)
 
     result = db.selectCharacterGroups(player.charid)
 
@@ -184,7 +184,7 @@ function Player.loaded(player, character)
         name = player.name,
         userid = player.userid,
         charid = player.charid,
-        groups = player:get('groups'),
+        groups = player:getGroups(),
         gender = player:get('gender'),
     }, metadata.health, metadata.armour)
 
