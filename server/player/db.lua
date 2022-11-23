@@ -16,7 +16,7 @@ local INSERT_USER = 'INSERT INTO users (username, license, steam, fivem, discord
 ---@return number?
 function db.createUser(username, identifiers)
     return MySQL.prepare.await(INSERT_USER,
-        { username, identifiers.license, identifiers.steam, identifiers.fivem, identifiers.discord })
+        { username, identifiers.license, identifiers.steam, identifiers.fivem, identifiers.discord }) --[[@as number?]]
 end
 
 local SELECT_CHARACTERS = 'SELECT charid, firstname, lastname, x, y, z, heading, DATE_FORMAT(last_played, "%d/%m/%Y") AS last_played FROM characters WHERE userid = ? AND deleted IS NULL'
@@ -45,7 +45,7 @@ local INSERT_CHARACTER = 'INSERT INTO characters (userid, firstname, lastname, g
 ---@param phone_number number?
 ---@return number?
 function db.createCharacter(userid, firstName, lastName, gender, date, phone_number)
-    return MySQL.prepare.await(INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number })
+    return MySQL.prepare.await(INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
 end
 
 local UPDATE_CHARACTER = [[UPDATE characters SET
@@ -53,7 +53,7 @@ local UPDATE_CHARACTER = [[UPDATE characters SET
     metadata = JSON_SET(metadata, "$.health", ?, "$.armour", ?)
 WHERE charid = ?]]
 ---Update character data for one or multiple characters.
----@param parameters { [number]: any } | { [number]: any }[]
+---@param parameters table<number, any> | table<number, any>[]
 function db.updateCharacter(parameters)
     MySQL.prepare.await(UPDATE_CHARACTER, parameters)
 end
@@ -90,7 +90,7 @@ end
 local SELECT_METADATA = 'SELECT metadata FROM characters WHERE charid = ?'
 ---Update metadata for character.
 ---@param charid number
----@return { [string]: string | number | table }
+---@return table<string, string | number | table>
 function db.selectMetadata(charid)
     local metadata = MySQL.scalar.await(SELECT_METADATA, { charid })
     return metadata and json.decode(metadata) or {}

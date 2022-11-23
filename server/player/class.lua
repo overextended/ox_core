@@ -10,7 +10,7 @@ local db = require 'player.db'
 ---@type CPlayer
 local CPlayer = {}
 
----@type { [string]: true }
+---@type table<string, true>
 local playerExports = {}
 
 setmetatable(CPlayer, {
@@ -20,7 +20,6 @@ setmetatable(CPlayer, {
     end
 })
 
----@return { [string]: true }
 function Ox.GetPlayerExports()
     return playerExports
 end
@@ -107,7 +106,7 @@ end
 
 ---Checks if the player has any groups matching the filter, returning the first match.
 ---The filter be the group, an array of groups, or a map where key is the group and value is the minimum grade.
----@param filter string | string[] | { [string]: number }
+---@param filter string | string[] | table<string, number> }
 ---@return string? group, number? grade
 function CPlayer:hasGroup(filter)
     local type = type(filter)

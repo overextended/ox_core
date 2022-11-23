@@ -48,7 +48,7 @@ function Ox.GetTopVehicleStats(filter)
     return topStats
 end
 
----@param filter string | string[] | { [string]: string | number } | nil
+---@param filter string | string[] | table<string, string | number> | nil
 ---@return VehicleData?
 function Ox.GetVehicleData(filter)
     if filter then

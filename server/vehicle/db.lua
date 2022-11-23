@@ -24,7 +24,7 @@ local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, `group`, model, clas
 ---@param stored string?
 ---@return number?
 function db.createVehicle(plate, owner, group, model, class, data, stored)
-    return MySQL.prepare.await(INSERT_VEHICLE, { plate, owner or nil, group or nil, model, class, json.encode(data), stored })
+    return MySQL.prepare.await(INSERT_VEHICLE, { plate, owner or nil, group or nil, model, class, json.encode(data), stored }) --[[@as number?]]
 end
 
 local PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?'
@@ -68,7 +68,7 @@ end
 
 local UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?'
 ---Update vehicle data for one or multiple vehicles.
----@param parameters { [number]: any } | { [number]: any }[]
+---@param parameters table<number, any> | table<number, any>[]
 function db.updateVehicle(parameters)
     MySQL.prepare(UPDATE_VEHICLE, parameters)
 end

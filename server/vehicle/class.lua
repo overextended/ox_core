@@ -12,7 +12,7 @@
 ---@type CVehicle
 local CVehicle = {}
 
----@type { [string]: true }
+---@type table<string, true>
 local vehicleExports = {}
 
 setmetatable(CVehicle, {
@@ -22,7 +22,6 @@ setmetatable(CVehicle, {
     end
 })
 
----@return { [string]: true }
 function Ox.GetVehicleExports()
     return vehicleExports
 end
