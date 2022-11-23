@@ -210,7 +210,7 @@ function CPlayer:setAsJoined(playerId)
     self.source = playerId
 
     if not playerData[playerId] then
-        local data = GetPlayerIdentifiers(playerId)
+        local data = Ox.GetIdentifiers(playerId)
         data.inScope = {}
         playerData[playerId] = data
     end
