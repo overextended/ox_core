@@ -7,7 +7,8 @@ require 'player.commands'
 require 'player.events'
 
 ---Trigger a function when a player is loaded or the resource restarts.
-local loadResource = setmetatable({}, {
+---@todo module for resource integration
+LoadResource = setmetatable({}, {
     __call = function(self, resource, cb)
         self[resource] = cb
 
@@ -26,7 +27,7 @@ local loadResource = setmetatable({}, {
 local ox_inventory = GetExport('ox_inventory')
 
 if ox_inventory then
-    loadResource('ox_inventory', function(player)
+    LoadResource('ox_inventory', function(player)
         ox_inventory:setPlayerInventory({
             source = player.source,
             identifier = player.charid,
@@ -41,7 +42,7 @@ end
 local npwd = GetExport('npwd')
 
 if npwd then
-    loadResource('npwd', function(player)
+    LoadResource('npwd', function(player)
         npwd:newPlayer({
             source = player.source,
             identifier = player.charid,
@@ -55,7 +56,7 @@ end
 local pefcl = GetExport('pefcl')
 
 if pefcl then
-    loadResource('pefcl', function(player)
+    LoadResource('pefcl', function(player)
         pefcl:loadPlayer(player.source, {
             source = player.source,
             identifier = player.charid,
@@ -105,8 +106,6 @@ function Player.save(player)
     end
 end
 
-local appearance = exports.ox_appearance
-
 ---Saves the data for all active players.
 function Player.saveAll()
     local parameters = {}
@@ -123,74 +122,6 @@ function Player.saveAll()
     if size > 0 then
         db.updateCharacter(parameters)
     end
-end
-
----Finalises player loading after they have selected a character.
----@param player CPlayer
----@param character table
-function Player.loaded(player, character)
-    local result = db.selectCharacterData(character.charid)
-
-    if result then
-        for k, v in pairs(result) do
-            player:set(k, v)
-        end
-    end
-
-    player.name = ('%s %s'):format(character.firstname, character.lastname)
-    player.charid = character.charid
-    player.firstname = character.firstname
-    player.lastname = character.lastname
-    table.wipe(player.private.groups)
-
-    result = db.selectCharacterGroups(player.charid)
-
-    if result then
-        for i = 1, #result do
-            local data = result[i]
-            local group = Ox.GetGroup(data.name)
-
-            if group then
-                group:add(player, data.grade)
-            end
-        end
-    end
-
-    local metadata = db.selectMetadata(player.charid)
-
-    for k, v in pairs(metadata) do
-        if type(v) == 'string' then
-            v = json.decode(v) or v
-        end
-
-        player:set(k, v)
-    end
-
-    for _, load in pairs(loadResource) do
-        load(player)
-    end
-
-    local state = player:getState()
-    state:set('dead', player:get('isDead'), true)
-    state:set('name', player.name, true)
-    appearance:load(player.source, player.charid)
-
-    -- set groups onto player obj temporarily, for sending to the client
-    local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
-
-    TriggerClientEvent('ox:loadPlayer', player.source, coords, {
-        firstname = player.firstname,
-        lastname = player.lastname,
-        name = player.name,
-        userid = player.userid,
-        charid = player.charid,
-        groups = player:getGroups(),
-        gender = player:get('gender'),
-    }, metadata.health, metadata.armour)
-
-    player.ped = GetPlayerPed(player.source)
-
-    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
 end
 
 AddEventHandler('onResourceStop', function(resource)

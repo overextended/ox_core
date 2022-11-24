@@ -21,6 +21,7 @@ AddEventHandler('playerLeftScope', function(data)
 end)
 
 local npwd = GetExport('npwd')
+local appearance = GetExport('ox_appearance')
 local db = require 'player.db'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
@@ -42,10 +43,70 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     end
 
     player.characters = nil
-    Player.loaded(player, character)
-end)
 
-local appearance = exports.ox_appearance
+    local characterData = db.selectCharacterData(character.charid)
+
+    if characterData then
+        for k, v in pairs(characterData) do
+            player:set(k, v)
+        end
+    end
+
+    player.name = ('%s %s'):format(character.firstname, character.lastname)
+    player.charid = character.charid
+    player.firstname = character.firstname
+    player.lastname = character.lastname
+    table.wipe(player.private.groups)
+
+    result = db.selectCharacterGroups(player.charid)
+
+    if result then
+        for i = 1, #result do
+            local data = result[i]
+            local group = Ox.GetGroup(data.name)
+
+            if group then
+                group:add(player, data.grade)
+            end
+        end
+    end
+
+    local metadata = db.selectMetadata(player.charid)
+
+    for k, v in pairs(metadata) do
+        if type(v) == 'string' then
+            v = json.decode(v) or v
+        end
+
+        player:set(k, v)
+    end
+
+    for _, load in pairs(LoadResource) do
+        load(player)
+    end
+
+    local state = player:getState()
+    state:set('dead', player:get('isDead'), true)
+    state:set('name', player.name, true)
+    appearance:load(player.source, player.charid)
+
+    -- set groups onto player obj temporarily, for sending to the client
+    local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
+
+    TriggerClientEvent('ox:loadPlayer', player.source, coords, {
+        firstname = player.firstname,
+        lastname = player.lastname,
+        name = player.name,
+        userid = player.userid,
+        charid = player.charid,
+        groups = player:getGroups(),
+        gender = player:get('gender'),
+    }, metadata.health, metadata.armour)
+
+    player.ped = GetPlayerPed(player.source)
+
+    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
+end)
 
 RegisterNetEvent('ox:deleteCharacter', function(slot)
     if type(slot) == 'number' and slot <= Shared.CHARACTER_SLOTS then
