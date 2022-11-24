@@ -3,6 +3,7 @@ local Player = {}
 _ENV.Player = Player
 
 require 'player.registry'
+require 'player.commands'
 require 'player.events'
 
 ---Trigger a function when a player is loaded or the resource restarts.

@@ -237,12 +237,4 @@ AddEventHandler('playerDropped', function(reason)
     end
 end)
 
----@todo proper logout system, and make the command admin-only
-RegisterCommand('logout', function(playerId)
-    CreateThread(function()
-        local player = PlayerRegistry[playerId]
-        return player and player:logout(false)
-    end)
-end)
-
 return PlayerRegistry
