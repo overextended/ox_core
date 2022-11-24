@@ -1,4 +1,4 @@
----@class CPlayer
+---@class CPlayerProperties
 ---@field ped number
 ---@field source number
 ---@field userid number
@@ -7,7 +7,7 @@
 
 local db = require 'player.db'
 
----@type CPlayer
+---@class CPlayer : CPlayerProperties
 local CPlayer = {}
 
 ---@type table<string, true>

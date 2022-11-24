@@ -1,4 +1,4 @@
----@class CVehicle
+---@class CVehicleProperties
 ---@field id number
 ---@field owner? number
 ---@field group? string
@@ -9,7 +9,7 @@
 ---@field script string
 ---@field stored? string
 
----@type CVehicle
+---@class CVehicle : CVehicleProperties
 local CVehicle = {}
 
 ---@type table<string, true>

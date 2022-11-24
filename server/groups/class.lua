@@ -1,11 +1,11 @@
----@class CGroup
+---@class CGroupProperties
 ---@field name string
 ---@field label string
 ---@field grades number[]
 ---@field principal string
 ---@field hasAccount boolean
 
----@type CGroup
+---@class CGroup : CGroupProperties
 local CGroup = {}
 local pefcl = GetExport('pefcl')
 
