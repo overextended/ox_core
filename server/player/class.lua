@@ -168,7 +168,17 @@ function CPlayer:logout(dropped)
     if not self.charid then return end
 
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
-    Player.save(self)
+    self:save()
+
+    self.charid = nil
+
+    for name, grade in pairs(self.private.groups) do
+        local group = Ox.GetGroup(name)
+
+        if group then
+            group:remove(self, grade)
+        end
+    end
 
     if not dropped then
         if npwd then
@@ -200,7 +210,7 @@ setmetatable(CPlayer, nil)
 
 ---@return StateBag
 function CPlayer:getState()
-    return CfxPlayer(self.source).state
+    return Player(self.source).state
 end
 
 function CPlayer:setAsJoined(playerId)
@@ -221,6 +231,32 @@ function CPlayer:selectCharacters()
     end
 
     return characters
+end
+
+---Prepare character data to save to the database.
+---@return table
+function CPlayer:prepareSaveData(date)
+    local playerPed = self.ped
+    local coords = GetEntityCoords(playerPed)
+
+    return {
+        coords.x,
+        coords.y,
+        coords.z,
+        GetEntityHeading(playerPed),
+        self:get('isDead') or false,
+        date,
+        GetEntityHealth(playerPed),
+        GetPedArmour(playerPed),
+        self.charid
+    }
+end
+
+---Update the database with a player's current data.
+function CPlayer:save()
+    if self.charid then
+        db.updateCharacter(self:prepareSaveData(os.date('%Y-%m-%d', os.time())))
+    end
 end
 
 local Class = require 'class'

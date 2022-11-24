@@ -218,7 +218,7 @@ end)
 AddEventHandler('txAdmin:events:serverShuttingDown', function()
     serverLockdown = 'The server is about to restart. You cannot join at this time.'
 
-    Player.saveAll()
+    Ox.SaveAllPlayers()
 
     for playerId, player in pairs(PlayerRegistry) do
         player.charid = nil
