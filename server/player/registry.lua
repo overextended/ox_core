@@ -63,6 +63,8 @@ end
 local function assignNonTemporaryId(tempId, newId)
     local player = PlayerRegistry[tempId]
 
+    if not player then return end
+
     PlayerRegistry[tempId] = nil
     PlayerRegistry[newId] = player
     playerIdFromUserId[player.userid] = newId
@@ -199,15 +201,20 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
 end)
 
 CreateThread(function()
-    while true do
-        Wait(3000)
+    local GetPlayerEndpoint = GetPlayerEndpoint
 
-        -- If a player quits during the connection phase (and before joining), the tempId may stay
-        -- active for several minutes.
+    while true do
+        Wait(30000)
+
+        -- If a player quits during the connection phase (and before joining)
+        -- the tempId may stay active for several minutes.
         for tempId in pairs(connectingPlayers) do
             ---@diagnostic disable-next-line: param-type-mismatch
-            if GetPlayerEndpoint(tempId) == 0x7FFFFFFF then
+            if not GetPlayerEndpoint(tempId) then
+                local player = PlayerRegistry[tempId]
                 connectingPlayers[tempId] = nil
+                PlayerRegistry[tempId] = nil
+                playerIdFromUserId[player.userid] = nil
             end
         end
     end
@@ -218,7 +225,7 @@ AddEventHandler('txAdmin:events:serverShuttingDown', function()
 
     Player.saveAll()
 
-    for playerId, player in pairs(Ox.GetAllPlayers()) do
+    for playerId, player in pairs(PlayerRegistry) do
         player.charid = nil
         DropPlayer(tostring(playerId), 'Server is restarting.')
     end
