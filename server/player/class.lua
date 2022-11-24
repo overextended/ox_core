@@ -37,11 +37,6 @@ function Ox.CPlayer(source, method, ...)
     end
 end
 
----@return StateBag
-function CPlayer:getState()
-    return CfxPlayer(self.source).state
-end
-
 ---Update the player's metadata, optionally syncing it with the client.
 ---@param key string
 ---@param value any
@@ -142,9 +137,8 @@ function CPlayer:hasGroup(filter)
 end
 
 ---Gets all player ids in scope of the player.
----@param target number
 ---@return table<number, true>
-function CPlayer:getPlayersInScope(target)
+function CPlayer:getPlayersInScope()
     return self.private.inScope
 end
 
@@ -199,7 +193,22 @@ function CPlayer:logout(dropped)
     end
 end
 
-local appearance = exports.ox_appearance
+---Private methods (available inside ox_core)
+---@todo Separate class into multiple files (common code, internal code)
+
+setmetatable(CPlayer, nil)
+
+---@return StateBag
+function CPlayer:getState()
+    return CfxPlayer(self.source).state
+end
+
+function CPlayer:setAsJoined(playerId)
+    self.source = playerId
+    self:getState():set('userid', self.userid, true)
+end
+
+local appearance = GetExport('ox_appearance')
 
 ---Fetch all characters owned by the player from the database.
 ---@return table
@@ -212,11 +221,6 @@ function CPlayer:selectCharacters()
     end
 
     return characters
-end
-
-function CPlayer:setAsJoined(playerId)
-    self.source = playerId
-    self:getState():set('userid', self.userid, true)
 end
 
 local Class = require 'class'
