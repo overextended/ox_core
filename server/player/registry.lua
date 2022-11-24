@@ -55,8 +55,6 @@ end
 local function removePlayer(player, reason)
     PlayerRegistry[player.source] = nil
     playerIdFromUserId[player.userid] = nil
-
-    player:getState():set('userId', nil, false)
     --[[ TODO: Log session ended ]]
 end
 
@@ -70,9 +68,6 @@ local function assignNonTemporaryId(tempId, newId)
     playerIdFromUserId[player.userid] = newId
 
     player:setAsJoined(newId)
-
-    --[[ TODO: Will probably be used for a reconnection(on core restart) logic or so. ]]
-    player:getState():set('userId', player.userid, false)
 end
 
 ---Returns an instance of CPlayer belonging to the given playerId.
