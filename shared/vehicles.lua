@@ -21,7 +21,7 @@
 ---@type TopVehicleStats
 local topStats = json.load('shared/files/topVehicleStats.json')
 
----@type VehicleData
+---@type table<string, VehicleData>
 local vehicleList = json.load('shared/files/vehicles.json')
 
 local function filterData(model, data, filter)
@@ -49,7 +49,6 @@ function Ox.GetTopVehicleStats(filter)
 end
 
 ---@param filter string | string[] | table<string, string | number> | nil
----@return VehicleData?
 function Ox.GetVehicleData(filter)
     if filter then
         if type(filter) == 'table' then
