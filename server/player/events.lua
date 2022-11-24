@@ -56,13 +56,12 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
-    table.wipe(player.private.groups)
 
-    result = db.selectCharacterGroups(player.charid)
+    local groups = db.selectCharacterGroups(player.charid)
 
-    if result then
-        for i = 1, #result do
-            local data = result[i]
+    if groups then
+        for i = 1, #groups do
+            local data = groups[i]
             local group = Ox.GetGroup(data.name)
 
             if group then
