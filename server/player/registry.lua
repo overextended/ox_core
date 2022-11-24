@@ -16,21 +16,7 @@ local private_mt = {
     __pack = function() return '' end,
 }
 
-local function addPlayer(playerId, userId, identifiers, primaryIdentifier)
-    local username = GetPlayerName(playerId)
-
-    if not identifiers then
-        identifiers = Ox.GetIdentifiers(playerId)
-    end
-
-    if not primaryIdentifier then
-        primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
-    end
-
-    if userId == nil then
-        userId = db.getUserFromIdentifier(primaryIdentifier)
-    end
-
+local function addPlayer(playerId, username, identifiers, userId)
     if not userId then
         userId = db.createUser(username, identifiers) --[[@as number]]
     end
@@ -150,7 +136,15 @@ RegisterNetEvent('ox:playerJoined', function()
     local player = PlayerRegistry[playerId]
 
     if not player then
-        player = addPlayer(playerId)
+        local identifiers = Ox.GetIdentifiers(playerId)
+        local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+
+        if not primaryIdentifier then
+            return DropPlayer(playerId, ("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
+        end
+
+        player = addPlayer(playerId, GetPlayerName(playerId), identifiers, db.getUserFromIdentifier(primaryIdentifier))
+
         player:setAsJoined(playerId)
     end
 
@@ -182,13 +176,13 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
         return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
     end
 
-    local userid = db.getUserFromIdentifier(identifiers[Server.PRIMARY_IDENTIFIER]) or false
+    local userid = db.getUserFromIdentifier(primaryIdentifier)
 
     if Ox.GetPlayerFromUserId(userid) then
         return deferrals.done(("userId '%d' is already active."):format(userid))
     end
 
-    addPlayer(tempId, userid, identifiers, primaryIdentifier)
+    addPlayer(tempId, username, identifiers, userid)
 
     connectingPlayers[tempId] = true
 
