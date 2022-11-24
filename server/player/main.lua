@@ -2,8 +2,7 @@ CfxPlayer = Player
 local Player = {}
 _ENV.Player = Player
 
-local PlayerRegistry = require 'player.registry'
-
+require 'player.registry'
 require 'player.events'
 
 ---Trigger a function when a player is loaded or the resource restarts.
@@ -13,7 +12,7 @@ local loadResource = setmetatable({}, {
 
         AddEventHandler('onServerResourceStart', function(res)
             if res == resource then
-                for _, player in pairs(PlayerRegistry) do
+                for _, player in pairs(Ox.GetAllPlayers()) do
                     if not player.characters then
                         cb(player)
                     end
@@ -113,7 +112,7 @@ function Player.saveAll()
     local size = 0
     local date = os.date('%Y-%m-%d', os.time())
 
-    for _, player in pairs(PlayerRegistry) do
+    for _, player in pairs(Ox.GetAllPlayers()) do
         if player.charid then
             size += 1
             parameters[size] = formatCharacterSaveData(player, date--[[@as string]] )
@@ -195,7 +194,7 @@ end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == 'ox_core' then
-        for _, player in pairs(PlayerRegistry) do
+        for _, player in pairs(Ox.GetAllPlayers()) do
             TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
         end
 
