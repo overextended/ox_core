@@ -4,6 +4,7 @@ import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { useCharactersState } from '../../state/characters';
 import { debugData } from '../../utils/debugData';
 import { CharacterProps } from '../../types';
+import DeleteCharacter from './components/DeleteCharacter';
 
 debugData<{ characters: CharacterProps[]; maxSlots: number }>([
   {
@@ -61,6 +62,7 @@ const CharacterSelector: React.FC = () => {
           </div>
         </div>
       </div>
+      <DeleteCharacter />
     </>
   );
 };

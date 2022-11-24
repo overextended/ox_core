@@ -4,26 +4,23 @@ import { Transition } from '@headlessui/react';
 import { useCharacterIndexState } from '../../../state/characters';
 import { fetchNui } from '../../../utils/fetchNui';
 import React from 'react';
+import { useSetDeleteModal } from '../../../state/modals';
 
 
 const Character: React.FC<{ character: CharacterProps, index: number }> = (props) => {
   const [characterIndex, setCharacterIndex] = useCharacterIndexState();
+  const setDeleteModal = useSetDeleteModal();
 
   const playCharacter = () => {
     fetchNui('ox:selectCharacter', props.character.slot);
     //  TODO: Hide UI
   };
 
-  const deleteCharacter = () => {
-    fetchNui('ox:deleteCharacter', props.character.slot);
-    //  TODO: Remove character from array
-  };
-
   return (
     <>
       <div className='flex'>
         <div
-          className={` hover-transition flex h-24 w-[85%] flex-col justify-evenly p-1.5 text-white hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
+          className={`hover-transition flex h-24 w-[85%] flex-col justify-evenly p-1.5 text-white hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
           onClick={() => setCharacterIndex(props.index)}>
           <p className='truncate text-2xl'>{`${props.character.firstname} ${props.character.lastname}`}</p>
           <div>
@@ -48,7 +45,7 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
               <IconPlayerPlay className='text-white' />
             </div>
             <div
-              onClick={deleteCharacter}
+              onClick={() => setDeleteModal({ character: props.character, visible: true })}
               className='relative flex w-full h-1/2 justify-center items-center hover-transition bg-black/50 hover:bg-red-500'>
               <IconTrash className='text-white' />
             </div>
