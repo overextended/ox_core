@@ -110,7 +110,7 @@ end
 ---@param filter table
 ---@return CPlayer?
 function Ox.GetPlayerByFilter(filter)
-    for _, player in pairs(Ox.GetAllPlayers()) do
+    for _, player in pairs(PlayerRegistry) do
         if player.charid then
             if filterPlayer(player, filter) then
                 return player
@@ -126,7 +126,7 @@ function Ox.GetPlayers(filter)
     local size = 0
     local players = {}
 
-    for _, player in pairs(Ox.GetAllPlayers()) do
+    for _, player in pairs(PlayerRegistry) do
         if player.charid then
             if not filter or filterPlayer(player, filter) then
                 size += 1
