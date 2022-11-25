@@ -5,6 +5,7 @@ interface Ox {
   GeneratePlate: () => Promise<string>;
   GetTopVehicleStats: (filter?: "land" | "air" | "sea") => TopVehicleStats;
   GetVehicleData: (filter?: string | string[] | { [key: string]: string | number }) => VehicleData;
+  SaveAllPlayers: () => {};
 }
 
 export const Ox: Ox = exports.ox_core;

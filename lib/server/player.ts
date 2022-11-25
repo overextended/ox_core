@@ -1,4 +1,4 @@
-const exp = exports.ox_core.CPlayer;
+const Ox = exports.ox_core;
 
 export class CPlayer {
   source: number;
@@ -30,54 +30,67 @@ export class CPlayer {
   }
 
   set(key: string, value: any, replicated?: boolean) {
-    exp(this.source, "set", key, value, replicated);
+    Ox.CPlayer(this.source, "set", key, value, replicated);
   }
 
   setdb(key: string, value: string | number | object | boolean | null, replicated?: boolean) {
-    exp(this.source, "setdb", key, value, replicated);
+    Ox.CPlayer(this.source, "setdb", key, value, replicated);
   }
 
   get(key?: string): any {
-    return exp(this.source, "get", key);
+    return Ox.CPlayer(this.source, "get", key);
   }
 
   setGroup(name: string, grade: number) {
-    exp(this.source, "setGroup", name, grade);
+    Ox.CPlayer(this.source, "setGroup", name, grade);
   }
 
   getGroup(name: string): number {
-    return exp(this.source, "getGroup", name);
+    return Ox.CPlayer(this.source, "getGroup", name);
+  }
+
+  getGroups(): Record<string, number> {
+    return Ox.CPlayer(this.source, "getGroups");
   }
 
   hasGroup(filter: string | string[] | Record<string, number>): [string, number] | undefined {
-    return exp(this.source, "hasGroup", filter);
+    return Ox.CPlayer(this.source, "hasGroup", filter);
+  }
+
+  getPlayersInScope(): Record<number, true> {
+    return Ox.CPlayer(this.source, "getPlayersInScope");
   }
 
   isPlayerInScope(target: number): boolean {
-    return exp(this.source, "isPlayerInScope", target);
+    return Ox.CPlayer(this.source, "isPlayerInScope", target);
   }
 
   triggerScopedEvent(eventName: string, ...args: any) {
-    exp(this.source, "triggerScopedEvent", eventName, ...args);
+    Ox.CPlayer(this.source, "triggerScopedEvent", eventName, ...args);
   }
 
   logout() {
-    exp(this.source, "logout");
+    Ox.CPlayer(this.source, "logout");
   }
 }
 
-export function GetPlayer(player: number) {
-  player = exports.ox_core.GetPlayer(player);
+export function GetPlayer(playerId: number) {
+  const player = Ox.GetPlayer(playerId);
+  return player ? new CPlayer(player) : null;
+}
+
+export function GetPlayerFromUserId(userid: number) {
+  const player = Ox.GetPlayerFromUserId(userid);
   return player ? new CPlayer(player) : null;
 }
 
 export function GetPlayerByFilter(filter: Record<string, unknown>) {
-  const player = exports.ox_core.GetPlayer(filter);
+  const player = Ox.GetPlayer(filter);
   return player ? new CPlayer(player) : null;
 }
 
 export function GetPlayers(useclass?: boolean, filter?: Record<string, unknown>) {
-  const players: CPlayer[] = exports.ox_core.GetPlayers(filter);
+  const players: CPlayer[] = Ox.GetPlayers(filter);
 
   if (useclass) {
     for (let i = 0; i === players.length - 1; i++) {
