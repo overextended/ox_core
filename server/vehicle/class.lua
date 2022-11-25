@@ -63,10 +63,6 @@ end
 ---@param key string
 ---@param value any
 function CVehicle:set(key, value)
-    if key == 'properties' and value.plate then
-        self.plate = value.plate
-    end
-
     vehicleData[self.entity][key] = value
 end
 
