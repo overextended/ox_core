@@ -85,7 +85,7 @@ export function GetPlayerFromUserId(userid: number) {
 }
 
 export function GetPlayerByFilter(filter: Record<string, unknown>) {
-  const player = Ox.GetPlayer(filter);
+  const player = Ox.GetPlayerByFilter(filter);
   return player ? new CPlayer(player) : null;
 }
 
