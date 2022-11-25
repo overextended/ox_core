@@ -47,7 +47,7 @@ local CVehicle = require 'vehicle.class'
 ---@param heading number
 ---@param vType string
 ---@return CVehicle?
-local function spawnVehicle(id, owner, group, plate, model, script, data, coords, heading, vType)
+local function spawnVehicle(id, owner, group, plate, vin, model, script, data, coords, heading, vType)
     -- New native seems to be missing some types, for now we'll convert to known types
     -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
     if vType == 'bicycle' or vType == 'quadbike' or vType == 'amphibious_quadbike' then
@@ -69,6 +69,7 @@ local function spawnVehicle(id, owner, group, plate, model, script, data, coords
             entity = entity,
             script = script,
             plate = plate,
+            vin = vin,
             model = model,
         })
 
@@ -137,7 +138,7 @@ function Ox.CreateVehicle(data, coords, heading)
             error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
         end
 
-        return spawnVehicle(data, vehicle.owner, vehicle.group, vehicle.plate, vehicle.model, script, vehicle.data, coords,
+        return spawnVehicle(data, vehicle.owner, vehicle.group, vehicle.plate, vehicle.vin, vehicle.model, script, vehicle.data, coords,
             heading or 90.0, modelData.type)
     end
 
@@ -154,6 +155,7 @@ function Ox.CreateVehicle(data, coords, heading)
     local model = data.model:lower()
     local stored = data.stored or not coords and 'impound' or nil
     local plate = Ox.GeneratePlate()
+    local vin = Ox.GenerateVin()
     local modelData = Ox.GetVehicleData(model)
 
     if not modelData then
@@ -178,14 +180,14 @@ function Ox.CreateVehicle(data, coords, heading)
     local vehicleId
 
     if owner ~= false or group then
-        vehicleId = db.createVehicle(plate, owner, group, model, modelData.class, data, stored)
+        vehicleId = db.createVehicle(plate, vin, owner, group, model, modelData.class, data, stored)
     end
 
     if stored then
         return vehicleId
     end
 
-    return spawnVehicle(vehicleId, owner, group, plate, model, script, data, coords, heading or 90.0, modelData.type)
+    return spawnVehicle(vehicleId, owner, group, plate, vin, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
 ---Creates a unique vehicle license plate.
@@ -201,6 +203,25 @@ function Ox.GeneratePlate()
         local str = table.concat(plate)
 
         if db.isPlateAvailable(str) then return str end
+    end
+end
+
+---Creates a unique vehicle vin number.
+---@return string
+function Ox.GenerateVin()
+    local vin = table.create(17, 0)
+    while true do
+        ::start::
+        for i = 1, 17 do
+            vin[i] = math.random(0, 1) == 1 and string.char(math.random(65, 90)) or math.random(0, 9)
+        end
+
+        local str = table.concat(vin)
+        if db.isVinAvailable(str) then
+            return str
+        end
+        Wait(1)
+        goto start
     end
 end
 
