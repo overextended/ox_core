@@ -13,7 +13,7 @@ function db.deleteVehicle(id)
     MySQL.prepare(DELETE_VEHICLE, { id })
 end
 
-local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, `group`, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?, ?)'
+local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, stored) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
 ---Creates a new database entry and returns the vehicleId.
 ---@param plate string
 ---@param owner? number | boolean
@@ -23,8 +23,8 @@ local INSERT_VEHICLE = 'INSERT INTO vehicles (plate, owner, `group`, model, clas
 ---@param data table
 ---@param stored string?
 ---@return number?
-function db.createVehicle(plate, owner, group, model, class, data, stored)
-    return MySQL.prepare.await(INSERT_VEHICLE, { plate, owner or nil, group or nil, model, class, json.encode(data), stored }) --[[@as number?]]
+function db.createVehicle(plate, vin, owner, group, model, class, data, stored)
+    return MySQL.prepare.await(INSERT_VEHICLE, { plate, vin, owner or nil, group or nil, model, class, json.encode(data), stored }) --[[@as number?]]
 end
 
 local PLATE_EXISTS = 'SELECT 1 FROM vehicles WHERE plate = ?'
@@ -35,7 +35,15 @@ function db.isPlateAvailable(plate)
     return not MySQL.scalar.await(PLATE_EXISTS, { plate })
 end
 
-local SELECT_VEHICLE = 'SELECT owner, `group`, plate, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL'
+local VIN_EXISTS = 'SELECT 1 FROM vehicles WHERE vin = ?'
+---Check if a plate is already in use.
+---@param vin string
+---@return boolean
+function db.isVinAvailable(vin)
+    return not MySQL.scalar.await(VIN_EXISTS, { vin })
+end
+
+local SELECT_VEHICLE = 'SELECT owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND stored IS NOT NULL'
 ---Fetch vehicle data for the given id.
 ---@param id number
 function db.getVehicleFromId(id)
