@@ -77,7 +77,7 @@ local UPDATE_PLATE = 'UPDATE vehicles SET plate = ? WHERE id = ?'
 ---Update vehicle data for one or multiple vehicles.
 ---@param parameters { plate: string, id: number }
 function db.setPlate(parameters)
-    MySQL.prepare(UPDATE_VEHICLE, parameters)
+    MySQL.prepare(UPDATE_PLATE, parameters)
 end
 
 return db
