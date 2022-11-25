@@ -3,9 +3,11 @@ import { IconUserPlus } from '@tabler/icons';
 import { useCharactersState } from '../../../state/characters';
 import { useNuiEvent } from '../../../hooks/useNuiEvent';
 import { CharacterProps } from '../../../types';
+import { useSetCreateModal } from '../../../state/modals';
 
 export const Sidebar: React.FC = () => {
   const [characters, setCharacters] = useCharactersState();
+  const setCreateModal = useSetCreateModal();
 
   useNuiEvent('sendCharacters', (data: { characters: CharacterProps[]; maxSlots: number }) => {
     setCharacters(data.characters);
@@ -25,11 +27,13 @@ export const Sidebar: React.FC = () => {
           ))}
         </div>
         <div
-          className='hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40'>
+          onClick={() => setCreateModal(true)}
+          className='hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40'
+        >
           <IconUserPlus />
           <p className='text-xl'>Create a character</p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

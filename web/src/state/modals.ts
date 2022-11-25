@@ -13,6 +13,12 @@ const deleteModalAtom = atom<{ character: CharacterProps, visible: boolean }>({
   visible: false,
 });
 
+const createModalAtom = atom(false);
+
 export const useDeleteModalValue = () => useAtomValue(deleteModalAtom);
 export const useSetDeleteModal = () => useSetAtom(deleteModalAtom);
 export const useDeleteModalState = () => useAtom(deleteModalAtom);
+
+export const useCreateModalValue = () => useAtomValue(createModalAtom);
+export const useSetCreateModal = () => useSetAtom(createModalAtom);
+export const useCreateModalState = () => useAtom(createModalAtom);

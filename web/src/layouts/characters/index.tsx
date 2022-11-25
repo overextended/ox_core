@@ -6,6 +6,7 @@ import { debugData } from '../../utils/debugData';
 import { CharacterProps } from '../../types';
 import DeleteCharacter from './components/DeleteCharacter';
 import { Sidebar } from './components/Sidebar';
+import CreateCharacter from './components/CreateCharacter';
 
 debugData<{ characters: CharacterProps[]; maxSlots: number }>([
   {
@@ -40,8 +41,9 @@ const CharacterSelector: React.FC = () => {
 
   return (
     <>
-      <Sidebar/>
+      <Sidebar />
       <DeleteCharacter />
+      <CreateCharacter />
     </>
   );
 };
