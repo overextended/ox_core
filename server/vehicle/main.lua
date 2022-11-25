@@ -211,17 +211,13 @@ end
 function Ox.GenerateVin()
     local vin = table.create(17, 0)
     while true do
-        ::start::
         for i = 1, 17 do
             vin[i] = math.random(0, 1) == 1 and string.char(math.random(65, 90)) or math.random(0, 9)
         end
 
         local str = table.concat(vin)
-        if db.isVinAvailable(str) then
-            return str
-        end
-        Wait(1)
-        goto start
+
+        if db.isVinAvailable(str) then return str end
     end
 end
 
