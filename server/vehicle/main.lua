@@ -18,7 +18,7 @@ function Vehicle.saveAll(resource)
         if not resource or resource == vehicle.script then
             if (vehicle.owner or vehicle.group) ~= false then
                 size += 1
-                parameters[size] = { vehicle.plate, vehicle.stored or 'impound', json.encode(vehicle:get()), vehicle.id }
+                parameters[size] = { vehicle.stored or 'impound', json.encode(vehicle:get()), vehicle.id }
             end
 
             if resource then

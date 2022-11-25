@@ -66,10 +66,17 @@ function db.setGroup(group, id)
     MySQL.prepare.await(UPDATE_GROUP, { group or nil, id })
 end
 
-local UPDATE_VEHICLE = 'UPDATE vehicles SET plate = ?, stored = ?, data = ? WHERE id = ?'
+local UPDATE_VEHICLE = 'UPDATE vehicles SET stored = ?, data = ? WHERE id = ?'
 ---Update vehicle data for one or multiple vehicles.
 ---@param parameters table<number, any> | table<number, any>[]
 function db.updateVehicle(parameters)
+    MySQL.prepare(UPDATE_VEHICLE, parameters)
+end
+
+local UPDATE_PLATE = 'UPDATE vehicles SET plate = ? WHERE id = ?'
+---Update vehicle data for one or multiple vehicles.
+---@param parameters { plate: string, id: number }
+function db.setPlate(parameters)
     MySQL.prepare(UPDATE_VEHICLE, parameters)
 end
 

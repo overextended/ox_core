@@ -86,7 +86,6 @@ local function despawnVehicle(vehicle, removeEntry, metadata)
             db.deleteVehicle(vehicle.id)
         elseif metadata then
             db.updateVehicle({
-                vehicle.plate,
                 vehicle.stored,
                 json.encode(metadata),
                 vehicle.id
@@ -129,6 +128,13 @@ end
 function CVehicle:setGroup(newGroup)
     db.setGroup(newGroup, self.id)
     self.group = newGroup
+end
+
+---May mismatch with properties due to "fake plates". Used to prevent duplicate "persistent plates".
+---@param plate string
+function CVehicle:setPlate(plate)
+    self.plate = ('%-8s'):format(plate)
+    db.setPlate({ self.plate, self.id })
 end
 
 local Class = require 'class'
