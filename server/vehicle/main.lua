@@ -155,7 +155,7 @@ function Ox.CreateVehicle(data, coords, heading)
     local model = data.model:lower()
     local stored = data.stored or not coords and 'impound' or nil
     local plate = Ox.GeneratePlate()
-    local vin = Ox.GenerateVin()
+    local vin = Ox.GenerateVin(model)
     local modelData = Ox.GetVehicleData(model)
 
     if not modelData then
@@ -206,18 +206,60 @@ function Ox.GeneratePlate()
     end
 end
 
+local vinData = {
+    ["default"] = {region = {"1", "4", "5"}},
+    ["Annis"] = {region = "J" },
+    ["Benefactor"] = {region = "W"},
+    ["BF"] = {region = "W"},
+    ["Bollokan"] = {region = "K"},
+    ["Buckingham"] = {region = "S"},
+    ["Cheval"] = {region = "6"},
+    ["Dewbauchee"] = {region = "S"},
+    ["Dinka"] = {region = "J"},
+    ["Emperor"] = {region = "J"},
+    ["Enus"] = {region = "S"},
+    ["Fathom"] = {region = "J"},
+    ["Gallivanter"] = {region = "S"},
+    ["Grotti"] = {region = "Z"},
+    ["Karin"] = {region = "J"},
+    ["Lampadati"] = {region = "Z"},
+    ["Maibatsu"] = {region = "J"},
+    ["Maxwell"] = {region = "S"},
+    ["Nagasaki"] = {region = "J"},
+    ["Obey"] = {region = "W"},
+    ["Ocelot"] = {region = "S"},
+    ["Overflod"] = {region = "Y"},
+    ["Pegassi"] = {region = "Z"},
+    ["Pfister"] = {region = "W"},
+    ["Principe"] = {region = "Z"},
+    ["Progen"] = {region = "S"},
+    ["RUNE"] = {region = "X"},
+    ["Shitzu"] = {region = "J"},
+    ["Speedophile"] = {region = "2"},
+    ["Truffade"] = {region = "V"},
+    ["Ubermacht"] = {region = "W"},
+    ["Vulcar"] = {region = "Y"},
+    ["Vysser"] = {region = "X"},
+    ["Weeny"] = {region = "S"}
+}
+
 ---Creates a unique vehicle vin number.
 ---@return string
-function Ox.GenerateVin()
-    local vin = table.create(17, 0)
+function Ox.GenerateVin(model)
+    local vehicle = Ox.GetVehicleData(model)
+    local make = vehicle.make
+    local settings = vinData[make] or vinData["default"]
+
     while true do
-        for i = 1, 17 do
-            vin[i] = math.random(0, 1) == 1 and string.char(math.random(65, 90)) or math.random(0, 9)
-        end
+        local region = type(settings.region) == "table" and settings.region[math.random(#settings.region)] or settings.region
+        local manufacturer = make ~= "" and string.upper(string.sub(make, 1, 2)) or "OX"
+        local WMI = ("%s%s"):format(region, manufacturer)
+        local type = string.upper(string.sub(vehicle.type, 1, 2))
+        local VDS = ("%s%s"):format(type, math.random(10, 99))
+        local VIS = os.time(os.date("!*t"))
+        local VIN = ("%s%s%s"):format(WMI, VDS, VIS)
 
-        local str = table.concat(vin)
-
-        if db.isVinAvailable(str) then return str end
+        if db.isVinAvailable(VIN) then return VIN end
     end
 end
 
