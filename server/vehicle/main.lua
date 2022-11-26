@@ -150,17 +150,18 @@ function Ox.CreateVehicle(data, coords, heading)
         end
     end
 
-    local owner = data.owner or false --[[@as boolean?]]
-    local group = data.group or false --[[@as boolean?]]
     local model = data.model:lower()
-    local stored = data.stored or not coords and 'impound' or nil
-    local plate = Ox.GeneratePlate()
-    local vin = Ox.GenerateVin()
     local modelData = Ox.GetVehicleData(model)
 
     if not modelData then
         error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
     end
+
+    local owner = data.owner or false --[[@as boolean?]]
+    local group = data.group or false --[[@as boolean?]]
+    local stored = data.stored or not coords and 'impound' or nil
+    local plate = Ox.GeneratePlate()
+    local vin = Ox.GenerateVin(model)
 
     data = {
         properties = data.properties or {},
@@ -190,6 +191,12 @@ function Ox.CreateVehicle(data, coords, heading)
     return spawnVehicle(vehicleId, owner, group, plate, vin, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
+local math_random = math.random
+
+local function getAlphanumeric()
+    return math_random(0, 1) == 1 and string.char(math_random(65, 90)) or math_random(0, 9)
+end
+
 ---Creates a unique vehicle license plate.
 ---@return string
 function Ox.GeneratePlate()
@@ -197,7 +204,7 @@ function Ox.GeneratePlate()
 
     while true do
         for i = 1, 8 do
-            plate[i] = math.random(0, 1) == 1 and string.char(math.random(65, 90)) or math.random(0, 9)
+            plate[i] = getAlphanumeric()
         end
 
         local str = table.concat(plate)
@@ -207,17 +214,24 @@ function Ox.GeneratePlate()
 end
 
 ---Creates a unique vehicle vin number.
+---@param model string
 ---@return string
-function Ox.GenerateVin()
-    local vin = table.create(17, 0)
+function Ox.GenerateVin(model)
+    local vehicle = Ox.GetVehicleData(model:lower())
+    local arr = {
+        math_random(1, 9),
+        vehicle.make == '' and 'OX' or vehicle.make:sub(1, 2):upper(),
+        model:sub(1, 2):upper(),
+        getAlphanumeric(),
+        string.char(math_random(65, 90)),
+    }
+
     while true do
-        for i = 1, 17 do
-            vin[i] = math.random(0, 1) == 1 and string.char(math.random(65, 90)) or math.random(0, 9)
-        end
+        ---@diagnostic disable-next-line: param-type-mismatch
+        arr[6] = os.time(os.date("!*t"))
+        local vin = table.concat(arr)
 
-        local str = table.concat(vin)
-
-        if db.isVinAvailable(str) then return str end
+        if db.isVinAvailable(vin) then return vin end
     end
 end
 
