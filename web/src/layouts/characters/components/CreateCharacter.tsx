@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useCreateModalState } from '../../../state/modals';
+import StyledSelect from './StyledSelect';
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
@@ -33,7 +34,7 @@ export const CreateCharacter: React.FC = () => {
               leaveTo='opacity-0 translate-y-[-100px]'
             >
               <Dialog.Panel
-                className='w-[300px] max-w-md transform overflow-hidden bg-black/50 p-4 text-left align-middle shadow-xl transition-all'>
+                className='w-[300px] max-w-md transform bg-black/50 p-4 text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title
                   as='h3'
                   className='text-lg text-white text-center leading-6'
@@ -51,13 +52,7 @@ export const CreateCharacter: React.FC = () => {
                     <input placeholder='MM' className='character-input text-center' />
                     <input placeholder='YYYY' className='character-input text-center' />
                   </div>
-                  {/*<input type='date' className='character-input mt-1.5' placeholder='DD/MM/YYYY' />*/}
-                  <select className='character-input mt-1.5'>
-                    <option value='' disabled selected hidden>Gender</option>
-                    <option value='male'>Male</option>
-                    <option value='female'>Female</option>
-                    <option value='non-binary'>Non-Binary</option>
-                  </select>
+                  <StyledSelect />
                 </div>
 
 
