@@ -1,6 +1,13 @@
+---@class PlayerIdentifiers
+---@field license string
+---@field license2 string Preferred identifier; should always refer to Rockstar Social Club ID.
+---@field discord? string
+---@field fivem? string
+---@field steam? string
+
 ---Return all identifiers for the given source.
 ---@param source number | string
----@return table
+---@return PlayerIdentifiers
 function Ox.GetIdentifiers(source)
     ---@cast source string
 

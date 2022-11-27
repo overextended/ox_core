@@ -28,7 +28,7 @@ USE `overextended`;
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
-  `license` varchar(50) DEFAULT NULL,
+  `license2` varchar(50) DEFAULT NULL,
   `steam` varchar(20) DEFAULT NULL,
   `fivem` varchar(10) DEFAULT NULL,
   `discord` varchar(20) DEFAULT NULL,

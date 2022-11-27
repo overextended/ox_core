@@ -1,5 +1,5 @@
 Server = {
-    PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'fivem'),
+    PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'license2'),
 }
 
 ---@diagnostic disable-next-line: param-type-mismatch
