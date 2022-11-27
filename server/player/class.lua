@@ -42,6 +42,13 @@ end
 ---@param value any
 ---@param replicated boolean
 function CPlayer:set(key, value, replicated)
+    local _key, count = key:gsub('%W', '')
+
+    if count > 0 then
+        print(("^3Received invalid key '%s' for player.set(); can only contain alphanumeric values.\nKey was changed to '%s'.^0"):format(key, _key))
+        key = _key
+    end
+
     self.private.metadata[key] = value
 
     if replicated then
@@ -54,6 +61,13 @@ end
 ---@param value string | number | table | boolean
 ---@param replicated boolean
 function CPlayer:setdb(key, value, replicated)
+    local _key, count = key:gsub('%W', '')
+
+    if count > 0 then
+        print(("^3Received invalid key '%s' for player.setdb(); can only contain alphanumeric values.\nKey was changed to '%s'.^0"):format(key, _key))
+        key = _key
+    end
+
     local vType = type(value)
 
     if value and vType ~= 'string' and vType ~= 'number' and vType ~= 'table' and vType ~= 'boolean' then
@@ -75,6 +89,13 @@ function CPlayer:get(key)
     local metadata = self.private.metadata
 
     if not key then return metadata end
+
+    local _key, count = key:gsub('%W', '')
+
+    if count > 0 then
+        print(("^3Received invalid key '%s' for player.get(); can only contain alphanumeric values.\nKey was changed to '%s'.^0"):format(key, _key))
+        key = _key
+    end
 
     local value = metadata[key]
 
