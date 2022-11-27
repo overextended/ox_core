@@ -9,7 +9,6 @@ local function startStatusLoop()
 
     while PlayerIsLoaded do
         i += 1
-        print(i)
 
         for name, value in pairs(statuses) do
             if value < 100 then

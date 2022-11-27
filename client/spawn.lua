@@ -187,6 +187,6 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     SetPedArmour(cache.ped, armour or 0)
     TriggerEvent('ox:playerLoaded', player)
 
-    CreateThread(require 'client.status')
-    CreateThread(require 'client.death')
+    CreateThread(require 'status')
+    CreateThread(require 'death')
 end)
