@@ -1,4 +1,3 @@
----@type table<string, CGroup>
 local GroupRegistry = require 'groups.registry'
 local CGroup = require 'groups.class'
 local db = require 'groups.db'

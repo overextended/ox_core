@@ -1,3 +1,4 @@
+---@type table<string, CGroup>
 local GroupRegistry = {}
 
 ---Return data associated with the given group name.
