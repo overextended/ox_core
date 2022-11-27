@@ -19,5 +19,6 @@ if GetExport('npwd') then
 end
 
 require 'groups.main'
+require 'status.main'
 require 'player.main'
 require 'vehicle.main'

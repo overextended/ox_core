@@ -144,6 +144,27 @@ function CPlayer:hasGroup(filter)
     end
 end
 
+function CPlayer:setStatus(name, value)
+    value = math.floor(value + 0.5)
+
+
+    if self.private.statuses[name] ~= value then
+        self.private.statuses[name] = value
+
+        TriggerClientEvent('ox:setPlayerStatus', self.source, name, value)
+
+        return true
+    end
+end
+
+function CPlayer:addStatus(name, value)
+    return self:setStatus(name, (self.private.statuses[name] or 0) + value)
+end
+
+function CPlayer:removeStatus(name, value)
+    return self:setStatus(name, (self.private.statuses[name] or 0) - value)
+end
+
 ---Gets all player ids in scope of the player.
 ---@return table<number, true>
 function CPlayer:getPlayersInScope()
@@ -207,6 +228,8 @@ function CPlayer:logout(dropped)
             discord = metadata.discord,
         }
 
+        table.wipe(self.private.statuses)
+
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
     end
 end
@@ -256,6 +279,7 @@ function CPlayer:prepareSaveData(date)
         date,
         GetEntityHealth(playerPed),
         GetPedArmour(playerPed),
+        json.encode(self.private.statuses),
         self.charid
     }
 end

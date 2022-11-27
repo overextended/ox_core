@@ -50,7 +50,7 @@ end
 
 local UPDATE_CHARACTER = [[UPDATE characters SET
     x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ?,
-    metadata = JSON_SET(metadata, "$.health", ?, "$.armour", ?)
+    metadata = JSON_SET(metadata, "$.health", ?, "$.armour", ?, "$.statuses", ?)
 WHERE charid = ?]]
 ---Update character data for one or multiple characters.
 ---@param parameters table<number, any> | table<number, any>[]

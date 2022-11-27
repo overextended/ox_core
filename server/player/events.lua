@@ -23,6 +23,7 @@ end)
 local npwd = GetExport('npwd')
 local appearance = GetExport('ox_appearance')
 local db = require 'player.db'
+local StatusRegistry = require 'status.registry'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
     local player = Ox.GetPlayer(source) --[[@as CPlayer]]
@@ -97,6 +98,11 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     }, health, armour)
 
     player.ped = GetPlayerPed(player.source)
+    local statuses = db.selectMetadata(player.charid, 'statuses')
+
+    for name, status in pairs(StatusRegistry) do
+        player:setStatus(name, statuses[name] or status.default)
+    end
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
 end)

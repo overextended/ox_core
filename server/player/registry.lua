@@ -28,6 +28,7 @@ local function addPlayer(playerId, username, identifiers, userId)
         private = setmetatable({
             inScope = {},
             groups = {},
+            statuses = {},
             metadata = identifiers,
         }, private_mt)
     })
