@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useCreateModalState } from '../../../state/modals';
-import StyledSelect from './StyledSelect';
+import GenderSelect from './GenderSelect';
+import { useForm } from 'react-hook-form';
+
+export type Inputs = {
+  firstName: string
+  lastName: string
+  day: number;
+  month: number;
+  year: number;
+  gender: string;
+}
+
+const validateName = (value: string) => {
+  return !value.match(/([0-9])+/g);
+};
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
+  const { register, handleSubmit, watch, formState: { errors }, setValue, getValues } = useForm<Inputs>();
+
+  const onSubmit = handleSubmit(data => console.log(data));
 
   return (
     <Transition appear show={createModal} as={React.Fragment}>
@@ -42,32 +59,40 @@ export const CreateCharacter: React.FC = () => {
                   Create character
                 </Dialog.Title>
 
-                <div className='flex flex-col justify-center w-full items-start text-white p-2'>
-                  <input
-                    className='character-input'
-                    placeholder='First name' />
-                  <input className='character-input mt-1.5' placeholder='Last name' />
-                  <div className='flex mt-1.5'>
-                    <input placeholder='DD' className='character-input text-center' />
-                    <input placeholder='MM' className='character-input text-center' />
-                    <input placeholder='YYYY' className='character-input text-center' />
+                <form onSubmit={onSubmit}>
+                  <div className='flex flex-col justify-center w-full items-start text-white p-2'>
+                    <input
+                      {...register('firstName', { required: true, validate: validateName })}
+                      className={`character-input ${errors.firstName ? 'character-input-error' : undefined}`}
+                      placeholder='First name' />
+                    <input {...register('lastName', { required: true, validate: validateName })}
+                           className={`character-input mt-1.5 ${errors.lastName ? 'character-input-error' : undefined}`}
+                           placeholder='Last name' />
+                    <div className='flex mt-1.5'>
+                      {/* TODO: Custom date validation */}
+                      <input {...register('day')} placeholder='DD' type='number'
+                             className='character-input text-center' />
+                      <input {...register('month')} placeholder='MM' type='number'
+                             className='character-input text-center' />
+                      <input {...register('year')} placeholder='YYYY' type='number'
+                             className='character-input text-center' />
+                    </div>
+                    <GenderSelect props={{ ...register('gender') }} setValue={setValue} />
                   </div>
-                  <StyledSelect />
-                </div>
 
-
-                <div className='mt-4 flex w-full items-center justify-center'>
-                  <button
-                    onClick={() => setCreateModal(false)}
-                    className='p-2 bg-black/40 text-white font-text w-28 hover:bg-green-500 focus:bg-black/30 hover-transition ml-3'>
-                    Confirm
-                  </button>
-                  <button
-                    onClick={() => setCreateModal(false)}
-                    className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
-                    Cancel
-                  </button>
-                </div>
+                  <div className='mt-4 flex w-full items-center justify-center'>
+                    <button
+                      type='submit'
+                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-green-500 focus:bg-black/30 hover-transition ml-3'>
+                      Confirm
+                    </button>
+                    <button
+                      onClick={() => setCreateModal(false)}
+                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
+                      Cancel
+                    </button>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>

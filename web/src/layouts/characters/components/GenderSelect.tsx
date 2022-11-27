@@ -1,6 +1,8 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, forwardRef, MutableRefObject } from 'react';
 import { IconChevronDown, IconCheck } from '@tabler/icons';
+import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
+import { Inputs } from './CreateCharacter';
 
 const options = [
   { name: 'Male', value: 'male' },
@@ -8,16 +10,22 @@ const options = [
   { name: 'Non-Binary', value: 'non-binary' },
 ];
 
-export const GenderSelect: React.FC = () => {
-  const [selected, setSelected] = useState(options[0]);
+export const GenderSelect = forwardRef<MutableRefObject<any>, { props: UseFormRegisterReturn, setValue: UseFormSetValue<Inputs> }>(({ ...props }, ref) => {
+  const [selected, setSelected] = useState<{ name: string; value: string; } | null>(null);
+
+  const handleChange = (val: { name: string, value: string } | null) => {
+    if (!val) return;
+    setSelected(val);
+    props.setValue('gender', val.value);
+  };
 
   return (
     <div className='w-full font-text'>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} {...props} onChange={val => handleChange(val)}>
         <div className='relative mt-1'>
           <Listbox.Button
-            className='relative w-full cursor-default character-input flex justify-between text-left shadow-md focus:outline-none sm:text-sm'>
-            <span className='block truncate'>{selected.name}</span>
+            className={`relative w-full cursor-default ${!selected && 'character-input-error'} character-input flex justify-between text-left shadow-md focus:outline-none sm:text-sm`}>
+            <span className='block truncate'>{selected?.name || 'Gender'}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-400'>
                 <IconChevronDown />
             </span>
@@ -65,6 +73,6 @@ export const GenderSelect: React.FC = () => {
       </Listbox>
     </div>
   );
-};
+});
 
 export default GenderSelect;

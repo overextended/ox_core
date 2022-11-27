@@ -12,6 +12,10 @@
   .character-input {
     @apply p-2 w-full outline-none bg-black/50 border-b-[1px] border-solid border-zinc-400 transition-all duration-300 focus:border-blue-400;
   }
+
+  .character-input-error {
+    @apply border-b-[1px] border-b-red-500;
+  }
 }
 
 body {
@@ -30,4 +34,10 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
