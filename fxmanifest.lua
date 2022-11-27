@@ -28,7 +28,6 @@ client_scripts {
 	'client/events.lua',
     'client/player.lua',
     'client/spawn.lua',
-    'client/death.lua',
     'client/debug.lua',
 }
 
@@ -46,6 +45,7 @@ files {
     'web/build/**/*',
 	'imports/client.lua',
 	'imports/client/**.lua',
+    'client/death.lua',
 	'shared/files/*.json',
     'locales/*.json',
 }

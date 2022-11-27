@@ -8,14 +8,14 @@ local hospitals = {
 }
 
 local anims = {
-    {'missfinale_c1@', 'lying_dead_player0'},
-    {'veh@low@front_ps@idle_duck', 'sit'},
-    {'dead', 'dead_a'},
+    { 'missfinale_c1@', 'lying_dead_player0' },
+    { 'veh@low@front_ps@idle_duck', 'sit' },
+    { 'dead', 'dead_a' },
 }
 
 local playerState = LocalPlayer.state
 
-function OnPlayerDeath()
+function onPlayerDeath()
     PlayerIsDead = true
     playerState.dead = true
 
@@ -143,3 +143,16 @@ function OnPlayerDeath()
     ClearPedTasks(cache.ped)
     TriggerServerEvent('ox:playerDeath', false)
 end
+
+local function startDeathLoop()
+    while PlayerIsLoaded do
+        Wait(200)
+        cache.ped = PlayerPedId()
+
+        if not PlayerIsDead and IsPedDeadOrDying(cache.ped) then
+            onPlayerDeath()
+        end
+    end
+end
+
+return startDeathLoop
