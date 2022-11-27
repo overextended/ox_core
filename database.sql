@@ -18,7 +18,6 @@
 
 -- ADDS metatable column for people who are too dumb to understand it and if so dont be fivem dev
 -- ALTER TABLE `characters` ADD metadata JSON DEFAULT '{}' CHECK (JSON_VALID(`metadata`))
-
 CREATE DATABASE IF NOT EXISTS `overextended`
 /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */
 ;
@@ -105,6 +104,11 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   INDEX `FK_vehicles_characters` (`owner`) USING BTREE,
   CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `overextended`.`characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ox_statuses` (
+  `name` VARCHAR(20) NOT NULL,
+  `default` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
