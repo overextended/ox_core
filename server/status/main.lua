@@ -15,7 +15,7 @@ local function loadStatuses()
             status.name = nil
 
             StatusRegistry[name] = status
-            GlobalState[('status:%s'):format(name)] = status
+            GlobalState[('status.%s'):format(name)] = status
 
             for _, player in pairs(players) do
                 local value = player.charid and player.private.statuses[name]
