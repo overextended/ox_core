@@ -70,16 +70,6 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         end
     end
 
-    local metadata = db.selectMetadata(player.charid)
-
-    for k, v in pairs(metadata) do
-        if type(v) == 'string' then
-            v = json.decode(v) or v
-        end
-
-        player:set(k, v)
-    end
-
     for _, load in pairs(LoadResource) do
         load(player)
     end
@@ -92,6 +82,10 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     -- set groups onto player obj temporarily, for sending to the client
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
+    ---@todo multi-select or something support for db.selectMetadata
+    local health = db.selectMetadata(player.charid, 'health') --[[@as number]]
+    local armour = db.selectMetadata(player.charid, 'armour') --[[@as number]]
+
     TriggerClientEvent('ox:loadPlayer', player.source, coords, {
         firstname = player.firstname,
         lastname = player.lastname,
@@ -100,7 +94,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         charid = player.charid,
         groups = player:getGroups(),
         gender = player:get('gender'),
-    }, metadata.health, metadata.armour)
+    }, health, armour)
 
     player.ped = GetPlayerPed(player.source)
 

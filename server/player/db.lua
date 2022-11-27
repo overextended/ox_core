@@ -87,13 +87,19 @@ function db.updateMetadata(key, value, charid)
     MySQL.prepare(REMOVE_METADATA, { key, charid })
 end
 
-local SELECT_METADATA = 'SELECT metadata FROM characters WHERE charid = ?'
----Update metadata for character.
+local SELECT_METADATA = 'SELECT JSON_VALUE(metadata, ?) FROM characters WHERE charid = ?'
+---Select a metadata value for a given key.
 ---@param charid number
----@return table<string, string | number | table>
-function db.selectMetadata(charid)
-    local metadata = MySQL.scalar.await(SELECT_METADATA, { charid })
-    return metadata and json.decode(metadata) or {}
+---@param field string
+---@return any
+function db.selectMetadata(charid, field)
+    local value = MySQL.scalar.await(SELECT_METADATA, { ('$.%s'):format(field), charid })
+
+    if type(value) == 'string' then
+        return json.decode(value) or value
+    end
+
+    return value
 end
 
 return db

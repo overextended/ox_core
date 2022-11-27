@@ -73,9 +73,17 @@ end
 ---@return any
 function CPlayer:get(key)
     local metadata = self.private.metadata
+
     if not key then return metadata end
 
-    return metadata[key]
+    local value = metadata[key]
+
+    if value == nil then
+        value = db.selectMetadata(self.charid, key)
+        metadata[key] = value
+    end
+
+    return value
 end
 
 ---Sets the player's grade for the given group.
