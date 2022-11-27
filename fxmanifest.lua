@@ -46,6 +46,7 @@ files {
 	'imports/client.lua',
 	'imports/client/**.lua',
     'client/death.lua',
+    'client/status.lua',
 	'shared/files/*.json',
     'locales/*.json',
 }

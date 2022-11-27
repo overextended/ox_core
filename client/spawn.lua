@@ -187,12 +187,6 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     SetPedArmour(cache.ped, armour or 0)
     TriggerEvent('ox:playerLoaded', player)
 
-	while PlayerIsLoaded do
+    CreateThread(require 'client.status')
     CreateThread(require 'client.death')
-		cache.ped = PlayerPedId()
-
-		if not PlayerIsDead and IsPedDeadOrDying(cache.ped) then
-			OnPlayerDeath()
-		end
-	end
 end)
