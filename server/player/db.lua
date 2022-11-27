@@ -9,7 +9,7 @@ function db.getUserFromIdentifier(identifier)
     return MySQL.scalar.await(SELECT_USERID, { identifier })
 end
 
-local INSERT_USER = 'INSERT INTO `users` (`username`, `license`, `steam`, `fivem`, `discord`) VALUES (?, ?, ?, ?, ?)'
+local INSERT_USER = 'INSERT INTO `users` (`username`, `license2`, `steam`, `fivem`, `discord`) VALUES (?, ?, ?, ?, ?)'
 ---Register a new user when a player first joins the server, and return their userid.
 ---@param username string
 ---@param identifiers {[string]: string}
