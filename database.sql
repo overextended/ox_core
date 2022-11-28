@@ -48,13 +48,20 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
-  `inventory` longtext NOT NULL DEFAULT ('[]'),
   `metadata` JSON DEFAULT (JSON_OBJECT()) CHECK (JSON_VALID(`metadata`)),
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `characters_inventory` (
+  `charid` SMALLINT UNSIGNED NOT NULL,
+  `inventory` longtext NOT NULL DEFAULT ('[]'),
+  PRIMARY KEY (`charid`),
+  KEY `FK_inventory_characters` (`charid`),
+  CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
+  ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
