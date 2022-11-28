@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `characters_inventory` (
   PRIMARY KEY (`charid`),
   KEY `FK_inventory_characters` (`charid`),
   CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
-  ) ENGINE = InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
