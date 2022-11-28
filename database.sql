@@ -25,7 +25,7 @@ CREATE DATABASE IF NOT EXISTS `overextended`
 USE `overextended`;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `userid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `license2` varchar(50) DEFAULT NULL,
   `steam` varchar(20) DEFAULT NULL,
@@ -35,21 +35,21 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `characters` (
-  `charid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `userid` int(11) UNSIGNED NOT NULL,
+  `charid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userid` SMALLINT UNSIGNED NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
-  `gender` varchar(50) NOT NULL,
+  `gender` varchar(10) NOT NULL,
   `dateofbirth` date NOT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
-  `last_played` date NOT NULL DEFAULT curdate(),
-  `is_dead` tinyint(1) NOT NULL DEFAULT 0,
+  `last_played` date NOT NULL DEFAULT (curdate()),
+  `is_dead` tinyint UNSIGNED NOT NULL DEFAULT 0,
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
   `heading` float DEFAULT NULL,
-  `inventory` longtext NOT NULL DEFAULT '[]',
-  `metadata` JSON DEFAULT '{}' CHECK (JSON_VALID(`metadata`)),
+  `inventory` longtext NOT NULL DEFAULT ('[]'),
+  `metadata` JSON DEFAULT (JSON_OBJECT()) CHECK (JSON_VALID(`metadata`)),
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
   `label` VARCHAR(50) NOT NULL,
   `grades` LONGTEXT NOT NULL,
-  `hasAccount` TINYINT(1) NOT NULL DEFAULT '0',
+  `hasAccount` TINYINT UNSIGNED NOT NULL DEFAULT ('0'),
   PRIMARY KEY (`name`) USING BTREE
 ) ENGINE = InnoDB;
 
@@ -72,9 +72,9 @@ VALUES (
   );
 
 CREATE TABLE IF NOT EXISTS `user_groups` (
-  `charid` int(11) UNSIGNED NOT NULL,
+  `charid` SMALLINT UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
-  `grade` int(11) NOT NULL,
+  `grade` TINYINT UNSIGNED NOT NULL,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
   KEY `FK_user_groups_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_user_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
@@ -89,13 +89,13 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `vehicles` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `plate` CHAR(8) NOT NULL DEFAULT '',
+  `id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `plate` CHAR(8) NOT NULL DEFAULT (''),
   `vin` CHAR(17) NOT NULL,
-  `owner` INT(11) UNSIGNED NULL DEFAULT NULL,
+  `owner` SMALLINT UNSIGNED NULL DEFAULT NULL,
   `group` varchar(50) NULL DEFAULT NULL,
   `model` VARCHAR(20) NOT NULL,
-  `class` TINYINT(1) NULL DEFAULT NULL,
+  `class` TINYINT UNSIGNED NULL DEFAULT NULL,
   `data` LONGTEXT NOT NULL,
   `trunk` LONGTEXT NULL DEFAULT NULL,
   `glovebox` LONGTEXT NULL DEFAULT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 
 CREATE TABLE IF NOT EXISTS `ox_statuses` (
   `name` VARCHAR(20) NOT NULL,
-  `default` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0'
+  `default` TINYINT UNSIGNED NOT NULL DEFAULT ('0')
 ) ENGINE = InnoDB;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
