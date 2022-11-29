@@ -2,11 +2,13 @@ local MySQL = MySQL
 local db = {}
 
 local SELECT_USERID = string.format('SELECT `userid` FROM `users` WHERE %s = ?', Server.PRIMARY_IDENTIFIER)
+local SELECT_USERID_DESC = string.format('%s %s', SELECT_USERID, 'ORDER BY `userid` DESC')
 ---Select the userid for a player based on their identifier.
 ---@param identifier string
+---@param newestFirst? boolean
 ---@return number?
-function db.getUserFromIdentifier(identifier)
-    return MySQL.scalar.await(SELECT_USERID, { identifier })
+function db.getUserFromIdentifier(identifier, newestFirst)
+    return MySQL.scalar.await(newestFirst and SELECT_USERID_DESC or SELECT_USERID, { identifier })
 end
 
 local INSERT_USER = 'INSERT INTO `users` (`username`, `license2`, `steam`, `fivem`, `discord`) VALUES (?, ?, ?, ?, ?)'

@@ -177,10 +177,22 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
         return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
     end
 
-    local userid = db.getUserFromIdentifier(primaryIdentifier)
+    local userid = db.getUserFromIdentifier(primaryIdentifier, false)
 
     if Ox.GetPlayerFromUserId(userid) then
-        return deferrals.done(("userId '%d' is already active."):format(userid))
+        if not Shared.DEBUG then
+            return deferrals.done(("userId '%d' is already active."):format(userid))
+        end
+
+        local newestUserid = db.getUserFromIdentifier(primaryIdentifier, true)
+        
+        if newestUserid ~= userid then
+            --[[ We found another user, let's use that instead! ]]
+            userid = newestUserid
+        else
+            --[[ We don't have another user to use, let's force the creation of a new one! ]]
+            userid = nil
+        end
     end
 
     addPlayer(tempId, username, identifiers, userid)
