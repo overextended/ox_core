@@ -6,7 +6,7 @@ game         'gta5'
 
 --[[ Resource Information ]]--
 name         'ox_core'
-version      '0.11.0'
+version      '0.12.0'
 description  'What have I done?'
 license      'MIT'
 author       'overextended'
