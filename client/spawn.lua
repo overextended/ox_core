@@ -140,6 +140,8 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	SetNuiFocusKeepInput(false)
 end)
 
+local startStatusLoop = require 'status'
+
 ---@param data table
 ---@param spawn vector4?
 ---@param health number?
@@ -187,6 +189,6 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     SetPedArmour(cache.ped, armour or 0)
     TriggerEvent('ox:playerLoaded', player)
 
-    CreateThread(require 'status')
+    CreateThread(startStatusLoop)
     CreateThread(require 'death')
 end)
