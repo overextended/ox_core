@@ -165,25 +165,36 @@ function CPlayer:hasGroup(filter)
     end
 end
 
+---@param name string
+---@param value number
+---@return true?
 function CPlayer:setStatus(name, value)
-    value = math.floor(value + 0.5)
+    self.private.statuses[name] = value
+    TriggerClientEvent('ox:setPlayerStatus', self.source, name, value)
 
+    return true
+end
 
-    if self.private.statuses[name] ~= value then
-        self.private.statuses[name] = value
-
-        TriggerClientEvent('ox:setPlayerStatus', self.source, name, value)
+---@param name string
+---@param value number
+---@return true?
+function CPlayer:addStatus(name, value)
+    if self.private.statuses[name] then
+        self.private.statuses[name] = lib.callback.await('ox:updateStatus', self.source, name, value)
 
         return true
     end
 end
 
-function CPlayer:addStatus(name, value)
-    return self:setStatus(name, (self.private.statuses[name] or 0) + value)
-end
-
+---@param name string
+---@param value number
+---@return true?
 function CPlayer:removeStatus(name, value)
-    return self:setStatus(name, (self.private.statuses[name] or 0) - value)
+    if self.private.statuses[name] then
+        self.private.statuses[name] = lib.callback.await('ox:updateStatus', self.source, name, value, true)
+
+        return true
+    end
 end
 
 ---Gets all player ids in scope of the player.
