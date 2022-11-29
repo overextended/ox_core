@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `characters` (
-  `charid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `charid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `userid` MEDIUMINT UNSIGNED NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `character_inventory` (
-  `charid` SMALLINT UNSIGNED NOT NULL,
+  `charid` INT UNSIGNED NOT NULL,
   `inventory` LONGTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`charid`),
   KEY `FK_inventory_characters` (`charid`),
@@ -79,7 +79,7 @@ VALUES (
   );
 
 CREATE TABLE IF NOT EXISTS `character_groups` (
-  `charid` SMALLINT UNSIGNED NOT NULL,
+  `charid` INT UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `plate` CHAR(8) NOT NULL DEFAULT '',
   `vin` CHAR(17) NOT NULL,
-  `owner` SMALLINT UNSIGNED NULL DEFAULT NULL,
+  `owner` INT UNSIGNED NULL DEFAULT NULL,
   `group` varchar(50) NULL DEFAULT NULL,
   `model` VARCHAR(20) NOT NULL,
   `class` TINYINT UNSIGNED NULL DEFAULT NULL,
