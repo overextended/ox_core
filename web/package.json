@@ -13,6 +13,7 @@
     "@headlessui/react": "^1.7.4",
     "@tabler/icons": "^1.112.0",
     "autoprefixer": "^10.4.13",
+    "dayjs": "^1.11.6",
     "jotai": "^1.10.0",
     "postcss": "^8.4.19",
     "react": "^18.0.0",

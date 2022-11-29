@@ -3,19 +3,27 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useCreateModalState } from '../../../state/modals';
 import GenderSelect from './GenderSelect';
 import { useForm } from 'react-hook-form';
+import * as dayjs from 'dayjs'
 
 export type Inputs = {
   firstName: string
   lastName: string
-  day: number;
-  month: number;
-  year: number;
+  dob: string;
   gender: string;
 }
+
+const currentYear = new Date().getFullYear()
 
 const validateName = (value: string) => {
   return !value.match(/([0-9])+/g);
 };
+
+const validateDate = (date: string) => {
+  // TODO: date verification against current date
+  const year = dayjs(date).get('year')
+  if (year < 1900 || year > currentYear) return false
+  return dayjs(date, 'YYYY-MM-DD', true).isValid()
+}
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
@@ -68,14 +76,8 @@ export const CreateCharacter: React.FC = () => {
                     <input {...register('lastName', { required: true, validate: validateName })}
                            className={`character-input mt-1.5 ${errors.lastName ? 'character-input-error' : undefined}`}
                            placeholder='Last name' />
-                    <div className='flex mt-1.5'>
-                      {/* TODO: Custom date validation */}
-                      <input {...register('day')} placeholder='DD' type='number'
-                             className='character-input text-center' />
-                      <input {...register('month')} placeholder='MM' type='number'
-                             className='character-input text-center' />
-                      <input {...register('year')} placeholder='YYYY' type='number'
-                             className='character-input text-center' />
+                    <div className='flex w-full mt-1.5'>
+                      <input placeholder='Date of birth' type='date' className={`character-input ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {required: true, validate: validateDate})}/>
                     </div>
                     <GenderSelect props={{ ...register('gender') }} setValue={setValue} />
                   </div>
