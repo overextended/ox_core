@@ -120,6 +120,8 @@ CREATE TABLE IF NOT EXISTS `ox_statuses` (
   `default` TINYINT UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE = InnoDB;
 
+CREATE TRIGGER `characters_after_insert` AFTER INSERT ON `characters` FOR EACH ROW INSERT INTO `character_inventory` (charid) VALUES (NEW.charid);
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
 ;
 
