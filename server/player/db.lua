@@ -65,7 +65,7 @@ function db.deleteCharacter(charid)
     return MySQL.update(DELETE_CHARACTER, { charid })
 end
 
-local SELECT_CHARACTER_GROUPS = 'SELECT `name`, `grade` FROM `user_groups` WHERE `charid` = ?'
+local SELECT_CHARACTER_GROUPS = 'SELECT `name`, `grade` FROM `character_groups` WHERE `charid` = ?'
 ---Select all groups the character is a member of.
 ---@param charid number
 ---@return { name: string, grade: number }[]?

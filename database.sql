@@ -55,9 +55,9 @@ CREATE TABLE IF NOT EXISTS `characters` (
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `characters_inventory` (
+CREATE TABLE IF NOT EXISTS `character_inventory` (
   `charid` SMALLINT UNSIGNED NOT NULL,
-  `inventory` longtext NOT NULL DEFAULT ('[]'),
+  `inventory` LONGTEXT NULL DEFAULT NULL,
   PRIMARY KEY (`charid`),
   KEY `FK_inventory_characters` (`charid`),
   CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
@@ -78,13 +78,13 @@ VALUES (
     '["Cadet", "Officer", "Sergeant", "Captain", "Commander", "Chief"]'
   );
 
-CREATE TABLE IF NOT EXISTS `user_groups` (
+CREATE TABLE IF NOT EXISTS `character_groups` (
   `charid` SMALLINT UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
-  KEY `FK_user_groups_characters` (`charid`) USING BTREE,
-  CONSTRAINT `FK_user_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
+  KEY `FK_character_groups_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ox_inventory` (
