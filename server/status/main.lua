@@ -13,6 +13,7 @@ local function loadStatuses()
             local status = results[i]
             local name = status.name
             status.name = nil
+            status.ontick = tonumber(status.ontick)
 
             StatusRegistry[name] = status
             GlobalState[('status.%s'):format(name)] = status
