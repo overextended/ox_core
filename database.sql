@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `fivem` varchar(10) DEFAULT NULL,
   `discord` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`userid`) USING BTREE
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `character_inventory` (
   `charid` INT UNSIGNED NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `character_inventory` (
   PRIMARY KEY (`charid`),
   KEY `FK_inventory_characters` (`charid`),
   CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `grades` LONGTEXT NOT NULL,
   `hasAccount` BIT NOT NULL DEFAULT 0,
   PRIMARY KEY (`name`) USING BTREE
-) ENGINE = InnoDB;
+);
 
 INSERT INTO `ox_groups` (`name`, `label`, `grades`)
 VALUES (
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `character_groups` (
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
   KEY `FK_character_groups_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `ox_inventory` (
   `owner` varchar(60) DEFAULT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
   `data` longtext DEFAULT NULL,
   `lastupdated` timestamp NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
   UNIQUE KEY `owner` (`owner`, `name`)
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -113,14 +113,24 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   INDEX `FK_vehicles_characters` (`owner`) USING BTREE,
   CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `overextended`.`characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE IF NOT EXISTS `ox_statuses` (
   `name` VARCHAR(20) NOT NULL,
-  `default` TINYINT UNSIGNED NOT NULL DEFAULT 0
-) ENGINE = InnoDB;
+  `default` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0,
+  `ontick` DECIMAL(2, 2) DEFAULT NULL
+);
 
-CREATE TRIGGER `characters_after_insert` AFTER INSERT ON `characters` FOR EACH ROW INSERT INTO `character_inventory` (charid) VALUES (NEW.charid);
+INSERT INTO `ox_statuses` (`name`, `default`, `ontick`)
+VALUES ('hunger', 0, 0.02),
+  ('thirst', 0, 0.05),
+  ('stress', 0, -0.10);
+
+CREATE TRIGGER `characters_after_insert`
+AFTER
+INSERT ON `characters` FOR EACH ROW
+INSERT INTO `character_inventory` (charid)
+VALUES (NEW.charid);
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */
 ;
