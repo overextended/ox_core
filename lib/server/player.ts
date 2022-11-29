@@ -72,6 +72,18 @@ export class CPlayer {
   logout() {
     Ox.CPlayer(this.source, "logout");
   }
+
+  setStatus(name: string, value: number) {
+    Ox.CPlayer(this.source, "setStatus", name, value);
+  }
+
+  addStatus(name: string, value: number) {
+    Ox.CPlayer(this.source, "addStatus", name, value);
+  }
+
+  removeStatus(name: string, value: number) {
+    Ox.CPlayer(this.source, "removeStatus", name, value);
+  }
 }
 
 export function GetPlayer(playerId: number) {
