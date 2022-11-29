@@ -25,7 +25,7 @@ CREATE DATABASE IF NOT EXISTS `overextended`
 USE `overextended`;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `userid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userid` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `license2` varchar(50) DEFAULT NULL,
   `steam` varchar(20) DEFAULT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `userid` SMALLINT UNSIGNED NOT NULL,
+  `userid` MEDIUMINT UNSIGNED NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `dateofbirth` date NOT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
   `last_played` date NOT NULL DEFAULT (curdate()),
-  `is_dead` tinyint UNSIGNED NOT NULL DEFAULT 0,
+  `is_dead` BIT NOT NULL DEFAULT 0,
   `x` float DEFAULT NULL,
   `y` float DEFAULT NULL,
   `z` float DEFAULT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
   `label` VARCHAR(50) NOT NULL,
   `grades` LONGTEXT NOT NULL,
-  `hasAccount` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `hasAccount` BIT NOT NULL DEFAULT 0,
   PRIMARY KEY (`name`) USING BTREE
 ) ENGINE = InnoDB;
 
