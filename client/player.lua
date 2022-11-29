@@ -1,3 +1,6 @@
+---@todo rewrite player class for parity with server
+---still need to do modules as well
+
 PlayerIsLoaded = false
 PlayerIsDead = false
 player = {}
@@ -44,8 +47,13 @@ function Ox.GetPlayerData()
     return PlayerIsLoaded and player
 end
 
+---@todo this should be setup automatically like the server
 function Ox.PlayerExports()
     return {
-        get = true
+        get = true,
+        getStatus = true,
+        setStatus = true,
+        addStatus = true,
+        removeStatus = true,
     }
 end
