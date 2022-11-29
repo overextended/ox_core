@@ -2,7 +2,7 @@ PlayerIsLoaded = false
 PlayerIsDead = false
 player = {}
 
-local CPlayer = {}
+CPlayer = {}
 CPlayer.__index = CPlayer
 
 local playerData = {}
