@@ -16,7 +16,32 @@ local private_mt = {
     __pack = function() return '' end,
 }
 
-local function addPlayer(playerId, username, identifiers, userId)
+local function addPlayer(playerId, username)
+    local identifiers = Ox.GetIdentifiers(playerId)
+    local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+
+    if not primaryIdentifier then
+        return nil, ("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER)
+    end
+
+    local userId = db.getUserFromIdentifier(primaryIdentifier, false)
+
+    if Ox.GetPlayerFromUserId(userId) then
+        if not Shared.DEBUG then
+            return nil, ("userId '%d' is already active."):format(userId)
+        end
+
+        local newestUserid = db.getUserFromIdentifier(primaryIdentifier, true)
+
+        if newestUserid ~= userId then
+            --[[ We found another user, let's use that instead! ]]
+            userId = newestUserid
+        else
+            --[[ We don't have another user to use, let's force the creation of a new one! ]]
+            userId = nil
+        end
+    end
+
     if not userId then
         userId = db.createUser(username, identifiers) --[[@as number]]
     end
@@ -134,19 +159,19 @@ RegisterNetEvent('ox:playerJoined', function()
         return DropPlayer(playerId, serverLockdown)
     end
 
+    ---@type CPlayer?
     local player = PlayerRegistry[playerId]
 
     if not player then
-        local identifiers = Ox.GetIdentifiers(playerId)
-        local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+        player, err = addPlayer(playerId, GetPlayerName(playerId))
 
-        if not primaryIdentifier then
-            return DropPlayer(playerId, ("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
+        if player then
+            player:setAsJoined(playerId)
         end
+    end
 
-        player = addPlayer(playerId, GetPlayerName(playerId), identifiers, db.getUserFromIdentifier(primaryIdentifier))
-
-        player:setAsJoined(playerId)
+    if err or not player then
+        return DropPlayer(playerId, err or 'could not load player')
     end
 
     player.characters = player:selectCharacters()
@@ -170,32 +195,11 @@ AddEventHandler('playerConnecting', function(username, _, deferrals)
         return deferrals.done(serverLockdown)
     end
 
-    local identifiers = Ox.GetIdentifiers(source)
-    local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+    local _, err = addPlayer(tempId, username)
 
-    if not primaryIdentifier then
-        return deferrals.done(("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER))
+    if err then
+        return deferrals.done(err)
     end
-
-    local userid = db.getUserFromIdentifier(primaryIdentifier, false)
-
-    if Ox.GetPlayerFromUserId(userid) then
-        if not Shared.DEBUG then
-            return deferrals.done(("userId '%d' is already active."):format(userid))
-        end
-
-        local newestUserid = db.getUserFromIdentifier(primaryIdentifier, true)
-        
-        if newestUserid ~= userid then
-            --[[ We found another user, let's use that instead! ]]
-            userid = newestUserid
-        else
-            --[[ We don't have another user to use, let's force the creation of a new one! ]]
-            userid = nil
-        end
-    end
-
-    addPlayer(tempId, username, identifiers, userid)
 
     connectingPlayers[tempId] = true
 
