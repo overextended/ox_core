@@ -101,7 +101,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     local statuses = db.selectMetadata(player.charid, 'statuses')
 
     for name, status in pairs(StatusRegistry) do
-        player:setStatus(name, statuses[name] or status.default)
+        player:setStatus(name, statuses?[name] or status.default)
     end
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
