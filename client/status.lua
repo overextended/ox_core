@@ -1,9 +1,72 @@
 local statuses = {}
+
+---@type table<string, number>
 local currentStatus = {}
+
+---@param name string
+---@return number
+function CPlayer:getStatus(name)
+    return currentStatus[name]
+end
+
+---@param name string
+---@param value number
+---@return true?
+function CPlayer:setStatus(name, value)
+    if currentStatus[name] then
+        currentStatus[name] = value
+        return true
+    end
+end
+
+---@param name string
+---@param value number
+---@return true?
+function CPlayer:addStatus(name, value)
+    if currentStatus[name] then
+        currentStatus[name] += value
+        return true
+    end
+end
+
+---@param name string
+---@param value number
+---@return true?
+function CPlayer:removeStatus(name, value)
+    if currentStatus[name] then
+        currentStatus[name] -= value
+        return true
+    end
+end
 
 NetEventHandler('ox:setPlayerStatus', function(name, value)
     statuses[name] = GlobalState[('status.%s'):format(name)]
     currentStatus[name] = value
+end)
+
+---@param name string
+---@return number | table<string, number>
+lib.callback.register('ox:getStatus', function(name)
+    if name then
+        return currentStatus[name]
+    end
+
+    return currentStatus
+end)
+
+---@param name string
+---@param value number
+---@param remove boolean
+---@return number?
+lib.callback.register('ox:updateStatus', function(name, value, remove)
+    local current = currentStatus[name]
+
+    if current then
+        value = (remove and current - value) or current + value
+        currentStatus[name] = value
+
+        return currentStatus[name]
+    end
 end)
 
 local function startStatusLoop()
