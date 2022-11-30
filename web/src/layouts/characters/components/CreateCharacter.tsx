@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useCreateModalState } from '../../../state/modals';
 import GenderSelect from './GenderSelect';
 import { useForm } from 'react-hook-form';
-import * as dayjs from 'dayjs'
+import * as dayjs from 'dayjs';
 
 export type Inputs = {
   firstName: string
@@ -12,18 +12,21 @@ export type Inputs = {
   gender: string;
 }
 
-const currentYear = new Date().getFullYear()
+const currentDate = new Date();
 
 const validateName = (value: string) => {
   return !value.match(/([0-9])+/g);
 };
 
 const validateDate = (date: string) => {
-  // TODO: date verification against current date
-  const year = dayjs(date).get('year')
-  if (year < 1900 || year > currentYear) return false
-  return dayjs(date, 'YYYY-MM-DD', true).isValid()
-}
+  const validDate = dayjs(date);
+  const [day, month, year] = [validDate.get('date'), validDate.get('month') + 1, validDate.get('year')];
+  const [currentDay, currentMonth, currentYear] = [currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear()];
+  if (month > currentMonth) return false;
+  if (month === currentMonth && day > currentDay) return false;
+  if (year < 1900 || year > currentYear) return false;
+  return dayjs(date, 'YYYY-MM-DD', true).isValid();
+};
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
@@ -77,7 +80,11 @@ export const CreateCharacter: React.FC = () => {
                            className={`character-input mt-1.5 ${errors.lastName ? 'character-input-error' : undefined}`}
                            placeholder='Last name' />
                     <div className='flex w-full mt-1.5'>
-                      <input placeholder='Date of birth' type='date' className={`character-input ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {required: true, validate: validateDate})}/>
+                      <input placeholder='Date of birth' type='date'
+                             className={`character-input ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {
+                        required: true,
+                        validate: validateDate,
+                      })} />
                     </div>
                     <GenderSelect props={{ ...register('gender') }} setValue={setValue} />
                   </div>

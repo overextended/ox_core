@@ -10,7 +10,7 @@
   }
 
   .character-input {
-    @apply p-2 w-full outline-none bg-black/50 border-b-[1px] border-solid border-zinc-400 transition-all duration-300 focus:border-blue-400;
+    @apply p-2 w-full h-[40px] outline-none bg-black/50 border-b-[1px] border-solid border-zinc-400 transition-all duration-300 focus:border-blue-400;
   }
 
   .character-input-error {
@@ -42,10 +42,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input::-webkit-calendar-picker-indicator{
+input::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-input[type="date"]::-webkit-input-placeholder{
+input[type="date"]::-webkit-input-placeholder {
   visibility: hidden !important;
 }

@@ -24,7 +24,7 @@ export const GenderSelect = forwardRef<MutableRefObject<any>, { props: UseFormRe
       <Listbox value={selected} {...props} onChange={val => handleChange(val)}>
         <div className='relative mt-1'>
           <Listbox.Button
-            className={`relative w-full cursor-default ${!selected && 'character-input-error'} character-input flex justify-between text-left shadow-md focus:outline-none sm:text-sm`}>
+            className={`relative w-full cursor-default ${!selected && 'character-input-error'} character-input flex justify-between items-center text-left shadow-md focus:outline-none sm:text-sm`}>
             <span className='block truncate'>{selected?.name || 'Gender'}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-400'>
                 <IconChevronDown />
