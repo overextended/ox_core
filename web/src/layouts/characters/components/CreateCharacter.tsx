@@ -55,11 +55,11 @@ export const CreateCharacter: React.FC = () => {
             <Transition.Child
               as={React.Fragment}
               enter='ease-out duration-300'
-              enterFrom='opacity-0 translate-y-[-100px]'
-              enterTo='opacity-100 translate-y-0'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
               leave='ease-in duration-200'
-              leaveFrom='opacity-100 translate-y-0'
-              leaveTo='opacity-0 translate-y-[-100px]'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
             >
               <Dialog.Panel
                 className='w-[300px] max-w-md transform bg-black/50 p-4 text-left align-middle shadow-xl transition-all'>
@@ -79,13 +79,11 @@ export const CreateCharacter: React.FC = () => {
                     <input {...register('lastName', { required: true, validate: validateName })}
                            className={`character-input mt-1.5 ${errors.lastName ? 'character-input-error' : undefined}`}
                            placeholder='Last name' />
-                    <div className='flex w-full mt-1.5'>
-                      <input placeholder='Date of birth' type='date'
-                             className={`character-input ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {
-                        required: true,
-                        validate: validateDate,
-                      })} />
-                    </div>
+                    <input placeholder='Date of birth' type='date'
+                           className={`character-input mt-1.5 ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {
+                      required: true,
+                      validate: validateDate,
+                    })} />
                     <GenderSelect props={{ ...register('gender', { required: true }) }} setValue={setValue} />
                   </div>
 
