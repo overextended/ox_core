@@ -4,6 +4,7 @@ import { useCreateModalState } from '../../../state/modals';
 import GenderSelect from './GenderSelect';
 import { useForm } from 'react-hook-form';
 import * as dayjs from 'dayjs';
+import { fetchNui } from '../../../utils/fetchNui';
 
 export type Inputs = {
   firstName: string
@@ -32,7 +33,20 @@ export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
   const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<Inputs>();
 
-  const onSubmit = handleSubmit(data => console.log(data));
+  const onSubmit = handleSubmit(data => {
+    // Normalize inputs
+    data.firstName = data.firstName[0].toUpperCase() + data.firstName.slice(1).toLowerCase();
+    data.lastName = data.lastName[0].toUpperCase() + data.lastName.slice(1).toLowerCase();
+    fetchNui('ox_selectCharacter', {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      date: data.dob,
+      gender: data.gender,
+    });
+    setCreateModal(false);
+    reset();
+    //  TODO: ui visibility toggle
+  });
 
   return (
     <Transition appear show={createModal} as={React.Fragment}>
