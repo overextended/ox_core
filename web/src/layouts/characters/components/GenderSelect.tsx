@@ -10,7 +10,9 @@ const options = [
   { name: 'Non-Binary', value: 'non-binary' },
 ];
 
-export const GenderSelect = forwardRef<MutableRefObject<any>, { props: UseFormRegisterReturn, setValue: UseFormSetValue<Inputs> }>(({ ...props }, ref) => {
+type RefProps = { register: UseFormRegisterReturn, setValue: UseFormSetValue<Inputs> }
+
+export const GenderSelect = forwardRef<MutableRefObject<any>, RefProps>((props, ref) => {
   const [selected, setSelected] = useState<{ name: string; value: string; } | null>(null);
 
   const handleChange = (val: { name: string, value: string } | null) => {
@@ -21,7 +23,7 @@ export const GenderSelect = forwardRef<MutableRefObject<any>, { props: UseFormRe
 
   return (
     <div className='w-full font-text'>
-      <Listbox value={selected} {...props} onChange={val => handleChange(val)}>
+      <Listbox value={selected} {...props.register} onChange={val => handleChange(val)}>
         <div className='relative mt-1'>
           <Listbox.Button
             className={`relative w-full cursor-default ${!selected && 'character-input-error'} character-input flex justify-between items-center text-left shadow-md focus:outline-none sm:text-sm`}>

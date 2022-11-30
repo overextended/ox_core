@@ -98,7 +98,7 @@ export const CreateCharacter: React.FC = () => {
                       required: true,
                       validate: validateDate,
                     })} />
-                    <GenderSelect props={{ ...register('gender', { required: true }) }} setValue={setValue} />
+                    <GenderSelect register={{ ...register('gender', { required: true }) }} setValue={setValue} />
                   </div>
 
                   <div className='mt-4 flex w-full items-center justify-center'>
