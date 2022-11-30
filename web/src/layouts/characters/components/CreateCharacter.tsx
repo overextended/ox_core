@@ -30,7 +30,7 @@ const validateDate = (date: string) => {
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
-  const { register, handleSubmit, watch, formState: { errors }, setValue, getValues } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<Inputs>();
 
   const onSubmit = handleSubmit(data => console.log(data));
 
@@ -86,7 +86,7 @@ export const CreateCharacter: React.FC = () => {
                         validate: validateDate,
                       })} />
                     </div>
-                    <GenderSelect props={{ ...register('gender') }} setValue={setValue} />
+                    <GenderSelect props={{ ...register('gender', { required: true }) }} setValue={setValue} />
                   </div>
 
                   <div className='mt-4 flex w-full items-center justify-center'>
@@ -96,7 +96,10 @@ export const CreateCharacter: React.FC = () => {
                       Confirm
                     </button>
                     <button
-                      onClick={() => setCreateModal(false)}
+                      onClick={() => {
+                        setCreateModal(false);
+                        reset();
+                      }}
                       className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
                       Cancel
                     </button>
