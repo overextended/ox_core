@@ -1,5 +1,7 @@
 const Ox = exports.ox_core;
 
+type PlayerLicense = { issued: string };
+
 export class CPlayer {
   source: number;
   userid: number;
@@ -73,16 +75,32 @@ export class CPlayer {
     Ox.CPlayer(this.source, "logout");
   }
 
-  setStatus(name: string, value: number) {
-    Ox.CPlayer(this.source, "setStatus", name, value);
+  setStatus(name: string, value: number): boolean {
+    return Ox.CPlayer(this.source, "setStatus", name, value);
   }
 
-  addStatus(name: string, value: number) {
-    Ox.CPlayer(this.source, "addStatus", name, value);
+  addStatus(name: string, value: number): boolean {
+    return Ox.CPlayer(this.source, "addStatus", name, value);
   }
 
-  removeStatus(name: string, value: number) {
-    Ox.CPlayer(this.source, "removeStatus", name, value);
+  removeStatus(name: string, value: number): boolean {
+    return Ox.CPlayer(this.source, "removeStatus", name, value);
+  }
+
+  getLicenses(): Record<string, PlayerLicense> {
+    return Ox.CPlayer(this.source, "getLicenses");
+  }
+
+  getLicense(name: string): PlayerLicense {
+    return Ox.CPlayer(this.source, "getLicense", name);
+  }
+
+  addLicense(name: string): boolean {
+    return Ox.CPlayer(this.source, "addLicense", name);
+  }
+
+  removeLicense(name: string): boolean {
+    return Ox.CPlayer(this.source, "removeLicense", name);
   }
 }
 

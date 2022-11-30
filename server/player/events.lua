@@ -71,6 +71,16 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         end
     end
 
+    local licenses = db.selectCharacterLicenses(player.charid)
+
+    if licenses then
+        for i = 1, #licenses do
+            local license = licenses[i]
+            player.private.licenses[license.name] = license
+            license.name = nil
+        end
+    end
+
     for _, load in pairs(LoadResource) do
         load(player)
     end

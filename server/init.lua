@@ -20,5 +20,6 @@ end
 
 require 'groups.main'
 require 'status.main'
+require 'license.main'
 require 'player.main'
 require 'vehicle.main'

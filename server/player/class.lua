@@ -197,6 +197,41 @@ function CPlayer:removeStatus(name, value)
     end
 end
 
+---@return table<string, { issued: string }>
+function CPlayer:getLicenses()
+    return self.private.licenses
+end
+
+---@param name string
+---@return { issued: string }
+function CPlayer:getLicense(name)
+    return self.private.licenses[name]
+end
+
+---@param name string
+---@return true?
+function CPlayer:addLicense(name)
+    local issued = os.date('%Y-%m-%d', os.time()) --[[@as string]]
+
+    db.addCharacterLicense(self.charid, name, issued)
+
+    self.private.licenses[name] = {
+        issued = issued
+    }
+
+    return true
+end
+
+---@param name string
+---@return true?
+function CPlayer:removeLicense(name)
+    db.removeCharacterLicense(self.charid, name)
+
+    self.private.licenses[name] = nil
+
+    return true
+end
+
 ---Gets all player ids in scope of the player.
 ---@return table<number, true>
 function CPlayer:getPlayersInScope()

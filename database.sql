@@ -126,6 +126,24 @@ VALUES ('hunger', 0, 0.02),
   ('thirst', 0, 0.05),
   ('stress', 0, -0.10);
 
+CREATE TABLE IF NOT EXISTS `character_licenses` (
+  `charid` INT(10) UNSIGNED NOT NULL,
+  `name` VARCHAR(20) DEFAULT NULL,
+  `issued` DATE DEFAULT NULL,
+  UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
+  KEY `FK_character_licences_characters` (`charid`) USING BTREE,
+  CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS `ox_licenses` (
+  `name` VARCHAR(20) NOT NULL,
+  `label` VARCHAR(50) NOT NULL
+);
+
+INSERT INTO `ox_licenses` (`name`, `label`)
+VALUES ('weapons', 'Weapons License'),
+  ('drivers', 'Drivers License');
+
 CREATE TRIGGER `characters_after_insert`
 AFTER
 INSERT ON `characters` FOR EACH ROW

@@ -54,6 +54,7 @@ local function addPlayer(playerId, username)
             inScope = {},
             groups = {},
             statuses = {},
+            licenses = {},
             metadata = identifiers,
         }, private_mt)
     })
