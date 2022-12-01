@@ -5,15 +5,17 @@ import { useCharacterIndexState } from '../../../state/characters';
 import { fetchNui } from '../../../utils/fetchNui';
 import React from 'react';
 import { useSetDeleteModal } from '../../../state/modals';
+import { useSetCharacterVisibility } from '../../../state/visibility';
 
 
 const Character: React.FC<{ character: CharacterProps, index: number }> = (props) => {
   const [characterIndex, setCharacterIndex] = useCharacterIndexState();
+  const setVisible = useSetCharacterVisibility();
   const setDeleteModal = useSetDeleteModal();
 
   const playCharacter = () => {
     fetchNui('ox:selectCharacter', props.character.slot);
-    //  TODO: Hide UI
+    setVisible(false);
   };
 
   return (

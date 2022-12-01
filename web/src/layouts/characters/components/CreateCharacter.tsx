@@ -5,6 +5,7 @@ import GenderSelect from './GenderSelect';
 import { useForm } from 'react-hook-form';
 import * as dayjs from 'dayjs';
 import { fetchNui } from '../../../utils/fetchNui';
+import { useSetCharacterVisibility } from '../../../state/visibility';
 
 export type Inputs = {
   firstName: string
@@ -31,6 +32,7 @@ const validateDate = (date: string) => {
 
 export const CreateCharacter: React.FC = () => {
   const [createModal, setCreateModal] = useCreateModalState();
+  const setVisible = useSetCharacterVisibility();
   const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<Inputs>();
 
   const onSubmit = handleSubmit(data => {
@@ -45,7 +47,7 @@ export const CreateCharacter: React.FC = () => {
     });
     setCreateModal(false);
     reset();
-    //  TODO: ui visibility toggle
+    setVisible(false);
   });
 
   return (
