@@ -57,7 +57,6 @@ function onPlayerDeath()
         DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
         Wait(0)
     end
-    -- perhaps add a flash so that the lack of animation isn't visible before it's set
 
     CreateThread(function()
         while PlayerIsDead do
@@ -85,7 +84,7 @@ function onPlayerDeath()
         local anim = cache.vehicle and anims[2] or anims[1]
 
         if not IsEntityPlayingAnim(cache.ped, anim[1], anim[2], 3) then
-            TaskPlayAnim(cache.ped, anim[1], anim[2], 8.0, 8.0, -1, 1, 1.0, false, false, false)
+            TaskPlayAnim(cache.ped, anim[1], anim[2], 50.0, 8.0, -1, 1, 1.0, false, false, false)
         end
 
         timeout -= 1
