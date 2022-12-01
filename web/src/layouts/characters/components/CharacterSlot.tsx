@@ -25,7 +25,7 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
 
   return (
     <>
-      <div className='flex'>
+      <div className='flex border-b-[1px] border-b-white/30'>
         <div
           className={`hover-transition flex h-24 w-[85%] flex-col justify-evenly p-1.5 text-white hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
           onClick={selectCharacter}>
