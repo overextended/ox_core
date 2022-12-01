@@ -190,5 +190,6 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     TriggerEvent('ox:playerLoaded', player)
 
     CreateThread(startStatusLoop)
-    CreateThread(require 'death')
+
+    if Client.DEATH_SYSTEM then CreateThread(require 'death') end
 end)
