@@ -13,14 +13,15 @@ local anims = {
     { 'dead', 'dead_a' },
 }
 
+local oxDeathEnabled = true --Set to  false if you are planning to handle respawning/deaths with another resource
 local playerState = LocalPlayer.state
 
 function onPlayerDeath()
     PlayerIsDead = true
     playerState.dead = true
 
-    for i = 1, #anims do
-        lib.requestAnimDict(anims[i][1])
+    for anim in anims do
+        lib.requestAnimDict(anim[1])
     end
 
     local scaleform = RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
@@ -57,7 +58,8 @@ function onPlayerDeath()
         DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
         Wait(0)
     end
-    -- perhaps add a flash so that the lack of animation isn't visible before it's set
+
+    SetFlash(0, 0, 20, 20, 20)
 
     CreateThread(function()
         while PlayerIsDead do
@@ -102,8 +104,7 @@ function onPlayerDeath()
     if bleedOut then
         local closest, distance = {}
 
-        for i = 1, #hospitals do
-            local hospital = hospitals[i]
+        for hospital in hospitals do
             distance = #(coords - hospital)
 
             if not next(closest) or distance < closest.dist then
@@ -111,7 +112,6 @@ function onPlayerDeath()
                 closest.dist = distance
             end
         end
-
         coords = closest.coords --[[@as vector]]
     end
 
@@ -155,4 +155,6 @@ local function startDeathLoop()
     end
 end
 
-return startDeathLoop
+if oxDeathEnabled then
+    return startDeathLoop
+end

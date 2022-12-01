@@ -140,9 +140,8 @@ end)
 RegisterNetEvent('ox:playerDeath', function(state)
     local player = Ox.GetPlayer(source)
 
-    if player and player.charid then
-        player:set('isDead', state)
-    end
+    if not (player or player.charid) then return end
+    player:set('isDead', state)
 end)
 
 RegisterNetEvent('ox:setPlayerInService', function(job)
