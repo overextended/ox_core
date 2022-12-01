@@ -19,9 +19,9 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
   };
 
   const selectCharacter = () => {
-    setCharacterIndex(props.index)
-    fetchNui('ox:setCharacter', props.index)
-  }
+    setCharacterIndex(props.index);
+    fetchNui('ox:setCharacter', props.index);
+  };
 
   return (
     <>
