@@ -18,12 +18,17 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
     setVisible(false);
   };
 
+  const selectCharacter = () => {
+    setCharacterIndex(props.index)
+    fetchNui('ox:setCharacter', props.index)
+  }
+
   return (
     <>
       <div className='flex'>
         <div
           className={`hover-transition flex h-24 w-[85%] flex-col justify-evenly p-1.5 text-white hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
-          onClick={() => setCharacterIndex(props.index)}>
+          onClick={selectCharacter}>
           <p className='truncate text-2xl'>{`${props.character.firstname} ${props.character.lastname}`}</p>
           <div>
             <p className='truncate text-sm'>Location: {props.character.location}</p>
