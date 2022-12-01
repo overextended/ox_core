@@ -122,9 +122,9 @@ CREATE TABLE IF NOT EXISTS `ox_statuses` (
 );
 
 INSERT INTO `ox_statuses` (`name`, `default`, `ontick`)
-VALUES ('hunger', 0, 0.02),
-  ('thirst', 0, 0.05),
-  ('stress', 0, -0.10);
+VALUES ('hunger', 0, -0.02),
+  ('thirst', 0, -0.05),
+  ('stress', 0, 0.10);
 
 CREATE TABLE IF NOT EXISTS `character_licenses` (
   `charid` INT(10) UNSIGNED NOT NULL,
