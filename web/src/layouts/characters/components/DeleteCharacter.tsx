@@ -2,10 +2,12 @@ import React from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useDeleteModalState, useDeleteModalValue } from '../../../state/modals';
 import { fetchNui } from '../../../utils/fetchNui';
+import { useSetCharacters } from '../../../state/characters';
 
 export const DeleteCharacter: React.FC = () => {
   const [deleteModal, setDeleteModal] = useDeleteModalState();
   const [disableDelete, setDisableDelete] = React.useState(false);
+  const setCharacters = useSetCharacters();
 
   React.useEffect(() => {
     // Disables the confirm button for 2 seconds after opening the dialog
@@ -18,8 +20,8 @@ export const DeleteCharacter: React.FC = () => {
   }, [deleteModal]);
 
   const handleDelete = () => {
-    // characters.setValue(characters.value.filter((_, i) => i !== props.character.slot));
     fetchNui('ox:deleteCharacter', deleteModal.character.slot);
+    setCharacters(prev => prev.filter(char => char.slot !== deleteModal.character.slot));
     setDeleteModal(state => ({ ...state, visible: false }));
   };
 
