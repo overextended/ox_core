@@ -5,14 +5,19 @@ import { useNuiEvent } from '../../../hooks/useNuiEvent';
 import { CharacterProps } from '../../../types';
 import { useSetCreateModal } from '../../../state/modals';
 import { useCharacterVisibilityState } from '../../../state/visibility';
+import { useState } from 'react';
+import ReactTooltip from 'react-tooltip';
+
 
 export const Sidebar: React.FC = () => {
+  const [maxSlots, setMaxSlots] = useState(0);
   const [characters, setCharacters] = useCharactersState();
   const [visible, setVisible] = useCharacterVisibilityState();
   const setCreateModal = useSetCreateModal();
 
   useNuiEvent('sendCharacters', (data: { characters: CharacterProps[]; maxSlots: number }) => {
     setCharacters(data.characters);
+    setMaxSlots(data.maxSlots);
     setVisible(true);
   });
 
@@ -31,13 +36,17 @@ export const Sidebar: React.FC = () => {
               ))}
             </div>
             <div
-              onClick={() => setCreateModal(true)}
-              className='hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40'
+              data-tip={characters.length >= maxSlots ? 'Maximum number of slots reached' : undefined}
+              onClick={() => !(characters.length >= maxSlots) && setCreateModal(true)}
+              className={`${characters.length >= maxSlots ? 'opacity-50 bg-black/40' : undefined} hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40`}
             >
               <IconUserPlus />
               <p className='text-xl'>Create a character</p>
             </div>
           </div>
+          <ReactTooltip effect='solid' className='p-2 text-white font-text text-sm bg-black/50'
+                        offset={{ 'top': 10 }}
+                        disableInternalStyle />
         </div>
       )}
     </>
