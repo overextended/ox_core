@@ -16,13 +16,12 @@ export const Sidebar: React.FC = () => {
     setVisible(true);
   });
 
-
   return (
     <>
       {visible && (
         <div className='fixed h-screen w-[300px] bg-gradient-to-r from-black/50 to-transparent'>
           <div className='flex h-full flex-col justify-between font-text'>
-            <div>
+            <div className='overflow-y-scroll'>
               {characters.map((character, index) => (
                 <CharacterSlot
                   character={character}
