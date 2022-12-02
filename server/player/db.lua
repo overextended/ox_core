@@ -104,7 +104,7 @@ function db.selectMetadata(charid, field)
     return value
 end
 
-local SELECT_CHARACTER_LICENSES = 'SELECT `name`, DATE_FORMAT(`issued`, "%d/%m/%Y") AS `issued` FROM `character_licenses` WHERE `charid` = ?'
+local SELECT_CHARACTER_LICENSES = 'SELECT `name`, DATE_FORMAT(`issued`, "%d/%m/%Y %H:%i:%S") AS `issued`, DATE_FORMAT(`suspended`, "%d/%m/%Y %H:%i:%S") AS `suspended` FROM `character_licenses` WHERE `charid` = ?'
 ---@param charid number
 ---@return { name: string, issued: string }[]?
 function db.selectCharacterLicenses(charid)
@@ -112,20 +112,28 @@ function db.selectCharacterLicenses(charid)
 end
 
 local ADD_CHARACTER_LICENSE = 'INSERT INTO `character_licenses` (`charid`, `name`, `issued`) VALUES (?, ?, ?)'
----Adds the group to the character.
+---Adds the license to the character.
 ---@param charid number
 ---@param name string
 ---@param issued string
 function db.addCharacterLicense(charid, name, issued)
-    return MySQL.prepare.await(ADD_CHARACTER_LICENSE, { charid, name, issued })
+    return MySQL.prepare.await(ADD_CHARACTER_LICENSE, { charid, name, issued})
 end
 
 local REMOVE_CHARACTER_LICENSE = 'DELETE FROM `character_licenses` WHERE `charid` = ? AND `name` = ?'
----Removes the group from the user.
+---Removes the license from the user.
 ---@param charid number
 ---@param name string
 function db.removeCharacterLicense(charid, name)
     return MySQL.prepare.await(REMOVE_CHARACTER_LICENSE, { charid, name })
+end
+
+local SUSPEND_CHARACTER_LICENSE = 'UPDATE `character_licenses` SET `suspended` = ? WHERE `charid` = ? and `name` = ?'
+---Suspend the license from the user.
+---@param charid number
+---@param name string
+function db.suspendCharacterLicense(charid, name, suspended)
+    return MySQL.prepare.await(SUSPEND_CHARACTER_LICENSE, { suspended, charid, name })
 end
 
 return db

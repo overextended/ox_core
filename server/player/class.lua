@@ -208,15 +208,35 @@ function CPlayer:getLicense(name)
     return self.private.licenses[name]
 end
 
+---@TODO move to correct location?
+local function formatDateTime(vardate)
+    local year, month, day, hour, minute, second = string.match(vardate, '(%d+)-(%d+)-(%d+) (%d+):(%d+):(%d+)')
+    return ('%s/%s/%s %s:%s:%s'):format(day, month, year, hour, minute, second)
+end
+
 ---@param name string
 ---@return true?
 function CPlayer:addLicense(name)
-    local issued = os.date('%Y-%m-%d', os.time()) --[[@as string]]
+    local issued = os.date("%Y-%m-%d %H:%M:%S") --[[@as string]]
 
     db.addCharacterLicense(self.charid, name, issued)
 
     self.private.licenses[name] = {
-        issued = issued
+        issued = formatDateTime(issued)
+    }
+
+    return true
+end
+
+---@param name string
+---@return true?
+function CPlayer:suspendLicense(name)
+    local suspended = os.date("%Y-%m-%d %H:%M:%S") --[[@as string]]
+
+    db.suspendCharacterLicense(self.charid, name, suspended)
+
+    self.private.licenses[name] = {
+        suspended = formatDateTime(suspended)
     }
 
     return true
