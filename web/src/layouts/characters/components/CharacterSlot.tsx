@@ -14,7 +14,7 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
   const setDeleteModal = useSetDeleteModal();
 
   const playCharacter = () => {
-    fetchNui('ox:selectCharacter', props.character.slot);
+    fetchNui('ox:selectCharacter', props.index);
     setVisible(false);
   };
 
@@ -52,7 +52,7 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
               <IconPlayerPlay className='text-white' />
             </div>
             <div
-              onClick={() => setDeleteModal({ character: props.character, visible: true })}
+              onClick={() => setDeleteModal({ character: props.character, index: props.index, visible: true })}
               className='relative flex w-full h-1/2 justify-center items-center hover-transition bg-black/50 hover:bg-red-500'>
               <IconTrash className='text-white' />
             </div>

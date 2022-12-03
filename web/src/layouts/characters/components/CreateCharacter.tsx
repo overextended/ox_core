@@ -21,13 +21,12 @@ const validateName = (value: string) => {
 };
 
 const validateDate = (date: string) => {
-  const validDate = dayjs(date);
-  const [day, month, year] = [validDate.get('date'), validDate.get('month') + 1, validDate.get('year')];
+  const validDate = new Date(date);
+  const [day, month, year] = [validDate.getDate(), validDate.getMonth() + 1, validDate.getFullYear()];
   const [currentDay, currentMonth, currentYear] = [currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear()];
   if (month > currentMonth) return false;
   if (month === currentMonth && day > currentDay) return false;
-  if (year < 1900 || year > currentYear) return false;
-  return dayjs(date, 'YYYY-MM-DD', true).isValid();
+  return !(year < 1900 || year > currentYear);
 };
 
 export const CreateCharacter: React.FC = () => {
@@ -39,7 +38,7 @@ export const CreateCharacter: React.FC = () => {
     // Normalize inputs
     data.firstName = data.firstName[0].toUpperCase() + data.firstName.slice(1).toLowerCase();
     data.lastName = data.lastName[0].toUpperCase() + data.lastName.slice(1).toLowerCase();
-    fetchNui('ox_selectCharacter', {
+    fetchNui('ox:selectCharacter', {
       firstName: data.firstName,
       lastName: data.lastName,
       date: data.dob,

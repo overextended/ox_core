@@ -20,8 +20,8 @@ export const DeleteCharacter: React.FC = () => {
   }, [deleteModal]);
 
   const handleDelete = () => {
-    fetchNui('ox:deleteCharacter', deleteModal.character.slot);
-    setCharacters(prev => prev.filter(char => char.slot !== deleteModal.character.slot));
+    fetchNui('ox:deleteCharacter', deleteModal.index);
+    setCharacters(prev => prev.filter((_, index) => index !== deleteModal.index));
     setDeleteModal(state => ({ ...state, visible: false }));
   };
 

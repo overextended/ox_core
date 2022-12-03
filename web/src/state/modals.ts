@@ -1,7 +1,7 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { CharacterProps } from '../types';
 
-const deleteModalAtom = atom<{ character: CharacterProps, visible: boolean }>({
+const deleteModalAtom = atom<{ character: CharacterProps, index: number, visible: boolean }>({
   character: {
     firstname: '',
     lastname: '',
@@ -11,6 +11,7 @@ const deleteModalAtom = atom<{ character: CharacterProps, visible: boolean }>({
     dateofbirth: '',
   },
   visible: false,
+  index: 0,
 });
 
 const createModalAtom = atom(false);
