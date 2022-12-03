@@ -104,7 +104,7 @@ function db.selectMetadata(charid, field)
     return value
 end
 
-local SELECT_CHARACTER_LICENSES = 'SELECT `name`, DATE_FORMAT(`issued`, "%d/%m/%Y %H:%i:%S") AS `issued`, DATE_FORMAT(`suspended`, "%d/%m/%Y %H:%i:%S") AS `suspended` FROM `character_licenses` WHERE `charid` = ?'
+local SELECT_CHARACTER_LICENSES = 'SELECT `name`, DATE_FORMAT(`issued`, "%d/%m/%Y") AS `issued`, DATE_FORMAT(`suspended`, "%d/%m/%Y") AS `suspended` FROM `character_licenses` WHERE `charid` = ?'
 ---@param charid number
 ---@return { name: string, issued: string }[]?
 function db.selectCharacterLicenses(charid)
