@@ -7,5 +7,4 @@ export interface CharacterProps {
   groups?: string[];
   phone_number?: string;
   last_played: string;
-  slot: number;
 }

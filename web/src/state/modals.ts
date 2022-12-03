@@ -5,7 +5,6 @@ const deleteModalAtom = atom<{ character: CharacterProps, index: number, visible
   character: {
     firstname: '',
     lastname: '',
-    slot: 0,
     last_played: '',
     gender: '',
     dateofbirth: '',

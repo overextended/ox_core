@@ -18,7 +18,6 @@ debugData<{ characters: CharacterProps[]; maxSlots: number }>([
           location: 'Somewhere far away',
           gender: 'male',
           dateofbirth: '01/01/1999',
-          slot: 0,
         },
         {
           firstname: 'Peter',
@@ -27,7 +26,6 @@ debugData<{ characters: CharacterProps[]; maxSlots: number }>([
           location: 'Somewhere far away',
           gender: 'male',
           dateofbirth: '01/01/1999',
-          slot: 1,
         },
       ],
       maxSlots: 5,
