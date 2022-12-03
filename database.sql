@@ -130,8 +130,8 @@ VALUES ('hunger', 0, 0.02),
 CREATE TABLE IF NOT EXISTS `character_licenses` (
   `charid` INT UNSIGNED NOT NULL,
   `name` VARCHAR(20) DEFAULT NULL,
-  `issued` DATETIME DEFAULT NULL,
-  `suspended` DATETIME DEFAULT NULL,
+  `issued` DATE DEFAULT NULL,
+  `suspended` DATE DEFAULT NULL,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
   KEY `FK_character_licences_characters` (`charid`) USING BTREE,
   CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
