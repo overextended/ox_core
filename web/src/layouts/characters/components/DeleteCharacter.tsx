@@ -3,8 +3,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useDeleteModalState, useDeleteModalValue } from '../../../state/modals';
 import { fetchNui } from '../../../utils/fetchNui';
 import { useSetCharacters } from '../../../state/characters';
+import { useLocales } from '../../../providers/LocaleProvider';
 
 export const DeleteCharacter: React.FC = () => {
+  const { locale } = useLocales();
   const [deleteModal, setDeleteModal] = useDeleteModalState();
   const [disableDelete, setDisableDelete] = React.useState(false);
   const setCharacters = useSetCharacters();
@@ -59,14 +61,14 @@ export const DeleteCharacter: React.FC = () => {
                     as='h3'
                     className='text-lg text-white leading-6'
                   >
-                    Delete Character
+                    {locale.ui.delete_character}
                   </Dialog.Title>
                   <div className='mt-2'>
                     <p className='text-white'>
-                      {`Are you sure you want to delete ${deleteModal.character.firstname} ${deleteModal.character.lastname}?`}
+                      {locale.ui.delete_prompt.replace('%s', `${deleteModal.character.firstname} ${deleteModal.character.lastname}?`)}
                     </p>
                     <p className='text-red-500'>
-                      This action is irreversible.
+                      {locale.ui.irreversible_action}.
                     </p>
                   </div>
 
@@ -76,12 +78,12 @@ export const DeleteCharacter: React.FC = () => {
                       className={`p-2 ${disableDelete ? 'opacity-50' : 'hover:bg-red-500 focus:bg-red-500'} bg-black/40 text-white font-text w-28 hover-transition`}
                       onClick={handleDelete}
                     >
-                      Delete
+                      {locale.ui.delete}
                     </button>
                     <button
                       onClick={() => setDeleteModal(state => ({ ...state, visible: false }))}
                       className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
-                      Cancel
+                      {locale.ui.cancel}
                     </button>
                   </div>
                 </Dialog.Panel>

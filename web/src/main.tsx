@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import CharacterSelector from './layouts/characters';
 import { isEnvBrowser } from './utils/misc';
+import LocaleProvider from './providers/LocaleProvider';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
@@ -17,8 +18,10 @@ if (isEnvBrowser()) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider>
-      <CharacterSelector />
-    </Provider>
+    <LocaleProvider>
+      <Provider>
+        <CharacterSelector />
+      </Provider>
+    </LocaleProvider>
   </React.StrictMode>,
 );

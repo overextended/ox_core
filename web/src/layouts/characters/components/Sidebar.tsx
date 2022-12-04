@@ -7,9 +7,11 @@ import { useSetCreateModal } from '../../../state/modals';
 import { useCharacterVisibilityState } from '../../../state/visibility';
 import { useState } from 'react';
 import ReactTooltip from 'react-tooltip';
+import { useLocales } from '../../../providers/LocaleProvider';
 
 
 export const Sidebar: React.FC = () => {
+  const { locale } = useLocales();
   const [maxSlots, setMaxSlots] = useState(0);
   const [characters, setCharacters] = useCharactersState();
   const [visible, setVisible] = useCharacterVisibilityState();
@@ -36,12 +38,12 @@ export const Sidebar: React.FC = () => {
               ))}
             </div>
             <div
-              data-tip={characters.length >= maxSlots ? 'Maximum number of slots reached' : undefined}
+              data-tip={characters.length >= maxSlots ? locale.ui.max_chars : undefined}
               onClick={() => !(characters.length >= maxSlots) && setCreateModal(true)}
               className={`${characters.length >= maxSlots ? 'opacity-50 bg-black/40' : undefined} hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40`}
             >
               <IconUserPlus />
-              <p className='text-xl'>Create a character</p>
+              <p className='text-xl'>{locale.ui.create_a_char}</p>
             </div>
           </div>
           <ReactTooltip effect='solid' className='p-2 text-white font-text text-sm bg-black/50'

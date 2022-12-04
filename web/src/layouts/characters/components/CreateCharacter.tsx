@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as dayjs from 'dayjs';
 import { fetchNui } from '../../../utils/fetchNui';
 import { useSetCharacterVisibility } from '../../../state/visibility';
+import { useLocales } from '../../../providers/LocaleProvider';
 
 export type Inputs = {
   firstName: string
@@ -30,6 +31,7 @@ const validateDate = (date: string) => {
 };
 
 export const CreateCharacter: React.FC = () => {
+  const { locale } = useLocales();
   const [createModal, setCreateModal] = useCreateModalState();
   const setVisible = useSetCharacterVisibility();
   const { register, handleSubmit, formState: { errors }, setValue, reset } = useForm<Inputs>();
@@ -82,7 +84,7 @@ export const CreateCharacter: React.FC = () => {
                   as='h3'
                   className='text-lg text-white text-center leading-6'
                 >
-                  Create character
+                  {locale.ui.create_char}
                 </Dialog.Title>
 
                 <form onSubmit={onSubmit}>
@@ -90,11 +92,11 @@ export const CreateCharacter: React.FC = () => {
                     <input
                       {...register('firstName', { required: true, validate: validateName })}
                       className={`character-input ${errors.firstName ? 'character-input-error' : undefined}`}
-                      placeholder='First name' />
+                      placeholder={locale.ui.firstname} />
                     <input {...register('lastName', { required: true, validate: validateName })}
                            className={`character-input mt-1.5 ${errors.lastName ? 'character-input-error' : undefined}`}
-                           placeholder='Last name' />
-                    <input placeholder='Date of birth' type='date'
+                           placeholder={locale.ui.lastname} />
+                    <input type='date'
                            className={`character-input mt-1.5 ${errors.dob ? 'character-input-error' : undefined}`} {...register('dob', {
                       required: true,
                       validate: validateDate,
@@ -106,7 +108,7 @@ export const CreateCharacter: React.FC = () => {
                     <button
                       type='submit'
                       className='p-2 bg-black/40 text-white font-text w-28 hover:bg-green-500 focus:bg-black/30 hover-transition ml-3'>
-                      Confirm
+                      {locale.ui.confirm}
                     </button>
                     <button
                       onClick={() => {
@@ -114,7 +116,7 @@ export const CreateCharacter: React.FC = () => {
                         reset();
                       }}
                       className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
-                      Cancel
+                      {locale.ui.confirm}
                     </button>
                   </div>
                 </form>

@@ -6,9 +6,11 @@ import { fetchNui } from '../../../utils/fetchNui';
 import React from 'react';
 import { useSetDeleteModal } from '../../../state/modals';
 import { useSetCharacterVisibility } from '../../../state/visibility';
+import { useLocales } from '../../../providers/LocaleProvider';
 
 
 const Character: React.FC<{ character: CharacterProps, index: number }> = (props) => {
+  const { locale } = useLocales();
   const [characterIndex, setCharacterIndex] = useCharacterIndexState();
   const setVisible = useSetCharacterVisibility();
   const setDeleteModal = useSetDeleteModal();
@@ -32,8 +34,8 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
           <div className='h-full p-1.5 flex flex-col justify-evenly truncate'>
             <p className='truncate text-2xl'>{`${props.character.firstname} ${props.character.lastname}`}</p>
             <div>
-              <p className='truncate text-sm'>Location: {props.character.location}</p>
-              <p className='truncate text-sm'>Last played: {props.character.last_played}</p>
+              <p className='truncate text-sm'>{locale.ui.char_location}: {props.character.location}</p>
+              <p className='truncate text-sm'>{locale.ui.last_played}: {props.character.last_played}</p>
             </div>
           </div>
           <div>

@@ -1,19 +1,23 @@
 import { Listbox, Transition } from '@headlessui/react';
-import { Fragment, useState, forwardRef, MutableRefObject } from 'react';
+import { Fragment, useState, forwardRef, MutableRefObject, useMemo } from 'react';
 import { IconChevronDown, IconCheck } from '@tabler/icons';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { Inputs } from './CreateCharacter';
-
-const options = [
-  { name: 'Male', value: 'male' },
-  { name: 'Female', value: 'female' },
-  { name: 'Non-Binary', value: 'non-binary' },
-];
+import { useLocales } from '../../../providers/LocaleProvider';
 
 type RefProps = { register: UseFormRegisterReturn, setValue: UseFormSetValue<Inputs> }
 
 export const GenderSelect = forwardRef<MutableRefObject<any>, RefProps>((props, ref) => {
+  const { locale } = useLocales();
   const [selected, setSelected] = useState<{ name: string; value: string; } | null>(null);
+
+  const options = useMemo(() => {
+    return [
+      { name: locale.ui.male, value: 'male' },
+      { name: locale.ui.female, value: 'female' },
+      { name: locale.ui.non_binary, value: 'non-binary' },
+    ];
+  }, [locale]);
 
   const handleChange = (val: { name: string, value: string } | null) => {
     if (!val) return;
@@ -27,7 +31,7 @@ export const GenderSelect = forwardRef<MutableRefObject<any>, RefProps>((props, 
         <div className='relative mt-1'>
           <Listbox.Button
             className={`relative w-full cursor-default ${!selected && 'character-input-error'} character-input flex justify-between items-center text-left shadow-md focus:outline-none sm:text-sm`}>
-            <span className='block truncate'>{selected?.name || 'Gender'}</span>
+            <span className='block truncate'>{selected?.name || locale.ui.gender}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-gray-400'>
                 <IconChevronDown />
             </span>
