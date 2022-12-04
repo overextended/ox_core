@@ -82,7 +82,7 @@ export const DeleteCharacter: React.FC = () => {
                     </button>
                     <button
                       onClick={() => setDeleteModal(state => ({ ...state, visible: false }))}
-                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/30 focus:bg-black/30 hover-transition ml-3'>
+                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/20 focus:bg-black/30 hover-transition ml-3'>
                       {locale.ui.cancel}
                     </button>
                   </div>
