@@ -40,13 +40,13 @@ export const Sidebar: React.FC = () => {
             <div
               data-tip={characters.length >= maxSlots ? locale.ui.max_chars : undefined}
               onClick={() => !(characters.length >= maxSlots) && setCreateModal(true)}
-              className={`${characters.length >= maxSlots ? 'opacity-50 bg-black/40' : undefined} hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-white hover:bg-black/40`}
+              className={`${characters.length >= maxSlots ? 'opacity-50 bg-black/40' : undefined} hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-zinc-100 hover:bg-black/40`}
             >
               <IconUserPlus />
               <p className='text-xl'>{locale.ui.create_a_char}</p>
             </div>
           </div>
-          <ReactTooltip effect='solid' className='p-2 text-white font-text text-sm bg-black/50'
+          <ReactTooltip effect='solid' className='p-2 text-zinc-100 font-text text-sm bg-black/50'
                         offset={{ 'top': 10 }}
                         disableInternalStyle />
         </div>

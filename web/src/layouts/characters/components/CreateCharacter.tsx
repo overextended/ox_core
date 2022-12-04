@@ -81,13 +81,13 @@ export const CreateCharacter: React.FC = () => {
                 className='w-[300px] max-w-md transform bg-black/50 p-4 text-left align-middle shadow-xl transition-all'>
                 <Dialog.Title
                   as='h3'
-                  className='text-lg text-white text-center leading-6'
+                  className='text-lg text-zinc-100 text-center leading-6'
                 >
                   {locale.ui.create_char}
                 </Dialog.Title>
 
                 <form onSubmit={onSubmit}>
-                  <div className='flex flex-col justify-center w-full items-start text-white p-2'>
+                  <div className='flex flex-col justify-center w-full items-start text-zinc-100 p-2'>
                     <input
                       {...register('firstName', { required: true, validate: validateName })}
                       className={`character-input ${errors.firstName ? 'character-input-error' : undefined}`}
@@ -106,7 +106,7 @@ export const CreateCharacter: React.FC = () => {
                   <div className='mt-4 flex w-full items-center justify-center'>
                     <button
                       type='submit'
-                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-green-500 focus:bg-black/30 hover-transition ml-3'>
+                      className='p-2 bg-black/40 text-zinc-100 font-text w-28 hover:bg-green-500 focus:bg-black/30 hover-transition ml-3'>
                       {locale.ui.confirm}
                     </button>
                     <button
@@ -114,7 +114,7 @@ export const CreateCharacter: React.FC = () => {
                         setCreateModal(false);
                         reset();
                       }}
-                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/20 focus:bg-black/30 hover-transition ml-3'>
+                      className='p-2 bg-black/40 text-zinc-100 font-text w-28 hover:bg-black/20 focus:bg-black/30 hover-transition ml-3'>
                       {locale.ui.cancel}
                     </button>
                   </div>

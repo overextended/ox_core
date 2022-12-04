@@ -29,7 +29,7 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
     <>
       <div className='flex border-b-[1px] border-b-white/30'>
         <div
-          className={`hover-transition flex h-24 w-full justify-between text-white hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
+          className={`hover-transition flex h-24 w-full justify-between text-zinc-100 hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
           onClick={selectCharacter}>
           <div className='h-full p-1.5 flex flex-col justify-evenly truncate'>
             <p className='truncate text-2xl'>{`${props.character.firstname} ${props.character.lastname}`}</p>
@@ -52,13 +52,13 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
               <div className='h-full w-[50px]'>
                 <div
                   onClick={playCharacter}
-                  className='relative flex w-full h-1/2 justify-center items-center hover-transition bg-black/50 hover:bg-green-500'>
-                  <IconPlayerPlay className='text-white' />
+                  className='relative flex w-full h-1/2 justify-center items-center text-green-700 hover-transition hover:text-green-500'>
+                  <IconPlayerPlay/>
                 </div>
                 <div
                   onClick={() => setDeleteModal({ character: props.character, index: props.index, visible: true })}
-                  className='relative flex w-full h-1/2 justify-center items-center hover-transition bg-black/50 hover:bg-red-500'>
-                  <IconTrash className='text-white' />
+                  className='relative flex w-full h-1/2 justify-center items-center text-red-700 hover-transition hover:text-red-500'>
+                  <IconTrash/>
                 </div>
               </div>
             </Transition>

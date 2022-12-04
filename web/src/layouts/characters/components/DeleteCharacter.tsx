@@ -59,12 +59,12 @@ export const DeleteCharacter: React.FC = () => {
                   className='w-full max-w-md transform overflow-hidden bg-black/50 p-4 text-left align-middle shadow-xl transition-all'>
                   <Dialog.Title
                     as='h3'
-                    className='text-lg text-white leading-6'
+                    className='text-lg text-zinc-100 leading-6'
                   >
                     {locale.ui.delete_character}
                   </Dialog.Title>
                   <div className='mt-2'>
-                    <p className='text-white'>
+                    <p className='text-zinc-100'>
                       {locale.ui.delete_prompt.replace('%s', `${deleteModal.character.firstname} ${deleteModal.character.lastname}?`)}
                     </p>
                     <p className='text-red-500'>
@@ -75,14 +75,14 @@ export const DeleteCharacter: React.FC = () => {
                   <div className='mt-4 flex w-full items-center justify-end'>
                     <button
                       disabled={disableDelete}
-                      className={`p-2 ${disableDelete ? 'opacity-50' : 'hover:bg-red-500 focus:bg-red-500'} bg-black/40 text-white font-text w-28 hover-transition`}
+                      className={`p-2 ${disableDelete ? 'opacity-50' : 'hover:bg-red-500 focus:bg-red-500'} bg-black/40 text-zinc-100 font-text w-28 hover-transition`}
                       onClick={handleDelete}
                     >
                       {locale.ui.delete}
                     </button>
                     <button
                       onClick={() => setDeleteModal(state => ({ ...state, visible: false }))}
-                      className='p-2 bg-black/40 text-white font-text w-28 hover:bg-black/20 focus:bg-black/30 hover-transition ml-3'>
+                      className='p-2 bg-black/40 text-zinc-100 font-text w-28 hover:bg-black/20 focus:bg-black/30 hover-transition ml-3'>
                       {locale.ui.cancel}
                     </button>
                   </div>

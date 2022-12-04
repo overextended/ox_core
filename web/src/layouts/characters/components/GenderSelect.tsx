@@ -49,7 +49,7 @@ export const GenderSelect = forwardRef<MutableRefObject<any>, RefProps>((props, 
                   key={personIdx}
                   className={({ active }) =>
                     `relative cursor-default flex w-full justify-between select-none py-2 pr-4 pl-2 ${
-                      active ? 'bg-blue-500' : 'text-white'
+                      active ? 'bg-blue-500' : 'text-zinc-100'
                     }`
                   }
                   value={person}
@@ -65,7 +65,7 @@ export const GenderSelect = forwardRef<MutableRefObject<any>, RefProps>((props, 
                       </span>
                       {selected ? (
                         <span
-                          className={`inset-y-0 left-0 flex items-center ${active ? 'text-white' : 'text-blue-500'}`}>
+                          className={`inset-y-0 left-0 flex items-center ${active ? 'text-zinc-100' : 'text-blue-500'}`}>
                           <IconCheck size={20} />
                         </span>
                       ) : null}
