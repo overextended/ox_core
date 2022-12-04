@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useCreateModalState } from '../../../state/modals';
 import GenderSelect from './GenderSelect';
 import { useForm } from 'react-hook-form';
-import * as dayjs from 'dayjs';
 import { fetchNui } from '../../../utils/fetchNui';
 import { useSetCharacterVisibility } from '../../../state/visibility';
 import { useLocales } from '../../../providers/LocaleProvider';
