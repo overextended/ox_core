@@ -3,35 +3,6 @@ import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { fetchNui } from '../utils/fetchNui';
 
-debugData([
-  {
-    action: 'setLocale',
-    data: {
-      ui: {
-        confirm: 'Confirm',
-        cancel: 'Cancel',
-        select: 'Select',
-        delete: 'Delete',
-        firstname: 'First Name',
-        lastname: 'Last Name',
-        gender: 'Gender',
-        male: 'Male',
-        female: 'Female',
-        non_binary: 'Non-Binary',
-        create_char: 'Create Character',
-        create_a_char: 'Create a new Character',
-        irreversible_action: 'This action is irreversible',
-        char_location: 'Location:',
-        last_played: 'Last Played:',
-        day: 'DD',
-        month: 'MM',
-        year: 'YYYY',
-        max_chars: 'Maximum number of slots reached'
-      },
-    },
-  },
-]);
-
 interface Locale {
   ui: {
     confirm: string,
@@ -46,12 +17,11 @@ interface Locale {
     non_binary: string,
     create_char: string,
     create_a_char: string,
+    delete_character: string,
+    delete_prompt: string,
     irreversible_action: string,
     char_location: string,
     last_played: string
-    day: string,
-    month: string,
-    year: string,
     max_chars: string
   };
 }
@@ -60,6 +30,35 @@ interface LocaleContextValue {
   locale: Locale;
   setLocale: (locales: Locale) => void;
 }
+
+debugData<Locale>([
+  {
+    action: 'setLocale',
+    data: {
+      ui: {
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        select: 'Select',
+        delete: 'Delete',
+        firstname: 'First name',
+        lastname: 'Last name',
+        gender: 'Gender',
+        male: 'Male',
+        female: 'Female',
+        non_binary: 'Non-Binary',
+        create_char: 'Create Character',
+        create_a_char: 'Create a Character',
+        delete_character: 'Delete Character',
+        delete_prompt: 'Are you sure you want to delete %s',
+        irreversible_action: 'This action is irreversible',
+        char_location: 'Location',
+        last_played: 'Last played',
+        max_chars: 'Maximum number of slots reached',
+      },
+    },
+  },
+]);
+
 
 const LocaleCtx = createContext<LocaleContextValue | null>(null);
 
@@ -79,12 +78,11 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
       create_char: '',
       create_a_char: '',
       irreversible_action: '',
+      delete_character: '',
+      delete_prompt: '',
       char_location: '',
       last_played: '',
-      day: '',
-      month: '',
-      year: '',
-      max_chars: ''
+      max_chars: '',
     },
   });
 

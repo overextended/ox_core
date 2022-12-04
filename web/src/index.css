@@ -1,19 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* html {
-  background-image: url('https://i.imgur.com/dc9l0AT.jpeg');
-} */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .hover-transition {
+    @apply transition-all duration-200;
+  }
+
+  .character-input {
+    @apply p-2 w-full h-[40px] outline-none bg-black/50 border-b-[1px] border-solid border-zinc-400 transition-all duration-300 focus:border-blue-400;
+  }
+
+  .character-input-error {
+    @apply border-b-[1px] border-b-red-500;
+  }
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+  'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  /* background: none !important; */
-  background: none !important;
-  overflow: hidden;
   user-select: none;
 }
 
@@ -25,16 +36,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* Disables chakra blue outline on button focus */
-:focus {
-  outline: 0 !important;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
-}
-
-::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
 ::-webkit-scrollbar {
   display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type="date"]::-webkit-input-placeholder {
+  visibility: hidden !important;
 }

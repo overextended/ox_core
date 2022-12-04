@@ -13,11 +13,10 @@
     "create_char": "Créer personnage",
     "create_a_char": "Créer un nouveau personnage",
     "irreversible_action": "Cette action est irréversible",
-    "char_location": "Location:",
-    "last_played": "Dernier joué:",
-    "day": "JJ",
-    "month": "MM",
-    "year": "AAAA",
+    "delete_character": "Delete character",
+    "delete_prompt": "Are you sure you want to delete %s",
+    "char_location": "Location",
+    "last_played": "Dernier joué",
     "max_chars": "Nombre maximum d'emplacements atteints"
-    }
+  }
 }
