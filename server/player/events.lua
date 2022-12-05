@@ -150,10 +150,10 @@ RegisterNetEvent('ox:setPlayerInService', function(job)
 
     if player and player.charid then
         if job and player.private.groups[job] then
-            return player:set('inService', job)
+            return player:set('inService', job, true)
         end
 
-        player:set('inService', false)
+        player:set('inService', false, true)
     end
 end)
 
