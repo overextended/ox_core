@@ -4,6 +4,7 @@
 ---@field grades number[]
 ---@field principal string
 ---@field hasAccount boolean
+---@field adminGrade number
 
 ---@class CGroup : CGroupProperties
 local CGroup = {}
@@ -59,7 +60,7 @@ function CGroup:setAccount(player, grade, remove)
             end
 
             pefcl:addUserToUniqueAccount(player.source, {
-                role = grade == maxGrade and 'admin' or 'contributor',
+                role = grade >= self.adminGrade and 'admin' or 'contributor',
                 accountIdentifier = self.name,
                 userIdentifier = player.charid,
                 source = player.source,

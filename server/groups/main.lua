@@ -48,6 +48,7 @@ local function loadGroups()
                 grades = group.grades,
                 principal = principal,
                 hasAccount = group.hasAccount,
+                adminGrade = group.adminGrade,
             })
 
             GlobalState[principal] = GroupRegistry[group.name]

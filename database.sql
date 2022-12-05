@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `label` VARCHAR(50) NOT NULL,
   `grades` LONGTEXT NOT NULL,
   `hasAccount` BIT NOT NULL DEFAULT 0,
+  `adminGrade` TINYINT UNSIGNED NOT NULL DEFAULT JSON_LENGTH(grades),
   PRIMARY KEY (`name`) USING BTREE
 );
 
