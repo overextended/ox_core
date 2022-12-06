@@ -4,14 +4,22 @@ function NetEventHandler(event, fn)
     end)
 end
 
-AddStateBagChangeHandler('initVehicle', nil, function(bagName, key, value, reserved, replicated)
+AddStateBagChangeHandler('initVehicle', '', function(bagName, key, value, reserved, replicated)
     if value then
-        Wait(50)
         local netId = tonumber(bagName:gsub('entity:', ''), 10)
-        local entity = NetworkDoesNetworkIdExist(netId) and NetworkGetEntityFromNetworkId(netId)
 
-        if not entity then return end
+        -- this race condition should be resolved, but we'll test for it for a while anyway
+        for i = 1, 500 do
+            if NetworkDoesEntityExistWithNetworkId(netId) then break elseif i == 500 then return end
+            Wait(0)
+        end
 
+        local entity = NetworkGetEntityFromNetworkId(netId)
+
+        if entity == 0 then return end
+
+        -- workaround for server-vehicles that exist in traffic randomly creating peds
+        -- https://forum.cfx.re/t/sometimes-an-npc-spawns-inside-an-vehicle-spawned-with-createvehicleserversetter-or-create-automobile/4947251
         for i = -1, 0 do
             local ped = GetPedInVehicleSeat(entity, i)
 
