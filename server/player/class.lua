@@ -219,6 +219,9 @@ function CPlayer:addLicense(name)
         issued = issued
     }
 
+    TriggerEvent('ox:licenseAdded', self.source, name)
+    TriggerClientEvent('ox:licenseAdded', self.source, name)
+
     return true
 end
 
@@ -228,6 +231,9 @@ function CPlayer:removeLicense(name)
     db.removeCharacterLicense(self.charid, name)
 
     self.private.licenses[name] = nil
+
+    TriggerEvent('ox:licenseRemoved', self.source, name)
+    TriggerClientEvent('ox:licenseRemoved', self.source, name)
 
     return true
 end
