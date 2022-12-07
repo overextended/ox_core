@@ -1,53 +1,48 @@
-import { useNuiEvent } from '../../hooks/useNuiEvent';
-import { debugData } from '../../utils/debugData';
-import { CharacterProps } from '../../types';
 import DeleteCharacter from './components/DeleteCharacter';
-import { Sidebar } from './components/Sidebar';
 import CreateCharacter from './components/CreateCharacter';
-import { useCharacterVisibilityState } from '../../state/visibility';
+import CharacterSlot from './components/CharacterSlot';
+import { IconUserPlus } from '@tabler/icons';
+import ReactTooltip from 'react-tooltip';
+import { useCharacters, useMaxSlotsValue } from '../../state/characters';
+import { useSetCreateModal } from '../../state/modals';
+import { useLocales } from '../../providers/LocaleProvider';
 
-debugData<{ characters: CharacterProps[]; maxSlots: number }>([
-  {
-    action: 'sendCharacters',
-    data: {
-      characters: [
-        {
-          firstname: 'Luke',
-          lastname: 'Lukensson',
-          last_played: '01/01/1999',
-          location: 'Somewhere far away',
-          gender: 'male',
-          dateofbirth: '01/01/1999',
-        },
-        {
-          firstname: 'Peter',
-          lastname: 'Petersson',
-          last_played: '01/01/1999',
-          location: 'Somewhere far away',
-          gender: 'male',
-          dateofbirth: '01/01/1999',
-        },
-      ],
-      maxSlots: 5,
-    },
-  },
-]);
 
 const CharacterSelector: React.FC = () => {
-
-  const [visible, setVisible] = useCharacterVisibilityState();
-
-  useNuiEvent('sendCharacters', () => setVisible(true));
+  const { locale } = useLocales();
+  const maxSlots = useMaxSlotsValue();
+  const characters = useCharacters();
+  const setCreateModal = useSetCreateModal();
 
   return (
     <>
-      <Sidebar />
-      {visible && (
-        <>
-          <CreateCharacter />
-          <DeleteCharacter />
-        </>
-      )}
+      <div className='overflow-y-scroll'>
+        {characters.map((character, index) => (
+          <CharacterSlot
+            character={character}
+            index={index}
+            key={`${character.firstname}-${character.lastname}-${character.last_played}`}
+          />
+        ))}
+      </div>
+      <div>
+        <div
+          data-tip={characters.length >= maxSlots ? locale.ui.max_chars : undefined}
+          onClick={() => !(characters.length >= maxSlots) && setCreateModal(true)}
+          className={`${characters.length >= maxSlots ? 'opacity-50 bg-black/40' : undefined} hover-transition mb-10 flex w-full items-center justify-evenly p-3 text-center text-zinc-100 hover:bg-black/40`}
+        >
+          <IconUserPlus />
+          <p className='text-xl'>{locale.ui.create_a_char}</p>
+        </div>
+        <ReactTooltip
+          effect='solid'
+          className='p-2 text-zinc-100 font-text text-sm bg-black/50'
+          offset={{ 'top': 10 }}
+          disableInternalStyle
+        />
+      </div>
+      <CreateCharacter />
+      <DeleteCharacter />
     </>
   );
 };

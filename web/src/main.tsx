@@ -5,6 +5,7 @@ import './index.css';
 import CharacterSelector from './layouts/characters';
 import { isEnvBrowser } from './utils/misc';
 import LocaleProvider from './providers/LocaleProvider';
+import { Sidebar } from './layouts/characters/components/Sidebar';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
@@ -20,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <LocaleProvider>
       <Provider>
-        <CharacterSelector />
+        <Sidebar />
       </Provider>
     </LocaleProvider>
   </React.StrictMode>,
