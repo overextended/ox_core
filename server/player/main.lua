@@ -67,7 +67,7 @@ local db = require 'player.db'
 function Ox.SaveAllPlayers()
     local parameters = {}
     local size = 0
-    local date = os.date('%Y-%m-%d', os.time())
+    local date = os.date('%Y-%m-%d')
 
     for _, player in pairs(Ox.GetAllPlayers()) do
         if player.charid then

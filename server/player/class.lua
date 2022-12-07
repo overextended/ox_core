@@ -211,7 +211,7 @@ end
 ---@param name string
 ---@return true?
 function CPlayer:addLicense(name)
-    local issued = os.date('%Y-%m-%d', os.time()) --[[@as string]]
+    local issued = os.date('%Y-%m-%d') --[[@as string]]
 
     db.addCharacterLicense(self.charid, name, issued)
 
@@ -360,7 +360,7 @@ end
 ---Update the database with a player's current data.
 function CPlayer:save()
     if self.charid then
-        db.updateCharacter(self:prepareSaveData(os.date('%Y-%m-%d', os.time())))
+        db.updateCharacter(self:prepareSaveData(os.date('%Y-%m-%d')))
     end
 end
 
