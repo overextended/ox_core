@@ -21,8 +21,9 @@ interface Locale {
     delete_prompt: string,
     irreversible_action: string,
     char_location: string,
-    last_played: string
-    max_chars: string
+    last_played: string,
+    max_chars: string,
+    spawn_locations: string
   };
 }
 
@@ -54,6 +55,7 @@ debugData<Locale>([
         char_location: 'Location',
         last_played: 'Last played',
         max_chars: 'Maximum number of slots reached',
+        spawn_locations: 'Spawn Locations'
       },
     },
   },
@@ -83,6 +85,7 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
       char_location: '',
       last_played: '',
       max_chars: '',
+      spawn_locations: ''
     },
   });
 

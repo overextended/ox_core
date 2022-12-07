@@ -17,6 +17,7 @@
     "delete_prompt": "Are you sure you want to delete %s",
     "char_location": "Location",
     "last_played": "Dernier joué",
-    "max_chars": "Nombre maximum d'emplacements atteints"
+    "max_chars": "Nombre maximum d'emplacements atteints",
+    "spawn_locations": "Spawn Locations"
   }
 }
