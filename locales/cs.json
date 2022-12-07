@@ -17,6 +17,7 @@
     "delete_prompt": "Jste si jistí, že chcete smazat charakter %s",
     "char_location": "Lokace:",
     "last_played": "Naposledy hráno:",
-    "max_chars": "Byl dosažen maximální počet charakterů."
+    "max_chars": "Byl dosažen maximální počet charakterů.",
+    "spawn_locations": "Spawn Locations"
   }
 }

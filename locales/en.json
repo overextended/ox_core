@@ -17,6 +17,7 @@
     "irreversible_action": "This action is irreversible",
     "char_location": "Location",
     "last_played": "Last played",
-    "max_chars": "Maximum number of slots reached"
+    "max_chars": "Maximum number of slots reached",
+    "spawn_locations": "Spawn Locations"
   }
 }

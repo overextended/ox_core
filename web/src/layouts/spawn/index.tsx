@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { useSetSpawnsValue, useSpawnsValue } from '../../state/spawn';
 import { Transition } from '@headlessui/react';
 import { fetchNui } from '../../utils/fetchNui';
+import { useLocales } from '../../providers/LocaleProvider';
 
 const SpawnSelector = () => {
+  const {locale} = useLocales()
   const spawns = useSpawnsValue();
   const setSpawns = useSetSpawnsValue()
   const [selectedSpawn, setSelectedSpawn] = useState<number | null>(null)
@@ -21,7 +23,7 @@ const SpawnSelector = () => {
 
   return (
     <div>
-      <div className='p-4 text-center font-text text-zinc-200 text-xl'>Spawn Locations</div>
+      <div className='p-4 text-center font-text text-zinc-200 text-xl'>{locale.ui.spawn_locations}</div>
       {spawns.map((spawn, index) => (
         <div
           key={spawn}
