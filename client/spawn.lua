@@ -20,7 +20,7 @@ RegisterNUICallback('loadLocale', function(_, cb)
     cb(1)
     local resource = GetCurrentResourceName()
 	local JSON = LoadResourceFile(resource, ('locales/%s.json'):format(GetConvar('ox:locale', 'en'))) or LoadResourceFile(resource, 'locales/en.json')
-	
+
     SendNUIMessage({
         action = 'setLocale',
         data = json.decode(JSON)
@@ -38,7 +38,6 @@ RegisterNUICallback('ox:selectCharacter', function(data, cb)
 		DoScreenFadeOut(200)
 	end
 
-	SetNuiFocus(false, false)
 	TriggerServerEvent('ox:selectCharacter', data)
 end)
 
@@ -141,6 +140,32 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 end)
 
 local startStatusLoop = require 'status'
+local spawnLabels = {}
+local awaitingSpawn
+
+RegisterNUICallback('clickSpawn', function(data, cb)
+	cb(1)
+    local coords = Client.SPAWN_LOCATIONS[data + 1]
+
+    SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
+
+    if coords.w then SetEntityHeading(cache.ped, coords.w) end
+end)
+
+RegisterNUICallback('selectSpawn', function(data, cb)
+	cb(1)
+	SetNuiFocus(false, false)
+
+    while GetPlayerSwitchState() ~= 5 do Wait(50) end
+
+    SwitchInPlayer(cache.ped)
+    SetGameplayCamRelativeHeading(0)
+	NetworkEndTutorialSession()
+
+    while GetPlayerSwitchState() ~= 12 do Wait(50) end
+
+	awaitingSpawn = false
+end)
 
 ---@param data table
 ---@param spawn vector4?
@@ -173,16 +198,32 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 		Citizen.Await(p)
 	end
 
-	if not spawn then spawn = Client.DEFAULT_SPAWN end
+    cache.ped = PlayerPedId()
+	spawn = spawn or Client.DEFAULT_SPAWN
+    Client.SPAWN_LOCATIONS[1] = spawn
+    awaitingSpawn = true
 
-	StartPlayerTeleport(cache.playerId, spawn.x, spawn.y, spawn.z, spawn.w, false, true)
+    for i = 1, #Client.SPAWN_LOCATIONS do
+        local coords = Client.SPAWN_LOCATIONS[i]
+        spawnLabels[i] = GetLabelText(GetNameOfZone(coords.x, coords.y, coords.z))
+    end
 
-	while IsPlayerTeleportActive() do Wait(0) end
+    SwitchOutPlayer(cache.ped, 0, 1)
 
-	NetworkEndTutorialSession()
+    while GetPlayerSwitchState() ~= 5 do Wait(50) end
+
+    DoScreenFadeIn(300)
+
+    SendNUIMessage({
+        action = 'sendSpawns',
+        data = spawnLabels
+    })
+
+    while awaitingSpawn do Wait(50) end
+
 	SetPlayerData(data)
 
-	cache.ped = PlayerPedId()
+    awaitingSpawn = nil
     health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
 
     SetEntityHealth(cache.ped, health)
