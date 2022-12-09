@@ -52,13 +52,13 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
               <div className='h-full w-[50px]'>
                 <div
                   onClick={playCharacter}
-                  className='relative flex w-full h-1/2 justify-center items-center text-green-700 hover-transition hover:text-green-500'>
-                  <IconPlayerPlay/>
+                  className='relative flex w-full h-1/2 justify-center items-center text-green-600 hover-transition hover:text-green-500'>
+                  <IconPlayerPlay />
                 </div>
                 <div
                   onClick={() => setDeleteModal({ character: props.character, index: props.index, visible: true })}
-                  className='relative flex w-full h-1/2 justify-center items-center text-red-700 hover-transition hover:text-red-500'>
-                  <IconTrash/>
+                  className='relative flex w-full h-1/2 justify-center items-center text-red-600 hover-transition hover:text-red-500'>
+                  <IconTrash />
                 </div>
               </div>
             </Transition>

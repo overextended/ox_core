@@ -75,7 +75,7 @@ export const Sidebar: React.FC = () => {
       leaveFrom='opacity-100 translate-x-0'
       leaveTo='opacity-0 translate-x-[-100px]'
     >
-      <div className='fixed h-screen w-[300px] bg-gradient-to-r from-black/50 to-transparent'>
+      <div className='fixed h-screen w-[300px] bg-gradient-to-r from-black/50 to-black/10'>
         <div className='flex h-full flex-col justify-between font-text'>
           {charactersVisible && (
             <CharacterSelector />
