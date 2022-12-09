@@ -6,20 +6,20 @@ import { fetchNui } from '../../utils/fetchNui';
 import { useLocales } from '../../providers/LocaleProvider';
 
 const SpawnSelector = () => {
-  const {locale} = useLocales()
+  const { locale } = useLocales();
   const spawns = useSpawnsValue();
-  const setSpawns = useSetSpawnsValue()
-  const [selectedSpawn, setSelectedSpawn] = useState<number | null>(null)
+  const setSpawns = useSetSpawnsValue();
+  const [selectedSpawn, setSelectedSpawn] = useState<number | null>(null);
 
   const handleSpawnClick = (index: number) => {
-    setSelectedSpawn(index)
-    fetchNui('clickSpawn', index).then()
-  }
+    setSelectedSpawn(index);
+    fetchNui('clickSpawn', index).then();
+  };
 
   const handleSpawn = (index: number) => {
-    fetchNui('selectSpawn', index).then()
-    setSpawns([])
-  }
+    fetchNui('selectSpawn', index).then();
+    setSpawns([]);
+  };
 
   return (
     <div>
@@ -44,7 +44,7 @@ const SpawnSelector = () => {
           >
             <div
               onClick={() => handleSpawn(index)}
-              className='flex h-1/2 justify-center items-center text-green-700 hover-transition hover:text-green-500'>
+              className='flex h-1/2 justify-center items-center text-green-600 hover-transition hover:text-green-500'>
               <IconPlayerPlay />
             </div>
           </Transition>
