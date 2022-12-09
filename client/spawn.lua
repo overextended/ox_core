@@ -199,9 +199,9 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 	end
 
     cache.ped = PlayerPedId()
-	spawn = spawn or Client.DEFAULT_SPAWN
-    Client.SPAWN_LOCATIONS[1] = spawn
     awaitingSpawn = true
+
+    if spawn then table.insert(Client.SPAWN_LOCATIONS, 1, spawn) end
 
     for i = 1, #Client.SPAWN_LOCATIONS do
         local coords = Client.SPAWN_LOCATIONS[i]
@@ -220,6 +220,10 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     })
 
     while awaitingSpawn do Wait(50) end
+
+    if spawn then
+        table.remove(Client.SPAWN_LOCATIONS, 1)
+    end
 
 	SetPlayerData(data)
 
