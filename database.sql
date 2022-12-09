@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 CREATE TABLE IF NOT EXISTS `ox_statuses` (
   `name` VARCHAR(20) NOT NULL,
   `default` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0,
-  `ontick` DECIMAL(2, 2) DEFAULT NULL
+  `ontick` DECIMAL(4, 3) DEFAULT NULL
 );
 
 INSERT INTO `ox_statuses` (`name`, `default`, `ontick`)
