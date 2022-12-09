@@ -5,7 +5,7 @@ import './index.css';
 import CharacterSelector from './layouts/characters';
 import { isEnvBrowser } from './utils/misc';
 import LocaleProvider from './providers/LocaleProvider';
-import { Sidebar } from './layouts/characters/components/Sidebar';
+import { Sidebar } from './layouts/Sidebar';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
