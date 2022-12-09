@@ -196,6 +196,8 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 		end, { ped = true, headBlend = true, faceFeatures = true, headOverlays = true, components = true, props = true, tattoos = true })
 
 		Citizen.Await(p)
+		DoScreenFadeOut(200)
+		Wait(500)
 	end
 
     cache.ped = PlayerPedId()
