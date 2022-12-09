@@ -63,7 +63,7 @@ lib.callback.register('ox:updateStatus', function(name, value, remove)
 
     if current then
         value = (remove and current - value) or current + value
-        currentStatus[name] = value
+        currentStatus[name] = math.floor(value * 1000 + 0.5) / 1000
 
         return currentStatus[name]
     end
@@ -80,7 +80,7 @@ local function startStatusLoop()
 
             if tickAmount then
                 value += tickAmount
-                currentStatus[name] = value < 0 and 0 or value > 100 and 100 or value
+                currentStatus[name] = value < 0 and 0 or value > 100 and 100 or math.floor(value * 1000 + 0.5) / 1000
             end
         end
 
