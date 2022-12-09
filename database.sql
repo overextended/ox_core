@@ -26,29 +26,31 @@ USE `overextended`;
 
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `license2` varchar(50) DEFAULT NULL,
-  `steam` varchar(20) DEFAULT NULL,
-  `fivem` varchar(10) DEFAULT NULL,
-  `discord` varchar(20) DEFAULT NULL,
+  `username` VARCHAR(50) DEFAULT NULL,
+  `license2` VARCHAR(50) DEFAULT NULL,
+  `steam` VARCHAR(20) DEFAULT NULL,
+  `fivem` VARCHAR(10) DEFAULT NULL,
+  `discord` VARCHAR(20) DEFAULT NULL,
   PRIMARY KEY (`userid`) USING BTREE
 );
 
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `userid` MEDIUMINT UNSIGNED NOT NULL,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `dateofbirth` date NOT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `last_played` date NOT NULL DEFAULT (curdate()),
+  `firstname` VARCHAR(50) NOT NULL,
+  `lastname` VARCHAR(50) NOT NULL,
+  `gender` VARCHAR(10) NOT NULL,
+  `dateofbirth` DATE NOT NULL,
+  `phone_number` VARCHAR(20) DEFAULT NULL,
+  `last_played` DATE NOT NULL DEFAULT (curdate()),
   `is_dead` BIT NOT NULL DEFAULT 0,
-  `x` float DEFAULT NULL,
-  `y` float DEFAULT NULL,
-  `z` float DEFAULT NULL,
-  `heading` float DEFAULT NULL,
-  `metadata` JSON DEFAULT (JSON_OBJECT()) CHECK (JSON_VALID(`metadata`)),
+  `x` FLOAT DEFAULT NULL,
+  `y` FLOAT DEFAULT NULL,
+  `z` FLOAT DEFAULT NULL,
+  `heading` FLOAT DEFAULT NULL,
+  `health` TINYINT UNSIGNED DEFAULT NULL,
+  `armour` TINYINT UNSIGNED DEFAULT NULL,
+  `statuses` JSON NOT NULL DEFAULT (JSON_OBJECT()),
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
@@ -81,7 +83,7 @@ VALUES (
 
 CREATE TABLE IF NOT EXISTS `character_groups` (
   `charid` INT UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL,
   UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
   KEY `FK_character_groups_characters` (`charid`) USING BTREE,
@@ -89,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `character_groups` (
 );
 
 CREATE TABLE IF NOT EXISTS `ox_inventory` (
-  `owner` varchar(60) DEFAULT NULL,
-  `name` varchar(60) NOT NULL,
+  `owner` VARCHAR(60) DEFAULT NULL,
+  `name` VARCHAR(60) NOT NULL,
   `data` longtext DEFAULT NULL,
   `lastupdated` timestamp NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
   UNIQUE KEY `owner` (`owner`, `name`)
@@ -101,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `plate` CHAR(8) NOT NULL DEFAULT '',
   `vin` CHAR(17) NOT NULL,
   `owner` INT UNSIGNED NULL DEFAULT NULL,
-  `group` varchar(50) NULL DEFAULT NULL,
+  `group` VARCHAR(50) NULL DEFAULT NULL,
   `model` VARCHAR(20) NOT NULL,
   `class` TINYINT UNSIGNED NULL DEFAULT NULL,
   `data` LONGTEXT NOT NULL,

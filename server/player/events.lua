@@ -44,19 +44,11 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     end
 
     player.characters = nil
-
-    local characterData = db.selectCharacterData(character.charid)
-
-    if characterData then
-        for k, v in pairs(characterData) do
-            player:set(k, v)
-        end
-    end
-
     player.name = ('%s %s'):format(character.firstname, character.lastname)
     player.charid = character.charid
     player.firstname = character.firstname
     player.lastname = character.lastname
+    player.ped = GetPlayerPed(player.source)
 
     local groups = db.selectCharacterGroups(player.charid)
 
@@ -81,21 +73,23 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         end
     end
 
+    local cData = db.selectCharacterData(character.charid)
+
+    player:set('dateofbirth', cData.dateofbirth)
+    player:set('gender', cData.gender)
+    player:set('isDead', cData.isDead)
+    player:set('phoneNumber', cData.phoneNumber)
+
     for _, load in pairs(LoadResource) do
         load(player)
     end
 
     local state = player:getState()
+    local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
+
     state:set('dead', player:get('isDead'), true)
     state:set('name', player.name, true)
     appearance:load(player.source, player.charid)
-
-    -- set groups onto player obj temporarily, for sending to the client
-    local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
-
-    ---@todo multi-select or something support for db.selectMetadata
-    local health = db.selectMetadata(player.charid, 'health') --[[@as number]]
-    local armour = db.selectMetadata(player.charid, 'armour') --[[@as number]]
 
     TriggerClientEvent('ox:loadPlayer', player.source, coords, {
         firstname = player.firstname,
@@ -105,13 +99,10 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         charid = player.charid,
         groups = player:getGroups(),
         gender = player:get('gender'),
-    }, health, armour)
-
-    player.ped = GetPlayerPed(player.source)
-    local statuses = db.selectMetadata(player.charid, 'statuses')
+    }, cData.health, cData.armour)
 
     for name, status in pairs(StatusRegistry) do
-        player:setStatus(name, statuses?[name] or status.default)
+        player:setStatus(name, cData.statuses?[name] or status.default)
     end
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)

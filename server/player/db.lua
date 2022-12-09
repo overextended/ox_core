@@ -29,12 +29,12 @@ function db.selectCharacters(userid)
     return MySQL.query.await(SELECT_CHARACTERS, { userid }) or {}
 end
 
-local SELECT_CHARACTER_DATA = 'SELECT `is_dead` AS `isDead`, `gender`, DATE_FORMAT(`dateofbirth`, "%d/%m/%Y") AS `dateofbirth`, `phone_number` as `phoneNumber` FROM `characters` WHERE `charid` = ?'
+local SELECT_CHARACTER_DATA = 'SELECT `is_dead` AS `isDead`, `gender`, DATE_FORMAT(`dateofbirth`, "%d/%m/%Y") AS `dateofbirth`, `phone_number` as `phoneNumber`, `health`, `armour`, `statuses` FROM `characters` WHERE `charid` = ?'
 ---Select metadata for a character.
 ---@param charid any
----@return { isDead: boolean, gender: string, dateofbirth: string, phoneNumber: string }?
+---@return { isDead: boolean, gender: string, dateofbirth: string, phoneNumber: string, health?: number, armour?: number, statuses?: string }
 function db.selectCharacterData(charid)
-    return MySQL.single.await(SELECT_CHARACTER_DATA, { charid })
+    return MySQL.single.await(SELECT_CHARACTER_DATA, { charid }) or {}
 end
 
 local INSERT_CHARACTER = 'INSERT INTO `characters` (`userid`, `firstname`, `lastname`, `gender`, `dateofbirth`, `phone_number`) VALUES (?, ?, ?, ?, ?, ?)'
@@ -50,10 +50,7 @@ function db.createCharacter(userid, firstName, lastName, gender, date, phone_num
     return MySQL.prepare.await(INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
 end
 
-local UPDATE_CHARACTER = [[UPDATE characters SET
-    x = ?, y = ?, z = ?, heading = ?, is_dead = ?, last_played = ?,
-    metadata = JSON_SET(metadata, "$.health", ?, "$.armour", ?, "$.statuses", ?)
-WHERE charid = ?]]
+local UPDATE_CHARACTER = 'UPDATE characters SET `x` = ?, `y` = ?, `z` = ?, `heading` = ?, `is_dead` = ?, `last_played` = ?, `health` = ?, `armour` = ?, `statuses` = ? WHERE `charid` = ?'
 ---Update character data for one or multiple characters.
 ---@param parameters table<number, any> | table<number, any>[]
 function db.updateCharacter(parameters)
@@ -73,35 +70,6 @@ local SELECT_CHARACTER_GROUPS = 'SELECT `name`, `grade` FROM `character_groups` 
 ---@return { name: string, grade: number }[]?
 function db.selectCharacterGroups(charid)
     return MySQL.query.await(SELECT_CHARACTER_GROUPS, { charid })
-end
-
-local UPDATE_METADATA = 'UPDATE `characters` SET `metadata` = JSON_SET(metadata, ?, ?) WHERE `charid` = ?'
-local REMOVE_METADATA = 'UPDATE `characters` SET `metadata` = JSON_REMOVE(metadata, ?) WHERE `charid` = ?'
----Update metadata for character.
----@param key string
----@param value any
----@param charid number
-function db.updateMetadata(key, value, charid)
-    if value ~= nil then
-        return MySQL.prepare(UPDATE_METADATA, { key, value, charid })
-    end
-
-    MySQL.prepare(REMOVE_METADATA, { key, charid })
-end
-
-local SELECT_METADATA = 'SELECT JSON_VALUE(metadata, ?) FROM characters WHERE charid = ?'
----Select a metadata value for a given key.
----@param charid number
----@param field string
----@return any
-function db.selectMetadata(charid, field)
-    local value = MySQL.scalar.await(SELECT_METADATA, { ('$.%s'):format(field), charid })
-
-    if type(value) == 'string' then
-        return json.decode(value) or value
-    end
-
-    return value
 end
 
 local SELECT_CHARACTER_LICENSES = 'SELECT `name`, DATE_FORMAT(`issued`, "%d/%m/%Y") AS `issued` FROM `character_licenses` WHERE `charid` = ?'
