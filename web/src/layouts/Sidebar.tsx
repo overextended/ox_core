@@ -1,13 +1,13 @@
-import { useNuiEvent } from '../../../hooks/useNuiEvent';
-import { CharacterProps } from '../../../types';
+import { useNuiEvent } from '../hooks/useNuiEvent';
+import { CharacterProps } from '../types';
 import React, { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import CharacterSelector from '../index';
-import { debugData } from '../../../utils/debugData';
-import { useCharacterVisibilityState } from '../../../state/visibility';
-import { useSetCharacters, useSetMaxCharacterSlots } from '../../../state/characters';
-import { useSpawnsState } from '../../../state/spawn';
-import SpawnSelector from '../../spawn';
+import CharacterSelector from './characters';
+import { debugData } from '../utils/debugData';
+import { useCharacterVisibilityState } from '../state/visibility';
+import { useSetCharacters, useSetMaxCharacterSlots } from '../state/characters';
+import { useSpawnsState } from '../state/spawn';
+import SpawnSelector from './spawn';
 
 // debugData<{ characters: CharacterProps[]; maxSlots: number }>([
 //   {
