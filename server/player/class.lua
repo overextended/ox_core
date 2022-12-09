@@ -56,32 +56,6 @@ function CPlayer:set(key, value, replicated)
     end
 end
 
----Update the player's metadata and store in the DB, optionally syncing it with the client.
----@param key string
----@param value string | number | table | boolean
----@param replicated boolean
-function CPlayer:setdb(key, value, replicated)
-    local _key, count = key:gsub('%W', '')
-
-    if count > 0 then
-        print(("^3Received invalid key '%s' for player.setdb(); can only contain alphanumeric values.\nKey was changed to '%s'.^0"):format(key, _key))
-        key = _key
-    end
-
-    local vType = type(value)
-
-    if value and vType ~= 'string' and vType ~= 'number' and vType ~= 'table' and vType ~= 'boolean' then
-        TypeError(key, 'string | number | table | boolean', vType)
-    end
-
-    self.private.metadata[key] = value
-    db.updateMetadata(('$.%s'):format(key), (vType == 'table' and json.encode(value)) or value, self.charid)
-
-    if replicated then
-        TriggerClientEvent('ox:setPlayerData', self.source, key, value)
-    end
-end
-
 ---Gets the player's metadata, returning the entire table if key is omitted.
 ---@param key string
 ---@return any
@@ -97,14 +71,7 @@ function CPlayer:get(key)
         key = _key
     end
 
-    local value = metadata[key]
-
-    if value == nil then
-        value = db.selectMetadata(self.charid, key)
-        metadata[key] = value
-    end
-
-    return value
+    return metadata[key]
 end
 
 ---Sets the player's grade for the given group.

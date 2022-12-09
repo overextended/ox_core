@@ -35,10 +35,6 @@ export class CPlayer {
     Ox.CPlayer(this.source, "set", key, value, replicated);
   }
 
-  setdb(key: string, value: string | number | object | boolean | null, replicated?: boolean) {
-    Ox.CPlayer(this.source, "setdb", key, value, replicated);
-  }
-
   get(key?: string): any {
     return Ox.CPlayer(this.source, "get", key);
   }
