@@ -10,7 +10,7 @@ RegisterNetEvent('ox:updateStatuses', function(data)
             local status = StatusRegistry[name]
 
             if status and type(value) == 'number' then
-                player.private.statuses[name] = math.floor((value > 100 and 100 or value < 0 and 0 or value) + 0.5)
+                player.private.statuses[name] = (value > 100 and 100 or value < 0 and 0 or value)
             end
         end
     end
