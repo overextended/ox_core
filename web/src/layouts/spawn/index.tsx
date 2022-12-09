@@ -28,7 +28,7 @@ const SpawnSelector = () => {
         <div
           key={spawn}
           onClick={() => handleSpawnClick(index)}
-          className='flex justify-between border-b-[1px] border-b-white/30 p-4 font-text text-zinc-200 truncate hover:bg-black/40 hover-transition'>
+          className={`flex justify-between border-b-[1px] border-b-white/30 p-4 font-text text-zinc-200 truncate ${selectedSpawn === index ? 'bg-black/40' : undefined} hover:bg-black/40 hover-transition`}>
           <div className='truncate'>
             {spawn}
           </div>
