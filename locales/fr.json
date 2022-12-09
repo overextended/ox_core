@@ -18,6 +18,7 @@
     "char_location": "Location",
     "last_played": "Dernier joué",
     "max_chars": "Nombre maximum d'emplacements atteints",
-    "spawn_locations": "Spawn Locations"
+    "spawn_locations": "Spawn Locations",
+    "select_character": "Select Character"
   }
 }

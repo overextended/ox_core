@@ -18,6 +18,7 @@
     "char_location": "Lokace:",
     "last_played": "Naposledy hráno:",
     "max_chars": "Byl dosažen maximální počet charakterů.",
-    "spawn_locations": "Spawn Locations"
+    "spawn_locations": "Spawn Locations",
+    "select_character": "Select Character"
   }
 }
