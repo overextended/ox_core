@@ -23,7 +23,8 @@ interface Locale {
     char_location: string,
     last_played: string,
     max_chars: string,
-    spawn_locations: string
+    spawn_locations: string,
+    select_character: string
   };
 }
 
@@ -55,7 +56,8 @@ debugData<Locale>([
         char_location: 'Location',
         last_played: 'Last played',
         max_chars: 'Maximum number of slots reached',
-        spawn_locations: 'Spawn Locations'
+        spawn_locations: 'Spawn Locations',
+        select_character: 'Select Character',
       },
     },
   },
@@ -85,7 +87,8 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
       char_location: '',
       last_played: '',
       max_chars: '',
-      spawn_locations: ''
+      spawn_locations: '',
+      select_character: '',
     },
   });
 

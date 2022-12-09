@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import { useCharacters, useMaxSlotsValue } from '../../state/characters';
 import { useSetCreateModal } from '../../state/modals';
 import { useLocales } from '../../providers/LocaleProvider';
+import React from 'react';
 
 
 const CharacterSelector: React.FC = () => {
@@ -16,14 +17,17 @@ const CharacterSelector: React.FC = () => {
 
   return (
     <>
-      <div className='overflow-y-scroll'>
-        {characters.map((character, index) => (
-          <CharacterSlot
-            character={character}
-            index={index}
-            key={`${character.firstname}-${character.lastname}-${character.last_played}`}
-          />
-        ))}
+      <div>
+        <div className='p-4 text-center font-text text-zinc-200 text-xl'>{locale.ui.select_character}</div>
+        <div className='overflow-y-scroll'>
+          {characters.map((character, index) => (
+            <CharacterSlot
+              character={character}
+              index={index}
+              key={`${character.firstname}-${character.lastname}-${character.last_played}`}
+            />
+          ))}
+        </div>
       </div>
       <div>
         <div
