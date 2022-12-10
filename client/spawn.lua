@@ -141,30 +141,29 @@ end)
 
 local startStatusLoop = require 'status'
 local spawnLabels = {}
-local awaitingSpawn
 
 RegisterNUICallback('clickSpawn', function(data, cb)
 	cb(1)
     local coords = Client.SPAWN_LOCATIONS[data + 1]
 
-    SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
-
-    if coords.w then SetEntityHeading(cache.ped, coords.w) end
+	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
 end)
+
+local function spawnPlayer(coords)
+	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
+    SetEntityHeading(cache.ped, coords.w)
+    SetGameplayCamRelativeHeading(0)
+
+    while GetPlayerSwitchState() ~= 5 do Wait(0) end
+
+    SwitchInPlayer(cache.ped)
+
+    while GetPlayerSwitchState() ~= 12 do Wait(0) end
+end
 
 RegisterNUICallback('selectSpawn', function(data, cb)
 	cb(1)
-	SetNuiFocus(false, false)
-
-    while GetPlayerSwitchState() ~= 5 do Wait(50) end
-
-    SwitchInPlayer(cache.ped)
-    SetGameplayCamRelativeHeading(0)
-	NetworkEndTutorialSession()
-
-    while GetPlayerSwitchState() ~= 12 do Wait(50) end
-
-	awaitingSpawn = false
+    spawnPlayer(Client.SPAWN_LOCATIONS[data + 1])
 end)
 
 ---@param data table
@@ -201,13 +200,15 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 	end
 
     cache.ped = PlayerPedId()
-    awaitingSpawn = true
+    FreezeEntityPosition(cache.ped)
 
-    if spawn then table.insert(Client.SPAWN_LOCATIONS, 1, spawn) end
+    if Client.SPAWN_SELECT then
+        if spawn then table.insert(Client.SPAWN_LOCATIONS, 1, spawn) end
 
-    for i = 1, #Client.SPAWN_LOCATIONS do
-        local coords = Client.SPAWN_LOCATIONS[i]
-        spawnLabels[i] = GetLabelText(GetNameOfZone(coords.x, coords.y, coords.z))
+        for i = 1, #Client.SPAWN_LOCATIONS do
+            local coords = Client.SPAWN_LOCATIONS[i]
+            spawnLabels[i] = GetLabelText(GetNameOfZone(coords.x, coords.y, coords.z))
+        end
     end
 
     SwitchOutPlayer(cache.ped, 0, 1)
@@ -216,22 +217,26 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 
     DoScreenFadeIn(300)
 
-    SendNUIMessage({
-        action = 'sendSpawns',
-        data = spawnLabels
-    })
+    if Client.SPAWN_SELECT then
+        SendNUIMessage({
+            action = 'sendSpawns',
+            data = spawnLabels
+        })
 
-    while awaitingSpawn do Wait(50) end
+        while IsPlayerSwitchInProgress() do Wait(50) end
 
-    if spawn then
-        table.remove(Client.SPAWN_LOCATIONS, 1)
+        if spawn then
+            table.remove(Client.SPAWN_LOCATIONS, 1)
+        end
+    else
+        spawnPlayer(spawn or Client.DEFAULT_SPAWN)
     end
 
-	SetPlayerData(data)
-
-    awaitingSpawn = nil
     health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
 
+	SetNuiFocus(false, false)
+	NetworkEndTutorialSession()
+    SetPlayerData(data)
     SetEntityHealth(cache.ped, health)
     SetPedArmour(cache.ped, armour or 0)
     TriggerEvent('ox:playerLoaded', player)

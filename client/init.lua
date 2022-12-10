@@ -1,6 +1,7 @@
 Client = {
 	DEFAULT_SPAWN = vec4(-258.211, -293.077, 21.6132, 206.0),
     DEATH_SYSTEM = GetConvarInt('ox:deathSystem', 1) == 1,
+    SPAWN_SELECT = GetConvarInt('ox:spawnSelect', 1) == 1,
     SPAWN_LOCATIONS = {
         vec4(394.503174, -713.933960, 29.285440, 268.384399),
         vec4(-1038.936401, -2739.876953, 13.852936, 328.259064),
