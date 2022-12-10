@@ -49,6 +49,7 @@ end)
 
 RegisterNetEvent('ox:selectCharacter', function(characters)
 	NetworkStartSoloTutorialSession()
+    SetPlayerControl(cache.playerId, false, 0)
 
 	if GetIsLoadingScreenActive() then
 		SendLoadingScreenMessage(json.encode({
@@ -144,13 +145,17 @@ local spawnLabels = {}
 
 RegisterNUICallback('clickSpawn', function(data, cb)
 	cb(1)
-    local coords = Client.SPAWN_LOCATIONS[data + 1]
+    ---@todo spawn scenes or some sort of camera magic
+    -- local coords = Client.SPAWN_LOCATIONS[data + 1]
 
-	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
+	-- RequestCollisionAtCoord(coords.x, coords.y, coords.z)
+	-- SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, false, false, false)
 end)
 
 local function spawnPlayer(coords)
-	SetEntityCoords(cache.ped, coords.x, coords.y, coords.z, false, false, false, false)
+	NetworkEndTutorialSession()
+	RequestCollisionAtCoord(coords.x, coords.y, coords.z)
+	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, false, false, false)
     SetEntityHeading(cache.ped, coords.w)
     SetGameplayCamRelativeHeading(0)
 
@@ -200,7 +205,6 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 	end
 
     cache.ped = PlayerPedId()
-    FreezeEntityPosition(cache.ped)
 
     if Client.SPAWN_SELECT then
         if spawn then table.insert(Client.SPAWN_LOCATIONS, 1, spawn) end
@@ -235,10 +239,10 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
     health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
 
 	SetNuiFocus(false, false)
-	NetworkEndTutorialSession()
     SetPlayerData(data)
     SetEntityHealth(cache.ped, health)
     SetPedArmour(cache.ped, armour or 0)
+    SetPlayerControl(cache.playerId, true, 0)
     TriggerEvent('ox:playerLoaded', player)
 
     CreateThread(startStatusLoop)
