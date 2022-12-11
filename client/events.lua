@@ -6,17 +6,12 @@ end
 
 AddStateBagChangeHandler('initVehicle', '', function(bagName, key, value, reserved, replicated)
     if value then
-        local netId = tonumber(bagName:gsub('entity:', ''), 10)
+        local entity = GetEntityFromStateBagName(bagName)
 
-        -- this race condition should be resolved, but we'll test for it for a while anyway
-        for i = 1, 500 do
-            if NetworkDoesEntityExistWithNetworkId(netId) then break elseif i == 500 then return end
-            Wait(0)
+        if entity == 0 then
+            -- when would this even occur?
+            return print(('received invalid entity from statebag! (%s)'):format(bagName))
         end
-
-        local entity = NetworkGetEntityFromNetworkId(netId)
-
-        if entity == 0 then return end
 
         -- workaround for server-vehicles that exist in traffic randomly creating peds
         -- https://forum.cfx.re/t/sometimes-an-npc-spawns-inside-an-vehicle-spawned-with-createvehicleserversetter-or-create-automobile/4947251
