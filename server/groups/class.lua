@@ -6,7 +6,7 @@
 ---@field hasAccount boolean
 ---@field adminGrade number
 ---@field type = string,
----@field  type_label = string,
+---@field type_label = string,
 ---@field unique_type = number
 
 ---@class CGroup : CGroupProperties
@@ -89,7 +89,7 @@ function CGroup:set(player, grade)
         if currentGrade == grade then return end
         self:remove(player, currentGrade)
     else
-        if self.unique_type == 1 then
+        if self.type and self.unique_type == 1 then
             for _ in pairs(player.private.groups) do
                 local groupCompare = Ox.GetGroup(_)
                 if groupCompare.type == self.type then
