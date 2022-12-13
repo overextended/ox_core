@@ -64,18 +64,34 @@ export class CVehicle implements ICVehicle {
     return exp(this.entity, "get", index);
   }
 
+  despawn() {
+    exp(this.entity, "despawn");
+  }
+
   delete() {
     exp(this.entity, "delete");
   }
 
-  store(value: string) {
-    exp(this.entity, "store", value);
+  setStored(value: string, despawn?: boolean) {
+    exp(this.entity, "setStored", value, despawn);
+  }
+
+  setOwner(charid?: number) {
+    return exp(this.entity, "setOwner", charid);
+  }
+
+  setGroup(groupName?: string) {
+    return exp(this.entity, "setGroup", groupName);
+  }
+
+  setPlate(plate: string) {
+    return exp(this.entity, "setPlate", plate);
   }
 }
 
-export function GetVehicle(vehicleId: number): CVehicle | number {
+export function GetVehicle(vehicleId: number) {
   const vehicle = exports.ox_core.GetVehicle(vehicleId);
-  return typeof vehicle === "object" ? new CVehicle(vehicle) : vehicle;
+  return vehicle ? new CVehicle(vehicle) : null;
 }
 
 export function GetVehicleFromNetId(netid: number) {
