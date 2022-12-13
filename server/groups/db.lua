@@ -1,7 +1,7 @@
 local MySQL = MySQL
 local db = {}
 
-local SELECT_GROUPS = 'SELECT * FROM `ox_groups`'
+local SELECT_GROUPS = 'SELECT ox_groups.*, groupType.label AS type_label, groupType.unique FROM ox_groups LEFT JOIN ox_groups_types AS groupType ON ox_groups.`type` = groupType.`code`'
 ---Fetch all groups from the database.
 function db.selectGroups()
     return MySQL.query.await(SELECT_GROUPS)

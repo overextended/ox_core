@@ -49,6 +49,9 @@ local function loadGroups()
                 principal = principal,
                 hasAccount = group.hasAccount,
                 adminGrade = group.adminGrade,
+                type = group.type,
+                type_label = group.type_label,
+                unique_type = group.unique
             })
 
             GlobalState[principal] = GroupRegistry[group.name]
