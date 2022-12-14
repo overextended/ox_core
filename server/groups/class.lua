@@ -5,9 +5,8 @@
 ---@field principal string
 ---@field hasAccount boolean
 ---@field adminGrade number
----@field type = string,
----@field type_label = string,
----@field unique_type = number
+---@field type = number
+---@field isUniqueType = boolean
 
 ---@class CGroup : CGroupProperties
 local CGroup = {}
@@ -89,11 +88,12 @@ function CGroup:set(player, grade)
         if currentGrade == grade then return end
         self:remove(player, currentGrade)
     else
-        if self.type and self.unique_type == 1 then
-            for _ in pairs(player.private.groups) do
-                local groupCompare = Ox.GetGroup(_)
-                if groupCompare.type == self.type then
-                    error(("Attempted to add multiple unique group '%s' with '%s' for player.%s"):format(self.type, self.name, player.source))
+        if self.type and self.isUniqueType then
+            for groupName in pairs(player.private.groups) do
+                local group = Ox.GetGroup(groupName)
+                if group.type == self.type then
+                    warn(("Attempted to add multiple unique group '%s' with '%s' for player.%s"):format(self.type, self.name, player.source))
+                    return false
                 end
             end
         end

@@ -1,7 +1,7 @@
 local MySQL = MySQL
 local db = {}
 
-local SELECT_GROUPS = 'SELECT ox_groups.*, groupType.label AS type_label, groupType.unique FROM ox_groups LEFT JOIN ox_groups_types AS groupType ON ox_groups.`type` = groupType.`code`'
+local SELECT_GROUPS = 'SELECT ox_groups.*, ox_groups_types.id as type, ox_groups_types.unique FROM ox_groups, ox_groups_types AS ox_groups_types where ox_groups.type = ox_groups_types.`id` OR ox_groups.type IS NULL GROUP by ox_groups.name'
 ---Fetch all groups from the database.
 function db.selectGroups()
     return MySQL.query.await(SELECT_GROUPS)

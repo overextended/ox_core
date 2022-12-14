@@ -66,12 +66,11 @@ CREATE TABLE IF NOT EXISTS `character_inventory` (
 );
 
 CREATE TABLE IF NOT EXISTS `ox_groups_types` (
-  `code` varchar(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(20) DEFAULT NULL,
-  `unique` int(1) DEFAULT NULL,
-  PRIMARY KEY (`code`)
+  `unique` bit(1) DEFAULT b'0',
+  PRIMARY KEY (`id`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
@@ -79,10 +78,10 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `grades` LONGTEXT NOT NULL,
   `hasAccount` BIT NOT NULL DEFAULT 0,
   `adminGrade` TINYINT UNSIGNED NOT NULL DEFAULT JSON_LENGTH(grades),
-  `type` VARCHAR(20) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`name`) USING BTREE,
   KEY `FK_ox_groups_ox_groups_types` (`type`),
-  CONSTRAINT `FK_ox_groups_ox_groups_types` FOREIGN KEY (`type`) REFERENCES `ox_groups_types` (`code`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_ox_groups_ox_groups_types` FOREIGN KEY (`type`) REFERENCES `ox_groups_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 INSERT INTO `ox_groups` (`name`, `label`, `grades`)
