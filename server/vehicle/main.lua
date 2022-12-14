@@ -75,13 +75,6 @@ local function spawnVehicle(id, owner, group, plate, vin, model, script, data, c
 
         vehicle:init(data)
 
-        local state = vehicle:getState()
-        state:set('owner', vehicle.owner, true)
-
-        if next(data) then
-            state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
-        end
-
         if owner ~= false or group then
             db.setStored(nil, vehicle.id)
         end
