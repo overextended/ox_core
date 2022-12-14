@@ -48,6 +48,15 @@ function CVehicle:init(data)
     if not vehicleData[self.entity] then
         VehicleRegistry[self.entity] = self
         vehicleData[self.entity] = data
+
+        local state = self:getState()
+        state:set('owner', self.owner, true)
+
+        if next(data) then
+            state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
+        end
+
+        TriggerEvent('ox:createdVehicle', self.entity, self.id)
     end
 end
 
