@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `ox_licenses` (
 );
 
 INSERT INTO `ox_licenses` (`name`, `label`)
-VALUES ('weapons', 'Weapons License'),
-  ('drivers', 'Drivers License');
+VALUES ('weapon', 'Weapon License'),
+  ('driver', "Driver's License");
 
 CREATE TRIGGER `characters_after_insert`
 AFTER
