@@ -19,10 +19,7 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
         if processAll or not Ox.GetVehicleData(model) then
             local hash = joaat(model)
 
-            if not HasModelLoaded(hash) then
-                RequestModel(hash)
-                repeat Wait(0) until HasModelLoaded(hash)
-            end
+            lib.requestModel(hash)
 
             if hash then
                 local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z + 10, 0.0, false, false)
