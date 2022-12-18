@@ -23,6 +23,8 @@ SetTimeout(500, function()
 	TriggerServerEvent('ox:playerJoined')
 end)
 
+local plateFormat = string.upper(GetConvar('ox:plateFormat', '........'))
+
 for i = 0, 5 do
-	SetDefaultVehicleNumberPlateTextPattern(i, '........')
+	SetDefaultVehicleNumberPlateTextPattern(i, plateFormat)
 end

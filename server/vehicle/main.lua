@@ -186,9 +186,20 @@ end
 
 local math_random = math.random
 
-local function getAlphanumeric()
-    return math_random(0, 1) == 1 and string.char(math_random(65, 90)) or math_random(0, 9)
+local function getNumber()
+    return math_random(0, 9)
 end
+
+local function getLetter()
+    return string.char(math_random(65, 90))
+end
+
+local function getAlphanumeric()
+    return math_random(0, 1) == 1 and getLetter() or getNumber()
+end
+
+local plateFormat = string.upper(GetConvar('ox:plateFormat', '........'))
+local formatLen = #plateFormat
 
 ---Creates a unique vehicle license plate.
 ---@return string
@@ -196,8 +207,36 @@ function Ox.GeneratePlate()
     local plate = table.create(8, 0)
 
     while true do
-        for i = 1, 8 do
-            plate[i] = getAlphanumeric()
+        local tableLen = 1
+
+        for i = 1, formatLen do
+            local char = plateFormat:sub(i, i)
+
+            if char == '1' then
+                plate[tableLen] = getNumber()
+            elseif char == 'A' then
+                plate[tableLen] = getLetter()
+            elseif char == '.' then
+                plate[tableLen] = getAlphanumeric()
+            elseif char == '^' then
+                i += 1
+
+                plate[tableLen] = plateFormat:sub(i, i)
+            else
+                plate[tableLen] = char
+            end
+
+            tableLen += 1
+
+            if tableLen == 9 then
+                break
+            end
+        end
+
+        if tableLen < 9 then
+            for i = tableLen, 8 do
+                plate[i] = ' '
+            end
         end
 
         local str = table.concat(plate)
