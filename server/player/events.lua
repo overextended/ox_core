@@ -101,6 +101,8 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         gender = player:get('gender'),
     }, cData.health, cData.armour)
 
+    cData.statuses = json.decode(cData.statuses)
+
     for name, status in pairs(StatusRegistry) do
         player:setStatus(name, cData.statuses?[name] or status.default)
     end
