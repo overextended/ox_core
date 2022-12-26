@@ -15,10 +15,10 @@
     "irreversible_action": "Tato akce je nenávratná",
     "delete_character": "Vymazat charakter",
     "delete_prompt": "Jste si jistí, že chcete smazat charakter %s",
-    "char_location": "Lokace:",
-    "last_played": "Naposledy hráno:",
+    "char_location": "Lokace",
+    "last_played": "Naposledy hráno",
     "max_chars": "Byl dosažen maximální počet charakterů.",
-    "spawn_locations": "Spawn Locations",
-    "select_character": "Select Character"
+    "spawn_locations": "Lokace pro spawnutí",
+    "select_character": "Vybrat charakter"
   }
 }
