@@ -1,0 +1,24 @@
+{
+  "ui": {
+    "confirm": "確認",
+    "cancel": "取消",
+    "select": "選擇",
+    "delete": "刪除",
+    "firstname": "名字",
+    "lastname": "姓氏",
+    "gender": "性別",
+    "male": "男",
+    "female": "女",
+    "non_binary": "其他",
+    "create_char": "創建角色",
+    "create_a_char": "創建一個角色",
+    "delete_character": "刪除角色",
+    "delete_prompt": "您確定要刪除 %s",
+    "irreversible_action": "此操作不可撤銷",
+    "char_location": "位置",
+    "last_played": "最後一次遊玩",
+    "max_chars": "已達到槽位上限",
+    "spawn_locations": "出生位置",
+    "select_character": "選擇角色"
+  }
+}
