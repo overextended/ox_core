@@ -22,11 +22,7 @@ const validateName = (value: string) => {
 
 const validateDate = (date: string) => {
   const validDate = new Date(date);
-  const [day, month, year] = [validDate.getDate(), validDate.getMonth() + 1, validDate.getFullYear()];
-  const [currentDay, currentMonth, currentYear] = [currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear()];
-  if (month > currentMonth) return false;
-  if (month === currentMonth && day > currentDay) return false;
-  return !(year < 1900 || year > currentYear);
+  return validDate < currentDate
 };
 
 export const CreateCharacter: React.FC = () => {
