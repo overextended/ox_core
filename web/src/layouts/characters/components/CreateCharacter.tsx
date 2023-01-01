@@ -19,14 +19,11 @@ const validateName = (value: string) => {
 };
 
 const validateDate = (date: string) => {
-  var  validDate = new Date(date);
-  var  currentDate =  new Date();
-  if (validDate < currentDate) {
-      return true;
-  } else {
-      return false
-  };
+  const validDate = new Date(date);
+  const currentDate = new Date();
+  return validDate < currentDate
 };
+
 export const CreateCharacter: React.FC = () => {
   const { locale } = useLocales();
   const [createModal, setCreateModal] = useCreateModalState();
