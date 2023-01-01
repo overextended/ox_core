@@ -14,21 +14,19 @@ export type Inputs = {
   gender: string;
 }
 
-const currentDate = new Date();
-
 const validateName = (value: string) => {
   return !value.match(/([0-9])+/g);
 };
 
 const validateDate = (date: string) => {
-  const validDate = new Date(date);
-  const [day, month, year] = [validDate.getDate(), validDate.getMonth() + 1, validDate.getFullYear()];
-  const [currentDay, currentMonth, currentYear] = [currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear()];
-  if (month > currentMonth) return false;
-  if (month === currentMonth && day > currentDay) return false;
-  return !(year < 1900 || year > currentYear);
+  var  validDate = new Date(date);
+  var  currentDate =  new Date();
+  if (validDate < currentDate) {
+      return true;
+  } else {
+      return false
+  };
 };
-
 export const CreateCharacter: React.FC = () => {
   const { locale } = useLocales();
   const [createModal, setCreateModal] = useCreateModalState();
