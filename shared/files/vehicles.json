@@ -907,6 +907,19 @@
     "type": "plane",
     "weapons": true
   },
+  "boor": {
+    "acceleration": 0.266999989748,
+    "braking": 0.68000000715255,
+    "class": 9,
+    "doors": 4,
+    "handling": 0.64700001478195,
+    "make": "Karin",
+    "name": "Boor",
+    "price": 67237,
+    "seats": 2,
+    "speed": 40.42960357666015,
+    "type": "automobile"
+  },
   "boxville": {
     "acceleration": 0.10999999940395,
     "braking": 0.25,
@@ -999,6 +1012,19 @@
     "speed": 32.83029556274414,
     "type": "automobile"
   },
+  "brickade2": {
+    "acceleration": 0.20000000298023,
+    "braking": 0.40000000596046,
+    "class": 17,
+    "doors": 2,
+    "handling": 0.57999998331069,
+    "make": "MTL",
+    "name": "Brickade 6x6",
+    "price": 54416,
+    "seats": 6,
+    "speed": 32.83029556274414,
+    "type": "automobile"
+  },
   "brioso": {
     "acceleration": 0.28999999165534,
     "braking": 0.60000002384185,
@@ -1036,6 +1062,19 @@
     "price": 61333,
     "seats": 2,
     "speed": 37.27137756347656,
+    "type": "automobile"
+  },
+  "broadway": {
+    "acceleration": 0.19499999284744,
+    "braking": 0.31999999284744,
+    "class": 4,
+    "doors": 4,
+    "handling": 0.57499998807907,
+    "make": "Classique",
+    "name": "Broadway",
+    "price": 61702,
+    "seats": 2,
+    "speed": 37.47391891479492,
     "type": "automobile"
   },
   "bruiser": {
@@ -1552,6 +1591,19 @@
     "name": "Cargo Plane",
     "price": 1537948,
     "seats": 2,
+    "speed": 78.90234375,
+    "type": "plane"
+  },
+  "cargoplane2": {
+    "acceleration": 6.17400026321411,
+    "braking": 4.87143087387085,
+    "class": 16,
+    "doors": 4,
+    "handling": 6.17400026321411,
+    "make": "",
+    "name": "Cargo Plane",
+    "price": 1537948,
+    "seats": 5,
     "speed": 78.90234375,
     "type": "plane"
   },
@@ -2857,6 +2909,19 @@
     "speed": 53.71408462524414,
     "type": "automobile"
   },
+  "entity3": {
+    "acceleration": 0.35449999570846,
+    "braking": 1.0,
+    "class": 7,
+    "doors": 4,
+    "handling": 0.78449994325637,
+    "make": "Overflod",
+    "name": "Entity MT",
+    "price": 89208,
+    "seats": 2,
+    "speed": 53.61646270751953,
+    "type": "automobile"
+  },
   "entityxf": {
     "acceleration": 0.33000001311302,
     "braking": 0.89999997615814,
@@ -2883,6 +2948,19 @@
     "speed": 44.10639572143555,
     "type": "bike"
   },
+  "eudora": {
+    "acceleration": 0.19499999284744,
+    "braking": 0.26499998569488,
+    "class": 4,
+    "doors": 6,
+    "handling": 0.57499998807907,
+    "make": "Willard",
+    "name": "Eudora",
+    "price": 66819,
+    "seats": 4,
+    "speed": 40.72726058959961,
+    "type": "automobile"
+  },
   "euros": {
     "acceleration": 0.32400000095367,
     "braking": 0.89999997615814,
@@ -2907,6 +2985,19 @@
     "price": 68803,
     "seats": 4,
     "speed": 41.73223114013672,
+    "type": "automobile"
+  },
+  "everon2": {
+    "acceleration": 0.33950001001358,
+    "braking": 0.68500000238418,
+    "class": 6,
+    "doors": 3,
+    "handling": 0.7195000052452,
+    "make": "Karin",
+    "name": "Hotring Everon",
+    "price": 79842,
+    "seats": 2,
+    "speed": 48.15765762329101,
     "type": "automobile"
   },
   "exemplar": {
@@ -4221,6 +4312,19 @@
     "speed": 42.0374755859375,
     "type": "automobile"
   },
+  "issi8": {
+    "acceleration": 0.32150000333786,
+    "braking": 0.54799997806549,
+    "class": 2,
+    "doors": 6,
+    "handling": 0.74149996042251,
+    "make": "Weeny",
+    "name": "Issi Rally",
+    "price": 79711,
+    "seats": 4,
+    "speed": 48.20893859863281,
+    "type": "automobile"
+  },
   "italigtb": {
     "acceleration": 0.33649998903274,
     "braking": 1.10000002384185,
@@ -4411,6 +4515,19 @@
     "handling": 0.50999999046325,
     "make": "Zirconium",
     "name": "Journey",
+    "price": 52886,
+    "seats": 6,
+    "speed": 32.16410827636719,
+    "type": "automobile"
+  },
+  "journey2": {
+    "acceleration": 0.12999999523162,
+    "braking": 0.25,
+    "class": 12,
+    "doors": 3,
+    "handling": 0.50999999046325,
+    "make": "Zirconium",
+    "name": "Journey II",
     "price": 52886,
     "seats": 6,
     "speed": 32.16410827636719,
@@ -4740,7 +4857,7 @@
     "name": "Luxor",
     "price": 1818934,
     "seats": 10,
-    "speed": 90.61445617675781,
+    "speed": 90.6144561767578,
     "type": "plane"
   },
   "luxor2": {
@@ -4845,6 +4962,19 @@
     "price": 21545,
     "seats": 1,
     "speed": 41.38006973266601,
+    "type": "bike"
+  },
+  "manchez3": {
+    "acceleration": 0.27200001478195,
+    "braking": 0.80000001192092,
+    "class": 8,
+    "doors": 1,
+    "handling": 0.65200001001358,
+    "make": "Maibatsu",
+    "name": "Manchez Scout C",
+    "price": 21632,
+    "seats": 1,
+    "speed": 41.54008102416992,
     "type": "bike"
   },
   "marquis": {
@@ -5600,6 +5730,19 @@
     "speed": 36.34652709960937,
     "type": "automobile"
   },
+  "panthere": {
+    "acceleration": 0.34619998931884,
+    "braking": 0.83999997377395,
+    "class": 6,
+    "doors": 4,
+    "handling": 0.72619998455047,
+    "make": "Toundra",
+    "name": "Panthere",
+    "price": 82311,
+    "seats": 2,
+    "speed": 49.53231811523437,
+    "type": "automobile"
+  },
   "panto": {
     "acceleration": 0.27000001072883,
     "braking": 0.60000002384185,
@@ -6108,6 +6251,19 @@
     "speed": 36.94717788696289,
     "type": "automobile"
   },
+  "powersurge": {
+    "acceleration": 0.81999999284744,
+    "braking": 1.29999995231628,
+    "class": 8,
+    "doors": 1,
+    "handling": 1.20000004768371,
+    "make": "Western",
+    "name": "Powersurge",
+    "price": 23026,
+    "seats": 1,
+    "speed": 42.73333358764648,
+    "type": "bike"
+  },
   "prairie": {
     "acceleration": 0.2199999988079,
     "braking": 0.60000002384185,
@@ -6233,6 +6389,19 @@
     "seats": 2,
     "speed": 100.0,
     "type": "plane"
+  },
+  "r300": {
+    "acceleration": 0.32879999279975,
+    "braking": 0.77999997138977,
+    "class": 6,
+    "doors": 4,
+    "handling": 0.7088000178337,
+    "make": "Annis",
+    "name": "300R",
+    "price": 79467,
+    "seats": 2,
+    "speed": 47.84967041015625,
+    "type": "automobile"
   },
   "radi": {
     "acceleration": 0.20000000298023,
@@ -7386,7 +7555,7 @@
     "name": "Shamal",
     "price": 1818934,
     "seats": 10,
-    "speed": 90.61445617675781,
+    "speed": 90.6144561767578,
     "type": "plane"
   },
   "sheava": {
@@ -8091,6 +8260,19 @@
     "speed": 20.68594741821289,
     "type": "automobile"
   },
+  "surfer3": {
+    "acceleration": 0.10000000149011,
+    "braking": 0.30000001192092,
+    "class": 12,
+    "doors": 6,
+    "handling": 0.48000001907348,
+    "make": "BF",
+    "name": "Surfer Custom",
+    "price": 34505,
+    "seats": 4,
+    "speed": 20.68594741821289,
+    "type": "automobile"
+  },
   "surge": {
     "acceleration": 0.10000000149011,
     "braking": 0.60000002384185,
@@ -8167,6 +8349,19 @@
     "price": 47273,
     "seats": 1,
     "speed": 28.69607162475586,
+    "type": "automobile"
+  },
+  "tahoma": {
+    "acceleration": 0.29800000786781,
+    "braking": 0.625,
+    "class": 4,
+    "doors": 4,
+    "handling": 0.67800003290176,
+    "make": "Declasse",
+    "name": "Tahoma Coupe",
+    "price": 72249,
+    "seats": 2,
+    "speed": 43.55486297607422,
     "type": "automobile"
   },
   "tailgater": {
@@ -9000,6 +9195,19 @@
     "speed": 48.86213302612305,
     "type": "automobile"
   },
+  "tulip2": {
+    "acceleration": 0.31529998779296,
+    "braking": 0.68000000715255,
+    "class": 4,
+    "doors": 4,
+    "handling": 0.69529998302459,
+    "make": "Declasse",
+    "name": "Tulip M-100",
+    "price": 74746,
+    "seats": 2,
+    "speed": 45.0262451171875,
+    "type": "automobile"
+  },
   "turismo2": {
     "acceleration": 0.34000000357627,
     "braking": 0.5,
@@ -9399,6 +9607,19 @@
     "price": 60554,
     "seats": 2,
     "speed": 36.34652709960937,
+    "type": "automobile"
+  },
+  "virtue": {
+    "acceleration": 0.34180000424385,
+    "braking": 1.27999997138977,
+    "class": 7,
+    "doors": 3,
+    "handling": 0.7218000292778,
+    "make": "Ocelot",
+    "name": "Virtue",
+    "price": 76383,
+    "seats": 2,
+    "speed": 45.39584350585937,
     "type": "automobile"
   },
   "viseris": {
