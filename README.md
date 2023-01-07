@@ -1,18 +1,11 @@
-## Not production ready
+## Installation
 
-Support is given on Discord, but please do not expect this resource to _just work_.
-Features are still missinng, and we are awaiting feedback and suggestions to further improve functionality.
-
-https://overextended.github.io/docs/ox_core/
+Refer to our [documentation](https://overextended.github.io/docs/ox_core/) for installing and setting up ox_core on your server.
 
 ## Database
 
 Only [MariaDB](https://mariadb.com/downloads/) is officially supported.
 We cannot guarantee older versions of MySQL will work as expected, and guarantee MySQL 8 is incompatible.
-
-## Installation
-
-Refer to our [documentation](https://overextended.github.io/docs/ox_core/) for installing and setting up ox_core on your server.
 
 ## Third-party resources
 
