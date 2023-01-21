@@ -23,7 +23,7 @@ function onPlayerDeath()
         lib.requestAnimDict(anims[i][1])
     end
 
-    lib.requestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
+    local scaleform = lib.requestScaleformMovie('MP_BIG_MESSAGE_FREEMODE') --[[@as number]]
 
     AnimpostfxPlay('DeathFailOut', 0, true)
     TriggerEvent('ox_inventory:disarm')
