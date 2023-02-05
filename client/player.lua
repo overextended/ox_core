@@ -21,11 +21,13 @@ AddEventHandler('ox:playerLogout', function()
     table.wipe(playerData)
 end)
 
-NetEventHandler('ox:setGroup', function(name, grade)
+local utils = require 'utils'
+
+utils.registerNetEvent('ox:setGroup', function(name, grade)
     player.groups[name] = grade
 end)
 
-NetEventHandler('ox:setPlayerData', function(index, value)
+utils.registerNetEvent('ox:setPlayerData', function(index, value)
     playerData[index] = value
     TriggerEvent(('ox:player:%s'):format(index), value)
 end)

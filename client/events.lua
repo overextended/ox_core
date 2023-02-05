@@ -1,8 +1,4 @@
-function NetEventHandler(event, fn)
-    RegisterNetEvent(event, function(...)
-        if source ~= '' then fn(...) end
-    end)
-end
+local utils = require 'utils'
 
 AddStateBagChangeHandler('initVehicle', '', function(bagName, key, value, reserved, replicated)
     if value then
