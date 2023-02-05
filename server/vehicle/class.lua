@@ -6,6 +6,7 @@
 ---@field entity number
 ---@field model string
 ---@field plate string
+---@field vin string
 ---@field script string
 ---@field stored? string
 
@@ -50,11 +51,16 @@ function CVehicle:init(data)
         vehicleData[self.entity] = data
 
         local state = self:getState()
+
+        state:set('initVehicle', true, true)
         state:set('owner', self.owner, true)
 
-        if next(data) then
-            state:set('initVehicle', { data.properties, data.lockStatus or 1 }, true)
+        if data.properties then
+            state:set('vehicleProperties', data.properties)
         end
+
+        ---@todo Setup locks / keysystem?
+        state:set('lockStatus', data.lockStatus or 1)
 
         TriggerEvent('ox:createdVehicle', self.entity, self.id)
     end
