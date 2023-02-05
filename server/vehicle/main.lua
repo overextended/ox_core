@@ -125,7 +125,7 @@ function Ox.CreateVehicle(data, coords, heading)
         end
 
         vehicle.data = json.decode(vehicle.data--[[@as string]] )
-        local modelData = Ox.GetVehicleData(vehicle.model)
+        local modelData = Ox.GetVehicleData(vehicle.model) --[[@as VehicleData]]
 
         if not modelData then
             error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
@@ -144,7 +144,7 @@ function Ox.CreateVehicle(data, coords, heading)
     end
 
     local model = data.model:lower()
-    local modelData = Ox.GetVehicleData(model)
+    local modelData = Ox.GetVehicleData(model) --[[@as VehicleData]]
 
     if not modelData then
         error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/files/vehicles.json'"))
