@@ -16,8 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
 ;
 
--- ADDS metatable column for people who are too dumb to understand it and if so dont be fivem dev
--- ALTER TABLE `characters` ADD metadata JSON DEFAULT '{}' CHECK (JSON_VALID(`metadata`))
 CREATE DATABASE IF NOT EXISTS `overextended`
 /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */
 ;
