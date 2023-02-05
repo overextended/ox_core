@@ -1,4 +1,4 @@
-local StatusRegistry = require 'status.registry'
+local StatusRegistry = require 'server.status.registry'
 
 RegisterNetEvent('ox:updateStatuses', function(data)
     ---@todo can probably implement some sort of protection against arbitrary values

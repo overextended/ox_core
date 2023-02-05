@@ -1,8 +1,8 @@
 local Vehicle = {}
-local db = require 'vehicle.db'
-local VehicleRegistry = require 'vehicle.registry'
+local db = require 'server.vehicle.db'
+local VehicleRegistry = require 'server.vehicle.registry'
 
-require 'vehicle.commands'
+require 'server.vehicle.commands'
 
 ---Save all vehicles for the resource and despawn them.
 ---@param resource string?
@@ -34,7 +34,7 @@ function Vehicle.saveAll(resource)
     end
 end
 
-local CVehicle = require 'vehicle.class'
+local CVehicle = require 'server.vehicle.class'
 
 ---@param id? number
 ---@param owner? number | boolean

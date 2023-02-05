@@ -1,4 +1,4 @@
-local db = require 'player.db'
+local db = require 'server.player.db'
 
 ---@type table<number, CPlayer>
 local PlayerRegistry = {}
@@ -9,7 +9,7 @@ local playerIdFromUserId = {}
 ---@type table<number, true>
 local connectingPlayers = {}
 
-local CPlayer = require 'player.class'
+local CPlayer = require 'server.player.class'
 
 local private_mt = {
     __ext = 0,

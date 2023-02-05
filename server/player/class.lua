@@ -5,7 +5,7 @@
 ---@field charid number
 ---@field characters? table
 
-local db = require 'player.db'
+local db = require 'server.player.db'
 
 ---@class CPlayer : CPlayerProperties
 local CPlayer = {}
@@ -331,5 +331,5 @@ function CPlayer:save()
     end
 end
 
-local Class = require 'class'
+local Class = require 'server.class'
 return Class.new(CPlayer)

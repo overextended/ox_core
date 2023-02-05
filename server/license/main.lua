@@ -1,7 +1,7 @@
-local LicenseRegistry = require 'license.registry'
-local db = require 'license.db'
+local LicenseRegistry = require 'server.license.registry'
+local db = require 'server.license.db'
 
-require 'license.events'
+require 'server.license.events'
 
 local function loadLicenses()
     local results = db.selectLicenses()

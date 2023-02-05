@@ -39,7 +39,7 @@ function CPlayer:removeStatus(name, value)
     end
 end
 
-local utils = require 'utils'
+local utils = require 'client.utils'
 
 utils.registerNetEvent('ox:setPlayerStatus', function(name, value)
     statuses[name] = GlobalState[('status.%s'):format(name)]

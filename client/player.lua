@@ -21,7 +21,7 @@ AddEventHandler('ox:playerLogout', function()
     table.wipe(playerData)
 end)
 
-local utils = require 'utils'
+local utils = require 'client.utils'
 
 utils.registerNetEvent('ox:setGroup', function(name, grade)
     player.groups[name] = grade

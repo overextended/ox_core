@@ -1,7 +1,7 @@
-local StatusRegistry = require 'status.registry'
-local db = require 'status.db'
+local StatusRegistry = require 'server.status.registry'
+local db = require 'server.status.db'
 
-require 'status.events'
+require 'server.status.events'
 
 local function loadStatuses()
     local results = db.selectStatuses()

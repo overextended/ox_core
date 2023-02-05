@@ -22,8 +22,8 @@ end)
 
 local npwd = GetExport('npwd')
 local appearance = GetExport('ox_appearance')
-local db = require 'player.db'
-local StatusRegistry = require 'status.registry'
+local db = require 'server.player.db'
+local StatusRegistry = require 'server.status.registry'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
     local player = Ox.GetPlayer(source) --[[@as CPlayer]]

@@ -1,4 +1,4 @@
-local utils = require 'utils'
+local utils = require 'client.utils'
 
 utils.entityStateHandler('initVehicle', function(entity)
     -- workaround for server-vehicles that exist in traffic randomly creating peds

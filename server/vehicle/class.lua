@@ -41,7 +41,7 @@ function Ox.CVehicle(source, method, ...)
 end
 
 local vehicleData = {}
-local VehicleRegistry = require 'vehicle.registry'
+local VehicleRegistry = require 'server.vehicle.registry'
 
 ---Triggered after vehicle instantiation to setup metadata.
 ---@param data table
@@ -86,7 +86,7 @@ function CVehicle:getState()
     return Entity(self.entity).state
 end
 
-local db = require 'vehicle.db'
+local db = require 'server.vehicle.db'
 
 ---Removes a vehicle from the vehicle registry and despawns the entity.
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
@@ -152,5 +152,5 @@ function CVehicle:setPlate(plate)
     db.setPlate({ self.plate, self.id })
 end
 
-local Class = require 'class'
+local Class = require 'server.class'
 return Class.new(CVehicle)

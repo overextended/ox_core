@@ -1,6 +1,6 @@
-require 'player.registry'
-require 'player.commands'
-require 'player.events'
+require 'server.player.registry'
+require 'server.player.commands'
+require 'server.player.events'
 
 ---Trigger a function when a player is loaded or the resource restarts.
 ---@todo module for resource integration
@@ -61,7 +61,7 @@ if pefcl then
     end)
 end
 
-local db = require 'player.db'
+local db = require 'server.player.db'
 
 ---Saves the data for all active players.
 function Ox.SaveAllPlayers()

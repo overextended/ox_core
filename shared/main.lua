@@ -45,37 +45,63 @@ function json.load(file)
     return t
 end
 
-local modules = setmetatable({}, {
-    __index = function(self, path)
-        self[path] = false
-        local scriptPath = ('%s/%s.lua'):format(lib.context, path:gsub('%.', '/'))
-        local resourceFile = LoadResourceFile(cache.resource, scriptPath)
+local loaded = {}
 
-        if not resourceFile then
-            self[path] = nil
-            return error(("^1unable to load module at path '%s^0"):format(scriptPath), 3)
-        end
+package = {
+    loaded = setmetatable({}, {
+        __index = loaded,
+        __newindex = function() end,
+        __metatable = false,
+    }),
+    path = './?.lua;'
+}
 
-        scriptPath = ('@@ox_core/%s'):format(scriptPath)
-        local chunk, err = load(resourceFile, scriptPath)
+local _require = require
 
-        if err or not chunk then
-            self[path] = nil
-            return error(err or ("^1unable to load module at path '%s^0"):format(scriptPath), 3)
-        end
-
-        self[path] = chunk() or true
-        return self[path]
-    end
-})
-
+---Loads the given module inside the current resource, returning any values returned by the file or `true` when `nil`.
 ---@param modname string
 ---@return unknown
 function require(modname)
-    local module = modules[modname]
+    local module = loaded[modname]
 
-    if module == false then
-        error(("^1circular-dependency occurred when loading module '%s'^0"):format(modname), 2)
+    if not module then
+        if module == false then
+            error(("^1circular-dependency occurred when loading module '%s'^0"):format(modname), 2)
+        end
+
+        local success, result = pcall(_require, modname)
+
+        if success then
+            loaded[modname] = result
+            return result
+        end
+
+        local modpath = modname:gsub('%.', '/')
+        local paths = { string.strsplit(';', package.path) }
+
+        for i = 1, #paths do
+            local scriptPath = paths[i]:gsub('%?', modpath):gsub('%.+%/+', '')
+            local resourceFile = LoadResourceFile(cache.resource, scriptPath)
+
+            if resourceFile then
+                loaded[modname] = false
+                scriptPath = ('@@%s/%s'):format(cache.resource, scriptPath)
+
+                local chunk, err = load(resourceFile, scriptPath)
+
+                if err or not chunk then
+                    loaded[modname] = nil
+                    return error(err or ("unable to load module '%s'"):format(modname), 3)
+                end
+
+                module = chunk(modname) or true
+                loaded[modname] = module
+
+                return module
+            end
+        end
+
+        return error(("module '%s' not found"):format(modname), 2)
     end
 
     return module

@@ -139,7 +139,7 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	SetNuiFocusKeepInput(false)
 end)
 
-local startStatusLoop = require 'status'
+local startStatusLoop = require 'client.status'
 local spawnLabels = {}
 
 RegisterNUICallback('clickSpawn', function(data, cb)
@@ -250,5 +250,5 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 
     CreateThread(startStatusLoop)
 
-    if Client.DEATH_SYSTEM then CreateThread(require 'death') end
+    if Client.DEATH_SYSTEM then CreateThread(require 'client.death') end
 end)
