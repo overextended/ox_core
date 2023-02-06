@@ -2,7 +2,8 @@ if not Shared.DEBUG then return end
 
 lib.addCommand('group.admin', 'parsevehicles', function(source, args)
     CreateThread(function()
-        local vehicleData, topStats = lib.callback.await('ox:generateVehicleData', source, args.processAll) --[[@as table]]
+        ---@type table<string, VehicleData>, TopVehicleStats
+        local vehicleData, topStats = lib.callback.await('ox:generateVehicleData', source, args.processAll)
 
         if vehicleData and next(vehicleData) then
             if not args.processAll then
