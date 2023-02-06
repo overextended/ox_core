@@ -11,11 +11,6 @@ local connectingPlayers = {}
 
 local CPlayer = require 'server.player.class'
 
-local private_mt = {
-    __ext = 0,
-    __pack = function() return '' end,
-}
-
 local function addPlayer(playerId, username)
     local identifiers = Ox.GetIdentifiers(playerId)
     local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
@@ -50,13 +45,13 @@ local function addPlayer(playerId, username)
         source = playerId,
         userid = userId,
         username = username,
-        private = setmetatable({
+        private = {
             inScope = {},
             groups = {},
             statuses = {},
             licenses = {},
             metadata = identifiers,
-        }, private_mt)
+        }
     })
 
     PlayerRegistry[playerId] = player
