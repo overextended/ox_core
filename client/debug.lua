@@ -1,19 +1,16 @@
 if not Shared.DEBUG then return end
 
 lib.callback.register('ox:generateVehicleData', function(processAll)
-    local models = GetAllVehicleModels and GetAllVehicleModels()
-
-    if not models then
-        return error('GetAllVehicleModels is not available in the current build of FiveM.')
-    end
-
+    local models = GetAllVehicleModels()
+    local numModels = #models
+    local numParsed = 0
     local coords = GetEntityCoords(cache.ped)
     local vehicleData = {}
     local topStats = {}
 
-    print('Generating vehicle data...')
+    print(('Generating vehicle data from models (%s models loaded).'):format(numModels))
 
-    for i = 1, #models do
+    for i = 1, numModels do
         local model = models[i]:lower()
 
         if processAll or not Ox.GetVehicleData(model) then
@@ -136,6 +133,7 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
 
                 data.price = math.floor(price)
                 vehicleData[model] = data
+                numParsed += 1
 
                 SetVehicleAsNoLongerNeeded(vehicle)
                 DeleteEntity(vehicle)
@@ -144,7 +142,7 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
         end
     end
 
-    print('Vehicle data has been generated.')
+    print(('Generated vehicle data from %s models.'):format(numParsed))
 
     return vehicleData, topStats
 end)
