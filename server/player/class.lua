@@ -331,5 +331,5 @@ function CPlayer:save()
     end
 end
 
-local Class = require 'server.class'
+local Class = require 'shared.class'
 return Class.new(CPlayer)

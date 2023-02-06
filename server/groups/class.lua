@@ -107,5 +107,5 @@ function CGroup:set(player, grade)
     return true
 end
 
-local Class = require 'server.class'
+local Class = require 'shared.class'
 return Class.new(CGroup)

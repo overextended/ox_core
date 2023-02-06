@@ -152,5 +152,5 @@ function CVehicle:setPlate(plate)
     db.setPlate({ self.plate, self.id })
 end
 
-local Class = require 'server.class'
+local Class = require 'shared.class'
 return Class.new(CVehicle)
