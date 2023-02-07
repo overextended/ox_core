@@ -60,9 +60,14 @@ local function addPlayer(playerId, username)
     return player
 end
 
-local function removePlayer(player, reason)
-    PlayerRegistry[player.source] = nil
-    playerIdFromUserId[player.userid] = nil
+local function removePlayer(playerId, userId, reason)
+    PlayerRegistry[playerId] = nil
+    playerIdFromUserId[userId] = nil
+
+    for _, player in pairs(PlayerRegistry) do
+        player.private.inScope[playerId] = nil
+    end
+
     --[[ TODO: Log session ended ]]
 end
 
@@ -240,7 +245,7 @@ AddEventHandler('playerDropped', function(reason)
     if player then
         player:logout(true)
 
-        removePlayer(player, ('Dropped, %s'):format(reason) )
+        removePlayer(player.source, player.userid, ('Dropped, %s'):format(reason) )
     end
 end)
 
