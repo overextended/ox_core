@@ -9,13 +9,14 @@ function utils.registerNetEvent(event, fn)
 end
 
 ---@async
-function utils.awaitValue(cb)
+function utils.waitFor(cb)
     local hasValue = cb()
 
     for i = 1, 500 do
         if hasValue then break elseif i == 500 then return end
 
         Wait(0)
+        hasValue = cb()
     end
 
     return hasValue
@@ -27,7 +28,7 @@ end
 function utils.getEntityAndNetIdFromBagName(bagName)
     local netId = tonumber(bagName:gsub('entity:', ''), 10)
 
-    if not utils.awaitValue(function()
+    if not utils.waitFor(function()
         return NetworkDoesEntityExistWithNetworkId(netId)
     end) then
         return print(('statebag timed out while awaiting entity creation! (%s)'):format(bagName)), 0
