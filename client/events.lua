@@ -11,7 +11,7 @@ utils.entityStateHandler('initVehicle', function(entity)
         end
     end
 
-    if not utils.awaitValue(function() return IsEntityWaitingForWorldCollision(entity) end) then return end
+    if not utils.waitFor(function() return IsEntityWaitingForWorldCollision(entity) end) then return end
 
     if NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
