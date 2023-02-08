@@ -9,20 +9,6 @@ Client = {
     }
 }
 
-SetTimeout(500, function()
-	exports.spawnmanager:spawnPlayer({
-		x = Client.DEFAULT_SPAWN.x,
-		y = Client.DEFAULT_SPAWN.y,
-		z = Client.DEFAULT_SPAWN.z,
-		heading = Client.DEFAULT_SPAWN.w,
-		model = `mp_m_freemode_01`,
-		skipFade = true,
-	})
-
-	exports.spawnmanager:setAutoSpawn(false)
-	TriggerServerEvent('ox:playerJoined')
-end)
-
 local plateFormat = string.upper(GetConvar('ox:plateFormat', '........'))
 
 for i = 0, 5 do
