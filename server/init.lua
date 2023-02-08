@@ -2,9 +2,6 @@ Server = {
     PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'license2'),
 }
 
----@diagnostic disable-next-line: param-type-mismatch
-SetConvarReplicated('pe-basicloading:disableAutoShutdown', 1)
-
 if GetExport('ox_inventory') then
     SetConvarReplicated('inventory:framework', 'ox')
     SetConvarReplicated('inventory:trimplate ', 'false')
