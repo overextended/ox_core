@@ -21,7 +21,7 @@ function OxPlayer:__index(index, ...)
 
     if export then
         return function(...)
-            return ox_core:OxPlayer(index, ...)
+            return ox_core:CallPlayerMethod(index, ...)
         end
     end
 

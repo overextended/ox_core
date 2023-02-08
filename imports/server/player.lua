@@ -23,7 +23,7 @@ function OxPlayer:__index(index)
 
     if export then
         return function(...)
-            return exp:OxPlayer(self.source, index, ...)
+            return exp:CallPlayerMethod(self.source, index, ...)
         end
     end
 end

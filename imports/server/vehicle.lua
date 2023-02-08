@@ -23,7 +23,7 @@ function OxVehicle:__index(index)
 
     if export then
         return function(...)
-            return exp:OxVehicle(self.entity, index, ...)
+            return exp:CallVehicleMethod(self.entity, index, ...)
         end
     end
 end
