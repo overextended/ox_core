@@ -1,4 +1,4 @@
-local CPlayer = {}
+local OxPlayer = {}
 
 local playerExports = {}
 setmetatable(playerExports, {
@@ -10,8 +10,8 @@ setmetatable(playerExports, {
 
 local exp = exports.ox_core
 
-function CPlayer:__index(index)
-    local method = CPlayer[index]
+function OxPlayer:__index(index)
+    local method = OxPlayer[index]
 
     if method then
         return function(...)
@@ -23,27 +23,27 @@ function CPlayer:__index(index)
 
     if export then
         return function(...)
-            return exp:CPlayer(self.source, index, ...)
+            return exp:OxPlayer(self.source, index, ...)
         end
     end
 end
 
-function CPlayer:getState()
+function OxPlayer:getState()
     return Player(self.source).state
 end
 
-function CPlayer:getCoords()
+function OxPlayer:getCoords()
     return GetEntityCoords(self.ped)
 end
 
 function Ox.GetPlayer(playerId)
     local player = exp:GetPlayer(playerId)
-    return player and setmetatable(player, CPlayer)
+    return player and setmetatable(player, OxPlayer)
 end
 
 function Ox.GetPlayerByFilter(filter)
     local player = exp:GetPlayerByFilter(filter)
-    return player and setmetatable(player, CPlayer)
+    return player and setmetatable(player, OxPlayer)
 end
 
 function Ox.GetPlayers(usemetatable, filter)
@@ -51,7 +51,7 @@ function Ox.GetPlayers(usemetatable, filter)
 
     if usemetatable ~= false then
         for i = 1, #players do
-            setmetatable(players[i], CPlayer)
+            setmetatable(players[i], OxPlayer)
         end
     end
 

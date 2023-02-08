@@ -1,9 +1,9 @@
----@type table<string, CGroup>
+---@type table<string, OxGroup>
 local GroupRegistry = {}
 
 ---Return data associated with the given group name.
 ---@param name string
----@return CGroup?
+---@return OxGroup?
 function Ox.GetGroup(name)
     local group = GroupRegistry[name]
 

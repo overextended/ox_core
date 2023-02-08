@@ -1,5 +1,5 @@
 local ox_core = exports.ox_core
-local CPlayer = {}
+local OxPlayer = {}
 local PlayerExports = {}
 setmetatable(PlayerExports, {
     __index = function(_, index)
@@ -8,8 +8,8 @@ setmetatable(PlayerExports, {
     end
 })
 
-function CPlayer:__index(index, ...)
-    local method = CPlayer[index]
+function OxPlayer:__index(index, ...)
+    local method = OxPlayer[index]
 
     if method then
         return function(...)
@@ -21,7 +21,7 @@ function CPlayer:__index(index, ...)
 
     if export then
         return function(...)
-            return ox_core:CPlayer(index, ...)
+            return ox_core:OxPlayer(index, ...)
         end
     end
 
@@ -39,11 +39,11 @@ function CPlayer:__index(index, ...)
     end
 end
 
-function CPlayer:getPed()
+function OxPlayer:getPed()
     return cache.ped
 end
 
-function CPlayer:getCoords(update)
+function OxPlayer:getCoords(update)
     if update or not self.coords then
         self.coords = GetEntityCoords(cache.ped)
     end
@@ -51,7 +51,7 @@ function CPlayer:getCoords(update)
     return self.coords
 end
 
-function CPlayer:hasGroup(filter)
+function OxPlayer:hasGroup(filter)
     local type = type(filter)
 
     if type == 'string' then
@@ -87,7 +87,7 @@ end
 player = Ox.GetPlayerData()
 
 if player then
-    player = setmetatable(player, CPlayer)
+    player = setmetatable(player, OxPlayer)
 end
 
 local function registerNetEvent(event, fn)
@@ -98,7 +98,7 @@ end
 
 AddEventHandler('ox:playerLoaded', function(data)
     if not player then
-        player = setmetatable(data, CPlayer)
+        player = setmetatable(data, OxPlayer)
     end
 end)
 

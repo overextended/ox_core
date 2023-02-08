@@ -1,4 +1,4 @@
----@class CVehicleProperties
+---@class OxVehicleProperties
 ---@field id number
 ---@field owner? number
 ---@field group? string
@@ -10,13 +10,13 @@
 ---@field script string
 ---@field stored? string
 
----@class CVehicle : CVehicleProperties
-local CVehicle = {}
+---@class OxVehicle : OxVehicleProperties
+local OxVehicle = {}
 
 ---@type table<string, true>
 local vehicleExports = {}
 
-setmetatable(CVehicle, {
+setmetatable(OxVehicle, {
     __newindex = function(self, key, value)
         rawset(self, key, value)
         vehicleExports[key] = true
@@ -32,11 +32,11 @@ end
 ---@param method string
 ---@param ... unknown?
 ---@return unknown?
-function Ox.CVehicle(source, method, ...)
+function Ox.OxVehicle(source, method, ...)
     local vehicle = Ox.GetVehicle(source)
 
     if vehicle then
-        return CVehicle[method](vehicle, ...)
+        return OxVehicle[method](vehicle, ...)
     end
 end
 
@@ -45,7 +45,7 @@ local VehicleRegistry = require 'server.vehicle.registry'
 
 ---Triggered after vehicle instantiation to setup metadata.
 ---@param data table
-function CVehicle:init(data)
+function OxVehicle:init(data)
     if not vehicleData[self.entity] then
         VehicleRegistry[self.entity] = self
         vehicleData[self.entity] = data
@@ -69,7 +69,7 @@ end
 ---Gets the vehicle's metadata, returning the entire table if key is omitted.
 ---@param index any
 ---@return any
-function CVehicle:get(index)
+function OxVehicle:get(index)
     local data = vehicleData[self.entity]
     return index and data[index] or data
 end
@@ -77,12 +77,12 @@ end
 ---Update the vehicle's metadata.
 ---@param key string
 ---@param value any
-function CVehicle:set(key, value)
+function OxVehicle:set(key, value)
     vehicleData[self.entity][key] = value
 end
 
 ---@return StateBag
-function CVehicle:getState()
+function OxVehicle:getState()
     return Entity(self.entity).state
 end
 
@@ -90,7 +90,7 @@ local db = require 'server.vehicle.db'
 
 ---Removes a vehicle from the vehicle registry and despawns the entity.
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
----@param vehicle CVehicle
+---@param vehicle OxVehicle
 ---@param removeEntry boolean?
 ---@param metadata table
 local function despawnVehicle(vehicle, removeEntry, metadata)
@@ -113,17 +113,17 @@ local function despawnVehicle(vehicle, removeEntry, metadata)
     DeleteEntity(entity)
 end
 
-function CVehicle:despawn()
+function OxVehicle:despawn()
     despawnVehicle(self, nil, vehicleData[self.entity])
 end
 
-function CVehicle:delete()
+function OxVehicle:delete()
     despawnVehicle(self, true)
 end
 
 ---@param value string
 ---@param despawn? boolean
-function CVehicle:setStored(value, despawn)
+function OxVehicle:setStored(value, despawn)
     db.setStored(value, self.id)
     self.stored = value
 
@@ -133,24 +133,24 @@ function CVehicle:setStored(value, despawn)
 end
 
 ---@param newOwner? number
-function CVehicle:setOwner(newOwner)
+function OxVehicle:setOwner(newOwner)
     db.setOwner(newOwner, self.id)
     self.owner = newOwner
     self:getState():set('owner', newOwner, true)
 end
 
 ---@param newGroup? string
-function CVehicle:setGroup(newGroup)
+function OxVehicle:setGroup(newGroup)
     db.setGroup(newGroup, self.id)
     self.group = newGroup
 end
 
 ---May mismatch with properties due to "fake plates". Used to prevent duplicate "persistent plates".
 ---@param plate string
-function CVehicle:setPlate(plate)
+function OxVehicle:setPlate(plate)
     self.plate = ('%-8s'):format(plate)
     db.setPlate({ self.plate, self.id })
 end
 
 local Class = require 'shared.class'
-return Class.new(CVehicle)
+return Class.new(OxVehicle)

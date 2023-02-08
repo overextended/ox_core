@@ -26,7 +26,7 @@ local db = require 'server.player.db'
 local StatusRegistry = require 'server.status.registry'
 
 RegisterNetEvent('ox:selectCharacter', function(data)
-    local player = Ox.GetPlayer(source) --[[@as CPlayer]]
+    local player = Ox.GetPlayer(source) --[[@as OxPlayer]]
     local character
 
     if type(data) == 'table' then

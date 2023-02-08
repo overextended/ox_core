@@ -1,4 +1,4 @@
----@class CPlayerProperties
+---@class OxPlayerProperties
 ---@field ped number
 ---@field source number
 ---@field userid number
@@ -7,13 +7,13 @@
 
 local db = require 'server.player.db'
 
----@class CPlayer : CPlayerProperties
-local CPlayer = {}
+---@class OxPlayer : OxPlayerProperties
+local OxPlayer = {}
 
 ---@type table<string, true>
 local playerExports = {}
 
-setmetatable(CPlayer, {
+setmetatable(OxPlayer, {
     __newindex = function(self, key, value)
         rawset(self, key, value)
         playerExports[key] = true
@@ -29,11 +29,11 @@ end
 ---@param method string
 ---@param ... unknown?
 ---@return unknown?
-function Ox.CPlayer(source, method, ...)
+function Ox.OxPlayer(source, method, ...)
     local player = Ox.GetPlayer(source)
 
     if player then
-        return CPlayer[method](player, ...)
+        return OxPlayer[method](player, ...)
     end
 end
 
@@ -41,7 +41,7 @@ end
 ---@param key string
 ---@param value any
 ---@param replicated boolean
-function CPlayer:set(key, value, replicated)
+function OxPlayer:set(key, value, replicated)
     local _key, count = key:gsub('%W', '')
 
     if count > 0 then
@@ -59,7 +59,7 @@ end
 ---Gets the player's metadata, returning the entire table if key is omitted.
 ---@param key string
 ---@return any
-function CPlayer:get(key)
+function OxPlayer:get(key)
     local metadata = self.private.metadata
 
     if not key then return metadata end
@@ -77,20 +77,20 @@ end
 ---Sets the player's grade for the given group.
 ---@param name string
 ---@param grade number?
-function CPlayer:setGroup(name, grade)
+function OxPlayer:setGroup(name, grade)
     Ox.GetGroup(name):set(self, grade)
 end
 
 ---Gets the player's grade for the given group.
 ---@param name string
 ---@return number?
-function CPlayer:getGroup(name)
+function OxPlayer:getGroup(name)
     return self.private.groups[name]
 end
 
 ---Gets all groups the player is in.
 ---@return table<string, number>
-function CPlayer:getGroups()
+function OxPlayer:getGroups()
     return self.private.groups
 end
 
@@ -98,7 +98,7 @@ end
 ---The filter be the group, an array of groups, or a map where key is the group and value is the minimum grade.
 ---@param filter string | string[] | table<string, number> }
 ---@return string? group, number? grade
-function CPlayer:hasGroup(filter)
+function OxPlayer:hasGroup(filter)
     local type = type(filter)
     local groups = self.private.groups
 
@@ -135,7 +135,7 @@ end
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:setStatus(name, value)
+function OxPlayer:setStatus(name, value)
     self.private.statuses[name] = value
     TriggerClientEvent('ox:setPlayerStatus', self.source, name, value)
 
@@ -145,7 +145,7 @@ end
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:addStatus(name, value)
+function OxPlayer:addStatus(name, value)
     if self.private.statuses[name] then
         self.private.statuses[name] = lib.callback.await('ox:updateStatus', self.source, name, value)
 
@@ -156,7 +156,7 @@ end
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:removeStatus(name, value)
+function OxPlayer:removeStatus(name, value)
     if self.private.statuses[name] then
         self.private.statuses[name] = lib.callback.await('ox:updateStatus', self.source, name, value, true)
 
@@ -165,19 +165,19 @@ function CPlayer:removeStatus(name, value)
 end
 
 ---@return table<string, { issued: string }>
-function CPlayer:getLicenses()
+function OxPlayer:getLicenses()
     return self.private.licenses
 end
 
 ---@param name string
 ---@return { issued: string }
-function CPlayer:getLicense(name)
+function OxPlayer:getLicense(name)
     return self.private.licenses[name]
 end
 
 ---@param name string
 ---@return true?
-function CPlayer:addLicense(name)
+function OxPlayer:addLicense(name)
     local issued = os.date('%Y-%m-%d') --[[@as string]]
 
     db.addCharacterLicense(self.charid, name, issued)
@@ -194,7 +194,7 @@ end
 
 ---@param name string
 ---@return true?
-function CPlayer:removeLicense(name)
+function OxPlayer:removeLicense(name)
     db.removeCharacterLicense(self.charid, name)
 
     self.private.licenses[name] = nil
@@ -207,21 +207,21 @@ end
 
 ---Gets all player ids in scope of the player.
 ---@return table<number, true>
-function CPlayer:getPlayersInScope()
+function OxPlayer:getPlayersInScope()
     return self.private.inScope
 end
 
 ---Check if the target playerId is in range of the player.
 ---@param target number
 ---@return boolean
-function CPlayer:isPlayerInScope(target)
+function OxPlayer:isPlayerInScope(target)
     return self.private.inScope[target]
 end
 
 ---Trigger a client event for all players in range of the player.
 ---@param eventName string
 ---@param ... any
-function CPlayer:triggerScopedEvent(eventName, ...)
+function OxPlayer:triggerScopedEvent(eventName, ...)
     local inScope = self.private.inScope
 
     for id in pairs(inScope) do
@@ -233,7 +233,7 @@ local npwd = GetExport('npwd')
 local pefcl = GetExport('pefcl')
 
 ---@param dropped boolean?
-function CPlayer:logout(dropped)
+function OxPlayer:logout(dropped)
     if not self.charid then return end
 
     TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
@@ -277,14 +277,14 @@ end
 ---Private methods (available inside ox_core)
 ---@todo Separate class into multiple files (common code, internal code)
 
-setmetatable(CPlayer, nil)
+setmetatable(OxPlayer, nil)
 
 ---@return StateBag
-function CPlayer:getState()
+function OxPlayer:getState()
     return Player(self.source).state
 end
 
-function CPlayer:setAsJoined(playerId)
+function OxPlayer:setAsJoined(playerId)
     self.source = playerId
     self:getState():set('userid', self.userid, true)
 end
@@ -293,7 +293,7 @@ local appearance = GetExport('ox_appearance')
 
 ---Fetch all characters owned by the player from the database.
 ---@return table
-function CPlayer:selectCharacters()
+function OxPlayer:selectCharacters()
     local characters = db.selectCharacters(self.userid)
 
     for i = 1, #characters do
@@ -306,7 +306,7 @@ end
 
 ---Prepare character data to save to the database.
 ---@return table
-function CPlayer:prepareSaveData(date)
+function OxPlayer:prepareSaveData(date)
     local playerPed = self.ped
     local coords = GetEntityCoords(playerPed)
 
@@ -325,11 +325,11 @@ function CPlayer:prepareSaveData(date)
 end
 
 ---Update the database with a player's current data.
-function CPlayer:save()
+function OxPlayer:save()
     if self.charid then
         db.updateCharacter(self:prepareSaveData(os.date('%Y-%m-%d')))
     end
 end
 
 local Class = require 'shared.class'
-return Class.new(CPlayer)
+return Class.new(OxPlayer)

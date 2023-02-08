@@ -5,14 +5,14 @@ local currentStatus = {}
 
 ---@param name string
 ---@return number
-function CPlayer:getStatus(name)
+function OxPlayer:getStatus(name)
     return currentStatus[name]
 end
 
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:setStatus(name, value)
+function OxPlayer:setStatus(name, value)
     if currentStatus[name] then
         currentStatus[name] = value
         return true
@@ -22,7 +22,7 @@ end
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:addStatus(name, value)
+function OxPlayer:addStatus(name, value)
     if currentStatus[name] then
         currentStatus[name] += value
         return true
@@ -32,7 +32,7 @@ end
 ---@param name string
 ---@param value number
 ---@return true?
-function CPlayer:removeStatus(name, value)
+function OxPlayer:removeStatus(name, value)
     if currentStatus[name] then
         currentStatus[name] -= value
         return true

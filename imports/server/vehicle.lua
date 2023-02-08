@@ -1,4 +1,4 @@
-local CVehicle = {}
+local OxVehicle = {}
 
 local vehicleExports = {}
 setmetatable(vehicleExports, {
@@ -10,8 +10,8 @@ setmetatable(vehicleExports, {
 
 local exp = exports.ox_core
 
-function CVehicle:__index(index)
-    local method = CVehicle[index]
+function OxVehicle:__index(index)
+    local method = OxVehicle[index]
 
     if method then
         return function(...)
@@ -23,12 +23,12 @@ function CVehicle:__index(index)
 
     if export then
         return function(...)
-            return exp:CVehicle(self.entity, index, ...)
+            return exp:OxVehicle(self.entity, index, ...)
         end
     end
 end
 
-function CVehicle:getCoords(update)
+function OxVehicle:getCoords(update)
     if update or not self.coords then
         self.coords = GetEntityCoords(self.entity)
     end
@@ -38,17 +38,17 @@ end
 
 function Ox.GetVehicle(vehicle)
     vehicle = type(vehicle) == 'table' and vehicle.entity or exp:GetVehicle(vehicle)
-    return vehicle and setmetatable(vehicle, CVehicle)
+    return vehicle and setmetatable(vehicle, OxVehicle)
 end
 
 function Ox.GetVehicleFromNetId(vehicle)
     vehicle = exp:GetVehicleFromNetId(vehicle)
-    return vehicle and setmetatable(vehicle, CVehicle)
+    return vehicle and setmetatable(vehicle, OxVehicle)
 end
 
 function Ox.CreateVehicle(data, coords, heading)
     local vehicle = exp:CreateVehicle(data, coords, heading)
-    return type(vehicle) == 'table' and setmetatable(vehicle, CVehicle) or vehicle
+    return type(vehicle) == 'table' and setmetatable(vehicle, OxVehicle) or vehicle
 end
 
 function Ox.GetVehicles(usemetatable)
@@ -56,7 +56,7 @@ function Ox.GetVehicles(usemetatable)
 
     if usemetatable then
         for i = 1, #vehicles do
-            setmetatable(vehicles[i], CVehicle)
+            setmetatable(vehicles[i], OxVehicle)
         end
     end
 
