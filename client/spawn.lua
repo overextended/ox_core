@@ -175,21 +175,25 @@ RegisterNUICallback('clickSpawn', function(data, cb)
 end)
 
 local function spawnPlayer(coords)
+    local ped = cache.ped
+
     NetworkEndTutorialSession()
 	RequestCollisionAtCoord(coords.x, coords.y, coords.z)
 	SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, false, false, false)
-    SetEntityHeading(cache.ped, coords.w)
-	FreezeEntityPosition(cache.ped, true)
+    SetEntityHeading(ped, coords.w)
+	FreezeEntityPosition(ped, true)
     SetGameplayCamRelativeHeading(0)
 
     while GetPlayerSwitchState() ~= 5 do Wait(0) end
 
-    SwitchInPlayer(cache.ped)
+    SwitchInPlayer(ped)
 
     while GetPlayerSwitchState() ~= 12 do Wait(0) end
 
-    while not HasCollisionLoadedAroundEntity(cache.ped) do Wait(0) end
-	FreezeEntityPosition(cache.ped, false)
+    while not HasCollisionLoadedAroundEntity(ped) do Wait(0) end
+	FreezeEntityPosition(ped, false)
+
+    TriggerEvent('playerSpawned')
 end
 
 RegisterNUICallback('selectSpawn', function(data, cb)
