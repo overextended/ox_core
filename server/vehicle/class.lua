@@ -32,7 +32,7 @@ end
 ---@param method string
 ---@param ... unknown?
 ---@return unknown?
-function Ox.OxVehicle(source, method, ...)
+function Ox.CallVehicleMethod(source, method, ...)
     local vehicle = Ox.GetVehicle(source)
 
     if vehicle then

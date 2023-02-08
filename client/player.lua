@@ -40,7 +40,7 @@ end
 ---@param method string
 ---@param ... unknown
 ---@return unknown
-function Ox.OxPlayer(method, ...)
+function Ox.CallPlayerMethod(method, ...)
     method = OxPlayer[method]
     return method and method(player, ...)
 end

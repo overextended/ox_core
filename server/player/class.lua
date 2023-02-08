@@ -29,7 +29,7 @@ end
 ---@param method string
 ---@param ... unknown?
 ---@return unknown?
-function Ox.OxPlayer(source, method, ...)
+function Ox.CallPlayerMethod(source, method, ...)
     local player = Ox.GetPlayer(source)
 
     if player then
