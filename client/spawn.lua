@@ -1,4 +1,20 @@
-TriggerServerEvent('ox:playerJoined')
+NetworkStartSoloTutorialSession()
+
+CreateThread(function()
+    if GetIsLoadingScreenActive() then
+        SendLoadingScreenMessage('{"fullyLoaded": true}')
+        ShutdownLoadingScreenNui()
+    end
+
+    while not IsScreenFadedOut() do
+        DoScreenFadeOut(0)
+        Wait(0)
+    end
+
+    ShutdownLoadingScreen()
+    Wait(500)
+    TriggerServerEvent('ox:playerJoined')
+end)
 
 local hidePlayer
 
@@ -82,20 +98,16 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 	NetworkStartSoloTutorialSession()
     SetPlayerControl(cache.playerId, false, 0)
     SetPlayerInvincible(cache.playerId, true)
-    ClearPedTasks(cache.ped)
-    ShutdownLoadingScreen()
-    SendLoadingScreenMessage('{"fullyLoaded": true}')
-    ShutdownLoadingScreenNui()
     DoScreenFadeOut(0)
 
-	while not IsScreenFadedOut() do
-		DoScreenFadeOut(0)
-		Wait(0)
-	end
+    while not IsScreenFadedOut() do
+        Wait(0)
+    end
 
 	if PlayerIsLoaded then
 		table.wipe(player)
 		TriggerEvent('ox:playerLogout')
+        ClearPedTasks(cache.ped)
         Wait(500)
 	end
 
@@ -118,11 +130,11 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
         SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
 	end)
 
-	StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true)
+    SetEntityCoordsNoOffset(cache.ped, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, true, true, false)
+	StartPlayerTeleport(cache.playerId, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, Client.DEFAULT_SPAWN.w, false, true, false)
 
-	while IsPlayerTeleportActive() do Wait(0) end
+	while not UpdatePlayerTeleport(cache.playerId) do Wait(0) end
 
-	cache.ped = PlayerPedId()
     setPlayerAsHidden(true)
 
 	local offset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2)
