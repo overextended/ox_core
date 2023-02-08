@@ -123,11 +123,6 @@ RegisterNetEvent('ox:selectCharacter', function(characters)
 
 			Wait(0)
 		end
-
-		DoScreenFadeIn(200)
-		SetMaxWantedLevel(0)
-		NetworkSetFriendlyFireOption(true)
-        SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
 	end)
 
     SetEntityCoordsNoOffset(cache.ped, Client.DEFAULT_SPAWN.x, Client.DEFAULT_SPAWN.y, Client.DEFAULT_SPAWN.z, true, true, false)
@@ -237,6 +232,14 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 
     DoScreenFadeIn(300)
 
+    health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
+
+    SetEntityHealth(cache.ped, health)
+    SetPedArmour(cache.ped, armour or 0)
+
+    SetPlayerData(data)
+    TriggerEvent('ox:playerLoaded', player)
+
     if Client.SPAWN_SELECT then
         SendNUIMessage({
             action = 'sendSpawns',
@@ -252,17 +255,12 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
         spawnPlayer(spawn or Client.DEFAULT_SPAWN)
     end
 
-    health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
-
 	SetNuiFocus(false, false)
-    SetPlayerData(data)
-    SetEntityHealth(cache.ped, health)
-    SetPedArmour(cache.ped, armour or 0)
-
-    TriggerEvent('ox:playerLoaded', player)
-
     SetPlayerControl(cache.playerId, true, 0)
     SetPlayerInvincible(cache.playerId, false)
+    SetMaxWantedLevel(0)
+    NetworkSetFriendlyFireOption(true)
+    SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0)
 
     CreateThread(startStatusLoop)
 
