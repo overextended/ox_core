@@ -261,6 +261,7 @@ function OxPlayer:logout(dropped)
         self.characters = self:selectCharacters()
 
         table.wipe(self.private.statuses)
+        table.wipe(self.private.licenses)
         table.wipe(self.private.metadata)
 
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
