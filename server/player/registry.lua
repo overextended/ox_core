@@ -50,7 +50,7 @@ local function addPlayer(playerId, username)
             groups = {},
             statuses = {},
             licenses = {},
-            metadata = identifiers,
+            metadata = {},
         }
     })
 

@@ -259,16 +259,9 @@ function OxPlayer:logout(dropped)
         end
 
         self.characters = self:selectCharacters()
-        local metadata = self.private.metadata
-
-        self.private.metadata = {
-            license = metadata.license,
-            steam = metadata.steam,
-            fivem = metadata.fivem,
-            discord = metadata.discord,
-        }
 
         table.wipe(self.private.statuses)
+        table.wipe(self.private.metadata)
 
         TriggerClientEvent('ox:selectCharacter', self.source, self.characters)
     end
