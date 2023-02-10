@@ -14,7 +14,7 @@ repository   'https://github.com/overextended/ox_core'
 
 --[[ Manifest ]]--
 dependencies {
-	'/server:6129',
+	'/server:6279',
 	'/onesync',
 }
 

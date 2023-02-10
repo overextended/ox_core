@@ -12,13 +12,13 @@ local connectingPlayers = {}
 local OxPlayer = require 'server.player.class'
 
 local function addPlayer(playerId, username)
-    local identifiers = Ox.GetIdentifiers(playerId)
-    local primaryIdentifier = identifiers?[Server.PRIMARY_IDENTIFIER]
+    local primaryIdentifier = Shared.SV_LAN and 'fayoum' or GetPlayerIdentifierByType(playerId, Server.PRIMARY_IDENTIFIER)
 
     if not primaryIdentifier then
         return nil, ("unable to determine '%s' identifier."):format(Server.PRIMARY_IDENTIFIER)
     end
 
+    primaryIdentifier = primaryIdentifier:gsub('([^:]+):', '')
     local userId = db.getUserFromIdentifier(primaryIdentifier, false)
 
     if Ox.GetPlayerFromUserId(userId) then
@@ -38,7 +38,7 @@ local function addPlayer(playerId, username)
     end
 
     if not userId then
-        userId = db.createUser(username, identifiers) --[[@as number]]
+        userId = db.createUser(username, Ox.GetIdentifiers(playerId)) --[[@as number]]
     end
 
     local player = OxPlayer.new({
