@@ -16,11 +16,11 @@ function Class.new(prototype)
     }
 
     function class.new(obj)
-        return setmetatable(obj, class)
-    end
+        if obj.private then
+            setmetatable(obj.private, private_mt)
+        end
 
-    if prototype.private then
-        setmetatable(prototype.private, private_mt)
+        return setmetatable(obj, class)
     end
 
     return class
