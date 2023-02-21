@@ -2,7 +2,7 @@ local Vehicle = {}
 local db = require 'server.vehicle.db'
 local VehicleRegistry = require 'server.vehicle.registry'
 
-require 'server.vehicle.commands'
+if Shared.VEHICLE_COMMANDS then require 'server.vehicle.commands' end
 
 ---Save all vehicles for the resource and despawn them.
 ---@param resource string?
