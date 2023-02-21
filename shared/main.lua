@@ -8,6 +8,7 @@ Ox = setmetatable({}, {
 Shared = {
     SV_LAN = GetConvar('sv_lan', 'false') == 'true',
     CHARACTER_SLOTS = GetConvarInt('ox:characterSlots', 5),
+    VEHICLE_COMMANDS = GetConvarInt('ox:vehicleCommands', 1) == 1,
 }
 
 Shared.DEBUG = Shared.SV_LAN or GetConvarInt('ox:debug', 0) == 1
