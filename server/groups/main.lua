@@ -74,5 +74,7 @@ lib.addCommand('setgroup', {
     }
 }, function(source, args)
     local player = Ox.GetPlayer(args.target)
-    return player and player:setGroup(args.group, args.grade)
+    if player then
+        player:setGroup(args.group, args.grade)
+    end
 end)

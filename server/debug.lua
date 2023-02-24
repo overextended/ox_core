@@ -8,7 +8,7 @@ lib.addCommand('parsevehicles', {
     }
 }, function(source, args)
     CreateThread(function()
-        ---@type table<string, VehicleData>, TopVehicleStats
+        ---@type table<string, VehicleData>, TopVehicleStats|nil
         local vehicleData, topStats = lib.callback.await('ox:generateVehicleData', source, args.processAll)
 
         if vehicleData and next(vehicleData) then
@@ -22,6 +22,7 @@ lib.addCommand('parsevehicles', {
 
             if topVehicleStats then
                 for vtype, data in pairs(topVehicleStats) do
+                    if not topStats then topStats = {} end
                     if not topStats[vtype] then topStats[vtype] = {} end
 
                     for stat, value in pairs(data) do

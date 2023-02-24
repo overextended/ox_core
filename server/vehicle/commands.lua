@@ -12,7 +12,7 @@ lib.addCommand('car', {
     }
 }, function(source, args)
     local ped = GetPlayerPed(source)
-    local entity = GetVehiclePedIsIn(ped)
+    local entity = GetVehiclePedIsIn(ped, false)
 
     if entity then
         deleteVehicle(entity)
@@ -48,10 +48,11 @@ lib.addCommand('dv', {
     }
 }, function(source, args)
     local ped = GetPlayerPed(source)
-    local entity = GetVehiclePedIsIn(ped)
+    local entity = GetVehiclePedIsIn(ped, false)
 
     if entity > 0 then
-        return deleteVehicle(entity)
+        deleteVehicle(entity)
+        return
     end
 
     local vehicles = lib.callback.await('ox:getNearbyVehicles', source, args.radius)
