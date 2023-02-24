@@ -29,7 +29,7 @@ function onPlayerDeath()
     TriggerEvent('ox_inventory:disarm')
     TriggerServerEvent('ox:playerDeath', true)
 
-    PlaySoundFrontend(-1, 'MP_Flash', 'WastedSounds')
+    PlaySoundFrontend(-1, 'MP_Flash', 'WastedSounds', false)
     ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0)
 
     Wait(1900)
@@ -46,11 +46,11 @@ function onPlayerDeath()
     EndTextCommandScaleformString()
     EndScaleformMovieMethod()
 
-    PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS')
+    PlaySoundFrontend(-1, 'PROPERTY_PURCHASE', 'HUD_AWARDS', false)
 
     while wasted do
         DisableFirstPersonCamThisFrame()
-        DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
+        DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255, 0)
         Wait(0)
     end
 
@@ -141,7 +141,7 @@ local function startDeathLoop()
         Wait(200)
         cache.ped = PlayerPedId()
 
-        if not PlayerIsDead and IsPedDeadOrDying(cache.ped) then
+        if not PlayerIsDead and IsPedDeadOrDying(cache.ped, false) then
             onPlayerDeath()
         end
     end

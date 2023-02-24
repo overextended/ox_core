@@ -92,7 +92,7 @@ local db = require 'server.vehicle.db'
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
 ---@param vehicle OxVehicle
 ---@param removeEntry boolean?
----@param metadata table
+---@param metadata table?
 local function despawnVehicle(vehicle, removeEntry, metadata)
     local entity = vehicle.entity
 

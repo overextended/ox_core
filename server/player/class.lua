@@ -4,6 +4,7 @@
 ---@field userid number
 ---@field charid number
 ---@field characters? table
+---@field private table
 
 local db = require 'server.player.db'
 
@@ -40,7 +41,7 @@ end
 ---Update the player's metadata, optionally syncing it with the client.
 ---@param key string
 ---@param value any
----@param replicated boolean
+---@param replicated boolean?
 function OxPlayer:set(key, value, replicated)
     local _key, count = key:gsub('%W', '')
 
