@@ -3,7 +3,14 @@ local function deleteVehicle(entity)
     return vehicle and vehicle:despawn() or DeleteEntity(entity)
 end
 
-lib.addCommand('group.admin', 'car', function(source, args)
+lib.addCommand('car', {
+    help = 'Spawn a vehicle',
+    restricted = 'group.admin',
+    params = {
+        { name = 'model', help = 'Vehicle model', type = 'string' },
+        { name = 'owner', help = 'Vehicle owner (playerId)', type = 'number', optional = true }
+    }
+}, function(source, args)
     local ped = GetPlayerPed(source)
     local entity = GetVehiclePedIsIn(ped)
 
@@ -30,9 +37,16 @@ lib.addCommand('group.admin', 'car', function(source, args)
             end
         end
     end
-end, {'model:string', 'owner:?number'})
+end)
 
-lib.addCommand('group.admin', 'dv', function(source, args)
+lib.addCommand('dv', {
+    help = 'Delete nearby vehicles',
+    restricted = 'group.admin',
+    params = {
+        { name = 'radius', help = 'Radius', type = 'number', optional = true },
+        { name = 'owned',  help = 'Delete owned vehicles', type = 'string', optional = true }
+    }
+}, function(source, args)
     local ped = GetPlayerPed(source)
     local entity = GetVehiclePedIsIn(ped)
 
@@ -54,4 +68,4 @@ lib.addCommand('group.admin', 'dv', function(source, args)
             DeleteEntity(entity)
         end
     end
-end, {'radius:?number', 'owned:?string'})
+end)

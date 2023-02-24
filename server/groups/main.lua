@@ -23,7 +23,7 @@ local function loadGroups()
         for i = 1, #results do
             local group = results[i]
             local principal = ('group.%s'):format(group.name)
-            group.grades = json.decode(group.grades--[[@as string]] )
+            group.grades = json.decode(group.grades --[[@as string]])
 
             if not IsPrincipalAceAllowed(principal, principal) then
                 lib.addAce(principal, principal)
@@ -59,9 +59,20 @@ end
 
 MySQL.ready(loadGroups)
 
-lib.addCommand('group.admin', 'refreshgroups', loadGroups)
+lib.addCommand('refreshgroups', {
+    help = 'Load groups from the database and creates permission groups.',
+    restricted = 'group.admin'
+}, loadGroups)
 
-lib.addCommand('group.admin', 'setgroup', function(source, args)
+lib.addCommand('setgroup', {
+    help = 'Updates the player\'s grade for the given group',
+    restricted = 'group.admin',
+    params = {
+        { name = 'target', help = 'The player\'s server id', type = 'number' },
+        { name = 'group',  help = 'The group name',          type = 'string' },
+        { name = 'grade',  help = 'The grade number',        type = 'number' },
+    }
+}, function(source, args)
     local player = Ox.GetPlayer(args.target)
     return player and player:setGroup(args.group, args.grade)
-end, { 'target:number', 'group:string', 'grade:number' })
+end)
