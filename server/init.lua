@@ -1,3 +1,5 @@
+if not Shared then return end
+
 Server = {
     PRIMARY_IDENTIFIER = GetConvar('ox:primaryIdentifier', 'license2'),
 }
@@ -15,8 +17,13 @@ if GetExport('npwd') then
     }))
 end
 
+require 'server.utils'
 require 'server.groups.main'
 require 'server.status.main'
 require 'server.license.main'
 require 'server.player.main'
 require 'server.vehicle.main'
+
+if not Shared.DEBUG then return end
+
+require 'server.debug'

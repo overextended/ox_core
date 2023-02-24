@@ -20,7 +20,7 @@ dependencies {
 
 shared_scripts {
 	'@ox_lib/init.lua',
-    'shared/**.lua',
+    'shared/init.lua',
 }
 
 client_scripts {
@@ -33,9 +33,7 @@ client_scripts {
 
 server_scripts {
 	'@oxmysql/lib/MySQL.lua',
-    'server/functions.lua',
     'server/init.lua',
-    'server/debug.lua',
 }
 
 ui_page 'web/build/index.html'
@@ -48,6 +46,8 @@ files {
     'client/death.lua',
     'client/status.lua',
     'client/utils.lua',
+    'shared/class.lua',
+    'shared/vehicles.lua',
 	'shared/files/*.json',
     'locales/*.json',
 }

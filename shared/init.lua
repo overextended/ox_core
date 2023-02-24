@@ -1,3 +1,9 @@
+local success, message = lib.checkDependency('ox_lib', '2.21.0')
+
+if not success then
+    return print(('^1Error: %s^0'):format(message))
+end
+
 Ox = setmetatable({}, {
     __newindex = function(self, name, fn)
         exports(name, fn)
@@ -106,3 +112,6 @@ function require(modname)
 
     return module
 end
+
+require 'shared.class'
+require 'shared.vehicles'

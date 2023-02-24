@@ -1,3 +1,5 @@
+if not Shared then return end
+
 Client = {
 	DEFAULT_SPAWN = vec4(-258.211, -293.077, 21.6132, 206.0),
     DEATH_SYSTEM = GetConvarInt('ox:deathSystem', 1) == 1,
