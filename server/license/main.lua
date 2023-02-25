@@ -20,4 +20,7 @@ end
 
 MySQL.ready(loadLicenses)
 
-lib.addCommand('group.admin', 'refreshlicense', loadLicenses)
+lib.addCommand('refreshlicenses', {
+    help = 'Refresh licenses from the database',
+    restricted = 'group.admin'
+}, loadLicenses)

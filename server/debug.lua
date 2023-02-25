@@ -1,7 +1,12 @@
 if not Shared.DEBUG then return end
 
-lib.addCommand('group.admin', 'parsevehicles', function(source, args)
-    CreateThread(function()
+lib.addCommand('parsevehicles', {
+    help = 'Generate and save vehicle data for available models on the client',
+    params = {
+        { name = 'processAll', help = 'Include vehicles with existing data (in the event of updated vehicle stats)', optional = true }
+    },
+    restricted = 'group.admin'
+}, function(source, args)
         ---@type table<string, VehicleData>, TopVehicleStats
         local vehicleData, topStats = lib.callback.await('ox:generateVehicleData', source, args.processAll)
 
@@ -36,5 +41,4 @@ lib.addCommand('group.admin', 'parsevehicles', function(source, args)
                 indent = true, sort_keys = true, indent_count = 2
             }), -1)
         end
-    end)
-end, { 'processAll' })
+end)

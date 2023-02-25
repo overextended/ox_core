@@ -33,4 +33,7 @@ end
 
 MySQL.ready(loadStatuses)
 
-lib.addCommand('group.admin', 'refreshstatus', loadStatuses)
+lib.addCommand('refreshstatuses', {
+    help = 'Refresh statuses from the database',
+    restricted = 'group.admin'
+}, loadStatuses)

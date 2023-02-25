@@ -59,9 +59,23 @@ end
 
 MySQL.ready(loadGroups)
 
-lib.addCommand('group.admin', 'refreshgroups', loadGroups)
+lib.addCommand('refreshgroups', {
+    help = 'Refresh groups from the database',
+    restricted = 'group.admin'
+}, loadGroups)
 
-lib.addCommand('group.admin', 'setgroup', function(source, args)
+lib.addCommand('setgroup', {
+    help = 'Updates a player\'s grade in a group',
+    params = {
+        { name = 'target', type = 'playerId' },
+        { name = 'group', type =  'string' },
+        { name = 'grade', type = 'number', help = 'The new grade, or 0 to remove the group', optional = true }
+    },
+    restricted = 'group.admin'
+}, function(source, args)
     local player = Ox.GetPlayer(args.target)
-    return player and player:setGroup(args.group, args.grade)
-end, { 'target:number', 'group:string', 'grade:number' })
+
+    if player then
+        player:setGroup(args.group, args.grade or 0)
+    end
+end)

@@ -1,4 +1,4 @@
-local success, message = lib.checkDependency('ox_lib', '2.21.0')
+local success, message = lib.checkDependency('ox_lib', '3.0.0')
 
 if not success then
     return print(('^1Error: %s^0'):format(message))
