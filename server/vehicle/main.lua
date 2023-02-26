@@ -147,7 +147,7 @@ function Ox.CreateVehicle(data, coords, heading)
     local modelData = Ox.GetVehicleData(model) --[[@as VehicleData]]
 
     if not modelData then
-        error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/sharedfiles/vehicles.json'"):format(model))
+        error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/shared/files/vehicles.json'"):format(model))
     end
 
     local owner = data.owner or false --[[@as boolean?]]
