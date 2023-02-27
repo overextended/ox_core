@@ -1,6 +1,8 @@
 local utils = require 'client.utils'
 
-utils.entityStateHandler('initVehicle', function(entity)
+utils.entityStateHandler('initVehicle', function(entity, _, value)
+    if not value then return end
+
     -- workaround for server-vehicles that exist in traffic randomly creating peds
     -- https://forum.cfx.re/t/sometimes-an-npc-spawns-inside-an-vehicle-spawned-with-createvehicleserversetter-or-create-automobile/4947251
     for i = -1, 0 do
