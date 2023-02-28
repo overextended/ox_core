@@ -10,6 +10,9 @@ LoadResource = setmetatable({}, {
 
         AddEventHandler('onServerResourceStart', function(res)
             if res == resource then
+                -- Prevent potential race conditions
+                Wait(100)
+
                 for _, player in pairs(Ox.GetAllPlayers()) do
                     if not player.characters then
                         cb(player)
