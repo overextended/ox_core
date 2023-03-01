@@ -205,7 +205,7 @@ end)
 ---@param spawn vector4?
 ---@param health number?
 ---@param armour number?
-RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
+RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour, gender)
 	Wait(500)
 	RenderScriptCams(false, false, 0, true, true)
 	DestroyCam(cam, false)
@@ -214,7 +214,7 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour)
 	setPlayerAsHidden(false)
 
 	if not player.appearance or not player.appearance.model then
-        startPlayerCustomisation(data.gender == 'female' and 'mp_f_freemode_01' or 'mp_m_freemode_01')
+        startPlayerCustomisation(gender == 'female' and 'mp_f_freemode_01' or 'mp_m_freemode_01')
 		DoScreenFadeOut(200)
 		Wait(500)
 	end
