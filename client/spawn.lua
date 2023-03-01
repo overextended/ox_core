@@ -34,7 +34,7 @@ end
 local function startPlayerCustomisation(model)
     if not fivem_appearance then return end
 
-    setPlayerAppearance({ model = model })
+    setPlayerAppearance({ model = model, tattoos = {} })
 
     local p = promise.new()
 
