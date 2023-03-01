@@ -74,21 +74,9 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     end
 
     local cData = db.selectCharacterData(character.charid)
-
-    player:set('dateofbirth', cData.dateofbirth)
-    player:set('gender', cData.gender)
-    player:set('isDead', cData.isDead)
-    player:set('phoneNumber', cData.phoneNumber)
-
-    for _, load in pairs(LoadResource) do
-        load(player)
-    end
-
     local state = player:getState()
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    state:set('dead', player:get('isDead'), true)
-    state:set('name', player.name, true)
     appearance:load(player.source, player.charid)
 
     TriggerClientEvent('ox:loadPlayer', player.source, coords, {
@@ -101,10 +89,21 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         gender = player:get('gender'),
     }, cData.health, cData.armour)
 
+    state:set('dead', player:get('isDead'), true)
+    state:set('name', player.name, true)
+
+    player:set('dateofbirth', cData.dateofbirth, true)
+    player:set('gender', cData.gender, true)
+    player:set('phoneNumber', cData.phoneNumber, true)
+
     cData.statuses = json.decode(cData.statuses)
 
     for name, status in pairs(StatusRegistry) do
         player:setStatus(name, cData.statuses?[name] or status.default)
+    end
+
+    for _, load in pairs(LoadResource) do
+        load(player)
     end
 
     TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
