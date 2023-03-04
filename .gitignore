@@ -4,6 +4,7 @@ pnpm-debug.log*
 node_modules
 
 /web/build
+/web/package-lock.json
 
 /lib/**/*.js*
 /lib/**/*.d.ts
