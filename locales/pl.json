@@ -1,0 +1,24 @@
+{
+  "ui": {
+    "confirm": "Potwierdź",
+    "cancel": "Anuluj",
+    "select": "Wybierz",
+    "delete": "Usuń",
+    "firstname": "Imię",
+    "lastname": "Nazwisko",
+    "gender": "Płeć",
+    "male": "Mężczyzna",
+    "female": "Kobieta",
+    "non_binary": "Nie binarny",
+    "create_char": "Stwórz postać",
+    "create_a_char": "Stwórz postać",
+    "delete_character": "Usuń postać",
+    "delete_prompt": "Czy na pewno chcesz usunąć %s",
+    "irreversible_action": "Działanie to jest nieodwracalne",
+    "char_location": "Lokacja",
+    "last_played": "Ostatnio grano",
+    "max_chars": "Osiągnięta maksymalna ilość postaci",
+    "spawn_locations": "Lokacje",
+    "select_character": "Wybierz postać"
+  }
+}
