@@ -19,26 +19,25 @@ local function addPlayer(playerId, username)
     end
 
     primaryIdentifier = primaryIdentifier:gsub('([^:]+):', '')
-    local userId = db.getUserFromIdentifier(primaryIdentifier, false)
+    local userId = db.getUserFromIdentifier(primaryIdentifier)
 
     if Ox.GetPlayerFromUserId(userId) then
         if not Shared.DEBUG then
             return nil, ("userId '%d' is already active."):format(userId)
         end
 
-        local newestUserid = db.getUserFromIdentifier(primaryIdentifier, true)
+        -- If debug is enabled, check for secondary userId (allowing player to login with -cl2)
+        userId = db.getUserFromIdentifier(primaryIdentifier, 1)
 
-        if newestUserid ~= userId then
-            --[[ We found another user, let's use that instead! ]]
-            userId = newestUserid
-        else
-            --[[ We don't have another user to use, let's force the creation of a new one! ]]
-            userId = nil
+        if userId then
+            if Ox.GetPlayerFromUserId(userId) then
+                return nil, ("userId '%d' is already active."):format(userId)
+            end
         end
     end
 
     if not userId then
-        userId = db.createUser(username, Ox.GetIdentifiers(playerId)) --[[@as number]]
+        userId = db.createUser(username, Ox.GetIdentifiers(playerId))
     end
 
     local player = OxPlayer.new({

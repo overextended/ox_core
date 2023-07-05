@@ -1,24 +1,23 @@
 local MySQL = MySQL
 local db = {}
 
-local SELECT_USERID = string.format('SELECT `userid` FROM `users` WHERE %s = ?', Server.PRIMARY_IDENTIFIER)
-local SELECT_USERID_DESC = string.format('%s %s', SELECT_USERID, 'ORDER BY `userid` DESC')
+local SELECT_USERID = ('SELECT `userid` FROM `users` WHERE `%s` = ? LIMIT ?, 1;'):format(Server.PRIMARY_IDENTIFIER)
 ---Select the userid for a player based on their identifier.
 ---@param identifier string
----@param newestFirst? boolean
+---@param offset? number
 ---@return number?
-function db.getUserFromIdentifier(identifier, newestFirst)
-    return MySQL.scalar.await(newestFirst and SELECT_USERID_DESC or SELECT_USERID, { identifier })
+function db.getUserFromIdentifier(identifier, offset)
+    return MySQL.scalar.await(SELECT_USERID, { identifier, offset or 0 })
 end
 
 local INSERT_USER = 'INSERT INTO `users` (`username`, `license2`, `steam`, `fivem`, `discord`) VALUES (?, ?, ?, ?, ?)'
 ---Register a new user when a player first joins the server, and return their userid.
 ---@param username string
 ---@param identifiers {[string]: string}
----@return number?
+---@return number
 function db.createUser(username, identifiers)
     return MySQL.prepare.await(INSERT_USER,
-        { username, identifiers.license2, identifiers.steam, identifiers.fivem, identifiers.discord }) --[[@as number?]]
+        { username, identifiers.license2, identifiers.steam, identifiers.fivem, identifiers.discord }) --[[@as number]]
 end
 
 local SELECT_CHARACTERS = 'SELECT `charid`, `firstname`, `lastname`, `x`, `y`, `z`, `heading`, DATE_FORMAT(`last_played`, "%d/%m/%Y") AS `last_played` FROM `characters` WHERE `userid` = ? AND `deleted` IS NULL'
