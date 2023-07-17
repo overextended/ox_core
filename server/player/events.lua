@@ -31,11 +31,27 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 
     if type(data) == 'table' then
         local phoneNumber = npwd and npwd:generatePhoneNumber() or nil
+        local arr = {}
+
+        math.randomseed(os.time())
+
+        arr[1] = getRandomLetter()
+        arr[2] = getRandomLetter()
+        for i = 3, 7 do
+            arr[i] = getRandomInt()
+        end
+
+        local stateid = table.concat(arr)
+        local idExists = db.selectStateId(stateid)
+
+        while idExists and #idExists >= 1 do
+            idExists = db.selectStateId(stateid)
+        end
 
         character = {
             firstname = data.firstName,
             lastname = data.lastName,
-            charid = db.createCharacter(player.userid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
+            charid = db.createCharacter(player.userid, stateid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
         }
     elseif type(data) == 'number' and data <= Shared.CHARACTER_SLOTS then
         character = player.characters[data]

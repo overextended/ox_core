@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `characters` (
   `charid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `userid` MEDIUMINT UNSIGNED NOT NULL,
+  `stateid`, VARCHAR(7) NOT NULL,
   `firstname` VARCHAR(50) NOT NULL,
   `lastname` VARCHAR(50) NOT NULL,
   `gender` VARCHAR(10) NOT NULL,
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
+  INDEX `stateid` (`stateid`),
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 

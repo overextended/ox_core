@@ -184,19 +184,6 @@ function Ox.CreateVehicle(data, coords, heading)
     return spawnVehicle(vehicleId, owner, group, plate, vin, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
-local math_random = math.random
-
-local function getNumber()
-    return math_random(0, 9)
-end
-
-local function getLetter()
-    return string.char(math_random(65, 90))
-end
-
-local function getAlphanumeric()
-    return math_random(0, 1) == 1 and getLetter() or getNumber()
-end
 
 local plateFormat = string.upper(GetConvar('ox:plateFormat', '........'))
 local formatLen = #plateFormat
@@ -213,9 +200,9 @@ function Ox.GeneratePlate()
             local char = plateFormat:sub(i, i)
 
             if char == '1' then
-                plate[tableLen] = getNumber()
+                plate[tableLen] = getRandomInt()
             elseif char == 'A' then
-                plate[tableLen] = getLetter()
+                plate[tableLen] = getRandomLetter()
             elseif char == '.' then
                 plate[tableLen] = getAlphanumeric()
             elseif char == '^' then
@@ -250,12 +237,15 @@ end
 ---@return string
 function Ox.GenerateVin(model)
     local vehicle = Ox.GetVehicleData(model:lower())
+
+    math.randomseed(os.time())
+
     local arr = {
-        math_random(1, 9),
+        getRandomInt(1, 9),
         vehicle.make == '' and 'OX' or vehicle.make:sub(1, 2):upper(),
         model:sub(1, 2):upper(),
         getAlphanumeric(),
-        string.char(math_random(65, 90)),
+        getRandomLetter(),
     }
 
     while true do

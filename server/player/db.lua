@@ -36,17 +36,18 @@ function db.selectCharacterData(charid)
     return MySQL.single.await(SELECT_CHARACTER_DATA, { charid }) or {}
 end
 
-local INSERT_CHARACTER = 'INSERT INTO `characters` (`userid`, `firstname`, `lastname`, `gender`, `dateofbirth`, `phone_number`) VALUES (?, ?, ?, ?, ?, ?)'
+local INSERT_CHARACTER = 'INSERT INTO `characters` (`userid`, `stateid`, `firstname`, `lastname`, `gender`, `dateofbirth`, `phone_number`) VALUES (?, ?, ?, ?, ?, ?, ?)'
 ---Register a new character for the user and returns the charid.
 ---@param userid number
+---@param stateid string
 ---@param firstName string
 ---@param lastName string
 ---@param gender string
 ---@param date number
 ---@param phone_number number?
 ---@return number?
-function db.createCharacter(userid, firstName, lastName, gender, date, phone_number)
-    return MySQL.prepare.await(INSERT_CHARACTER, { userid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
+function db.createCharacter(userid, stateid, firstName, lastName, gender, date, phone_number)
+    return MySQL.prepare.await(INSERT_CHARACTER, { userid, stateid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
 end
 
 local UPDATE_CHARACTER = 'UPDATE characters SET `x` = ?, `y` = ?, `z` = ?, `heading` = ?, `is_dead` = ?, `last_played` = ?, `health` = ?, `armour` = ?, `statuses` = ? WHERE `charid` = ?'
@@ -94,5 +95,13 @@ local REMOVE_CHARACTER_LICENSE = 'DELETE FROM `character_licenses` WHERE `charid
 function db.removeCharacterLicense(charid, name)
     return MySQL.prepare.await(REMOVE_CHARACTER_LICENSE, { charid, name })
 end
+
+local SELECT_STATEID = 'SELECT 1 FROM `characters` WHERE stateid = ?'
+
+---@param stateid number
+function db.selectStateId(stateid)
+    return MySQL.prepare.await(SELECT_STATEID, { stateid })
+end
+
 
 return db
