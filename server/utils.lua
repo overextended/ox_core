@@ -34,5 +34,5 @@ function getRandomInt(lowLimit, highLimit)
 end
 
 function getAlphanumeric()
-    return math_random(0, 1) == 1 and getRandomLetter() or getRandomInt()
+    return math.random(0, 1) == 1 and getRandomLetter() or getRandomInt()
 end
