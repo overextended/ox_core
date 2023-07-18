@@ -65,6 +65,24 @@ if pefcl then
 end
 
 local db = require 'server.player.db'
+local utils = require 'server.utils'
+
+function Ox.GenerateStateId()
+    local arr = {}
+
+    while true do
+        arr[1] = utils.getRandomLetter()
+        arr[2] = utils.getRandomLetter()
+
+        for i = 3, 7 do
+            arr[i] = utils.getRandomInt()
+        end
+
+        local stateid = table.concat(arr)
+
+        if db.isStateIdAvailable(stateid) then return stateid end
+    end
+end
 
 ---Saves the data for all active players.
 function Ox.SaveAllPlayers()
