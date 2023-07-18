@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `deleted` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`charid`) USING BTREE,
   KEY `FK_character_users` (`userid`) USING BTREE,
-  INDEX `stateid` (`stateid`),
+  UNIQUE INDEX `stateid` (`stateid`) USING BTREE,
   CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
