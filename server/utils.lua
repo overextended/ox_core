@@ -23,16 +23,20 @@ function Ox.GetIdentifiers(source)
     return identifiers
 end
 
-function getRandomLetter()
+local utils = {}
+
+function utils.getRandomLetter()
     return string.char(math.random(65, 90))
 end
 
----@param lowLimit number
----@param highLimit number
-function getRandomInt(lowLimit, highLimit)
+---@param lowLimit number?
+---@param highLimit number?
+function utils.getRandomInt(lowLimit, highLimit)
     return math.random(lowLimit or 0, highLimit or 9)
 end
 
-function getAlphanumeric()
-    return math.random(0, 1) == 1 and getRandomLetter() or getRandomInt()
+function utils.getAlphanumeric()
+    return math.random(0, 1) == 1 and utils.getRandomLetter() or utils.getRandomInt()
 end
+
+return utils
