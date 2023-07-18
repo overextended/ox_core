@@ -31,22 +31,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 
     if type(data) == 'table' then
         local phoneNumber = npwd and npwd:generatePhoneNumber() or nil
-        local arr = {}
-
-        math.randomseed(os.time())
-
-        arr[1] = getRandomLetter()
-        arr[2] = getRandomLetter()
-        for i = 3, 7 do
-            arr[i] = getRandomInt()
-        end
-
-        local stateid = table.concat(arr)
-        local idExists = db.selectStateId(stateid)
-
-        while idExists and #idExists >= 1 do
-            idExists = db.selectStateId(stateid)
-        end
+        local stateid = Ox.GenerateStateId()
 
         character = {
             firstname = data.firstName,
@@ -62,9 +47,15 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     player.characters = nil
     player.name = ('%s %s'):format(character.firstname, character.lastname)
     player.charid = character.charid
+    player.stateid = character.stateid
     player.firstname = character.firstname
     player.lastname = character.lastname
     player.ped = GetPlayerPed(player.source)
+
+    if not player.stateid then
+        player.stateid = Ox.GenerateStateId()
+        db.updateStateId(player.stateid, player.charid)
+    end
 
     local groups = db.selectCharacterGroups(player.charid)
 
@@ -101,6 +92,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         name = player.name,
         userid = player.userid,
         charid = player.charid,
+        stateid = player.stateid,
         groups = player:getGroups(),
     }, cData.health, cData.armour, cData.gender)
 

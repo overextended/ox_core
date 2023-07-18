@@ -20,7 +20,7 @@ function db.createUser(username, identifiers)
         { username, identifiers.license2, identifiers.steam, identifiers.fivem, identifiers.discord }) --[[@as number]]
 end
 
-local SELECT_CHARACTERS = 'SELECT `charid`, `firstname`, `lastname`, `x`, `y`, `z`, `heading`, DATE_FORMAT(`last_played`, "%d/%m/%Y") AS `last_played` FROM `characters` WHERE `userid` = ? AND `deleted` IS NULL'
+local SELECT_CHARACTERS = 'SELECT `charid`, `stateid`, `firstname`, `lastname`, `x`, `y`, `z`, `heading`, DATE_FORMAT(`last_played`, "%d/%m/%Y") AS `last_played` FROM `characters` WHERE `userid` = ? AND `deleted` IS NULL'
 ---Select all characters owned by the player.
 ---@param userid number
 ---@return table
@@ -98,10 +98,18 @@ end
 
 local SELECT_STATEID = 'SELECT 1 FROM `characters` WHERE stateid = ?'
 
----@param stateid number
-function db.selectStateId(stateid)
-    return MySQL.prepare.await(SELECT_STATEID, { stateid })
+---@param stateid string
+function db.isStateIdAvailable(stateid)
+    return not MySQL.scalar.await(SELECT_STATEID, { stateid })
 end
 
+local UPDATE_STATEID = 'UPDATE characters SET `stateid` = ? WHERE `charid` = ?'
+
+---@param stateid string
+---@param charid number
+---@return number
+function db.updateStateId(stateid, charid)
+    return MySQL.update.await(UPDATE_STATEID, { stateid, charid })
+end
 
 return db
