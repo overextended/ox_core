@@ -37,6 +37,7 @@ function db.selectCharacterData(charid)
 end
 
 local INSERT_CHARACTER = 'INSERT INTO `characters` (`userid`, `stateid`, `firstname`, `lastname`, `gender`, `dateofbirth`, `phone_number`) VALUES (?, ?, ?, ?, ?, ?, ?)'
+local INSERT_CHARACTER_INVENTORY = 'INSERT INTO `character_inventory` (`charid`) VALUES (?)'
 ---Register a new character for the user and returns the charid.
 ---@param userid number
 ---@param stateid string
@@ -47,7 +48,10 @@ local INSERT_CHARACTER = 'INSERT INTO `characters` (`userid`, `stateid`, `firstn
 ---@param phone_number number?
 ---@return number?
 function db.createCharacter(userid, stateid, firstName, lastName, gender, date, phone_number)
-    return MySQL.prepare.await(INSERT_CHARACTER, { userid, stateid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
+    local charid = MySQL.prepare.await(INSERT_CHARACTER, { userid, stateid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
+    MySQL.prepare.await(INSERT_CHARACTER_INVENTORY, { charid })
+
+    return charid
 end
 
 local UPDATE_CHARACTER = 'UPDATE characters SET `x` = ?, `y` = ?, `z` = ?, `heading` = ?, `is_dead` = ?, `last_played` = ?, `health` = ?, `armour` = ?, `statuses` = ? WHERE `charid` = ?'
