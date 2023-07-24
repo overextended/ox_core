@@ -71,7 +71,10 @@ end
 ---@return any
 function OxVehicle:get(index)
     local data = vehicleData[self.entity]
-    return index and data[index] or data
+
+    if not index then return data end
+
+    return data[index]
 end
 
 ---Update the vehicle's metadata.
