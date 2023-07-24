@@ -35,7 +35,7 @@ function GetExport(name)
         return exp
     end
 
-    if GetResourceState(name):find('start') then
+    if GetResourceState(name) ~= 'missing' then
         expCache[name] = exports[name]
         return expCache[name]
     end
