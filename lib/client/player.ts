@@ -5,6 +5,7 @@ export class OxPlayer {
   groups: Record<string, number>;
   userid: number;
   charid: number;
+  stateid: string;
   firstname: string;
   lastname: string;
   [key: string]: any;
@@ -14,6 +15,7 @@ export class OxPlayer {
     this.groups = data.groups;
     this.userid = data.userid;
     this.charid = data.charid;
+    this.stateid = data.stateid;
     this.firstname = data.firstname;
     this.lastname = data.lastname;
   }

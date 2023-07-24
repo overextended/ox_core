@@ -1,21 +1,46 @@
-import { Ox } from '../server';
+import { Ox } from "../server";
 
-type PlayerLicense = { issued: string };
+export interface PlayerLicense {
+  issued: string;
+}
 
-export class OxPlayer {
+export interface PlayerIdentifiers {
+  license?: string;
+  /** Preferred identifier; should always refer to Rockstar Social Club ID. */
+  license2?: string;
+  discord?: string;
+  fivem?: string;
+  steam?: string;
+}
+
+export interface IOxPlayer {
   source: number;
   userid: number;
   charid: number;
+  stateid: string;
+  ped: number;
+  name: string;
+  username: string;
+  firstname: string;
+  lastname: string;
+}
+
+export class OxPlayer implements IOxPlayer {
+  source: number;
+  userid: number;
+  charid: number;
+  stateid: string;
   ped: number;
   name: string;
   username: string;
   firstname: string;
   lastname: string;
 
-  constructor(data: any) {
+  constructor(data: IOxPlayer) {
     this.source = data.source;
     this.userid = data.userid;
     this.charid = data.charid;
+    this.stateid = data.stateid;
     this.ped = data.ped;
     this.name = data.name;
     this.username = data.username;
