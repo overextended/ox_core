@@ -1,23 +1,3 @@
----@class VehicleStats
----@field acceleration number
----@field braking number
----@field handling number
----@field speed number
-
----@class TopVehicleStats
----@field air VehicleStats
----@field land VehicleStats
----@field sea VehicleStats
-
----@class VehicleData : VehicleStats
----@field class number
----@field doors number
----@field make string
----@field name string
----@field price number
----@field seats number
----@field type string
-
 ---@type TopVehicleStats
 local topStats = json.load('shared/files/topVehicleStats.json')
 

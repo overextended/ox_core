@@ -3,9 +3,9 @@ lib.callback.register('ox:getLicense', function(source, licenseName, target)
 
     if player then
         if licenseName then
-            return player.private.licenses[licenseName]
+            return player:getLicense(licenseName)
         end
 
-        return player.private.licenses
+        return player:getLicenses()
     end
 end)

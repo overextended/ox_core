@@ -1,14 +1,15 @@
----@class OxPlayerProperties
----@field ped number
----@field source number
----@field userid number
----@field charid number
----@field characters? table
----@field private table
-
 local db = require 'server.player.db'
 
----@class OxPlayer : OxPlayerProperties
+---@class PrivatePlayerProperties
+---@field metadata table<string, any>
+---@field statuses table<string, number>
+---@field inScope table<number, true>
+---@field groups table<string, number>
+---@field licenses table<string, table<string, any>>
+
+---@class OxPlayerInternal : OxPlayerProperties
+---@field characters? table
+---@field private private PrivatePlayerProperties
 local OxPlayer = {}
 
 ---@type table<string, true>
@@ -30,6 +31,7 @@ end
 ---@param method string
 ---@param ... unknown?
 ---@return unknown?
+---@diagnostic disable-next-line: duplicate-set-field
 function Ox.CallPlayerMethod(source, method, ...)
     local player = Ox.GetPlayer(source)
 
@@ -38,10 +40,6 @@ function Ox.CallPlayerMethod(source, method, ...)
     end
 end
 
----Update the player's metadata, optionally syncing it with the client.
----@param key string
----@param value any
----@param replicated boolean?
 function OxPlayer:set(key, value, replicated)
     local _key, count = key:gsub('%W', '')
 
@@ -58,7 +56,7 @@ function OxPlayer:set(key, value, replicated)
 end
 
 ---Gets the player's metadata, returning the entire table if key is omitted.
----@param key string
+---@param key? string
 ---@return any
 function OxPlayer:get(key)
     local metadata = self.private.metadata
@@ -131,6 +129,17 @@ function OxPlayer:hasGroup(filter)
             end
         end
     end
+end
+
+---@return table<string, number>
+function OxPlayer:getStatuses()
+    return self.private.statuses
+end
+
+---@param name string
+---@return number
+function OxPlayer:getStatus(name)
+    return self.private.statuses[name]
 end
 
 ---@param name string

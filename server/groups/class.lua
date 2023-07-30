@@ -1,20 +1,14 @@
----@class OxGroupProperties
----@field name string
----@field label string
----@field grades number[]
----@field principal string
----@field hasAccount boolean
----@field adminGrade number
-
 ---@class OxGroup : OxGroupProperties
 local OxGroup = {}
 local pefcl = GetExport('pefcl')
 
----@param player OxPlayer
+---@param player OxPlayerInternal
 ---@param grade number
 function OxGroup:add(player, grade)
+    local playerGroups = player:getGroups()
+
     lib.addPrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player.private.groups
+
     playerGroups[self.name] = grade
     GlobalState[('%s:count'):format(self.name)] += 1
 
@@ -23,11 +17,13 @@ function OxGroup:add(player, grade)
     end
 end
 
----@param player OxPlayer
+---@param player OxPlayerInternal
 ---@param grade number
 function OxGroup:remove(player, grade)
+    local playerGroups = player:getGroups()
+
     lib.removePrincipal(player.source, ('%s:%s'):format(self.principal, grade))
-    local playerGroups = player.private.groups
+
     playerGroups[self.name] = nil
     GlobalState[('%s:count'):format(self.name)] -= 1
 
@@ -36,7 +32,7 @@ function OxGroup:remove(player, grade)
     end
 end
 
----@param player OxPlayer
+---@param player OxPlayerInternal
 ---@param grade number
 ---@param remove? boolean
 function OxGroup:setAccount(player, grade, remove)
@@ -71,7 +67,7 @@ end
 
 local db = require 'server.groups.db'
 
----@param player OxPlayer
+---@param player OxPlayerInternal
 ---@param grade? number
 function OxGroup:set(player, grade)
     if not grade then grade = 0 end
@@ -80,7 +76,7 @@ function OxGroup:set(player, grade)
         error(("Attempted to set group '%s' to invalid grade '%s for player.%s"):format(self.name, grade, player.source))
     end
 
-    local currentGrade = player.private.groups[self.name]
+    local currentGrade = player:getGroup(self.name)
 
     if currentGrade then
         if currentGrade == grade then return end

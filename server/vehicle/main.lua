@@ -46,7 +46,7 @@ local OxVehicle = require 'server.vehicle.class'
 ---@param coords vector3
 ---@param heading number
 ---@param vType string
----@return OxVehicle?
+---@return OxVehicleInternal?
 local function spawnVehicle(id, owner, group, plate, vin, model, script, data, coords, heading, vType)
     -- New native seems to be missing some types, for now we'll convert to known types
     -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da

@@ -10,7 +10,7 @@ RegisterNetEvent('ox:updateStatuses', function(data)
             local status = StatusRegistry[name]
 
             if status and type(value) == 'number' then
-                player.private.statuses[name] = (value > 100 and 100 or value < 0 and 0 or value)
+                player:setStatus(name, value > 100 and 100 or value < 0 and 0 or value)
             end
         end
     end
@@ -21,9 +21,9 @@ lib.callback.register('ox:getStatus', function(source, target, statusName)
 
     if player then
         if statusName then
-            return player.private.statuses[statusName]
+            return player:getStatus(statusName)
         end
 
-        return player.private.statuses
+        return player:getStatuses()
     end
 end)

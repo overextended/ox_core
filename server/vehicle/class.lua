@@ -1,16 +1,4 @@
----@class OxVehicleProperties
----@field id number
----@field owner? number
----@field group? string
----@field netid number
----@field entity number
----@field model string
----@field plate string
----@field vin string
----@field script string
----@field stored? string
-
----@class OxVehicle : OxVehicleProperties
+---@class OxVehicleInternal : OxVehicleProperties
 local OxVehicle = {}
 
 ---@type table<string, true>
@@ -93,7 +81,7 @@ local db = require 'server.vehicle.db'
 
 ---Removes a vehicle from the vehicle registry and despawns the entity.
 ---removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
----@param vehicle OxVehicle
+---@param vehicle OxVehicleInternal
 ---@param removeEntry boolean?
 ---@param metadata table?
 local function despawnVehicle(vehicle, removeEntry, metadata)

@@ -1,7 +1,7 @@
 local Class = {}
 
--- Private fields are not private in the traditional sense (only accessible to the class/object)
--- Instead it cannot be accessed by other resources (perhaps a new name would be better?)
+-- Fields added to the "private" field on a class will not be msgpacked.
+-- Use setters/getters when working with these values.
 local private_mt = {
     __ext = 0,
     __pack = function() return '' end,

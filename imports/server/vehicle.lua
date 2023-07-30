@@ -51,13 +51,11 @@ function Ox.CreateVehicle(data, coords, heading)
     return type(vehicle) == 'table' and setmetatable(vehicle, OxVehicle) or vehicle
 end
 
-function Ox.GetVehicles(usemetatable)
+function Ox.GetVehicles()
     local vehicles = exp:GetVehicles()
 
-    if usemetatable then
-        for i = 1, #vehicles do
-            setmetatable(vehicles[i], OxVehicle)
-        end
+    for i = 1, #vehicles do
+        setmetatable(vehicles[i], OxVehicle)
     end
 
     return vehicles

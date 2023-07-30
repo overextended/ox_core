@@ -49,10 +49,8 @@ end
 function Ox.GetPlayers(usemetatable, filter)
     local players = exp:GetPlayers(filter)
 
-    if usemetatable ~= false then
-        for i = 1, #players do
-            setmetatable(players[i], OxPlayer)
-        end
+    for i = 1, #players do
+        setmetatable(players[i], OxPlayer)
     end
 
     return players

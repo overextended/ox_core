@@ -19,7 +19,7 @@ local function loadStatuses()
             GlobalState[('status.%s'):format(name)] = status
 
             for _, player in pairs(players) do
-                local value = player.charid and player.private.statuses[name]
+                local value = player.charid and player:getStatus(name)
 
                 if not value or value > 100 then
                     player:setStatus(name, value or status.default)
