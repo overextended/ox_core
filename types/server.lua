@@ -13,6 +13,7 @@
 ---@field GetPlayer fun(playerId: number): OxPlayer?
 ---@field GetPlayerByFilter fun(filter: any): OxPlayer?
 ---@field GetPlayers fun(usemetatable, filter: any): OxPlayer[]
+---@field GetPlayerRegistry fun(): table<number, OxPlayerProperties>
 ---@field GetVehicle fun(vehicleId: number): OxVehicle?
 ---@field GetVehicleFromNetId fun(vehicleId: number): OxVehicle?
 ---@field CreateVehicle fun(data: any, coords: vector3, heading?: number): OxVehicle?
@@ -27,11 +28,15 @@
 Ox = {}
 
 ---@class OxPlayerProperties
----@field ped number
 ---@field source number
 ---@field userid number
 ---@field charid number
 ---@field stateid string
+---@field ped number
+---@field name string
+---@field username string
+---@field firstname string
+---@field lastname string
 
 ---@class OxPlayer : OxPlayerProperties
 ---@field set fun(key: string, value: any, replicated?: boolean)

@@ -90,14 +90,13 @@ function Ox.GetPlayer(playerId)
 end
 
 function Ox.GetPlayerFromUserId(userId)
-    local playerId = playerIdFromUserId[userId]
-
-    return playerId and PlayerRegistry[playerId] or nil
+    return PlayerRegistry[playerIdFromUserId[userId]]
 end
 
-function Ox.GetAllPlayers()
+function Ox.GetPlayerRegistry()
     return PlayerRegistry
 end
+
 ---Check if a player matches filter parameters.
 ---@param player OxPlayerInternal
 ---@param filter table
@@ -244,7 +243,7 @@ AddEventHandler('playerDropped', function(reason)
     if player then
         player:logout(true)
 
-        removePlayer(player.source, player.userid, ('Dropped, %s'):format(reason) )
+        removePlayer(player.source, player.userid, ('Dropped, %s'):format(reason))
     end
 end)
 

@@ -13,7 +13,7 @@ LoadResource = setmetatable({}, {
                 -- Prevent potential race conditions
                 Wait(100)
 
-                for _, player in pairs(Ox.GetAllPlayers()) do
+                for _, player in pairs(Ox.GetPlayerRegistry()) do
                     if not player.characters then
                         cb(player)
                     end
@@ -90,7 +90,7 @@ function Ox.SaveAllPlayers()
     local size = 0
     local date = os.date('%Y-%m-%d')
 
-    for _, player in pairs(Ox.GetAllPlayers()) do
+    for _, player in pairs(Ox.GetPlayerRegistry()) do
         if player.charid then
             size += 1
             parameters[size] = player:prepareSaveData(date)
@@ -104,7 +104,7 @@ end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == 'ox_core' then
-        for _, player in pairs(Ox.GetAllPlayers()) do
+        for _, player in pairs(Ox.GetPlayerRegistry()) do
             TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
         end
 

@@ -7,7 +7,7 @@ local function loadStatuses()
     local results = db.selectStatuses()
 
     if results then
-        local players = Ox.GetAllPlayers()
+        local players = Ox.GetPlayerRegistry()
 
         for i = 1, #results do
             local status = results[i]
