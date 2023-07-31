@@ -1,5 +1,10 @@
 if not Shared.DEBUG then return end
 
+local function round(num, numDecimalPlaces)
+    local mult = 10 ^ (numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
 lib.callback.register('ox:generateVehicleData', function(processAll)
     local models = GetAllVehicleModels()
     local numModels = #models
@@ -8,15 +13,19 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
     local vehicleData = {}
     local topStats = {}
 
-    print(('Generating vehicle data from models (%s models loaded).'):format(numModels))
+    SetPlayerControl(cache.playerId, false, 1 << 8)
+
+    lib.notify({
+        title = 'Generating vehicle data',
+        description = ('%d models loaded.'):format(numModels),
+        type = 'info'
+    })
 
     for i = 1, numModels do
         local model = models[i]:lower()
 
         if processAll or not Ox.GetVehicleData(model) then
-            local hash = joaat(model)
-
-            lib.requestModel(hash)
+            local hash = lib.requestModel(model)
 
             if hash then
                 local vehicle = CreateVehicle(hash, coords.x, coords.y, coords.z + 10, 0.0, false, false)
@@ -29,6 +38,8 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                         make = make2
                     end
                 end
+
+                SetPedIntoVehicle(cache.ped, vehicle, -1)
 
                 local class = GetVehicleClass(vehicle)
                 local vType
@@ -68,14 +79,17 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                 }
 
                 local stats = {
-                    braking = GetVehicleModelMaxBraking(hash),
-                    acceleration = GetVehicleModelAcceleration(hash),
-                    speed = GetVehicleModelEstimatedMaxSpeed(hash),
-                    handling = GetVehicleModelEstimatedAgility(hash),
+                    braking = round(GetVehicleModelMaxBraking(hash), 4),
+                    acceleration = round(GetVehicleModelAcceleration(hash), 4),
+                    speed = round(GetVehicleModelEstimatedMaxSpeed(hash), 4),
+                    handling = round(GetVehicleModelEstimatedAgility(hash), 4),
                 }
 
+                local math = lib.math
+
                 if vType ~= 'trailer' and vType ~= 'train' then
-                    local vGroup = (vType == 'heli' or vType == 'plane' or vType == 'blimp') and 'air' or (vType == 'boat' or vType == 'submarine') and 'sea' or 'land'
+                    local vGroup = (vType == 'heli' or vType == 'plane' or vType == 'blimp') and 'air' or (vType == 'boat' or vType == 'submarine') and 'sea' or
+                        'land'
                     local topTypeStats = topStats[vGroup]
 
                     if not topTypeStats then
@@ -138,11 +152,20 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                 SetVehicleAsNoLongerNeeded(vehicle)
                 DeleteEntity(vehicle)
                 SetModelAsNoLongerNeeded(hash)
+                SetEntityCoordsNoOffset(cache.ped, coords.x, coords.y, coords.z, false, false, false)
+
+                print(model)
             end
         end
     end
 
-    print(('Generated vehicle data from %s models.'):format(numParsed))
+    lib.notify({
+        title = 'Generated vehicle data',
+        description = ('Generated new vehicle data for %d/%d models'):format(numParsed, numModels),
+        type = 'success'
+    })
+
+    SetPlayerControl(cache.playerId, true, 0)
 
     return vehicleData, topStats
 end)
