@@ -1,4 +1,4 @@
-import { Ox } from '../server';
+import { Ox } from "../server";
 
 export interface VehicleStats {
   acceleration: number;
@@ -23,37 +23,50 @@ export interface VehicleData extends VehicleStats {
   type: string;
 }
 
-interface IOxVehicle {
-  owner: number;
+export interface IOxVehicle {
   id: number;
+  owner?: number;
+  group?: string;
   netid: number;
   entity: number;
   model: string;
+  plate: string;
+  vin?: string;
   script: string;
+  stored?: string;
 }
 
 export class OxVehicle implements IOxVehicle {
-  owner: number;
   id: number;
+  owner?: number;
+  group?: string;
   netid: number;
   entity: number;
   model: string;
+  plate: string;
+  vin?: string;
   script: string;
+  stored?: string;
 
   constructor(data: IOxVehicle) {
-    this.owner = data.owner;
     this.id = data.id;
+    this.owner = data.owner;
+    this.group = data.group;
     this.netid = data.netid;
     this.entity = data.entity;
     this.model = data.model;
+    this.plate = data.plate;
+    this.vin = data.vin;
     this.script = data.script;
+    this.stored = data.stored;
   }
 
-  coords?: number[];
+  getState() {
+    return Entity(this.entity).state;
+  }
 
-  getCoords(update?: boolean) {
-    if (update || !this.coords) this.coords = GetEntityCoords(this.entity);
-    return this.coords;
+  getCoords() {
+    return GetEntityCoords(this.entity);
   }
 
   set(index: string, value: any) {
@@ -89,14 +102,19 @@ export class OxVehicle implements IOxVehicle {
   }
 }
 
-export function GetVehicle(vehicleId: number) {
-  const vehicle = Ox.GetVehicle(vehicleId);
+export function GetVehicle(entityId: number) {
+  const vehicle = Ox.GetVehicle(entityId);
   return vehicle ? new OxVehicle(vehicle) : null;
 }
 
-export function GetVehicleFromNetId(netid: number) {
-  const entity = NetworkGetEntityFromNetworkId(netid);
+export function GetVehicleFromNetId(netId: number) {
+  const entity = NetworkGetEntityFromNetworkId(netId);
   return GetVehicle(entity);
+}
+
+export function GetVehicleFromVehicleId(vehicleId: number) {
+  const vehicle = Ox.GetVehicleFromVehicleId(vehicleId);
+  return vehicle ? new OxVehicle(vehicle) : null;
 }
 
 export async function CreateVehicle(

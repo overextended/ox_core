@@ -1,4 +1,4 @@
-import { TopVehicleStats, VehicleData } from "./vehicle";
+import { TopVehicleStats, VehicleData, IOxVehicle } from "./vehicle";
 import { PlayerIdentifiers, IOxPlayer } from "./player";
 
 interface Ox {
@@ -13,6 +13,7 @@ interface Ox {
   ) => VehicleData | Record<string, VehicleData>;
   SaveAllPlayers: () => {};
   GetPlayerRegistry: () => Record<number, IOxPlayer>
+  GetVehicleRegistry: () => Record<number, IOxVehicle>
   [key: string]: Function;
 }
 

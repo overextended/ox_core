@@ -1,7 +1,7 @@
 local Vehicle = {}
 local db = require 'server.vehicle.db'
-local VehicleRegistry = require 'server.vehicle.registry'
 
+require 'server.vehicle.registry'
 require 'server.vehicle.commands'
 
 ---Save all vehicles for the resource and despawn them.
@@ -14,7 +14,7 @@ function Vehicle.saveAll(resource)
     local parameters = {}
     local size = 0
 
-    for _, vehicle in pairs(VehicleRegistry) do
+    for _, vehicle in pairs(Ox.GetVehicleRegistry()) do
         if not resource or resource == vehicle.script then
             if (vehicle.owner or vehicle.group) ~= false then
                 size += 1
@@ -32,156 +32,6 @@ function Vehicle.saveAll(resource)
     if size > 0 then
         db.updateVehicle(parameters)
     end
-end
-
-local OxVehicle = require 'server.vehicle.class'
-
----@param id? number
----@param owner? number | boolean
----@param group? string | boolean
----@param plate string
----@param model string
----@param script string
----@param data table
----@param coords vector3
----@param heading number
----@param vType string
----@return OxVehicleInternal?
-local function spawnVehicle(id, owner, group, plate, vin, model, script, data, coords, heading, vType)
-    -- New native seems to be missing some types, for now we'll convert to known types
-    -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
-    if vType == 'bicycle' or vType == 'quadbike' or vType == 'amphibious_quadbike' then
-        vType = 'bike'
-    elseif vType == 'amphibious_automobile' or vType == 'submarinecar' then
-        vType = 'automobile'
-    elseif vType == 'blimp' then
-        vType = 'heli'
-    end
-
-    local entity = CreateVehicleServerSetter(joaat(model), vType, coords.x, coords.y, coords.z, heading)
-
-    if DoesEntityExist(entity) then
-        local vehicle = OxVehicle.new({
-            id = id,
-            netid = NetworkGetNetworkIdFromEntity(entity),
-            owner = owner,
-            group = group,
-            entity = entity,
-            script = script,
-            plate = plate,
-            vin = vin,
-            model = model,
-        })
-
-        vehicle:init(data)
-
-        if owner ~= false or group then
-            db.setStored(nil, vehicle.id)
-        end
-
-        return vehicle
-    else
-        print(("^1Failed to spawn vehicle '%s'^0"):format(model))
-    end
-end
-
------------------------------------------------------------------------------------------------
--- Interface
------------------------------------------------------------------------------------------------
-
----Loads a vehicle from the database by id, or creates a new vehicle using provided data.
----@param data table | number
----@param coords vector3
----@param heading? number
----@return table | number | nil
-function Ox.CreateVehicle(data, coords, heading)
-    local script = GetInvokingResource()
-
-    if type(data) == 'number' then
-        do
-            local type = type(coords)
-
-            if type == 'table' then
-                if coords[1] then
-                    coords = vector3(coords[1], coords[2], coords[3])
-                end
-            elseif type ~= 'vector3' then
-                TypeError('coords', 'vector3', type)
-            end
-        end
-
-        do
-            local type = type(heading)
-
-            if type ~= 'number' then
-                TypeError('heading', 'number', type)
-            end
-        end
-
-        local vehicle = db.getVehicleFromId(data)
-
-        if not vehicle then
-            error(("Failed to spawn vehicle with id '%s' (invalid id or already spawned)"):format(data))
-        end
-
-        vehicle.data = json.decode(vehicle.data--[[@as string]] )
-        local modelData = Ox.GetVehicleData(vehicle.model) --[[@as VehicleData]]
-
-        if not modelData then
-            error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/shared/files/vehicles.json'"):format(vehicle.model))
-        end
-
-        return spawnVehicle(data, vehicle.owner, vehicle.group, vehicle.plate, vehicle.vin, vehicle.model, script, vehicle.data, coords,
-            heading or 90.0, modelData.type)
-    end
-
-    do
-        local type = type(data.model)
-
-        if type ~= 'string' then
-            TypeError('data.model', 'string', type)
-        end
-    end
-
-    local model = data.model:lower()
-    local modelData = Ox.GetVehicleData(model) --[[@as VehicleData]]
-
-    if not modelData then
-        error(("Vehicle model is invalid '%s'\nEnsure vehicle exists in '@ox_core/shared/files/vehicles.json'"):format(model))
-    end
-
-    local owner = data.owner or false --[[@as boolean?]]
-    local group = data.group or false --[[@as boolean?]]
-    local stored = data.stored or not coords and 'impound' or nil
-    local plate = Ox.GeneratePlate()
-    local vin = Ox.GenerateVin(model)
-
-    data = {
-        properties = data.properties or {},
-        lockStatus = data.lockStatus or 1,
-    }
-
-    data.properties.plate = plate
-
-    if owner and owner < 1 then
-        owner = nil
-    end
-
-    if group and type(group) ~= 'string' then
-        group = nil
-    end
-
-    local vehicleId
-
-    if owner ~= false or group then
-        vehicleId = db.createVehicle(plate, vin, owner, group, model, modelData.class, data, stored)
-    end
-
-    if stored then
-        return vehicleId
-    end
-
-    return spawnVehicle(vehicleId, owner, group, plate, vin, model, script, data, coords, heading or 90.0, modelData.type)
 end
 
 local utils = require 'server.utils'

@@ -14,8 +14,10 @@
 ---@field GetPlayerByFilter fun(filter: any): OxPlayer?
 ---@field GetPlayers fun(usemetatable, filter: any): OxPlayer[]
 ---@field GetPlayerRegistry fun(): table<number, OxPlayerProperties>
----@field GetVehicle fun(vehicleId: number): OxVehicle?
----@field GetVehicleFromNetId fun(vehicleId: number): OxVehicle?
+---@field GetVehicle fun(entityId: number): OxVehicle?
+---@field GetVehicleFromNetId fun(netId: number): OxVehicle?
+---@field GetVehicleFromVehicleId fun(vehicleId: number): OxVehicle?
+---@field GetVehicleRegistry fun(): table<number, OxVehicleProperties>
 ---@field CreateVehicle fun(data: any, coords: vector3, heading?: number): OxVehicle?
 ---@field GetVehicles fun(): OxVehicle[]
 ---@field GetGroup fun(name: string): OxGroup?
@@ -67,7 +69,7 @@ Ox = {}
 ---@field entity number
 ---@field model string
 ---@field plate string
----@field vin string
+---@field vin? string
 ---@field script string
 ---@field stored? string
 

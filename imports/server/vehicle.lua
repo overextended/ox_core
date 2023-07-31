@@ -28,12 +28,12 @@ function OxVehicle:__index(index)
     end
 end
 
-function OxVehicle:getCoords(update)
-    if update or not self.coords then
-        self.coords = GetEntityCoords(self.entity)
-    end
+function OxVehicle:getState()
+    return Entity(self.entity).state
+end
 
-    return self.coords
+function OxVehicle:getCoords()
+    return GetEntityCoords(self.entity)
 end
 
 function Ox.GetVehicle(vehicle)
@@ -43,6 +43,11 @@ end
 
 function Ox.GetVehicleFromNetId(vehicle)
     vehicle = exp:GetVehicleFromNetId(vehicle)
+    return vehicle and setmetatable(vehicle, OxVehicle)
+end
+
+function Ox.GetVehicleFromVehicleId(vehicle)
+    vehicle = exp:GetVehicleFromVehicleId(vehicle)
     return vehicle and setmetatable(vehicle, OxVehicle)
 end
 

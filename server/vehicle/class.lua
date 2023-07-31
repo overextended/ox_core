@@ -1,4 +1,8 @@
+---@class PrivateVehicleProperties
+---@field metadata table<string, any>
+
 ---@class OxVehicleInternal : OxVehicleProperties
+---@field private private PrivateVehicleProperties
 local OxVehicle = {}
 
 ---@type table<string, true>
@@ -28,37 +32,11 @@ function Ox.CallVehicleMethod(source, method, ...)
     end
 end
 
-local vehicleData = {}
-local VehicleRegistry = require 'server.vehicle.registry'
-
----Triggered after vehicle instantiation to setup metadata.
----@param data table
-function OxVehicle:init(data)
-    if not vehicleData[self.entity] then
-        VehicleRegistry[self.entity] = self
-        vehicleData[self.entity] = data
-
-        local state = self:getState()
-
-        state:set('initVehicle', true, true)
-        state:set('owner', self.owner, true)
-
-        if data.properties then
-            state:set('vehicleProperties', data.properties)
-        end
-
-        ---@todo Setup locks / keysystem?
-        state:set('lockStatus', data.lockStatus or 1)
-
-        TriggerEvent('ox:createdVehicle', self.entity, self.id)
-    end
-end
-
 ---Gets the vehicle's metadata, returning the entire table if key is omitted.
 ---@param index any
 ---@return any
 function OxVehicle:get(index)
-    local data = vehicleData[self.entity]
+    local data = self.private.metadata
 
     if not index then return data end
 
@@ -69,7 +47,7 @@ end
 ---@param key string
 ---@param value any
 function OxVehicle:set(key, value)
-    vehicleData[self.entity][key] = value
+    self.private.metadata[key] = value
 end
 
 ---@return StateBag
@@ -77,40 +55,22 @@ function OxVehicle:getState()
     return Entity(self.entity).state
 end
 
-local db = require 'server.vehicle.db'
+local registry
 
----Removes a vehicle from the vehicle registry and despawns the entity.
----removeEntry will remove the vehicle from the database, otherwise it will be saved instead.
----@param vehicle OxVehicleInternal
----@param removeEntry boolean?
----@param metadata table?
-local function despawnVehicle(vehicle, removeEntry, metadata)
-    local entity = vehicle.entity
-
-    if vehicle.owner ~= false or vehicle.group then
-        if removeEntry then
-            db.deleteVehicle(vehicle.id)
-        elseif metadata then
-            db.updateVehicle({
-                vehicle.stored,
-                json.encode(metadata),
-                vehicle.id
-            })
-        end
-    end
-
-    VehicleRegistry[entity] = nil
-    vehicleData[entity] = nil
-    DeleteEntity(entity)
-end
+---@todo resolve circular dependency
+CreateThread(function()
+    registry = require 'server.vehicle.registry'
+end)
 
 function OxVehicle:despawn()
-    despawnVehicle(self, nil, vehicleData[self.entity])
+    registry.remove(self, false)
 end
 
 function OxVehicle:delete()
-    despawnVehicle(self, true)
+    registry.remove(self, true)
 end
+
+local db = require 'server.vehicle.db'
 
 ---@param value string
 ---@param despawn? boolean
