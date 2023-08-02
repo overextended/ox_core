@@ -1,5 +1,15 @@
 local db = require 'server.player.db'
 
+---@class CharacterProperties
+---@field firstname string
+---@field lastname string
+---@field charid number
+---@field stateid string
+---@field x? number
+---@field y? number
+---@field z? number
+---@field heading? number
+
 ---@class PrivatePlayerProperties
 ---@field metadata table<string, any>
 ---@field statuses table<string, number>
@@ -8,7 +18,7 @@ local db = require 'server.player.db'
 ---@field licenses table<string, table<string, any>>
 
 ---@class OxPlayerInternal : OxPlayerProperties
----@field characters? table
+---@field characters? CharacterProperties[]
 ---@field private private PrivatePlayerProperties
 local OxPlayer = {}
 
