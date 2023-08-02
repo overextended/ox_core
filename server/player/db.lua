@@ -46,7 +46,7 @@ local INSERT_CHARACTER_INVENTORY = 'INSERT INTO `character_inventory` (`charid`)
 ---@param gender string
 ---@param date number
 ---@param phone_number number?
----@return number?
+---@return number
 function db.createCharacter(userid, stateid, firstName, lastName, gender, date, phone_number)
     local charid = MySQL.prepare.await(INSERT_CHARACTER, { userid, stateid, firstName, lastName, gender, date, phone_number }) --[[@as number]]
     MySQL.prepare.await(INSERT_CHARACTER_INVENTORY, { charid })
@@ -65,7 +65,7 @@ local DELETE_CHARACTER = 'UPDATE `characters` SET `deleted` = curdate() WHERE `c
 ---Sets a character as deleted, preventing the user from accessing it.
 ---@param charid number
 function db.deleteCharacter(charid)
-    return MySQL.update(DELETE_CHARACTER, { charid })
+    return MySQL.update.await(DELETE_CHARACTER, { charid })
 end
 
 local SELECT_CHARACTER_GROUPS = 'SELECT `name`, `grade` FROM `character_groups` WHERE `charid` = ?'
@@ -111,9 +111,9 @@ local UPDATE_STATEID = 'UPDATE characters SET `stateid` = ? WHERE `charid` = ?'
 
 ---@param stateid string
 ---@param charid number
----@return number
+---@return string
 function db.updateStateId(stateid, charid)
-    return MySQL.update.await(UPDATE_STATEID, { stateid, charid })
+    return MySQL.update.await(UPDATE_STATEID, { stateid, charid }) and stateid
 end
 
 return db

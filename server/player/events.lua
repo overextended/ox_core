@@ -25,11 +25,13 @@ local appearance = GetExport('ox_appearance')
 local db = require 'server.player.db'
 local StatusRegistry = require 'server.status.registry'
 
+---@param data number | { firstName: string, lastName: string, gender: string, date: number }
 RegisterNetEvent('ox:selectCharacter', function(data)
-    local player = Ox.GetPlayer(source)
+    local player = Ox.GetPlayer(source) --[[@as OxPlayerInternal?]]
 
     if not player then return end
 
+    ---@type CharacterProperties
     local character
 
     if type(data) == 'table' then
@@ -40,6 +42,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
             firstname = data.firstName,
             lastname = data.lastName,
             charid = db.createCharacter(player.userid, stateid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
+            stateid = stateid
         }
     elseif type(data) == 'number' and data <= Shared.CHARACTER_SLOTS then
         character = player.characters[data]
@@ -50,25 +53,20 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     player.characters = nil
     player.name = ('%s %s'):format(character.firstname, character.lastname)
     player.charid = character.charid
-    player.stateid = character.stateid
+    player.stateid = character.stateid or db.updateStateId(Ox.GenerateStateId(), player.charid)
     player.firstname = character.firstname
     player.lastname = character.lastname
     player.ped = GetPlayerPed(player.source)
-
-    if not player.stateid then
-        player.stateid = Ox.GenerateStateId()
-        db.updateStateId(player.stateid, player.charid)
-    end
 
     local groups = db.selectCharacterGroups(player.charid)
 
     if groups then
         for i = 1, #groups do
-            local data = groups[i]
-            local group = Ox.GetGroup(data.name)
+            local name, grade in groups[i]
+            local group = Ox.GetGroup(name)
 
             if group then
-                group:add(player --[[@as OxPlayerInternal]], data.grade)
+                group:add(player, grade)
             end
         end
     end
@@ -89,7 +87,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     local state = player:getState()
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    appearance:load(player.source, player.charid)
+    if appearance then appearance:load(player.source, player.charid) end
 
     TriggerClientEvent('ox:loadPlayer', player.source, coords, {
         firstname = player.firstname,
@@ -130,11 +128,12 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 
         local charid = player.characters[slot]?.charid
 
-        if charid then
-            TriggerEvent('ox:characterDeleted', player.source, player.userid, charid)
-            appearance:save(charid)
-            db.deleteCharacter(charid)
-            return table.remove(player.characters, slot)
+        if charid and db.deleteCharacter(charid) then
+            if appearance then appearance:save(charid) end
+
+            table.remove(player.characters, slot)
+
+            return TriggerEvent('ox:characterDeleted', player.source, player.userid, charid)
         end
     end
 
