@@ -1,6 +1,6 @@
 local utils = require 'client.utils'
 
-utils.entityStateHandler('initVehicle', function(entity, _, value)
+utils.entityStateHandler('initVehicle', function(key, entity, value)
     if not value then return end
 
     -- workaround for server-vehicles that exist in traffic randomly creating peds
@@ -13,27 +13,26 @@ utils.entityStateHandler('initVehicle', function(entity, _, value)
         end
     end
 
-    if not utils.waitFor(function() return IsEntityWaitingForWorldCollision(entity) end) then return end
+    lib.waitFor(function()
+        if not IsEntityWaitingForWorldCollision(entity) then return true end
+    end)
 
     if NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
     SetVehicleOnGroundProperly(entity)
-    Entity(entity).state:set('initVehicle', nil, true)
-end)
+end, true, true)
 
-utils.entityStateHandler('vehicleProperties', function(entity, _, value)
-    if not value or NetworkGetEntityOwner(entity) ~= cache.playerId then return end
+utils.entityStateHandler('vehicleProperties', function(key, entity, value)
+    if NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
     lib.setVehicleProperties(entity, value)
-    Entity(entity).state:set('vehicleProperties', nil, true)
 end)
 
-utils.entityStateHandler('lockStatus', function(entity, _, value)
+utils.entityStateHandler('lockStatus', function(key, entity, value)
     if not value or NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
     SetVehicleDoorsLocked(entity, value)
-    Entity(entity).state:set('lockStatus', nil, true)
-end)
+end, true, true)
 
 lib.callback.register('ox:getNearbyVehicles', function(radius)
     local nearbyEntities = {}
