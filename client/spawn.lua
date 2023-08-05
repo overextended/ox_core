@@ -235,19 +235,8 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour, gender)
     while GetPlayerSwitchState() ~= 5 do Wait(50) end
 
     DoScreenFadeIn(300)
-
-    health = LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped)
-
-    local success, err = pcall(SetEntityHealth, cache.ped, health)
-
-    if not success then
-        -- why does this native continue to randomly and inexplicably throw "native execution errors"
-        print(err)
-        print(cache.ped, health, cache.ped == PlayerPedId())
-    end
-
+    SetEntityHealth(cache.ped, LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped))
     SetPedArmour(cache.ped, armour or 0)
-
     SetPlayerData(data)
     TriggerEvent('ox:playerLoaded', player)
 
