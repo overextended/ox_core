@@ -134,6 +134,7 @@ function onPlayerDeath()
     playerState.dead = false
 
     TriggerServerEvent('ox:playerDeath', false)
+    exports['fivem-appearance']:setPlayerAppearance(cache.appearance)
 end
 
 local function startDeathLoop()
@@ -142,6 +143,7 @@ local function startDeathLoop()
         cache.ped = PlayerPedId()
 
         if not PlayerIsDead and IsPedDeadOrDying(cache.ped, false) then
+            cache.appearance = exports['fivem-appearance']:getPedAppearance(cache.ped)
             onPlayerDeath()
         end
     end
