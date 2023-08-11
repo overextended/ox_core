@@ -93,7 +93,9 @@ local function removeVehicle(vehicle, removeFromDatabase)
 
     VehicleRegistry[entity] = nil
     entityIdFromVehicleId[entity] = nil
-    DeleteEntity(entity)
+    if DoesEntityExist(entity) then
+        DeleteEntity(entity)
+    end
 end
 
 ---Loads a vehicle from the database by id, or creates a new vehicle using provided data.
