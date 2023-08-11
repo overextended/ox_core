@@ -23,7 +23,7 @@ function Vehicle.saveAll(resource)
 
             if resource then
                 vehicle:despawn()
-            else
+            elseif DoesEntityExist(vehicle.entity) then
                 DeleteEntity(vehicle.entity)
             end
         end
