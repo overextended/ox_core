@@ -27,7 +27,10 @@ function utils.entityStateHandler(keyFilter, cb, requireValue, setAsNil)
         if entity then
             cb(keyName, entity, value, bagName)
 
-            if setAsNil then Entity(entity).state:set(keyName, nil, true) end
+            if setAsNil then
+                Wait(0)
+                Entity(entity).state:set(keyName, nil, true)
+            end
         end
     end)
 end
