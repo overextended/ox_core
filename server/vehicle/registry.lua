@@ -20,9 +20,9 @@ local OxVehicle = require 'server.vehicle.class'
 local function addVehicle(id, owner, group, plate, vin, model, script, metadata, coords, heading, vType)
     -- Change vehicle types to net types.
     -- https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
-    if vType == 'bicycle' or vType == 'quadbike' or vType == 'amphibious_quadbike' then
+    if vType == 'bicycle' then
         vType = 'bike'
-    elseif vType == 'amphibious_automobile' or vType == 'submarinecar' then
+    elseif vType == 'quadbike' or vType == 'amphibious_quadbike' or vType == 'amphibious_automobile' or vType == 'submarinecar' then
         vType = 'automobile'
     elseif vType == 'blimp' then
         vType = 'heli'
