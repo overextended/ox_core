@@ -153,10 +153,10 @@
     "handling": 0.59,
     "make": "HVY",
     "name": "APC",
-    "price": 192050,
+    "price": 768201,
     "seats": 4,
     "speed": 23.0063,
-    "type": "automobile",
+    "type": "amphibious_automobile",
     "weapons": true
   },
   "ardent": {
@@ -794,10 +794,10 @@
     "handling": 0.652,
     "make": "Nagasaki",
     "name": "Blazer Aqua",
-    "price": 128403,
+    "price": 513615,
     "seats": 1,
     "speed": 40.8773,
-    "type": "quadbike",
+    "type": "amphibious_quadbike",
     "weapons": true
   },
   "blimp": {
@@ -8761,10 +8761,10 @@
     "handling": 0.63,
     "make": "Karin",
     "name": "Technical Aqua",
-    "price": 329551,
+    "price": 1318204,
     "seats": 3,
     "speed": 39.6139,
-    "type": "automobile",
+    "type": "amphibious_automobile",
     "weapons": true
   },
   "technical3": {
@@ -10319,10 +10319,10 @@
     "handling": 0.56,
     "make": "RUNE",
     "name": "Zhaba",
-    "price": 50950,
+    "price": 203802,
     "seats": 4,
     "speed": 30.3041,
-    "type": "automobile"
+    "type": "amphibious_automobile"
   },
   "zion": {
     "acceleration": 0.22,

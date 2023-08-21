@@ -58,10 +58,6 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                     vType = 'plane'
                 elseif IsThisModelAQuadbike(hash) then
                     vType = 'quadbike'
-                elseif IsThisModelAnAmphibiousCar(hash) then
-                    vType = 'amphibious_automobile'
-                elseif IsThisModelAnAmphibiousQuadbike(hash) then
-                    vType = 'amphibious_quadbike'
                 elseif IsThisModelATrain(hash) then
                     vType = 'train'
                 else
@@ -129,10 +125,6 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                     price *= 16000
                 elseif vType == 'quadbike' then
                     price *= 600
-                elseif vType == 'amphibious_automobile' then
-                    price *= 8000
-                elseif vType == 'amphibious_quadbike' then
-                    price *= 6200
                 elseif vType == 'train' then
                     price *= 6000
                 elseif vType == 'submarinecar' then
@@ -143,6 +135,14 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                     price *= 12000
                 elseif vType == 'trailer' then
                     price *= 10000
+                end
+
+                if IsThisModelAnAmphibiousCar(hash) then
+                    data.type = 'amphibious_automobile'
+                    price *= 4
+                elseif IsThisModelAnAmphibiousQuadbike(hash) then
+                    data.type = 'amphibious_quadbike'
+                    price *= 4
                 end
 
                 data.price = math.floor(price)
