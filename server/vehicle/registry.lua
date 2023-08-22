@@ -207,10 +207,14 @@ function Ox.GetVehicleFromNetId(netId)
     return VehicleRegistry[NetworkGetEntityFromNetworkId(netId)]
 end
 
+---Return vehicle data for the given persistent vehicle id (used in the database).
+---@param vehicleId number
+---@return OxVehicleInternal
 function Ox.GetVehicleFromVehicleId(vehicleId)
     return VehicleRegistry[entityIdFromVehicleId[vehicleId]]
 end
 
+---@return table<number, OxVehicleInternal>
 function Ox.GetVehicleRegistry()
     return VehicleRegistry
 end
