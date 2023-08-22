@@ -31,12 +31,8 @@ function OxPlayer:__index(index, ...)
         end
     end)
 
-    local value = self.get(index)
-
-    if value then
-        self[index] = value
-        return value
-    end
+    self[index] = self.get(index) or false
+    return self[index]
 end
 
 function OxPlayer:getPed()
