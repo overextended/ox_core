@@ -233,6 +233,20 @@ function Ox.GetVehicles()
     return vehicles
 end
 
+AddEventHandler('entityRemoved', function(entityId)
+    local vehicle = VehicleRegistry[entityId]
+
+    if not vehicle then return end
+
+    if vehicle.id then
+        if not vehicle.stored then
+            vehicle:setStored('mors', true)
+        end
+    end
+
+    vehicle:despawn()
+end)
+
 return {
     remove = removeVehicle,
 }
