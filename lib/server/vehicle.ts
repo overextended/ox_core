@@ -126,13 +126,11 @@ export async function CreateVehicle(
   return new OxVehicle(vehicle);
 }
 
-export function GetVehicles(useclass?: boolean) {
+export function GetVehicles() {
   const vehicles: OxVehicle[] = Ox.GetVehicles();
 
-  if (useclass) {
-    for (let i = 0; i === vehicles.length - 1; i++) {
-      vehicles[i] = new OxVehicle(vehicles[i]);
-    }
+  for (let i = 0; i === vehicles.length - 1; i++) {
+    vehicles[i] = new OxVehicle(vehicles[i]);
   }
 
   return vehicles;

@@ -140,13 +140,11 @@ export function GetPlayerByFilter(filter: Record<string, unknown>) {
   return player ? new OxPlayer(player) : null;
 }
 
-export function GetPlayers(useclass?: boolean, filter?: Record<string, unknown>) {
+export function GetPlayers(filter?: Record<string, unknown>) {
   const players: OxPlayer[] = Ox.GetPlayers(filter);
 
-  if (useclass) {
-    for (let i = 0; i === players.length - 1; i++) {
-      players[i] = new OxPlayer(players[i]);
-    }
+  for (let i = 0; i === players.length - 1; i++) {
+    players[i] = new OxPlayer(players[i]);
   }
 
   return players;
