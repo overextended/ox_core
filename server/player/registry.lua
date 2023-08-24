@@ -9,6 +9,31 @@ local playerIdFromUserId = {}
 ---@type table<number, true>
 local connectingPlayers = {}
 
+local function removePlayer(playerId, userId, reason)
+    PlayerRegistry[playerId] = nil
+    playerIdFromUserId[userId] = nil
+
+    for _, player in pairs(PlayerRegistry) do
+        player:getPlayersInScope()[playerId] = nil
+    end
+
+    --[[ TODO: Log session ended ]]
+end
+
+local function isUserActive(userId)
+    local player = Ox.GetPlayerFromUserId(userId)
+
+    if player then
+        ---@diagnostic disable-next-line: undefined-global
+        if DoesPlayerExist(player.source) then
+            return true
+        end
+
+        player:logout(true)
+        removePlayer(player.source, player.userid)
+    end
+end
+
 local OxPlayer = require 'server.player.class'
 
 local function addPlayer(playerId, username)
@@ -21,7 +46,7 @@ local function addPlayer(playerId, username)
     primaryIdentifier = primaryIdentifier:gsub('([^:]+):', '')
     local userId = db.getUserFromIdentifier(primaryIdentifier)
 
-    if Ox.GetPlayerFromUserId(userId) then
+    if isUserActive(userId) then
         if not Shared.DEBUG then
             return nil, ("userId '%d' is already active."):format(userId)
         end
@@ -29,10 +54,8 @@ local function addPlayer(playerId, username)
         -- If debug is enabled, check for secondary userId (allowing player to login with -cl2)
         userId = db.getUserFromIdentifier(primaryIdentifier, 1)
 
-        if userId then
-            if Ox.GetPlayerFromUserId(userId) then
-                return nil, ("userId '%d' is already active."):format(userId)
-            end
+        if userId and isUserActive(userId) then
+            return nil, ("userId '%d' is already active."):format(userId)
         end
     end
 
@@ -57,17 +80,6 @@ local function addPlayer(playerId, username)
     playerIdFromUserId[userId] = playerId
 
     return player
-end
-
-local function removePlayer(playerId, userId, reason)
-    PlayerRegistry[playerId] = nil
-    playerIdFromUserId[userId] = nil
-
-    for _, player in pairs(PlayerRegistry) do
-        player:getPlayersInScope()[playerId] = nil
-    end
-
-    --[[ TODO: Log session ended ]]
 end
 
 local function assignNonTemporaryId(tempId, newId)
@@ -180,7 +192,7 @@ end)
 
 AddEventHandler('playerJoining', function(tempId)
     local playerId = source
-    tempId = tonumber(tempId) --[[@as number why the hell is this a string]]
+    tempId = tonumber(tempId, 10)
     connectingPlayers[tempId] = nil
 
     assignNonTemporaryId(tempId, playerId)
@@ -188,6 +200,7 @@ end)
 
 AddEventHandler('playerConnecting', function(username, _, deferrals)
     local tempId = source
+
     deferrals.defer()
 
     if serverLockdown then
