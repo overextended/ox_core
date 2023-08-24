@@ -3,11 +3,11 @@ import { CharacterProps } from '../types';
 
 const deleteModalAtom = atom<{ character: CharacterProps, index: number, visible: boolean }>({
   character: {
-    firstname: '',
-    lastname: '',
-    last_played: '',
+    firstName: '',
+    lastName: '',
+    lastPlayed: '',
     gender: '',
-    dateofbirth: '',
+    dateOfBirth: '',
   },
   visible: false,
   index: 0,

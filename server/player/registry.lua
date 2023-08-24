@@ -30,7 +30,7 @@ local function isUserActive(userId)
         end
 
         player:logout(true)
-        removePlayer(player.source, player.userid)
+        removePlayer(player.source, player.userId)
     end
 end
 
@@ -65,7 +65,7 @@ local function addPlayer(playerId, username)
 
     local player = OxPlayer.new({
         source = playerId,
-        userid = userId,
+        userId = userId,
         username = username,
         private = {
             inScope = {},
@@ -89,7 +89,7 @@ local function assignNonTemporaryId(tempId, newId)
 
     PlayerRegistry[tempId] = nil
     PlayerRegistry[newId] = player
-    playerIdFromUserId[player.userid] = newId
+    playerIdFromUserId[player.userId] = newId
 
     player:setAsJoined(newId)
 end
@@ -134,7 +134,7 @@ end
 ---@return OxPlayerInternal?
 function Ox.GetPlayerByFilter(filter)
     for _, player in pairs(PlayerRegistry) do
-        if player.charid then
+        if player.charId then
             if filterPlayer(player, filter) then
                 return player
             end
@@ -150,7 +150,7 @@ function Ox.GetPlayers(filter)
     local players = {}
 
     for _, player in pairs(PlayerRegistry) do
-        if player.charid then
+        if player.charId then
             if not filter or filterPlayer(player, filter) then
                 size += 1
                 players[size] = player
@@ -232,7 +232,7 @@ CreateThread(function()
                 local player = PlayerRegistry[tempId]
                 connectingPlayers[tempId] = nil
                 PlayerRegistry[tempId] = nil
-                playerIdFromUserId[player.userid] = nil
+                playerIdFromUserId[player.userId] = nil
             end
         end
     end
@@ -244,7 +244,7 @@ AddEventHandler('txAdmin:events:serverShuttingDown', function()
     Ox.SaveAllPlayers()
 
     for playerId, player in pairs(PlayerRegistry) do
-        player.charid = nil
+        player.charId = nil
         DropPlayer(tostring(playerId), 'Server is restarting.')
     end
 end)
@@ -256,7 +256,7 @@ AddEventHandler('playerDropped', function(reason)
     if player then
         player:logout(true)
 
-        removePlayer(player.source, player.userid, ('Dropped, %s'):format(reason))
+        removePlayer(player.source, player.userId, ('Dropped, %s'):format(reason))
     end
 end)
 

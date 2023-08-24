@@ -32,10 +32,10 @@ const Character: React.FC<{ character: CharacterProps, index: number }> = (props
           className={`hover-transition flex h-24 w-full justify-between text-zinc-100 hover:bg-black/40 ${characterIndex === props.index && 'bg-black/40'}`}
           onClick={selectCharacter}>
           <div className='h-full p-1.5 flex flex-col justify-evenly truncate'>
-            <p className='truncate text-2xl'>{`${props.character.firstname} ${props.character.lastname}`}</p>
+            <p className='truncate text-2xl'>{`${props.character.firstName} ${props.character.lastName}`}</p>
             <div>
               <p className='truncate text-sm'>{locale.ui.char_location}: {props.character.location}</p>
-              <p className='truncate text-sm'>{locale.ui.last_played}: {props.character.last_played}</p>
+              <p className='truncate text-sm'>{locale.ui.last_played}: {props.character.lastPlayed}</p>
             </div>
           </div>
           <div>

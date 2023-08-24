@@ -21,7 +21,7 @@ lib.addCommand('car', {
     restricted = 'group.admin'
 }, function(source, args)
     if args.owner and args.owner > 0 then
-        args.owner = Ox.GetPlayer(args.owner)?.charid
+        args.owner = Ox.GetPlayer(args.owner)?.charId
     end
 
     local ped = GetPlayerPed(source)

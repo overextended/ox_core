@@ -29,10 +29,10 @@ if ox_inventory then
     LoadResource('ox_inventory', function(player)
         ox_inventory:setPlayerInventory({
             source = player.source,
-            identifier = player.charid,
+            identifier = player.charId,
             name = player.name,
             sex = player:get('gender'),
-            dateofbirth = player:get('dateofbirth'),
+            dateofbirth = player:get('dateOfBirth'),
             groups = player.private.groups,
         })
     end)
@@ -44,10 +44,10 @@ if npwd then
     LoadResource('npwd', function(player)
         npwd:newPlayer({
             source = player.source,
-            identifier = player.charid,
+            identifier = player.charId,
             phoneNumber = player:get('phoneNumber'),
-            firstname = player.firstname,
-            lastname = player.lastname
+            firstname = player.firstName,
+            lastname = player.lastName
         })
     end)
 end
@@ -58,7 +58,7 @@ if pefcl then
     LoadResource('pefcl', function(player)
         pefcl:loadPlayer(player.source, {
             source = player.source,
-            identifier = player.charid,
+            identifier = player.charId,
             name = player.name
         })
     end)
@@ -78,9 +78,9 @@ function Ox.GenerateStateId()
             arr[i] = utils.getRandomInt()
         end
 
-        local stateid = table.concat(arr)
+        local stateId = table.concat(arr)
 
-        if db.isStateIdAvailable(stateid) then return stateid end
+        if db.isStateIdAvailable(stateId) then return stateId end
     end
 end
 
@@ -91,7 +91,7 @@ function Ox.SaveAllPlayers()
     local date = os.date('%Y-%m-%d')
 
     for _, player in pairs(Ox.GetPlayerRegistry()) do
-        if player.charid then
+        if player.charId then
             size += 1
             parameters[size] = player:prepareSaveData(date)
         end
@@ -105,7 +105,7 @@ end
 AddEventHandler('onResourceStop', function(resource)
     if resource == 'ox_core' then
         for _, player in pairs(Ox.GetPlayerRegistry()) do
-            TriggerEvent('ox:playerLogout', player.source, player.userid, player.charid)
+            TriggerEvent('ox:playerLogout', player.source, player.userId, player.charId)
         end
 
         Ox.SaveAllPlayers()

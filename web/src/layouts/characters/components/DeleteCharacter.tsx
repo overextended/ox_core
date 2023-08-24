@@ -65,7 +65,7 @@ export const DeleteCharacter: React.FC = () => {
                   </Dialog.Title>
                   <div className='mt-2'>
                     <p className='text-zinc-100'>
-                      {locale.ui.delete_prompt.replace('%s', `${deleteModal.character.firstname} ${deleteModal.character.lastname}?`)}
+                      {locale.ui.delete_prompt.replace('%s', `${deleteModal.character.firstName} ${deleteModal.character.lastName}?`)}
                     </p>
                     <p className='text-red-500'>
                       {locale.ui.irreversible_action}.

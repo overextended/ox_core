@@ -78,7 +78,7 @@ local function startStatusLoop()
         i += 1
 
         for name, value in pairs(currentStatus) do
-            local tickAmount = statuses[name].ontick
+            local tickAmount = statuses[name].onTick
 
             if tickAmount then
                 value += tickAmount

@@ -39,9 +39,9 @@ function OxGroup:setAccount(player, grade, remove)
     local maxGrade = #self.grades
 
     if remove then
-        if player.charid and grade >= maxGrade - 1 and exports.pefcl:getUniqueAccount(player.source, self.name).data then
+        if player.charId and grade >= maxGrade - 1 and exports.pefcl:getUniqueAccount(player.source, self.name).data then
             pefcl:removeUserFromUniqueAccount(player.source, {
-                userIdentifier = player.charid,
+                userIdentifier = player.charId,
                 accountIdentifier = self.name
             })
         end
@@ -58,7 +58,7 @@ function OxGroup:setAccount(player, grade, remove)
             pefcl:addUserToUniqueAccount(player.source, {
                 role = grade >= self.adminGrade and 'admin' or 'contributor',
                 accountIdentifier = self.name,
-                userIdentifier = player.charid,
+                userIdentifier = player.charId,
                 source = player.source,
             })
         end
@@ -86,12 +86,12 @@ function OxGroup:set(player, grade)
     if grade < 1 then
         if not currentGrade then return end
         grade = nil
-        db.removeCharacterGroup(player.charid, self.name)
+        db.removeCharacterGroup(player.charId, self.name)
     else
         if currentGrade then
-            db.updateCharacterGroup(player.charid, self.name, grade)
+            db.updateCharacterGroup(player.charId, self.name, grade)
         else
-            db.addCharacterGroup(player.charid, self.name, grade)
+            db.addCharacterGroup(player.charId, self.name, grade)
         end
 
         self:add(player, grade)

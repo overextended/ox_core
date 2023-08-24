@@ -15,20 +15,20 @@ import SpawnSelector from './spawn';
 //     data: {
 //       characters: [
 //         {
-//           firstname: 'Luke',
-//           lastname: 'Lukensson',
-//           last_played: '01/01/1999',
+//           firstName: 'Luke',
+//           lastName: 'Lukensson',
+//           lastPlayed: '01/01/1999',
 //           location: 'Somewhere far away',
 //           gender: 'male',
-//           dateofbirth: '01/01/1999',
+//           dateOfBirth: '01/01/1999',
 //         },
 //         {
-//           firstname: 'Peter',
-//           lastname: 'Petersson',
-//           last_played: '01/01/1999',
+//           firstName: 'Peter',
+//           lastName: 'Petersson',
+//           lastPlayed: '01/01/1999',
 //           location: 'Somewhere far away',
 //           gender: 'male',
-//           dateofbirth: '01/01/1999',
+//           dateOfBirth: '01/01/1999',
 //         },
 //       ],
 //       maxSlots: 5,

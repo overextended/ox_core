@@ -36,13 +36,13 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 
     if type(data) == 'table' then
         local phoneNumber = npwd and npwd:generatePhoneNumber() or nil
-        local stateid = Ox.GenerateStateId()
+        local stateId = Ox.GenerateStateId()
 
         character = {
-            firstname = data.firstName,
-            lastname = data.lastName,
-            charid = db.createCharacter(player.userid, stateid, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
-            stateid = stateid
+            firstName = data.firstName,
+            lastName = data.lastName,
+            charId = db.createCharacter(player.userId, stateId, data.firstName, data.lastName, data.gender, data.date, phoneNumber),
+            stateId = stateId
         }
     elseif type(data) == 'number' and data <= Shared.CHARACTER_SLOTS then
         character = player.characters[data]
@@ -51,14 +51,14 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     end
 
     player.characters = nil
-    player.name = ('%s %s'):format(character.firstname, character.lastname)
-    player.charid = character.charid
-    player.stateid = character.stateid or db.updateStateId(Ox.GenerateStateId(), player.charid)
-    player.firstname = character.firstname
-    player.lastname = character.lastname
+    player.name = ('%s %s'):format(character.firstName, character.lastName)
+    player.charId = character.charId
+    player.stateId = character.stateId or db.updateStateId(Ox.GenerateStateId(), player.charId)
+    player.firstName = character.firstName
+    player.lastName = character.lastName
     player.ped = GetPlayerPed(player.source)
 
-    local groups = db.selectCharacterGroups(player.charid)
+    local groups = db.selectCharacterGroups(player.charId)
 
     if groups then
         for i = 1, #groups do
@@ -71,7 +71,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         end
     end
 
-    local licenses = db.selectCharacterLicenses(player.charid)
+    local licenses = db.selectCharacterLicenses(player.charId)
 
     if licenses then
         local playerLicenses = player:getLicenses()
@@ -83,26 +83,26 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         end
     end
 
-    local cData = db.selectCharacterData(character.charid)
+    local cData = db.selectCharacterData(character.charId)
     local state = player:getState()
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
-    if appearance then appearance:load(player.source, player.charid) end
+    if appearance then appearance:load(player.source, player.charId) end
 
     TriggerClientEvent('ox:loadPlayer', player.source, coords, {
-        firstname = player.firstname,
-        lastname = player.lastname,
+        firstName = player.firstName,
+        lastName = player.lastName,
         name = player.name,
-        userid = player.userid,
-        charid = player.charid,
-        stateid = player.stateid,
+        userId = player.userId,
+        charId = player.charId,
+        stateId = player.stateId,
         groups = player:getGroups(),
     }, cData.health, cData.armour, cData.gender)
 
     state:set('dead', player:get('isDead'), true)
     state:set('name', player.name, true)
 
-    player:set('dateofbirth', cData.dateofbirth, true)
+    player:set('dateOfBirth', cData.dateOfBirth, true)
     player:set('gender', cData.gender, true)
     player:set('phoneNumber', cData.phoneNumber, true)
 
@@ -116,7 +116,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         load(player)
     end
 
-    TriggerEvent('ox:playerLoaded', player.source, player.userid, player.charid)
+    TriggerEvent('ox:playerLoaded', player.source, player.userId, player.charId)
 end)
 
 RegisterNetEvent('ox:deleteCharacter', function(slot)
@@ -126,14 +126,14 @@ RegisterNetEvent('ox:deleteCharacter', function(slot)
 
         if not player then return end
 
-        local charid = player.characters[slot]?.charid
+        local charId = player.characters[slot]?.charId
 
-        if charid and db.deleteCharacter(charid) then
-            if appearance then appearance:save(charid) end
+        if charId and db.deleteCharacter(charId) then
+            if appearance then appearance:save(charId) end
 
             table.remove(player.characters, slot)
 
-            return TriggerEvent('ox:characterDeleted', player.source, player.userid, charid)
+            return TriggerEvent('ox:characterDeleted', player.source, player.userId, charId)
         end
     end
 
@@ -143,7 +143,7 @@ end)
 RegisterNetEvent('ox:playerDeath', function(state)
     local player = Ox.GetPlayer(source)
 
-    if player and player.charid then
+    if player and player.charId then
         player:set('isDead', state)
     end
 end)
@@ -151,7 +151,7 @@ end)
 RegisterNetEvent('ox:setPlayerInService', function(job)
     local player = Ox.GetPlayer(source)
 
-    if player and player.charid then
+    if player and player.charId then
         if job and player:getGroup(job) then
             return player:set('inService', job, true)
         end

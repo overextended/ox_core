@@ -15,37 +15,37 @@ export interface PlayerIdentifiers {
 
 export interface IOxPlayer {
   source: number;
-  userid: number;
-  charid: number;
-  stateid: string;
+  userId: number;
+  charId: number;
+  stateId: string;
   ped: number;
   name: string;
   username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
 }
 
 export class OxPlayer implements IOxPlayer {
   source: number;
-  userid: number;
-  charid: number;
-  stateid: string;
+  userId: number;
+  charId: number;
+  stateId: string;
   ped: number;
   name: string;
   username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
 
   constructor(data: IOxPlayer) {
     this.source = data.source;
-    this.userid = data.userid;
-    this.charid = data.charid;
-    this.stateid = data.stateid;
+    this.userId = data.userId;
+    this.charId = data.charId;
+    this.stateId = data.stateId;
     this.ped = data.ped;
     this.name = data.name;
     this.username = data.username;
-    this.firstname = data.firstname;
-    this.lastname = data.lastname;
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
   }
 
   getState() {
@@ -130,8 +130,8 @@ export function GetPlayer(playerId: number) {
   return player ? new OxPlayer(player) : null;
 }
 
-export function GetPlayerFromUserId(userid: number) {
-  const player = Ox.GetPlayerFromUserId(userid);
+export function GetPlayerFromUserId(userId: number) {
+  const player = Ox.GetPlayerFromUserId(userId);
   return player ? new OxPlayer(player) : null;
 }
 

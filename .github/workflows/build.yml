@@ -75,8 +75,8 @@ jobs:
         run: |
           mkdir -p ./temp/ox_core
           mkdir -p ./temp/ox_core/web
-          cp ./{LICENSE,README.md,database.sql,fxmanifest.lua} ./temp/ox_core
-          cp -r ./{client,server,shared,imports,locales} ./temp/ox_core
+          cp ./{LICENSE,README.md,fxmanifest.lua} ./temp/ox_core
+          cp -r ./{client,server,shared,imports,locales,sql} ./temp/ox_core
           cp -r ./web/build ./temp/ox_core/web/build
           cd ./temp && zip -r ../ox_core.zip ./ox_core
       - name: Create Release

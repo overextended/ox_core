@@ -13,13 +13,13 @@ local function loadStatuses()
             local status = results[i]
             local name = status.name
             status.name = nil
-            status.ontick = tonumber(status.ontick)
+            status.onTick = tonumber(status.onTick)
 
             StatusRegistry[name] = status
             GlobalState[('status.%s'):format(name)] = status
 
             for _, player in pairs(players) do
-                local value = player.charid and player:getStatus(name)
+                local value = player.charId and player:getStatus(name)
 
                 if not value or value > 100 then
                     player:setStatus(name, value or status.default)

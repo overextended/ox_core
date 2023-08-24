@@ -1,10 +1,10 @@
 export interface CharacterProps {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   location?: string;
   gender: string;
-  dateofbirth: string;
+  dateOfBirth: string;
   groups?: string[];
-  phone_number?: string;
-  last_played: string;
+  phoneNumber?: string;
+  lastPlayed: string;
 }

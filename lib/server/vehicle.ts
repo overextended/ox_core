@@ -89,8 +89,8 @@ export class OxVehicle implements IOxVehicle {
     Ox.CallVehicleMethod(this.entity, "setStored", value, despawn);
   }
 
-  setOwner(charid?: number) {
-    return Ox.CallVehicleMethod(this.entity, "setOwner", charid);
+  setOwner(charId?: number) {
+    return Ox.CallVehicleMethod(this.entity, "setOwner", charId);
   }
 
   setGroup(groupName?: string) {

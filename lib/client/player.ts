@@ -3,21 +3,21 @@ import { Ox } from '../server';
 export class OxPlayer {
   coords: number[];
   groups: Record<string, number>;
-  userid: number;
-  charid: number;
-  stateid: string;
-  firstname: string;
-  lastname: string;
+  userId: number;
+  charId: number;
+  stateId: string;
+  firstName: string;
+  lastName: string;
   [key: string]: any;
 
   constructor(data: any) {
     this.coords = data.coords;
     this.groups = data.groups;
-    this.userid = data.userid;
-    this.charid = data.charid;
-    this.stateid = data.stateid;
-    this.firstname = data.firstname;
-    this.lastname = data.lastname;
+    this.userId = data.userId;
+    this.charId = data.charId;
+    this.stateId = data.stateId;
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
   }
 
   getPed() {

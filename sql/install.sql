@@ -18,27 +18,27 @@ USE `overextended`;
 
 CREATE TABLE
   IF NOT EXISTS `users` (
-    `userid` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(50) DEFAULT NULL,
     `license2` VARCHAR(50) DEFAULT NULL,
     `steam` VARCHAR(20) DEFAULT NULL,
     `fivem` VARCHAR(10) DEFAULT NULL,
     `discord` VARCHAR(20) DEFAULT NULL,
-    PRIMARY KEY (`userid`) USING BTREE
+    PRIMARY KEY (`userId`) USING BTREE
   );
 
 CREATE TABLE
   IF NOT EXISTS `characters` (
-    `charid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `userid` MEDIUMINT UNSIGNED NOT NULL,
-    `stateid` VARCHAR(7) NOT NULL,
-    `firstname` VARCHAR(50) NOT NULL,
-    `lastname` VARCHAR(50) NOT NULL,
+    `charId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userId` INT UNSIGNED NOT NULL,
+    `stateId` VARCHAR(7) NOT NULL,
+    `firstName` VARCHAR(50) NOT NULL,
+    `lastName` VARCHAR(50) NOT NULL,
     `gender` VARCHAR(10) NOT NULL,
-    `dateofbirth` DATE NOT NULL,
-    `phone_number` VARCHAR(20) DEFAULT NULL,
-    `last_played` DATE NOT NULL DEFAULT (curdate()),
-    `is_dead` BIT NOT NULL DEFAULT 0,
+    `dateOfBirth` DATE NOT NULL,
+    `phoneNumber` VARCHAR(20) DEFAULT NULL,
+    `lastPlayed` DATE NOT NULL DEFAULT (curdate()),
+    `isDead` TINYINT(1) NOT NULL DEFAULT 0,
     `x` FLOAT DEFAULT NULL,
     `y` FLOAT DEFAULT NULL,
     `z` FLOAT DEFAULT NULL,
@@ -47,19 +47,19 @@ CREATE TABLE
     `armour` TINYINT UNSIGNED DEFAULT NULL,
     `statuses` JSON NOT NULL DEFAULT (JSON_OBJECT()),
     `deleted` DATE NULL DEFAULT NULL,
-    PRIMARY KEY (`charid`) USING BTREE,
-    KEY `FK_character_users` (`userid`) USING BTREE,
-    UNIQUE INDEX `stateid` (`stateid`) USING BTREE,
-    CONSTRAINT `FK_characters_users` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY (`charId`) USING BTREE,
+    KEY `FK_character_users` (`userId`) USING BTREE,
+    UNIQUE INDEX `stateId` (`stateId`) USING BTREE,
+    CONSTRAINT `FK_characters_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 CREATE TABLE
   IF NOT EXISTS `character_inventory` (
-    `charid` INT UNSIGNED NOT NULL,
+    `charId` INT UNSIGNED NOT NULL,
     `inventory` LONGTEXT NULL DEFAULT NULL,
-    PRIMARY KEY (`charid`),
-    KEY `FK_inventory_characters` (`charid`),
-    CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY (`charId`),
+    KEY `FK_inventory_characters` (`charId`),
+    CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 CREATE TABLE
@@ -67,7 +67,7 @@ CREATE TABLE
     `name` VARCHAR(20) NOT NULL,
     `label` VARCHAR(50) NOT NULL,
     `grades` LONGTEXT NOT NULL,
-    `hasAccount` BIT (1) NOT NULL DEFAULT b'0',
+    `hasAccount` TINYINT(1) NOT NULL DEFAULT 0,
     `adminGrade` TINYINT UNSIGNED NOT NULL DEFAULT json_length (`grades`),
     `colour` TINYINT UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`name`) USING BTREE
@@ -94,12 +94,12 @@ VALUES
 
 CREATE TABLE
   IF NOT EXISTS `character_groups` (
-    `charid` INT UNSIGNED NOT NULL,
+    `charId` INT UNSIGNED NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `grade` TINYINT UNSIGNED NOT NULL,
-    UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
-    KEY `FK_character_groups_characters` (`charid`) USING BTREE,
-    CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE
+    UNIQUE KEY `name` (`name`, `charId`) USING BTREE,
+    KEY `FK_character_groups_characters` (`charId`) USING BTREE,
+    CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 CREATE TABLE
@@ -113,7 +113,7 @@ CREATE TABLE
 
 CREATE TABLE
   IF NOT EXISTS `vehicles` (
-    `id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `plate` CHAR(8) NOT NULL DEFAULT '',
     `vin` CHAR(17) NOT NULL,
     `owner` INT UNSIGNED NULL DEFAULT NULL,
@@ -128,19 +128,19 @@ CREATE TABLE
     UNIQUE INDEX `plate` (`plate`) USING BTREE,
     UNIQUE INDEX `vin` (`vin`) USING BTREE,
     INDEX `FK_vehicles_characters` (`owner`) USING BTREE,
-    CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `overextended`.`characters` (`charid`) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `overextended`.`ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT `FK_vehicles_characters` FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 CREATE TABLE
   IF NOT EXISTS `ox_statuses` (
     `name` VARCHAR(20) NOT NULL,
     `default` TINYINT (3) UNSIGNED NOT NULL DEFAULT 0,
-    `ontick` DECIMAL(4, 3) DEFAULT NULL
+    `onTick` DECIMAL(4, 3) DEFAULT NULL
   );
 
 INSERT INTO
-  `ox_statuses` (`name`, `default`, `ontick`)
+  `ox_statuses` (`name`, `default`, `onTick`)
 VALUES
   ('hunger', 0, 0.02),
   ('thirst', 0, 0.05),
@@ -148,12 +148,12 @@ VALUES
 
 CREATE TABLE
   IF NOT EXISTS `character_licenses` (
-    `charid` INT (10) UNSIGNED NOT NULL,
+    `charId` INT (10) UNSIGNED NOT NULL,
     `name` VARCHAR(20) DEFAULT NULL,
     `issued` DATE DEFAULT NULL,
-    UNIQUE KEY `name` (`name`, `charid`) USING BTREE,
-    KEY `FK_character_licences_characters` (`charid`) USING BTREE,
-    CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charid`) REFERENCES `characters` (`charid`) ON DELETE CASCADE ON UPDATE CASCADE
+    UNIQUE KEY `name` (`name`, `charId`) USING BTREE,
+    KEY `FK_character_licences_characters` (`charId`) USING BTREE,
+    CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
 CREATE TABLE

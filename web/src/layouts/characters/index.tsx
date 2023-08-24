@@ -24,7 +24,7 @@ const CharacterSelector: React.FC = () => {
             <CharacterSlot
               character={character}
               index={index}
-              key={`${character.firstname}-${character.lastname}-${character.last_played}`}
+              key={`${character.firstName}-${character.lastName}-${character.lastPlayed}`}
             />
           ))}
         </div>

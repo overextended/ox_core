@@ -13,7 +13,8 @@ if GetExport('npwd') then
     SetConvar('npwd:useResourceIntegration', 'true')
     SetConvar('npwd:database', json.encode({
         playerTable = 'characters',
-        identifierColumn = 'charid',
+        identifierColumn = 'charId',
+        phoneNumberColumn = 'phoneNumber',
     }))
 end
 

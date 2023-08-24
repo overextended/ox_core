@@ -1,10 +1,10 @@
 local db = require 'server.player.db'
 
 ---@class CharacterProperties
----@field firstname string
----@field lastname string
----@field charid number
----@field stateid string
+---@field firstName string
+---@field lastName string
+---@field charId number
+---@field stateId string
 ---@field x? number
 ---@field y? number
 ---@field z? number
@@ -200,7 +200,7 @@ end
 function OxPlayer:addLicense(name)
     local issued = os.date('%Y-%m-%d') --[[@as string]]
 
-    db.addCharacterLicense(self.charid, name, issued)
+    db.addCharacterLicense(self.charId, name, issued)
 
     self.private.licenses[name] = {
         issued = issued
@@ -215,7 +215,7 @@ end
 ---@param name string
 ---@return true?
 function OxPlayer:removeLicense(name)
-    db.removeCharacterLicense(self.charid, name)
+    db.removeCharacterLicense(self.charId, name)
 
     self.private.licenses[name] = nil
 
@@ -254,12 +254,12 @@ local pefcl = GetExport('pefcl')
 
 ---@param dropped boolean?
 function OxPlayer:logout(dropped)
-    if not self.charid then return end
+    if not self.charId then return end
 
-    TriggerEvent('ox:playerLogout', self.source, self.userid, self.charid)
+    TriggerEvent('ox:playerLogout', self.source, self.userId, self.charId)
     self:save()
 
-    self.charid = nil
+    self.charId = nil
 
     for name, grade in pairs(self.private.groups) do
         local group = Ox.GetGroup(name)
@@ -300,7 +300,7 @@ end
 
 function OxPlayer:setAsJoined(playerId)
     self.source = playerId
-    self:getState():set('userid', self.userid, true)
+    self:getState():set('userId', self.userId, true)
 end
 
 local appearance = GetExport('ox_appearance')
@@ -308,11 +308,11 @@ local appearance = GetExport('ox_appearance')
 ---Fetch all characters owned by the player from the database.
 ---@return table
 function OxPlayer:selectCharacters()
-    local characters = db.selectCharacters(self.userid)
+    local characters = db.selectCharacters(self.userId)
 
     for i = 1, #characters do
         local character = characters[i]
-        character.appearance = appearance:load(self.source, character.charid)
+        character.appearance = appearance:load(self.source, character.charId)
     end
 
     return characters
@@ -334,13 +334,13 @@ function OxPlayer:prepareSaveData(date)
         GetEntityHealth(playerPed),
         GetPedArmour(playerPed),
         json.encode(self.private.statuses),
-        self.charid
+        self.charId
     }
 end
 
 ---Update the database with a player's current data.
 function OxPlayer:save()
-    if self.charid then
+    if self.charId then
         db.updateCharacter(self:prepareSaveData(os.date('%Y-%m-%d')))
     end
 end
