@@ -14,11 +14,11 @@
     "create_a_char": "Créer un nouveau personnage",
     "irreversible_action": "Cette action est irréversible",
     "delete_character": "Delete character",
-    "delete_prompt": "Are you sure you want to delete %s",
+    "delete_prompt": "Voulez vous vraiment éffacer %s",
     "char_location": "Location",
     "last_played": "Dernier joué",
     "max_chars": "Nombre maximum d'emplacements atteints",
-    "spawn_locations": "Spawn Locations",
-    "select_character": "Select Character"
+    "spawn_locations": "Lieux de ponte",
+    "select_character": "Sélectionner un caractère"
   }
 }
