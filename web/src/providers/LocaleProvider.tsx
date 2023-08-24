@@ -2,31 +2,9 @@ import { Context, createContext, useContext, useEffect, useState } from 'react';
 import { useNuiEvent } from '../hooks/useNuiEvent';
 import { debugData } from '../utils/debugData';
 import { fetchNui } from '../utils/fetchNui';
+import type locale from '../../../locales/en.json';
 
-interface Locale {
-  ui: {
-    confirm: string,
-    cancel: string,
-    select: string;
-    delete: string,
-    firstname: string,
-    lastname: string,
-    gender: string,
-    male: string,
-    female: string,
-    non_binary: string,
-    create_char: string,
-    create_a_char: string,
-    delete_character: string,
-    delete_prompt: string,
-    irreversible_action: string,
-    char_location: string,
-    last_played: string,
-    max_chars: string,
-    spawn_locations: string,
-    select_character: string
-  };
-}
+type Locale = typeof locale
 
 interface LocaleContextValue {
   locale: Locale;
