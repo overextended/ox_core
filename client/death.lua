@@ -27,8 +27,8 @@ function onPlayerDeath()
 
     AnimpostfxPlay('DeathFailOut', 0, true)
     TriggerEvent('ox_inventory:disarm')
+    TriggerEvent('ox:playerDeath', true)
     TriggerServerEvent('ox:playerDeath', true)
-
     PlaySoundFrontend(-1, 'MP_Flash', 'WastedSounds', false)
     ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0)
 
@@ -133,6 +133,7 @@ function onPlayerDeath()
 
     playerState.dead = false
 
+    TriggerEvent('ox:playerDeath', false)
     TriggerServerEvent('ox:playerDeath', false)
 end
 
