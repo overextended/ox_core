@@ -84,7 +84,6 @@ RegisterNetEvent('ox:selectCharacter', function(data)
     end
 
     local cData = db.selectCharacterData(character.charId)
-    local state = player:getState()
     local coords = character.x and vec4(character.x, character.y, character.z, character.heading)
 
     if appearance then appearance:load(player.source, player.charId) end
@@ -97,10 +96,7 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         charId = player.charId,
         stateId = player.stateId,
         groups = player:getGroups(),
-    }, cData.health, cData.armour, cData.gender)
-
-    state:set('dead', player:get('isDead'), true)
-    state:set('name', player.name, true)
+    }, player:get('isDead') and 0 or cData.health, cData.armour, cData.gender)
 
     player:set('dateOfBirth', cData.dateOfBirth, true)
     player:set('gender', cData.gender, true)
