@@ -235,7 +235,7 @@ RegisterNetEvent('ox:loadPlayer', function(spawn, data, health, armour, gender)
     while GetPlayerSwitchState() ~= 5 do Wait(50) end
 
     DoScreenFadeIn(300)
-    SetEntityHealth(cache.ped, LocalPlayer.state.dead and 0 or health or GetEntityMaxHealth(cache.ped))
+    SetEntityHealth(cache.ped, health or GetEntityMaxHealth(cache.ped))
     SetPedArmour(cache.ped, armour or 0)
     SetPlayerData(data)
     TriggerEvent('ox:playerLoaded', player)
