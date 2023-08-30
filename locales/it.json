@@ -1,0 +1,24 @@
+{
+    "ui": {
+      "confirm": "Conferma",
+      "cancel": "Annulla",
+      "select": "Seleziona",
+      "delete": "Cancella",
+      "firstname": "Nome",
+      "lastname": "Cognome",
+      "gender": "Genere",
+      "male": "Uomo",
+      "female": "Donna",
+      "non_binary": "Non binario",
+      "create_char": "Crea personaggio",
+      "create_a_char": "Crea un personaggio",
+      "delete_character": "Elimina personaggio",
+      "delete_prompt": "Sei sicuro di voler eliminare %s",
+      "irreversible_action": "Questa azione è irreversibile",
+      "char_location": "Posizione",
+      "last_played": "Ultima giocata",
+      "max_chars": "Numero massimo di slot raggiunto",
+      "spawn_locations": "Posizioni di generazione",
+      "select_character": "Seleziona personaggio"
+    }
+  }
