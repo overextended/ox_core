@@ -5,6 +5,21 @@ local function round(num, numDecimalPlaces)
     return math.floor(num * mult + 0.5) / mult
 end
 
+local vehicleTypesPriceMutipliers = {
+    automobile = 1600,
+    bicycle = 150,
+    bike = 500,
+    boat = 6000,
+    heli = 90000,
+    plane = 16000,
+    quadbike = 600,
+    train = 6000,
+    submarinecar = 18000,
+    submarine = 17200,
+    blimp = 12000,
+    trailer = 10000
+}
+
 lib.callback.register('ox:generateVehicleData', function(processAll)
     local models = GetAllVehicleModels()
     local numModels = #models
@@ -111,31 +126,7 @@ lib.callback.register('ox:generateVehicleData', function(processAll)
                 if GetHasRocketBoost(vehicle) then price *= 3 end
                 if data.weapons then price *= 5 end
 
-                if vType == 'automobile' then
-                    price *= 1600
-                elseif vType == 'bicycle' then
-                    price *= 150
-                elseif vType == 'bike' then
-                    price *= 500
-                elseif vType == 'boat' then
-                    price *= 6000
-                elseif vType == 'heli' then
-                    price *= 90000
-                elseif vType == 'plane' then
-                    price *= 16000
-                elseif vType == 'quadbike' then
-                    price *= 600
-                elseif vType == 'train' then
-                    price *= 6000
-                elseif vType == 'submarinecar' then
-                    price *= 18000
-                elseif vType == 'submarine' then
-                    price *= 17200
-                elseif vType == 'blimp' then
-                    price *= 12000
-                elseif vType == 'trailer' then
-                    price *= 10000
-                end
+                price *= vehicleTypesPriceMutipliers[vType]
 
                 if IsThisModelAnAmphibiousCar(hash) then
                     data.type = 'amphibious_automobile'
