@@ -11,4 +11,4 @@ Ox = setmetatable({}, {
 })
 
 require 'imports.server.player'
-require 'imports.vehicle.player'
+require 'imports.server.vehicle'
