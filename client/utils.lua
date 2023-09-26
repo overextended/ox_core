@@ -21,7 +21,7 @@ function utils.entityStateHandler(keyFilter, cb, requireValue, setAsNil)
         local entity = GetEntityFromStateBagName(bagName)
 
         if entity == 0 then
-            return error(('%s received invalid entity! (%s)'):format(bagName, keyName))
+            return error(('%s received invalid entity! (%s)'):format(keyName, bagName))
         end
 
         if entity then
