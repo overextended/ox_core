@@ -62,11 +62,10 @@ RegisterNetEvent('ox:selectCharacter', function(data)
 
     if groups then
         for i = 1, #groups do
-            local name, grade in groups[i]
-            local group = Ox.GetGroup(name)
+            local group = Ox.GetGroup(groups[i].name)
 
             if group then
-                group:add(player, grade)
+                group:add(player, groups[i].grade)
             end
         end
     end
