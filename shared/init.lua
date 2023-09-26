@@ -1,4 +1,4 @@
-if not lib.checkDependency('ox_lib', '3.8.0', true) then return end
+if not lib.checkDependency('ox_lib', '3.10.0', true) then return end
 
 Ox = setmetatable({}, {
     __newindex = function(self, name, fn)
