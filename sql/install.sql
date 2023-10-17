@@ -90,6 +90,14 @@ VALUES
     b'0',
     6,
     NULL
+  ),
+  (
+    'dispatch',
+    'Police Dispatch',
+    '["Dispatch"]',
+    b'0',
+    1,
+    NULL
   );
 
 CREATE TABLE
