@@ -31,7 +31,8 @@ function GetExport(name)
         return exp
     end
 
-    if GetResourceState(name) ~= 'missing' then
+    local resourceState = GetResourceState(name) 
+    if resourceState ~= 'missing' and resourceState ~= 'stopped' then
         expCache[name] = exports[name]
         return expCache[name]
     end
