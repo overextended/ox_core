@@ -1,23 +1,10 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-
-/*!40101 SET NAMES utf8 */;
-
-/*!50503 SET NAMES utf8mb4 */;
-
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 CREATE DATABASE IF NOT EXISTS `overextended` DEFAULT CHARACTER
 SET
   utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE `overextended`;
 
-CREATE TABLE
-  IF NOT EXISTS `users` (
+CREATE TABLE `users` (
     `userId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(50) DEFAULT NULL,
     `license2` VARCHAR(50) DEFAULT NULL,
@@ -27,8 +14,7 @@ CREATE TABLE
     PRIMARY KEY (`userId`) USING BTREE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `characters` (
+CREATE TABLE `characters` (
     `charId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `userId` INT UNSIGNED NOT NULL,
     `stateId` VARCHAR(7) NOT NULL,
@@ -53,8 +39,7 @@ CREATE TABLE
     CONSTRAINT `FK_characters_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `character_inventory` (
+CREATE TABLE `character_inventory` (
     `charId` INT UNSIGNED NOT NULL,
     `inventory` LONGTEXT NULL DEFAULT NULL,
     PRIMARY KEY (`charId`),
@@ -62,8 +47,7 @@ CREATE TABLE
     CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `ox_groups` (
+CREATE TABLE `ox_groups` (
     `name` VARCHAR(20) NOT NULL,
     `label` VARCHAR(50) NOT NULL,
     `grades` LONGTEXT NOT NULL,
@@ -100,8 +84,7 @@ VALUES
     NULL
   );
 
-CREATE TABLE
-  IF NOT EXISTS `character_groups` (
+CREATE TABLE `character_groups` (
     `charId` INT UNSIGNED NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `grade` TINYINT UNSIGNED NOT NULL,
@@ -110,8 +93,7 @@ CREATE TABLE
     CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `ox_inventory` (
+CREATE TABLE `ox_inventory` (
     `owner` VARCHAR(60) DEFAULT NULL,
     `name` VARCHAR(60) NOT NULL,
     `data` LONGTEXT DEFAULT NULL,
@@ -119,8 +101,7 @@ CREATE TABLE
     UNIQUE KEY `owner` (`owner`, `name`)
   );
 
-CREATE TABLE
-  IF NOT EXISTS `vehicles` (
+CREATE TABLE `vehicles` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `plate` CHAR(8) NOT NULL DEFAULT '',
     `vin` CHAR(17) NOT NULL,
@@ -140,8 +121,7 @@ CREATE TABLE
     CONSTRAINT `FK_vehicles_groups` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `ox_statuses` (
+CREATE TABLE `ox_statuses` (
     `name` VARCHAR(20) NOT NULL,
     `default` TINYINT (3) UNSIGNED NOT NULL DEFAULT 0,
     `onTick` DECIMAL(4, 3) DEFAULT NULL
@@ -154,8 +134,7 @@ VALUES
   ('thirst', 0, 0.05),
   ('stress', 0, -0.10);
 
-CREATE TABLE
-  IF NOT EXISTS `character_licenses` (
+CREATE TABLE `character_licenses` (
     `charId` INT (10) UNSIGNED NOT NULL,
     `name` VARCHAR(20) DEFAULT NULL,
     `issued` DATE DEFAULT NULL,
@@ -164,8 +143,7 @@ CREATE TABLE
     CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `ox_licenses` (
+CREATE TABLE `ox_licenses` (
     `name` VARCHAR(20) NOT NULL,
     `label` VARCHAR(50) NOT NULL,
     UNIQUE INDEX `name` (`name`) USING BTREE
@@ -176,11 +154,3 @@ INSERT INTO
 VALUES
   ('weapon', 'Weapon License'),
   ('driver', "Driver's License");
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
