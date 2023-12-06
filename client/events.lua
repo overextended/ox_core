@@ -15,7 +15,7 @@ utils.entityStateHandler('initVehicle', function(key, entity, value)
 
     lib.waitFor(function()
         if not IsEntityWaitingForWorldCollision(entity) then return true end
-    end)
+    end, 'Impossible to load world collision')
 
     if NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
@@ -23,12 +23,18 @@ utils.entityStateHandler('initVehicle', function(key, entity, value)
 end, true, true)
 
 utils.entityStateHandler('vehicleProperties', function(key, entity, value)
+    lib.waitFor(function()
+        if DoesEntityExist(entity) then return true end
+    end, 'Entity does not exist', 2000)
     if NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
     lib.setVehicleProperties(entity, value)
 end)
 
 utils.entityStateHandler('lockStatus', function(key, entity, value)
+    lib.waitFor(function()
+        if DoesEntityExist(entity) then return true end
+    end, 'Entity does not exist', 500)
     if not value or NetworkGetEntityOwner(entity) ~= cache.playerId then return end
 
     SetVehicleDoorsLocked(entity, value)
