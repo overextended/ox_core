@@ -8,6 +8,19 @@ function utils.registerNetEvent(event, fn)
     end)
 end
 
+---@param bagName string
+---@param keyName string
+---@return integer?
+function utils.getEntityFromStateBagName(bagName, keyName)
+    local netId = tonumber(bagName:gsub('entity:', ''), 10)
+
+    lib.waitFor(function()
+        if NetworkDoesEntityExistWithNetworkId(netId) then return true end
+    end, ('%s received invalid entity! (%s)'):format(keyName, bagName), 10000)
+
+    return NetworkGetEntityFromNetworkId(netId)
+end
+
 ---@generic T
 ---@param keyFilter T
 ---@param cb fun(keyName: T, entity: number, value: any, bagName: string)

@@ -15,7 +15,7 @@ ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `lastname` `lastName` VARCHAR(5
 ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `dateofbirth` `dateOfBirth` DATE;
 ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `phone_number` `phoneNumber` VARCHAR(20);
 ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `last_played` `lastPlayed` DATE NOT NULL DEFAULT (curdate());
-ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `is_dead` `isDead` TINYINT NOT NULL DEFAULT 0;
+ALTER TABLE `characters` CHANGE COLUMN IF EXISTS `is_dead` `isDead` TINYINT(1) NOT NULL DEFAULT 0;
 ALTER TABLE `character_inventory` CHANGE COLUMN IF EXISTS `charid` `charId` INT UNSIGNED;
 ALTER TABLE `character_groups` CHANGE COLUMN IF EXISTS `charid` `charId` INT UNSIGNED;
 ALTER TABLE `character_licenses` CHANGE COLUMN IF EXISTS `charid` `charId` INT UNSIGNED;

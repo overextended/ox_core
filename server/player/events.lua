@@ -95,8 +95,9 @@ RegisterNetEvent('ox:selectCharacter', function(data)
         charId = player.charId,
         stateId = player.stateId,
         groups = player:getGroups(),
-    }, player:get('isDead') and 0 or cData.health, cData.armour, cData.gender)
+    }, cData.isDead and 0 or cData.health, cData.armour, cData.gender)
 
+    player:set('isDead', cData.isDead, true)
     player:set('dateOfBirth', cData.dateOfBirth, true)
     player:set('gender', cData.gender, true)
     player:set('phoneNumber', cData.phoneNumber, true)
