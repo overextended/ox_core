@@ -30,8 +30,14 @@ end
 function utils.entityStateHandler(keyFilter, cb, requireValue, setAsNil)
     return AddStateBagChangeHandler(keyFilter, '', function(bagName, keyName, value, reserved, replicated)
         if requireValue and not value then return end
+        Wait(100)
 
-        local entity = utils.getEntityFromStateBagName(bagName, keyName)
+        local entity = 0
+        for i = 1, 50 do
+            Wait(1)
+            entity = GetEntityFromStateBagName(bagName)
+            if entity ~= 0 then break end
+        end
 
         if entity == 0 then
             return error(('%s received invalid entity! (%s)'):format(keyName, bagName))
