@@ -1,0 +1,24 @@
+{
+  "ui": {
+    "confirm": "Kinnita",
+    "cancel": "Tühista",
+    "select": "Vali",
+    "delete": "Kustuta",
+    "firstname": "Eesnimi",
+    "lastname": "Perekonnanimi",
+    "gender": "Sugu",
+    "male": "Mees",
+    "female": "Naine",
+    "non_binary": "Muu",
+    "create_char": "Loo karakter",
+    "create_a_char": "Loo karakter",
+    "delete_character": "Kustuta karakter",
+    "delete_prompt": "Kas olete kindel, et soovita kustutada %s",
+    "irreversible_action": "See muudatus on igavene",
+    "char_location": "Asukoht",
+    "last_played": "Viimati mängitud",
+    "max_chars": "Maksimaalne karakterite arv on täis",
+    "spawn_locations": "Asukohad",
+    "select_character": "Vali karakter"
+  }
+}
