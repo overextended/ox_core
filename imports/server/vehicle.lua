@@ -32,8 +32,24 @@ function OxVehicle:getState()
     return Entity(self.entity).state
 end
 
-function OxVehicle:getCoords()
-    return GetEntityCoords(self.entity)
+function OxVehicle:getCoords(heading)
+    local coords = GetEntityCoords(self.entity)
+    if heading == true then
+        coords = vector4(coords.x, coords.y, coords.z, GetEntityHeading(self.entity))
+    end
+    return coords
+end
+
+function OxVehicle:setCoords(coords)
+    local coordsType = type(coords)
+    if coordsType ~= "vector3" or coordsType ~= "vector4" then
+        TypeError('coords', 'vector3', coordsType)
+    end
+
+    SetEntityCoords(self.entity, coords.x, coords.y, coords.z, false, false, false, false)
+    if coordsType == "vector4" then
+        SetEntityHeading(self.entity, coords.w)
+    end
 end
 
 function Ox.GetVehicle(vehicle)

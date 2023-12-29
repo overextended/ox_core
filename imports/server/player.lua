@@ -32,8 +32,24 @@ function OxPlayer:getState()
     return Player(self.source).state
 end
 
-function OxPlayer:getCoords()
-    return GetEntityCoords(self.ped)
+function OxPlayer:getCoords(heading)
+    local coords = GetEntityCoords(self.ped)
+    if heading == true then
+        coords = vector4(coords.x, coords.y, coords.z, GetEntityHeading(self.ped))
+    end
+    return coords
+end
+
+function OxPlayer:setCoords(coords)
+    local coordsType = type(coords)
+    if coordsType ~= "vector3" or coordsType ~= "vector4" then
+        TypeError('coords', 'vector3', coordsType)
+    end
+    
+    SetEntityCoords(self.ped, coords.x, coords.y, coords.z, false, false, false, false)
+    if coordsType == "vector4" then
+        SetEntityHeading(self.ped, coords.w)
+    end
 end
 
 function Ox.GetPlayer(playerId)

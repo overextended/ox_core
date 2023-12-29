@@ -65,8 +65,18 @@ export class OxVehicle implements IOxVehicle {
     return Entity(this.entity).state;
   }
 
-  getCoords() {
-    return GetEntityCoords(this.entity);
+  getCoords(heading?: boolean) {
+    const [x, y, z] = GetEntityCoords(this.entity, false);
+    return heading ? [...[x, y, z], GetEntityHeading(this.entity)] : [x, y, z];
+  }
+
+  setCoords(coords: number[]) {
+    const [x, y, z, heading] = coords;
+    SetEntityCoords(this.entity, x, y, z, false, false, false, false);
+
+    if (heading) {
+      SetEntityHeading(this.entity, heading);
+    }
   }
 
   set(index: string, value: any) {

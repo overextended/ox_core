@@ -52,8 +52,18 @@ export class OxPlayer implements IOxPlayer {
     return Player(this.source).state;
   }
 
-  getCoords() {
-    return GetEntityCoords(this.ped);
+  getCoords(heading?: boolean) {
+    const [x, y, z] = GetEntityCoords(this.ped, false);
+    return heading ? [...[x, y, z], GetEntityHeading(this.ped)] : [x, y, z];
+  }
+  
+  setCoords(coords: number[]) {
+    const [x, y, z, heading] = coords;
+    SetEntityCoords(this.ped, x, y, z, false, false, false, false);
+
+    if (heading) {
+      SetEntityHeading(this.ped, heading);
+    }
   }
 
   set(key: string, value: any, replicated?: boolean) {

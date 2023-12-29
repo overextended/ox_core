@@ -24,9 +24,10 @@ export class OxPlayer {
     return PlayerPedId();
   }
 
-  getCoords(update?: boolean) {
+  getCoords(update?: boolean, heading?: boolean) {
     if (update || !this.coords) {
-      this.coords = GetEntityCoords(PlayerPedId(), false);
+      const [x, y, z] = GetEntityCoords(this.getPed(), false);
+      this.coords = heading ? [...[x, y, z], GetEntityHeading(this.getPed())] : [x, y, z];
     }
 
     return this.coords;
