@@ -144,15 +144,13 @@ RegisterNetEvent('ox:playerDeath', function(state)
     end
 end)
 
-RegisterNetEvent('ox:setPlayerInService', function(job)
+RegisterNetEvent('ox:setPlayerInService', function(job, state)
     local player = Ox.GetPlayer(source)
-
     if player and player.charId then
-        if job and player:getGroup(job) then
+        if job and player:getGroup(job) and (state or state == nil) then
             return player:set('inService', job, true)
         end
 
         player:set('inService', false, true)
     end
 end)
-
