@@ -161,7 +161,8 @@ CREATE TABLE
     `issued` DATE DEFAULT NULL,
     UNIQUE KEY `name` (`name`, `charId`) USING BTREE,
     KEY `FK_character_licences_characters` (`charId`) USING BTREE,
-    CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `FK_character_licenses_ox_licenses` FOREIGN KEY (`name`) REFERENCES `ox_licenses` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
 CREATE TABLE
