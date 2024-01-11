@@ -11,12 +11,11 @@ import {
 import { isPlayerLoaded, playerData, setPlayerLoaded } from './';
 import { netEvent } from 'utils';
 
-async function StartSession() {
-  NetworkStartSoloTutorialSession();
+let playerIsHidden = true;
 
-  while (!IsScreenFadedOut()) {
-    DoScreenFadeOut(0);
-    await Sleep(0);
+async function StartSession() {
+  if (IsPlayerSwitchInProgress()) {
+    StopPlayerSwitch();
   }
 
   if (GetIsLoadingScreenActive()) {
@@ -24,18 +23,31 @@ async function StartSession() {
     ShutdownLoadingScreenNui();
   }
 
+  NetworkStartSoloTutorialSession();
+  DoScreenFadeOut(0);
   ShutdownLoadingScreen();
   SetPlayerControl(cache.playerId, false, 0);
   SetPlayerInvincible(cache.playerId, true);
+
+  while (!isPlayerLoaded()) {
+    DisableAllControlActions(0);
+    ThefeedHideThisFrame();
+    HideHudAndRadarThisFrame();
+
+    if (playerIsHidden) SetLocalPlayerInvisibleLocally(true);
+
+    await Sleep(0);
+  }
 }
 
-setImmediate(StartSession);
 emitNet('ox:playerJoined');
-
-let playerIsHidden = true;
+StartSession();
 
 async function StartCharacterSelect() {
-  await StartSession();
+  while (!IsScreenFadedOut()) {
+    DoScreenFadeOut(0);
+    await Sleep(0);
+  }
 
   SetEntityCoordsNoOffset(cache.ped, DEFAULT_SPAWN[0], DEFAULT_SPAWN[1], DEFAULT_SPAWN[2], true, true, false);
   StartPlayerTeleport(
@@ -72,15 +84,7 @@ async function StartCharacterSelect() {
 
   while (IsScreenFadedOut()) await Sleep(0);
 
-  while (!isPlayerLoaded()) {
-    DisableAllControlActions(0);
-    ThefeedHideThisFrame();
-    HideHudAndRadarThisFrame();
-
-    if (playerIsHidden) SetLocalPlayerInvisibleLocally(true);
-
-    await Sleep(0);
-  }
+  while (!isPlayerLoaded()) await Sleep(0);
 
   NetworkEndTutorialSession();
   SetPlayerControl(cache.playerId, true, 0);
@@ -255,12 +259,14 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
     DEV: console.info('Character is already loaded - resetting data');
     setPlayerLoaded(false);
     emit('ox:playerLogout');
-
-    playerIsHidden = true;
+    StartSession();
   }
 
+  playerIsHidden = true;
   StartCharacterSelect();
+
   await Sleep(300);
+
   CreateCharacterMenu(characters);
 });
 
@@ -271,18 +277,18 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number) =
     while (!IsScreenFadedOut()) await Sleep(0);
   }
 
-  setPlayerLoaded(true);
   playerIsHidden = false;
+
+  setPlayerLoaded(true);
+  emit('ox:playerLoaded', playerData, character.isNew);
 
   if (character.x) await SpawnPlayer(character.x, character.y, character.z, character.heading);
 
-  SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
-  SetPedArmour(cache.ped, character.armour ?? 0);
-
   DEV: console.info(`Loaded as ${character.firstName} ${character.lastName}`);
 
+  SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
+  SetPedArmour(cache.ped, character.armour ?? 0);
   emit('playerSpawned');
-  emit('ox:playerLoaded', playerData, character.isNew);
 
   // run status system
   // run death system
