@@ -62,7 +62,7 @@ on('ox:playerLogout', (playerId: number) => {
       }
 });
 
-on('onServerResourceStop', (resource: string) => {
+on('onResourceStop', (resource: string) => {
   if (resource !== 'ox_core') return;
 
   const players = OxPlayer.getAll();
