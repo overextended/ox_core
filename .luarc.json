@@ -1,3 +1,0 @@
-{
-  "workspace.ignoreDir": ["imports", "lib", "web", ".github", ".vscode", ".git"]
-}

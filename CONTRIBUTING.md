@@ -1,38 +1,28 @@
-# Contributing to Ox Core
-We want to make contributing to this project as easy and transparent as possible, whether it's:
+## Found a bug?
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
+- Check if the bug has already been reported under under [Issues](https://github.com/overextended/ox_core/issues).
+- If an **active** issue matches your own, provide additional information on the existing issue.
+- If there is no **open** issue related to the bug, create a new issue. Include a **descriptive title and clear description** with as much relevant information as possible, and include **code samples** or **reproduction steps**.
+- Use the relevant bug report template when creating an issue.
 
-## Submitting Pull Requests
-Pull requests are the best way to propose changes to the codebase.
+## Patched a bug?
 
-1. Fork the repo and create a new branch.
-2. If you've added code that should be tested, provide tests.
-3. If you've changed APIs, update the [documentation](https://github.com/overextended/overextended.github.io).
-4. Ensure your coding style is consistent with the project.
+- Open a new pull request including **only** the related changes.
+- Clearly describe the problem being fixed, and the solution. If the patch resolves any issues, mention them in the description.
 
-## Issues
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/overextended/ox_core/issues/new).
+## Want to share an improvement or add a new feature?
 
-## Write bug reports with detail, background, and sample code
-**Great Bug Reports** tend to have:
+- Create an issue discussing the change and wait for feedback.
+- If you've already worked on the change you can submit a **draft** pull request for feedback and review.
+- Not all features and changes are desired! Changes may be messy, poorly-planned, incomplete, or simply incompatible with our design philosophy.
 
-- A clear and concise description of the bug
-- Steps to reproduce
-  - Be specific
-  - Provide sample code
-  - If possible, code should not be dependent on a larger codebase
-- What you expected would happen (expected behaviour)
-- What actually happened
-- Additional context and notes (i.e. why you think this is occurring, things you've tried to solve the issue)
-- Screenshots or videos, where applicable
+## Is your change cosmetic (e.g. formatting)?
 
-## License
-By contributing, you agree that your contributions will be licensed under the [MIT](https://github.com/overextended/ox_core/blob/main/LICENSE) license.
+- We will not accept pull requests that do not make substantial changes to the stability or functionality of the resource.
 
-## References
-This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/main/CONTRIBUTING.md)
+## Submitting pull requests
+
+- Fork the repo and create a new branch.
+- If relevant, include example code to demonstrate your changes.
+- If you have modified or changed APIs, submit the changes to our [documentation](https://github.com/overextended/overextended.github.io).
+- Ensure your coding style is consistent with the project.

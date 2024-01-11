@@ -1,14 +1,4 @@
-local ox_core = exports.ox_core
+-- Temporary backwards compatibility, to be removed..
+if not lib then return end
 
-Ox = setmetatable({}, {
-    __index = function(self, index)
-        self[index] = function(...)
-            return ox_core[index](nil, ...)
-        end
-
-        return self[index]
-    end
-})
-
-require 'imports.server.player'
-require 'imports.server.vehicle'
+return require '@ox_core.lib.server.init'

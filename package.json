@@ -1,0 +1,24 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "you",
+  "license": "LGPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js --mode=production",
+    "watch": "node build.js"
+  },
+  "devDependencies": {
+    "@citizenfx/client": "2.0.7257-1",
+    "@citizenfx/server": "2.0.7257-1",
+    "@types/node": "^20.10.6",
+    "esbuild": "^0.19.11",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@overextended/ox_lib": "^3.14.1",
+    "mariadb": "^3.2.3"
+  }
+}

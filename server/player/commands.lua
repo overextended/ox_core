@@ -1,6 +1,0 @@
-RegisterCommand('logout', function(playerId)
-    CreateThread(function()
-        local player = Ox.GetPlayer(playerId)
-        return player and player:logout(false)
-    end)
-end, true)
