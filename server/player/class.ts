@@ -195,6 +195,7 @@ export class OxPlayer extends ClassInterface {
         data.date,
         phoneNumber
       ),
+      isNew: true,
     };
 
     this.#characters.push(character);
@@ -276,7 +277,7 @@ export class OxPlayer extends ClassInterface {
       emit('ox:deletedCharacter', this.source, this.userId, charId);
 
       DEV: console.info(
-        `deleteCharacter ${this.get('firstName')} ${this.get('lastName')} for OxPlayer<${this.userId}>`
+        `Deleted character ${this.charId} for OxPlayer<${this.userId}>`
       );
       return true;
     }

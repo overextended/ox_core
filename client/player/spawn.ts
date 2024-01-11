@@ -282,7 +282,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number) =
   DEV: console.info(`Loaded as ${character.firstName} ${character.lastName}`);
 
   emit('playerSpawned');
-  emit('ox:playerLoaded', playerData);
+  emit('ox:playerLoaded', playerData, character.isNew);
 
   // run status system
   // run death system

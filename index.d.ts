@@ -19,4 +19,5 @@ declare interface Character {
   lastPlayed?: string;
   health?: number;
   armour?: number;
+  isNew?: boolean;
 }
