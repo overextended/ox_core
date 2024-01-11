@@ -18,7 +18,7 @@ const client = {
 const production = process.argv.includes('--mode=production');
 const buildCmd = production ? esbuild.build : esbuild.context;
 const wordWrap = new RegExp(`.{1,65}\\s+|\\S+`, 'g');
-const copyright = readFileSync('README', { encoding: 'utf8' })
+const copyright = readFileSync('README.md', { encoding: 'utf8' })
   .replace(/[\s\S]*?## Copyright/, '')
   .match(wordWrap)
   .join('\n  * ')
