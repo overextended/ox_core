@@ -1,5 +1,5 @@
 import esbuild from 'esbuild';
-import { readFileSync } from 'fs';
+import { readFile, readFileSync, writeFileSync } from 'fs';
 
 /** @type {import('esbuild').BuildOptions} */
 const server = {
@@ -18,6 +18,7 @@ const client = {
 const production = process.argv.includes('--mode=production');
 const buildCmd = production ? esbuild.build : esbuild.context;
 const wordWrap = new RegExp(`.{1,65}\\s+|\\S+`, 'g');
+const packageJson = JSON.parse(readFileSync('package.json', { encoding: 'utf8' }));
 const copyright = readFileSync('README.md', { encoding: 'utf8' })
   .replace(/[\s\S]*?## Copyright/, '')
   .match(wordWrap)
@@ -25,6 +26,35 @@ const copyright = readFileSync('README.md', { encoding: 'utf8' })
   .replace(/\n{2,}/g, '\n');
 
 console.log(copyright.split('\n')[0]);
+
+writeFileSync(
+  'fxmanifest.lua',
+  `fx_version 'cerulean'
+game 'gta5'
+
+name '${packageJson.name}'
+author '${packageJson.author}'
+version '${packageJson.version}'
+license '${packageJson.license}'
+repository '${packageJson.repository.url}'
+description '${packageJson.description}'
+
+dependencies {
+    '/server:7290',
+    '/onesync',
+}
+
+files {
+    'lib/init.lua',
+    'lib/client/**.lua',
+    'imports/client.lua',
+}
+
+client_script 'dist/client.js'
+server_script 'dist/server.js'
+
+`
+);
 
 for (const context of ['client', 'server']) {
   buildCmd({
