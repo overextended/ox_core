@@ -41,7 +41,7 @@ async function StartSession() {
 }
 
 emitNet('ox:playerJoined');
-StartSession();
+setImmediate(StartSession);
 
 async function StartCharacterSelect() {
   while (!IsScreenFadedOut()) {
@@ -265,7 +265,7 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
   playerIsHidden = true;
   StartCharacterSelect();
 
-  await Sleep(300);
+  while (IsScreenFadedOut()) await Sleep(0);
 
   CreateCharacterMenu(characters);
 });
