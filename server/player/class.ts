@@ -132,7 +132,8 @@ export class OxPlayer extends ClassInterface {
     }
 
     DEV: console.info(`Saving ${parameters.length} players to the database.`);
-    SaveCharacterData(parameters, true);
+
+    if (parameters.length > 0) SaveCharacterData(parameters, true);
   }
 
   save() {
@@ -276,9 +277,7 @@ export class OxPlayer extends ClassInterface {
       this.#characters.splice(slot, 1);
       emit('ox:deletedCharacter', this.source, this.userId, charId);
 
-      DEV: console.info(
-        `Deleted character ${this.charId} for OxPlayer<${this.userId}>`
-      );
+      DEV: console.info(`Deleted character ${this.charId} for OxPlayer<${this.userId}>`);
       return true;
     }
   }
