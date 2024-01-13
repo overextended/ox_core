@@ -290,7 +290,4 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number) =
   SetPedArmour(cache.ped, character.armour ?? 0);
   emit('playerSpawned');
   emit('ox:playerLoaded', playerData, character.isNew);
-
-  // run status system
-  // run death system
 });

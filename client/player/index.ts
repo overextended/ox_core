@@ -40,3 +40,5 @@ netEvent('ox:setPlayerData', (key: string, value: any) => {
 netEvent('ox:setGroup', (name: string, grade: number) => {
   groups[name] = grade;
 });
+
+import './death';
