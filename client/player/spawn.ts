@@ -8,7 +8,7 @@ import {
   triggerServerCallback,
   cache,
 } from '@overextended/ox_lib/client';
-import { isPlayerLoaded, playerData, setPlayerLoaded } from './';
+import { playerIsLoaded, playerData, setPlayerLoaded } from './';
 import { netEvent } from 'utils';
 
 let playerIsHidden = true;
@@ -29,7 +29,7 @@ async function StartSession() {
   SetPlayerControl(cache.playerId, false, 0);
   SetPlayerInvincible(cache.playerId, true);
 
-  while (!isPlayerLoaded()) {
+  while (!playerIsLoaded || playerIsHidden) {
     DisableAllControlActions(0);
     ThefeedHideThisFrame();
     HideHudAndRadarThisFrame();
@@ -38,6 +38,13 @@ async function StartSession() {
 
     await Sleep(0);
   }
+
+  NetworkEndTutorialSession();
+  SetPlayerControl(cache.playerId, true, 0);
+  SetPlayerInvincible(cache.playerId, false);
+  SetMaxWantedLevel(0);
+  NetworkSetFriendlyFireOption(true);
+  SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0);
 }
 
 emitNet('ox:playerJoined');
@@ -84,16 +91,10 @@ async function StartCharacterSelect() {
 
   while (IsScreenFadedOut()) await Sleep(0);
 
-  while (!isPlayerLoaded()) await Sleep(0);
+  while (!playerIsLoaded) await Sleep(0);
 
-  NetworkEndTutorialSession();
-  SetPlayerControl(cache.playerId, true, 0);
-  SetPlayerInvincible(cache.playerId, false);
   RenderScriptCams(false, false, 0, true, true);
   DestroyCam(cam, false);
-  SetMaxWantedLevel(0);
-  NetworkSetFriendlyFireOption(true);
-  SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0);
 }
 
 async function SpawnPlayer(x: number, y: number, z: number, heading: number) {
@@ -104,7 +105,6 @@ async function SpawnPlayer(x: number, y: number, z: number, heading: number) {
   SetEntityCoordsNoOffset(cache.ped, x, y, z, false, false, false);
   SetEntityHeading(cache.ped, heading);
   RequestCollisionAtCoord(x, y, z);
-  FreezeEntityPosition(cache.ped, true);
   DoScreenFadeIn(200);
   SwitchInPlayer(cache.ped);
   SetGameplayCamRelativeHeading(0);
@@ -112,8 +112,6 @@ async function SpawnPlayer(x: number, y: number, z: number, heading: number) {
   while (GetPlayerSwitchState() !== 12) await Sleep(0);
 
   while (!HasCollisionLoadedAroundEntity(cache.ped)) await Sleep(0);
-
-  FreezeEntityPosition(cache.ped, false);
 }
 
 function CreateCharacterMenu(characters: Character[]) {
@@ -255,7 +253,7 @@ function CreateCharacterMenu(characters: Character[]) {
 }
 
 netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
-  if (isPlayerLoaded()) {
+  if (playerIsLoaded) {
     DEV: console.info('Character is already loaded - resetting data');
     setPlayerLoaded(false);
     emit('ox:playerLogout');
@@ -271,6 +269,10 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
 });
 
 netEvent('ox:setActiveCharacter', async (character: Character, userId: number) => {
+  playerData.userId = userId;
+  playerData.charId = character.charId;
+  playerData.stateId = character.stateId;
+
   if (character.x) {
     DoScreenFadeOut(300);
 
@@ -278,9 +280,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number) =
   }
 
   playerIsHidden = false;
-
   setPlayerLoaded(true);
-  emit('ox:playerLoaded', playerData, character.isNew);
 
   if (character.x) await SpawnPlayer(character.x, character.y, character.z, character.heading);
 
@@ -289,6 +289,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number) =
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
   SetPedArmour(cache.ped, character.armour ?? 0);
   emit('playerSpawned');
+  emit('ox:playerLoaded', playerData, character.isNew);
 
   // run status system
   // run death system

@@ -1,10 +1,8 @@
 import { netEvent } from 'utils';
 
-let playerIsLoaded = false;
+export let playerIsLoaded = false;
 
-export function isPlayerLoaded() {
-  return playerIsLoaded;
-}
+export const playerState = LocalPlayer.state;
 
 export function setPlayerLoaded(state: boolean) {
   playerIsLoaded = state;
@@ -14,7 +12,7 @@ export const playerData: Dict<any> = {};
 export const playerMetadata: Dict<any> = {};
 export const groups: Dict<number> = {};
 
-exports('isPlayerLoaded', isPlayerLoaded);
+exports('isPlayerLoaded', () => playerIsLoaded);
 
 exports('getPlayerData', (key?: string) => {
   if (!key) return playerData;
@@ -37,14 +35,6 @@ netEvent('ox:setPlayerData', (key: string, value: any) => {
 
   playerMetadata[key] = value;
   emit(`ox:player:${key}`, value);
-});
-
-netEvent('ox:setActiveCharacter', (character: Character, userId: number) => {
-  if (playerData.charId) return;
-
-  playerData.userId = userId;
-  playerData.charId = character.charId;
-  playerData.stateId = character.stateId;
 });
 
 netEvent('ox:setGroup', (name: string, grade: number) => {
