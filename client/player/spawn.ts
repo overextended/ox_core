@@ -7,9 +7,14 @@ import {
   showContext,
   triggerServerCallback,
   cache,
+  initLocale,
 } from '@overextended/ox_lib/client';
 import { playerIsLoaded, playerData, setPlayerLoaded } from './';
 import { netEvent } from 'utils';
+import locale from '../../locales';
+
+// remove this :(
+initLocale();
 
 let playerIsHidden = true;
 
@@ -132,11 +137,11 @@ function CreateCharacterMenu(characters: Character[]) {
 
   if (characters.length < CHARACTER_SLOTS) {
     options.push({
-      title: `Empty slot`,
-      description: `Create a new character`,
+      title: locale('empty_slot'),
+      description: locale('create_character'),
       onSelect: async () => {
         const input = await inputDialog(
-          'Create a character',
+          locale('create_character'),
           [
             {
               type: 'input',
@@ -203,14 +208,14 @@ function CreateCharacterMenu(characters: Character[]) {
   }
 
   options.push({
-    title: `Delete a character`,
+    title: locale('delete_character'),
     onSelect: async () => {
       const input = await inputDialog(
-        'Delete a character',
+        locale('delete_character'),
         [
           {
             type: 'select',
-            label: 'Select a character',
+            label: locale('select_character'),
             required: true,
             options: characters.map((character, index) => {
               return { label: `${character.firstName} ${character.lastName}`, value: index.toString() };
@@ -224,8 +229,8 @@ function CreateCharacterMenu(characters: Character[]) {
 
       const character = characters[input[0] as number];
       const deleteChar = await alertDialog({
-        header: 'Delete character',
-        content: `Are you sure you want to delete ${character.firstName} ${character.lastName}?  \nThis action is irreversible.`,
+        header: locale('delete_character_title'),
+        content: locale('delete_character_confirm'),
         cancel: true,
       });
 
@@ -244,7 +249,7 @@ function CreateCharacterMenu(characters: Character[]) {
 
   registerContext({
     id: 'ox:characterSelect',
-    title: 'Character Selection',
+    title: locale('select_character_title'),
     canClose: false,
     options: options,
   });

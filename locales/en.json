@@ -1,0 +1,9 @@
+{
+  "empty_slot": "Empty slot",
+  "create_character": "Create a new character",
+  "select_character_title": "Character Selection",
+  "delete_character_title": "Delete Character",
+  "select_character": "Select a character",
+  "delete_character": "Delete a character",
+  "delete_character_confirm": "Are you sure you want to delete %s %s?  \nThis action is irreversible."
+}
