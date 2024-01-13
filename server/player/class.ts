@@ -133,7 +133,10 @@ export class OxPlayer extends ClassInterface {
 
     DEV: console.info(`Saving ${parameters.length} players to the database.`);
 
-    if (parameters.length > 0) SaveCharacterData(parameters, true);
+    if (parameters.length > 0) {
+      SaveCharacterData(parameters, true);
+      emit('ox:savedPlayers', parameters.length);
+    }
   }
 
   save() {
