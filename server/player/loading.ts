@@ -1,6 +1,7 @@
 import { OxPlayer } from 'player/class';
 import { CreateUser, GetUserIdFromIdentifier } from './db';
 import { GetIdentifiers } from 'utils';
+import { DEBUG, PRIMARY_IDENTIFIER, SV_LAN } from '../config';
 
 const connectingPlayers: Dict<OxPlayer> = {};
 
@@ -8,10 +9,10 @@ const connectingPlayers: Dict<OxPlayer> = {};
 async function loadPlayer(playerId: number) {
   const player = new OxPlayer(playerId);
 
-  const primaryIdentifier = GetPlayerIdentifierByType(player.source as string, 'license2');
+  const primaryIdentifier = SV_LAN ? 'fayoum' : GetPlayerIdentifierByType(player.source as string, PRIMARY_IDENTIFIER);
 
   if (!primaryIdentifier) {
-    return `unable to determine 'license2' identifier.`;
+    return `unable to determine '${PRIMARY_IDENTIFIER}' identifier.`;
   }
 
   const identifier = primaryIdentifier.substring(primaryIdentifier.indexOf(':') + 1);
@@ -19,20 +20,20 @@ async function loadPlayer(playerId: number) {
   let userId = await GetUserIdFromIdentifier(identifier);
 
   if (userId && OxPlayer.getFromUserId(userId)) {
-    if (userId) {
-      return `userId '${userId}' is already active.`;
-    }
+    const kickReason = `userId '${userId}' is already active.`;
+
+    if (!DEBUG) return kickReason;
 
     userId = await GetUserIdFromIdentifier(identifier, 1);
 
-    if (userId && OxPlayer.getFromUserId(userId)) {
-      return `userId '${userId}' is already active.`;
-    }
+    if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
   }
 
   player.username = GetPlayerName(player.source as string);
   player.userId = userId ? Number(userId) : await CreateUser(player.username, GetIdentifiers(playerId));
   player.identifier = identifier;
+
+  if (!OxPlayer.add(playerId, player)) return;
 
   DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
 

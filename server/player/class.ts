@@ -145,8 +145,11 @@ export class OxPlayer extends ClassInterface {
 
   /** Adds a player to the player registry. */
   async setAsJoined(newId?: number | string) {
-    if (newId) this.source = Number(newId);
-    if (!OxPlayer.add(this.source, this)) return;
+    if (newId) {
+      delete OxPlayer.members[this.source];
+      this.source = Number(newId);
+      OxPlayer.members[this.source] = this;
+    }
 
     Player(this.source).state.set('userId', this.userId, true);
     emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
