@@ -21,8 +21,8 @@
   },
   "bugs": "https://github.com/overextended/ox_core/issues",
   "devDependencies": {
-    "@citizenfx/client": "2.0.7257-1",
-    "@citizenfx/server": "2.0.7257-1",
+    "@citizenfx/client": "latest",
+    "@citizenfx/server": "latest",
     "@types/node": "^20.10.6",
     "esbuild": "^0.19.11",
     "prettier": "^3.1.1",

@@ -1,6 +1,5 @@
-import { locale } from '@overextended/ox_lib/shared';
+import { locale, FlattenObjectKeys } from '@overextended/ox_lib';
 
-type Locales = typeof import('../locales/en.json');
+type Locales = FlattenObjectKeys<typeof import('../locales/en.json')>;
 
-//@ts-expect-error
-export default (str: keyof Locales, ...args: any[]): string => locale(str, ...args);
+export default <T extends Locales>(str: T, ...args: any[]) => locale(str, ...args);

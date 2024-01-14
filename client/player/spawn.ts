@@ -7,14 +7,10 @@ import {
   showContext,
   triggerServerCallback,
   cache,
-  initLocale,
 } from '@overextended/ox_lib/client';
 import { playerIsLoaded, playerData, setPlayerLoaded } from './';
 import { netEvent } from 'utils';
 import locale from '../../locales';
-
-// remove this :(
-initLocale();
 
 let playerIsHidden = true;
 

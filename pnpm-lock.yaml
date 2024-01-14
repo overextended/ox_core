@@ -14,11 +14,11 @@ dependencies:
 
 devDependencies:
   '@citizenfx/client':
-    specifier: 2.0.7257-1
-    version: 2.0.7257-1
+    specifier: latest
+    version: 2.0.7310-1
   '@citizenfx/server':
-    specifier: 2.0.7257-1
-    version: 2.0.7257-1
+    specifier: latest
+    version: 2.0.7310-1
   '@types/node':
     specifier: ^20.10.6
     version: 20.10.7
@@ -84,12 +84,12 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
-  /@citizenfx/client@2.0.7257-1:
-    resolution: {integrity: sha512-PbH/mySi6bwnFNyVVpCZoD+5+16vMNc8QNcKwnokvHdnUPbv4jWxuAlCbScARE4cGSGhRaIj7RdJkbQnhwimaQ==}
+  /@citizenfx/client@2.0.7310-1:
+    resolution: {integrity: sha512-qWbWZtBVILF1D4iI80t86kfU+eHI7M9AtgT2Bdf9zKhLFZViSaHDI+9F36ICnTom6tKIZ6EN9udp65bDyUY6Gg==}
     dev: true
 
-  /@citizenfx/server@2.0.7257-1:
-    resolution: {integrity: sha512-onrLFVloLYDyKQ2bCDzw+kdRPflIqm8K6dPD+SJKjTkalrsEWqUdKFqIsRNz1vA9S5cQQjtKgBNcXy4fI/5PTQ==}
+  /@citizenfx/server@2.0.7310-1:
+    resolution: {integrity: sha512-qKTqsYD6woJT/imEnEViWyc1aY5D7qfZQL+h2m+yxeaQWhae6CtLigxetV5MpaEnfhVbP1BRtzGC0tgJqGcIaw==}
     dev: true
 
   /@emotion/babel-plugin@11.11.0:
