@@ -243,7 +243,7 @@ export class OxPlayer extends ClassInterface {
       character.charId
     );
 
-    character.health = isDead ? 0 : health;
+    character.health = isDead ? 0 : health || null;
     character.armour = armour;
 
     this.charId = character.charId;
@@ -273,7 +273,7 @@ export class OxPlayer extends ClassInterface {
      * https://github.com/citizenfx/fivem/pull/2257 - state bag write policies
      */
     const state = Player(this.source).state;
-    state.set('isDead', isDead, true);
+    state.set('isDead', isDead ?? false, true);
 
     DEV: console.info(
       `OxPlayer<${this.userId}> loaded character ${this.get('firstName')} ${this.get('lastName')} (${this.charId})`

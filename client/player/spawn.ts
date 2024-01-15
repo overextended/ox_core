@@ -13,6 +13,7 @@ import { netEvent } from 'utils';
 import locale from '../../locales';
 
 let playerIsHidden = true;
+let camActive = false;
 
 async function StartSession() {
   if (IsPlayerSwitchInProgress()) {
@@ -71,6 +72,7 @@ async function StartCharacterSelect() {
 
   while (!UpdatePlayerTeleport(cache.playerId)) await Sleep(0);
 
+  camActive = true;
   const camOffset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2);
   const cam = CreateCameraWithParams(
     'DEFAULT_SCRIPTED_CAMERA',
@@ -90,9 +92,7 @@ async function StartCharacterSelect() {
   PointCamAtCoord(cam, DEFAULT_SPAWN[0], DEFAULT_SPAWN[1], DEFAULT_SPAWN[2] + 0.1);
   DoScreenFadeIn(200);
 
-  while (IsScreenFadedOut()) await Sleep(0);
-
-  while (!playerIsLoaded) await Sleep(0);
+  while (camActive) await Sleep(0);
 
   RenderScriptCams(false, false, 0, true, true);
   DestroyCam(cam, false);
@@ -224,12 +224,12 @@ function CreateCharacterMenu(characters: Character[]) {
 
         if (!input) return showContext('ox:characterSelect');
 
-        const character = characters[input[0] as number];
-        const deleteChar = await alertDialog({
-          header: locale('delete_character_title'),
-          content: locale('delete_character_confirm', character.firstName, character.lastName),
-          cancel: true,
-        });
+      const character = characters[input[0] as number];
+      const deleteChar = await alertDialog({
+        header: locale('delete_character_title'),
+        content: locale('delete_character_confirm', character.firstName, character.lastName),
+        cancel: true,
+      });
 
         if (deleteChar === 'confirm') {
           const success = <boolean>await triggerServerCallback('ox:deleteCharacter', 0, character.charId);
@@ -274,21 +274,29 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
 netEvent('ox:setActiveCharacter', async (character: Character, userId: number, groups: Record<string, number>) => {
   SetPlayerData(userId, character.charId, character.stateId, groups);
 
-  if (character.x) {
+  if (!character.isNew) {
     DoScreenFadeOut(300);
 
     while (!IsScreenFadedOut()) await Sleep(0);
   }
 
+  camActive = false;
   playerIsHidden = false;
-  SetPlayerLoaded(true);
 
-  if (character.x) await SpawnPlayer(character.x, character.y, character.z, character.heading);
+  if (character.x) {
+    await SpawnPlayer(character.x, character.y, character.z, character.heading);
+  } else {
+    DoScreenFadeIn(200);
 
-  DEV: console.info(`Loaded as ${character.firstName} ${character.lastName}`);
+    while (!IsScreenFadedIn()) await Sleep(0);
+  }
 
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
   SetPedArmour(cache.ped, character.armour ?? 0);
+
+  DEV: console.info(`Loaded as ${character.firstName} ${character.lastName}`);
+
+  SetPlayerLoaded(true);
   emit('playerSpawned');
   emit('ox:playerLoaded', playerData, character.isNew);
 });
