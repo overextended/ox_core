@@ -8,6 +8,7 @@ import {
   SaveCharacterData,
 } from './db';
 import { GetRandomChar, GetRandomInt } from '../../common';
+import { OxGroup } from 'groups';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -21,6 +22,7 @@ export class OxPlayer extends ClassInterface {
   #inScope: Dict<true> = {};
   #metadata: Dict<any>;
   #statuses: Dict<any>;
+  #groups: Dict<number>;
 
   protected static members: Dict<OxPlayer> = {};
   protected static keys: Dict<Dict<OxPlayer>> = {
@@ -47,6 +49,7 @@ export class OxPlayer extends ClassInterface {
     this.source = source;
     this.#characters = [];
     this.#inScope = {};
+    this.#groups = {};
   }
 
   emit(eventName: string, ...args: any[]) {
@@ -79,11 +82,17 @@ export class OxPlayer extends ClassInterface {
     }
   }
 
-  setGroup(groupName: string, grade?: number) {}
+  setGroup(groupName: string, grade?: number) {
+    OxGroup.get(groupName).setPlayerGrade(this, grade);
+  }
 
-  getGroup(groupName: string) {}
+  getGroup(groupName: string) {
+    return this.#groups[groupName];
+  }
 
-  getGroups(filter?: string | string[] | Dict<number>) {}
+  getGroups(filter?: string | string[] | Dict<number>) {
+    return this.#groups;
+  }
 
   setStatus() {}
 
@@ -240,11 +249,12 @@ export class OxPlayer extends ClassInterface {
     this.#metadata = {};
     this.#statuses = statuses || {};
 
-    // setup groups
+    await OxGroup.loadPlayerGroups(this);
+
     // setup licenses
     // setup accounts
 
-    this.emit('ox:setActiveCharacter', character, this.userId);
+    this.emit('ox:setActiveCharacter', character, this.userId, this.#groups);
 
     // Values stored in metadata and synced to client.
     this.set('firstName', character.firstName, true);
