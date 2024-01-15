@@ -3,13 +3,13 @@ import { Sleep } from '../../common';
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
 
-export interface MySqlRow<T = string | number | boolean | bigint | Dict<any> | void> {
+export interface MySqlRow<T = string | number | boolean | Dict<any> | void> {
   [column: string]: T;
 }
 
 export interface OkPacket {
   affectedRows: number;
-  insertId: number | bigint;
+  insertId: number;
   warningStatus: any;
 }
 
@@ -86,6 +86,7 @@ const connectionConfig: PoolConfig = (() => {
     connectionLimit: true,
     multipleStatements: true,
     dateStrings: true,
+    insertIdAsNumber: true
   };
 })();
 

@@ -18,7 +18,7 @@ export async function CreateUser(username: string, identifiers: Dict<string>) {
     [username, identifiers.license2, identifiers.steam, identifiers.fivem, identifiers.discord]
   );
 
-  return Number(resp.insertId);
+  return resp.insertId;
 }
 
 export async function IsStateIdAvailable(stateId: string) {
@@ -38,14 +38,12 @@ export async function CreateCharacter(
   phoneNumber?: number
 ) {
   using conn = await db.getConnection();
-  const resp: OkPacket = await conn.execute(
-    'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?), ?)',
-    [userId, stateId, firstName, lastName, gender, date / 1000, phoneNumber]
-  );
-  const charId = Number(resp.insertId);
-  await conn.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
-
-  return charId;
+  return (
+    await conn.execute<OkPacket>(
+      'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?), ?)',
+      [userId, stateId, firstName, lastName, gender, date / 1000, phoneNumber]
+    )
+  ).insertId;
 }
 
 export async function GetCharacters(userId: number) {

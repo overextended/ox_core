@@ -30,7 +30,7 @@ async function loadPlayer(playerId: number) {
   }
 
   player.username = GetPlayerName(player.source as string);
-  player.userId = userId ? Number(userId) : await CreateUser(player.username, GetIdentifiers(playerId));
+  player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
   player.identifier = identifier;
 
   if (!OxPlayer.add(playerId, player)) return;

@@ -156,7 +156,7 @@ export class OxPlayer extends ClassInterface {
   async setAsJoined(newId?: number | string) {
     if (newId) {
       delete OxPlayer.members[this.source];
-      this.source = Number(newId);
+      this.source = +newId;
       OxPlayer.members[this.source] = this;
     }
 
