@@ -114,8 +114,10 @@ async function OnPlayerDeath() {
   SetEveryoneIgnorePlayer(cache.playerId, true);
 }
 
-setInterval(() => {
-  if (!playerIsLoaded) return;
+on('ox:playerLoaded', () => {
+  const id: CitizenTimer = setInterval(() => {
+    if (!playerIsLoaded) return clearInterval(id);
 
-  if (!playerIsDead && IsPedDeadOrDying(cache.ped, true)) OnPlayerDeath();
-}, 200);
+    if (!playerIsDead && IsPedDeadOrDying(cache.ped, true)) OnPlayerDeath();
+  }, 200);
+});
