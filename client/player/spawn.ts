@@ -203,45 +203,47 @@ function CreateCharacterMenu(characters: Character[]) {
     });
   }
 
-  options.push({
-    title: locale('delete_character'),
-    onSelect: async () => {
-      const input = await inputDialog(
-        locale('delete_character'),
-        [
-          {
-            type: 'select',
-            label: locale('select_character'),
-            required: true,
-            options: characters.map((character, index) => {
-              return { label: `${character.firstName} ${character.lastName}`, value: index.toString() };
-            }),
-          },
-        ],
-        { allowCancel: true }
-      );
+  if (characters.length > 0) {
+    options.push({
+      title: locale('delete_character'),
+      onSelect: async () => {
+        const input = await inputDialog(
+          locale('delete_character'),
+          [
+            {
+              type: 'select',
+              label: locale('select_character'),
+              required: true,
+              options: characters.map((character, index) => {
+                return { label: `${character.firstName} ${character.lastName}`, value: index.toString() };
+              }),
+            },
+          ],
+          { allowCancel: true }
+        );
 
-      if (!input) return showContext('ox:characterSelect');
+        if (!input) return showContext('ox:characterSelect');
 
-      const character = characters[input[0] as number];
-      const deleteChar = await alertDialog({
-        header: locale('delete_character_title'),
-        content: locale('delete_character_confirm'),
-        cancel: true,
-      });
+        const character = characters[input[0] as number];
+        const deleteChar = await alertDialog({
+          header: locale('delete_character_title'),
+          content: locale('delete_character_confirm', character.firstName, character.lastName),
+          cancel: true,
+        });
 
-      if (deleteChar === 'confirm') {
-        const success = <boolean>await triggerServerCallback('ox:deleteCharacter', 0, character.charId);
+        if (deleteChar === 'confirm') {
+          const success = <boolean>await triggerServerCallback('ox:deleteCharacter', 0, character.charId);
 
-        if (success) {
-          characters.splice(input[0] as number, 1);
-          return CreateCharacterMenu(characters);
+          if (success) {
+            characters.splice(input[0] as number, 1);
+            return CreateCharacterMenu(characters);
+          }
         }
-      }
 
-      showContext('ox:characterSelect');
-    },
-  });
+        showContext('ox:characterSelect');
+      },
+    });
+  }
 
   registerContext({
     id: 'ox:characterSelect',
