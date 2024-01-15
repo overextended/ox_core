@@ -30,10 +30,6 @@ on('ox:playerLoaded', (data: Dict<any>) => {
   if (playerData.charId) return;
 
   for (const key in data) player[key] = data[key];
-
-  DEV: {
-    console.log(playerData, player.charId);
-  }
 });
 
 on('ox:playerLogout', () => {
