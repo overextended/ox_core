@@ -1,4 +1,4 @@
-import { OnPlayerLoaded } from '../player';
+import { OnPlayerLoaded } from '../player/events';
 
 SetConvarReplicated('inventory:framework', 'ox');
 SetConvarReplicated('inventory:trimplate ', 'false');

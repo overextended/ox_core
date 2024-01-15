@@ -1,4 +1,4 @@
-import { OnPlayerLoaded, OnPlayerLogout } from '../player';
+import { OnPlayerLoaded, OnPlayerLogout } from '../player/events';
 
 SetConvar('npwd:useResourceIntegration', 'true');
 SetConvar(
