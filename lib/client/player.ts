@@ -1,4 +1,4 @@
-const playerData = exports.ox_core.getPlayerData();
+const playerData = GetResourceState('ox_core') === 'started' ? exports.ox_core.GetPlayerData() : {};
 playerData.toString = () => JSON.stringify(playerData, null, 2);
 
 const player = new Proxy(playerData, {
@@ -13,7 +13,7 @@ const player = new Proxy(playerData, {
       if (GetInvokingResource() == 'ox_core' && (source as any) === '') target[key] = data;
     });
 
-    const value = exports.ox_core.getPlayerData(key) || null;
+    const value = exports.ox_core.GetPlayerData(key) || null;
     target[key] = value;
 
     return value;

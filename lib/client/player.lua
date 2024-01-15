@@ -1,4 +1,4 @@
-local playerData = exports.ox_core:getPlayerData()
+local playerData = GetResourceState('ox_core') == 'started' and exports.ox_core:GetPlayerData() or {}
 local player = {}
 local playerEvents = {}
 local groups = {}
@@ -23,7 +23,7 @@ function player:__index(index)
         playerEvents[index] = true
     end
 
-    value = exports.ox_core:getPlayerData(index)
+    value = exports.ox_core:GetPlayerData(index)
     self[index] = value
 
     return value

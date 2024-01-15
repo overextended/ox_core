@@ -27,7 +27,7 @@ function PlayerInterface:__index(index)
 end
 
 function PlayerInterface:__call(...)
-    return exports.ox_core:callOxPlayer(self.source, ...)
+    return exports.ox_core:CallPlayer(self.source, ...)
 end
 
 function PlayerInterface:__tostring()
@@ -35,7 +35,7 @@ function PlayerInterface:__tostring()
         self.userId, self.identifier, self.username)
 end
 
-for method in pairs(exports.ox_core.getOxPlayerCalls() or {}) do
+for method in pairs(exports.ox_core:GetPlayerCalls() or {}) do
     PlayerInterface[method] = PlayerInterface.__call
 end
 
@@ -45,7 +45,7 @@ end
 
 ---@param id string | number
 function Ox.GetPlayer(id)
-    local player = exports.ox_core:getOxPlayer(id)
+    local player = exports.ox_core:GetPlayer(id)
 
     if not player then return warn(string.format('cannot create PlayerInterface<%s> (invalid id)', id)); end
 

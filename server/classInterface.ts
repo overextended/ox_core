@@ -15,24 +15,25 @@ export class ClassInterface {
     }
 
     const name = this.name;
+    const expName = this.name.replace('Ox', '');
 
-    // e.g. exports.ox_core.getOxPlayer
-    exports(`get${name}`, (id: string) => {
+    // e.g. exports.ox_core.GetPlayer
+    exports(`Get${expName}`, (id: string) => {
       return this.members[id];
     });
 
-    // e.g. exports.ox_core.getOxPlayers
-    exports(`get${name}s`, () => {
+    // e.g. exports.ox_core.GetPlayers
+    exports(`Get${expName}s`, () => {
       return this.members;
     });
 
-    // e.g. exports.ox_core.getOxPlayerCalls
-    exports(`get${name}Calls`, () => {
+    // e.g. exports.ox_core.GetPlayerCalls
+    exports(`Get${expName}Calls`, () => {
       return this.callableMethods;
     });
 
-    // e.g. exports.ox_core.callOxPlayer
-    exports(`call${name}`, (id: string | number, method: string, ...args: any[]) => {
+    // e.g. exports.ox_core.CallPlayer
+    exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
       const member = this.members[id];
 
       if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid player)`);

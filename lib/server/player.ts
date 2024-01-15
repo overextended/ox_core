@@ -16,9 +16,9 @@ class PlayerInterface {
   }
 }
 
-Object.keys(exports.ox_core.getOxPlayerCalls() || {}).forEach((method: string) => {
+Object.keys(exports.ox_core.GetPlayerCalls()).forEach((method: string) => {
   (PlayerInterface.prototype as any)[method] = function (...args: any[]) {
-    return exports.ox_core.callOxPlayer(this.source, method, ...args);
+    return exports.ox_corse.CallPlayer(this.source, method, ...args);
   };
 });
 
@@ -27,7 +27,7 @@ PlayerInterface.prototype.toString = function () {
 };
 
 export function GetPlayer(id: string | number): OxPlayer | void {
-  const player = exports.ox_core.getOxPlayer(id);
+  const player = exports.ox_core.GetPlayer(id);
 
   if (!player) return console.error(`cannot create PlayerInterface<${id}> (invalid id)`);
 

@@ -26,9 +26,9 @@ export function SetPlayerData(userId: number, charId: number, stateId: string, g
   }
 }
 
-exports('isPlayerLoaded', () => playerIsLoaded);
+exports('IsPlayerLoaded', () => playerIsLoaded);
 
-exports('getPlayerData', (key?: string) => {
+exports('GetPlayerData', (key?: string) => {
   if (!key) return playerData;
 
   return playerMetadata[key];
