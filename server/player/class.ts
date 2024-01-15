@@ -9,6 +9,7 @@ import {
 } from './db';
 import { GetRandomChar, GetRandomInt } from '../../common';
 import { OxGroup } from 'groups';
+import { GeneratePhoneNumber } from 'bridge/npwd';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -197,7 +198,8 @@ export class OxPlayer extends ClassInterface {
 
   async createCharacter(data: NewCharacter) {
     const stateId = await this.#generateStateId();
-    const phoneNumber: number = null;
+    const phoneNumber = await GeneratePhoneNumber();
+
     const character: Character = {
       firstName: data.firstName,
       lastName: data.lastName,

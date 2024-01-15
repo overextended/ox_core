@@ -21,3 +21,9 @@ OnPlayerLoaded('npwd', (player) => {
 });
 
 OnPlayerLogout((player) => exports.npwd.unloadPlayer(player.source));
+
+export function GeneratePhoneNumber() {
+  try {
+    return exports.npwd.generatePhoneNumber();
+  } catch (e) {}
+}
