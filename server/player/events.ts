@@ -1,6 +1,7 @@
 import { onClientCallback } from '@overextended/ox_lib/server';
 import { OxPlayer } from './class';
 import { Sleep } from '../';
+import { db } from 'db';
 
 type ScopeEvent = { player: string; for: string };
 
@@ -103,4 +104,10 @@ onClientCallback('ox:deleteCharacter', async (playerId, charId: number) => {
   if (!player) return;
 
   return await player.deleteCharacter(charId);
+});
+
+on('ox:createdCharacter', async (playerId: number, userId: number, charId: number) => {
+  using conn = await db.getConnection();
+  await conn.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
+  await conn.execute('INSERT INTO accounts (label, owner, isDefault) VALUES (?, ?, ?)', ['Personal', charId, true]);
 });
