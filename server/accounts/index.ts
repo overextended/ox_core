@@ -1,5 +1,5 @@
 import { OxPlayer } from 'player/class';
-import { PerformTransaction, SelectAccount, SelectAccounts, UpdateBalance } from './db';
+import { CreateNewAccount, PerformTransaction, SelectAccount, SelectAccounts, UpdateBalance } from './db';
 
 export interface OxAccount {
   id: number;
@@ -46,6 +46,14 @@ export function TransferAccountBalance(
   return PerformTransaction(fromId, toId, amount, overdraw);
 }
 
+export function CreateAccount(charId: number, label: string, shared?: boolean): Promise<number> {
+  return CreateNewAccount('owner', charId, label, shared);
+}
+
+export function CreateGroupAccount(group: string, label: string, shared?: boolean): Promise<number> {
+  return CreateNewAccount('group', group, label, shared);
+}
+
 exports('GetAccountById', GetAccountById);
 exports('GetPlayerAccounts', GetPlayerAccounts);
 exports('GetCharacterAccounts', GetCharacterAccounts);
@@ -53,3 +61,5 @@ exports('GetGroupAccounts', GetGroupAccounts);
 exports('AddAccountBalance', AddAccountBalance);
 exports('RemoveAccountBalance', RemoveAccountBalance);
 exports('TransferAccountBalance', TransferAccountBalance);
+exports('CreateAccount', CreateAccount);
+exports('CreateGroupAccount', CreateGroupAccount);

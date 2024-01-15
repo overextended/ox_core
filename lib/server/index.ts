@@ -6,6 +6,8 @@ import type {
   AddAccountBalance,
   RemoveAccountBalance,
   TransferAccountBalance,
+  CreateAccount,
+  CreateGroupAccount,
 } from '../../server/accounts';
 import type { OxPlayer } from '../../server/player/class';
 
@@ -18,6 +20,8 @@ interface OxServer {
   AddAccountBalance: typeof AddAccountBalance;
   RemoveAccountBalance: typeof RemoveAccountBalance;
   TransferAccountBalance: typeof TransferAccountBalance;
+  CreateAccount: typeof CreateAccount;
+  CreateGroupAccount: typeof CreateGroupAccount;
   GetPlayer: typeof OxPlayer.get;
   GetPlayers: typeof OxPlayer.getAll;
   SaveAllPlayers: typeof OxPlayer.saveAll;

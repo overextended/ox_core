@@ -50,3 +50,19 @@ export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: strin
 export async function SelectAccount(id: string | number) {
   return db.single(await SelectAccounts('id', id));
 }
+
+export async function CreateNewAccount(
+  column: 'owner' | 'group',
+  id: string | number,
+  label: string,
+  shared?: boolean
+) {
+  using conn = await db.getConnection();
+  return (
+    await conn.execute<OkPacket>(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
+      label,
+      id,
+      shared ? 'shared' : 'personal',
+    ])
+  ).insertId;
+}
