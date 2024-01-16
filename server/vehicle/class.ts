@@ -15,6 +15,7 @@ export class OxVehicle extends ClassInterface {
   owner?: number;
   group?: string;
   #metadata: Dict<any>;
+  #stored?: string;
 
   protected static members: Dict<OxVehicle> = {};
   protected static keys: Dict<Dict<OxVehicle>> = {
@@ -102,7 +103,8 @@ export class OxVehicle extends ClassInterface {
     vin?: string,
     owner?: number,
     group?: string,
-    metadata?: Dict<any>
+    metadata?: Dict<any>,
+    stored?: string
   ) {
     super();
     this.entity = entity;
@@ -116,11 +118,11 @@ export class OxVehicle extends ClassInterface {
     this.owner = owner;
     this.group = group;
     this.#metadata = metadata || {};
+    this.#stored = stored;
 
-    if (this.id) this.setStored(null, false);
-
-    emit('ox:spawnedVehicle', this.entity, this.id);
     OxVehicle.add(this.entity, this);
+    SetVehicleNumberPlateText(this.entity, this.plate);
+    emit('ox:spawnedVehicle', this.entity, this.id);
   }
 
   /** Stores a value in the vehicle's metadata. */
@@ -134,7 +136,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   #getSaveData(): [string | null, string, number] {
-    return [this.get('stored'), JSON.stringify(this.#metadata), this.id];
+    return [this.#stored, JSON.stringify(this.#metadata), this.id];
   }
 
   save() {
@@ -154,7 +156,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   setStored(value: string, despawn?: boolean) {
-    this.#metadata.stored = value;
+    this.#stored = value;
 
     if (despawn) return this.despawn(true);
 

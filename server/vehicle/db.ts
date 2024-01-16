@@ -18,9 +18,9 @@ export async function IsVinAvailable(plate: string) {
 export async function GetStoredVehicleFromId(id: number) {
   using conn = await db.getConnection();
   return db.single(
-    await conn.execute<{ owner: number | null; group: string | null; vin: string; model: string; data: string }[]>(
-      'SELECT owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL'
-    )
+    await conn.execute<
+      Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>[]
+    >('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id])
   );
 }
 
@@ -40,12 +40,13 @@ export async function SaveVehicleData(
   else await conn.execute(query, values);
 }
 
-export async function CreateVehicle(
+export async function CreateNewVehicle(
   plate: string,
+  vin: string,
   owner: number | null,
   group: string | null,
   model: string,
-  vClass: string,
+  vehicleClass: number,
   data: object,
   stored: string | null
 ) {
@@ -53,7 +54,7 @@ export async function CreateVehicle(
   return (
     await conn.execute<OkPacket>(
       'INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, `stored`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [plate, owner, group, model, vClass, JSON.stringify(data), stored]
+      [plate, vin, owner, group, model, vehicleClass, JSON.stringify(data), stored]
     )
   ).insertId;
 }

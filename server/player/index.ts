@@ -1,5 +1,6 @@
 import 'player/loading';
 import 'player/events';
+import 'player/commands';
 import { OxPlayer } from './class';
 
 /**
