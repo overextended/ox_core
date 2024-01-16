@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@overextended/ox_lib':
-    specifier: ^3.15.0
-    version: 3.15.0
+    specifier: ^3.15.1
+    version: 3.15.1
   mariadb:
     specifier: ^3.2.3
     version: 3.2.3
@@ -20,8 +20,8 @@ devDependencies:
     specifier: latest
     version: 2.0.7310-1
   '@types/node':
-    specifier: ^20.11.0
-    version: 20.11.0
+    specifier: ^20.11.3
+    version: 20.11.3
   esbuild:
     specifier: ^0.19.11
     version: 0.19.11
@@ -253,8 +253,8 @@ packages:
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
     dev: false
 
-  /@overextended/ox_lib@3.15.0:
-    resolution: {integrity: sha512-V0enTZmlMtY85r1PlAG+ncPeAefLWCsIzsdVe6vYF7yosisvQPHc3+My/3h5KruePEc5q9sygFWQ1Se7kbeENQ==}
+  /@overextended/ox_lib@3.15.1:
+    resolution: {integrity: sha512-4HAnCQC3H1a3RUGQpszz05+R+NqJvWe69s6TNCVcMeR66KQmr3NK1fCIuBEPdCksW804Y0GjdT1HbnSrdzxk/Q==}
     dependencies:
       '@nativewrappers/client': 1.7.33
       fast-printf: 1.6.9
@@ -269,8 +269,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.0:
-    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
+  /@types/node@20.11.3:
+    resolution: {integrity: sha512-nrlmbvGPNGaj84IJZXMPhQuCMEVTT/hXZMJJG/aIqVL9fKxqk814sGGtJA4GI6hpJSLQjpi6cn0Qx9eOf9SDVg==}
     dependencies:
       undici-types: 5.26.5
     dev: true

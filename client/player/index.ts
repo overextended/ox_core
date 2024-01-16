@@ -55,4 +55,5 @@ netEvent('ox:setGroup', (name: string, grade: number) => {
   playerGroups[name] = grade;
 });
 
+import './spawn';
 import './death';
