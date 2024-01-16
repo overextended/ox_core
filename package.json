@@ -21,11 +21,11 @@
   },
   "bugs": "https://github.com/overextended/ox_core/issues",
   "devDependencies": {
+    "@biomejs/biome": "1.5.2",
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
     "@types/node": "^20.11.0",
     "esbuild": "^0.19.11",
-    "prettier": "^3.2.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
