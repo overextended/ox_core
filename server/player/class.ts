@@ -249,7 +249,7 @@ export class OxPlayer extends ClassInterface {
     this.charId = character.charId;
     this.stateId = character.stateId;
     this.#metadata = {};
-    this.#statuses = statuses || {};
+    this.#statuses = JSON.parse(statuses as any) || {};
 
     await OxGroup.loadPlayerGroups(this);
 
