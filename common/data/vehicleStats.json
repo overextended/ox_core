@@ -1,0 +1,20 @@
+{
+  "air": {
+    "acceleration": 21.56,
+    "braking": 22.417,
+    "handling": 21.56,
+    "speed": 109.7643
+  },
+  "land": {
+    "acceleration": 0.82,
+    "braking": 3.1,
+    "handling": 1.2,
+    "speed": 53.8669
+  },
+  "sea": {
+    "acceleration": 18.0,
+    "braking": 0.4,
+    "handling": 18.38,
+    "speed": 46.6667
+  }
+}

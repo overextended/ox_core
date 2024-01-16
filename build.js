@@ -49,6 +49,7 @@ files {
     'lib/client/**.lua',
     'imports/client.lua',
     'locales/*.json',
+    'common/data/*.json',
 }
 
 client_script 'dist/client.js'
