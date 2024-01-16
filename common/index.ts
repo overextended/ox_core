@@ -17,5 +17,39 @@ export function GetRandomChar() {
 }
 
 export function GetRandomAlphanumeric() {
-  return GetRandomInt(0, 1) === 1 ? GetRandomChar() : GetRandomInt();
+  return Math.random() > 0.5 ? GetRandomChar() : GetRandomInt();
+}
+
+const formatChar: Record<string, () => string | number> = {
+  '1': GetRandomInt,
+  A: GetRandomChar,
+  '.': GetRandomAlphanumeric,
+};
+
+export function GetRandomString(pattern: string, length?: number): string {
+  const len = length || pattern.replace(/\^/g, '').length;
+  const arr: Array<string | number> = Array(len).fill(0);
+  let size = 0;
+  let i = 0;
+
+  while (size < len) {
+    i += 1;
+    let char: string | number = pattern.charAt(i - 1);
+
+    if (char === '') {
+      arr[size] = ' '.repeat(len - size);
+      break;
+    } else if (char === '^') {
+      i += 1;
+      char = pattern.charAt(i - 1);
+    } else {
+      const fn = formatChar[char];
+      char = fn ? fn() : char;
+    }
+
+    size += 1;
+    arr[size - 1] = char;
+  }
+
+  return arr.join('');
 }
