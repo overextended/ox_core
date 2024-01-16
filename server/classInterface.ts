@@ -33,19 +33,29 @@ export class ClassInterface {
     });
 
     // e.g. exports.ox_core.CallPlayer
-    exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
-      const member = this.members[id];
+    exports(
+      `Call${expName}`,
+      (id: string | number, method: string, ...args: any[]) => {
+        const member = this.members[id];
 
-      if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid player)`);
+        if (!member)
+          return console.error(
+            `cannot call method ${method} on ${name}<${id}> (invalid player)`
+          );
 
-      if (!this.callableMethods[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method is not exported)`);
+        if (!this.callableMethods[method])
+          return console.error(
+            `cannot call method ${method} on ${name}<${id}> (method is not exported)`
+          );
 
-      if (!member[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
+        if (!member[method])
+          return console.error(
+            `cannot call method ${method} on ${name}<${id}> (method does not exist)`
+          );
 
-      return member[method](...args);
-    });
+        return member[method](...args);
+      }
+    );
 
     DEV: console.info(`Instantiated ClassInterface<${name}> and exports`);
 

@@ -1,6 +1,8 @@
 console.info = (...args: any[]) => console.log(`^3${args.join('\t')}^0`);
 
-DEV: console.info(`Resource ${GetCurrentResourceName()} is running in development mode!`);
+DEV: console.info(
+  `Resource ${GetCurrentResourceName()} is running in development mode!`
+);
 
 export function Sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms, null));
