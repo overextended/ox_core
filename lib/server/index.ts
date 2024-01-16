@@ -1,3 +1,4 @@
+import type { OxVehicle } from 'server/vehicle/class';
 import type {
   GetAccountById,
   GetPlayerAccounts,
@@ -8,8 +9,10 @@ import type {
   TransferAccountBalance,
   CreateAccount,
   CreateGroupAccount,
-} from '../../server/accounts';
-import type { OxPlayer } from '../../server/player/class';
+} from 'server/accounts';
+import type { OxPlayer } from 'server/player/class';
+import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
+import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 
 interface OxServer {
   [exportKey: string]: Function;
@@ -22,11 +25,15 @@ interface OxServer {
   TransferAccountBalance: typeof TransferAccountBalance;
   CreateAccount: typeof CreateAccount;
   CreateGroupAccount: typeof CreateGroupAccount;
-  GetPlayer: typeof OxPlayer.get;
-  GetPlayers: typeof OxPlayer.getAll;
   SaveAllPlayers: typeof OxPlayer.saveAll;
+  SaveAllVehicles: typeof OxVehicle.saveAll;
+  CreateVehicle: typeof CreateVehicle;
+  SpawnVehicle: typeof SpawnVehicle;
+  GetTopVehicleStats: typeof GetTopVehicleStats;
+  GetVehicleData: typeof GetVehicleData;
 }
 
 export const Ox: OxServer = exports.ox_core as any;
 
 export * from './player';
+export * from './vehicle';
