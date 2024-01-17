@@ -1,6 +1,18 @@
 ## Installation
 
-todo
+The rewrite is still a work in progress - the docs will not be updated to reflected changes until finalised.
+
+- Download and install the LTS version of Node.js.
+- Open a command-line terminal (e.g. Terminal, Command Prompt).
+- Enter node --version to confirm successful installation.
+- Enter `npm install -g pnpm` to globally install the package.
+- Download or clone the repo with `git clone https://github.com/overextended/ox_core`.
+- Download and install [MariaDB Community Server](https://mariadb.com/downloads/community/community-server/).
+- Execute the queries in `sql/install.sql` in your database.
+- Install all dependencies with `pnpm i`.
+- Build the resource with `pnpm build`.
+
+Use `pnpm watch` to rebuild whenever a file is modified.
 
 ~~Refer to our [documentation](https://overextended.github.io/docs/ox_core/) for installing and setting up ox_core on your server.~~
 
