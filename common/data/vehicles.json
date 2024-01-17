@@ -65,6 +65,19 @@
     "type": "bike",
     "price": 25356
   },
+  "aleutian": {
+    "acceleration": 0.2795,
+    "braking": 0.75,
+    "speed": 39.6667,
+    "handling": 0.6595,
+    "name": "Aleutian",
+    "make": "Vapid",
+    "class": 2,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 66169
+  },
   "alkonost": {
     "acceleration": 13.524,
     "braking": 11.1734,
@@ -264,6 +277,19 @@
     "type": "automobile",
     "price": 64174
   },
+  "asterope2": {
+    "acceleration": 0.238,
+    "braking": 0.9,
+    "speed": 42.8105,
+    "handling": 0.618,
+    "name": "Asterope GZ",
+    "make": "Karin",
+    "class": 1,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 71306
+  },
   "astron": {
     "acceleration": 0.324,
     "braking": 0.48,
@@ -318,6 +344,34 @@
     "weapons": true
   },
   "avenger2": {
+    "acceleration": 8.82,
+    "braking": 8.4657,
+    "speed": 95.9834,
+    "handling": 8.82,
+    "name": "Avenger",
+    "make": "Mammoth",
+    "class": 16,
+    "seats": 3,
+    "doors": 3,
+    "type": "plane",
+    "price": 9767128,
+    "weapons": true
+  },
+  "avenger3": {
+    "acceleration": 8.82,
+    "braking": 8.4657,
+    "speed": 95.9834,
+    "handling": 8.82,
+    "name": "Avenger",
+    "make": "Mammoth",
+    "class": 16,
+    "seats": 3,
+    "doors": 3,
+    "type": "plane",
+    "price": 9767128,
+    "weapons": true
+  },
+  "avenger4": {
     "acceleration": 8.82,
     "braking": 8.4657,
     "speed": 95.9834,
@@ -461,6 +515,19 @@
     "type": "automobile",
     "price": 77229
   },
+  "baller8": {
+    "acceleration": 0.295,
+    "braking": 0.9225,
+    "speed": 46.6667,
+    "handling": 0.675,
+    "name": "Baller ST-D",
+    "make": "Gallivanter",
+    "class": 2,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 77694
+  },
   "banshee": {
     "acceleration": 0.34,
     "braking": 1,
@@ -572,6 +639,19 @@
     "speed": 36.9472,
     "handling": 0.54,
     "name": "Benson",
+    "make": "Vapid",
+    "class": 20,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 60635
+  },
+  "benson2": {
+    "acceleration": 0.16,
+    "braking": 0.25,
+    "speed": 36.9472,
+    "handling": 0.54,
+    "name": "Benson (Cluckin' Bell)",
     "make": "Vapid",
     "class": 20,
     "seats": 2,
@@ -892,6 +972,32 @@
     "type": "trailer",
     "price": 5668
   },
+  "boattrailer2": {
+    "acceleration": 0,
+    "braking": 0.7,
+    "speed": -0.5132,
+    "handling": 0.38,
+    "name": "Boat Trailer",
+    "make": "",
+    "class": 11,
+    "seats": 0,
+    "doors": 0,
+    "type": "trailer",
+    "price": 5668
+  },
+  "boattrailer3": {
+    "acceleration": 0,
+    "braking": 0.7,
+    "speed": -0.5132,
+    "handling": 0.38,
+    "name": "Boat Trailer",
+    "make": "",
+    "class": 11,
+    "seats": 0,
+    "doors": 0,
+    "type": "trailer",
+    "price": 5668
+  },
   "bobcatxl": {
     "acceleration": 0.18,
     "braking": 0.8,
@@ -1011,6 +1117,19 @@
     "price": 326707,
     "weapons": true
   },
+  "boxville6": {
+    "acceleration": 0.11,
+    "braking": 0.25,
+    "speed": 28.6961,
+    "handling": 0.49,
+    "name": "Boxville (LSDS)",
+    "make": "Brute",
+    "class": 12,
+    "seats": 6,
+    "doors": 5,
+    "type": "automobile",
+    "price": 47273
+  },
   "brawler": {
     "acceleration": 0.28,
     "braking": 0.88,
@@ -1049,6 +1168,19 @@
     "doors": 2,
     "type": "automobile",
     "price": 54416
+  },
+  "brigham": {
+    "acceleration": 0.21,
+    "braking": 0.38,
+    "speed": 38.7112,
+    "handling": 0.59,
+    "name": "Brigham",
+    "make": "Albany",
+    "class": 4,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 63825
   },
   "brioso": {
     "acceleration": 0.29,
@@ -1296,6 +1428,19 @@
     "doors": 6,
     "type": "automobile",
     "price": 80516
+  },
+  "buffalo5": {
+    "acceleration": 0.382,
+    "braking": 0.985,
+    "speed": 49.8737,
+    "handling": 0.842,
+    "name": "Buffalo EVX",
+    "make": "Bravado",
+    "class": 4,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 83332
   },
   "bulldozer": {
     "acceleration": 0.14,
@@ -1677,6 +1822,19 @@
     "type": "automobile",
     "price": 63694
   },
+  "cavalcade3": {
+    "acceleration": 0.2765,
+    "braking": 0.875,
+    "speed": 40.6667,
+    "handling": 0.6565,
+    "name": "Cavalcade XL",
+    "make": "Albany",
+    "class": 2,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 67959
+  },
   "cerberus": {
     "acceleration": 0.19,
     "braking": 0.25,
@@ -1863,6 +2021,19 @@
     "type": "automobile",
     "price": 76524
   },
+  "clique2": {
+    "acceleration": 0.198,
+    "braking": 0.35,
+    "speed": 33.1878,
+    "handling": 0.578,
+    "name": "Clique Wagon",
+    "make": "Vapid",
+    "class": 4,
+    "seats": 2,
+    "doors": 5,
+    "type": "automobile",
+    "price": 54902
+  },
   "club": {
     "acceleration": 0.2375,
     "braking": 0.72,
@@ -2045,6 +2216,20 @@
     "type": "heli",
     "price": 6931737
   },
+  "conada2": {
+    "acceleration": 5.684,
+    "braking": 3.4855,
+    "speed": 61.3214,
+    "handling": 5.684,
+    "name": "Weaponized Conada",
+    "make": "Buckingham",
+    "class": 15,
+    "seats": 2,
+    "doors": 2,
+    "type": "heli",
+    "price": 34278704,
+    "weapons": true
+  },
   "contender": {
     "acceleration": 0.26,
     "braking": 0.6,
@@ -2122,6 +2307,19 @@
     "doors": 4,
     "type": "automobile",
     "price": 87616
+  },
+  "coureur": {
+    "acceleration": 0.37,
+    "braking": 0.8,
+    "speed": 46.6167,
+    "handling": 0.81,
+    "name": "La Coureuse",
+    "make": "Penaud",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 77754
   },
   "cruiser": {
     "acceleration": 0.08,
@@ -2608,6 +2806,32 @@
     "type": "automobile",
     "price": 76295
   },
+  "dominator9": {
+    "acceleration": 0.3448,
+    "braking": 0.93,
+    "speed": 49.6897,
+    "handling": 0.7248,
+    "name": "Dominator GT",
+    "make": "Vapid",
+    "class": 4,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 82702
+  },
+  "dorado": {
+    "acceleration": 0.2168,
+    "braking": 0.5,
+    "speed": 42.173,
+    "handling": 0.5968,
+    "name": "Dorado",
+    "make": "Bravado",
+    "class": 2,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 69578
+  },
   "double": {
     "acceleration": 0.31,
     "braking": 1.4,
@@ -2646,6 +2870,110 @@
     "doors": 6,
     "type": "automobile",
     "price": 72622
+  },
+  "drifteuros": {
+    "acceleration": 0.711,
+    "braking": 0.85,
+    "speed": 44.95,
+    "handling": 1.091,
+    "name": "Euros",
+    "make": "Annis",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 76163
+  },
+  "driftfr36": {
+    "acceleration": 0.7125,
+    "braking": 0.765,
+    "speed": 44.3333,
+    "handling": 1.0925,
+    "name": "FR36",
+    "make": "Fathom",
+    "class": 3,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 75045
+  },
+  "driftfuto": {
+    "acceleration": 0.71,
+    "braking": 0.765,
+    "speed": 44.3333,
+    "handling": 1.09,
+    "name": "Futo GTX",
+    "make": "Karin",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 75037
+  },
+  "driftjester": {
+    "acceleration": 0.706,
+    "braking": 0.875,
+    "speed": 44.1667,
+    "handling": 1.086,
+    "name": "Jester RR",
+    "make": "Dinka",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 74933
+  },
+  "driftremus": {
+    "acceleration": 0.712,
+    "braking": 0.87,
+    "speed": 46.2667,
+    "handling": 1.092,
+    "name": "Remus",
+    "make": "Annis",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 78305
+  },
+  "drifttampa": {
+    "acceleration": 0.712,
+    "braking": 0.8,
+    "speed": 46.3333,
+    "handling": 1.092,
+    "name": "Drift Tampa",
+    "make": "Declasse",
+    "class": 6,
+    "seats": 2,
+    "doors": 3,
+    "type": "automobile",
+    "price": 78299
+  },
+  "driftyosemite": {
+    "acceleration": 0.718,
+    "braking": 0.82,
+    "speed": 41.6667,
+    "handling": 1.098,
+    "name": "Drift Yosemite",
+    "make": "Declasse",
+    "class": 4,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 70884
+  },
+  "driftzr350": {
+    "acceleration": 0.708,
+    "braking": 0.85,
+    "speed": 44.2667,
+    "handling": 1.088,
+    "name": "ZR350",
+    "make": "Annis",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 75060
   },
   "dubsta": {
     "acceleration": 0.2,
@@ -3377,6 +3705,19 @@
     "type": "automobile",
     "price": 65442
   },
+  "fr36": {
+    "acceleration": 0.301,
+    "braking": 0.86,
+    "speed": 47.3251,
+    "handling": 0.681,
+    "name": "FR36",
+    "make": "Fathom",
+    "class": 3,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 78667
+  },
   "freecrawler": {
     "acceleration": 0.24,
     "braking": 0.3,
@@ -3400,6 +3741,19 @@
     "class": 21,
     "seats": 2,
     "doors": 1,
+    "type": "train",
+    "price": 194680
+  },
+  "freight2": {
+    "acceleration": 0.2,
+    "braking": 5,
+    "speed": 26.6667,
+    "handling": 0.58,
+    "name": "Freight Train",
+    "make": "",
+    "class": 21,
+    "seats": 2,
+    "doors": 0,
     "type": "train",
     "price": 194680
   },
@@ -3664,6 +4018,19 @@
     "doors": 4,
     "type": "automobile",
     "price": 80250
+  },
+  "gauntlet6": {
+    "acceleration": 0.3668,
+    "braking": 0.935,
+    "speed": 48.9926,
+    "handling": 0.7467,
+    "name": "Hotring Hellfire",
+    "make": "Bravado",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 81665
   },
   "gb200": {
     "acceleration": 0.315,
@@ -4162,6 +4529,32 @@
     "type": "automobile",
     "price": 84076
   },
+  "impaler5": {
+    "acceleration": 0.2537,
+    "braking": 0.865,
+    "speed": 47.5449,
+    "handling": 0.6338,
+    "name": "Impaler SZ",
+    "make": "Declasse",
+    "class": 1,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 78875
+  },
+  "impaler6": {
+    "acceleration": 0.3,
+    "braking": 0.7,
+    "speed": 47.0182,
+    "handling": 0.68,
+    "name": "Impaler LX",
+    "make": "Declasse",
+    "class": 4,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 77917
+  },
   "imperator": {
     "acceleration": 0.365,
     "braking": 0.5,
@@ -4200,6 +4593,32 @@
     "doors": 4,
     "type": "automobile",
     "price": 80296
+  },
+  "inductor": {
+    "acceleration": 0.112,
+    "braking": 3.1,
+    "speed": 10.7824,
+    "handling": 0.492,
+    "name": "Inductor",
+    "make": "",
+    "class": 13,
+    "seats": 1,
+    "doors": 1,
+    "type": "bicycle",
+    "price": 4345
+  },
+  "inductor2": {
+    "acceleration": 0.112,
+    "braking": 3.1,
+    "speed": 10.7824,
+    "handling": 0.492,
+    "name": "Junk Energy Inductor",
+    "make": "",
+    "class": 13,
+    "seats": 1,
+    "doors": 1,
+    "type": "bicycle",
+    "price": 4345
   },
   "infernus": {
     "acceleration": 0.34,
@@ -4776,6 +5195,19 @@
     "doors": 6,
     "type": "automobile",
     "price": 75885
+  },
+  "l35": {
+    "acceleration": 0.236,
+    "braking": 0.32,
+    "speed": 39.0963,
+    "handling": 0.616,
+    "name": "Walton L35",
+    "make": "Declasse",
+    "class": 9,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 64429
   },
   "landstalker": {
     "acceleration": 0.18,
@@ -5381,6 +5813,19 @@
     "doors": 2,
     "type": "automobile",
     "price": 64365
+  },
+  "monstrociti": {
+    "acceleration": 0.2735,
+    "braking": 0.369,
+    "speed": 41.3981,
+    "handling": 0.7135,
+    "name": "MonstroCiti",
+    "make": "Maibatsu",
+    "class": 9,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 68406
   },
   "moonbeam": {
     "acceleration": 0.21,
@@ -6116,6 +6561,19 @@
     "type": "automobile",
     "price": 69772
   },
+  "phantom4": {
+    "acceleration": 0.21,
+    "braking": 0.8,
+    "speed": 33.8106,
+    "handling": 0.59,
+    "name": "Phantom",
+    "make": "JoBuilt",
+    "class": 20,
+    "seats": 2,
+    "doors": 3,
+    "type": "automobile",
+    "price": 56656
+  },
   "phoenix": {
     "acceleration": 0.28,
     "braking": 0.8,
@@ -6154,6 +6612,19 @@
     "doors": 4,
     "type": "automobile",
     "price": 82282
+  },
+  "polgauntlet": {
+    "acceleration": 0.362,
+    "braking": 0.9,
+    "speed": 49.1011,
+    "handling": 0.742,
+    "name": "Gauntlet Interceptor",
+    "make": "Bravado",
+    "class": 18,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 81768
   },
   "police": {
     "acceleration": 0.2,
@@ -6200,7 +6671,20 @@
     "speed": 42.7284,
     "handling": 0.58,
     "name": "Unmarked Cruiser",
-    "make": "",
+    "make": "Vapid",
+    "class": 18,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 71053
+  },
+  "police5": {
+    "acceleration": 0.2,
+    "braking": 0.9,
+    "speed": 42.7284,
+    "handling": 0.58,
+    "name": "Stanier LE Cruiser",
+    "make": "Vapid",
     "class": 18,
     "seats": 4,
     "doors": 6,
@@ -6370,7 +6854,7 @@
     "speed": 37.5559,
     "handling": 0.58,
     "name": "Park Ranger",
-    "make": "",
+    "make": "Declasse",
     "class": 18,
     "seats": 8,
     "doors": 6,
@@ -6522,6 +7006,20 @@
     "type": "automobile",
     "price": 64370
   },
+  "raiju": {
+    "acceleration": 21.56,
+    "braking": 22.417,
+    "speed": 103.975,
+    "handling": 21.56,
+    "name": "F-160 Raiju",
+    "make": "",
+    "class": 16,
+    "seats": 1,
+    "doors": 1,
+    "type": "plane",
+    "price": 13560960,
+    "weapons": true
+  },
   "raketrailer": {
     "acceleration": 0,
     "braking": 0.7,
@@ -6638,6 +7136,19 @@
     "doors": 1,
     "type": "bike",
     "price": 19441
+  },
+  "ratel": {
+    "acceleration": 0.342,
+    "braking": 0.32,
+    "speed": 43.8756,
+    "handling": 0.722,
+    "name": "Ratel",
+    "make": "Vapid",
+    "class": 9,
+    "seats": 2,
+    "doors": 2,
+    "type": "automobile",
+    "price": 72415
   },
   "ratloader": {
     "acceleration": 0.22,
@@ -7944,6 +8455,19 @@
     "type": "automobile",
     "price": 70653
   },
+  "speedo5": {
+    "acceleration": 0.2,
+    "braking": 0.65,
+    "speed": 42.7284,
+    "handling": 0.58,
+    "name": "Speedo Custom",
+    "make": "Vapid",
+    "class": 12,
+    "seats": 4,
+    "doors": 5,
+    "type": "automobile",
+    "price": 70653
+  },
   "squaddie": {
     "acceleration": 0.2,
     "braking": 0.315,
@@ -8062,6 +8586,19 @@
     "type": "automobile",
     "price": 74712
   },
+  "stingertt": {
+    "acceleration": 0.398,
+    "braking": 0.98,
+    "speed": 52.2722,
+    "handling": 0.858,
+    "name": "Itali GTO Stinger TT",
+    "make": "Grotti",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 87213
+  },
   "stockade": {
     "acceleration": 0.12,
     "braking": 0.25,
@@ -8100,6 +8637,19 @@
     "doors": 6,
     "type": "automobile",
     "price": 68894
+  },
+  "streamer216": {
+    "acceleration": 7.84,
+    "braking": 6.013,
+    "speed": 76.6965,
+    "handling": 7.84,
+    "name": "Streamer216",
+    "make": "Mammoth",
+    "class": 16,
+    "seats": 4,
+    "doors": 3,
+    "type": "plane",
+    "price": 1574232
   },
   "streiter": {
     "acceleration": 0.2125,
@@ -8693,6 +9243,19 @@
     "price": 253348,
     "weapons": true
   },
+  "terminus": {
+    "acceleration": 0.269,
+    "braking": 0.55,
+    "speed": 43.2138,
+    "handling": 0.649,
+    "name": "Terminus",
+    "make": "Canis",
+    "class": 9,
+    "seats": 4,
+    "doors": 7,
+    "type": "automobile",
+    "price": 71490
+  },
   "tezeract": {
     "acceleration": 0.1375,
     "braking": 1.2,
@@ -8959,7 +9522,7 @@
     "braking": 0.25,
     "speed": 25.5809,
     "handling": 0.5,
-    "name": "Tourbus",
+    "name": "Tour Bus",
     "make": "",
     "class": 17,
     "seats": 10,
@@ -8972,7 +9535,7 @@
     "braking": 0.25,
     "speed": 35,
     "handling": 0.53,
-    "name": "Towtruck",
+    "name": "Tow Truck",
     "make": "",
     "class": 11,
     "seats": 2,
@@ -8985,13 +9548,39 @@
     "braking": 0.25,
     "speed": 33.3333,
     "handling": 0.53,
-    "name": "Towtruck",
+    "name": "Tow Truck",
     "make": "",
     "class": 11,
     "seats": 2,
     "doors": 3,
     "type": "automobile",
     "price": 54821
+  },
+  "towtruck3": {
+    "acceleration": 0.175,
+    "braking": 0.25,
+    "speed": 38.3333,
+    "handling": 0.555,
+    "name": "Tow Truck",
+    "make": "",
+    "class": 11,
+    "seats": 2,
+    "doors": 3,
+    "type": "automobile",
+    "price": 62901
+  },
+  "towtruck4": {
+    "acceleration": 0.175,
+    "braking": 0.25,
+    "speed": 38.3333,
+    "handling": 0.555,
+    "name": "Tow Truck",
+    "make": "",
+    "class": 11,
+    "seats": 2,
+    "doors": 3,
+    "type": "automobile",
+    "price": 62901
   },
   "tr2": {
     "acceleration": 0,
@@ -9147,6 +9736,19 @@
     "class": 11,
     "seats": 0,
     "doors": 0,
+    "type": "trailer",
+    "price": 5668
+  },
+  "trailers5": {
+    "acceleration": 0,
+    "braking": 0.7,
+    "speed": -0.5132,
+    "handling": 0.38,
+    "name": "Trailer",
+    "make": "",
+    "class": 11,
+    "seats": 0,
+    "doors": 2,
     "type": "trailer",
     "price": 5668
   },
@@ -9386,6 +9988,19 @@
     "type": "automobile",
     "price": 81835
   },
+  "turismo3": {
+    "acceleration": 0.374,
+    "braking": 1.185,
+    "speed": 49.9028,
+    "handling": 0.754,
+    "name": "Turismo Omaggio",
+    "make": "Grotti",
+    "class": 7,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 83545
+  },
   "turismor": {
     "acceleration": 0.353,
     "braking": 1.2,
@@ -9400,6 +10015,19 @@
     "price": 85403
   },
   "tvtrailer": {
+    "acceleration": 0,
+    "braking": 0.7,
+    "speed": -0.5132,
+    "handling": 0.38,
+    "name": "Trailer",
+    "make": "",
+    "class": 11,
+    "seats": 0,
+    "doors": 2,
+    "type": "trailer",
+    "price": 5668
+  },
+  "tvtrailer2": {
     "acceleration": 0,
     "braking": 0.7,
     "speed": -0.5132,
@@ -9713,6 +10341,19 @@
     "type": "automobile",
     "price": 82144
   },
+  "vigero3": {
+    "acceleration": 0.3645,
+    "braking": 0.95,
+    "speed": 49.0273,
+    "handling": 0.8245,
+    "name": "Vigero ZX Convertible",
+    "make": "Declasse",
+    "class": 4,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 81866
+  },
   "vigilante": {
     "acceleration": 0.375,
     "braking": 1.02,
@@ -9817,6 +10458,19 @@
     "doors": 2,
     "type": "automobile",
     "price": 85576
+  },
+  "vivanite": {
+    "acceleration": 0.1095,
+    "braking": 0.78,
+    "speed": 27.48,
+    "handling": 0.5895,
+    "name": "Vivanite",
+    "make": "Karin",
+    "class": 2,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 46334
   },
   "volatol": {
     "acceleration": 6.37,
