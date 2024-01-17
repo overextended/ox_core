@@ -7,7 +7,7 @@ import {
   IsStateIdAvailable,
   SaveCharacterData,
 } from './db';
-import { GetRandomChar, GetRandomInt } from '../../common';
+import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { OxGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 
@@ -187,8 +187,8 @@ export class OxPlayer extends ClassInterface {
     const arr = [];
 
     while (true) {
-      for (let i = 0; i < 2; i++) arr[i] = GetRandomChar();
-      for (let i = 2; i < 6; i++) arr[i] = GetRandomInt();
+      for (let i = 0; i < 2; i++) arr[i] = getRandomChar();
+      for (let i = 2; i < 6; i++) arr[i] = getRandomInt();
 
       const stateId = arr.join('');
 

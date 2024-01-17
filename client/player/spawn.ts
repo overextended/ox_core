@@ -1,5 +1,5 @@
 import { CHARACTER_SLOTS, DEFAULT_SPAWN } from 'config';
-import { Sleep } from '../../common';
+import { sleep } from '@overextended/ox_lib';
 import {
   alertDialog,
   inputDialog,
@@ -38,7 +38,7 @@ async function StartSession() {
 
     if (playerIsHidden) SetLocalPlayerInvisibleLocally(true);
 
-    await Sleep(0);
+    await sleep(0);
   }
 
   NetworkEndTutorialSession();
@@ -55,7 +55,7 @@ setImmediate(StartSession);
 async function StartCharacterSelect() {
   while (!IsScreenFadedOut()) {
     DoScreenFadeOut(0);
-    await Sleep(0);
+    await sleep(0);
   }
 
   SetEntityCoordsNoOffset(cache.ped, DEFAULT_SPAWN[0], DEFAULT_SPAWN[1], DEFAULT_SPAWN[2], true, true, false);
@@ -70,7 +70,7 @@ async function StartCharacterSelect() {
     false
   );
 
-  while (!UpdatePlayerTeleport(cache.playerId)) await Sleep(0);
+  while (!UpdatePlayerTeleport(cache.playerId)) await sleep(0);
 
   camActive = true;
   const camOffset = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 4.7, 0.2);
@@ -92,7 +92,7 @@ async function StartCharacterSelect() {
   PointCamAtCoord(cam, DEFAULT_SPAWN[0], DEFAULT_SPAWN[1], DEFAULT_SPAWN[2] + 0.1);
   DoScreenFadeIn(200);
 
-  while (camActive) await Sleep(0);
+  while (camActive) await sleep(0);
 
   RenderScriptCams(false, false, 0, true, true);
   DestroyCam(cam, false);
@@ -101,7 +101,7 @@ async function StartCharacterSelect() {
 async function SpawnPlayer(x: number, y: number, z: number, heading: number) {
   SwitchOutPlayer(cache.ped, 0, 1);
 
-  while (GetPlayerSwitchState() !== 5) await Sleep(0);
+  while (GetPlayerSwitchState() !== 5) await sleep(0);
 
   SetEntityCoordsNoOffset(cache.ped, x, y, z, false, false, false);
   SetEntityHeading(cache.ped, heading);
@@ -110,9 +110,9 @@ async function SpawnPlayer(x: number, y: number, z: number, heading: number) {
   SwitchInPlayer(cache.ped);
   SetGameplayCamRelativeHeading(0);
 
-  while (GetPlayerSwitchState() !== 12) await Sleep(0);
+  while (GetPlayerSwitchState() !== 12) await sleep(0);
 
-  while (!HasCollisionLoadedAroundEntity(cache.ped)) await Sleep(0);
+  while (!HasCollisionLoadedAroundEntity(cache.ped)) await sleep(0);
 }
 
 function CreateCharacterMenu(characters: Character[]) {
@@ -266,7 +266,7 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
   playerIsHidden = true;
   StartCharacterSelect();
 
-  while (IsScreenFadedOut()) await Sleep(0);
+  while (IsScreenFadedOut()) await sleep(0);
 
   CreateCharacterMenu(characters);
 });
@@ -277,7 +277,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number, g
   if (!character.isNew) {
     DoScreenFadeOut(300);
 
-    while (!IsScreenFadedOut()) await Sleep(0);
+    while (!IsScreenFadedOut()) await sleep(0);
   }
 
   camActive = false;
@@ -288,7 +288,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number, g
   } else {
     DoScreenFadeIn(200);
 
-    while (!IsScreenFadedIn()) await Sleep(0);
+    while (!IsScreenFadedIn()) await sleep(0);
   }
 
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));

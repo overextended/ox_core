@@ -1,6 +1,6 @@
 import { onClientCallback } from '@overextended/ox_lib/server';
 import { OxPlayer } from './class';
-import { Sleep } from '../';
+import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
 
 type ScopeEvent = { player: string; for: string };
@@ -36,7 +36,7 @@ on('onServerResourceStart', async (resource: string) => {
 
   if (!event) return;
 
-  await Sleep(1000);
+  await sleep(1000);
 
   const players = OxPlayer.getAll();
 

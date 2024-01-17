@@ -1,6 +1,5 @@
-import { cache, requestAnimDict } from '@overextended/ox_lib/client';
+import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
 import { playerIsLoaded, playerState } from 'player';
-import { Sleep } from '../../common';
 import { DEBUG } from '../../common/config';
 
 const hospitals = [
@@ -52,18 +51,18 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
     DoScreenFadeOut(500);
     RequestCollisionAtCoord(x, y, z);
 
-    while (!IsScreenFadedOut()) await Sleep(0);
+    while (!IsScreenFadedOut()) await sleep(0);
 
     StopAnimTask(cache.ped, anim[0], anim[1], 8.0);
     SetEntityCoordsNoOffset(cache.ped, x, y, z, false, false, false);
     SetEntityHeading(cache.ped, heading);
     SetGameplayCamRelativeHeading(0);
 
-    await Sleep(500);
+    await sleep(500);
 
     DoScreenFadeIn(500);
 
-    while (!IsScreenFadedIn()) await Sleep(0);
+    while (!IsScreenFadedIn()) await sleep(0);
   } else {
     StopAnimTask(cache.ped, anim[0], anim[1], 8.0);
   }

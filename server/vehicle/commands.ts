@@ -1,6 +1,6 @@
 import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
 import { OxVehicle } from './class';
-import { Sleep } from '../../common';
+import { sleep } from '@overextended/ox_lib';
 import { CreateVehicle } from 'vehicle';
 import { OxPlayer } from 'player/class';
 
@@ -32,7 +32,7 @@ addCommand<{ model: string; owner?: number }>(
     if (!entity) return;
 
     DeleteCurrentVehicle(ped);
-    await Sleep(200);
+    await sleep(200);
     SetPedIntoVehicle(ped, entity, -1);
   },
   {

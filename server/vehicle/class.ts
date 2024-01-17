@@ -1,6 +1,6 @@
 import { ClassInterface } from 'classInterface';
 import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
-import { GetRandomString, GetRandomAlphanumeric, GetRandomChar, GetRandomInt } from '../';
+import { getRandomString, getRandomAlphanumeric, getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
 
 export class OxVehicle extends ClassInterface {
@@ -45,7 +45,7 @@ export class OxVehicle extends ClassInterface {
 
   static async generateVin(vehicle: OxVehicle) {
     const arr = [
-      GetRandomInt(),
+      getRandomInt(),
       vehicle.make ? vehicle.make.slice(0, 2).toUpperCase() : 'OX',
       vehicle.model.slice(0, 2).toUpperCase(),
       null,
@@ -54,8 +54,8 @@ export class OxVehicle extends ClassInterface {
     ];
 
     while (true) {
-      arr[3] = GetRandomAlphanumeric();
-      arr[4] = GetRandomChar();
+      arr[3] = getRandomAlphanumeric();
+      arr[4] = getRandomChar();
       const vin = arr.join('');
 
       if (await IsVinAvailable(vin)) return vin;
@@ -64,7 +64,7 @@ export class OxVehicle extends ClassInterface {
 
   static async generatePlate() {
     while (true) {
-      const plate = GetRandomString(PLATE_PATTERN);
+      const plate = getRandomString(PLATE_PATTERN);
 
       if (await IsPlateAvailable(plate)) return plate;
     }

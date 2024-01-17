@@ -1,5 +1,5 @@
 import { createPool, PoolConfig, Pool, PoolConnection, QueryOptions } from 'mariadb';
-import { Sleep } from '../../common';
+import { sleep } from '@overextended/ox_lib';
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
 
@@ -98,7 +98,7 @@ export interface DbConnection extends PoolConnection {
 
 export async function getConnection() {
   while (!isServerConnected) {
-    await Sleep(0);
+    await sleep(0);
   }
 
   const connection = (await pool.getConnection()) as DbConnection;
