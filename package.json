@@ -25,11 +25,11 @@
     "@citizenfx/server": "latest",
     "@types/node": "^20.11.5",
     "esbuild": "^0.19.11",
-    "prettier": "^3.2.3",
+    "prettier": "^3.2.4",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@overextended/ox_lib": "^3.16.0",
+    "@overextended/ox_lib": "^3.16.1",
     "mariadb": "^3.2.3"
   },
   "engines": {

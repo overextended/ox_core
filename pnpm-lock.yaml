@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@overextended/ox_lib':
-    specifier: ^3.16.0
-    version: 3.16.0
+    specifier: ^3.16.1
+    version: 3.16.1
   mariadb:
     specifier: ^3.2.3
     version: 3.2.3
@@ -26,8 +26,8 @@ devDependencies:
     specifier: ^0.19.11
     version: 0.19.11
   prettier:
-    specifier: ^3.2.3
-    version: 3.2.3
+    specifier: ^3.2.4
+    version: 3.2.4
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -253,8 +253,8 @@ packages:
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
     dev: false
 
-  /@overextended/ox_lib@3.16.0:
-    resolution: {integrity: sha512-AzmPoPhk+Jv/HMgjhOzzTiGoC7xBovt2rUA3QTHKDonB/I5A1oyz9JyzzNN6RtMDQmK0w+fjJIvTJBQaNMLS3A==}
+  /@overextended/ox_lib@3.16.1:
+    resolution: {integrity: sha512-+p/lIDfcjo5H+5x1r+DpPlCccEnbAf0EtCyF+3ri3bYbcyOkqYAYDqE3GSthrrbCmdA5u/6Y9yqcmpSVgAixqQ==}
     dependencies:
       '@nativewrappers/client': 1.7.33
       fast-printf: 1.6.9
@@ -345,8 +345,8 @@ packages:
       lru-cache: 10.1.0
     dev: false
 
-  /prettier@3.2.3:
-    resolution: {integrity: sha512-QNhUTBq+mqt1oH1dTfY3phOKNhcDdJkfttHI6u0kj7M2+c+7fmNKlgh2GhnHiqMcbxJ+a0j2igz/2jfl9QKLuw==}
+  /prettier@3.2.4:
+    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
