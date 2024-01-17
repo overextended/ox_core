@@ -11,7 +11,7 @@ export function DeleteCurrentVehicle(ped: number) {
 
   const vehicle = OxVehicle.get(entity);
 
-  vehicle ? vehicle.despawn(true) : DeleteEntity(entity);
+  vehicle ? vehicle.setStored('impound', true) : DeleteEntity(entity);
 }
 
 addCommand<{ model: string; owner?: number }>(
@@ -65,7 +65,7 @@ addCommand<{ radius?: number; owned?: string }>(
       const vehicle = OxVehicle.getFromNetId(netId);
 
       if (!vehicle) DeleteEntity(NetworkGetEntityFromNetworkId(netId));
-      else if (args.owned) vehicle.despawn(true);
+      else if (args.owned) vehicle.setStored('impound', true);
     });
   },
   {
