@@ -24,12 +24,12 @@
     "@biomejs/biome": "1.5.2",
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.11.5",
     "esbuild": "^0.19.11",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@overextended/ox_lib": "^3.15.0",
+    "@overextended/ox_lib": "^3.16.0",
     "mariadb": "^3.2.3"
   },
   "engines": {

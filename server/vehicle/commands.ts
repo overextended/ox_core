@@ -1,7 +1,8 @@
-import { addCommand } from '@overextended/ox_lib/server';
+import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
 import { OxVehicle } from './class';
-import { Sleep } from '../../common';
+import { sleep } from '@overextended/ox_lib';
 import { CreateVehicle } from 'vehicle';
+import { OxPlayer } from 'player/class';
 
 export function DeleteCurrentVehicle(ped: number) {
   const entity = GetVehiclePedIsIn(ped, false);
@@ -13,18 +14,26 @@ export function DeleteCurrentVehicle(ped: number) {
   vehicle ? vehicle.despawn(true) : DeleteEntity(entity);
 }
 
-addCommand<{ model: string; owner: number }>(
+addCommand<{ model: string; owner?: number }>(
   'car',
   async (playerId, args, raw) => {
-    // const player = args.owner && OxPlayer.get(args.owner);
-    const ped = GetPlayerPed(playerId as any);
-    const vehicle = await CreateVehicle(args.model, GetEntityCoords(ped), GetEntityHeading(ped));
+    const ped = playerId && GetPlayerPed(playerId as any);
 
-    if (!vehicle) return;
+    if (!ped) return;
+
+    const player = args.owner && OxPlayer.get(args.owner);
+    const data = {
+      model: args.model,
+      owner: player?.charId || undefined,
+    };
+
+    const entity = await CreateVehicle(data, GetEntityCoords(ped), GetEntityHeading(ped));
+
+    if (!entity) return;
 
     DeleteCurrentVehicle(ped);
-    await Sleep(100);
-    SetPedIntoVehicle(ped, vehicle.entity, -1);
+    await sleep(200);
+    SetPedIntoVehicle(ped, entity, -1);
   },
   {
     help: `Spawn a vehicle with the given model.`,
@@ -48,7 +57,16 @@ addCommand<{ radius?: number; owned?: string }>(
 
     if (!args.radius) return DeleteCurrentVehicle(ped);
 
-    // @todo delete nearby vehicles
+    const vehicles = await triggerClientCallback<number[]>('ox:getNearbyVehicles', playerId, args.radius);
+
+    if (!vehicles) return;
+
+    vehicles.forEach((netId) => {
+      const vehicle = OxVehicle.getFromNetId(netId);
+
+      if (!vehicle) DeleteEntity(NetworkGetEntityFromNetworkId(netId));
+      else if (args.owned) vehicle.despawn(true);
+    });
   },
   {
     help: `Deletes your current vehicle, or any vehicles within range.`,

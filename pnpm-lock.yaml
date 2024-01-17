@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@overextended/ox_lib':
-    specifier: ^3.15.0
-    version: 3.15.0
+    specifier: ^3.16.0
+    version: 3.16.0
   mariadb:
     specifier: ^3.2.3
     version: 3.2.3
@@ -18,13 +18,13 @@ devDependencies:
     version: 1.5.2
   '@citizenfx/client':
     specifier: latest
-    version: 2.0.7310-1
+    version: 2.0.7314-1
   '@citizenfx/server':
     specifier: latest
-    version: 2.0.7310-1
+    version: 2.0.7314-1
   '@types/node':
-    specifier: ^20.11.0
-    version: 20.11.0
+    specifier: ^20.11.5
+    version: 20.11.5
   esbuild:
     specifier: ^0.19.11
     version: 0.19.11
@@ -33,7 +33,6 @@ devDependencies:
     version: 5.3.3
 
 packages:
-
   /@biomejs/biome@1.5.2:
     resolution: {integrity: sha512-LhycxGQBQLmfv6M3e4tMfn/XKcUWyduDYOlCEBrHXJ2mMth2qzYt1JWypkWp+XmU/7Hl2dKvrP4mZ5W44+nWZw==}
     engines: {node: '>=14.*'}
@@ -122,12 +121,12 @@ packages:
     dev: true
     optional: true
 
-  /@citizenfx/client@2.0.7310-1:
+  /@citizenfx/client@2.0.7314-1:
     resolution: {integrity: sha512-qWbWZtBVILF1D4iI80t86kfU+eHI7M9AtgT2Bdf9zKhLFZViSaHDI+9F36ICnTom6tKIZ6EN9udp65bDyUY6Gg==}
     dev: true
 
-  /@citizenfx/server@2.0.7310-1:
-    resolution: {integrity: sha512-qKTqsYD6woJT/imEnEViWyc1aY5D7qfZQL+h2m+yxeaQWhae6CtLigxetV5MpaEnfhVbP1BRtzGC0tgJqGcIaw==}
+  /@citizenfx/server@2.0.7314-1:
+    resolution: {integrity: sha512-AaKQsY18NZ2rr+UbVVldg+aYcfnhbNz49JHPCJNXqOI0VJ7oHQ/+DshhLcjc8Ors+psk9D+zAxwTEMAf7QpM9Q==}
     dev: true
 
   /@esbuild/aix-ppc64@0.19.11:
@@ -341,8 +340,8 @@ packages:
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
     dev: false
 
-  /@overextended/ox_lib@3.15.0:
-    resolution: {integrity: sha512-V0enTZmlMtY85r1PlAG+ncPeAefLWCsIzsdVe6vYF7yosisvQPHc3+My/3h5KruePEc5q9sygFWQ1Se7kbeENQ==}
+  /@overextended/ox_lib@3.16.0:
+    resolution: {integrity: sha512-AzmPoPhk+Jv/HMgjhOzzTiGoC7xBovt2rUA3QTHKDonB/I5A1oyz9JyzzNN6RtMDQmK0w+fjJIvTJBQaNMLS3A==}
     dependencies:
       '@nativewrappers/client': 1.7.33
       fast-printf: 1.6.9
@@ -357,8 +356,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.0:
-    resolution: {integrity: sha512-o9bjXmDNcF7GbM4CNQpmi+TutCgap/K3w1JyKgxAjqx41zp9qlIAVFi0IhCNsJcXolEqLWhbFbEeL0PvYm4pcQ==}
+  /@types/node@20.11.5:
+    resolution: {integrity: sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -432,7 +431,7 @@ packages:
       iconv-lite: 0.6.3
       lru-cache: 10.1.0
     dev: false
-
+    
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
