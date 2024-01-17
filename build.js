@@ -28,6 +28,11 @@ const copyright = readFileSync('README.md', { encoding: 'utf8' })
 console.log(copyright.split('\n')[0]);
 
 writeFileSync(
+  '.yarn.installed',
+  new Date().toLocaleString('en-AU', { timeZone: 'UTC', timeStyle: 'long', dateStyle: 'full' })
+);
+
+writeFileSync(
   'fxmanifest.lua',
   `fx_version 'cerulean'
 game 'gta5'
