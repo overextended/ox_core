@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["@citizenfx/server", "@citizenfx/client"]
+    "types": ["@citizenfx/server", "@citizenfx/client"],
   },
-  "include": ["./"]
+  "include": ["./", "../index.d.ts"],
 }

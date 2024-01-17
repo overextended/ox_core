@@ -1,5 +1,8 @@
-import vehicles from './data/vehicles.json';
-import vehicleStats from './data/vehicleStats.json';
+import { loadDataFile } from 'index';
+
+export type Vehicles = Dict<VehicleData>;
+export type VehicleCategories = 'air' | 'land' | 'sea';
+export type TopVehicleStats = Record<VehicleCategories, VehicleStats>;
 
 export interface VehicleStats {
   acceleration: number;
@@ -8,15 +11,6 @@ export interface VehicleStats {
   speed: number;
   traction: number;
 }
-
-export interface TopVehicleStats {
-  air: VehicleStats;
-  land: VehicleStats;
-  sea: VehicleStats;
-}
-
-export type Vehicles = keyof typeof vehicles;
-export type VehicleCategories = keyof TopVehicleStats;
 
 export enum VehicleClasses {
   COMPACT,
@@ -71,6 +65,9 @@ export interface VehicleData extends VehicleStats {
   weapons?: true;
 }
 
+const vehicles: Dict<VehicleData> = loadDataFile('vehicles');
+const vehicleStats = loadDataFile('vehicleStats');
+
 export function GetTopVehicleStats(): Record<VehicleCategories, VehicleStats>;
 export function GetTopVehicleStats(category: VehicleCategories): VehicleStats;
 
@@ -78,15 +75,15 @@ export function GetTopVehicleStats(category?: VehicleCategories) {
   return category ? (vehicleStats as any)[category] : vehicleStats;
 }
 
-export function GetVehicleData(): Record<Vehicles, VehicleData>;
-export function GetVehicleData<T extends Vehicles>(filter: T | string): VehicleData;
-export function GetVehicleData<T extends Vehicles[] | string[]>(
+export function GetVehicleData(): Vehicles;
+export function GetVehicleData<T extends string>(filter: T): VehicleData;
+export function GetVehicleData<T extends string[]>(
   filter: T
 ): {
   [K in T[number]]: VehicleData; // this could be better
 };
 
-export function GetVehicleData(filter?: void | Vehicles | Vehicles[]) {
+export function GetVehicleData(filter?: void | string | string[]) {
   if (!filter) return vehicles;
 
   if (typeof filter === 'string') return vehicles[filter];
