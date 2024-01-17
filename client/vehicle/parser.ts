@@ -49,8 +49,6 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     const model = vehicleModels[index];
     const hash = await requestModel(model, 5000);
 
-    console.log(index, model, hash);
-
     if (!hash) return;
 
     const entity = CreateVehicle(hash, coords[0], coords[1], coords[2], 0, false, false);
@@ -82,15 +80,17 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     const stats: VehicleStats = {
       acceleration: parseFloat(GetVehicleModelAcceleration(hash).toFixed(4)),
       braking: parseFloat(GetVehicleModelMaxBraking(hash).toFixed(4)),
-      speed: parseFloat(GetVehicleModelEstimatedMaxSpeed(hash).toFixed(4)),
       handling: parseFloat(GetVehicleModelEstimatedAgility(hash).toFixed(4)),
+      speed: parseFloat(GetVehicleModelEstimatedMaxSpeed(hash).toFixed(4)),
+      traction: parseFloat(GetVehicleModelMaxTraction(hash).toFixed(4)),
     };
 
     const data: VehicleData = {
       acceleration: stats.acceleration,
       braking: stats.braking,
-      speed: stats.speed,
       handling: stats.handling,
+      speed: stats.speed,
+      traction: stats.traction,
       name: GetLabelText(GetDisplayNameFromVehicleModel(hash)),
       make: make ? GetLabelText(make) : '',
       class: vehicleClass,
@@ -99,6 +99,8 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
       type: vehicleType,
       price: 0,
     };
+
+    console.log(index, model, `^3| ${data.make} ${data.name}^0`);
 
     const weapons = DoesVehicleHaveWeapons(entity);
 
@@ -122,7 +124,7 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
       }
     }
 
-    let price = stats.braking + stats.acceleration + stats.speed + stats.handling;
+    let price = stats.braking + stats.acceleration + stats.handling + stats.speed;
 
     if (GetVehicleHasKers(entity)) price *= 2;
     if (GetHasRocketBoost(entity)) price *= 3;

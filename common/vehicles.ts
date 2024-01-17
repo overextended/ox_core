@@ -6,6 +6,7 @@ export interface VehicleStats {
   braking: number;
   handling: number;
   speed: number;
+  traction: number;
 }
 
 export interface TopVehicleStats {
