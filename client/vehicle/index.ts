@@ -1,4 +1,7 @@
 import { cache, onServerCallback } from '@overextended/ox_lib/client';
+import { DEBUG } from '../config';
+
+if (DEBUG) import('./parser');
 
 onServerCallback('ox:getNearbyVehicles', (radius: number) => {
   const nearbyEntities: number[] = [];

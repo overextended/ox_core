@@ -12,7 +12,7 @@
     "speed": 53.8669
   },
   "sea": {
-    "acceleration": 18.0,
+    "acceleration": 18,
     "braking": 0.4,
     "handling": 18.38,
     "speed": 46.6667

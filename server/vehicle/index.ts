@@ -1,16 +1,36 @@
-import './class';
-import './commands';
 import { OxVehicle } from './class';
 import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable } from './db';
 import { GetVehicleData } from '../../common/vehicles';
+import { DEBUG } from '../../common/config';
+
+import './class';
+import './commands';
+
+if (DEBUG) import('./parser');
 
 export async function CreateVehicle(data: string | Dict<any>, coords?: number | number[], heading?: number) {
-  const invokingScript = GetInvokingResource() || undefined;
-
   if (typeof data === 'string') data = { model: data };
 
-  const vehicleData = GetVehicleData(data.model);
-  let networkType: string = vehicleData.type;
+  const vehicleData = GetVehicleData(data.model as string);
+
+  if (!vehicleData)
+    throw new Error(
+      `Failed to create vehicle '${data.model}' (model is invalid).\nEnsure vehicle exists in '@ox_core/common/data/vehicles.json'`
+    );
+
+  if (data.id) {
+    const vehicle = OxVehicle.getFromVehicleId(data.id);
+
+    if (vehicle) {
+      if (DoesEntityExist(vehicle.entity)) {
+        return vehicle.entity;
+      }
+
+      vehicle.despawn(true);
+    }
+  }
+
+  let networkType: string = vehicleData.type as any;
 
   /**
    * Remap vehicle types to their net types.
@@ -34,6 +54,7 @@ export async function CreateVehicle(data: string | Dict<any>, coords?: number | 
 
   if (typeof coords === 'number') coords = GetEntityCoords(coords);
 
+  const invokingScript = GetInvokingResource();
   const entity = CreateVehicleServerSetter(data.model, networkType, coords[0], coords[1], coords[2], heading || 90);
 
   if (!DoesEntityExist(entity)) return;

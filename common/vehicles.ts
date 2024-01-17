@@ -48,6 +48,7 @@ export type VehicleTypes =
   | 'amphibious_quadbike'
   | 'automobile'
   | 'bicycle'
+  | 'bike'
   | 'blimp'
   | 'boat'
   | 'heli'
@@ -66,15 +67,19 @@ export interface VehicleData extends VehicleStats {
   price: number;
   seats: number;
   type: VehicleTypes;
+  weapons?: true;
 }
 
+export function GetTopVehicleStats(): Record<VehicleCategories, VehicleStats>;
+export function GetTopVehicleStats(category: VehicleCategories): VehicleStats;
+
 export function GetTopVehicleStats(category?: VehicleCategories) {
-  return category ? vehicleStats[category] : vehicleStats;
+  return category ? (vehicleStats as any)[category] : vehicleStats;
 }
 
 export function GetVehicleData(): Record<Vehicles, VehicleData>;
-export function GetVehicleData<T extends Vehicles>(filter: T): VehicleData;
-export function GetVehicleData<T extends Vehicles[]>(
+export function GetVehicleData<T extends Vehicles>(filter: T | string): VehicleData;
+export function GetVehicleData<T extends Vehicles[] | string[]>(
   filter: T
 ): {
   [K in T[number]]: VehicleData; // this could be better
