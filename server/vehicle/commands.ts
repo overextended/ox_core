@@ -17,7 +17,10 @@ export function DeleteCurrentVehicle(ped: number) {
 addCommand<{ model: string; owner?: number }>(
   'car',
   async (playerId, args, raw) => {
-    const ped = GetPlayerPed(playerId as any);
+    const ped = playerId && GetPlayerPed(playerId as any);
+
+    if (!ped) return;
+
     const player = args.owner && OxPlayer.get(args.owner);
     const data = {
       model: args.model,
