@@ -136,22 +136,24 @@ export class OxVehicle extends ClassInterface {
   }
 
   #getSaveData(): [string | null, string, number] {
+    if (!this.id) return;
+
     return [this.#stored, JSON.stringify(this.#metadata), this.id];
   }
 
   save() {
-    return SaveVehicleData(this.#getSaveData());
+    return this.id && SaveVehicleData(this.#getSaveData());
   }
 
   despawn(save?: boolean) {
-    if (save) SaveVehicleData(this.#getSaveData());
+    if (save && this.id) SaveVehicleData(this.#getSaveData());
     if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
 
     OxVehicle.remove(this.entity);
   }
 
   delete() {
-    DeleteVehicle(this.id);
+    if (this.id) DeleteVehicle(this.id);
     this.despawn(false);
   }
 

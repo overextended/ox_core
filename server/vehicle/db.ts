@@ -24,7 +24,9 @@ export async function GetStoredVehicleFromId(id: number) {
   );
 }
 
-export async function SetVehicleColumn(id: number, column: string, value: any) {
+export async function SetVehicleColumn(id: number | void, column: string, value: any) {
+  if (!id) return;
+
   using conn = await db.getConnection();
   return (await conn.execute(`UPDATE vehicles SET \`${column}\` = ? WHERE id = ?`, [value, id])).affectedRows === 1;
 }
