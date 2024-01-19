@@ -15,10 +15,10 @@ dependencies:
 devDependencies:
   '@citizenfx/client':
     specifier: latest
-    version: 2.0.7314-1
+    version: 2.0.7322-1
   '@citizenfx/server':
     specifier: latest
-    version: 2.0.7314-1
+    version: 2.0.7322-1
   '@types/node':
     specifier: ^20.11.5
     version: 20.11.5
@@ -34,12 +34,12 @@ devDependencies:
 
 packages:
 
-  /@citizenfx/client@2.0.7314-1:
-    resolution: {integrity: sha512-nK1Z4PhXR/PlyHQvLVX4WK+Mc2YLZHvY5txqukfElzuY62T6FqFfhJhf2H50rlsgrVdtdkR5RcO9wdBUzJ1SQQ==}
+  /@citizenfx/client@2.0.7322-1:
+    resolution: {integrity: sha512-7gCBaEkZ1fiDd5xdDXnNlN7TGpPxBKx/4AUrHGtos1VM7c5Y0CZ0CKgG8SLh7jWzjyaN3NiR9rOoTg2Ujyf8dg==}
     dev: true
 
-  /@citizenfx/server@2.0.7314-1:
-    resolution: {integrity: sha512-AaKQsY18NZ2rr+UbVVldg+aYcfnhbNz49JHPCJNXqOI0VJ7oHQ/+DshhLcjc8Ors+psk9D+zAxwTEMAf7QpM9Q==}
+  /@citizenfx/server@2.0.7322-1:
+    resolution: {integrity: sha512-48zc9BsUHihnvCDms9KbQO1lW9M3zJJSX9D7vwuvJUVGvQMZj1iUxG3BJk+aB9gh7CKJrG+4eb5LaDS9W8zu7w==}
     dev: true
 
   /@esbuild/aix-ppc64@0.19.11:

@@ -2,8 +2,6 @@ import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@o
 import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, SelectGroups, UpdateCharacterGroup } from './db';
 import { OxPlayer } from 'player/class';
 
-export const groups: Dict<any> = {};
-
 export class OxGroup {
   name: string;
   label: string;
@@ -154,7 +152,7 @@ addCommand('reloadgroups', LoadGroups, {
 
 addCommand<{ target: string; group: string; grade?: number }>(
   'setgroup',
-  (playerId, args, raw) => {
+  async (playerId, args, raw) => {
     const player = OxPlayer.get(args.target);
 
     player?.setGroup(args.group, args.grade || 0);

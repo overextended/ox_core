@@ -8,7 +8,7 @@ import {
   triggerServerCallback,
   cache,
 } from '@overextended/ox_lib/client';
-import { playerIsLoaded, playerData, SetPlayerLoaded, SetPlayerData } from './';
+import { PlayerIsLoaded, PlayerData, SetPlayerLoaded, SetPlayerData } from './';
 import { netEvent } from 'utils';
 import locale from '../../locales';
 
@@ -31,7 +31,7 @@ async function StartSession() {
   SetPlayerControl(cache.playerId, false, 0);
   SetPlayerInvincible(cache.playerId, true);
 
-  while (!playerIsLoaded || playerIsHidden) {
+  while (!PlayerIsLoaded || playerIsHidden) {
     DisableAllControlActions(0);
     ThefeedHideThisFrame();
     HideHudAndRadarThisFrame();
@@ -256,7 +256,7 @@ function CreateCharacterMenu(characters: Character[]) {
 }
 
 netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
-  if (playerIsLoaded) {
+  if (PlayerIsLoaded) {
     DEV: console.info('Character is already loaded - resetting data');
     SetPlayerLoaded(false);
     emit('ox:playerLogout');
@@ -298,5 +298,5 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number, g
 
   SetPlayerLoaded(true);
   emit('playerSpawned');
-  emit('ox:playerLoaded', playerData, character.isNew);
+  emit('ox:playerLoaded', PlayerData, character.isNew);
 });

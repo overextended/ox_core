@@ -86,7 +86,8 @@ const connectionConfig: PoolConfig = (() => {
     connectionLimit: true,
     multipleStatements: true,
     dateStrings: true,
-    insertIdAsNumber: true
+    insertIdAsNumber: true,
+    decimalAsNumber: true,
   };
 })();
 
