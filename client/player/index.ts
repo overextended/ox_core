@@ -5,6 +5,8 @@ export const PlayerState = LocalPlayer.state;
 export const PlayerData: Dict<any> = {};
 export const PlayerMetadata: Dict<any> = {};
 export const PlayerGroups: Dict<number> = {};
+export const PlayerStatuses: Dict<number> = {};
+export const Statuses: Dict<OxStatus> = {};
 
 export function SetPlayerLoaded(state: boolean) {
   PlayerIsLoaded = state;
@@ -23,6 +25,7 @@ export function SetPlayerData(userId: number, charId: number, stateId: string, g
     console.log(PlayerData);
     console.log(PlayerMetadata);
     console.log(PlayerGroups);
+    console.log(PlayerStatuses);
   }
 }
 
@@ -51,9 +54,20 @@ netEvent('ox:setPlayerData', (key: string, value: any) => {
   emit(`ox:player:${key}`, value);
 });
 
+netEvent('ox:setPlayerStatus', (key: string, value: number, set?: boolean) => {
+  if (set) {
+    Statuses[key] = GlobalState[`status.${key}`];
+    PlayerStatuses[key] = value;
+    return;
+  }
+
+  PlayerStatuses[key] += value;
+});
+
 netEvent('ox:setGroup', (name: string, grade: number) => {
   PlayerGroups[name] = grade;
 });
 
 import './spawn';
 import './death';
+import './status';

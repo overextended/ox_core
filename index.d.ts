@@ -21,3 +21,9 @@ declare interface Character {
   armour?: number;
   isNew?: boolean;
 }
+
+declare interface OxStatus {
+  name: string;
+  default: number;
+  onTick: number;
+}

@@ -2,6 +2,7 @@ import { onClientCallback } from '@overextended/ox_lib/server';
 import { OxPlayer } from './class';
 import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
+import { Statuses } from './status';
 
 type ScopeEvent = { player: string; for: string };
 
@@ -110,4 +111,19 @@ on('ox:createdCharacter', async (playerId: number, userId: number, charId: numbe
   using conn = await db.getConnection();
   await conn.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
   await conn.execute('INSERT INTO accounts (label, owner, isDefault) VALUES (?, ?, ?)', ['Personal', charId, true]);
+});
+
+onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {
+  const player = OxPlayer.get(source);
+
+  if (!player) return;
+
+  for (const name in data) {
+    const status = Statuses[name];
+    const value = data[name];
+
+    if (status && typeof value === 'number') {
+      player.setStatus(name, value);
+    }
+  }
 });

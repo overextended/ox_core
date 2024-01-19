@@ -1,5 +1,6 @@
 import { CHARACTER_SLOTS } from '../../common/config';
 import { MySqlRow, OkPacket, db } from '../db';
+import { OxStatus } from './status';
 
 export async function GetUserIdFromIdentifier(identifier: string, offset?: number) {
   using conn = await db.getConnection();
@@ -86,6 +87,11 @@ export async function GetCharacterMetadata(charId: number) {
     phoneNumber: string;
     health: number;
     armour: number;
-    statuses: object;
+    statuses: Dict<number>;
   };
+}
+
+export async function GetStatuses() {
+  using conn = await db.getConnection();
+  return conn.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
 }

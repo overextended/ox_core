@@ -10,6 +10,7 @@ import {
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { OxGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
+import { Statuses } from './status';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -22,7 +23,7 @@ export class OxPlayer extends ClassInterface {
   #characters?: Character[];
   #inScope: Dict<true> = {};
   #metadata: Dict<any>;
-  #statuses: Dict<any>;
+  #statuses: Dict<number>;
   #groups: Dict<number>;
 
   protected static members: Dict<OxPlayer> = {};
@@ -95,15 +96,42 @@ export class OxPlayer extends ClassInterface {
     return this.#groups;
   }
 
-  setStatus() {}
+  setStatus(statusName: string, value = Statuses[statusName].default) {
+    if (!Statuses[statusName]) return;
 
-  getStatus(statusName: string) {}
+    if (value > 100) value = 100;
+    else if (value < 0) value = 0;
 
-  getStatuses() {}
+    this.#statuses[statusName] = value;
 
-  addStatus(statusName: string, value: number) {}
+    if (!source) emitNet('ox:setPlayerStatus', this.source, statusName, value, true);
 
-  removeStatus(statusName: string, value: number) {}
+    return true;
+  }
+
+  getStatus(statusName: string) {
+    return this.#statuses[statusName];
+  }
+
+  getStatuses() {
+    return this.#statuses;
+  }
+
+  addStatus(statusName: string, value: number) {
+    if (!this.#statuses[statusName]) return;
+
+    emitNet('ox:setPlayerStatus', this.source, statusName, +value);
+
+    return true;
+  }
+
+  removeStatus(statusName: string, value: number) {
+    if (!this.#statuses[statusName]) return;
+
+    emitNet('ox:setPlayerStatus', this.source, statusName, -value);
+
+    return true;
+  }
 
   addLicense(licenseName: string) {}
 
@@ -239,7 +267,7 @@ export class OxPlayer extends ClassInterface {
     this.#characters = null;
     this.ped = GetPlayerPed(this.source as string);
 
-    const { isDead, gender, dateOfBirth, phoneNumber, health, armour, statuses } = await GetCharacterMetadata(
+    let { isDead, gender, dateOfBirth, phoneNumber, health, armour, statuses } = await GetCharacterMetadata(
       character.charId
     );
 
@@ -249,9 +277,13 @@ export class OxPlayer extends ClassInterface {
     this.charId = character.charId;
     this.stateId = character.stateId;
     this.#metadata = {};
-    this.#statuses = JSON.parse(statuses as any) || {};
+    this.#statuses = {};
 
     await OxGroup.loadPlayerGroups(this);
+
+    statuses = JSON.parse(statuses as any) || this.#statuses;
+
+    for (const name in Statuses) this.setStatus(name, statuses[name]);
 
     // setup licenses
     // setup accounts
