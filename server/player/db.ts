@@ -29,8 +29,8 @@ export function CreateCharacter(
   phoneNumber?: number
 ) {
   return db.insert(
-    'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?), ?)',
-    [userId, stateId, firstName, lastName, gender, date / 1000, phoneNumber]
+    'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [userId, stateId, firstName, lastName, gender, new Date(date), phoneNumber]
   );
 }
 
