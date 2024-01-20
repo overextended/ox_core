@@ -5,5 +5,12 @@
   "delete_character_title": "Delete Character",
   "select_character": "Select a character",
   "delete_character": "Delete a character",
-  "delete_character_confirm": "Are you sure you want to delete %s %s?  \nThis action is irreversible."
+  "delete_character_confirm": "Are you sure you want to delete %s %s?  \nThis action is irreversible.",
+  "firstname": "First name",
+  "lastname": "Last name",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "non_binary": "Non-Binary",
+  "date_of_birth": "Date of birth"
 }
