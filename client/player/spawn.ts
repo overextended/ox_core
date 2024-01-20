@@ -232,7 +232,7 @@ function CreateCharacterMenu(characters: Character[]) {
       });
 
         if (deleteChar === 'confirm') {
-          const success = <boolean>await triggerServerCallback('ox:deleteCharacter', 0, character.charId);
+          const success = await triggerServerCallback<boolean>('ox:deleteCharacter', 0, character.charId);
 
           if (success) {
             characters.splice(input[0] as number, 1);
@@ -249,7 +249,7 @@ function CreateCharacterMenu(characters: Character[]) {
     id: 'ox:characterSelect',
     title: locale('select_character_title'),
     canClose: false,
-    options: options,
+    options,
   });
 
   showContext('ox:characterSelect');
