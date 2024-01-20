@@ -88,6 +88,7 @@ const connectionConfig: PoolConfig = (() => {
     dateStrings: true,
     insertIdAsNumber: true,
     decimalAsNumber: true,
+    autoJsonMap: false,
   };
 })();
 
