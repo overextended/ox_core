@@ -1,48 +1,37 @@
-import { OkPacket, db } from '../db';
+import { db } from '../db';
 
-setImmediate(async () => {
-  using conn = await db.getConnection();
-  conn.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']);
-});
+setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']));
 
 export async function IsPlateAvailable(plate: string) {
-  using conn = await db.getConnection();
-  return db.scalar(await conn.execute<{ '1': 1 }[]>('SELECT 1 FROM vehicles WHERE plate = ?', [plate])) !== 1;
+  return !(await db.exists('SELECT 1 FROM vehicles WHERE plate = ?', [plate]));
 }
 
 export async function IsVinAvailable(plate: string) {
-  using conn = await db.getConnection();
-  return db.scalar(await conn.execute<{ '1': 1 }[]>('SELECT 1 FROM vehicles WHERE vin = ?', [plate])) !== 1;
+  return !(await db.exists('SELECT 1 FROM vehicles WHERE vin = ?', [plate]));
 }
 
-export async function GetStoredVehicleFromId(id: number) {
-  using conn = await db.getConnection();
-  return db.single(
-    await conn.execute<
-      Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>[]
-    >('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id])
-  );
+export function GetStoredVehicleFromId(id: number) {
+  return db.execute<
+    Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>[]
+  >('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id]);
 }
 
 export async function SetVehicleColumn(id: number | void, column: string, value: any) {
   if (!id) return;
 
-  using conn = await db.getConnection();
-  return (await conn.execute(`UPDATE vehicles SET \`${column}\` = ? WHERE id = ?`, [value, id])).affectedRows === 1;
+  return (await db.update(`UPDATE vehicles SET \`${column}\` = ? WHERE id = ?`, [value, id])) === 1;
 }
 
-export async function SaveVehicleData(
+export function SaveVehicleData(
   values: [string | null, string, number] | [string | null, string, number][],
   batch?: boolean
 ) {
-  using conn = await db.getConnection();
   const query = 'UPDATE vehicles SET `stored` = ?, data = ? WHERE id = ?';
 
-  if (batch) await conn.batch(query, values);
-  else await conn.execute(query, values);
+  return batch ? db.batch(query, values) : db.update(query, values);
 }
 
-export async function CreateNewVehicle(
+export function CreateNewVehicle(
   plate: string,
   vin: string,
   owner: number | null,
@@ -52,16 +41,12 @@ export async function CreateNewVehicle(
   data: object,
   stored: string | null
 ) {
-  using conn = await db.getConnection();
-  return (
-    await conn.execute<OkPacket>(
-      'INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, `stored`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [plate, vin, owner, group, model, vehicleClass, JSON.stringify(data), stored]
-    )
-  ).insertId;
+  return db.insert(
+    'INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, `stored`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [plate, vin, owner, group, model, vehicleClass, JSON.stringify(data), stored]
+  );
 }
 
 export async function DeleteVehicle(id: number) {
-  using conn = await db.getConnection();
-  return (await conn.execute<OkPacket>('DELETE FROM vehicles WHERE id = ?', [id])).affectedRows === 1;
+  return (await db.update('DELETE FROM vehicles WHERE id = ?', [id])) === 1;
 }

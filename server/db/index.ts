@@ -15,13 +15,43 @@ export interface OkPacket {
 
 export const db = {
   getConnection: getConnection,
-  scalar<T>(resp: MySqlRow<T>[]): T | void {
+  async query<T>(query: string, values?: any[]) {
+    await awaitConnection();
+    return pool.query<T>(query, values);
+  },
+  async execute<T>(query: string, values?: any[]) {
+    await awaitConnection();
+    return pool.execute<T>(query, values);
+  },
+  async column<T>(query: string, values?: any[]) {
+    return db.scalar(await db.execute<MySqlRow<T>[]>(query, values));
+  },
+  async exists<T>(query: string, values?: any[]) {
+    return db.scalar(await db.execute<MySqlRow<T>[]>(query, values)) === 1;
+  },
+  async row<T>(query: string, values?: any[]) {
+    return db.single(await db.execute<T[]>(query, values));
+  },
+  async insert(query: string, values?: any[]) {
+    return (await db.execute<OkPacket>(query, values)).insertId;
+  },
+  async update(query: string, values?: any[]) {
+    return (await db.execute<OkPacket>(query, values)).affectedRows;
+  },
+  batch(query: string, values?: any[]) {
+    return pool.batch(query, values);
+  },
+  scalar<T>(resp: MySqlRow<T>[]): T {
     if (resp[0]) for (const key in resp[0]) return resp[0][key];
   },
-  single<T>(resp: T[]): T | void {
+  single<T>(resp: T[]): T {
     return resp[0];
   },
 };
+
+async function awaitConnection() {
+  while (!isServerConnected) await sleep(0);
+}
 
 export let pool: Pool;
 let isServerConnected = false;
@@ -118,10 +148,9 @@ setImmediate(async () => {
     //   console.log('released conn');
     // });
 
-    using conn = await getConnection();
-    const result: MySqlRow[] = await conn.query('SELECT VERSION() as version');
+    const version = await db.column<string>('SELECT VERSION() as version');
 
-    console.log(`${`^5[${result[0].version}]`} ^2Database server connection established!^0`);
+    console.log(`${`^5[${version}]`} ^2Database server connection established!^0`);
   } catch (err) {
     console.log(
       `^3Unable to establish a connection to the database (${err.code})!\n^1Error ${err.errno}: ${err.message}^0`

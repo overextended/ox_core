@@ -1,48 +1,30 @@
-import { OkPacket, db } from 'db';
+import { db } from 'db';
+import { OxGroup } from 'groups';
 
-export async function SelectGroups() {
-  using conn = await db.getConnection();
-  return await conn.query('SELECT * FROM ox_groups');
+export function SelectGroups() {
+  return db.query<OxGroup[]>('SELECT * FROM ox_groups');
 }
 
 export async function AddCharacterGroup(charId: number, name: string, grade: number) {
-  using conn = await db.getConnection();
   return (
-    (
-      await conn.execute<OkPacket>('INSERT INTO character_groups (charId, name, grade) VALUES (?, ?, ?)', [
-        charId,
-        name,
-        grade,
-      ])
-    ).affectedRows === 1
+    (await db.update('INSERT INTO character_groups (charId, name, grade) VALUES (?, ?, ?)', [charId, name, grade])) ===
+    1
   );
 }
 
 export async function UpdateCharacterGroup(charId: number, name: string, grade: number) {
-  using conn = await db.getConnection();
   return (
-    (
-      await conn.execute<OkPacket>('UPDATE character_groups SET grade = ? WHERE charId = ? AND name = ?', [
-        grade,
-        charId,
-        name,
-      ])
-    ).affectedRows === 1
+    (await db.update('UPDATE character_groups SET grade = ? WHERE charId = ? AND name = ?', [grade, charId, name])) ===
+    1
   );
 }
 
 export async function RemoveCharacterGroup(charId: number, name: string) {
-  using conn = await db.getConnection();
-  return (
-    (await conn.execute<OkPacket>('DELETE FROM character_groups WHERE charId = ? AND name = ?', [charId, name]))
-      .affectedRows === 1
-  );
+  return (await db.update('DELETE FROM character_groups WHERE charId = ? AND name = ?', [charId, name])) === 1;
 }
 
-export async function LoadCharacterGroups(charId: number) {
-  using conn = await db.getConnection();
-  return await conn.execute<{ name: string; grade: number }[]>(
-    'SELECT name, grade FROM character_groups WHERE charId = ?',
-    [charId]
-  );
+export function LoadCharacterGroups(charId: number) {
+  return db.execute<{ name: string; grade: number }[]>('SELECT name, grade FROM character_groups WHERE charId = ?', [
+    charId,
+  ]);
 }

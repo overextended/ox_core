@@ -6,14 +6,8 @@ const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 
 export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw?: boolean) {
-  using conn = await db.getConnection();
   return (
-    (
-      await conn.execute<OkPacket>(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [
-        amount,
-        id,
-      ])
-    ).affectedRows === 1
+    (await db.update(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id])) === 1
   );
 }
 
@@ -42,27 +36,18 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
   return false;
 }
 
-export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: string | number) {
-  using conn = await db.getConnection();
-  return await conn.execute<OxAccount[]>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
+export function SelectAccounts(column: 'owner' | 'group' | 'id', id: string | number) {
+  return db.execute<OxAccount[]>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
 }
 
 export async function SelectAccount(id: string | number) {
   return db.single(await SelectAccounts('id', id));
 }
 
-export async function CreateNewAccount(
-  column: 'owner' | 'group',
-  id: string | number,
-  label: string,
-  shared?: boolean
-) {
-  using conn = await db.getConnection();
-  return (
-    await conn.execute<OkPacket>(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
-      label,
-      id,
-      shared ? 'shared' : 'personal',
-    ])
-  ).insertId;
+export function CreateNewAccount(column: 'owner' | 'group', id: string | number, label: string, shared?: boolean) {
+  return db.insert(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
+    label,
+    id,
+    shared ? 'shared' : 'personal',
+  ]);
 }

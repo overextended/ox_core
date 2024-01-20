@@ -1,35 +1,25 @@
 import { CHARACTER_SLOTS } from '../../common/config';
-import { MySqlRow, OkPacket, db } from '../db';
-import { OxStatus } from './status';
+import { db } from '../db';
 
-export async function GetUserIdFromIdentifier(identifier: string, offset?: number) {
-  using conn = await db.getConnection();
-  const resp: { userId: number }[] = await conn.execute('SELECT userId FROM users WHERE license2 = ? LIMIT ?, 1', [
-    identifier,
-    offset || 0,
-  ]);
-
-  return db.scalar(resp);
+export function GetUserIdFromIdentifier(identifier: string, offset?: number) {
+  return db.column<number>('SELECT userId FROM users WHERE license2 = ? LIMIT ?, 1', [identifier, offset || 0]);
 }
 
-export async function CreateUser(username: string, identifiers: Dict<string>) {
-  using conn = await db.getConnection();
-  const resp: OkPacket = await conn.execute(
-    'INSERT INTO users (username, license2, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)',
-    [username, identifiers.license2, identifiers.steam, identifiers.fivem, identifiers.discord]
-  );
-
-  return resp.insertId;
+export function CreateUser(username: string, identifiers: Dict<string>) {
+  return db.insert('INSERT INTO users (username, license2, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)', [
+    username,
+    identifiers.license2,
+    identifiers.steam,
+    identifiers.fivem,
+    identifiers.discord,
+  ]);
 }
 
 export async function IsStateIdAvailable(stateId: string) {
-  using conn = await db.getConnection();
-  const resp: MySqlRow<number>[] = await conn.execute('SELECT 1 FROM characters WHERE stateId = ?', [stateId]);
-
-  return !db.scalar(resp);
+  return !(await db.exists('SELECT 1 FROM characters WHERE stateId = ?', [stateId]));
 }
 
-export async function CreateCharacter(
+export function CreateCharacter(
   userId: number,
   stateId: string,
   firstName: string,
@@ -38,49 +28,32 @@ export async function CreateCharacter(
   date: number,
   phoneNumber?: number
 ) {
-  using conn = await db.getConnection();
-  return (
-    await conn.execute<OkPacket>(
-      'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?), ?)',
-      [userId, stateId, firstName, lastName, gender, date / 1000, phoneNumber]
-    )
-  ).insertId;
+  return db.insert(
+    'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, FROM_UNIXTIME(?), ?)',
+    [userId, stateId, firstName, lastName, gender, date / 1000, phoneNumber]
+  );
 }
 
-export async function GetCharacters(userId: number) {
-  using conn = await db.getConnection();
-  const resp = conn.execute<Character[]>(
+export function GetCharacters(userId: number) {
+  return db.execute<Character[]>(
     'SELECT charId, stateId, firstName, lastName, x, y, z, heading, DATE_FORMAT(lastPlayed, "%d/%m/%Y") AS lastPlayed FROM characters WHERE userId = ? AND deleted IS NULL LIMIT ?',
     [userId, CHARACTER_SLOTS]
   );
-
-  return resp;
 }
 
-export async function SaveCharacterData(values: any[] | any[][], batch?: boolean) {
-  using conn = await db.getConnection();
+export function SaveCharacterData(values: any[] | any[][], batch?: boolean) {
   const query =
     'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, isDead = ?, lastPlayed = CURRENT_DATE(), health = ?, armour = ?, statuses = ? WHERE charId = ?';
 
-  if (batch) await conn.batch(query, values);
-  else await conn.execute(query, values);
+  return batch ? db.batch(query, values) : db.update(query, values);
 }
 
 export async function DeleteCharacter(charId: number) {
-  using conn = await db.getConnection();
-  const resp: OkPacket = await conn.execute('UPDATE characters SET deleted = curdate() WHERE charId = ?', [charId]);
-
-  return resp.affectedRows === 1;
+  return (await db.update('UPDATE characters SET deleted = curdate() WHERE charId = ?', [charId])) === 1;
 }
 
-export async function GetCharacterMetadata(charId: number) {
-  using conn = await db.getConnection();
-  const resp = await conn.execute(
-    'SELECT isDead, gender, DATE_FORMAT(dateOfBirth, "%d/%m/%Y") AS dateOfBirth, phoneNumber, health, armour, statuses FROM characters WHERE charId = ?',
-    [charId]
-  );
-
-  return db.single(resp) as {
+export function GetCharacterMetadata(charId: number) {
+  return db.row<{
     isDead: boolean;
     gender: string;
     dateOfBirth: string;
@@ -88,10 +61,12 @@ export async function GetCharacterMetadata(charId: number) {
     health: number;
     armour: number;
     statuses: Dict<number>;
-  };
+  }>(
+    'SELECT isDead, gender, DATE_FORMAT(dateOfBirth, "%d/%m/%Y") AS dateOfBirth, phoneNumber, health, armour, statuses FROM characters WHERE charId = ?',
+    [charId]
+  );
 }
 
-export async function GetStatuses() {
-  using conn = await db.getConnection();
-  return conn.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
+export function GetStatuses() {
+  return db.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
 }
