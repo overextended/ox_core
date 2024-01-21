@@ -12,8 +12,12 @@ import { PlayerIsLoaded, PlayerData, SetPlayerLoaded, SetPlayerData } from './';
 import { netEvent } from 'utils';
 import locale from '../../locales';
 
-let playerIsHidden = true;
+let playerIsHidden = false;
 let camActive = false;
+
+DoScreenFadeOut(0);
+NetworkStartSoloTutorialSession();
+setTimeout(() => emitNet('ox:playerJoined'));
 
 async function StartSession() {
   if (IsPlayerSwitchInProgress()) {
@@ -48,9 +52,6 @@ async function StartSession() {
   NetworkSetFriendlyFireOption(true);
   SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0);
 }
-
-emitNet('ox:playerJoined');
-setImmediate(StartSession);
 
 async function StartCharacterSelect() {
   while (!IsScreenFadedOut()) {
@@ -224,12 +225,12 @@ function CreateCharacterMenu(characters: Character[]) {
 
         if (!input) return showContext('ox:characterSelect');
 
-      const character = characters[input[0] as number];
-      const deleteChar = await alertDialog({
-        header: locale('delete_character_title'),
-        content: locale('delete_character_confirm', character.firstName, character.lastName),
-        cancel: true,
-      });
+        const character = characters[input[0] as number];
+        const deleteChar = await alertDialog({
+          header: locale('delete_character_title'),
+          content: locale('delete_character_confirm', character.firstName, character.lastName),
+          cancel: true,
+        });
 
         if (deleteChar === 'confirm') {
           const success = await triggerServerCallback<boolean>('ox:deleteCharacter', 0, character.charId);
@@ -260,10 +261,10 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
     DEV: console.info('Character is already loaded - resetting data');
     SetPlayerLoaded(false);
     emit('ox:playerLogout');
-    StartSession();
   }
 
   playerIsHidden = true;
+  StartSession();
   StartCharacterSelect();
 
   while (IsScreenFadedOut()) await sleep(0);
