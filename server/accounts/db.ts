@@ -7,7 +7,11 @@ const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 
 export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw?: boolean) {
   return (
-    (await db.update(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id])) === 1
+    (await db.update(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [
+      amount,
+      id,
+      amount,
+    ])) === 1
   );
 }
 
