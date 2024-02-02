@@ -2,6 +2,7 @@ import 'player/loading';
 import 'player/events';
 import 'player/commands';
 import { OxPlayer } from './class';
+import { GetCharIdFromStateId } from './db';
 
 /**
  * Sets an interval to save every 10 minutes.
@@ -9,3 +10,5 @@ import { OxPlayer } from './class';
  * Multiple staggered saves may improve load.
  */
 setInterval(() => OxPlayer.saveAll(), 600000);
+
+exports('GetCharIdFromStateId', GetCharIdFromStateId);

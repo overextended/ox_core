@@ -70,3 +70,7 @@ export function GetCharacterMetadata(charId: number) {
 export function GetStatuses() {
   return db.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
 }
+
+export function GetCharIdFromStateId(stateId: string) {
+  return db.column<number>('SELECT charId FROM characters WHERE stateId = ?', [stateId]);
+}

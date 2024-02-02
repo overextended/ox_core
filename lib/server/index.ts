@@ -13,6 +13,7 @@ import type {
 import type { OxPlayer } from 'server/player/class';
 import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
 import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
+import type { GetCharIdFromStateId } from 'server/player/db';
 
 interface OxServer {
   [exportKey: string]: Function;
@@ -31,6 +32,7 @@ interface OxServer {
   SpawnVehicle: typeof SpawnVehicle;
   GetTopVehicleStats: typeof GetTopVehicleStats;
   GetVehicleData: typeof GetVehicleData;
+  GetCharIdFromStateId: typeof GetCharIdFromStateId;
 }
 
 export const Ox: OxServer = exports.ox_core as any;
