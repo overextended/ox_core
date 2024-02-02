@@ -40,11 +40,15 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
   return false;
 }
 
-export function SelectAccounts(column: 'owner' | 'group' | 'id', id: string | number) {
+export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: number | string) {
   return db.execute<OxAccount[]>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
 }
 
-export async function SelectAccount(id: string | number) {
+export async function SelectDefaultAccount(column: 'owner' | 'group' | 'id', id: number | string) {
+  return await db.row<OxAccount>(`SELECT * FROM accounts WHERE ${column} = ? AND isDefault = 1`, [id]);
+}
+
+export async function SelectAccount(id: number) {
   return db.single(await SelectAccounts('id', id));
 }
 

@@ -1,9 +1,16 @@
 import { OxPlayer } from 'player/class';
-import { CreateNewAccount, PerformTransaction, SelectAccount, SelectAccounts, UpdateBalance } from './db';
+import {
+  CreateNewAccount,
+  PerformTransaction,
+  SelectAccount,
+  SelectAccounts,
+  SelectDefaultAccount,
+  UpdateBalance,
+} from './db';
+import { GetCharIdFromStateId } from 'player/db';
 
 export interface OxAccount {
   id: number;
-  accountId: string;
   balance: number;
   isDefault: boolean;
   label?: string;
@@ -15,14 +22,30 @@ export function GetAccountById(id: number): Promise<OxAccount | void> {
   return SelectAccount(id);
 }
 
+export function GetPlayerAccount(playerId: number): Promise<OxAccount | void> {
+  const player = OxPlayer.get(playerId);
+
+  if (player?.charId) return SelectDefaultAccount('owner', player.charId);
+}
+
+export async function GetCharacterAccount(id: number | string): Promise<OxAccount | void> {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return SelectDefaultAccount('owner', id);
+}
+
+export async function GetGroupAccount(group: string): Promise<OxAccount | void> {
+  return SelectDefaultAccount('group', group);
+}
+
 export function GetPlayerAccounts(playerId: number): Promise<OxAccount[] | void> {
   const player = OxPlayer.get(playerId);
 
   if (player?.charId) return SelectAccounts('owner', player.charId);
 }
 
-export function GetCharacterAccounts(charId: number): Promise<OxAccount[] | void> {
-  return SelectAccounts('owner', charId);
+export async function GetCharacterAccounts(id: number | string): Promise<OxAccount[] | void> {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return SelectAccounts('owner', id);
 }
 
 export function GetGroupAccounts(group: string): Promise<OxAccount[] | void> {
@@ -55,6 +78,9 @@ export function CreateGroupAccount(group: string, label: string, shared?: boolea
 }
 
 exports('GetAccountById', GetAccountById);
+exports('GetPlayerAccount', GetPlayerAccount);
+exports('GetCharacterAccount', GetCharacterAccount);
+exports('GetGroupAccount', GetGroupAccount);
 exports('GetPlayerAccounts', GetPlayerAccounts);
 exports('GetCharacterAccounts', GetCharacterAccounts);
 exports('GetGroupAccounts', GetGroupAccounts);

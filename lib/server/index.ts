@@ -9,6 +9,9 @@ import type {
   TransferAccountBalance,
   CreateAccount,
   CreateGroupAccount,
+  GetPlayerAccount,
+  GetCharacterAccount,
+  GetGroupAccount,
 } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
@@ -18,6 +21,9 @@ import type { GetCharIdFromStateId } from 'server/player/db';
 interface OxServer {
   [exportKey: string]: Function;
   GetAccountById: typeof GetAccountById;
+  GetPlayerAccount: typeof GetPlayerAccount;
+  GetCharacterAccount: typeof GetCharacterAccount;
+  GetGroupAccount: typeof GetGroupAccount;
   GetPlayerAccounts: typeof GetPlayerAccounts;
   GetCharacterAccounts: typeof GetCharacterAccounts;
   GetGroupAccounts: typeof GetGroupAccounts;
