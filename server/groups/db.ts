@@ -28,3 +28,9 @@ export function LoadCharacterGroups(charId: number) {
     charId,
   ]);
 }
+
+export async function UpdateService(charId: number, name: string, inService: boolean) {
+  return (
+    (await db.update('UPDATE character_groups SET inService = ? WHERE charId = ? AND name = ?', [inService, charId, name])) === 1
+  );
+}  

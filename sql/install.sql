@@ -105,6 +105,7 @@ CREATE TABLE
     `charId` INT UNSIGNED NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `grade` TINYINT UNSIGNED NOT NULL,
+    `inService` TINYINT UNSIGNED NOT NULL DEFAULT 0,
     UNIQUE KEY `name` (`name`, `charId`) USING BTREE,
     KEY `FK_character_groups_characters` (`charId`) USING BTREE,
     CONSTRAINT `FK_character_groups_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE

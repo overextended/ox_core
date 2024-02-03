@@ -11,6 +11,7 @@ import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { OxGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
+import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup, UpdateService } from 'groups/db';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -24,7 +25,7 @@ export class OxPlayer extends ClassInterface {
   #inScope: Dict<true> = {};
   #metadata: Dict<any>;
   #statuses: Dict<number>;
-  #groups: Dict<number>;
+  #groups: Dict<{grade: number, inService: boolean}>;
 
   protected static members: Dict<OxPlayer> = {};
   protected static keys: Dict<Dict<OxPlayer>> = {
@@ -84,8 +85,123 @@ export class OxPlayer extends ClassInterface {
     }
   }
 
-  setGroup(groupName: string, grade?: number) {
-    OxGroup.get(groupName).setPlayerGrade(this, grade);
+  /**
+   * Sets the player's group.
+   * @param groupName Name of the group to set.
+   * @param grade Grade to set. Set to 0 or omit to remove the group.
+   * @returns True if the group was set successfully.
+   */
+  async setGroup(groupName: string, grade?: number) {
+    if (!this.charId) return;
+
+    if (!OxGroup.get(groupName)) return;
+
+    const currentGroup = this.#groups[groupName];
+    const currentGrade = currentGroup?.grade;
+
+    if (currentGrade === grade) return;
+
+    if (currentGroup) {
+      if (!grade) {
+        if (!(await RemoveCharacterGroup(this.charId, groupName))) return;
+
+        this.#removeGroup(groupName, currentGrade);
+      } else {
+        if (!(await UpdateCharacterGroup(this.charId, groupName, grade))) return;
+
+        this.#removeGroup(groupName, currentGrade);
+        this.#addGroup(groupName, grade);
+      }
+    } else {
+      if (!(await AddCharacterGroup(this.charId, groupName, grade))) return;
+
+      this.#addGroup(groupName, grade);
+    }
+
+    emit('ox:setGroup', this.source, groupName, grade ? grade : null);
+    emitNet('ox:setGroup', this.source, groupName, grade ? grade : null);
+
+    return true;
+  }
+
+
+  /**
+   * Sets the player's group service status.
+   * @param groupName Name of the group to set.
+   * @param inService Whether the player should get set in Service.
+   * @returns True if the group service status was set successfully.
+   */
+  async setGroupService(groupName: string, inService: boolean) {
+    if (!this.charId) return;
+
+    if (!OxGroup.get(groupName)) return;
+
+    const currentGroup = this.#groups[groupName];
+    const currentInService = currentGroup?.inService;
+
+    if (currentInService === inService) return;
+
+    if (!(await UpdateService(this.charId, groupName, inService))) return;
+
+    this.#groups[groupName].inService = inService;
+
+    emit('ox:setGroupService', this.source, groupName, inService);
+    emitNet('ox:setGroupService', this.source, groupName, inService);
+
+    return true;
+  }
+
+  /**
+   * Checks if the player has a group.
+   * @param groupName 
+   * @returns True if the player has the group, false otherwise.
+   */
+  hasGroup(groupName: string): boolean {
+    return this.#groups[groupName] !== undefined;
+  }
+
+  /**
+   * Checks if the player is in service for a group.
+   * @param groupName 
+   * @returns True if the player is in service, false otherwise.
+   */  
+  isInService(groupName: string): boolean {
+    return this.#groups[groupName]?.inService;
+  }
+
+  #addGroup(groupName: string, grade: number) {
+    this.#groups[groupName] = { grade, inService: false };
+
+    if (grade) {
+      GlobalState[`${groupName}:count`] += 1;
+    }
+  }
+
+  #removeGroup(groupName: string, currentGrade: number) {
+    delete this.#groups[groupName];
+
+    if (currentGrade) {
+      GlobalState[`${groupName}:count`] -= 1;
+    }
+  }
+
+  async #loadGroups() {
+    const rows = await LoadCharacterGroups(this.charId);
+
+    rows.forEach(({ name, grade }) => {
+      const group = this.#groups[name];
+
+      if (group) {
+        this.#addGroup(name, grade);
+      }
+    });
+  }
+
+  #clearGroups() {
+    for (const name in this.#groups) {
+      this.#removeGroup(name, this.#groups[name].grade);
+      GlobalState[`${name}:count`] -= 1;
+    }
   }
 
   getGroup(groupName: string) {
@@ -279,7 +395,7 @@ export class OxPlayer extends ClassInterface {
     this.#metadata = {};
     this.#statuses = {};
 
-    await OxGroup.loadPlayerGroups(this);
+    await this.#loadGroups()
 
     statuses = JSON.parse(statuses as any) || this.#statuses;
 

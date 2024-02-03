@@ -1,5 +1,5 @@
 import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
-import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, SelectGroups, UpdateCharacterGroup } from './db';
+import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
 
 export class OxGroup {
@@ -7,7 +7,6 @@ export class OxGroup {
   label: string;
   grades: string[];
   principal: string;
-  #members: Dict<number>;
 
   static #groups: Dict<OxGroup> = {};
 
@@ -15,26 +14,28 @@ export class OxGroup {
     return this.#groups[name];
   }
 
-  static async loadPlayerGroups(player: OxPlayer) {
-    const rows = await LoadCharacterGroups(player.charId);
-
-    rows.forEach(({ name, grade }) => {
-      const group = this.#groups[name];
-
-      if (group) {
-        group.#addGroup(player, grade);
-      }
-    });
+  static getAll() {
+    return this.#groups;
   }
 
-  static clearPlayerGroups(player: OxPlayer) {
-    const groups = player.getGroups();
+  getPlayersFromGroup(group: string) {
+    const groupPlayerCount = GlobalState[`${group}:count`];
 
-    for (const name in groups) {
-      const group = this.#groups[name];
-      group.#removeGroup(player, groups[name]);
-      GlobalState[`${this.name}:count`] -= 1;
+    let playersInGroup = [];
+
+    const players = Object.values(OxPlayer.getAll());
+
+    for (const player of players) {
+      if (player.hasGroup(group)) {
+        playersInGroup.push(player);
+      
+        if (playersInGroup.length === groupPlayerCount) {
+          break;
+        }
+      }
     }
+
+    return playersInGroup;
   }
 
   constructor({ name, grades, label }: Partial<OxGroup>) {
@@ -44,7 +45,6 @@ export class OxGroup {
     this.label = label;
     this.grades = JSON.parse(grades as any);
     this.principal = `group.${this.name}`;
-    this.#members = {};
     this.grades.unshift(null);
 
     let parent = this.principal;
@@ -79,59 +79,6 @@ export class OxGroup {
 
       parent = child;
     }
-  }
-
-  #addGroup(player: OxPlayer, grade: number) {
-    addPrincipal(player.source as string, `${this.principal}:${grade}`);
-    console.log('add the group', this.name, grade);
-
-    player.getGroups()[this.name] = grade;
-    this.#members[player.source] = grade;
-  }
-
-  #removeGroup(player: OxPlayer, grade: number) {
-    removePrincipal(player.source as string, `${this.principal}:${grade}`);
-    console.log('remove the group', this.name, grade);
-
-    delete player.getGroups()[this.name];
-    delete this.#members[player.source];
-  }
-
-  async setPlayerGrade(player: OxPlayer, grade: number) {
-    if (!player.charId) return;
-
-    const currentGrade = this.#members[player.source];
-
-    if (currentGrade === grade) return;
-
-    if (!grade) {
-      if (!currentGrade) return;
-
-      if (!(await RemoveCharacterGroup(player.charId, this.name))) return;
-
-      this.#removeGroup(player, currentGrade);
-      GlobalState[`${this.name}:count`] -= 1;
-    } else {
-      if (!this.grades[grade] && grade > 0)
-        console.warn(`Failed to set OxPlayer<${player.userId}> ${this.name}:${grade} (invalid grade)`);
-
-      if (currentGrade) {
-        if (!(await UpdateCharacterGroup(player.charId, this.name, grade))) return;
-
-        this.#removeGroup(player, currentGrade);
-        this.#addGroup(player, grade);
-      } else {
-        if (!(await AddCharacterGroup(player.charId, this.name, grade))) return;
-
-        this.#addGroup(player, grade);
-        GlobalState[`${this.name}:count`] += 1;
-      }
-    }
-
-    emit('ox:setGroup', player.source, this.name, grade ? grade : null);
-    emitNet('ox:setGroup', player.source, this.name, grade ? grade : null);
-
-    return true;
   }
 }
 
@@ -171,3 +118,28 @@ addCommand<{ target: string; group: string; grade?: number }>(
     ],
   }
 );
+
+addCommand<{ target: string; group: string; inService: number }>(
+  'setgroupservice',
+  async (playerId, args, raw) => {
+    const player = OxPlayer.get(args.target);
+
+    const inService = args.inService === 1;
+
+    player?.setGroupService(args.group, inService);
+  },
+  {
+    help: `Update a player's service status for a group.`,
+    params: [
+      { name: 'target', paramType: 'playerId' },
+      { name: 'group', paramType: 'string' },
+      { name: 'inService', paramType: 'number', help: 'The new service status to set.' },
+    ],
+  }
+);
+
+// Command to list all groups
+addCommand('listgroups', async () => {
+  console.log('Groups:', OxGroup.getAll());
+  return Promise.resolve();
+});
