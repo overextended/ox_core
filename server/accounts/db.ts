@@ -1,5 +1,6 @@
 import { OxAccount } from 'accounts';
-import { OkPacket, db } from 'db';
+import { MySqlRow, OkPacket, db } from 'db';
+import { OxPlayer } from 'player/class';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -58,4 +59,62 @@ export function CreateNewAccount(column: 'owner' | 'group', id: string | number,
     id,
     shared ? 'shared' : 'personal',
   ]);
+}
+
+//@todo permission system
+const isAccountOwner = `SELECT 1 FROM accounts WHERE id = ? AND owner = ?`;
+
+export function IsAccountOwner(playerId: number, accountId: number) {
+  const charId = OxPlayer.get(playerId)?.charId;
+
+  if (!charId) return;
+
+  return db.exists(isAccountOwner, [accountId, charId]);
+}
+
+export async function DepositMoney(playerId: number, accountId: number, amount: number) {
+  const charId = OxPlayer.get(playerId)?.charId;
+
+  if (!charId) return;
+
+  const money = exports.ox_inventory.GetItemCount(playerId, 'money');
+
+  if (amount > money) return;
+
+  using conn = await db.getConnection();
+
+  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, charId]))) return;
+
+  await conn.beginTransaction();
+  const success = (await conn.execute<OkPacket>(addBalance, [amount, accountId])).affectedRows;
+
+  if (!success || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+    conn.rollback();
+    return false;
+  }
+
+  conn.commit();
+  return true;
+}
+
+export async function WithdrawMoney(playerId: number, accountId: number, amount: number) {
+  const charId = OxPlayer.get(playerId)?.charId;
+
+  if (!charId) return;
+
+  using conn = await db.getConnection();
+
+  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, charId]))) return;
+
+  await conn.beginTransaction();
+
+  const success = (await conn.execute<OkPacket>(safeRemoveBalance, [amount, accountId, amount])).affectedRows;
+
+  if (!success || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+    conn.rollback();
+    return false;
+  }
+
+  conn.commit();
+  return true;
 }

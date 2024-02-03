@@ -1,11 +1,14 @@
 import { OxPlayer } from 'player/class';
 import {
   CreateNewAccount,
+  DepositMoney,
+  IsAccountOwner,
   PerformTransaction,
   SelectAccount,
   SelectAccounts,
   SelectDefaultAccount,
   UpdateBalance,
+  WithdrawMoney,
 } from './db';
 import { GetCharIdFromStateId } from 'player/db';
 
@@ -89,3 +92,6 @@ exports('RemoveAccountBalance', RemoveAccountBalance);
 exports('TransferAccountBalance', TransferAccountBalance);
 exports('CreateAccount', CreateAccount);
 exports('CreateGroupAccount', CreateGroupAccount);
+exports('IsAccountOwner', IsAccountOwner);
+exports('DepositMoney', DepositMoney);
+exports('WithdrawMoney', WithdrawMoney);
