@@ -8,9 +8,11 @@ import {
   SaveCharacterData,
 } from './db';
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
-import { OxGroup } from 'groups';
+import { GetGroup, OxGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
+import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
+import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -84,8 +86,38 @@ export class OxPlayer extends ClassInterface {
     }
   }
 
-  setGroup(groupName: string, grade?: number) {
-    OxGroup.get(groupName).setPlayerGrade(this, grade);
+  async setGroup(groupName: string, grade = 0) {
+    const group = GetGroup(groupName);
+    const currentGrade = this.#groups[groupName];
+
+    if (currentGrade === grade) return;
+
+    if (!grade) {
+      if (!currentGrade) return;
+
+      if (!(await RemoveCharacterGroup(this.charId, group.name))) return;
+
+      this.#removeGroup(group, currentGrade);
+    } else {
+      if (!group.grades[grade] && grade > 0)
+        console.warn(`Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (invalid grade)`);
+
+      if (currentGrade) {
+        if (!(await UpdateCharacterGroup(this.charId, group.name, grade))) return;
+
+        this.#removeGroup(group, currentGrade);
+        this.#addGroup(group, grade);
+      } else {
+        if (!(await AddCharacterGroup(this.charId, group.name, grade))) return;
+
+        this.#addGroup(group, grade);
+      }
+    }
+
+    emit('ox:setGroup', this.source, group.name, grade ? grade : null);
+    emitNet('ox:setGroup', this.source, group.name, grade ? grade : null);
+
+    return true;
   }
 
   getGroup(groupName: string) {
@@ -153,6 +185,26 @@ export class OxPlayer extends ClassInterface {
     ];
   }
 
+  #addGroup(group: string | OxGroup, grade: number) {
+    if (typeof group === 'string') group = GetGroup(group);
+
+    addPrincipal(this.source as string, `${group.principal}:${grade}`);
+    DEV: console.info(`Added OxPlayer<${this.userId}> to group ${group.name} as grade ${grade}.`);
+
+    this.#groups[group.name] = grade;
+    GlobalState[`${group.name}:count`] += 1;
+  }
+
+  #removeGroup(group: string | OxGroup, grade: number) {
+    if (typeof group === 'string') group = GetGroup(group);
+
+    removePrincipal(this.source as string, `${group.principal}:${grade}`);
+    DEV: console.info(`Removed OxPlayer<${this.userId}> from group ${group.name}.`);
+
+    delete this.#groups[group.name];
+    GlobalState[`${group.name}:count`] -= 1;
+  }
+
   static saveAll(kickWithReason?: string) {
     const parameters = [];
 
@@ -200,6 +252,8 @@ export class OxPlayer extends ClassInterface {
 
   async logout(dropped: boolean) {
     if (!this.charId) return;
+
+    for (const name in this.#groups) this.#removeGroup(name, this.#groups[name]);
 
     emit('ox:playerLogout', this.source, this.userId, this.charId);
     await this.save();
@@ -279,14 +333,15 @@ export class OxPlayer extends ClassInterface {
     this.#metadata = {};
     this.#statuses = {};
 
-    await OxGroup.loadPlayerGroups(this);
+    const groups = await LoadCharacterGroups(this.charId);
+
+    groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
 
     statuses = JSON.parse(statuses as any) || this.#statuses;
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
 
     // setup licenses
-    // setup accounts
 
     this.emit('ox:setActiveCharacter', character, this.userId, this.#groups);
 
