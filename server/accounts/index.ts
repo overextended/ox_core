@@ -7,6 +7,7 @@ import {
   SelectAccount,
   SelectAccounts,
   SelectDefaultAccount,
+  SetAccountAccess,
   UpdateBalance,
   WithdrawMoney,
 } from './db';
@@ -96,3 +97,4 @@ exports('CreateGroupAccount', CreateGroupAccount);
 exports('IsAccountOwner', IsAccountOwner);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
+exports('SetAccountAccess', SetAccountAccess);

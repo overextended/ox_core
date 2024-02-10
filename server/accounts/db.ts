@@ -136,3 +136,12 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   conn.commit();
   return true;
 }
+
+export function SetAccountAccess(accountId: string, charId: number, role?: string): Promise<number> {
+  if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, charId]);
+
+  return db.update(
+    `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
+    [accountId, charId, role]
+  );
+}
