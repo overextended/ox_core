@@ -63,6 +63,7 @@ export function CreateNewAccount(column: 'owner' | 'group', id: string | number,
 
 //@todo permission system
 const isAccountOwner = `SELECT 1 FROM accounts WHERE id = ? AND owner = ?`;
+const hasAccountAccess = `SELECT 1 FROM accounts_access WHERE accountId = ? AND stateId = ?`;
 
 export function IsAccountOwner(playerId: number, accountId: number) {
   const charId = OxPlayer.get(playerId)?.charId;
@@ -73,7 +74,7 @@ export function IsAccountOwner(playerId: number, accountId: number) {
 }
 
 export async function DepositMoney(playerId: number, accountId: number, amount: number) {
-  const charId = OxPlayer.get(playerId)?.charId;
+  const { stateId, charId } = OxPlayer.get(playerId);
 
   if (!charId) return;
 
@@ -83,7 +84,21 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 
   using conn = await db.getConnection();
 
-  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, charId]))) return;
+  const account = await db.scalar<OxAccount>(
+    await conn.execute<MySqlRow<OxAccount>[]>('SELECT * FROM `accounts` WHERE `id` = ?', [accountId])
+  );
+
+  if (
+    account.type === 'shared' &&
+    !db.scalar(await conn.execute<MySqlRow<number>[]>(hasAccountAccess, [accountId, stateId]))
+  )
+    return;
+
+  if (
+    account.type === 'personal' &&
+    !db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, stateId]))
+  )
+    return;
 
   await conn.beginTransaction();
   const success = (await conn.execute<OkPacket>(addBalance, [amount, accountId])).affectedRows;

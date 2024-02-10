@@ -19,6 +19,7 @@ export interface OxAccount {
   label?: string;
   owner?: number;
   group?: string;
+  type: 'personal' | 'shared' | 'group';
 }
 
 export function GetAccountById(id: number): Promise<OxAccount | void> {
