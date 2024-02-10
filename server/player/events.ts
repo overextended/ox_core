@@ -3,7 +3,7 @@ import { OxPlayer } from './class';
 import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
 import { Statuses } from './status';
-import { CreateAccount } from 'accounts';
+import { CreateNewAccount } from 'accounts/db';
 
 type ScopeEvent = { player: string; for: string };
 
@@ -110,7 +110,7 @@ onClientCallback('ox:deleteCharacter', async (playerId, charId: number) => {
 
 on('ox:createdCharacter', async (playerId: number, userId: number, charId: number) => {
   db.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
-  CreateAccount(charId, 'Personal', false)
+  CreateNewAccount('owner', charId, 'Personal', false, true);
 });
 
 onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {

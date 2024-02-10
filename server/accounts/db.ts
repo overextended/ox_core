@@ -58,12 +58,14 @@ export async function CreateNewAccount(
   column: 'owner' | 'group',
   id: string | number,
   label: string,
-  shared?: boolean
+  shared?: boolean,
+  isDefault?: boolean
 ) {
-  const accountId = await db.insert(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
+  const accountId = await db.insert(`INSERT INTO accounts (label, ${column}, type, isDefault) VALUES (?, ?, ?, ?)`, [
     label,
     id,
     shared ? 'shared' : 'personal',
+    isDefault,
   ]);
 
   if (accountId)
