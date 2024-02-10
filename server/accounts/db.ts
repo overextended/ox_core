@@ -53,12 +53,22 @@ export async function SelectAccount(id: number) {
   return db.single(await SelectAccounts('id', id));
 }
 
-export function CreateNewAccount(column: 'owner' | 'group', id: string | number, label: string, shared?: boolean) {
-  return db.insert(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
+export async function CreateNewAccount(
+  column: 'owner' | 'group',
+  id: string | number,
+  label: string,
+  shared?: boolean
+) {
+  const accountId = await db.insert(`INSERT INTO accounts (label, ${column}, type) VALUES (?, ?, ?)`, [
     label,
     id,
     shared ? 'shared' : 'personal',
   ]);
+
+  if (accountId && shared)
+    db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
+
+  return accountId;
 }
 
 //@todo permission system
