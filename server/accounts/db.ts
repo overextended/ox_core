@@ -84,26 +84,19 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 
   using conn = await db.getConnection();
 
-  const account = await db.scalar<OxAccount>(
-    await conn.execute<MySqlRow<OxAccount>[]>('SELECT * FROM `accounts` WHERE `id` = ?', [accountId])
+  const { type } = db.scalar(
+    await conn.execute<MySqlRow<OxAccount>[]>('SELECT `type` FROM `accounts` WHERE `id` = ?', [accountId])
   );
 
-  if (
-    account.type === 'shared' &&
-    !db.scalar(await conn.execute<MySqlRow<number>[]>(hasAccountAccess, [accountId, stateId]))
-  )
-    return;
+  const checkPermission = type === 'shared' ? hasAccountAccess : isAccountOwner;
 
-  if (
-    account.type === 'personal' &&
-    !db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, stateId]))
-  )
-    return;
+  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(checkPermission, [accountId, stateId]))) return;
 
   await conn.beginTransaction();
-  const success = (await conn.execute<OkPacket>(addBalance, [amount, accountId])).affectedRows;
 
-  if (!success || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+  const { affectedRows } = await conn.execute<OkPacket>(addBalance, [amount, accountId]);
+
+  if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
     conn.rollback();
     return false;
   }
