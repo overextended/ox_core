@@ -73,18 +73,26 @@ export async function CreateNewAccount(
 
 //@todo permission system
 const isAccountOwner = `SELECT 1 FROM accounts WHERE id = ? AND owner = ?`;
-const hasAccountAccess = `SELECT 1 FROM accounts_access WHERE accountId = ? AND stateId = ?`;
+const getAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
 
 export function IsAccountOwner(playerId: number, accountId: number) {
-  const charId = OxPlayer.get(playerId)?.charId;
+  const { charId } = OxPlayer.get(playerId);
 
   if (!charId) return;
 
   return db.exists(isAccountOwner, [accountId, charId]);
 }
 
+export function GetAccountRole(playerId: number, accountId: number) {
+  const { charId } = OxPlayer.get(playerId);
+
+  if (!charId) return;
+
+  return db.column(getAccountRole, [accountId, charId]);
+}
+
 export async function DepositMoney(playerId: number, accountId: number, amount: number) {
-  const { stateId, charId } = OxPlayer.get(playerId);
+  const { charId } = OxPlayer.get(playerId);
 
   if (!charId) return;
 
@@ -94,13 +102,9 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 
   using conn = await db.getConnection();
 
-  const { type } = db.scalar(
-    await conn.execute<MySqlRow<OxAccount>[]>('SELECT `type` FROM `accounts` WHERE `id` = ?', [accountId])
-  );
+  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(getAccountRole, [accountId, charId]));
 
-  const checkPermission = type === 'shared' ? hasAccountAccess : isAccountOwner;
-
-  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(checkPermission, [accountId, stateId]))) return;
+  if (role !== 'owner') return;
 
   await conn.beginTransaction();
 
@@ -116,19 +120,21 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 }
 
 export async function WithdrawMoney(playerId: number, accountId: number, amount: number) {
-  const charId = OxPlayer.get(playerId)?.charId;
+  const { charId } = OxPlayer.get(playerId);
 
   if (!charId) return;
 
   using conn = await db.getConnection();
 
-  if (!db.scalar(await conn.execute<MySqlRow<number>[]>(isAccountOwner, [accountId, charId]))) return;
+  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(getAccountRole, [accountId, charId]));
+
+  if (role !== 'owner' && role !== 'manager') return;
 
   await conn.beginTransaction();
 
-  const success = (await conn.execute<OkPacket>(safeRemoveBalance, [amount, accountId, amount])).affectedRows;
+  const { affectedRows } = await conn.execute<OkPacket>(safeRemoveBalance, [amount, accountId, amount]);
 
-  if (!success || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+  if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
     conn.rollback();
     return false;
   }
@@ -137,11 +143,13 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   return true;
 }
 
-export function SetAccountAccess(accountId: string, charId: number, role?: string): Promise<number> {
-  if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, charId]);
+export async function SetAccountAccess(accountId: string, id: number | string, role?: string): Promise<number> {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+
+  if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
   return db.update(
     `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
-    [accountId, charId, role]
+    [accountId, id, role]
   );
 }

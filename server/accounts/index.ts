@@ -2,6 +2,7 @@ import { OxPlayer } from 'player/class';
 import {
   CreateNewAccount,
   DepositMoney,
+  GetAccountRole,
   IsAccountOwner,
   PerformTransaction,
   SelectAccount,
@@ -95,6 +96,7 @@ exports('TransferAccountBalance', TransferAccountBalance);
 exports('CreateAccount', CreateAccount);
 exports('CreateGroupAccount', CreateGroupAccount);
 exports('IsAccountOwner', IsAccountOwner);
+exports('GetAccountRole', GetAccountRole);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
 exports('SetAccountAccess', SetAccountAccess);
