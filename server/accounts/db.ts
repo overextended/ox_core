@@ -1,6 +1,7 @@
 import { OxAccount } from 'accounts';
 import { MySqlRow, OkPacket, db } from 'db';
 import { OxPlayer } from 'player/class';
+import { GetCharIdFromStateId } from 'player/db';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -65,7 +66,7 @@ export async function CreateNewAccount(
     shared ? 'shared' : 'personal',
   ]);
 
-  if (accountId && shared)
+  if (accountId)
     db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
 
   return accountId;

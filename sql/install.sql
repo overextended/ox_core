@@ -192,7 +192,7 @@ CREATE TABLE
 
 CREATE TABLE IF NOT EXISTS `accounts_access`
 (
-  `accountId` INT UNSIGNED NOT NULL PRIMARY,
+  `accountId` INT UNSIGNED NOT NULL PRIMARY KEY,
   `charId`    INT UNSIGNED NOT NULL,
   `role`      ENUM ('contributor', 'manager', 'owner') NOT NULL,
   CONSTRAINT `accounts_access_accounts_id_fk`
