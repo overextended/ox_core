@@ -192,15 +192,14 @@ CREATE TABLE
 
 CREATE TABLE IF NOT EXISTS `accounts_access`
 (
-  `id`        INT AUTO_INCREMENT PRIMARY KEY,
-  `accountId` INT(6) UNSIGNED NOT NULL,
-  `stateId`   VARCHAR(7) NOT NULL,
+  `accountId` INT UNSIGNED NOT NULL PRIMARY,
+  `charId`    INT UNSIGNED NOT NULL,
   `role`      ENUM ('contributor', 'manager', 'owner') NOT NULL,
   CONSTRAINT `accounts_access_accounts_id_fk`
     FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`)
       ON DELETE CASCADE,
-  CONSTRAINT `accounts_access_characters_stateId_fk`
-    FOREIGN KEY (`stateId`) REFERENCES `characters` (`stateId`)
+  CONSTRAINT `accounts_access_characters_charId_fk`
+    FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`)
       ON DELETE CASCADE
 );
 
