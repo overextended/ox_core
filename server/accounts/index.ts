@@ -5,6 +5,7 @@ import {
   GetAccountRole,
   IsAccountOwner,
   PerformTransaction,
+  RemoveAccountAccess,
   SelectAccount,
   SelectAccounts,
   SelectDefaultAccount,
@@ -100,3 +101,4 @@ exports('GetAccountRole', GetAccountRole);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
 exports('SetAccountAccess', SetAccountAccess);
+exports('RemoveAccountAccess', RemoveAccountAccess);

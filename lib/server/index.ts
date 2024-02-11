@@ -17,7 +17,14 @@ import type { OxPlayer } from 'server/player/class';
 import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
 import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 import type { GetCharIdFromStateId } from 'server/player/db';
-import { DepositMoney, GetAccountRole, IsAccountOwner, SetAccountAccess, WithdrawMoney } from 'server/accounts/db';
+import {
+  DepositMoney,
+  GetAccountRole,
+  IsAccountOwner,
+  RemoveAccountAccess,
+  SetAccountAccess,
+  WithdrawMoney,
+} from 'server/accounts/db';
 
 interface OxServer {
   [exportKey: string]: Function;
@@ -38,6 +45,7 @@ interface OxServer {
   DepositMoney: typeof DepositMoney;
   WithdrawMoney: typeof WithdrawMoney;
   SetAccountAccess: typeof SetAccountAccess;
+  RemoveAccountAccess: typeof RemoveAccountAccess;
   SaveAllPlayers: typeof OxPlayer.saveAll;
   SaveAllVehicles: typeof OxVehicle.saveAll;
   CreateVehicle: typeof CreateVehicle;
