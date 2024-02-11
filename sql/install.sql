@@ -190,17 +190,18 @@ CREATE TABLE
     CONSTRAINT `FK_accounts_ox_groups` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
   ) AUTO_INCREMENT = 100000;
 
-CREATE TABLE IF NOT EXISTS `accounts_access`
+CREATE TABLE `accounts_access`
 (
-  `accountId` INT UNSIGNED NOT NULL,
-  `charId`    INT UNSIGNED NOT NULL,
-  `role`      ENUM ('contributor', 'manager', 'owner') NOT NULL,
-  CONSTRAINT `accounts_access_accounts_id_fk`
-    FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`)
-      ON DELETE CASCADE,
-  CONSTRAINT `accounts_access_characters_charId_fk`
-    FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`)
-      ON DELETE CASCADE
+    `accountId` INT UNSIGNED                             NOT NULL,
+    `charId`    INT UNSIGNED                             NOT NULL,
+    `role`      ENUM ('contributor', 'manager', 'owner') NOT NULL,
+    PRIMARY KEY (`accountId`, `charId`),
+    CONSTRAINT `accounts_access_accounts_id_fk`
+        FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`)
+            ON DELETE CASCADE,
+    CONSTRAINT `accounts_access_characters_charId_fk`
+        FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`)
+            ON DELETE CASCADE
 );
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

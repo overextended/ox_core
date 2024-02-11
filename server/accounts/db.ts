@@ -146,18 +146,13 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   return true;
 }
 
-export async function SetAccountAccess(
-  accountId: string,
-  id: number | string,
-  role: string,
-  update?: boolean
-): Promise<number> {
+export async function SetAccountAccess(accountId: string, id: number | string, role: string): Promise<number> {
   id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
 
-  if (update)
-    return db.update('UPDATE accounts_access SET role = ? WHERE accountId = ? AND charId = ?', [role, accountId, id]);
-
-  return db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, role]);
+  return db.update(
+    `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
+    [accountId, id, role]
+  );
 }
 
 export async function RemoveAccountAccess(accountId: number, id: number | string): Promise<number> {
