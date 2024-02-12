@@ -54,6 +54,13 @@ export async function SelectAccount(id: number) {
   return db.single(await SelectAccounts('id', id));
 }
 
+export async function SelectAllAccounts(id: number) {
+  return await db.execute<OxAccount[]>(
+    'SELECT ac.role, a.* FROM `accounts_access` ac LEFT JOIN accounts a ON a.id = ac.accountId WHERE ac.charId = ?',
+    [id]
+  );
+}
+
 export async function CreateNewAccount(
   column: 'owner' | 'group',
   id: string | number,

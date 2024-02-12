@@ -13,6 +13,7 @@ import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
+import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -84,6 +85,14 @@ export class OxPlayer extends ClassInterface {
     for (const id in this.#inScope) {
       emitNet(eventName, id, ...args);
     }
+  }
+
+  getAccount() {
+    return GetCharacterAccount(this.charId);
+  }
+
+  getAccounts(includeAll?: boolean) {
+    return GetCharacterAccounts(this.charId, includeAll);
   }
 
   async setGroup(groupName: string, grade = 0) {

@@ -8,6 +8,7 @@ import {
   RemoveAccountAccess,
   SelectAccount,
   SelectAccounts,
+  SelectAllAccounts,
   SelectDefaultAccount,
   SetAccountAccess,
   UpdateBalance,
@@ -50,9 +51,9 @@ export function GetPlayerAccounts(playerId: number): Promise<OxAccount[] | void>
   if (player?.charId) return SelectAccounts('owner', player.charId);
 }
 
-export async function GetCharacterAccounts(id: number | string): Promise<OxAccount[] | void> {
+export async function GetCharacterAccounts(id: number | string, includeAll?: boolean): Promise<OxAccount[] | void> {
   id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return SelectAccounts('owner', id);
+  return includeAll ? SelectAllAccounts(id) : SelectAccounts('owner', id);
 }
 
 export function GetGroupAccounts(group: string): Promise<OxAccount[] | void> {
