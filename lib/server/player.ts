@@ -18,7 +18,7 @@ class PlayerInterface {
 
 Object.keys(exports.ox_core.GetPlayerCalls()).forEach((method: string) => {
   (PlayerInterface.prototype as any)[method] = function (...args: any[]) {
-    return exports.ox_corse.CallPlayer(this.source, method, ...args);
+    return exports.ox_core.CallPlayer(this.source, method, ...args);
   };
 });
 
