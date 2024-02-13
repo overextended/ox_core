@@ -3,6 +3,7 @@ export class ClassInterface {
   protected static keys?: Dict<Dict<any>>;
   protected static callableMethods: Dict<true>;
 
+  /** Exports several class methods and makes non-private methods callable from external resources. */
   static init() {
     const classMethods = Object.getOwnPropertyNames(this.prototype);
 
@@ -52,14 +53,17 @@ export class ClassInterface {
     return this;
   }
 
+  /** Get a member of the class by its id. */
   static get(id: string | number) {
     return this.members[id];
   }
 
+  /** Get all members of the class. */
   static getAll() {
     return this.members;
   }
 
+  /** Adds a new member of the class to its registries. */
   static add(id: string | number, member: any) {
     if (this.members[id]) return false;
 
@@ -74,6 +78,7 @@ export class ClassInterface {
     return true;
   }
 
+  /** Removes a member of the class from its registries. */
   static remove(id: string | number) {
     const member = this.members[id];
 

@@ -49,6 +49,31 @@ export class OxPlayer extends ClassInterface {
     return this.members;
   }
 
+  /** Saves all players to the database, and optionally kicks them from the server. */
+  static saveAll(kickWithReason?: string) {
+    const parameters = [];
+
+    for (const id in this.members) {
+      const player = this.members[id];
+
+      if (player.charId) {
+        parameters.push(player.#getSaveData());
+      }
+
+      if (kickWithReason) {
+        player.charId = null;
+        DropPlayer(player.source as string, kickWithReason);
+      }
+    }
+
+    DEV: console.info(`Saving ${parameters.length} players to the database.`);
+
+    if (parameters.length > 0) {
+      SaveCharacterData(parameters, true);
+      emit('ox:savedPlayers', parameters.length);
+    }
+  }
+
   constructor(source: number) {
     super();
     this.source = source;
@@ -57,6 +82,7 @@ export class OxPlayer extends ClassInterface {
     this.#groups = {};
   }
 
+  /** Triggers an event on the player's client. */
   emit(eventName: string, ...args: any[]) {
     emitNet(eventName, this.source, ...args);
   }
@@ -73,28 +99,34 @@ export class OxPlayer extends ClassInterface {
     return this.#metadata[key];
   }
 
+  /** Returns an object of all player id's in range of the player. */
   getPlayersInScope() {
     return this.#inScope;
   }
 
+  /** Returns true if the target player id is in range of the player. */
   isPlayerInScope(targetId: number) {
     return targetId in this.#inScope;
   }
 
+  /** Triggers an event on all players within range of the player. */
   triggerScopedEvent(eventName: string, ...args: any[]) {
     for (const id in this.#inScope) {
       emitNet(eventName, id, ...args);
     }
   }
 
+  /** Returns the default account for the active character. */
   getAccount() {
     return GetCharacterAccount(this.charId);
   }
 
-  getAccounts(includeAll?: boolean) {
-    return GetCharacterAccounts(this.charId, includeAll);
+  /** Returns all accounts for the active character. Passing `true` will include accounts the character has access to. */
+  getAccounts(getShared?: boolean) {
+    return GetCharacterAccounts(this.charId, getShared);
   }
 
+  /** Sets the active character's grade in a group. If the grade is 0 they will be removed from the group. */
   async setGroup(groupName: string, grade = 0) {
     const group = GetGroup(groupName);
     const currentGrade = this.#groups[groupName];
@@ -129,6 +161,7 @@ export class OxPlayer extends ClassInterface {
     return true;
   }
 
+  /** Returns the active characters grade for a group. */
   getGroup(groupName: string) {
     return this.#groups[groupName];
   }
@@ -137,6 +170,7 @@ export class OxPlayer extends ClassInterface {
     return this.#groups;
   }
 
+  /** Sets the value of a status. */
   setStatus(statusName: string, value = Statuses[statusName].default) {
     if (!Statuses[statusName]) return;
 
@@ -150,14 +184,17 @@ export class OxPlayer extends ClassInterface {
     return true;
   }
 
+  /** Returns the current value of a status. */
   getStatus(statusName: string) {
     return this.#statuses[statusName];
   }
 
+  /** Returns an object containing all status names and their values. */
   getStatuses() {
     return this.#statuses;
   }
 
+  /** Increases the status's value by the given amount. */
   addStatus(statusName: string, value: number) {
     if (!this.#statuses[statusName]) return;
 
@@ -166,6 +203,7 @@ export class OxPlayer extends ClassInterface {
     return true;
   }
 
+  /** Reduces the status's value by the given amount. */
   removeStatus(statusName: string, value: number) {
     if (!this.#statuses[statusName]) return;
 
@@ -178,15 +216,12 @@ export class OxPlayer extends ClassInterface {
 
   removeLicense(licenseName: string) {}
 
+  /** Returns an array of values to be saved in the database. */
   #getSaveData() {
-    const coords = GetEntityCoords(this.ped);
-
     return [
-      coords[0],
-      coords[1],
-      coords[2],
+      ...GetEntityCoords(this.ped),
       GetEntityHeading(this.ped),
-      false,
+      Player(this.source).state.isdead || false,
       GetEntityHealth(this.ped),
       GetPedArmour(this.ped),
       JSON.stringify(this.#statuses || {}),
@@ -194,6 +229,7 @@ export class OxPlayer extends ClassInterface {
     ];
   }
 
+  /** Adds the active character to the group and sets permissions. */
   #addGroup(group: string | OxGroup, grade: number) {
     if (typeof group === 'string') group = GetGroup(group);
 
@@ -204,6 +240,7 @@ export class OxPlayer extends ClassInterface {
     GlobalState[`${group.name}:count`] += 1;
   }
 
+  /** Removes the active character from the group and sets permissions. */
   #removeGroup(group: string | OxGroup, grade: number) {
     if (typeof group === 'string') group = GetGroup(group);
 
@@ -214,35 +251,12 @@ export class OxPlayer extends ClassInterface {
     GlobalState[`${group.name}:count`] -= 1;
   }
 
-  static saveAll(kickWithReason?: string) {
-    const parameters = [];
-
-    for (const id in this.members) {
-      const player = this.members[id];
-
-      if (player.charId) {
-        parameters.push(player.#getSaveData());
-      }
-
-      if (kickWithReason) {
-        player.charId = null;
-        DropPlayer(player.source as string, kickWithReason);
-      }
-    }
-
-    DEV: console.info(`Saving ${parameters.length} players to the database.`);
-
-    if (parameters.length > 0) {
-      SaveCharacterData(parameters, true);
-      emit('ox:savedPlayers', parameters.length);
-    }
-  }
-
+  /** Saves the active character to the database. */
   save() {
     if (this.charId) return SaveCharacterData(this.#getSaveData());
   }
 
-  /** Adds a player to the player registry. */
+  /** Adds the player to the player registry and starts character selection. */
   async setAsJoined(newId?: number | string) {
     if (newId) {
       delete OxPlayer.members[this.source];
@@ -254,11 +268,13 @@ export class OxPlayer extends ClassInterface {
     emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
   }
 
+  /** Returns an array of all characters owned by the player, excluding soft-deleted characters. */
   async #getCharacters() {
     this.#characters = await GetCharacters(this.userId);
     return this.#characters;
   }
 
+  /** Clears data for the active character. If the player is still connected then transition them to character selection. */
   async logout(dropped: boolean) {
     if (!this.charId) return;
 
@@ -274,6 +290,7 @@ export class OxPlayer extends ClassInterface {
     emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
   }
 
+  /** Creates a stateId for a newly created character. */
   async #generateStateId() {
     const arr = [];
 
@@ -287,6 +304,7 @@ export class OxPlayer extends ClassInterface {
     }
   }
 
+  /** Registers a new character for the player. */
   async createCharacter(data: NewCharacter) {
     const stateId = await this.#generateStateId();
     const phoneNumber = await GeneratePhoneNumber();
@@ -313,12 +331,14 @@ export class OxPlayer extends ClassInterface {
     return this.#characters.length - 1;
   }
 
+  /** Returns the current index for a character with the given charId. */
   #getCharacterSlotFromId(charId: number) {
     return this.#characters.findIndex((character) => {
       return character.charId === charId;
     });
   }
 
+  /** Loads and sets the player's active character. */
   async setActiveCharacter(data: number | NewCharacter) {
     if (this.charId) return;
 
@@ -379,7 +399,8 @@ export class OxPlayer extends ClassInterface {
 
     return character;
   }
-
+  
+  /** Deletes a character with the given charId if it's owned by the player. */
   async deleteCharacter(charId: number) {
     if (this.charId) return;
 
