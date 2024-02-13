@@ -11,8 +11,8 @@ export async function IsVinAvailable(plate: string) {
 }
 
 export function GetStoredVehicleFromId(id: number) {
-  return db.execute<
-    Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>[]
+  return db.row<
+    Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>
   >('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id]);
 }
 
