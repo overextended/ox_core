@@ -275,7 +275,7 @@ export class OxPlayer extends ClassInterface {
   }
 
   /** Clears data for the active character. If the player is still connected then transition them to character selection. */
-  async logout(dropped: boolean) {
+  async logout(dropped?: boolean) {
     if (!this.charId) return;
 
     for (const name in this.#groups) this.#removeGroup(name, this.#groups[name]);
@@ -399,7 +399,7 @@ export class OxPlayer extends ClassInterface {
 
     return character;
   }
-  
+
   /** Deletes a character with the given charId if it's owned by the player. */
   async deleteCharacter(charId: number) {
     if (this.charId) return;
