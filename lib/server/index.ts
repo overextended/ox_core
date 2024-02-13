@@ -1,7 +1,6 @@
 import type { OxVehicle } from 'server/vehicle/class';
 import type {
   GetAccountById,
-  GetPlayerAccounts,
   GetCharacterAccounts,
   GetGroupAccounts,
   AddAccountBalance,
@@ -9,30 +8,23 @@ import type {
   TransferAccountBalance,
   CreateAccount,
   CreateGroupAccount,
-  GetPlayerAccount,
   GetCharacterAccount,
   GetGroupAccount,
+  GetAccountRole,
+  RemoveAccountAccess,
+  SetAccountAccess,
 } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
 import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 import type { GetCharIdFromStateId } from 'server/player/db';
-import {
-  DepositMoney,
-  GetAccountRole,
-  IsAccountOwner,
-  RemoveAccountAccess,
-  SetAccountAccess,
-  WithdrawMoney,
-} from 'server/accounts/db';
+import { DepositMoney, WithdrawMoney } from 'server/accounts/db';
 
 interface OxServer {
   [exportKey: string]: Function;
   GetAccountById: typeof GetAccountById;
-  GetPlayerAccount: typeof GetPlayerAccount;
   GetCharacterAccount: typeof GetCharacterAccount;
   GetGroupAccount: typeof GetGroupAccount;
-  GetPlayerAccounts: typeof GetPlayerAccounts;
   GetCharacterAccounts: typeof GetCharacterAccounts;
   GetGroupAccounts: typeof GetGroupAccounts;
   AddAccountBalance: typeof AddAccountBalance;
@@ -40,7 +32,6 @@ interface OxServer {
   TransferAccountBalance: typeof TransferAccountBalance;
   CreateAccount: typeof CreateAccount;
   CreateGroupAccount: typeof CreateGroupAccount;
-  IsAccountOwner: typeof IsAccountOwner;
   GetAccountRole: typeof GetAccountRole;
   DepositMoney: typeof DepositMoney;
   WithdrawMoney: typeof WithdrawMoney;

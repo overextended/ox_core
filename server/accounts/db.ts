@@ -1,7 +1,6 @@
 import { OxAccount } from 'accounts';
 import { MySqlRow, OkPacket, db } from 'db';
 import { OxPlayer } from 'player/class';
-import { GetCharIdFromStateId } from 'player/db';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -81,24 +80,10 @@ export async function CreateNewAccount(
   return accountId;
 }
 
-//@todo permission system
-const isAccountOwner = `SELECT 1 FROM accounts WHERE id = ? AND owner = ?`;
-const getAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
+const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
 
-export function IsAccountOwner(playerId: number, accountId: number) {
-  const { charId } = OxPlayer.get(playerId);
-
-  if (!charId) return;
-
-  return db.exists(isAccountOwner, [accountId, charId]);
-}
-
-export function GetAccountRole(playerId: number, accountId: number) {
-  const { charId } = OxPlayer.get(playerId);
-
-  if (!charId) return;
-
-  return db.column(getAccountRole, [accountId, charId]);
+export function SelectAccountRole(accountId: number, charId: number) {
+  return db.column(selectAccountRole, [accountId, charId]);
 }
 
 export async function DepositMoney(playerId: number, accountId: number, amount: number) {
@@ -112,7 +97,7 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 
   using conn = await db.getConnection();
 
-  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(getAccountRole, [accountId, charId]));
+  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(selectAccountRole, [accountId, charId]));
 
   if (role !== 'owner') return;
 
@@ -136,7 +121,7 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
 
   using conn = await db.getConnection();
 
-  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(getAccountRole, [accountId, charId]));
+  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(selectAccountRole, [accountId, charId]));
 
   if (role !== 'owner' && role !== 'manager') return;
 
@@ -153,17 +138,11 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   return true;
 }
 
-export async function SetAccountAccess(accountId: string, id: number | string, role: string): Promise<number> {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+export function UpdateAccountAccess(accountId: string, id: number, role?: string): Promise<number> {
+  if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
   return db.update(
     `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
     [accountId, id, role]
   );
-}
-
-export async function RemoveAccountAccess(accountId: number, id: number | string): Promise<number> {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-
-  return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 }

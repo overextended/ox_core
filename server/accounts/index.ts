@@ -1,16 +1,13 @@
-import { OxPlayer } from 'player/class';
 import {
   CreateNewAccount,
   DepositMoney,
-  GetAccountRole,
-  IsAccountOwner,
+  SelectAccountRole,
   PerformTransaction,
-  RemoveAccountAccess,
+  UpdateAccountAccess,
   SelectAccount,
   SelectAccounts,
   SelectAllAccounts,
   SelectDefaultAccount,
-  SetAccountAccess,
   UpdateBalance,
   WithdrawMoney,
 } from './db';
@@ -30,12 +27,6 @@ export function GetAccountById(id: number): Promise<OxAccount | void> {
   return SelectAccount(id);
 }
 
-export function GetPlayerAccount(playerId: number): Promise<OxAccount | void> {
-  const player = OxPlayer.get(playerId);
-
-  if (player?.charId) return SelectDefaultAccount('owner', player.charId);
-}
-
 export async function GetCharacterAccount(id: number | string): Promise<OxAccount | void> {
   id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
   return SelectDefaultAccount('owner', id);
@@ -43,12 +34,6 @@ export async function GetCharacterAccount(id: number | string): Promise<OxAccoun
 
 export async function GetGroupAccount(group: string): Promise<OxAccount | void> {
   return SelectDefaultAccount('group', group);
-}
-
-export function GetPlayerAccounts(playerId: number): Promise<OxAccount[] | void> {
-  const player = OxPlayer.get(playerId);
-
-  if (player?.charId) return SelectAccounts('owner', player.charId);
 }
 
 export async function GetCharacterAccounts(id: number | string, includeAll?: boolean): Promise<OxAccount[] | void> {
@@ -85,11 +70,27 @@ export function CreateGroupAccount(group: string, label: string, shared?: boolea
   return CreateNewAccount('group', group, label, shared);
 }
 
+export async function GetAccountRole(accountId: number, id: number | string) {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+
+  return SelectAccountRole(accountId, id);
+}
+
+export async function SetAccountAccess(accountId: string, id: number | string, role: string) {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+
+  return UpdateAccountAccess(accountId, id, role);
+}
+
+export async function RemoveAccountAccess(accountId: string, id: number | string) {
+  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+
+  return UpdateAccountAccess(accountId, id);
+}
+
 exports('GetAccountById', GetAccountById);
-exports('GetPlayerAccount', GetPlayerAccount);
 exports('GetCharacterAccount', GetCharacterAccount);
 exports('GetGroupAccount', GetGroupAccount);
-exports('GetPlayerAccounts', GetPlayerAccounts);
 exports('GetCharacterAccounts', GetCharacterAccounts);
 exports('GetGroupAccounts', GetGroupAccounts);
 exports('AddAccountBalance', AddAccountBalance);
@@ -97,7 +98,6 @@ exports('RemoveAccountBalance', RemoveAccountBalance);
 exports('TransferAccountBalance', TransferAccountBalance);
 exports('CreateAccount', CreateAccount);
 exports('CreateGroupAccount', CreateGroupAccount);
-exports('IsAccountOwner', IsAccountOwner);
 exports('GetAccountRole', GetAccountRole);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
