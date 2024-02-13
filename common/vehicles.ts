@@ -1,4 +1,4 @@
-import { loadDataFile } from 'index';
+import { loadDataFile } from './';
 
 export type Vehicles = Dict<VehicleData>;
 export type VehicleCategories = 'air' | 'land' | 'sea';
