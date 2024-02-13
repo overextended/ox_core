@@ -1,10 +1,18 @@
+import { addCommand } from '@overextended/ox_lib/server';
 import { OxPlayer } from 'player/class';
 
-RegisterCommand(
-  'logout',
-  (playerId: number) => {
+addCommand('logout', async (playerId) => OxPlayer.get(playerId).logout(), {
+  help: 'Logout and return to character selection.',
+  restricted: 'group.admin',
+});
+
+addCommand(
+  'charinfo',
+  async (playerId) => {
     const player = OxPlayer.get(playerId);
-    player?.logout(false);
+    console.log(`${player.get('firstName')} ${player.get('lastName')} (${player.charId}) - ${player.stateId}`);
   },
-  true
+  {
+    help: 'Display basic character information.',
+  }
 );
