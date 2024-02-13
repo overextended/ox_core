@@ -1,4 +1,4 @@
-import { OxPlayer } from 'server/player/class';
+import type { OxPlayer } from 'server/player/class';
 
 class PlayerInterface {
   constructor(

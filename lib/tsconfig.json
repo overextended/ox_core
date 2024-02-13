@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "declaration": true,
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "removeComments": true,
+    "outDir": "../package/",
+  },
+  "include": ["./", "../client/", "../common/", "../server/", "../index.d.ts"],
+}

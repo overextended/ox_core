@@ -1,4 +1,4 @@
-import { OxVehicle } from 'server/vehicle/class';
+import type { OxVehicle } from 'server/vehicle/class';
 
 class VehicleInterface {
   constructor(

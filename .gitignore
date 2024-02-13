@@ -1,4 +1,11 @@
+# ignore
 node_modules
 dist
 fxmanifest.lua
 .yarn.installed
+**.js
+*.tgz
+/package/
+
+# keep
+!./build.js

@@ -5,7 +5,18 @@
   "license": "LGPL-3.0-or-later",
   "description": "A modern FiveM framework.",
   "type": "module",
+  "types": "index.d.ts",
+  "files": [
+    "*.d.ts",
+    "**/*.js",
+    "**/*.d.ts"
+  ],
+  "exports": {
+    "./client": "./package/lib/client/index.js",
+    "./server": "./package/lib/server/index.js"
+  },
   "scripts": {
+    "prepublish": "tsc -p ./lib",
     "build": "node build.js --mode=production",
     "watch": "node build.js"
   },

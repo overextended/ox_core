@@ -5,13 +5,16 @@
     "module": "es2020",
     "target": "es2021",
     "lib": ["es2021"],
+    "types": ["@citizenfx/client", "@citizenfx/server"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true,
     "allowUnreachableCode": false,
     "strictFunctionTypes": true,
     "moduleResolution": "bundler",
     "noImplicitThis": true,
     "noUnusedLocals": true,
-  } 
+    "noEmit": true,
+    "skipLibCheck": true,
+  },
+  "include": ["./", "./index.d.ts"],
 }

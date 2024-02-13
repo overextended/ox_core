@@ -18,7 +18,7 @@ import type { OxPlayer } from 'server/player/class';
 import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
 import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 import type { GetCharIdFromStateId } from 'server/player/db';
-import { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';
+import type { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';
 
 interface OxServer {
   [exportKey: string]: Function;
