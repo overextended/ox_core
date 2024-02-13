@@ -80,10 +80,14 @@ export async function CreateNewAccount(
   return accountId;
 }
 
+export function DeleteAccount(accountId: number) {
+  return db.update(`DELETE FROM accounts WHERE id = ?`, [accountId]);
+}
+
 const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
 
-export function SelectAccountRole(accountId: number, charId: number) {
-  return db.column(selectAccountRole, [accountId, charId]);
+export function SelectAccountRole(accountId: number, charId: number): Promise<string | void> {
+  return db.column<string>(selectAccountRole, [accountId, charId]);
 }
 
 export async function DepositMoney(playerId: number, accountId: number, amount: number) {

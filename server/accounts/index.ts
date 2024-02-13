@@ -1,5 +1,6 @@
 import {
   CreateNewAccount,
+  DeleteAccount,
   DepositMoney,
   SelectAccountRole,
   PerformTransaction,
@@ -98,6 +99,7 @@ exports('RemoveAccountBalance', RemoveAccountBalance);
 exports('TransferAccountBalance', TransferAccountBalance);
 exports('CreateAccount', CreateAccount);
 exports('CreateGroupAccount', CreateGroupAccount);
+exports('DeleteAccount', DeleteAccount);
 exports('GetAccountRole', GetAccountRole);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
