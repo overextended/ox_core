@@ -4,5 +4,3 @@ import 'player';
 import 'utils';
 import 'accounts';
 import 'vehicle';
-
-DEV: import(`../lib/server`);

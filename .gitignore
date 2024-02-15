@@ -5,6 +5,7 @@ fxmanifest.lua
 .yarn.installed
 **.js
 *.tgz
+*.tsbuildinfo
 /package/
 
 # keep

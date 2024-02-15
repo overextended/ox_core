@@ -2,11 +2,14 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "..",
-    "declaration": true,
-    "noEmit": false,
     "emitDeclarationOnly": false,
-    "removeComments": true,
-    "outDir": "../package/",
+    "composite": true,
+    "paths": {
+      "client/*": ["./package/client/*"],
+      "common/*": ["./package/common/*"],
+      "server/*": ["./package/server/*"]
+    }
   },
-  "include": ["./", "../client/", "../common/", "../server/", "../index.d.ts"],
+  "include": ["./", "../common/types.ts"],
+  "exclude": []
 }

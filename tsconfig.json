@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": ".",
     "noImplicitAny": true,
     "module": "es2020",
     "target": "es2021",
-    "lib": ["es2021"],
+    "lib": ["es2021", "esnext.disposable"],
     "types": ["@citizenfx/client", "@citizenfx/server"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -13,8 +14,13 @@
     "moduleResolution": "bundler",
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "noEmit": true,
     "skipLibCheck": true,
+    "declaration": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "removeComments": true,
+    "outDir": "./package/"
   },
-  "include": ["./", "./index.d.ts"],
+  "exclude": ["./lib/", "./package/"],
+  "references": [{ "path": "./client" }, { "path": "./server" }, { "path": "./lib" }]
 }

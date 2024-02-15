@@ -15,31 +15,31 @@ dependencies:
 devDependencies:
   '@citizenfx/client':
     specifier: latest
-    version: 2.0.7401-1
+    version: 2.0.7474-1
   '@citizenfx/server':
     specifier: latest
-    version: 2.0.7401-1
+    version: 2.0.7474-1
   '@types/node':
-    specifier: ^20.11.16
-    version: 20.11.16
+    specifier: ^20.11.17
+    version: 20.11.17
   esbuild:
     specifier: ^0.19.12
     version: 0.19.12
   prettier:
-    specifier: ^3.2.4
-    version: 3.2.4
+    specifier: ^3.2.5
+    version: 3.2.5
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
 
 packages:
 
-  /@citizenfx/client@2.0.7401-1:
-    resolution: {integrity: sha512-K4bE2joWkO998UKZIMW61x9LhPSAWiEpXL2j3OlzFPDCcTcYteveuuOydeOeflrlNxHJoEeyXSCEOVHslzjm7Q==}
+  /@citizenfx/client@2.0.7474-1:
+    resolution: {integrity: sha512-tVaJtR5L/LIBmyZPAFFGpnLkoOzn8MTizAs983eEOkS4cSXEBIMhnkRmZyzBMlwJ7IXzuoR9VuVcHBW3cfirGg==}
     dev: true
 
-  /@citizenfx/server@2.0.7401-1:
-    resolution: {integrity: sha512-1dA4SZzpSmBb0rNzTc56jDbY18AjsmVwJC739DgFYQKFnPh4ahUL87FVLIZQDVq5bSnPq2PlE/frEiIOhYleww==}
+  /@citizenfx/server@2.0.7474-1:
+    resolution: {integrity: sha512-30r20DenKtU4JNHovzz2Kvv3pIXemPgkgwav0WpYxKj3WlNx3QXJRZiMTkC4n5X6zwlvqdF7pQ/mxL4IyPs/Zg==}
     dev: true
 
   /@esbuild/aix-ppc64@0.19.12:
@@ -269,8 +269,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.16:
-    resolution: {integrity: sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==}
+  /@types/node@20.11.17:
+    resolution: {integrity: sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -345,8 +345,8 @@ packages:
       lru-cache: 10.2.0
     dev: false
 
-  /prettier@3.2.4:
-    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true

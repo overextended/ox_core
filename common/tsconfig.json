@@ -2,5 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "composite": true
   },
+  "include": ["./", "../locales/en.json"]
 }

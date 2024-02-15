@@ -45,6 +45,7 @@ async function CreateGroup({ name, grades, label }: Partial<OxGroup>) {
   DEV: console.info(`Instantiated OxGroup<${group.name}>`);
 }
 
+//@ts-ignore todo
 function DeleteGroup(group: OxGroup) {
   let parent = group.principal;
 

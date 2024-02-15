@@ -6,5 +6,3 @@ import 'vehicle';
 for (let i = 0; i < GetNumberOfVehicleNumberPlates(); i++) {
   SetDefaultVehicleNumberPlateTextPattern(i, PLATE_PATTERN);
 }
-
-DEV: import(`../lib/client`);

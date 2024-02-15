@@ -10,7 +10,7 @@ import {
 } from '@overextended/ox_lib/client';
 import { PlayerIsLoaded, PlayerData, SetPlayerLoaded, SetPlayerData } from './';
 import { netEvent } from 'utils';
-import locale from '../../locales';
+import locale from '../../common/locales';
 
 let playerIsHidden = false;
 let camActive = false;

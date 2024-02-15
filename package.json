@@ -7,16 +7,16 @@
   "type": "module",
   "types": "index.d.ts",
   "files": [
-    "*.d.ts",
-    "**/*.js",
-    "**/*.d.ts"
+    "index.d.ts",
+    "./package/**/*.js",
+    "./package/**/*.d.ts"
   ],
   "exports": {
     "./client": "./package/lib/client/index.js",
     "./server": "./package/lib/server/index.js"
   },
   "scripts": {
-    "prepublish": "tsc -p ./lib",
+    "prepublish": "tsc --build",
     "build": "node build.js --mode=production",
     "watch": "node build.js"
   },
@@ -34,9 +34,9 @@
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.11.17",
     "esbuild": "^0.19.12",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },
   "dependencies": {
