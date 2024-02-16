@@ -1,10 +1,12 @@
 import { ClassInterface } from 'classInterface';
 import {
+  AddCharacterLicense,
   CreateCharacter,
   DeleteCharacter,
   GetCharacterMetadata,
   GetCharacters,
   IsStateIdAvailable,
+  RemoveCharacterLicense,
   SaveCharacterData,
 } from './db';
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
@@ -29,6 +31,7 @@ export class OxPlayer extends ClassInterface {
   #metadata: Dict<any>;
   #statuses: Dict<number>;
   #groups: Dict<number>;
+  #licenses: Dict<Dict<any>>;
 
   protected static members: Dict<OxPlayer> = {};
   protected static keys: Dict<Dict<OxPlayer>> = {
@@ -81,6 +84,7 @@ export class OxPlayer extends ClassInterface {
     this.#characters = [];
     this.#inScope = {};
     this.#groups = {};
+    this.#licenses = {};
   }
 
   /** Triggers an event on the player's client. */
@@ -213,9 +217,39 @@ export class OxPlayer extends ClassInterface {
     return true;
   }
 
-  addLicense(licenseName: string) {}
+  getLicense(licenseName: string) {
+    return this.#licenses[licenseName];
+  }
 
-  removeLicense(licenseName: string) {}
+  getLicenses() {
+    return this.#licenses;
+  }
+
+  async addLicense(licenseName: string) {
+    const issued = new Date().toDateString();
+
+    if (!(await AddCharacterLicense(this.charId, licenseName, issued))) return false;
+
+    this.#licenses[licenseName] = {
+      issued,
+    };
+
+    emit('ox:licenseAdded', this.source, licenseName);
+    this.emit('ox:licenseAdded', licenseName);
+
+    return true;
+  }
+
+  async removeLicense(licenseName: string) {
+    if (!(await RemoveCharacterLicense(this.charId, licenseName))) return false;
+
+    delete this.#licenses[licenseName];
+
+    emit('ox:licenseRemoved', this.source, licenseName);
+    this.emit('ox:licenseRemoved', licenseName);
+
+    return true;
+  }
 
   /** Returns an array of values to be saved in the database. */
   #getSaveData() {

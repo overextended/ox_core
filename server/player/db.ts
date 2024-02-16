@@ -72,6 +72,22 @@ export function GetStatuses() {
   return db.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
 }
 
+export function GetLicenses() {
+  return db.query<{ name: string; label: string }[]>('SELECT name, label FROM ox_licenses');
+}
+
+export function GetCharacterLicenses(charId: number) {
+  return db.query('`SELECT name, issued FROM character_licenses WHERE charid = ?', [charId]);
+}
+
+export function AddCharacterLicense(charId: number, name: string, issued: string) {
+  return db.insert('INSERT INTO character_licenses (charId, name, issued) VALUES (?, ?, ?)', [charId, name, issued]);
+}
+
+export function RemoveCharacterLicense(charId: number, name: string) {
+  return db.update('DELETE FROM character_licenses WHERE charId = ? AND name = ?', [charId, name]);
+}
+
 export function GetCharIdFromStateId(stateId: string) {
   return db.column<number>('SELECT charId FROM characters WHERE stateId = ?', [stateId]);
 }
