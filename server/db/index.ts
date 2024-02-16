@@ -1,5 +1,6 @@
 import { createPool, PoolConfig, Pool, PoolConnection, QueryOptions } from 'mariadb';
 import { sleep } from '@overextended/ox_lib';
+import { Dict } from 'types';
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
 

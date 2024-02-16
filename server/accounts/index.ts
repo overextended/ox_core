@@ -1,3 +1,4 @@
+import { OxAccount } from 'types';
 import {
   CreateNewAccount,
   DeleteAccount,
@@ -13,16 +14,6 @@ import {
   WithdrawMoney,
 } from './db';
 import { GetCharIdFromStateId } from 'player/db';
-
-export interface OxAccount {
-  id: number;
-  balance: number;
-  isDefault: boolean;
-  label?: string;
-  owner?: number;
-  group?: string;
-  type: 'personal' | 'shared' | 'group';
-}
 
 export function GetAccountById(id: number): Promise<OxAccount | void> {
   return SelectAccount(id);

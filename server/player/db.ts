@@ -1,3 +1,4 @@
+import { Character, Dict, OxStatus } from 'types';
 import { CHARACTER_SLOTS } from '../../common/config';
 import { db } from '../db';
 

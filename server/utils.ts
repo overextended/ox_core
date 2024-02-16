@@ -1,3 +1,5 @@
+import { Dict } from 'types';
+
 export function GetIdentifiers(playerId: number | string) {
   const identifiers: Dict<string> = {};
   playerId = playerId.toString();

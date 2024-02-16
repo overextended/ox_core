@@ -1,12 +1,6 @@
 import { cache, notify, onServerCallback, requestModel } from '@overextended/ox_lib/client';
-import {
-  GetTopVehicleStats,
-  GetVehicleData,
-  VehicleCategories,
-  VehicleData,
-  VehicleStats,
-  VehicleTypes,
-} from '../../common/vehicles';
+import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
+import { VehicleData, VehicleTypes, VehicleStats, VehicleCategories } from 'types';
 
 const vehiclePriceModifiers = {
   automobile: 1600,

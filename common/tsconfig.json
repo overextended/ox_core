@@ -2,7 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "composite": true
+    "composite": true,
+    "paths": {
+      "types": ["../types"]
+    }
   },
-  "include": ["./", "../locales/en.json"]
+  "include": ["./", "../types", "../locales/en.json"]
 }

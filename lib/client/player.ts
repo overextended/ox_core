@@ -1,3 +1,5 @@
+import { Dict } from 'types';
+
 const playerData = GetResourceState('ox_core') === 'started' ? exports.ox_core.GetPlayerData() : {};
 playerData.toString = () => JSON.stringify(playerData, null, 2);
 

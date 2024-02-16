@@ -1,13 +1,7 @@
 import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
 import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
-
-export interface OxGroup {
-  name: string;
-  label: string;
-  grades: string[];
-  principal: string;
-}
+import { Dict, OxGroup } from 'types';
 
 const groups: Dict<OxGroup> = {};
 

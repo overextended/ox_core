@@ -26,11 +26,12 @@ PlayerInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export function GetPlayer(id: string | number): OxPlayer | void {
+export function GetPlayer(id: string | number): void | (PlayerInterface & OxPlayer) {
   const player = exports.ox_core.GetPlayer(id);
 
   if (!player) return console.error(`cannot create PlayerInterface<${id}> (invalid id)`);
 
+  //@ts-expect-error
   return new PlayerInterface(
     player.source,
     player.userId,
@@ -38,7 +39,7 @@ export function GetPlayer(id: string | number): OxPlayer | void {
     player.identifier,
     player.charId,
     player.ped
-  ) as OxPlayer;
+  );
 }
 
 DEV: {

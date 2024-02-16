@@ -5,6 +5,7 @@ import { DEBUG } from '../../common/config';
 
 import './class';
 import './commands';
+import { Dict } from 'types';
 
 if (DEBUG) import('./parser');
 

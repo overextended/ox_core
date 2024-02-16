@@ -11,6 +11,7 @@ import {
 import { PlayerIsLoaded, PlayerData, SetPlayerLoaded, SetPlayerData } from './';
 import { netEvent } from 'utils';
 import locale from '../../common/locales';
+import { Character, NewCharacter } from 'types';
 
 let playerIsHidden = false;
 let camActive = false;

@@ -1,6 +1,6 @@
-import { OxAccount } from 'accounts';
 import { MySqlRow, OkPacket, db } from 'db';
 import { OxPlayer } from 'player/class';
+import { OxAccount } from 'types';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;

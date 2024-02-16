@@ -2,6 +2,7 @@ import { ClassInterface } from 'classInterface';
 import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
 import { getRandomString, getRandomAlphanumeric, getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
+import { Dict } from 'types';
 
 export class OxVehicle extends ClassInterface {
   entity: number;

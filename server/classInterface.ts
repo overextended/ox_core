@@ -1,3 +1,5 @@
+import { Dict } from 'types';
+
 export class ClassInterface {
   protected static members: Dict<any>;
   protected static keys?: Dict<Dict<any>>;

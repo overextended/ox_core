@@ -3,7 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["@citizenfx/server"],
-    "composite": true
+    "composite": true,
+    "paths": {
+      "types": ["../types"]
+    }
   },
-  "include": ["./", "../common/", "../locales/en.json"]
+  "include": ["./", "../types", "../common/", "../locales/en.json"]
 }

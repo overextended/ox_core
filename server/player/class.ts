@@ -8,12 +8,13 @@ import {
   SaveCharacterData,
 } from './db';
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
-import { GetGroup, OxGroup } from 'groups';
+import { GetGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
+import { Character, Dict, NewCharacter, OxGroup } from 'types';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;

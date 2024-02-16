@@ -2,6 +2,7 @@ import { OxPlayer } from 'player/class';
 import { CreateUser, GetUserIdFromIdentifier } from './db';
 import { GetIdentifiers } from 'utils';
 import { DEBUG, PRIMARY_IDENTIFIER, SV_LAN } from '../config';
+import { Dict } from 'types';
 
 const connectingPlayers: Dict<OxPlayer> = {};
 

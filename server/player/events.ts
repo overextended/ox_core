@@ -4,6 +4,7 @@ import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
 import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
+import { Dict, NewCharacter, OxStatus } from 'types';
 
 type ScopeEvent = { player: string; for: string };
 

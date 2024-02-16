@@ -1,5 +1,6 @@
 import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
-import { GetTopVehicleStats, GetVehicleData, TopVehicleStats, VehicleData } from '../../common/vehicles';
+import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
+import { VehicleData, TopVehicleStats } from 'types';
 
 function SortObjectProperties(obj: object) {
   return Object.fromEntries(Object.entries(obj).sort());

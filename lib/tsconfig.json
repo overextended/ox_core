@@ -1,15 +1,9 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "..",
     "emitDeclarationOnly": false,
-    "composite": true,
-    "paths": {
-      "client/*": ["./package/client/*"],
-      "common/*": ["./package/common/*"],
-      "server/*": ["./package/server/*"]
-    }
+    "composite": true
   },
-  "include": ["./", "../common/types.ts"],
-  "exclude": []
+  "include": ["./", "../types/"],
+  "references": [{ "path": "../client" }, { "path": "../server" }]
 }

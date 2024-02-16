@@ -19,8 +19,8 @@
     "noEmit": false,
     "emitDeclarationOnly": true,
     "removeComments": true,
-    "outDir": "./package/"
+    "outDir": "./package/",
   },
-  "exclude": ["./lib/", "./package/"],
-  "references": [{ "path": "./client" }, { "path": "./server" }, { "path": "./lib" }]
+  "include": ["./", "./types/"],
+  "references": [{ "path": "./lib" }]
 }

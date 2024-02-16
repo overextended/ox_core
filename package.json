@@ -5,9 +5,8 @@
   "license": "LGPL-3.0-or-later",
   "description": "A modern FiveM framework.",
   "type": "module",
-  "types": "index.d.ts",
   "files": [
-    "index.d.ts",
+    "./tsconfig.json",
     "./package/**/*.js",
     "./package/**/*.d.ts"
   ],
@@ -16,7 +15,7 @@
     "./server": "./package/lib/server/index.js"
   },
   "scripts": {
-    "prepublish": "tsc --build",
+    "prepublish": "tsc --build && tsc-alias",
     "build": "node build.js --mode=production",
     "watch": "node build.js"
   },
@@ -37,7 +36,8 @@
     "@types/node": "^20.11.17",
     "esbuild": "^0.19.12",
     "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "tsc-alias": "^1.8.8"
   },
   "dependencies": {
     "@overextended/ox_lib": "^3.16.2",

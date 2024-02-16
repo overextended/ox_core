@@ -1,4 +1,5 @@
 import { netEvent } from 'utils';
+import type { Dict, OxStatus } from 'types';
 
 export let PlayerIsLoaded = false;
 export const PlayerState = LocalPlayer.state;

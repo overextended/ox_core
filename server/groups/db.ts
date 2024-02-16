@@ -1,5 +1,5 @@
 import { db } from 'db';
-import { OxGroup } from 'groups';
+import { OxGroup } from 'types';
 
 export function SelectGroups() {
   return db.query<OxGroup[]>('SELECT * FROM ox_groups');
