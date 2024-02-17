@@ -1,72 +1,143 @@
 import { netEvent } from 'utils';
 import type { Dict, OxStatus } from 'types';
 
-export let PlayerIsLoaded = false;
-export const PlayerState = LocalPlayer.state;
-export const PlayerData: Dict<any> = {};
-export const PlayerMetadata: Dict<any> = {};
-export const PlayerGroups: Dict<number> = {};
-export const PlayerStatuses: Dict<number> = {};
 export const Statuses: Dict<OxStatus> = {};
 
-export function SetPlayerLoaded(state: boolean) {
-  PlayerIsLoaded = state;
-}
+export const OxPlayer = new (class {
+  userId: number;
+  charId: number;
+  stateId: string;
+  exports: Dict<true> = {};
+  #isLoaded: boolean;
+  #groups: Dict<number>;
+  #statuses: Dict<number>;
+  #metadata: Dict<any>;
+  #state: StateBagInterface;
+
+  constructor() {
+    this.#isLoaded = false;
+    this.#groups = {};
+    this.#statuses = {};
+    this.#metadata = {};
+    this.exports = Object.entries(Object.getOwnPropertyDescriptors(this.constructor.prototype)).reduce(
+      (acc: { [key: string]: true }, [name, desc]) => {
+        if (name !== 'constructor' && desc.writable && typeof desc.value === 'function') acc[name] = true;
+
+        return acc;
+      },
+      {}
+    );
+
+    exports(`CallPlayer`, (method: string, ...args: any[]) => {
+      if (method in this.exports) return console.error(`cannot call method ${method} (method is not exported)`);
+      if (method in this) return console.error(`cannot call method ${method} (method does not exist)`);
+
+      return (this as any)[method](...args);
+    });
+  }
+
+  get isLoaded() {
+    return this.#isLoaded;
+  }
+
+  set isLoaded(state: boolean) {
+    this.#isLoaded = state;
+  }
+
+  get groups() {
+    return this.#groups;
+  }
+
+  get statuses() {
+    return this.#statuses;
+  }
+
+  get metadata() {
+    return this.#metadata;
+  }
+
+  get state() {
+    return this.#state;
+  }
+
+  get(key?: string) {
+    if (!key) return OxPlayer;
+
+    return OxPlayer.metadata[key];
+  }
+
+  getGroups() {
+    return this.#groups;
+  }
+
+  getStatus(name: string) {
+    return this.statuses[name];
+  }
+
+  setStatus(name: string, value: number) {
+    if (!this.statuses[name]) return false;
+
+    this.statuses[name] = value;
+    return true;
+  }
+
+  addStatus(name: string, value: number) {
+    if (!this.statuses[name]) return false;
+
+    this.statuses[name] += value;
+    return true;
+  }
+
+  removeStatus(name: string, value: number) {
+    if (!this.statuses[name]) return false;
+
+    this.statuses[name] -= value;
+    return true;
+  }
+})();
 
 export function SetPlayerData(userId: number, charId: number, stateId: string, groups: Record<string, number>) {
-  PlayerData.userId = userId;
-  PlayerData.charId = charId;
-  PlayerData.stateId = stateId;
+  OxPlayer.userId = userId;
+  OxPlayer.charId = charId;
+  OxPlayer.stateId = stateId;
 
-  for (const key in groups) {
-    PlayerGroups[key] = groups[key];
-  }
+  for (const key in groups) OxPlayer.groups[key] = groups[key];
 
   DEV: {
-    console.log(PlayerData);
-    console.log(PlayerMetadata);
-    console.log(PlayerGroups);
-    console.log(PlayerStatuses);
+    console.log(OxPlayer);
+    console.log(OxPlayer.metadata);
+    console.log(OxPlayer.groups);
+    console.log(OxPlayer.statuses);
   }
 }
 
-exports('IsPlayerLoaded', () => PlayerIsLoaded);
-
-exports('GetPlayerData', (key?: string) => {
-  if (!key) return PlayerData;
-
-  return PlayerMetadata[key];
-});
-
 netEvent('ox:startCharacterSelect', () => {
-  for (const key in PlayerGroups) {
-    delete PlayerGroups[key];
-  }
+  for (const key in OxPlayer.groups) delete OxPlayer.groups[key];
 
-  for (const key in PlayerMetadata) {
-    delete PlayerMetadata[key];
+  for (const key in OxPlayer.metadata) {
+    delete OxPlayer.metadata[key];
   }
 });
 
 netEvent('ox:setPlayerData', (key: string, value: any) => {
-  if (!PlayerData.charId) return;
+  if (!OxPlayer.charId) return;
 
-  PlayerMetadata[key] = value;
+  OxPlayer.metadata[key] = value;
   emit(`ox:player:${key}`, value);
 });
 
 netEvent('ox:setPlayerStatus', (key: string, value: number, set?: boolean) => {
   if (set) {
     Statuses[key] = GlobalState[`status.${key}`];
-    PlayerStatuses[key] = value;
+    OxPlayer.statuses[key] = value;
     return;
   }
 
-  PlayerStatuses[key] += value;
+  OxPlayer.statuses[key] += value;
 });
 
 netEvent('ox:setGroup', (name: string, grade: number) => {
-  PlayerGroups[name] = grade;
+  OxPlayer.groups[name] = grade;
 });
 
 import './spawn';

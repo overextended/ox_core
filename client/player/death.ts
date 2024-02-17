@@ -1,5 +1,5 @@
 import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
-import { PlayerIsLoaded, PlayerState } from 'player';
+import { OxPlayer } from 'player';
 import { DEBUG } from '../../common/config';
 
 const hospitals = [
@@ -27,7 +27,7 @@ let playerIsDead = false;
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
-  PlayerState.isDead = false;
+  OxPlayer.state.isDead = false;
   playerIsDead = false;
 
   clearTick(tickId);
@@ -79,7 +79,7 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
-  PlayerState.isDead = true;
+  OxPlayer.state.isDead = true;
   playerIsDead = true;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);
@@ -115,7 +115,7 @@ async function OnPlayerDeath() {
 
 on('ox:playerLoaded', () => {
   const id: CitizenTimer = setInterval(() => {
-    if (!PlayerIsLoaded) return clearInterval(id);
+    if (!OxPlayer.isLoaded) return clearInterval(id);
 
     if (!playerIsDead && IsPedDeadOrDying(cache.ped, true)) OnPlayerDeath();
   }, 200);
