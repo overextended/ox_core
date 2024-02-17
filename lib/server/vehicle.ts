@@ -58,10 +58,3 @@ export function GetVehicle(entityId: number): OxVehicle | void {
 export function GetVehicleFromNetId(netId: number) {
   return GetVehicle(NetworkGetEntityFromNetworkId(netId));
 }
-
-// setTimeout(async () => {
-//   const entity = await exports.ox_core.SpawnVehicle(11, GetEntityCoords(GetPlayerPed(1), true));
-//   const vehicle = GetVehicle(entity);
-
-//   console.log(vehicle);
-// }, 5000);

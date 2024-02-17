@@ -1,6 +1,9 @@
 import type { OxPlayer } from 'server/player/class';
+import { Dict } from 'types';
 
 class PlayerInterface {
+  public state: StateBagInterface;
+
   constructor(
     public source: number,
     public userId: number,
@@ -14,6 +17,14 @@ class PlayerInterface {
     this.username = username;
     this.identifier = identifier;
   }
+
+  getCoords() {
+    return GetEntityCoords(this.ped);
+  }
+
+  getState() {
+    return Player(source).state;
+  }
 }
 
 Object.keys(exports.ox_core.GetPlayerCalls()).forEach((method: string) => {
@@ -26,12 +37,9 @@ PlayerInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export function GetPlayer(id: string | number): void | (PlayerInterface & OxPlayer) {
-  const player = exports.ox_core.GetPlayer(id);
+function CreatePlayerInstance(player: any /** idc */) {
+  if (!player) return;
 
-  if (!player) return console.error(`cannot create PlayerInterface<${id}> (invalid id)`);
-
-  //@ts-expect-error
   return new PlayerInterface(
     player.source,
     player.userId,
@@ -39,15 +47,25 @@ export function GetPlayer(id: string | number): void | (PlayerInterface & OxPlay
     player.identifier,
     player.charId,
     player.ped
-  );
+  ) as PlayerInterface & OxPlayer;
 }
 
-DEV: {
-  on('ox:playerLoaded', (playerId: number) => {
-    const player = GetPlayer(playerId);
+export function GetPlayer(playerId: string | number) {
+  return CreatePlayerInstance(exports.ox_core.GetPlayer(playerId));
+}
 
-    if (!player) return;
+export function GetPlayerFromUserId(userId: number) {
+  return CreatePlayerInstance(exports.ox_core.GetPlayerFromUserId(userId));
+}
 
-    console.log(player, player.charId);
-  });
+export function GetPlayers(filter?: Dict<any>) {
+  const players = exports.ox_core.GetPlayers(filter);
+
+  for (const id in players) players[id] = CreatePlayerInstance(players[id]);
+
+  return players;
+}
+
+export function GetPlayerFromFilter(filter: Dict<any>) {
+  return CreatePlayerInstance(exports.ox_core.GetPlayerFromFilter(filter));
 }

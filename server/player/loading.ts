@@ -34,6 +34,8 @@ async function loadPlayer(playerId: number) {
   player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
   player.identifier = identifier;
 
+  if (serverLockdown) return serverLockdown;
+
   if (!OxPlayer.add(playerId, player)) return;
 
   DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
@@ -63,7 +65,7 @@ on('playerConnecting', async (username: string, _: any, deferrals: any) => {
 
   const player = await loadPlayer(tempId);
 
-  if (typeof player === 'string') return deferrals.done(player);
+  if (!(player instanceof OxPlayer)) return deferrals.done(player || `Failed to load player.`);
 
   connectingPlayers[tempId] = player;
 
@@ -84,8 +86,7 @@ onNet('ox:playerJoined', async () => {
   const player = connectingPlayers[playerSrc] || (await loadPlayer(playerSrc));
   delete connectingPlayers[playerSrc];
 
-  if (serverLockdown || typeof player === 'string')
-    return DropPlayer(playerSrc.toString(), serverLockdown || (player as string));
+  if (!(player instanceof OxPlayer)) return DropPlayer(playerSrc.toString(), player || `Failed to load player.`);
 
   DEV: console.info(`Starting character selection for OxPlayer<${player.userId}>`);
 

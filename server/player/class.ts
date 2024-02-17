@@ -21,12 +21,12 @@ import { Character, Dict, NewCharacter, OxGroup } from 'types';
 export class OxPlayer extends ClassInterface {
   source: number | string;
   userId: number;
-  charId?: number;
-  stateId?: string;
+  charId: number;
+  stateId: string;
   username: string;
   identifier: string;
   ped: number;
-  #characters?: Character[];
+  #characters: Character[] | null;
   #inScope: Dict<true> = {};
   #metadata: Dict<any>;
   #statuses: Dict<number>;
@@ -36,6 +36,7 @@ export class OxPlayer extends ClassInterface {
   protected static members: Dict<OxPlayer> = {};
   protected static keys: Dict<Dict<OxPlayer>> = {
     userId: {},
+    charId: {},
   };
 
   /** Get an instance of OxPlayer with the matching playerId. */
@@ -48,9 +49,45 @@ export class OxPlayer extends ClassInterface {
     return this.keys.userId[id];
   }
 
-  /** Gets all instances of OxPlayer. */
-  static getAll(): Dict<OxPlayer> {
-    return this.members;
+  /** Compares player fields and metadata to a filter, returning the player if all values match. */
+  private filter(filter: Dict<any>) {
+    const groups = filter.groups;
+
+    if (groups) {
+      if (!this.getGroup(groups)) return;
+
+      delete filter.groups;
+    }
+
+    for (const key in filter) {
+      const value = filter[key];
+
+      if (this[key as keyof OxPlayer] !== value && this.#metadata[key] !== value) return;
+    }
+
+    return this;
+  }
+
+  /** Get an instance of OxPlayer with that matches the filter. */
+  static getFromFilter(filter: Dict<any>) {
+    for (const id in this.members) {
+      const player = this.members[id].filter(filter);
+      if (player) return player;
+    }
+  }
+
+  /** Gets all instances of OxPlayer, optionally comparing against a filter. */
+  static getAll(filter?: Dict<any>): Dict<OxPlayer> {
+    if (!filter) return this.members;
+
+    const obj: Dict<OxPlayer> = {};
+
+    for (const id in this.members) {
+      const player = this.members[id].filter(filter);
+      if (player) obj[id] = player;
+    }
+
+    return obj;
   }
 
   /** Saves all players to the database, and optionally kicks them from the server. */
@@ -65,7 +102,8 @@ export class OxPlayer extends ClassInterface {
       }
 
       if (kickWithReason) {
-        player.charId = null;
+        //@ts-ignore
+        delete player.charId;
         DropPlayer(player.source as string, kickWithReason);
       }
     }
@@ -320,7 +358,8 @@ export class OxPlayer extends ClassInterface {
 
     if (dropped) return;
 
-    this.charId = null;
+    //@ts-ignore
+    delete this.charId;
 
     emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
   }
@@ -341,6 +380,8 @@ export class OxPlayer extends ClassInterface {
 
   /** Registers a new character for the player. */
   async createCharacter(data: NewCharacter) {
+    if (!this.#characters) return;
+
     const stateId = await this.#generateStateId();
     const phoneNumber = await GeneratePhoneNumber();
 
@@ -368,6 +409,8 @@ export class OxPlayer extends ClassInterface {
 
   /** Returns the current index for a character with the given charId. */
   #getCharacterSlotFromId(charId: number) {
+    if (!this.#characters) return -1;
+
     return this.#characters.findIndex((character) => {
       return character.charId === charId;
     });
@@ -375,12 +418,14 @@ export class OxPlayer extends ClassInterface {
 
   /** Loads and sets the player's active character. */
   async setActiveCharacter(data: number | NewCharacter) {
-    if (this.charId) return;
+    if (!this.#characters) return;
 
-    const character =
-      this.#characters[
-        typeof data === 'object' ? await this.createCharacter(data) : this.#getCharacterSlotFromId(data)
-      ];
+    const characterSlot =
+      typeof data === 'object' ? await this.createCharacter(data) : this.#getCharacterSlotFromId(data);
+
+    if (characterSlot == null) return;
+
+    const character = this.#characters[characterSlot];
 
     this.#characters = null;
     this.ped = GetPlayerPed(this.source as string);
@@ -389,7 +434,7 @@ export class OxPlayer extends ClassInterface {
       character.charId
     );
 
-    character.health = isDead ? 0 : health || null;
+    character.health = isDead ? 0 : health;
     character.armour = armour;
 
     this.charId = character.charId;
@@ -437,14 +482,14 @@ export class OxPlayer extends ClassInterface {
 
   /** Deletes a character with the given charId if it's owned by the player. */
   async deleteCharacter(charId: number) {
-    if (this.charId) return;
+    if (!this.#characters) return;
 
-    const slot = this.#getCharacterSlotFromId(charId);
+    const characterSlot = this.#getCharacterSlotFromId(charId);
 
-    if (slot < 0) return;
+    if (characterSlot === -1) return;
 
     if (await DeleteCharacter(charId)) {
-      this.#characters.splice(slot, 1);
+      this.#characters.splice(characterSlot, 1);
       emit('ox:deletedCharacter', this.source, this.userId, charId);
 
       DEV: console.info(`Deleted character ${this.charId} for OxPlayer<${this.userId}>`);
@@ -456,3 +501,6 @@ export class OxPlayer extends ClassInterface {
 OxPlayer.init();
 
 exports('SaveAllPlayers', OxPlayer.saveAll);
+exports('GetPlayerFromUserId', OxPlayer.getFromUserId);
+exports('GetPlayerFromFilter', OxPlayer.getFromFilter);
+exports(`GetPlayers`, OxPlayer.getAll);

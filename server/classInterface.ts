@@ -25,10 +25,6 @@ export class ClassInterface {
       return this.members[id];
     });
 
-    // e.g. exports.ox_core.GetPlayers
-    exports(`Get${expName}s`, () => {
-      return this.members;
-    });
 
     // e.g. exports.ox_core.GetPlayerCalls
     exports(`Get${expName}Calls`, () => {
