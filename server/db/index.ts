@@ -42,7 +42,7 @@ export const db = {
   batch(query: string, values?: any[]) {
     return pool.batch(query, values);
   },
-  scalar<T>(resp: MySqlRow<T>[]): T {
+  scalar<T>(resp: MySqlRow<T>[]) {
     if (resp[0]) for (const key in resp[0]) return resp[0][key];
   },
   single<T>(resp: T[]): T {

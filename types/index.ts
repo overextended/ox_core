@@ -106,6 +106,6 @@ export interface OxAccount {
 export interface OxGroup {
   name: string;
   label: string;
-  grades: string[];
+  grades: [null, ...string[]];
   principal: string;
 }

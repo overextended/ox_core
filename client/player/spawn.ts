@@ -122,7 +122,7 @@ function CreateCharacterMenu(characters: Character[]) {
   const options: any[] = new Array(characters.length);
 
   characters.forEach((character, index) => {
-    const coords = character.x ? [character.x, character.y, character.z] : DEFAULT_SPAWN;
+    const coords: number[] = character.x ? [character.x || 0, character.y || 0, character.z || 0] : DEFAULT_SPAWN;
 
     options[index] = {
       title: `${character.firstName} ${character.lastName}`,
@@ -286,7 +286,7 @@ netEvent('ox:setActiveCharacter', async (character: Character, userId: number, g
   playerIsHidden = false;
 
   if (character.x) {
-    await SpawnPlayer(character.x, character.y, character.z, character.heading);
+    await SpawnPlayer(character.x || 0, character.y || 0, character.z || 0, character.heading || 0);
   } else {
     DoScreenFadeIn(200);
 

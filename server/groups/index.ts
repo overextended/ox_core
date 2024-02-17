@@ -9,7 +9,7 @@ export function GetGroup(name: string) {
   return groups[name];
 }
 
-async function CreateGroup({ name, grades, label }: Partial<OxGroup>) {
+async function CreateGroup({ name, grades, label }: OxGroup) {
   const group: OxGroup = {
     name,
     label,

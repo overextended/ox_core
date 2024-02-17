@@ -9,7 +9,11 @@ import { Dict } from 'types';
 
 if (DEBUG) import('./parser');
 
-export async function CreateVehicle(data: string | Dict<any>, coords?: number | number[], heading?: number) {
+export async function CreateVehicle(
+  data: string | Dict<any>,
+  coords?: number | number[] | { x: number; y: number; z: number },
+  heading?: number
+) {
   if (typeof data === 'string') data = { model: data };
 
   const vehicleData = GetVehicleData(data.model as string);
@@ -54,11 +58,14 @@ export async function CreateVehicle(data: string | Dict<any>, coords?: number | 
   }
 
   if (typeof coords === 'number') coords = GetEntityCoords(coords);
+  else if (typeof coords === 'object' && !Array.isArray(coords)) coords = [coords.x || 0, coords.y || 0, coords.z || 0];
 
   const invokingScript = GetInvokingResource();
-  const entity = CreateVehicleServerSetter(data.model, networkType, coords[0], coords[1], coords[2], heading || 90);
+  const entity = coords
+    ? CreateVehicleServerSetter(data.model, networkType, coords[0], coords[1], coords[2], heading || 90)
+    : 0;
 
-  if (!DoesEntityExist(entity)) return;
+  if (!coords || !DoesEntityExist(entity)) return;
   if (!data.vin && (data.owner || data.owner)) data.vin = await OxVehicle.generateVin(data as any);
   if (data.vin && !data.owner && !data.owner) delete data.vin;
 
@@ -76,6 +83,8 @@ export async function CreateVehicle(data: string | Dict<any>, coords?: number | 
       data.stored
     );
   }
+
+  if (!entity) return;
 
   const vehicle = new OxVehicle(
     entity,

@@ -12,7 +12,7 @@ async function LoadLicenses() {
 
   for (let i = 0; i < rows.length; i++) {
     const license = rows[i];
-    const name = license.name;
+    const name = license.name as string;
     delete license.name;
 
     Licenses[name] = license;

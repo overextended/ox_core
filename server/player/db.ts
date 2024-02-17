@@ -73,7 +73,7 @@ export function GetStatuses() {
 }
 
 export function GetLicenses() {
-  return db.query<{ name: string; label: string }[]>('SELECT name, label FROM ox_licenses');
+  return db.query<{ name?: string; label: string }[]>('SELECT name, label FROM ox_licenses');
 }
 
 export function GetCharacterLicenses(charId: number) {

@@ -16,7 +16,7 @@ export class OxVehicle extends ClassInterface {
   owner?: number;
   group?: string;
   #metadata: Dict<any>;
-  #stored?: string;
+  #stored: string | null;
 
   protected static members: Dict<OxVehicle> = {};
   protected static keys: Dict<Dict<OxVehicle>> = {
@@ -72,7 +72,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   static saveAll(resource?: string) {
-    if (resource === 'ox_core') resource = null;
+    if (resource === 'ox_core') resource = '';
 
     const parameters = [];
 
@@ -100,12 +100,12 @@ export class OxVehicle extends ClassInterface {
     plate: string,
     model: string,
     make: string,
+    stored: string | null,
     id?: number,
     vin?: string,
     owner?: number,
     group?: string,
     metadata?: Dict<any>,
-    stored?: string
   ) {
     super();
     this.entity = entity;
@@ -136,18 +136,20 @@ export class OxVehicle extends ClassInterface {
     return this.#metadata[key];
   }
 
-  #getSaveData(): [string | null, string, number] {
+  #getSaveData() {
     if (!this.id) return;
 
     return [this.#stored, JSON.stringify(this.#metadata), this.id];
   }
 
   save() {
-    return this.id && SaveVehicleData(this.#getSaveData());
+    const saveData = this.#getSaveData();
+    return saveData && SaveVehicleData(saveData);
   }
 
   despawn(save?: boolean) {
-    if (save && this.id) SaveVehicleData(this.#getSaveData());
+    const saveData = save && this.#getSaveData();
+    if (saveData) SaveVehicleData(saveData);
     if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
 
     OxVehicle.remove(this.entity);
@@ -158,7 +160,7 @@ export class OxVehicle extends ClassInterface {
     this.despawn(false);
   }
 
-  setStored(value: string, despawn?: boolean) {
+  setStored(value: string | null, despawn?: boolean) {
     this.#stored = value;
 
     if (despawn) return this.despawn(true);

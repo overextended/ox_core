@@ -19,18 +19,18 @@ export function GetAccountById(id: number): Promise<OxAccount | void> {
   return SelectAccount(id);
 }
 
-export async function GetCharacterAccount(id: number | string): Promise<OxAccount | void> {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return SelectDefaultAccount('owner', id);
+export async function GetCharacterAccount(id: number | string) {
+  const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return charId ? SelectDefaultAccount('owner', charId) : false;
 }
 
-export async function GetGroupAccount(group: string): Promise<OxAccount | void> {
-  return SelectDefaultAccount('group', group);
+export async function GetGroupAccount(group: string) {
+  return SelectDefaultAccount('group', group) || false;
 }
 
-export async function GetCharacterAccounts(id: number | string, includeAll?: boolean): Promise<OxAccount[] | void> {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return includeAll ? SelectAllAccounts(id) : SelectAccounts('owner', id);
+export async function GetCharacterAccounts(id: number | string, includeAll?: boolean) {
+  const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return (charId && (includeAll ? SelectAllAccounts(charId) : SelectAccounts('owner', id))) || false;
 }
 
 export function GetGroupAccounts(group: string): Promise<OxAccount[] | void> {
@@ -63,21 +63,18 @@ export function CreateGroupAccount(group: string, label: string, shared?: boolea
 }
 
 export async function GetAccountRole(accountId: number, id: number | string) {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-
-  return SelectAccountRole(accountId, id);
+  const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return charId && SelectAccountRole(accountId, charId);
 }
 
 export async function SetAccountAccess(accountId: string, id: number | string, role: string) {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-
-  return UpdateAccountAccess(accountId, id, role);
+  const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return charId && UpdateAccountAccess(accountId, charId, role);
 }
 
 export async function RemoveAccountAccess(accountId: string, id: number | string) {
-  id = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-
-  return UpdateAccountAccess(accountId, id);
+  const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
+  return charId && UpdateAccountAccess(accountId, charId);
 }
 
 exports('GetAccountById', GetAccountById);

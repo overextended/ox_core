@@ -23,7 +23,7 @@ export async function SetVehicleColumn(id: number | void, column: string, value:
 }
 
 export function SaveVehicleData(
-  values: [string | null, string, number] | [string | null, string, number][],
+  values: any, // -.-
   batch?: boolean
 ) {
   const query = 'UPDATE vehicles SET `stored` = ?, data = ? WHERE id = ?';

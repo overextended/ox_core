@@ -21,7 +21,7 @@ addCommand<{ model: string; owner?: number }>(
 
     if (!ped) return;
 
-    const player = args.owner && OxPlayer.get(args.owner);
+    const player = args.owner ? OxPlayer.get(args.owner) : null;
     const data = {
       model: args.model,
       owner: player?.charId || undefined,

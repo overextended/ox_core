@@ -35,7 +35,7 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
   if (bleedOut) {
     const coords = GetEntityCoords(cache.ped, true);
     const [x, y, z, heading] = hospitals.reduce(
-      (closest, hospital) => {
+      (closest: any, hospital: any) => { //todo
         const distance = Math.sqrt(
           Math.pow(coords[0] - hospital[0], 2) +
             Math.pow(coords[1] - hospital[1], 2) +
