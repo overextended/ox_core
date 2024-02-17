@@ -11,7 +11,7 @@ const server = {
 /** @type {import('esbuild').BuildOptions} */
 const client = {
   platform: 'browser',
-  target: ['chrome93'],
+  target: ['es2021'],
   format: 'iife',
 };
 
