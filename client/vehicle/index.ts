@@ -1,4 +1,4 @@
-import { cache, onServerCallback } from '@overextended/ox_lib/client';
+import { cache, onServerCallback, setVehicleProperties, waitFor } from '@overextended/ox_lib/client';
 import { DEBUG } from '../config';
 
 if (DEBUG) import('./parser');
@@ -19,4 +19,35 @@ onServerCallback('ox:getNearbyVehicles', (radius: number) => {
   });
 
   return nearbyEntities;
+});
+
+AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string, value: any) => {
+  if (!value) return;
+
+  const entity = GetEntityFromStateBagName(bagName);
+
+  for (let index = -1; 0; index++) {
+    const ped = GetPedInVehicleSeat(entity, index);
+
+    if (ped && ped !== cache.ped && NetworkGetEntityOwner(ped) === cache.playerId) DeleteEntity(ped);
+  }
+
+  await waitFor(async () => {
+    if (!IsEntityWaitingForWorldCollision(entity)) return true;
+  });
+
+  if (NetworkGetEntityOwner(entity) !== cache.playerId) return;
+
+  SetVehicleOnGroundProperly(entity);
+
+  setTimeout(() => Entity(entity).state.set(key, null, true));
+});
+
+AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: string, value: any) => {
+  const entity = GetEntityFromStateBagName(bagName);
+
+  if (NetworkGetEntityOwner(entity) !== cache.playerId) return;
+
+  setVehicleProperties(entity, value);
+  setTimeout(() => Entity(entity).state.set(key, null, true));
 });
