@@ -54,7 +54,10 @@ jobs:
           cd ./temp && zip -r ../ox_core.zip ./ox_core
 
       - name: Bump package version
-        run: pnpm version ${{ github.ref_name }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          pnpm version ${{ github.ref_name }}
 
       - name: Publish npm package
         uses: JS-DevTools/npm-publish@v1
@@ -65,8 +68,6 @@ jobs:
 
       - name: Update repository
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -am '${{ github.ref_name }}'
           git push
