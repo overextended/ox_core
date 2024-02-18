@@ -107,11 +107,11 @@ export class OxVehicle extends ClassInterface {
     model: string,
     make: string,
     stored: string | null,
+    metadata: Dict<any>,
     id?: number,
     vin?: string,
     owner?: number,
     group?: string,
-    metadata?: Dict<any>
   ) {
     super();
     this.entity = entity;
@@ -140,6 +140,10 @@ export class OxVehicle extends ClassInterface {
   /** Gets a value stored in vehicle's metadata. */
   get(key: string) {
     return this.#metadata[key];
+  }
+
+  getState() {
+    return Entity(this.entity).state;
   }
 
   #getSaveData() {

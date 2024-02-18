@@ -79,6 +79,9 @@ export async function CreateVehicle(
 
   data.plate = data.plate && (await IsPlateAvailable(data.plate)) ? data.plate : await OxVehicle.generatePlate();
 
+  const metadata = data.data || {};
+  metadata.properties = metadata.properties || data.properties;
+
   if (!data.id && data.vin) {
     data.id = await CreateNewVehicle(
       data.plate,
@@ -87,7 +90,7 @@ export async function CreateVehicle(
       data.group || null,
       data.model,
       vehicleData.class,
-      data.data || {},
+      metadata,
       data.stored || null
     );
   }
@@ -101,14 +104,19 @@ export async function CreateVehicle(
     data.model,
     vehicleData.make,
     data.stored || null,
+    metadata,
     data.id,
     data.vin,
     data.owner,
-    data.group,
-    data.data
+    data.group
   );
 
   if (vehicle.id) vehicle.setStored(null, false);
+
+  const state = vehicle.getState();
+
+  state.set('initVehicle', true, true);
+  state.set('vehicleProperties', metadata.properties, true);
 
   return vehicle;
 }
