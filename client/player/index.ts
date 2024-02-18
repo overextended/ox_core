@@ -20,6 +20,7 @@ export const OxPlayer = new (class PlayerSingleton {
     this.#groups = {};
     this.#statuses = {};
     this.#metadata = {};
+    this.#state = LocalPlayer.state;
 
     Object.entries(Object.getOwnPropertyDescriptors(this.constructor.prototype)).reduce(
       (methods: { [key: string]: true }, [name, desc]) => {
