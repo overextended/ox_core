@@ -21,15 +21,10 @@ export class ClassInterface {
     const expName = this.name.replace('Ox', '');
 
     // e.g. exports.ox_core.GetPlayer
-    exports(`Get${expName}`, (id: string) => {
-      return this.members[id];
-    });
-
+    exports(`Get${expName}`, (id: string) => this.members[id]);
 
     // e.g. exports.ox_core.GetPlayerCalls
-    exports(`Get${expName}Calls`, () => {
-      return this.callableMethods;
-    });
+    exports(`Get${expName}Calls`, () => this.callableMethods);
 
     // e.g. exports.ox_core.CallPlayer
     exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
@@ -37,13 +32,14 @@ export class ClassInterface {
 
       if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid player)`);
 
+      const fn = member[method];
+
+      if (!fn) return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
+
       if (!this.callableMethods[method])
         return console.error(`cannot call method ${method} on ${name}<${id}> (method is not exported)`);
 
-      if (!member[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
-
-      return member[method](...args);
+      return fn(...args);
     });
 
     DEV: console.info(`Instantiated ClassInterface<${name}> and exports`);

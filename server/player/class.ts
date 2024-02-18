@@ -134,7 +134,7 @@ export class OxPlayer extends ClassInterface {
   set(key: string, value: any, replicated?: boolean) {
     this.#metadata[key] = value;
 
-    if (replicated) emitNet('ox:setPlayerData', this.source, key, value);
+    if (replicated) this.emit('ox:setPlayerData', key, value);
   }
 
   /** Gets a value stored in active character's metadata. */
@@ -199,17 +199,38 @@ export class OxPlayer extends ClassInterface {
     }
 
     emit('ox:setGroup', this.source, group.name, grade ? grade : null);
-    emitNet('ox:setGroup', this.source, group.name, grade ? grade : null);
+    this.emit('ox:setGroup', group.name, grade ? grade : null);
 
     return true;
   }
 
-  /** Returns the active characters grade for a group. */
-  getGroup(groupName: string) {
-    return this.#groups[groupName];
+  /** Returns the current grade of a given group name, or the first matched name and grade in the filter. */
+  getGroup(filter: string | string[] | Record<string, number>) {
+    if (typeof filter === 'string') {
+      const grade = this.#groups[filter];
+
+      if (grade) return grade;
+    } else if (typeof filter === 'object') {
+      if (Array.isArray(filter)) {
+        for (let i = 0; filter.length; i++) {
+          const name = filter[i];
+          const playerGrade = this.#groups[name];
+
+          if (playerGrade) return [name, playerGrade];
+        }
+      } else {
+        for (const [name, grade] of Object.entries(filter)) {
+          const playerGrade = this.#groups[name];
+
+          if (playerGrade && (grade as number) <= playerGrade) {
+            return [name, playerGrade];
+          }
+        }
+      }
+    }
   }
 
-  getGroups(filter?: string | string[] | Dict<number>) {
+  getGroups() {
     return this.#groups;
   }
 
@@ -222,7 +243,7 @@ export class OxPlayer extends ClassInterface {
 
     this.#statuses[statusName] = value;
 
-    if (!source) emitNet('ox:setPlayerStatus', this.source, statusName, value, true);
+    if (!source) this.emit('ox:setPlayerStatus', statusName, value, true);
 
     return true;
   }
@@ -241,7 +262,7 @@ export class OxPlayer extends ClassInterface {
   addStatus(statusName: string, value: number) {
     if (!this.#statuses[statusName]) return;
 
-    emitNet('ox:setPlayerStatus', this.source, statusName, +value);
+    this.emit('ox:setPlayerStatus', statusName, +value);
 
     return true;
   }
@@ -250,7 +271,7 @@ export class OxPlayer extends ClassInterface {
   removeStatus(statusName: string, value: number) {
     if (!this.#statuses[statusName]) return;
 
-    emitNet('ox:setPlayerStatus', this.source, statusName, -value);
+    this.emit('ox:setPlayerStatus', statusName, -value);
 
     return true;
   }
@@ -338,7 +359,7 @@ export class OxPlayer extends ClassInterface {
     }
 
     Player(this.source).state.set('userId', this.userId, true);
-    emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
+    this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
   }
 
   /** Returns an array of all characters owned by the player, excluding soft-deleted characters. */
@@ -361,7 +382,7 @@ export class OxPlayer extends ClassInterface {
     //@ts-ignore
     delete this.charId;
 
-    emitNet('ox:startCharacterSelect', this.source, await this.#getCharacters());
+    this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
   }
 
   /** Creates a stateId for a newly created character. */
@@ -452,7 +473,7 @@ export class OxPlayer extends ClassInterface {
 
     // setup licenses
 
-    this.emit('ox:setActiveCharacter', character, this.userId, this.#groups);
+    this.emit('ox:setActiveCharacter', character, this.#groups);
 
     // Values stored in metadata and synced to client.
     this.set('firstName', character.firstName, true);

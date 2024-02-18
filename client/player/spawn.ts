@@ -8,7 +8,7 @@ import {
   triggerServerCallback,
   cache,
 } from '@overextended/ox_lib/client';
-import { OxPlayer, SetPlayerData } from './';
+import { OxPlayer } from './';
 import { netEvent } from 'utils';
 import locale from '../../common/locales';
 import { Character, NewCharacter } from 'types';
@@ -257,7 +257,7 @@ function CreateCharacterMenu(characters: Character[]) {
   showContext('ox:characterSelect');
 }
 
-netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
+netEvent('ox:startCharacterSelect', async (_userId: number, characters: Character[]) => {
   if (OxPlayer.isLoaded) {
     DEV: console.info('Character is already loaded - resetting data');
     OxPlayer.isLoaded = false;
@@ -273,9 +273,7 @@ netEvent('ox:startCharacterSelect', async (characters: Character[]) => {
   CreateCharacterMenu(characters);
 });
 
-netEvent('ox:setActiveCharacter', async (character: Character, userId: number, groups: Record<string, number>) => {
-  SetPlayerData(userId, character.charId, character.stateId, groups);
-
+netEvent('ox:setActiveCharacter', async (character: Character) => {
   if (!character.isNew) {
     DoScreenFadeOut(300);
 
