@@ -68,7 +68,7 @@ export function GetPlayers(filter?: Dict<any>) {
 
   for (const id in players) players[id] = CreatePlayerInstance(players[id]);
 
-  return players;
+  return players as Dict<PlayerInterface & OxPlayer>;
 }
 
 export function GetPlayerFromFilter(filter: Dict<any>) {

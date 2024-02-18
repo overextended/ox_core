@@ -30,7 +30,7 @@ export class ClassInterface {
     exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
       const member = this.members[id];
 
-      if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid player)`);
+      if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid id)`);
 
       if (!member[method]) return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
 

@@ -121,6 +121,8 @@ export class OxPlayer extends ClassInterface {
     this.source = source;
     this.#characters = [];
     this.#inScope = {};
+    this.#metadata = {};
+    this.#statuses = {};
     this.#groups = {};
     this.#licenses = {};
   }
@@ -460,8 +462,6 @@ export class OxPlayer extends ClassInterface {
 
     this.charId = character.charId;
     this.stateId = character.stateId;
-    this.#metadata = {};
-    this.#statuses = {};
 
     const groups = await LoadCharacterGroups(this.charId);
 
@@ -521,7 +521,7 @@ export class OxPlayer extends ClassInterface {
 
 OxPlayer.init();
 
-exports('SaveAllPlayers', OxPlayer.saveAll);
-exports('GetPlayerFromUserId', OxPlayer.getFromUserId);
-exports('GetPlayerFromFilter', OxPlayer.getFromFilter);
-exports(`GetPlayers`, OxPlayer.getAll);
+exports('SaveAllPlayers', (arg: any) => OxPlayer.saveAll(arg));
+exports('GetPlayerFromUserId', (arg: any) => OxPlayer.getFromUserId(arg));
+exports('GetPlayerFromFilter', (arg: any) => OxPlayer.getFromFilter(arg));
+exports(`GetPlayers`, (arg: any) => OxPlayer.getAll(arg));
