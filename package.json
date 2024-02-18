@@ -33,14 +33,14 @@
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@types/node": "^20.11.17",
+    "@types/node": "^20.11.19",
     "esbuild": "^0.19.12",
     "prettier": "^3.2.5",
-    "typescript": "^5.3.3",
-    "tsc-alias": "^1.8.8"
+    "tsc-alias": "^1.8.8",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@overextended/ox_lib": "^3.16.2",
+    "@overextended/ox_lib": "^3.16.3",
     "mariadb": "^3.2.3"
   },
   "engines": {

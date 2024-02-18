@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@overextended/ox_lib':
-    specifier: ^3.16.2
-    version: 3.16.2
+    specifier: ^3.16.3
+    version: 3.16.3
   mariadb:
     specifier: ^3.2.3
     version: 3.2.3
@@ -15,13 +15,13 @@ dependencies:
 devDependencies:
   '@citizenfx/client':
     specifier: latest
-    version: 2.0.7474-1
+    version: 2.0.7479-1
   '@citizenfx/server':
     specifier: latest
-    version: 2.0.7474-1
+    version: 2.0.7479-1
   '@types/node':
-    specifier: ^20.11.17
-    version: 20.11.17
+    specifier: ^20.11.19
+    version: 20.11.19
   esbuild:
     specifier: ^0.19.12
     version: 0.19.12
@@ -37,12 +37,12 @@ devDependencies:
 
 packages:
 
-  /@citizenfx/client@2.0.7474-1:
-    resolution: {integrity: sha512-tVaJtR5L/LIBmyZPAFFGpnLkoOzn8MTizAs983eEOkS4cSXEBIMhnkRmZyzBMlwJ7IXzuoR9VuVcHBW3cfirGg==}
+  /@citizenfx/client@2.0.7479-1:
+    resolution: {integrity: sha512-k9w0BTq+pmCVw16h+MuyGY+S1+kkry0VR7A4slQ6VPRbggLHSCotK8gDz+1HiuV4o7Jl0Z4lzi8oYyVyA2sKVA==}
     dev: true
 
-  /@citizenfx/server@2.0.7474-1:
-    resolution: {integrity: sha512-30r20DenKtU4JNHovzz2Kvv3pIXemPgkgwav0WpYxKj3WlNx3QXJRZiMTkC4n5X6zwlvqdF7pQ/mxL4IyPs/Zg==}
+  /@citizenfx/server@2.0.7479-1:
+    resolution: {integrity: sha512-8yutKqlhw/3cc47XzzbZTgNzmWuj5wx3PoXin/bGjlk5Sh/1eAryRj0KK8OSO+Dg8BdM8DbJAL3SpG6mV1I+MA==}
     dev: true
 
   /@esbuild/aix-ppc64@0.19.12:
@@ -277,8 +277,8 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@overextended/ox_lib@3.16.2:
-    resolution: {integrity: sha512-1QwoJtKHMoFkUi15G2EKt30tLVkn3mv9AXXD3iZyQR+b0OiVM/JLJaijS/qQSFENlS75S84LhNHqom5q1ZCGSg==}
+  /@overextended/ox_lib@3.16.3:
+    resolution: {integrity: sha512-vqx/WAey/DJIokzBB8fv76IlUBdMf/yWmuN/Rs44qFB8Zbg7sWPWprRRVXcCo65QaCfJS0Lo2i/OZQcBq/LhKQ==}
     dependencies:
       '@nativewrappers/client': 1.7.33
       fast-printf: 1.6.9
@@ -293,8 +293,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.17:
-    resolution: {integrity: sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==}
+  /@types/node@20.11.19:
+    resolution: {integrity: sha512-7xMnVEcZFu0DikYjWOlRq7NTPETrm7teqUT2WkQjrTIkEgUyyGdWsj/Zg8bEJt5TNklzbPD1X3fqfsHw3SpapQ==}
     dependencies:
       undici-types: 5.26.5
     dev: true
