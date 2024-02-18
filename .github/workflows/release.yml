@@ -53,6 +53,24 @@ jobs:
           cp -r ./{imports,lib,locales,common/data,sql,dist} ./temp/ox_core
           cd ./temp && zip -r ../ox_core.zip ./ox_core
 
+      - name: Bump package version
+        run: pnpm version ${{ github.ref_name }}
+
+      - name: Publish npm package
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: './package.json'
+          access: 'public'
+
+      - name: Update repository
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -am '${{ github.ref_name }}'
+          git push
+
       - name: Create Release
         uses: 'marvinpinto/action-automatic-releases@v1.2.1'
         id: auto_release
@@ -65,22 +83,3 @@ jobs:
         env:
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Bump package version
-        run: pnpm version ${{ github.ref_name }}
-        working-directory: package
-
-      - name: Publish npm package
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: './package/package.json'
-          access: 'public'
-
-      - name: Update repository
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -am '${{ github.ref_name }}'
-          git push
