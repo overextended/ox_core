@@ -1,16 +1,24 @@
 import { OxVehicle } from './class';
-import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable } from './db';
+import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
 import { GetVehicleData } from '../../common/vehicles';
 import { DEBUG } from '../../common/config';
 
 import './class';
 import './commands';
-import { Dict } from 'types';
+import type { Dict } from 'types';
 
 if (DEBUG) import('./parser');
 
 export async function CreateVehicle(
-  data: string | Dict<any>,
+  data:
+    | string
+    | (Partial<VehicleRow> & {
+        model: string;
+        owner?: number;
+        group?: string;
+        stored?: string;
+        properties?: Dict<any>;
+      }),
   coords?: number | number[] | { x: number; y: number; z: number },
   heading?: number
 ) {
@@ -28,7 +36,7 @@ export async function CreateVehicle(
 
     if (vehicle) {
       if (DoesEntityExist(vehicle.entity)) {
-        return vehicle.entity;
+        return vehicle;
       }
 
       vehicle.despawn(true);
@@ -66,8 +74,8 @@ export async function CreateVehicle(
     : 0;
 
   if (!coords || !DoesEntityExist(entity)) return;
-  if (!data.vin && (data.owner || data.owner)) data.vin = await OxVehicle.generateVin(data as any);
-  if (data.vin && !data.owner && !data.owner) delete data.vin;
+  if (!data.vin && (data.owner || data.group)) data.vin = await OxVehicle.generateVin(data as any);
+  if (data.vin && !data.owner && !data.group) delete data.vin;
 
   data.plate = data.plate && (await IsPlateAvailable(data.plate)) ? data.plate : await OxVehicle.generatePlate();
 
@@ -75,12 +83,12 @@ export async function CreateVehicle(
     data.id = await CreateNewVehicle(
       data.plate,
       data.vin,
-      data.owner,
-      data.group,
+      data.owner || null,
+      data.group || null,
       data.model,
       vehicleData.class,
       data.data || {},
-      data.stored
+      data.stored || null
     );
   }
 
@@ -92,6 +100,7 @@ export async function CreateVehicle(
     data.plate,
     data.model,
     vehicleData.make,
+    data.stored || null,
     data.id,
     data.vin,
     data.owner,
@@ -101,7 +110,7 @@ export async function CreateVehicle(
 
   if (vehicle.id) vehicle.setStored(null, false);
 
-  return vehicle.entity;
+  return vehicle;
 }
 
 export async function SpawnVehicle(id: number, coords: number | number[], heading?: number) {

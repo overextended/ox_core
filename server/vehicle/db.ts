@@ -1,4 +1,7 @@
+import type { Dict } from 'types';
 import { db } from '../db';
+
+export type VehicleRow = { id: number; owner?: number; group?: string; plate: string; vin: string; model: string; data: Dict<any> }
 
 setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']));
 
@@ -11,9 +14,8 @@ export async function IsVinAvailable(plate: string) {
 }
 
 export function GetStoredVehicleFromId(id: number) {
-  return db.row<
-    Partial<{ id: number; owner: number; group: string; plate: string; vin: string; model: string; data: string }>
-  >('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id]);
+  return db.row<VehicleRow>
+    ('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id]);
 }
 
 export async function SetVehicleColumn(id: number | void, column: string, value: any) {

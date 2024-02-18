@@ -1,4 +1,5 @@
 import type { OxVehicle } from 'server/vehicle/class';
+import type { VehicleProperties } from '@overextended/ox_lib';
 
 class VehicleInterface {
   constructor(
@@ -24,11 +25,19 @@ class VehicleInterface {
     this.owner = owner;
     this.group = group;
   }
+
+  getCoords() {
+    return GetEntityCoords(this.entity);
+  }
+
+  getState() {
+    return Entity(this.entity).state;
+  }
 }
 
 Object.keys(exports.ox_core.GetVehicleCalls()).forEach((method: string) => {
   (VehicleInterface.prototype as any)[method] = function (...args: any[]) {
-    return exports.ox_core.CallVehicle(this.source, method, ...args);
+    return exports.ox_core.CallVehicle(this.entity, method, ...args);
   };
 });
 
@@ -36,10 +45,8 @@ VehicleInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export function GetVehicle(entityId: number): OxVehicle | void {
-  const vehicle = exports.ox_core.GetVehicle(entityId);
-
-  if (!vehicle) return console.error(`cannot create VehicleInterface<${entityId}> (invalid id)`);
+function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
+  if (!vehicle) return;
 
   return new VehicleInterface(
     vehicle.entity,
@@ -52,9 +59,39 @@ export function GetVehicle(entityId: number): OxVehicle | void {
     vehicle.vin,
     vehicle.owner,
     vehicle.group
-  ) as OxVehicle;
+  ) as VehicleInterface & OxVehicle;
+}
+
+export function GetVehicle(entityId: number) {
+  return CreateVehicleInstance(exports.ox_core.GetVehicle(entityId));
 }
 
 export function GetVehicleFromNetId(netId: number) {
-  return GetVehicle(NetworkGetEntityFromNetworkId(netId));
+  return CreateVehicleInstance(exports.ox_core.GetVehicleFromNetId(netId));
+}
+
+export function GetVehicleFromVin(vin: string) {
+  return CreateVehicleInstance(exports.ox_core.GetVehicleFromVin(vin));
+}
+
+export async function CreateVehicle(
+  data: {
+    model: string;
+    owner?: number;
+    group?: string;
+    stored?: number;
+    properties?: VehicleProperties;
+  },
+  coords?: number | number[] | { x: number; y: number; z: number },
+  heading?: number
+) {
+  return CreateVehicleInstance(await exports.ox_core.CreateVehicle(data, coords, heading));
+}
+
+export async function SpawnVehicle(
+  dbId: number,
+  coords: number | number[] | { x: number; y: number; z: number },
+  heading?: number
+) {
+  return CreateVehicleInstance(await exports.ox_core.SpawnVehicle(dbId, coords, heading));
 }

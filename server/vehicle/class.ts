@@ -22,6 +22,7 @@ export class OxVehicle extends ClassInterface {
   protected static keys: Dict<Dict<OxVehicle>> = {
     id: {},
     netId: {},
+    vin: {},
   };
 
   /** Get an instance of OxVehicle with the matching entityId. */
@@ -37,6 +38,11 @@ export class OxVehicle extends ClassInterface {
   /** Get an instance of OxVehicle with the matching netId. */
   static getFromNetId(id: number) {
     return this.keys.netId[id];
+  }
+
+  /** Get an instance of OxVehicle with the matching vin. */
+  static getFromVin(vin: string) {
+    return this.keys.vin[vin];
   }
 
   /** Gets all instances of OxVehicle. */
@@ -105,7 +111,7 @@ export class OxVehicle extends ClassInterface {
     vin?: string,
     owner?: number,
     group?: string,
-    metadata?: Dict<any>,
+    metadata?: Dict<any>
   ) {
     super();
     this.entity = entity;
@@ -195,4 +201,6 @@ export class OxVehicle extends ClassInterface {
 
 OxVehicle.init();
 
-exports('SaveAllVehicles', OxVehicle.saveAll);
+exports('SaveAllVehicles', (arg: any) => OxVehicle.saveAll(arg));
+exports('GetVehicleFromNetId', (arg: any) => OxVehicle.getFromNetId(arg));
+exports('GetVehicleFromVin', (arg: any) => OxVehicle.getFromVin(arg));

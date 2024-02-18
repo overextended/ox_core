@@ -27,13 +27,13 @@ addCommand<{ model: string; owner?: number }>(
       owner: player?.charId || undefined,
     };
 
-    const entity = await CreateVehicle(data, GetEntityCoords(ped), GetEntityHeading(ped));
+    const vehicle = await CreateVehicle(data, GetEntityCoords(ped), GetEntityHeading(ped));
 
-    if (!entity) return;
+    if (!vehicle) return;
 
     DeleteCurrentVehicle(ped);
     await sleep(200);
-    SetPedIntoVehicle(ped, entity, -1);
+    SetPedIntoVehicle(ped, vehicle.entity, -1);
   },
   {
     help: `Spawn a vehicle with the given model.`,
