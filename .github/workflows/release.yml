@@ -1,0 +1,86 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  create-release:
+    name: Build and Create Tagged release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install archive tools
+        run: sudo apt install zip
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: 8
+
+      - name: Get variables
+        id: get_vars
+        run: |
+          echo '::set-output name=SHORT_SHA::$(git rev-parse --short HEAD)'
+          echo '::set-output name=DATE::$(date +'%D')'
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Run build
+        run: pnpm build
+        env:
+          CI: false
+
+      - name: Bundle files
+        run: |
+          mkdir -p ./temp/ox_core
+          cp ./{LICENSE,README.md,fxmanifest.lua} ./temp/ox_core
+          cp -r ./{imports,lib,locales,common/data,sql,dist} ./temp/ox_core
+          cd ./temp && zip -r ../ox_core.zip ./ox_core
+
+      - name: Create Release
+        uses: 'marvinpinto/action-automatic-releases@v1.2.1'
+        id: auto_release
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          title: '${{ env.RELEASE_VERSION }}'
+          prerelease: true
+          files: ox_core.zip
+
+        env:
+          CI: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump package version
+        run: pnpm version ${{ github.ref_name }}
+        working-directory: package
+
+      - name: Publish npm package
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: './package/package.json'
+          access: 'public'
+
+      - name: Update repository
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -am '${{ github.ref_name }}'
+          git push
