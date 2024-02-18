@@ -1,20 +1,10 @@
----@class PlayerInterface
----@field private new fun(self: self, obj: table): self
----@field private __index fun(self: self, index: any): any
----@field private __tostring fun(self: self): string
----@field source number
----@field userId number
----@field username string
----@field identifier string
----@field test fun(...)
----@field localmethod fun(...)
-local PlayerInterface = lib.class('PlayerInterface')
+local OxPlayer = lib.class('OxPlayer')
 
-function PlayerInterface:__index(index)
-    local value = PlayerInterface[index]
+function OxPlayer:__index(index)
+    local value = OxPlayer[index] --[[@as any]]
 
     if type(value) == 'function' then
-        self[index] = value == PlayerInterface.__call and function(...)
+        self[index] = value == OxPlayer.__call and function(...)
             return value(self, index, ...)
         end or function(...)
             return value(self, ...)
@@ -26,28 +16,54 @@ function PlayerInterface:__index(index)
     return value
 end
 
-function PlayerInterface:__call(...)
+function OxPlayer:__call(...)
     return exports.ox_core:CallPlayer(self.source, ...)
 end
 
-function PlayerInterface:__tostring()
+function OxPlayer:__tostring()
     return string.format('{\n  "source": %s\n  "userId": %s\n  "identifier": %s\n  "username": %s\n}', self.source,
         self.userId, self.identifier, self.username)
 end
 
+function OxPlayer:getCoords()
+    return GetEntityCoords(self.ped);
+end
+
+function OxPlayer:getState()
+    return Player(source).state;
+end
+
 for method in pairs(exports.ox_core:GetPlayerCalls() or {}) do
-    PlayerInterface[method] = PlayerInterface.__call
+    if not OxPlayer[method] then OxPlayer[method] = OxPlayer.__call end
 end
 
-function PlayerInterface:localmethod(...)
-    print(...)
+local function CreatePlayerInstance(player)
+    if not player then return end;
+
+    return OxPlayer:new(player)
 end
 
----@param id string | number
-function Ox.GetPlayer(id)
-    local player = exports.ox_core:GetPlayer(id)
+---@class OxServer
+local Ox = Ox
 
-    if not player then return warn(string.format('cannot create PlayerInterface<%s> (invalid id)', id)); end
+function Ox.GetPlayer(playerId)
+    return CreatePlayerInstance(exports.ox_core:GetPlayer(playerId))
+end
 
-    return PlayerInterface:new(player or { source = tonumber(id) })
+function Ox.GetPlayerFromUserId(userId)
+    return CreatePlayerInstance(exports.ox_core:GetPlayerFromUserId(userId))
+end
+
+function Ox.GetPlayers(filter)
+    local players = exports.ox_core:GetPlayers(filter)
+
+    for id, player in pairs(players) do
+        players[id] = CreatePlayerInstance(player)
+    end
+
+    return players
+end
+
+function Ox.GetPlayerFromFilter(filter)
+    return CreatePlayerInstance(exports.ox_core:GetPlayerFromFilter(filter))
 end

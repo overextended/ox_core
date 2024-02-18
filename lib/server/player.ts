@@ -7,15 +7,19 @@ class PlayerInterface {
   constructor(
     public source: number,
     public userId: number,
+    public charId: number,
+    public stateId: string,
     public username: string,
     public identifier: string,
-    public charId: number,
     public ped: number
   ) {
     this.source = source;
     this.userId = userId;
+    this.charId = charId;
+    this.stateId = stateId;
     this.username = username;
     this.identifier = identifier;
+    this.ped = ped;
   }
 
   getCoords() {
@@ -37,15 +41,16 @@ PlayerInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-function CreatePlayerInstance(player: any /** idc */) {
+function CreatePlayerInstance(player?: InstanceType<typeof OxPlayer>) {
   if (!player) return;
 
   return new PlayerInterface(
-    player.source,
+    player.source as number,
     player.userId,
+    player.charId,
+    player.stateId,
     player.username,
     player.identifier,
-    player.charId,
     player.ped
   ) as PlayerInterface & OxPlayer;
 }
