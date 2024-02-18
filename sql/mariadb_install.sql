@@ -62,16 +62,27 @@ CREATE TABLE
     CONSTRAINT `FK_inventory_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON UPDATE CASCADE ON DELETE CASCADE
   );
 
-CREATE TABLE
-  IF NOT EXISTS `ox_groups` (
+CREATE TABLE IF NOT EXISTS `ox_groups` (
     `name` VARCHAR(20) NOT NULL,
     `label` VARCHAR(50) NOT NULL,
     `grades` LONGTEXT NOT NULL,
     `hasAccount` TINYINT(1) NOT NULL DEFAULT 0,
-    `adminGrade` TINYINT UNSIGNED NOT NULL DEFAULT json_length (`grades`),
+    `adminGrade` TINYINT UNSIGNED NOT NULL,
     `colour` TINYINT UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`name`) USING BTREE
-  );
+);
+
+DELIMITER //
+
+CREATE TRIGGER set_admin_grade_default BEFORE INSERT ON `ox_groups`
+FOR EACH ROW
+BEGIN
+    SET NEW.adminGrade = JSON_LENGTH(NEW.grades);
+END;
+//
+
+DELIMITER ;
+
 
 INSERT INTO
   `ox_groups` (
