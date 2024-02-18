@@ -1,4 +1,4 @@
-name: Build
+name: npm dry-run
 
 on:
   workflow_dispatch:
