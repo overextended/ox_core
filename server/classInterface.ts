@@ -32,19 +32,21 @@ export class ClassInterface {
 
       if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid player)`);
 
-      const fn = member[method];
-
-      if (!fn) return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
+      if (!member[method]) return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
 
       if (!this.callableMethods[method])
         return console.error(`cannot call method ${method} on ${name}<${id}> (method is not exported)`);
 
-      return fn(...args);
+      return member.call(method, ...args);
     });
 
     DEV: console.info(`Instantiated ClassInterface<${name}> and exports`);
 
     return this;
+  }
+  
+  call(method: string, ...args: any) {
+    return (this as any)[method](...args);
   }
 
   /** Get a member of the class by its id. */
