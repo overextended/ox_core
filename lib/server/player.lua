@@ -30,7 +30,7 @@ function OxPlayer:getCoords()
 end
 
 function OxPlayer:getState()
-    return Player(source).state;
+    return Player(self.source).state;
 end
 
 for method in pairs(exports.ox_core:GetPlayerCalls() or {}) do

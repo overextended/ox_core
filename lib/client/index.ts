@@ -1,10 +1,7 @@
-interface OxClient {
-  [exportKey: string]: Function;
-  IsPlayerLoaded(): boolean;
-  GetPlayerData(): { userId: number; charId: number; stateId: string };
-  GetPlayerData(key: string): any;
-}
+import { OxCore, OxCommon } from 'lib';
 
-export const Ox: OxClient = exports.ox_core as any;
+interface OxClient extends OxCommon {}
+
+export const Ox = OxCore as OxClient;
 
 export * from './player';

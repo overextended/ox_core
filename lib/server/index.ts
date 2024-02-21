@@ -15,13 +15,11 @@ import type {
   SetAccountAccess,
 } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
-import type { CreateVehicle, SpawnVehicle } from 'server/vehicle';
-import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 import type { GetCharIdFromStateId } from 'server/player/db';
 import type { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';
+import { OxCore, OxCommon } from 'lib';
 
-interface OxServer {
-  [exportKey: string]: Function;
+interface OxServer extends OxCommon {
   GetAccountById: typeof GetAccountById;
   GetCharacterAccount: typeof GetCharacterAccount;
   GetGroupAccount: typeof GetGroupAccount;
@@ -40,14 +38,10 @@ interface OxServer {
   RemoveAccountAccess: typeof RemoveAccountAccess;
   SaveAllPlayers: typeof OxPlayer.saveAll;
   SaveAllVehicles: typeof OxVehicle.saveAll;
-  CreateVehicle: typeof CreateVehicle;
-  SpawnVehicle: typeof SpawnVehicle;
-  GetTopVehicleStats: typeof GetTopVehicleStats;
-  GetVehicleData: typeof GetVehicleData;
   GetCharIdFromStateId: typeof GetCharIdFromStateId;
 }
 
-export const Ox: OxServer = exports.ox_core as any;
+export const Ox = OxCore as OxServer;
 
 export * from './player';
 export * from './vehicle';
