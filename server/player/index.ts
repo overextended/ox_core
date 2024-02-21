@@ -1,6 +1,6 @@
-import 'player/loading';
-import 'player/events';
-import 'player/commands';
+import './loading';
+import './events';
+import './commands';
 import { OxPlayer } from './class';
 import { GetCharIdFromStateId } from './db';
 

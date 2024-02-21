@@ -86,7 +86,10 @@ export class OxVehicle extends ClassInterface {
       const vehicle = this.members[id];
 
       if (!resource || resource === vehicle.script) {
-        if (vehicle.owner || vehicle.group) parameters.push(vehicle.#getSaveData());
+        if (vehicle.owner || vehicle.group) {
+          vehicle.#stored = 'impound';
+          parameters.push(vehicle.#getSaveData());
+        }
 
         vehicle.despawn();
       }
@@ -111,7 +114,7 @@ export class OxVehicle extends ClassInterface {
     id?: number,
     vin?: string,
     owner?: number,
-    group?: string,
+    group?: string
   ) {
     super();
     this.entity = entity;

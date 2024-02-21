@@ -2,10 +2,11 @@ import { OxVehicle } from './class';
 import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
 import { GetVehicleData } from '../../common/vehicles';
 import { DEBUG } from '../../common/config';
+import type { Dict } from 'types';
 
 import './class';
 import './commands';
-import type { Dict } from 'types';
+import './events';
 
 if (DEBUG) import('./parser');
 
@@ -20,7 +21,8 @@ export async function CreateVehicle(
         properties?: Dict<any>;
       }),
   coords?: number | number[] | { x: number; y: number; z: number },
-  heading?: number
+  heading?: number,
+  invokingScript = GetInvokingResource()
 ) {
   if (typeof data === 'string') data = { model: data };
 
@@ -68,7 +70,6 @@ export async function CreateVehicle(
   if (typeof coords === 'number') coords = GetEntityCoords(coords);
   else if (typeof coords === 'object' && !Array.isArray(coords)) coords = [coords.x || 0, coords.y || 0, coords.z || 0];
 
-  const invokingScript = GetInvokingResource();
   const entity = coords
     ? CreateVehicleServerSetter(data.model, networkType, coords[0], coords[1], coords[2], heading || 90)
     : 0;
@@ -122,13 +123,14 @@ export async function CreateVehicle(
 }
 
 export async function SpawnVehicle(id: number, coords: number | number[], heading?: number) {
+  const invokingScript = GetInvokingResource();
   const vehicle = await GetStoredVehicleFromId(id);
 
   if (!vehicle) return;
 
   vehicle.data = JSON.parse(vehicle.data as any);
 
-  return await CreateVehicle(vehicle, coords, heading);
+  return await CreateVehicle(vehicle, coords, heading, invokingScript);
 }
 
 exports('CreateVehicle', CreateVehicle);
