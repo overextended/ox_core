@@ -44,6 +44,8 @@ AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string,
 });
 
 AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: string, value: any) => {
+  if (!value) return;
+
   const entity = GetEntityFromStateBagName(bagName);
 
   if (NetworkGetEntityOwner(entity) !== cache.playerId) return;
