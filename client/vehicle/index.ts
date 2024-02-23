@@ -24,7 +24,14 @@ onServerCallback('ox:getNearbyVehicles', (radius: number) => {
 AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string, value: any) => {
   if (!value) return;
 
-  const entity = GetEntityFromStateBagName(bagName);
+  const entity = await waitFor(async () => {
+    const entity = GetEntityFromStateBagName(bagName);
+    DEV: console.info(key, entity);
+
+    if (entity) return entity;
+  }, 'failed to get entity from statebag name');
+
+  if (!entity) return;
 
   for (let index = -1; 0; index++) {
     const ped = GetPedInVehicleSeat(entity, index);
@@ -38,18 +45,30 @@ AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string,
 
   if (NetworkGetEntityOwner(entity) !== cache.playerId) return;
 
-  SetVehicleOnGroundProperly(entity);
+  const vehicleState = Entity(entity).state;
 
-  setTimeout(() => Entity(entity).state.set(key, null, true));
+  SetVehicleOnGroundProperly(entity);
+  setTimeout(() => vehicleState.set(key, null, true));
 });
 
 AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: string, value: any) => {
-  if (!value) return;
+  if (!value) return DEBUG && console.info(`removed ${key} state from ${bagName}`);
 
-  const entity = GetEntityFromStateBagName(bagName);
+  const entity = await waitFor(async () => {
+    const entity = GetEntityFromStateBagName(bagName);
+    DEV: console.info(key, entity);
 
-  if (NetworkGetEntityOwner(entity) !== cache.playerId) return;
+    if (entity) return entity;
+  }, 'failed to get entity from statebag name');
+
+  if (!entity) return;
+
+  if (NetworkGetEntityOwner(entity) !== cache.playerId)
+    return DEBUG && console.info(`Cannot set ${key} - player does not own ${bagName}`);
+
+  const vehicleState = Entity(entity).state;
 
   setVehicleProperties(entity, value);
-  setTimeout(() => Entity(entity).state.set(key, null, true));
+
+  setTimeout(() => vehicleState.set(key, null, true));
 });
