@@ -2,11 +2,11 @@ import { OxVehicle } from './class';
 import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
 import { GetVehicleData } from '../../common/vehicles';
 import { DEBUG } from '../../common/config';
-import type { Dict } from 'types';
 
 import './class';
 import './commands';
 import './events';
+import { VehicleProperties } from '@overextended/ox_lib';
 
 if (DEBUG) import('./parser');
 
@@ -18,7 +18,7 @@ export async function CreateVehicle(
         owner?: number;
         group?: string;
         stored?: string;
-        properties?: Dict<any>;
+        properties?: VehicleProperties;
       }),
   coords?: number | number[] | { x: number; y: number; z: number },
   heading?: number,
@@ -80,7 +80,7 @@ export async function CreateVehicle(
 
   data.plate = data.plate && (await IsPlateAvailable(data.plate)) ? data.plate : await OxVehicle.generatePlate();
 
-  const metadata = data.data || {};
+  const metadata = data.data || {} as { properties: VehicleProperties; [key: string]: any };
   metadata.properties = metadata.properties || data.properties;
 
   if (!data.id && data.vin) {

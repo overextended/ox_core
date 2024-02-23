@@ -1,7 +1,15 @@
-import type { Dict } from 'types';
 import { db } from '../db';
+import { VehicleProperties } from '@overextended/ox_lib';
 
-export type VehicleRow = { id: number; owner?: number; group?: string; plate: string; vin: string; model: string; data: Dict<any> }
+export type VehicleRow = {
+  id: number;
+  owner?: number;
+  group?: string;
+  plate: string;
+  vin: string;
+  model: string;
+  data: { properties: VehicleProperties; [key: string]: any };
+};
 
 setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']));
 
@@ -14,8 +22,10 @@ export async function IsVinAvailable(plate: string) {
 }
 
 export function GetStoredVehicleFromId(id: number) {
-  return db.row<VehicleRow>
-    ('SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL', [id]);
+  return db.row<VehicleRow>(
+    'SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL',
+    [id]
+  );
 }
 
 export async function SetVehicleColumn(id: number | void, column: string, value: any) {
