@@ -21,7 +21,7 @@ function OxVehicle:__call(...)
 end
 
 function OxVehicle:__tostring()
-    return json.encode(self)
+    return json.encode(self, { indent = true})
 end
 
 function OxVehicle:getCoords()
@@ -33,7 +33,7 @@ function OxVehicle:getState()
 end
 
 for method in pairs(exports.ox_core:GetVehicleCalls() or {}) do
-    if not OxVehicle[method] then OxVehicle[method] = OxVehicle.__call end
+    if not rawget(OxVehicle, method) then OxVehicle[method] = OxVehicle.__call end
 end
 
 local function CreateVehicleInstance(vehicle)

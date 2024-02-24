@@ -10,5 +10,6 @@ Ox = setmetatable({}, {
 })
 
 require 'lib.server.player'
+require 'lib.server.vehicle'
 
 return Ox

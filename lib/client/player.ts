@@ -5,25 +5,30 @@ import type { Dict } from 'types';
 const groups: Dict<number> = {};
 
 class PlayerInterface {
-  userId: number;
-  charId?: number;
-  stateId?: string;
   [key: string]: any;
 
-  constructor() {
-    const player = exports.ox_core.GetPlayer();
-    this.userId = player.userId;
-    this.charId = player.charId;
-    this.stateId = player.stateId;
+  constructor(
+    public userId: number,
+    public charId?: number,
+    public stateId?: string
+  ) {
+    this.userId = userId;
+    this.charId = charId;
+    this.stateId = stateId;
 
     this.constructor.prototype.toString = () => {
       return JSON.stringify(this, null, 2);
     };
 
-    Object.keys(exports.ox_core.GetPlayerCalls()).forEach((method: string) => {
-      if (!this.constructor.prototype[method])
-        this.constructor.prototype[method] = (...args: any[]) => exports.ox_core.CallPlayer(method, ...args);
-    });
+    const getMethods = async () => {
+      Object.keys(exports.ox_core.GetPlayerCalls()).forEach((method: string) => {
+        if (!this.constructor.prototype[method])
+          this.constructor.prototype[method] = (...args: any[]) => exports.ox_core.CallPlayer(method, ...args);
+      });
+    };
+
+    // Prevent errors if resource starts before ox_core (generally during development)
+    getMethods().catch(() => setImmediate(getMethods));
   }
 
   get(key: string) {
@@ -82,8 +87,15 @@ class PlayerInterface {
   }
 }
 
-//@ts-ignore
-const player: typeof OxPlayer & PlayerInterface = new PlayerInterface();
+const { userId, charId, stateId } = ((): { userId: number; charId?: number; stateId?: string } => {
+  try {
+    return exports.ox_core.GetPlayer();
+  } catch (e) {
+    return {} as any;
+  }
+})();
+
+const player = new PlayerInterface(userId, charId, stateId) as typeof OxPlayer & PlayerInterface;
 
 export function GetPlayer() {
   return player;

@@ -1,6 +1,7 @@
 local OxPlayer = lib.class('OxPlayer')
 local groups = {}
 
+-- Support for `player.method` rather than self (:) syntax
 function OxPlayer:__index(index)
     local value = OxPlayer[index] --[[@as any]]
 
@@ -56,12 +57,6 @@ function OxPlayer:getState()
     return LocalPlayer.state;
 end
 
-for method in pairs(exports.ox_core:GetPlayerCalls() or {}) do
-    if not OxPlayer[method] then OxPlayer[method] = OxPlayer.__call end
-end
-
-local player = OxPlayer:new(exports.ox_core.GetPlayer())
-
 function OxPlayer:getGroups() return groups end
 
 function OxPlayer:getGroup(filter)
@@ -99,10 +94,21 @@ end
 
 ---@class OxClient
 local Ox = Ox
+local ok, resp = pcall(function() return exports.ox_core.GetPlayer() end)
+local player = OxPlayer:new(ok and resp or {})
 
 function Ox.GetPlayer()
     return player
 end
+
+local function getMethods()
+    for method in pairs(exports.ox_core:GetPlayerCalls()) do
+        if not rawget(OxPlayer, method) then OxPlayer[method] = OxPlayer.__call end
+    end
+end
+
+-- Prevent errors if resource starts before ox_core (generally during development)
+if not pcall(getMethods) then CreateThread(getMethods) end
 
 AddEventHandler('ox:playerLoaded', function(data)
     if player.charId then return end

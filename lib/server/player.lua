@@ -34,7 +34,7 @@ function OxPlayer:getState()
 end
 
 for method in pairs(exports.ox_core:GetPlayerCalls() or {}) do
-    if not OxPlayer[method] then OxPlayer[method] = OxPlayer.__call end
+    if not rawget(OxPlayer, method) then OxPlayer[method] = OxPlayer.__call end
 end
 
 local function CreatePlayerInstance(player)
