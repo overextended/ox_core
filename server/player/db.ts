@@ -77,7 +77,7 @@ export function GetLicenses() {
 }
 
 export function GetCharacterLicenses(charId: number) {
-  return db.query<{ name: string; issued: number }>('`SELECT name, issued FROM character_licenses WHERE charid = ?', [
+  return db.query<{ name: string; issued: number }>('SELECT name, issued FROM character_licenses WHERE charid = ?', [
     charId,
   ]);
 }
