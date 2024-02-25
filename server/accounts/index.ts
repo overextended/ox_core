@@ -61,12 +61,12 @@ export async function GetAccountRole(accountId: number, id: number | string) {
   return charId && SelectAccountRole(accountId, charId) || null;
 }
 
-export async function SetAccountAccess(accountId: string, id: number | string, role: string) {
+export async function SetAccountAccess(accountId: number, id: number | string, role: string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
   return charId && UpdateAccountAccess(accountId, charId, role);
 }
 
-export async function RemoveAccountAccess(accountId: string, id: number | string) {
+export async function RemoveAccountAccess(accountId: number, id: number | string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
   return charId && UpdateAccountAccess(accountId, charId);
 }

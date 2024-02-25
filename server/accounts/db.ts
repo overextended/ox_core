@@ -141,7 +141,7 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   return true;
 }
 
-export function UpdateAccountAccess(accountId: string, id: number, role?: string) {
+export function UpdateAccountAccess(accountId: number, id: number, role?: string) {
   if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
   return db.update(
