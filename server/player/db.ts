@@ -36,7 +36,7 @@ export function CreateCharacter(
 }
 
 export function GetCharacters(userId: number) {
-  return db.execute<Character[]>(
+  return db.execute<Character>(
     'SELECT charId, stateId, firstName, lastName, x, y, z, heading, DATE_FORMAT(lastPlayed, "%d/%m/%Y") AS lastPlayed FROM characters WHERE userId = ? AND deleted IS NULL LIMIT ?',
     [userId, CHARACTER_SLOTS]
   );
@@ -69,15 +69,17 @@ export function GetCharacterMetadata(charId: number) {
 }
 
 export function GetStatuses() {
-  return db.query<OxStatus[]>('SELECT name, `default`, onTick FROM ox_statuses');
+  return db.query<OxStatus>('SELECT name, `default`, onTick FROM ox_statuses');
 }
 
 export function GetLicenses() {
-  return db.query<{ name?: string; label: string }[]>('SELECT name, label FROM ox_licenses');
+  return db.query<{ name?: string; label: string }>('SELECT name, label FROM ox_licenses');
 }
 
 export function GetCharacterLicenses(charId: number) {
-  return db.query('`SELECT name, issued FROM character_licenses WHERE charid = ?', [charId]);
+  return db.query<{ name: string; issued: number }>('`SELECT name, issued FROM character_licenses WHERE charid = ?', [
+    charId,
+  ]);
 }
 
 export function AddCharacterLicense(charId: number, name: string, issued: string) {

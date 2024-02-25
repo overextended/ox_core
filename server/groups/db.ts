@@ -2,7 +2,7 @@ import { db } from 'db';
 import { OxGroup } from 'types';
 
 export function SelectGroups() {
-  return db.query<OxGroup[]>('SELECT * FROM ox_groups');
+  return db.query<OxGroup>('SELECT * FROM ox_groups');
 }
 
 export async function AddCharacterGroup(charId: number, name: string, grade: number) {
@@ -23,8 +23,8 @@ export async function RemoveCharacterGroup(charId: number, name: string) {
   return (await db.update('DELETE FROM character_groups WHERE charId = ? AND name = ?', [charId, name])) === 1;
 }
 
-export function LoadCharacterGroups(charId: number) {
-  return db.execute<{ name: string; grade: number }[]>('SELECT name, grade FROM character_groups WHERE charId = ?', [
+export function GetCharacterGroups(charId: number) {
+  return db.execute<{ name: string; grade: number }>('SELECT name, grade FROM character_groups WHERE charId = ?', [
     charId,
   ]);
 }

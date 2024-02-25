@@ -1,6 +1,6 @@
-import { MySqlRow, OkPacket, db } from 'db';
+import { db } from 'db';
 import { OxPlayer } from 'player/class';
-import { OxAccount } from 'types';
+import type { OxAccount } from 'types';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -22,10 +22,9 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
 
   try {
     const a =
-      (await conn.execute<OkPacket>(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]))
-        .affectedRows === 1;
+      (await conn.execute(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount])).affectedRows === 1;
 
-    const b = (await conn.execute<OkPacket>(addBalance, [amount, toId])).affectedRows === 1;
+    const b = (await conn.execute(addBalance, [amount, toId])).affectedRows === 1;
 
     if (a && b) {
       await conn.commit();
@@ -42,7 +41,7 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
 }
 
 export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: number | string) {
-  return db.execute<OxAccount[]>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
+  return db.execute<OxAccount>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
 }
 
 export async function SelectDefaultAccount(column: 'owner' | 'group' | 'id', id: number | string) {
@@ -54,7 +53,7 @@ export async function SelectAccount(id: number) {
 }
 
 export async function SelectAllAccounts(id: number) {
-  return await db.execute<OxAccount[]>(
+  return await db.execute<OxAccount>(
     'SELECT ac.role, a.* FROM `accounts_access` ac LEFT JOIN accounts a ON a.id = ac.accountId WHERE ac.charId = ?',
     [id]
   );
@@ -86,8 +85,8 @@ export function DeleteAccount(accountId: number) {
 
 const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
 
-export function SelectAccountRole(accountId: number, charId: number): Promise<string | void> {
-  return db.column<string>(selectAccountRole, [accountId, charId]);
+export function SelectAccountRole(accountId: number, charId: number) {
+  return db.column<OxAccount['role']>(selectAccountRole, [accountId, charId]);
 }
 
 export async function DepositMoney(playerId: number, accountId: number, amount: number) {
@@ -101,13 +100,13 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
 
   using conn = await db.getConnection();
 
-  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(selectAccountRole, [accountId, charId]));
+  const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
 
   if (role !== 'owner') return;
 
   await conn.beginTransaction();
 
-  const { affectedRows } = await conn.execute<OkPacket>(addBalance, [amount, accountId]);
+  const { affectedRows } = await conn.execute(addBalance, [amount, accountId]);
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
     conn.rollback();
@@ -125,13 +124,13 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
 
   using conn = await db.getConnection();
 
-  const role = db.scalar(await conn.execute<MySqlRow<string>[]>(selectAccountRole, [accountId, charId]));
+  const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
 
   if (role !== 'owner' && role !== 'manager') return;
 
   await conn.beginTransaction();
 
-  const { affectedRows } = await conn.execute<OkPacket>(safeRemoveBalance, [amount, accountId, amount]);
+  const { affectedRows } = await conn.execute(safeRemoveBalance, [amount, accountId, amount]);
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
     conn.rollback();
@@ -142,7 +141,7 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
   return true;
 }
 
-export function UpdateAccountAccess(accountId: string, id: number, role?: string): Promise<number> {
+export function UpdateAccountAccess(accountId: string, id: number, role?: string) {
   if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
   return db.update(

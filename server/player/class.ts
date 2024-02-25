@@ -3,6 +3,7 @@ import {
   AddCharacterLicense,
   CreateCharacter,
   DeleteCharacter,
+  GetCharacterLicenses,
   GetCharacterMetadata,
   GetCharacters,
   IsStateIdAvailable,
@@ -14,7 +15,7 @@ import { GetGroup } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
-import { AddCharacterGroup, LoadCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
+import { AddCharacterGroup, GetCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
 import { Character, Dict, NewCharacter, OxGroup } from 'types';
 
@@ -449,29 +450,32 @@ export class OxPlayer extends ClassInterface {
     if (characterSlot == null) return;
 
     const character = this.#characters[characterSlot];
+    const metadata = await GetCharacterMetadata(character.charId);
 
-    this.#characters = null;
-    this.ped = GetPlayerPed(this.source as string);
-
-    let { isDead, gender, dateOfBirth, phoneNumber, health, armour, statuses } = await GetCharacterMetadata(
-      character.charId
-    );
+    if (!metadata) return;
+  
+    const statuses = JSON.parse(metadata.statuses as any) || this.#statuses;
+    const { isDead, gender, dateOfBirth, phoneNumber, health, armour } = metadata;
+    const groups = await GetCharacterGroups(this.charId);
+    const licenses = await GetCharacterLicenses(this.charId);
 
     character.health = isDead ? 0 : health;
     character.armour = armour;
 
+    this.#characters = null;
+    this.ped = GetPlayerPed(this.source as string);
     this.charId = character.charId;
     this.stateId = character.stateId;
 
-    const groups = await LoadCharacterGroups(this.charId);
-
     groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
 
-    statuses = JSON.parse(statuses as any) || this.#statuses;
+    licenses.forEach(({ name, issued }) => {
+      this.#licenses[name] = {
+        issued,
+      };
+    });
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
-
-    // setup licenses
 
     this.emit('ox:setActiveCharacter', character, this.#groups);
 

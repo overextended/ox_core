@@ -4,7 +4,7 @@ import type { Dict } from 'types';
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
 
-export interface MySqlRow<T = string | number | boolean | Dict<any> | void> {
+export interface MySqlRow<T = string | number | boolean | Dict<any> | undefined> {
   [column: string]: T;
 }
 
@@ -18,35 +18,36 @@ export const db = {
   getConnection: getConnection,
   async query<T>(query: string, values?: any[]) {
     await awaitConnection();
-    return pool.query<T>(query, values);
+    return pool.query<T extends OkPacket ? OkPacket : T[]>(query, values);
   },
   async execute<T>(query: string, values?: any[]) {
     await awaitConnection();
-    return pool.execute<T>(query, values);
+    return pool.execute<T extends OkPacket ? OkPacket : T[]>(query, values);
   },
   async column<T>(query: string, values?: any[]) {
-    return db.scalar(await db.execute<MySqlRow<T>[]>(query, values));
+    return db.scalar(await db.execute<T[]>(query, values)) as T | null;
   },
   async exists<T>(query: string, values?: any[]) {
-    return db.scalar(await db.execute<MySqlRow<T>[]>(query, values)) === 1;
+    return (db.scalar(await db.execute<T[]>(query, values)) as T) === 1;
   },
   async row<T>(query: string, values?: any[]) {
-    return db.single(await db.execute<T[]>(query, values));
+    return db.single(await db.execute<T[]>(query, values)) as T | null;
   },
   async insert(query: string, values?: any[]) {
-    return (await db.execute<OkPacket>(query, values)).insertId;
+    return (await db.execute<OkPacket>(query, values))?.insertId;
   },
   async update(query: string, values?: any[]) {
-    return (await db.execute<OkPacket>(query, values)).affectedRows;
+    return (await db.execute<OkPacket>(query, values))?.affectedRows;
   },
   batch(query: string, values?: any[]) {
     return pool.batch(query, values);
   },
-  scalar<T>(resp: MySqlRow<T>[]) {
-    if (resp[0]) for (const key in resp[0]) return resp[0][key];
+  scalar<T>(resp: T[] | null) {
+    if (resp && resp[0]) for (const key in resp[0]) return resp[0][key] as T;
+    return null;
   },
-  single<T>(resp: T[]): T {
-    return resp[0];
+  single<T>(resp: T[] | null) {
+    return resp ? resp[0] : null;
   },
 };
 
@@ -124,8 +125,8 @@ const connectionConfig: PoolConfig = (() => {
 })();
 
 export interface DbConnection extends PoolConnection {
-  execute<T = Object[] & OkPacket>(query: string | QueryOptions, values?: any[]): Promise<T>;
-  query<T = Object[] & OkPacket>(query: string | QueryOptions, values?: any[]): Promise<T>;
+  execute<T = MySqlRow[] & OkPacket>(query: string | QueryOptions, values?: any[]): Promise<T>;
+  query<T = MySqlRow[] & OkPacket>(query: string | QueryOptions, values?: any[]): Promise<T>;
   [Symbol.dispose](): void;
 }
 

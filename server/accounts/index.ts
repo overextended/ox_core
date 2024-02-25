@@ -1,4 +1,3 @@
-import { OxAccount } from 'types';
 import {
   CreateNewAccount,
   DeleteAccount,
@@ -15,56 +14,51 @@ import {
 } from './db';
 import { GetCharIdFromStateId } from 'player/db';
 
-export function GetAccountById(id: number): Promise<OxAccount | void> {
+export function GetAccountById(id: number) {
   return SelectAccount(id);
 }
 
 export async function GetCharacterAccount(id: number | string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return charId ? SelectDefaultAccount('owner', charId) : false;
+  return charId ? SelectDefaultAccount('owner', charId) : null;
 }
 
 export async function GetGroupAccount(group: string) {
-  return SelectDefaultAccount('group', group) || false;
+  return SelectDefaultAccount('group', group);
 }
 
 export async function GetCharacterAccounts(id: number | string, includeAll?: boolean) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return (charId && (includeAll ? SelectAllAccounts(charId) : SelectAccounts('owner', id))) || false;
+  return (charId && (includeAll ? SelectAllAccounts(charId) : SelectAccounts('owner', id))) || null;
 }
 
-export function GetGroupAccounts(group: string): Promise<OxAccount[] | void> {
+export function GetGroupAccounts(group: string) {
   return SelectAccounts('group', group);
 }
 
-export function AddAccountBalance(id: number, amount: number): Promise<boolean> {
+export function AddAccountBalance(id: number, amount: number) {
   return UpdateBalance(id, amount, 'add');
 }
 
-export function RemoveAccountBalance(id: number, amount: number, overdraw = false): Promise<boolean> {
+export function RemoveAccountBalance(id: number, amount: number, overdraw = false) {
   return UpdateBalance(id, amount, 'remove', overdraw);
 }
 
-export function TransferAccountBalance(
-  fromId: number,
-  toId: number,
-  amount: number,
-  overdraw = false
-): Promise<boolean> {
+export function TransferAccountBalance(fromId: number, toId: number, amount: number, overdraw = false) {
   return PerformTransaction(fromId, toId, amount, overdraw);
 }
 
-export function CreateAccount(charId: number, label: string, shared?: boolean): Promise<number> {
+export function CreateAccount(charId: number, label: string, shared?: boolean) {
   return CreateNewAccount('owner', charId, label, shared);
 }
 
-export function CreateGroupAccount(group: string, label: string, shared?: boolean): Promise<number> {
+export function CreateGroupAccount(group: string, label: string, shared?: boolean) {
   return CreateNewAccount('group', group, label, shared);
 }
 
 export async function GetAccountRole(accountId: number, id: number | string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return charId && SelectAccountRole(accountId, charId);
+  return charId && SelectAccountRole(accountId, charId) || null;
 }
 
 export async function SetAccountAccess(accountId: string, id: number | string, role: string) {
