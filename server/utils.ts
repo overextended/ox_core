@@ -1,4 +1,11 @@
-import { Dict } from 'types';
+import type { Dict } from 'types';
+
+export function GetPlayerLicense(playerId: number | string) {
+  return (
+    GetPlayerIdentifierByType(playerId as string, 'license2') ||
+    GetPlayerIdentifierByType(playerId as string, 'license')
+  );
+}
 
 export function GetIdentifiers(playerId: number | string) {
   const identifiers: Dict<string> = {};

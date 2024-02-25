@@ -1,4 +1,4 @@
-import { Dict } from 'types';
+import type { Dict } from 'types';
 
 export class ClassInterface {
   protected static members: Dict<any>;

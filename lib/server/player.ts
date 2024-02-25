@@ -1,5 +1,5 @@
 import type { OxPlayer } from 'server/player/class';
-import { Dict } from 'types';
+import type { Dict } from 'types';
 
 class PlayerInterface {
   public state: StateBagInterface;

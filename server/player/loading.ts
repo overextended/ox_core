@@ -1,23 +1,19 @@
 import { OxPlayer } from 'player/class';
 import { CreateUser, GetUserIdFromIdentifier } from './db';
-import { GetIdentifiers } from 'utils';
-import { DEBUG, PRIMARY_IDENTIFIER, SV_LAN } from '../config';
-import { Dict } from 'types';
+import { GetIdentifiers, GetPlayerLicense } from 'utils';
+import { DEBUG, SV_LAN } from '../config';
+import type { Dict } from 'types';
 
 const connectingPlayers: Dict<OxPlayer> = {};
 
 /** Loads existing data for the player, or inserts new data into the database. */
 async function loadPlayer(playerId: number) {
   const player = new OxPlayer(playerId);
+  const license = SV_LAN ? 'fayoum' : GetPlayerLicense(playerId);
 
-  const primaryIdentifier = SV_LAN ? 'fayoum' : GetPlayerIdentifierByType(player.source as string, PRIMARY_IDENTIFIER);
+  if (!license) return `could not validate player license.`;
 
-  if (!primaryIdentifier) {
-    return `unable to determine '${PRIMARY_IDENTIFIER}' identifier.`;
-  }
-
-  const identifier = primaryIdentifier.substring(primaryIdentifier.indexOf(':') + 1);
-
+  const identifier = license.substring(license.indexOf(':') + 1);
   let userId = await GetUserIdFromIdentifier(identifier);
 
   if (userId && OxPlayer.getFromUserId(userId)) {

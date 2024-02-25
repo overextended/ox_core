@@ -1,6 +1,6 @@
 import { addCommand, onClientCallback } from '@overextended/ox_lib/server';
 import { GetLicenses } from './db';
-import { Dict } from 'types';
+import type { Dict } from 'types';
 import { OxPlayer } from './class';
 
 export const Licenses: Dict<{ label: string }> = {};
