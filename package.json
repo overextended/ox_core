@@ -11,6 +11,7 @@
     "./package/**/*.d.ts"
   ],
   "exports": {
+    ".": "./package/lib/index.js",
     "./client": "./package/lib/client/index.js",
     "./server": "./package/lib/server/index.js"
   },

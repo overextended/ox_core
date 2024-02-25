@@ -101,6 +101,7 @@ export interface OxAccount {
   owner?: number;
   group?: string;
   type: 'personal' | 'shared' | 'group';
+  role: 'contributor' | 'manager' | 'owner';
 }
 
 export interface OxGroup {

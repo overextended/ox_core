@@ -17,7 +17,7 @@ import type {
 import type { OxPlayer } from 'server/player/class';
 import type { GetCharIdFromStateId } from 'server/player/db';
 import type { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';
-import { OxCore, OxCommon } from 'lib';
+import { Ox as OxCore, OxCommon } from 'lib';
 
 interface OxServer extends OxCommon {
   GetAccountById: typeof GetAccountById;

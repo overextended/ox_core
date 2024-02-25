@@ -1,4 +1,4 @@
-import { OxCore, OxCommon } from 'lib';
+import { Ox as OxCore, OxCommon } from 'lib';
 
 interface OxClient extends OxCommon {}
 
