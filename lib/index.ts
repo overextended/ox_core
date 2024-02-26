@@ -1,6 +1,6 @@
 import type { GetTopVehicleStats, GetVehicleData } from 'common/vehicles';
 
-export type * from '../types';
+export type * from 'types';
 
 export interface OxCommon {
   [key: string]: (...args: any[]) => any;
