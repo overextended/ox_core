@@ -175,6 +175,9 @@ export class OxPlayer extends ClassInterface {
   /** Sets the active character's grade in a group. If the grade is 0 they will be removed from the group. */
   async setGroup(groupName: string, grade = 0) {
     const group = GetGroup(groupName);
+
+    if (!group) return console.warn(`Failed to set OxPlayer<${this.userId}> ${groupName}:${grade} (invalid group)`);
+
     const currentGrade = this.#groups[groupName];
 
     if (currentGrade === grade) return;
