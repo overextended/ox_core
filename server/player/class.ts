@@ -291,7 +291,7 @@ export class OxPlayer extends ClassInterface {
   }
 
   async addLicense(licenseName: string) {
-    const issued = new Date().toDateString();
+    const issued = Date.now();
 
     if (!(await AddCharacterLicense(this.charId, licenseName, issued))) return false;
 

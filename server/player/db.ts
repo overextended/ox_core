@@ -82,8 +82,8 @@ export function GetCharacterLicenses(charId: number) {
   ]);
 }
 
-export function AddCharacterLicense(charId: number, name: string, issued: string) {
-  return db.insert('INSERT INTO character_licenses (charId, name, issued) VALUES (?, ?, ?)', [charId, name, issued]);
+export function AddCharacterLicense(charId: number, name: string, issued: number) {
+  return db.insert('INSERT INTO character_licenses (charId, name, issued) VALUES (?, ?, ?)', [charId, name, new Date(issued)]);
 }
 
 export function RemoveCharacterLicense(charId: number, name: string) {
