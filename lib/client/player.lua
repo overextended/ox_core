@@ -1,5 +1,5 @@
 local OxPlayer = lib.class('OxPlayer')
-local groups = {}
+local groups
 
 -- Support for `player.method` rather than self (:) syntax
 function OxPlayer:__index(index)
@@ -43,7 +43,7 @@ function OxPlayer:get(key)
         end)
 
         getters[key] = true
-        self[key] = exports.ox_core:CallPlayer('get', key);
+        self[key] = self:__call('get', key);
     end
 
     return self[key]
@@ -96,6 +96,7 @@ end
 local Ox = Ox
 local ok, resp = pcall(function() return exports.ox_core.GetPlayer() end)
 local player = OxPlayer:new(ok and resp or {})
+groups = player.charId and OxPlayer:__call('getGroups') or {}
 
 function Ox.GetPlayer()
     return player

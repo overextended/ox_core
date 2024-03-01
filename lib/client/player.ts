@@ -2,7 +2,7 @@ import { cache } from '@overextended/ox_lib/client';
 import type { OxPlayer } from 'client/player';
 import type { Dict } from 'types';
 
-const groups: Dict<number> = {};
+let groups: Dict<number>;
 
 class PlayerInterface {
   [key: string]: any;
@@ -96,6 +96,7 @@ const { userId, charId, stateId } = ((): { userId: number; charId?: number; stat
 })();
 
 const player = new PlayerInterface(userId, charId, stateId) as typeof OxPlayer & PlayerInterface;
+groups = player.charId ? exports.ox_core.CallPlayer('getGroups') : {};
 
 export function GetPlayer() {
   return player;
