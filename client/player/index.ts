@@ -8,7 +8,6 @@ export const OxPlayer = new (class PlayerSingleton {
   userId: number;
   charId: number;
   stateId: string;
-  [key: string]: any;
   #isLoaded: boolean;
   #groups: Dict<number>;
   #statuses: Dict<number>;
@@ -78,7 +77,7 @@ export const OxPlayer = new (class PlayerSingleton {
     exports(`GetPlayerCalls`, () => callableMethods);
 
     exports(`CallPlayer`, (method: string, ...args: any[]) => {
-      const fn = this[method];
+      const fn = (this as any)[method];
 
       if (!fn) return console.error(`cannot call method ${method} (method does not exist)`);
 
