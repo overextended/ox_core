@@ -43,7 +43,7 @@ function OxPlayer:get(key)
         end)
 
         getters[key] = true
-        self[key] = exports.ox_core.CallPlayer('get', key);
+        self[key] = exports.ox_core:CallPlayer('get', key);
     end
 
     return self[key]
