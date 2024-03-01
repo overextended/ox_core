@@ -5,8 +5,14 @@ local Ox = require '@ox_core.lib.client.init'
 
 ---@deprecated
 player = setmetatable({}, {
-    __index = function(self, index) return index == 'groups' and Ox.GetPlayer().getGroups() or Ox.GetPlayer()[index] end,
-    __newindex = function(self, index, value) Ox.GetPlayer()[index] = value end,
+    __index = function(_, index)
+        local player = Ox.GetPlayer()
+
+        if index == 'groups' then return player.getGroups() end
+
+        return player[index] or player.get(index)
+    end,
+    __newindex = function(_, index, value) Ox.GetPlayer()[index] = value end,
 })
 
 return Ox
