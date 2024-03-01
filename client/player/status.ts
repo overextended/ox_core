@@ -1,14 +1,18 @@
 import { OxPlayer, Statuses } from 'player';
 
 function UpdateStatuses() {
-  for (const name in OxPlayer.getStatuses()) {
-    const onTick = Statuses[name].onTick;
+  for (const name in Statuses) {
+    const status = Statuses[name];
 
-    if (!onTick) continue;
+    if (!status?.onTick) continue;
 
-    const value = onTick + (OxPlayer.statuses[name] || 0);
-    OxPlayer.statuses[name] =
-      value < 0 ? 0 : value > 100 ? 100 : Number((onTick + (OxPlayer.statuses[name] || 0)).toPrecision(3));
+    const curValue = OxPlayer.getStatus(name) || status.default;
+    const newValue = curValue + status.onTick;
+
+    OxPlayer.setStatus(
+      name,
+      newValue < 0 ? 0 : newValue > 100 ? 100 : parseFloat((curValue + status.onTick).toPrecision(4))
+    );
   }
 
   emit('ox:statusTick', OxPlayer.getStatuses());
