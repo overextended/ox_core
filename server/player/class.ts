@@ -27,7 +27,7 @@ export class OxPlayer extends ClassInterface {
   username: string;
   identifier: string;
   ped: number;
-  #characters: Character[] | null;
+  #characters: Character[];
   #inScope: Dict<true> = {};
   #metadata: PlayerMetadata;
   #statuses: Dict<number>;
@@ -407,7 +407,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Registers a new character for the player. */
   async createCharacter(data: NewCharacter) {
-    if (!this.#characters) return;
+    if (this.charId) return;
 
     const stateId = await this.#generateStateId();
     const phoneNumber = await GeneratePhoneNumber();
@@ -436,7 +436,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Returns the current index for a character with the given charId. */
   #getCharacterSlotFromId(charId: number) {
-    if (!this.#characters) return -1;
+    if (this.charId) return -1;
 
     return this.#characters.findIndex((character) => {
       return character.charId === charId;
@@ -445,7 +445,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Loads and sets the player's active character. */
   async setActiveCharacter(data: number | NewCharacter) {
-    if (!this.#characters) return;
+    if (this.charId) return;
 
     const characterSlot =
       typeof data === 'object' ? await this.createCharacter(data) : this.#getCharacterSlotFromId(data);
@@ -453,6 +453,12 @@ export class OxPlayer extends ClassInterface {
     if (characterSlot == null) return;
 
     const character = this.#characters[characterSlot];
+
+    this.#characters.length = 0;
+    this.charId = character.charId;
+    this.stateId = character.stateId;
+    this.ped = GetPlayerPed(this.source as string);
+
     const metadata = await GetCharacterMetadata(character.charId);
 
     if (!metadata) return;
@@ -464,11 +470,6 @@ export class OxPlayer extends ClassInterface {
 
     character.health = isDead ? 0 : health;
     character.armour = armour;
-
-    this.#characters = null;
-    this.ped = GetPlayerPed(this.source as string);
-    this.charId = character.charId;
-    this.stateId = character.stateId;
 
     groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
 
@@ -509,7 +510,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Deletes a character with the given charId if it's owned by the player. */
   async deleteCharacter(charId: number) {
-    if (!this.#characters) return;
+    if (this.charId) return;
 
     const characterSlot = this.#getCharacterSlotFromId(charId);
 
