@@ -22,6 +22,16 @@ export interface NewCharacter {
   date: number;
 }
 
+export interface PlayerMetadata {
+  name: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  dateOfBirth: string;
+  phoneNumber: string;
+  [key: string]: any;
+}
+
 export type Vehicles = Dict<VehicleData>;
 export type VehicleCategories = 'air' | 'land' | 'sea';
 export type TopVehicleStats = Record<VehicleCategories, VehicleStats>;

@@ -17,7 +17,7 @@ import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import { AddCharacterGroup, GetCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
-import { Character, Dict, NewCharacter, OxGroup } from 'types';
+import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup } from 'types';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -29,7 +29,7 @@ export class OxPlayer extends ClassInterface {
   ped: number;
   #characters: Character[] | null;
   #inScope: Dict<true> = {};
-  #metadata: Dict<any>;
+  #metadata: PlayerMetadata;
   #statuses: Dict<number>;
   #groups: Dict<number>;
   #licenses: Dict<Dict<any>>;
@@ -122,7 +122,7 @@ export class OxPlayer extends ClassInterface {
     this.source = source;
     this.#characters = [];
     this.#inScope = {};
-    this.#metadata = {};
+    this.#metadata = {} as PlayerMetadata;
     this.#statuses = {};
     this.#groups = {};
     this.#licenses = {};
@@ -141,7 +141,7 @@ export class OxPlayer extends ClassInterface {
   }
 
   /** Gets a value stored in active character's metadata. */
-  get(key: string) {
+  get(key: keyof PlayerMetadata) {
     return this.#metadata[key];
   }
 
@@ -453,7 +453,7 @@ export class OxPlayer extends ClassInterface {
     const metadata = await GetCharacterMetadata(character.charId);
 
     if (!metadata) return;
-  
+
     const statuses = JSON.parse(metadata.statuses as any) || this.#statuses;
     const { isDead, gender, dateOfBirth, phoneNumber, health, armour } = metadata;
     const groups = await GetCharacterGroups(this.charId);
@@ -480,6 +480,7 @@ export class OxPlayer extends ClassInterface {
     this.emit('ox:setActiveCharacter', character, this.#groups);
 
     // Values stored in metadata and synced to client.
+    this.set('name', `${character.firstName} ${character.lastName}`, true);
     this.set('firstName', character.firstName, true);
     this.set('lastName', character.lastName, true);
     this.set('gender', gender, true);
@@ -496,9 +497,7 @@ export class OxPlayer extends ClassInterface {
     const state = Player(this.source).state;
     state.set('isDead', isDead ?? false, true);
 
-    DEV: console.info(
-      `OxPlayer<${this.userId}> loaded character ${this.get('firstName')} ${this.get('lastName')} (${this.charId})`
-    );
+    DEV: console.info(`OxPlayer<${this.userId}> loaded character ${this.get('name')} (${this.charId})`);
 
     emit('ox:playerLoaded', this.source, this.userId, character.charId);
 
