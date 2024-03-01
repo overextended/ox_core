@@ -55,7 +55,7 @@ export async function DeleteCharacter(charId: number) {
 
 export function GetCharacterMetadata(charId: number) {
   return db.row<{
-    isDead: boolean;
+    isDead: number;
     gender: string;
     dateOfBirth: string;
     phoneNumber: string;

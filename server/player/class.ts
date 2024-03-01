@@ -499,7 +499,7 @@ export class OxPlayer extends ClassInterface {
      * https://github.com/citizenfx/fivem/pull/2257 - state bag write policies
      */
     const state = Player(this.source).state;
-    state.set('isDead', isDead ?? false, true);
+    state.set('isDead', isDead === 1, true);
 
     DEV: console.info(`OxPlayer<${this.userId}> loaded character ${this.get('name')} (${this.charId})`);
 
