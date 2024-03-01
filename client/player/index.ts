@@ -114,6 +114,10 @@ export const OxPlayer = new (class PlayerSingleton {
     return this.#statuses[name];
   }
 
+  getStatuses() {
+    return this.#statuses;
+  }
+
   setStatus(name: string, value: number) {
     if (!this.#statuses[name]) return false;
 
