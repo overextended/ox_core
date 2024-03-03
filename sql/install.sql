@@ -158,7 +158,7 @@ CREATE TABLE
   IF NOT EXISTS `character_licenses` (
     `charId` INT (10) UNSIGNED NOT NULL,
     `name` VARCHAR(20) DEFAULT NULL,
-    `issued` DATE DEFAULT NULL,
+    `data` JSON NOT NULL DEFAULT (JSON_OBJECT()),
     UNIQUE KEY `name` (`name`, `charId`) USING BTREE,
     KEY `FK_character_licences_characters` (`charId`) USING BTREE,
     CONSTRAINT `FK_character_licences_characters` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE

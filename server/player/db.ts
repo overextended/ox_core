@@ -1,4 +1,4 @@
-import { Character, Dict, OxStatus } from 'types';
+import type { Character, Dict, OxStatus, CharacterLicense } from 'types';
 import { CHARACTER_SLOTS } from '../../common/config';
 import { db } from '../db';
 
@@ -77,13 +77,17 @@ export function GetLicenses() {
 }
 
 export function GetCharacterLicenses(charId: number) {
-  return db.query<{ name: string; issued: number }>('SELECT name, issued FROM character_licenses WHERE charid = ?', [
+  return db.query<{ name: string; data: string }>('SELECT name, data FROM character_licenses WHERE charid = ?', [
     charId,
   ]);
 }
 
-export function AddCharacterLicense(charId: number, name: string, issued: number) {
-  return db.insert('INSERT INTO character_licenses (charId, name, issued) VALUES (?, ?, ?)', [charId, name, new Date(issued)]);
+export function AddCharacterLicense(charId: number, name: string, data: CharacterLicense) {
+  return db.insert('INSERT INTO character_licenses (charId, name, data) VALUES (?, ?, ?)', [
+    charId,
+    name,
+    JSON.stringify(data),
+  ]);
 }
 
 export function RemoveCharacterLicense(charId: number, name: string) {

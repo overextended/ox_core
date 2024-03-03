@@ -32,6 +32,12 @@ export interface PlayerMetadata {
   [key: string]: any;
 }
 
+export interface CharacterLicense {
+  issued: number;
+  suspended?: [number, number];
+  [key: string]: any;
+}
+
 export type Vehicles = Dict<VehicleData>;
 export type VehicleCategories = 'air' | 'land' | 'sea';
 export type TopVehicleStats = Record<VehicleCategories, VehicleStats>;

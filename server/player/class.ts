@@ -17,7 +17,7 @@ import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import { AddCharacterGroup, GetCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
-import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup } from 'types';
+import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -32,7 +32,7 @@ export class OxPlayer extends ClassInterface {
   #metadata: PlayerMetadata;
   #statuses: Dict<number>;
   #groups: Dict<number>;
-  #licenses: Dict<Dict<any>>;
+  #licenses: Dict<CharacterLicense>;
 
   protected static members: Dict<OxPlayer> = {};
   protected static keys: Dict<Dict<OxPlayer>> = {
@@ -293,11 +293,15 @@ export class OxPlayer extends ClassInterface {
   async addLicense(licenseName: string) {
     const issued = Date.now();
 
-    if (!(await AddCharacterLicense(this.charId, licenseName, issued))) return false;
+    if (this.#licenses[licenseName]) return false;
 
-    this.#licenses[licenseName] = {
+    const license = {
       issued,
     };
+
+    if (!(await AddCharacterLicense(this.charId, licenseName, license))) return false;
+
+    this.#licenses[licenseName] = license;
 
     emit('ox:licenseAdded', this.source, licenseName);
     this.emit('ox:licenseAdded', licenseName);
@@ -473,11 +477,7 @@ export class OxPlayer extends ClassInterface {
 
     groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
 
-    licenses.forEach(({ name, issued }) => {
-      this.#licenses[name] = {
-        issued,
-      };
-    });
+    licenses.forEach(({ name, data }) => (this.#licenses[name] = JSON.parse(data as string)));
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
 
