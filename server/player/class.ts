@@ -320,6 +320,18 @@ export class OxPlayer extends ClassInterface {
     return true;
   }
 
+  async updateLicense(licenseName: string, key: string, value: any) {
+    const license = this.#licenses[licenseName];
+
+    if (!license || key === 'issued') return false;
+
+    if (!(await UpdateCharacterLicense(this.charId, licenseName, key, value))) return false;
+
+    value == null ? delete license[key] : (license[key] = value);
+
+    return true;
+  }
+
   /** Returns an array of values to be saved in the database. */
   #getSaveData() {
     return [

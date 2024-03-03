@@ -94,6 +94,17 @@ export function RemoveCharacterLicense(charId: number, name: string) {
   return db.update('DELETE FROM character_licenses WHERE charId = ? AND name = ?', [charId, name]);
 }
 
+export function UpdateCharacterLicense(charId: number, name: string, key: string, value: any) {
+  const params = [`$.${key}`, name, charId];
+
+  if (value == null)
+    return db.update(`UPDATE character_licenses SET data = JSON_REMOVE(data, ?) WHERE name = ? AND charId = ?`, params);
+
+  params.splice(1, 0, value);
+
+  return db.update(`UPDATE character_licenses SET data = JSON_SET(data, ?, ?) WHERE name = ? AND charId = ?`, params);
+}
+
 export function GetCharIdFromStateId(stateId: string) {
   return db.column<number>('SELECT charId FROM characters WHERE stateId = ?', [stateId]);
 }
