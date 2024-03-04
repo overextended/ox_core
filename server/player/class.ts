@@ -9,6 +9,7 @@ import {
   IsStateIdAvailable,
   RemoveCharacterLicense,
   SaveCharacterData,
+  UpdateCharacterLicense
 } from './db';
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { GetGroup } from 'groups';
