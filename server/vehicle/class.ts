@@ -57,7 +57,7 @@ export class OxVehicle extends ClassInterface {
       vehicle.model.slice(0, 2).toUpperCase(),
       null,
       null,
-      +Date() / 1000,
+      Math.floor(Date.now() / 1000),
     ];
 
     while (true) {
