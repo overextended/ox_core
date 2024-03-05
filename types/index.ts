@@ -124,5 +124,6 @@ export interface OxGroup {
   name: string;
   label: string;
   grades: [null, ...string[]];
+  adminGrade: number;
   principal: string;
 }

@@ -9,11 +9,12 @@ export function GetGroup(name: string) {
   return groups[name];
 }
 
-async function CreateGroup({ name, grades, label }: OxGroup) {
+async function CreateGroup({ name, grades, label, adminGrade }: OxGroup) {
   const group: OxGroup = {
     name,
     label,
     grades: JSON.parse(grades as any),
+    adminGrade,
     principal: `group.${name}`,
   };
 
