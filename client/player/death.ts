@@ -27,7 +27,7 @@ let playerIsDead = false;
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
-  OxPlayer.state.isDead = false;
+  OxPlayer.state.set('isDead', false, true);
   playerIsDead = false;
 
   clearTick(tickId);
@@ -79,7 +79,7 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
-  OxPlayer.state.isDead = true;
+  OxPlayer.state.set('isDead', true, true);
   playerIsDead = true;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);

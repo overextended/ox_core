@@ -338,7 +338,7 @@ export class OxPlayer extends ClassInterface {
     return [
       ...GetEntityCoords(this.ped),
       GetEntityHeading(this.ped),
-      Player(this.source).state.isdead || false,
+      Player(this.source).state.isDead || false,
       GetEntityHealth(this.ped),
       GetPedArmour(this.ped),
       JSON.stringify(this.#statuses || {}),
