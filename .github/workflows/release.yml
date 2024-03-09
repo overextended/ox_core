@@ -50,7 +50,8 @@ jobs:
         run: |
           mkdir -p ./temp/ox_core
           cp ./{LICENSE,README.md,fxmanifest.lua} ./temp/ox_core
-          cp -r ./{imports,lib,locales,common/data,sql,dist} ./temp/ox_core
+          cp -r ./{imports,lib,locales,sql,dist} ./temp/ox_core
+          cp -r ./common/data ./temp/ox_core/common/data
           cd ./temp && zip -r ../ox_core.zip ./ox_core
 
       - name: Bump package version
