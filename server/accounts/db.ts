@@ -41,11 +41,11 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
 }
 
 export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: number | string) {
-  return db.execute<OxAccount>(`SELECT * FROM accounts WHERE ${column} = ?`, [id]);
+  return db.execute<OxAccount>(`SELECT * FROM accounts WHERE \`${column}\` = ?`, [id]);
 }
 
 export async function SelectDefaultAccount(column: 'owner' | 'group' | 'id', id: number | string) {
-  return await db.row<OxAccount>(`SELECT * FROM accounts WHERE ${column} = ? AND isDefault = 1`, [id]);
+  return await db.row<OxAccount>(`SELECT * FROM accounts WHERE \`${column}\` = ? AND isDefault = 1`, [id]);
 }
 
 export async function SelectAccount(id: number) {
@@ -66,7 +66,7 @@ export async function CreateNewAccount(
   shared?: boolean,
   isDefault?: boolean
 ) {
-  const accountId = await db.insert(`INSERT INTO accounts (label, ${column}, type, isDefault) VALUES (?, ?, ?, ?)`, [
+  const accountId = await db.insert(`INSERT INTO accounts (label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?)`, [
     label,
     id,
     shared ? 'shared' : 'personal',
