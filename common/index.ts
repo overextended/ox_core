@@ -1,4 +1,4 @@
-export function loadDataFile(file: string) {
+export function LoadDataFile(file: string) {
   return JSON.parse(LoadResourceFile('ox_core', `/common/data/${file}.json`));
 }
 
