@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@nativewrappers/fivem':
+    specifier: ^0.0.5
+    version: 0.0.5
   '@overextended/ox_lib':
     specifier: ^3.16.3
     version: 3.16.3
@@ -254,6 +257,10 @@ packages:
 
   /@nativewrappers/client@1.7.33:
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
+    dev: false
+
+  /@nativewrappers/fivem@0.0.5:
+    resolution: {integrity: sha512-Plcze6C3PK2uF/2PwtcrypYGe6NmN5e4VvI3mgkBhw2/t5ue9L1RiCzdhpUY95vVDoXnfKtmyalSTqFMFq7bNg==}
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
