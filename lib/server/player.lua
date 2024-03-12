@@ -1,3 +1,5 @@
+---@diagnostic disable: redundant-parameter
+---@class OxPlayerServer : OxClass
 local OxPlayer = lib.class('OxPlayer')
 
 function OxPlayer:__index(index)
@@ -14,6 +16,12 @@ function OxPlayer:__index(index)
     end
 
     return value
+end
+
+function OxPlayer:constructor(data)
+    for k, v in pairs(data) do
+        self[k] = v
+    end
 end
 
 function OxPlayer:__call(...)

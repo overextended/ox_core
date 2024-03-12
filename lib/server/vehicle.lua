@@ -1,3 +1,5 @@
+---@diagnostic disable: redundant-parameter
+---@class OxVehicleServer : OxClass
 local OxVehicle = lib.class('OxVehicle')
 
 function OxVehicle:__index(index)
@@ -14,6 +16,12 @@ function OxVehicle:__index(index)
     end
 
     return value
+end
+
+function OxVehicle:constructor(data)
+    for k, v in pairs(data) do
+        self[k] = v
+    end
 end
 
 function OxVehicle:__call(...)
