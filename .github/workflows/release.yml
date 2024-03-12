@@ -48,7 +48,7 @@ jobs:
 
       - name: Bundle files
         run: |
-          mkdir -p ./temp/ox_core
+          mkdir -p ./temp/ox_core/common
           cp ./{LICENSE,README.md,fxmanifest.lua} ./temp/ox_core
           cp -r ./{imports,lib,locales,sql,dist} ./temp/ox_core
           cp -r ./common/data ./temp/ox_core/common/data
