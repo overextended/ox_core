@@ -1,3 +1,7 @@
+import { checkDependency } from '@overextended/ox_lib/';
+
+if (!checkDependency('ox_lib', '3.17.0', true)) throw new Error(`Failed dependency check.`);
+
 export function LoadDataFile(file: string) {
   return JSON.parse(LoadResourceFile('ox_core', `/common/data/${file}.json`));
 }
