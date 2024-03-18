@@ -51,7 +51,7 @@ function OxPlayer:get(key)
         end)
 
         getters[key] = true
-        self[key] = self:__call('get', key);
+        self[key] = OxPlayer:__call('get', key);
     end
 
     return self[key]
