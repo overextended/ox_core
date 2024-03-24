@@ -1,0 +1,16 @@
+{
+  "empty_slot": "Leeg slot",
+  "create_character": "Maak een nieuw karakter",
+  "select_character_title": "Karakterselectie",
+  "delete_character_title": "Verwijder karakter",
+  "select_character": "Selecteer een karakter",
+  "delete_character": "Verwijder een karakter",
+  "delete_character_confirm": "Weet je zeker dat je %s %s wilt verwijderen?  \nDeze actie is onomkeerbaar.",
+  "firstname": "Voornaam",
+  "lastname": "Achternaam",
+  "gender": "Geslacht",
+  "male": "Man",
+  "female": "Vrouw",
+  "non_binary": "Niet-binair",
+  "date_of_birth": "Geboortedatum"
+}
