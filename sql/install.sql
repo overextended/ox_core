@@ -204,6 +204,23 @@ CREATE TABLE `accounts_access`
             ON DELETE CASCADE
 );
 
+CREATE TABLE `accounts_transactions`
+(
+    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `fromId`     INT UNSIGNED,
+    `toId`       INT UNSIGNED,
+    `amount`     INT          NOT NULL,
+    `message`    VARCHAR(50),
+    `date`       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `accounts_transactions__fromId_fk`
+        FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`)
+            ON DELETE CASCADE,
+    CONSTRAINT `accounts_transactions__toId_fk`
+        FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`)
+            ON DELETE CASCADE
+);
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

@@ -1,22 +1,25 @@
 import { db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
+import locales from '../../common/locales';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
+const addTransaction = `INSERT INTO accounts_transactions (fromId, toId, amount, message) VALUES (?, ?, ?, ?)`;
 
-export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw?: boolean) {
+export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw: boolean, message?: string) {
   return (
     (await db.update(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [
       amount,
       id,
       amount,
-    ])) === 1
+    ])) === 1 &&
+    (await db.insert(addTransaction, [action === 'add' ? null : id, action === 'add' ? id : null, amount, message])) === 1
   );
 }
 
-export async function PerformTransaction(fromId: number, toId: number, amount: number, overdraw?: boolean) {
+export async function PerformTransaction(fromId: number, toId: number, amount: number, overdraw: boolean, message?: string) {
   using conn = await db.getConnection();
   await conn.beginTransaction();
 
@@ -27,6 +30,7 @@ export async function PerformTransaction(fromId: number, toId: number, amount: n
     const b = (await conn.execute(addBalance, [amount, toId])).affectedRows === 1;
 
     if (a && b) {
+      await conn.execute(addTransaction, [fromId, toId, amount, message]);
       await conn.commit();
       return true;
     }
@@ -113,6 +117,7 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
     return false;
   }
 
+  await conn.execute(addTransaction, [null, accountId, amount, locales('deposit')]);
   conn.commit();
   return true;
 }
@@ -137,6 +142,7 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
     return false;
   }
 
+  await conn.execute(addTransaction, [accountId, null, amount, locales('withdraw')]);
   conn.commit();
   return true;
 }
