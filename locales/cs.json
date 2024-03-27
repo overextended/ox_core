@@ -1,0 +1,16 @@
+{
+  "empty_slot": "Prázdný slot",
+  "create_character": "Vytvořit novou postavu",
+  "select_character_title": "Výběr Postavy",
+  "delete_character_title": "Smazat Postavu",
+  "select_character": "Vyber si svou postavu",
+  "delete_character": "Smazat postavu",
+  "delete_character_confirm": "Jsi si jistý(á), že chceš smazat postavu %s %s?  \nTuto akci nelze vrátit.",
+  "firstname": "Jméno",
+  "lastname": "Příjmení",
+  "gender": "Pohlaví",
+  "male": "Muž",
+  "female": "Žena",
+  "non_binary": "Nebinární",
+  "date_of_birth": "Datum Narození"
+}
