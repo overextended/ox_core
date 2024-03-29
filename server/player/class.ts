@@ -267,7 +267,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Increases the status's value by the given amount. */
   addStatus(statusName: string, value: number) {
-    if (!this.#statuses[statusName]) return;
+    if (!this.#statuses.hasOwnProperty(statusName)) return;
 
     this.emit('ox:setPlayerStatus', statusName, +value);
 
@@ -276,7 +276,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Reduces the status's value by the given amount. */
   removeStatus(statusName: string, value: number) {
-    if (!this.#statuses[statusName]) return;
+    if (!this.#statuses.hasOwnProperty(statusName)) return;
 
     this.emit('ox:setPlayerStatus', statusName, -value);
 
@@ -338,7 +338,7 @@ export class OxPlayer extends ClassInterface {
     return [
       ...GetEntityCoords(this.ped),
       GetEntityHeading(this.ped),
-      Player(this.source).state.isdead || false,
+      Player(this.source).state.isDead || false,
       GetEntityHealth(this.ped),
       GetPedArmour(this.ped),
       JSON.stringify(this.#statuses || {}),

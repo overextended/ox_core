@@ -36,16 +36,16 @@ export function GetGroupAccounts(group: string) {
   return SelectAccounts('group', group);
 }
 
-export function AddAccountBalance(id: number, amount: number) {
-  return UpdateBalance(id, amount, 'add');
+export function AddAccountBalance(id: number, amount: number, message?: string) {
+  return UpdateBalance(id, amount, 'add', false, message);
 }
 
-export function RemoveAccountBalance(id: number, amount: number, overdraw = false) {
-  return UpdateBalance(id, amount, 'remove', overdraw);
+export function RemoveAccountBalance(id: number, amount: number, overdraw = false, message?: string) {
+  return UpdateBalance(id, amount, 'remove', overdraw, message);
 }
 
-export function TransferAccountBalance(fromId: number, toId: number, amount: number, overdraw = false) {
-  return PerformTransaction(fromId, toId, amount, overdraw);
+export function TransferAccountBalance(fromId: number, toId: number, amount: number, overdraw = false, message?: string) {
+  return PerformTransaction(fromId, toId, amount, overdraw, message);
 }
 
 export function CreateAccount(charId: number, label: string, shared?: boolean) {

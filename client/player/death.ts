@@ -1,14 +1,15 @@
 import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
+import { Vector3, Vector4 } from '@nativewrappers/fivem';
 import { OxPlayer } from 'player';
-import { DEBUG } from '../../common/config';
+import { DEBUG } from 'config';
 
 const hospitals = [
-  [340.5, -1396.8, 32.5, 60.1],
-  [-449.3, -340.2, 34.5, 76.2],
-  [295.6, -583.9, 43.2, 79.5],
-  [1840.1, 3670.7, 33.9, 207.6],
-  [1153.2, -1526.4, 34.8, 352.4],
-  [-244.7, 6328.3, 32.4, 242.1],
+  new Vector4(340.5, -1396.8, 32.5, 60.1),
+  new Vector4(-449.3, -340.2, 34.5, 76.2),
+  new Vector4(295.6, -583.9, 43.2, 79.5),
+  new Vector4(1840.1, 3670.7, 33.9, 207.6),
+  new Vector4(1153.2, -1526.4, 34.8, 352.4),
+  new Vector4(-244.7, 6328.3, 32.4, 242.1),
 ];
 
 const anims = [
@@ -27,35 +28,31 @@ let playerIsDead = false;
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
-  OxPlayer.state.isDead = false;
+  OxPlayer.state.set('isDead', false, true);
   playerIsDead = false;
 
   clearTick(tickId);
 
   if (bleedOut) {
-    const coords = GetEntityCoords(cache.ped, true);
-    const [x, y, z, heading] = hospitals.reduce(
-      (closest: any, hospital: any) => { //todo
-        const distance = Math.sqrt(
-          Math.pow(coords[0] - hospital[0], 2) +
-            Math.pow(coords[1] - hospital[1], 2) +
-            Math.pow(coords[2] - hospital[2], 2)
-        );
+    const coords = Vector3.fromArray(GetEntityCoords(cache.ped, true));
+    let distance = 1000;
+    const hospital = hospitals.reduce((closest, hospital) => {
+      const hospitalDistance = coords.distance(hospital);
 
-        if (distance < closest.distance) return { hospital, distance };
-        return closest;
-      },
-      { hospital: null, distance: 1000 }
-    ).hospital;
+      if (hospitalDistance > distance) return closest;
+
+      distance = hospitalDistance;
+      return hospital;
+    });
 
     DoScreenFadeOut(500);
-    RequestCollisionAtCoord(x, y, z);
+    RequestCollisionAtCoord(hospital.x, hospital.y, hospital.z);
 
     while (!IsScreenFadedOut()) await sleep(0);
 
     StopAnimTask(cache.ped, anim[0], anim[1], 8.0);
-    SetEntityCoordsNoOffset(cache.ped, x, y, z, false, false, false);
-    SetEntityHeading(cache.ped, heading);
+    SetEntityCoordsNoOffset(cache.ped, hospital.x, hospital.y, hospital.z, false, false, false);
+    SetEntityHeading(cache.ped, hospital.w);
     SetGameplayCamRelativeHeading(0);
 
     await sleep(500);
@@ -79,7 +76,7 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
-  OxPlayer.state.isDead = true;
+  OxPlayer.state.set('isDead', true, true);
   playerIsDead = true;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);

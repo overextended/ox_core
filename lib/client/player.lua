@@ -1,3 +1,5 @@
+---@diagnostic disable: redundant-parameter
+---@class OxPlayerClient : OxClass
 local OxPlayer = lib.class('OxPlayer')
 local groups
 
@@ -16,6 +18,12 @@ function OxPlayer:__index(index)
     end
 
     return value
+end
+
+function OxPlayer:constructor(userId, charId, stateId)
+    self.userId = userId
+    self.charId = charId
+    self.stateId = stateId
 end
 
 function OxPlayer:__call(...)
@@ -43,7 +51,7 @@ function OxPlayer:get(key)
         end)
 
         getters[key] = true
-        self[key] = self:__call('get', key);
+        self[key] = OxPlayer:__call('get', key);
     end
 
     return self[key]
@@ -94,8 +102,14 @@ end
 
 ---@class OxClient
 local Ox = Ox
-local ok, resp = pcall(function() return exports.ox_core.GetPlayer() end)
-local player = OxPlayer:new(ok and resp or {})
+
+local _, userId, charId, stateId = pcall(function()
+    local data = exports.ox_core.GetPlayer()
+
+    if data then return data.userId, data.charId, data.stateId end
+end)
+
+local player = OxPlayer:new(userId, charId, stateId)
 groups = player.charId and OxPlayer:__call('getGroups') or {}
 
 function Ox.GetPlayer()

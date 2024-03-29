@@ -1,8 +1,8 @@
-import { loadDataFile } from './';
+import { LoadDataFile } from './';
 import type { Dict, VehicleCategories, VehicleData, VehicleStats, Vehicles } from 'types';
 
-const vehicles: Dict<VehicleData> = loadDataFile('vehicles');
-const vehicleStats = loadDataFile('vehicleStats');
+const vehicles: Dict<VehicleData> = LoadDataFile('vehicles');
+const vehicleStats = LoadDataFile('vehicleStats');
 
 export function GetTopVehicleStats(): Record<VehicleCategories, VehicleStats>;
 export function GetTopVehicleStats(category: VehicleCategories): VehicleStats;
