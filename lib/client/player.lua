@@ -128,6 +128,7 @@ if not pcall(getMethods) then CreateThread(getMethods) end
 AddEventHandler('ox:playerLoaded', function(data)
     if player.charId then return end
 
+    groups = OxPlayer:__call('getGroups') or {}
     for k, v in pairs(data) do player[k] = v end
 end)
 
