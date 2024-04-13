@@ -15,7 +15,7 @@ export async function UpdateBalance(id: number, amount: number, action: 'add' | 
       id,
       amount,
     ])) === 1 &&
-    (await db.insert(addTransaction, [action === 'add' ? null : id, action === 'add' ? id : null, amount, message])) === 1
+    (await db.update(addTransaction, [action === 'add' ? null : id, action === 'add' ? id : null, amount, message])) === 1
   );
 }
 
