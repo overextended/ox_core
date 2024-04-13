@@ -105,6 +105,7 @@ export function GetPlayer() {
 on('ox:playerLoaded', (data: Dict<any>) => {
   if (player.charId) return;
 
+  groups = exports.ox_core.CallPlayer('getGroups') || {};
   for (const key in data) player[key] = data[key];
 });
 
