@@ -2,7 +2,8 @@ import { ClassInterface } from 'classInterface';
 import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
 import { getRandomString, getRandomAlphanumeric, getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
-import type { Dict } from 'types';
+import type { Dict, VehicleData } from 'types';
+import { GetVehicleData } from '../../common/vehicles';
 
 export class OxVehicle extends ClassInterface {
   entity: number;
@@ -50,11 +51,13 @@ export class OxVehicle extends ClassInterface {
     return this.members;
   }
 
-  static async generateVin(vehicle: OxVehicle) {
+  static async generateVin({ make, name }: VehicleData) {
+    if (!name) throw new Error(`generateVin received invalid VehicleData (invalid model)`);
+
     const arr = [
       getRandomInt(),
-      vehicle.make ? vehicle.make.slice(0, 2).toUpperCase() : 'OX',
-      vehicle.model.slice(0, 2).toUpperCase(),
+      make ? make.slice(0, 2).toUpperCase() : 'OX',
+      name.slice(0, 2).toUpperCase(),
       null,
       null,
       Math.floor(Date.now() / 1000),
@@ -211,3 +214,5 @@ OxVehicle.init();
 exports('SaveAllVehicles', (arg: any) => OxVehicle.saveAll(arg));
 exports('GetVehicleFromNetId', (arg: any) => OxVehicle.getFromNetId(arg));
 exports('GetVehicleFromVin', (arg: any) => OxVehicle.getFromVin(arg));
+exports('GenerateVehicleVin', (model: string) => OxVehicle.generateVin(GetVehicleData(model)));
+exports('GenerateVehiclePlate', () => OxVehicle.generatePlate());

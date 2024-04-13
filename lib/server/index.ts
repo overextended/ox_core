@@ -39,6 +39,8 @@ interface OxServer extends OxCommon {
   SaveAllPlayers: typeof OxPlayer.saveAll;
   SaveAllVehicles: typeof OxVehicle.saveAll;
   GetCharIdFromStateId: typeof GetCharIdFromStateId;
+  GenerateVehicleVin: (model: string) => Promise<string>;
+  GenerateVehiclePlate: typeof OxVehicle.generatePlate;
 }
 
 export const Ox = OxCore as OxServer;
