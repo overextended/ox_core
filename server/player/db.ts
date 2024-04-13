@@ -83,7 +83,7 @@ export function GetCharacterLicenses(charId: number) {
 }
 
 export function AddCharacterLicense(charId: number, name: string, data: CharacterLicense) {
-  return db.insert('INSERT INTO character_licenses (charId, name, data) VALUES (?, ?, ?)', [
+  return db.update('INSERT INTO character_licenses (charId, name, data) VALUES (?, ?, ?)', [
     charId,
     name,
     JSON.stringify(data),
