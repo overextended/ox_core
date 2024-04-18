@@ -30,7 +30,7 @@ AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string,
 
   if (!entity) return;
 
-  for (let index = -1; 0; index++) {
+  for (let index = -1; index < 1; index++) {
     const ped = GetPedInVehicleSeat(entity, index);
 
     if (ped && ped !== cache.ped && NetworkGetEntityOwner(ped) === cache.playerId) DeleteEntity(ped);
