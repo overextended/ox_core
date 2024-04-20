@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.0.28
     version: 0.0.28
   '@overextended/ox_lib':
-    specifier: ^3.19.2
-    version: 3.19.2
+    specifier: ^3.20.0
+    version: 3.20.0
   mariadb:
     specifier: ^3.3.0
     version: 3.3.0
@@ -18,10 +18,10 @@ dependencies:
 devDependencies:
   '@citizenfx/client':
     specifier: latest
-    version: 2.0.7900-1
+    version: 2.0.7969-1
   '@citizenfx/server':
     specifier: latest
-    version: 2.0.7900-1
+    version: 2.0.7969-1
   '@types/node':
     specifier: ^20.12.7
     version: 20.12.7
@@ -40,12 +40,12 @@ devDependencies:
 
 packages:
 
-  /@citizenfx/client@2.0.7900-1:
-    resolution: {integrity: sha512-MNJg0ArNoM4JsyqC4Kb/eqPWnEJu+lyxaLlnLLxfAq0BsvKzO4iNkm+pQreJ62au6L/AOLlcohnxMm4W/KACvw==}
+  /@citizenfx/client@2.0.7969-1:
+    resolution: {integrity: sha512-FLfcJqAp+X+JPxtMMK/H5nRMEtPfa3EfqrgSMuta8ibBhjMTRA5crLBkgovdl6+OPVymFe4t0f6Xz9+TPt2Xew==}
     dev: true
 
-  /@citizenfx/server@2.0.7900-1:
-    resolution: {integrity: sha512-LRuDg/NEMxefjzS5U1nXdGQD6fnERbd7WsH28VhwSEkpO5hgn5W31L4tm/cgoELqH0n2XxxG9NkX4zR8QSQsMg==}
+  /@citizenfx/server@2.0.7969-1:
+    resolution: {integrity: sha512-jFX3w7SVWjXazNsSoY8gI85fTMZg0Nfm88mfIgF3FlPatbmDopZ7j/vL9WhCFT2mHDPLriHB6afcMlRT2MaReQ==}
     dev: true
 
   /@esbuild/aix-ppc64@0.20.2:
@@ -284,8 +284,8 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@overextended/ox_lib@3.19.2:
-    resolution: {integrity: sha512-g2NrOJFgQoFo9MKakIlR3g64a9DbRAALT+FVYf8YGwLQf2m6zC1UtCVGmmVpYU6YPIbSoNu+BKcMsZFcfGVFVg==}
+  /@overextended/ox_lib@3.20.0:
+    resolution: {integrity: sha512-wIx1M2eMUs5OspL+EDR5CHzfclDL5XP5usCLpas1fBFKPoF5UBB+WkNHSZ5i49huOfi6caVpLiU5Mmkc1Z92VA==}
     dependencies:
       '@nativewrappers/client': 1.7.33
       csstype: 3.1.3

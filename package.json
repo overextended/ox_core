@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@nativewrappers/fivem": "^0.0.28",
-    "@overextended/ox_lib": "^3.19.2",
+    "@overextended/ox_lib": "^3.20.0",
     "mariadb": "^3.3.0"
   },
   "engines": {
