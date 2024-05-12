@@ -243,7 +243,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Sets the value of a status. */
   setStatus(statusName: string, value = Statuses[statusName].default) {
-    if (!Statuses[statusName]) return;
+    if (Statuses[statusName] === undefined) return;
 
     if (value > 100) value = 100;
     else if (value < 0) value = 0;
@@ -267,7 +267,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Increases the status's value by the given amount. */
   addStatus(statusName: string, value: number) {
-    if (!this.#statuses.hasOwnProperty(statusName)) return;
+    if (this.#statuses[statusName] === undefined) return;
 
     this.emit('ox:setPlayerStatus', statusName, +value);
 
@@ -276,7 +276,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Reduces the status's value by the given amount. */
   removeStatus(statusName: string, value: number) {
-    if (!this.#statuses.hasOwnProperty(statusName)) return;
+    if (this.#statuses[statusName] === undefined) return;
 
     this.emit('ox:setPlayerStatus', statusName, -value);
 

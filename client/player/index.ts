@@ -118,21 +118,21 @@ export const OxPlayer = new (class PlayerSingleton {
   }
 
   setStatus(name: string, value: number) {
-    if (!this.#statuses[name]) return false;
+    if (this.#statuses[name] === undefined) return false;
 
     this.#statuses[name] = value;
     return true;
   }
 
   addStatus(name: string, value: number) {
-    if (!this.#statuses[name]) return false;
+    if (this.#statuses[name] === undefined) return false;
 
     this.#statuses[name] += value;
     return true;
   }
 
   removeStatus(name: string, value: number) {
-    if (!this.#statuses[name]) return false;
+    if (this.#statuses[name] === undefined) return false;
 
     this.#statuses[name] -= value;
     return true;
