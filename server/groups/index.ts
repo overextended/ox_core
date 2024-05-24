@@ -93,3 +93,5 @@ addCommand<{ target: string; group: string; grade?: number }>(
     ],
   }
 );
+
+exports('GetGroup', GetGroup);
