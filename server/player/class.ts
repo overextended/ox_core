@@ -190,8 +190,8 @@ export class OxPlayer extends ClassInterface {
 
       this.#removeGroup(group, currentGrade);
     } else {
-      if (!group.grades[grade] && grade > 0)
-        console.warn(`Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (invalid grade)`);
+      if (!group.grades[grade - 1] && grade > 0)
+        return console.warn(`Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (invalid grade)`);
 
       if (currentGrade) {
         if (!(await UpdateCharacterGroup(this.charId, group.name, grade))) return;
