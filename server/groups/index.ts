@@ -19,7 +19,7 @@ async function CreateGroup({ name, grades, label }: OxGroup) {
 
   let parent = group.principal;
 
-  for (let i = 0; i < group.grades.length; i++) {
+  for (let i = 1; i <= group.grades.length; i++) {
     const child = `${group.principal}:${i}`;
 
     if (!IsPrincipalAceAllowed(child, child)) {
@@ -43,7 +43,7 @@ function DeleteGroup(group: OxGroup) {
 
   removeAce(parent, parent, true);
 
-  for (let i = 0; i < group.grades.length; i++) {
+  for (let i = 1; i <= group.grades.length; i++) {
     const child = `${group.principal}:${i}`;
 
     removeAce(child, child, true);
