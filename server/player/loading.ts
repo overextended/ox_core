@@ -32,8 +32,6 @@ async function loadPlayer(playerId: number) {
 
   if (serverLockdown) return serverLockdown;
 
-  if (!OxPlayer.add(playerId, player)) return;
-
   DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
 
   return player;
@@ -87,6 +85,7 @@ onNet('ox:playerJoined', async () => {
   DEV: console.info(`Starting character selection for OxPlayer<${player.userId}>`);
 
   player.setAsJoined(playerSrc);
+  if (!OxPlayer.add(playerSrc, player)) return;
 });
 
 on('playerDropped', () => {
