@@ -69,14 +69,15 @@ on('playerConnecting', async (username: string, _: any, deferrals: any) => {
 on('playerJoining', async (tempId: string) => {
   if (serverLockdown) return DropPlayer(source.toString(), serverLockdown);
 
-  const player = connectingPlayers[source];
+  const player = connectingPlayers[tempId];
 
-  if (player) {
-    delete connectingPlayers[tempId];
-    connectingPlayers[source] = player;
+  if (!player) return;
 
-    DEV: console.info(`Assigned id ${source} to OxPlayer<${player.userId}>`);
-  }
+  delete connectingPlayers[tempId];
+  connectingPlayers[source] = player;
+  player.source = source;
+
+  DEV: console.info(`Assigned id ${source} to OxPlayer<${player.userId}>`);
 });
 
 onNet('ox:playerJoined', async () => {
