@@ -73,6 +73,7 @@ on('playerJoining', async (tempId: string) => {
 
   if (player) {
     delete connectingPlayers[tempId];
+    connectingPlayers[source] = player;
 
     DEV: console.info(`Assigned id ${source} to OxPlayer<${player.userId}>`);
   }
