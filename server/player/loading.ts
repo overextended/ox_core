@@ -16,14 +16,20 @@ async function loadPlayer(playerId: number) {
   const identifier = license.substring(license.indexOf(':') + 1);
   let userId = await GetUserIdFromIdentifier(identifier);
 
-  if (userId && OxPlayer.getFromUserId(userId)) {
-    const kickReason = `userId '${userId}' is already active.`;
+  if (userId) {
+    let playerConnecting = Object.values(connectingPlayers).some((player: OxPlayer) => player.userId === userId);
+    let playerExist = OxPlayer.getFromUserId(userId);
+    if (playerConnecting || playerExist) {
+      const kickReason = `userId '${userId}' is already active.`;
 
-    if (!DEBUG) return kickReason;
-
-    userId = await GetUserIdFromIdentifier(identifier, 1);
-
-    if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
+      if (!DEBUG) return kickReason;
+    
+      userId = await GetUserIdFromIdentifier(identifier, 1);
+      if (!userId) return kickReason;
+      playerConnecting = Object.values(connectingPlayers).some((player: OxPlayer) => player.userId === userId);
+      playerExist = OxPlayer.getFromUserId(userId);
+      if (playerConnecting || playerExist) return kickReason;
+    }
   }
 
   player.username = GetPlayerName(player.source as string);
