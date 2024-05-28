@@ -13,4 +13,8 @@ Ox = setmetatable({}, {
 
 require(('@ox_core.lib.%s.init'):format(lib.context))
 
+function Ox.GetGroup(name)
+    return GlobalState['group.' .. name]
+end
+
 return Ox
