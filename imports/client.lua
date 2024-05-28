@@ -1,7 +1,7 @@
 -- Temporary backwards compatibility, to be removed..
 if not lib then return end
 
-local Ox = require '@ox_core.lib.client.init'
+local Ox = require '@ox_core.lib.init'
 
 ---@deprecated
 player = setmetatable({}, {

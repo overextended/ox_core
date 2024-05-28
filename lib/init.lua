@@ -1,3 +1,16 @@
-if not lib then return end
+if not lib or Ox then return Ox end
 
-return require(('@ox_core.lib.%s.init'):format(lib.context))
+---@type OxCommon
+Ox = setmetatable({}, {
+    __index = function(self, index)
+        self[index] = function(...)
+            return exports.ox_core[index](nil, ...)
+        end
+
+        return self[index]
+    end
+})
+
+require(('@ox_core.lib.%s.init'):format(lib.context))
+
+return Ox
