@@ -3,11 +3,21 @@ import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
 import type { Dict, OxGroup } from 'types';
 import type { GroupsTable } from './db';
+import { GetGroupPermissions } from '../../common';
 
 const groups: Dict<OxGroup> = {};
 
 export function GetGroup(name: string) {
   return groups[name];
+}
+
+export function SetGroupPermission(groupName: string, grade: number, permission: string, value: 'allow' | 'deny') {
+  const permissions = GetGroupPermissions(groupName);
+
+  if (!permissions[grade]) permissions[grade] = {};
+
+  permissions[grade][permission] = value === 'allow' ? true : false;
+  GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
 async function CreateGroup({ name, grades, colour }: GroupsTable) {
@@ -105,3 +115,5 @@ addCommand<{ target: string; group: string; grade?: number }>(
     ],
   }
 );
+
+exports('SetGroupPermission', SetGroupPermission);

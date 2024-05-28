@@ -127,3 +127,7 @@ export interface OxGroup {
   principal: string;
   colour?: number;
 }
+
+export interface OxGroupPermissions {
+  [grade: string]: { [permission: string]: boolean };
+}
