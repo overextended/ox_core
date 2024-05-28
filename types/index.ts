@@ -123,6 +123,6 @@ export interface OxAccount {
 export interface OxGroup {
   name: string;
   label: string;
-  grades: Record<number, string>;
+  grades: string[];
   principal: string;
 }

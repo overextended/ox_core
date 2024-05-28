@@ -14,11 +14,20 @@ async function CreateGroup({ name, grades, label }: OxGroup) {
     name,
     label,
     principal: `group.${name}`,
-    grades: JSON.parse(grades as any).reduce((acc: OxGroup['grades'], value: string, index: number) => {
+    grades: JSON.parse(grades as any),
+  };
+
+  GlobalState[group.principal] = group;
+  GlobalState[`${group.name}:count`] = 0;
+
+  groups[name] = group;
+  group.grades = group.grades.reduce(
+    (acc, value, index) => {
       acc[index + 1] = value;
       return acc;
-    }, {}),
-  };
+    },
+    {} as Record<number, string>
+  ) as any;
 
   let parent = group.principal;
 
@@ -32,10 +41,6 @@ async function CreateGroup({ name, grades, label }: OxGroup) {
 
     parent = child;
   }
-
-  groups[name] = group;
-  GlobalState[group.principal] = group;
-  GlobalState[`${group.name}:count`] = 0;
 
   DEV: console.info(`Instantiated OxGroup<${group.name}>`);
 }
