@@ -2,7 +2,7 @@ import { cache, notify, onServerCallback, requestModel } from '@overextended/ox_
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
 import { VehicleData, VehicleTypes, VehicleStats, VehicleCategories } from 'types';
 
-const vehiclePriceModifiers = {
+const vehiclePriceModifiers: Partial<Record<VehicleTypes, number>> = {
   automobile: 1600,
   bicycle: 150,
   bike: 500,
@@ -55,21 +55,9 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     }
 
     SetPedIntoVehicle(cache.ped, entity, -1);
-    const vehicleClass = GetVehicleClass(entity);
-    let vehicleType: VehicleTypes;
 
-    if (IsThisModelACar(hash)) vehicleType = 'automobile';
-    else if (IsThisModelABicycle(hash)) vehicleType = 'bicycle';
-    else if (IsThisModelABike(hash)) vehicleType = 'bike';
-    else if (IsThisModelABoat(hash)) vehicleType = 'boat';
-    else if (IsThisModelAHeli(hash)) vehicleType = 'heli';
-    else if (IsThisModelAPlane(hash)) vehicleType = 'plane';
-    else if (IsThisModelAQuadbike(hash)) vehicleType = 'quadbike';
-    else if (IsThisModelATrain(hash)) vehicleType = 'train';
-    else if (vehicleClass === 5) vehicleType = 'submarinecar';
-    else if (vehicleClass === 14) vehicleType = 'submarine';
-    else if (vehicleClass === 16) vehicleType = 'blimp';
-    else vehicleType = 'trailer';
+    const vehicleClass = GetVehicleClass(entity);
+    const vehicleType = GetVehicleType(entity) as VehicleTypes;
 
     const stats: VehicleStats = {
       acceleration: parseFloat(GetVehicleModelAcceleration(hash).toFixed(4)),
@@ -134,9 +122,11 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
       price *= 4;
     }
 
-    data.price = Math.floor(price * vehiclePriceModifiers[vehicleType]);
-    vehicles[model] = data;
     parsed++;
+    vehicles[model] = data;
+    const priceModifier = vehiclePriceModifiers[vehicleType];
+
+    if (priceModifier) data.price = Math.floor(price * priceModifier);
 
     SetVehicleAsNoLongerNeeded(entity);
     SetModelAsNoLongerNeeded(hash);
