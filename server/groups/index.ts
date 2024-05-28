@@ -20,6 +20,15 @@ export function SetGroupPermission(groupName: string, grade: number, permission:
   GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
+export function RemoveGroupPermission(groupName: string, grade: number, permission: string) {
+  const permissions = GetGroupPermissions(groupName);
+
+  if (!permissions[grade]) return;
+
+  delete permissions[grade][permission];
+  GlobalState[`group.${groupName}:permissions`] = permissions;
+}
+
 async function CreateGroup({ name, grades, colour }: GroupsTable) {
   const group: OxGroup = {
     name,
@@ -117,3 +126,4 @@ addCommand<{ target: string; group: string; grade?: number }>(
 );
 
 exports('SetGroupPermission', SetGroupPermission);
+exports('RemoveGroupPermission', RemoveGroupPermission)
