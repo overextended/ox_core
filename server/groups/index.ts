@@ -13,15 +13,16 @@ async function CreateGroup({ name, grades, label }: OxGroup) {
   const group: OxGroup = {
     name,
     label,
-    grades: JSON.parse(grades as any),
     principal: `group.${name}`,
+    grades: JSON.parse(grades as any).reduce((acc: OxGroup['grades'], value: string, index: number) => {
+      acc[index + 1] = value;
+      return acc;
+    }, {}),
   };
-
-  group.grades.unshift(null);
 
   let parent = group.principal;
 
-  for (let i = 0; i < group.grades.length; i++) {
+  for (const i in group.grades) {
     const child = `${group.principal}:${i}`;
 
     if (!IsPrincipalAceAllowed(child, child)) {
@@ -45,7 +46,7 @@ function DeleteGroup(group: OxGroup) {
 
   removeAce(parent, parent, true);
 
-  for (let i = 0; i < group.grades.length; i++) {
+  for (const i in group.grades) {
     const child = `${group.principal}:${i}`;
 
     removeAce(child, child, true);
