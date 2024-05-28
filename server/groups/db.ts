@@ -1,8 +1,9 @@
 import { db } from 'db';
-import { OxGroup } from 'types';
+
+export type GroupsTable = { name: string; grades: number; colour?: number };
 
 export function SelectGroups() {
-  return db.query<OxGroup>('SELECT * FROM ox_groups');
+  return db.query<GroupsTable>('SELECT * FROM ox_groups');
 }
 
 export async function AddCharacterGroup(charId: number, name: string, grade: number) {

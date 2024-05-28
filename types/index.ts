@@ -125,4 +125,5 @@ export interface OxGroup {
   label: string;
   grades: string[];
   principal: string;
+  colour?: number;
 }

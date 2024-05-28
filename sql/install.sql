@@ -65,10 +65,7 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS `ox_groups` (
     `name` VARCHAR(20) NOT NULL,
-    `label` VARCHAR(50) NOT NULL,
     `grades` LONGTEXT NOT NULL,
-    `hasAccount` TINYINT(1) NOT NULL DEFAULT 0,
-    `adminGrade` TINYINT UNSIGNED NOT NULL DEFAULT json_length (`grades`),
     `colour` TINYINT UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`name`) USING BTREE
   );
@@ -76,28 +73,19 @@ CREATE TABLE
 INSERT INTO
   `ox_groups` (
     `name`,
-    `label`,
     `grades`,
-    `hasAccount`,
-    `adminGrade`,
     `colour`
   )
 VALUES
   (
     'police',
-    'Los Santos Police Department',
-    '["Cadet", "Officer", "Sergeant", "Captain", "Commander", "Chief"]',
-    b'0',
     6,
-    NULL
+    6
   ),
   (
     'dispatch',
-    'Police Dispatch',
-    '["Dispatch"]',
-    b'0',
     1,
-    NULL
+    1
   );
 
 CREATE TABLE

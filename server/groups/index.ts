@@ -1,7 +1,8 @@
-import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
+import { addAce, addCommand, addPrincipal, locale, removeAce, removePrincipal } from '@overextended/ox_lib/server';
 import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
-import { Dict, OxGroup } from 'types';
+import type { Dict, OxGroup } from 'types';
+import type { GroupsTable } from './db';
 
 const groups: Dict<OxGroup> = {};
 
@@ -9,13 +10,18 @@ export function GetGroup(name: string) {
   return groups[name];
 }
 
-async function CreateGroup({ name, grades, label }: OxGroup) {
+async function CreateGroup({ name, grades, colour }: GroupsTable) {
   const group: OxGroup = {
     name,
-    label,
+    colour,
+    label: locale(`groups.${name}.name`),
     principal: `group.${name}`,
-    grades: JSON.parse(grades as any),
+    grades: [],
   };
+
+  for (let index = 0; index < grades; index++) {
+    group.grades[index] = locale(`groups.${name}.grades.${index}`);
+  }
 
   GlobalState[group.principal] = group;
   GlobalState[`${group.name}:count`] = 0;
