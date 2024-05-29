@@ -1,9 +1,20 @@
 import { db } from 'db';
-
-export type GroupsTable = { name: string; grades: number; colour?: number };
+import type { DbGroups } from 'types';
 
 export function SelectGroups() {
-  return db.query<GroupsTable>('SELECT * FROM ox_groups');
+  return db.query<DbGroups>(`
+    SELECT 
+      ox_groups.*, 
+      JSON_ARRAYAGG(ox_group_grades.label ORDER BY ox_group_grades.grade) AS grades
+    FROM 
+        ox_groups 
+    JOIN 
+        ox_group_grades
+    ON
+        ox_groups.name = ox_group_grades.group
+    GROUP BY 
+        ox_groups.name;
+  `);
 }
 
 export async function AddCharacterGroup(charId: number, name: string, grade: number) {

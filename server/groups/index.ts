@@ -2,7 +2,7 @@ import { addAce, addCommand, addPrincipal, locale, removeAce, removePrincipal } 
 import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
 import type { Dict, OxGroup } from 'types';
-import type { GroupsTable } from './db';
+import type { GroupsResult } from './db';
 import { GetGroupPermissions } from '../../common';
 
 const groups: Dict<OxGroup> = {};
@@ -29,23 +29,17 @@ export function RemoveGroupPermission(groupName: string, grade: number, permissi
   GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
-async function CreateGroup({ name, grades, colour }: GroupsTable) {
+async function CreateGroup(data: GroupsResult) {
   const group: OxGroup = {
-    name,
-    colour,
-    label: locale(`groups.${name}.name`),
-    principal: `group.${name}`,
-    grades: [],
+    ...data,
+    grades: JSON.parse(data.grades),
+    principal: `group.${data.name}`,
   };
-
-  for (let index = 0; index < grades; index++) {
-    group.grades[index] = locale(`groups.${name}.grades.${index}`);
-  }
 
   GlobalState[group.principal] = group;
   GlobalState[`${group.name}:count`] = 0;
 
-  groups[name] = group;
+  groups[group.name] = group;
   group.grades = group.grades.reduce(
     (acc, value, index) => {
       acc[index + 1] = value;
@@ -126,4 +120,4 @@ addCommand<{ target: string; group: string; grade?: number }>(
 );
 
 exports('SetGroupPermission', SetGroupPermission);
-exports('RemoveGroupPermission', RemoveGroupPermission)
+exports('RemoveGroupPermission', RemoveGroupPermission);

@@ -65,28 +65,18 @@ CREATE TABLE
 CREATE TABLE
   IF NOT EXISTS `ox_groups` (
     `name` VARCHAR(20) NOT NULL,
-    `grades` LONGTEXT NOT NULL,
+    `label` VARCHAR(50) NOT NULL,
     `colour` TINYINT UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`name`) USING BTREE
   );
 
-INSERT INTO
-  `ox_groups` (
-    `name`,
-    `grades`,
-    `colour`
-  )
-VALUES
-  (
-    'police',
-    6,
-    6
-  ),
-  (
-    'dispatch',
-    1,
-    1
-  );
+CREATE TABLE `ox_group_grades` (
+	`group` VARCHAR(20) NOT NULL,
+	`grade` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
+	`label` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`group`, `grade`) USING BTREE,
+	CONSTRAINT `FK_ox_group_grades_ox_groups` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 CREATE TABLE
   IF NOT EXISTS `character_groups` (

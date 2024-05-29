@@ -14,15 +14,5 @@
   "non_binary": "Non-Binary",
   "date_of_birth": "Date of birth",
   "withdraw": "Withdraw",
-  "deposit": "Deposit",
-  "groups": {
-    "police": {
-      "name": "Los Santos Police Department",
-      "grades": ["Cadet", "Officer", "Sergeant", "Captain", "Commander", "Chief"]
-    },
-    "dispatch": {
-      "name": "Police Dispatch",
-      "grades": ["Dispatcher"]
-    }
-  }
+  "deposit": "Deposit"
 }
