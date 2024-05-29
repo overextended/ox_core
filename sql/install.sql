@@ -159,8 +159,8 @@ CREATE TABLE IF NOT EXISTS `accounts_access` (
   `charId` INT UNSIGNED NOT NULL,
   `role` ENUM ('contributor', 'manager', 'owner') NOT NULL,
   PRIMARY KEY (`accountId`, `charId`),
-  CONSTRAINT `accounts_access_accounts_id_fk` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `accounts_access_characters_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `accounts_access_accountId_fk` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `accounts_access_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `accounts_transactions` (
