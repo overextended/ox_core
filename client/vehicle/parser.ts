@@ -26,6 +26,7 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
 
       return parseAll ? vehicle : GetVehicleData(vehicle) ? undefined : vehicle;
     })
+    .filter((vehicle?: string) => vehicle)
     .sort();
 
   SetPlayerControl(cache.playerId, false, 1 << 8);
