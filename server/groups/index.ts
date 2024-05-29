@@ -1,8 +1,7 @@
-import { addAce, addCommand, addPrincipal, locale, removeAce, removePrincipal } from '@overextended/ox_lib/server';
+import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
 import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
-import type { Dict, OxGroup } from 'types';
-import type { GroupsResult } from './db';
+import type { Dict, OxGroup, DbGroups } from 'types';
 import { GetGroupPermissions } from '../../common';
 
 const groups: Dict<OxGroup> = {};
@@ -29,10 +28,10 @@ export function RemoveGroupPermission(groupName: string, grade: number, permissi
   GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
-async function CreateGroup(data: GroupsResult) {
+async function CreateGroup(data: DbGroups) {
   const group: OxGroup = {
     ...data,
-    grades: JSON.parse(data.grades),
+    grades: JSON.parse(data.grades as any),
     principal: `group.${data.name}`,
   };
 
