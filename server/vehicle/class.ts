@@ -189,7 +189,7 @@ export class OxVehicle extends ClassInterface {
 
     charId ? (this.owner = charId) : delete this.owner;
 
-    SetVehicleColumn(this.id, 'owner', this.group);
+    SetVehicleColumn(this.id, 'owner', this.owner);
   }
 
   setGroup(group?: string) {
