@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `character_inventory` (
 CREATE TABLE IF NOT EXISTS `ox_groups` (
   `name` VARCHAR(20) NOT NULL,
   `label` VARCHAR(50) NOT NULL,
+  `type` VARCHAR(50) NULL,
   `colour` TINYINT UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`name`)
 );

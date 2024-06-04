@@ -1,7 +1,6 @@
 ---@diagnostic disable: redundant-parameter
 ---@class OxPlayerClient : OxClass
 local OxPlayer = lib.class('OxPlayer')
-local groups
 
 -- Support for `player.method` rather than self (:) syntax
 function OxPlayer:__index(index)
@@ -65,38 +64,21 @@ function OxPlayer:getState()
     return LocalPlayer.state;
 end
 
-function OxPlayer:getGroups() return groups end
-
 function OxPlayer:getGroup(filter)
-    local type = type(filter)
+    local result = OxPlayer:__call('getGroup', filter)
 
-    if type == 'string' then
-        local grade = groups[filter]
+    if type(result) == 'table' then
+        return table.unpack(result)
+    end
 
-        if grade then
-            return filter, grade
-        end
-    elseif type == 'table' then
-        local tabletype = table.type(filter)
+    return result
+end
 
-        if tabletype == 'hash' then
-            for name, grade in pairs(filter) do
-                local playerGrade = groups[name]
+function OxPlayer:getGroupByType(type)
+    local result = OxPlayer:__call('getGroupByType', type)
 
-                if playerGrade and grade <= playerGrade then
-                    return name, playerGrade
-                end
-            end
-        elseif tabletype == 'array' then
-            for i = 1, #filter do
-                local name = filter[i]
-                local grade = groups[name]
-
-                if grade then
-                    return name, grade
-                end
-            end
-        end
+    if result then
+        return table.unpack(result)
     end
 end
 
@@ -110,7 +92,6 @@ local _, userId, charId, stateId = pcall(function()
 end)
 
 local player = OxPlayer:new(userId, charId, stateId)
-groups = player.charId and OxPlayer:__call('getGroups') or {}
 
 function Ox.GetPlayer()
     return player
@@ -128,16 +109,9 @@ if not pcall(getMethods) then CreateThread(getMethods) end
 AddEventHandler('ox:playerLoaded', function(data)
     if player.charId then return end
 
-    groups = OxPlayer:__call('getGroups') or {}
     for k, v in pairs(data) do player[k] = v end
 end)
 
 AddEventHandler('ox:playerLogout', function()
     table.wipe(player)
-end)
-
-RegisterNetEvent('ox:setGroup', function(name, grade)
-    if source == '' then return end
-
-    groups[name] = grade
 end)

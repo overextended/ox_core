@@ -1,13 +1,21 @@
 import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
 import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
-import type { Dict, OxGroup, DbGroups } from 'types';
+import type { Dict, OxGroup, DbGroup } from 'types';
 import { GetGroupPermissions } from '../../common';
 
 const groups: Dict<OxGroup> = {};
+GlobalState.groups = [];
 
 export function GetGroup(name: string) {
   return groups[name];
+}
+
+export function GetGroupsByType(type: string) {
+  return Object.values(groups).reduce((acc, group) => {
+    if (group.type === type) acc.push(group.name);
+    return acc;
+  }, [] as string[]);
 }
 
 export function SetGroupPermission(groupName: string, grade: number, permission: string, value: 'allow' | 'deny') {
@@ -28,7 +36,7 @@ export function RemoveGroupPermission(groupName: string, grade: number, permissi
   GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
-async function CreateGroup(data: DbGroups) {
+async function CreateGroup(data: DbGroup) {
   const group: OxGroup = {
     ...data,
     grades: JSON.parse(data.grades as any),
@@ -87,6 +95,11 @@ async function LoadGroups() {
   if (!rows[0]) return;
 
   for (let i = 0; i < rows.length; i++) CreateGroup(rows[i]);
+
+  GlobalState.groups = Object.values(groups).reduce((acc, group) => {
+    acc.push(group.name);
+    return acc;
+  }, [] as string[]);
 }
 
 setImmediate(LoadGroups);

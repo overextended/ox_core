@@ -120,14 +120,15 @@ export interface OxAccount {
   role: 'contributor' | 'manager' | 'owner';
 }
 
-export interface DbGroups {
+export interface DbGroup {
   name: string;
   label: string;
   grades: string[];
+  type?: string;
   colour?: number;
 }
 
-export interface OxGroup extends DbGroups {
+export interface OxGroup extends DbGroup {
   grades: string[];
   principal: string;
 }

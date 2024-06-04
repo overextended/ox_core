@@ -2,8 +2,6 @@ import { cache } from '@overextended/ox_lib/client';
 import type { OxPlayer } from 'client/player';
 import type { Dict } from 'types';
 
-let groups: Dict<number>;
-
 class PlayerInterface {
   [key: string]: any;
 
@@ -56,35 +54,6 @@ class PlayerInterface {
   getState() {
     return LocalPlayer.state;
   }
-
-  getGroup(filter: string | string[] | Record<string, number>) {
-    if (typeof filter === 'string') {
-      const grade = groups[filter];
-
-      if (grade) return grade;
-    } else if (typeof filter === 'object') {
-      if (Array.isArray(filter)) {
-        for (let i = 0; filter.length; i++) {
-          const name = filter[i];
-          const playerGrade = groups[name];
-
-          if (playerGrade) return [name, playerGrade];
-        }
-      } else {
-        for (const [name, grade] of Object.entries(filter)) {
-          const playerGrade = groups[name];
-
-          if (playerGrade && (grade as number) <= playerGrade) {
-            return [name, playerGrade];
-          }
-        }
-      }
-    }
-  }
-
-  getGroups() {
-    return groups;
-  }
 }
 
 const { userId, charId, stateId } = ((): { userId: number; charId?: number; stateId?: string } => {
@@ -96,7 +65,6 @@ const { userId, charId, stateId } = ((): { userId: number; charId?: number; stat
 })();
 
 const player = new PlayerInterface(userId, charId, stateId) as typeof OxPlayer & PlayerInterface;
-groups = player.charId ? exports.ox_core.CallPlayer('getGroups') : {};
 
 export function GetPlayer() {
   return player;
@@ -105,16 +73,9 @@ export function GetPlayer() {
 on('ox:playerLoaded', (data: Dict<any>) => {
   if (player.charId) return;
 
-  groups = exports.ox_core.CallPlayer('getGroups') || {};
   for (const key in data) player[key] = data[key];
 });
 
 on('ox:playerLogout', () => {
   for (const key in player) delete player[key];
-});
-
-onNet('ox:setGroup', (name: string, grade: number) => {
-  if ((source as any) === '') return;
-
-  groups[name] = grade;
 });
