@@ -128,3 +128,11 @@ onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {
     }
   }
 });
+
+onClientCallback('ox:setActiveGroup', (playerId, groupName: string) => {
+  const player = OxPlayer.get(playerId);
+
+  if (!player) return false;
+
+  return player.setActiveGroup(groupName);
+});

@@ -36,7 +36,20 @@ export async function RemoveCharacterGroup(charId: number, name: string) {
 }
 
 export function GetCharacterGroups(charId: number) {
-  return db.execute<{ name: string; grade: number }>('SELECT name, grade FROM character_groups WHERE charId = ?', [
-    charId,
-  ]);
+  return db.execute<{ name: string; grade: number; isActive: boolean }>(
+    'SELECT name, grade, isActive FROM character_groups WHERE charId = ?',
+    [charId]
+  );
+}
+
+export async function SetActiveGroup(charId: number, groupName?: string) {
+  using conn = await db.getConnection();
+  const params: [number, string?] = [charId];
+
+  conn.execute(`UPDATE character_groups SET isActive = 0 WHERE charId = ? AND isActive = 1`, params);
+
+  if (groupName) {
+    params.push(groupName);
+    conn.execute(`UPDATE character_groups SET isActive = 1 WHERE charId = ? AND name = ?`, params);
+  }
 }

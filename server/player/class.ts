@@ -16,7 +16,13 @@ import { GetGroup, GetGroupsByType } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
-import { AddCharacterGroup, GetCharacterGroups, RemoveCharacterGroup, UpdateCharacterGroup } from 'groups/db';
+import {
+  AddCharacterGroup,
+  GetCharacterGroups,
+  RemoveCharacterGroup,
+  UpdateCharacterGroup,
+  SetActiveGroup,
+} from 'groups/db';
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
 import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
@@ -172,6 +178,17 @@ export class OxPlayer extends ClassInterface {
   /** Returns all accounts for the active character. Passing `true` will include accounts the character has access to. */
   getAccounts(getShared?: boolean) {
     return GetCharacterAccounts(this.charId, getShared);
+  }
+
+  setActiveGroup(groupName: string, temp?: boolean) {
+    if (!(groupName in this.#groups)) return false;
+
+    SetActiveGroup(this.charId, temp ? undefined : groupName);
+
+    this.set('activeGroup', groupName, true);
+    emit('ox:setActiveGroup', this.source, groupName);
+
+    return true;
   }
 
   /** Sets the active character's grade in a group. If the grade is 0 they will be removed from the group. */
@@ -541,6 +558,7 @@ export class OxPlayer extends ClassInterface {
     this.set('gender', gender, true);
     this.set('dateOfBirth', dateOfBirth, true);
     this.set('phoneNumber', phoneNumber, true);
+    this.set('activeGroup', groups.find((group) => group.isActive)?.name, true);
 
     /**
      * @todo Player metadata can ideally be handled with statebags, but requires security features.

@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `character_groups` (
   `charId` INT UNSIGNED NOT NULL,
   `name` VARCHAR(20) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  `isActive` TINYINT(1) NOT NULL DEFAULT 0,
   UNIQUE KEY `name` (`name`, `charId`),
   KEY `character_groups_charId_key` (`charId`),
   CONSTRAINT `character_groups_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
