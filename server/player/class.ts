@@ -203,8 +203,8 @@ export class OxPlayer extends ClassInterface {
 
     if (!grade) {
       if (!currentGrade) return;
-
       if (!(await RemoveCharacterGroup(this.charId, group.name))) return;
+      if (this.get('activeGroup') === groupName) this.set('activeGroup', undefined, true);
 
       this.#removeGroup(group, currentGrade);
     } else {

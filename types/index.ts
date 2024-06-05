@@ -29,6 +29,7 @@ export interface PlayerMetadata {
   gender: string;
   dateOfBirth: string;
   phoneNumber: string;
+  activeGroup?: string;
   [key: string]: any;
 }
 
