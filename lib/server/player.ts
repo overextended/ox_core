@@ -41,6 +41,8 @@ PlayerInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
+export type OxPlayerServer = typeof OxPlayer & InstanceType<typeof PlayerInterface>;
+
 function CreatePlayerInstance(player?: InstanceType<typeof OxPlayer>) {
   if (!player) return;
 
@@ -52,7 +54,7 @@ function CreatePlayerInstance(player?: InstanceType<typeof OxPlayer>) {
     player.username,
     player.identifier,
     player.ped
-  ) as PlayerInterface & OxPlayer;
+  ) as OxPlayerServer;
 }
 
 export function GetPlayer(playerId: string | number) {

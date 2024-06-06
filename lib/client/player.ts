@@ -64,7 +64,8 @@ const { userId, charId, stateId } = ((): { userId: number; charId?: number; stat
   }
 })();
 
-const player = new PlayerInterface(userId, charId, stateId) as typeof OxPlayer & PlayerInterface;
+export type OxPlayerClient = typeof OxPlayer & InstanceType<typeof PlayerInterface>;
+const player = new PlayerInterface(userId, charId, stateId) as OxPlayerClient;
 
 export function GetPlayer() {
   return player;

@@ -45,6 +45,8 @@ VehicleInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
+export type OxVehicleServer = typeof OxVehicle & InstanceType<typeof VehicleInterface>;
+
 function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
   if (!vehicle) return;
 
@@ -59,7 +61,7 @@ function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
     vehicle.vin,
     vehicle.owner,
     vehicle.group
-  ) as VehicleInterface & OxVehicle;
+  ) as OxVehicleServer;
 }
 
 export function GetVehicle(entityId: number) {
