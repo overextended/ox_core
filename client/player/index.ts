@@ -5,7 +5,7 @@ import { GetGroupPermissions } from '../../common';
 export const Statuses: Dict<OxStatus> = {};
 const callableMethods: Dict<true> = {};
 
-export const OxPlayer = new (class PlayerSingleton {
+class PlayerSingleton {
   userId: number;
   charId?: number;
   stateId?: string;
@@ -197,7 +197,9 @@ export const OxPlayer = new (class PlayerSingleton {
 
     return false;
   }
-})();
+}
+
+export const OxPlayer = new PlayerSingleton();
 
 import './spawn';
 import './death';
