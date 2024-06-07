@@ -19,10 +19,16 @@ function OxPlayer:__index(index)
     return value
 end
 
-function OxPlayer:constructor(userId, charId, stateId)
-    self.userId = userId
-    self.charId = charId
-    self.stateId = stateId
+function OxPlayer:constructor()
+    pcall(function()
+        local data = exports.ox_core.GetPlayer()
+
+        self.userId = data.userId
+        self.charId = data.charId
+        self.stateId = data.stateId
+    end)
+
+    self.state = LocalPlayer.state
 end
 
 function OxPlayer:__call(...)
@@ -36,20 +42,23 @@ end
 
 local getters = {}
 
+function OxPlayer:on(key, callback)
+    self:get(key)
+
+    AddEventHandler(('ox:player:%s'):format(key), function(data)
+        if GetInvokingResource() == 'ox_core' and source == '' then
+            callback(data)
+        end
+    end)
+end
+
 function OxPlayer:get(key)
     if not self.charId then return end
 
     if not getters[key] then
-        print(('make event ox:player:%s'):format(key))
-
-        AddEventHandler(('ox:player:%s'):format(key), function(data)
-            if GetInvokingResource() == 'ox_core' and source == '' then
-                print(('triggered ox:player:%s'):format(key))
-                self[key] = data
-            end
-        end)
-
         getters[key] = true
+
+        self:on(key, function(data) self[key] = data end)
         self[key] = OxPlayer:__call('get', key);
     end
 
@@ -58,10 +67,6 @@ end
 
 function OxPlayer:getCoords()
     return GetEntityCoords(cache.ped);
-end
-
-function OxPlayer:getState()
-    return LocalPlayer.state;
 end
 
 function OxPlayer:getGroup(filter)
@@ -85,13 +90,7 @@ end
 ---@class OxClient
 local Ox = Ox
 
-local _, userId, charId, stateId = pcall(function()
-    local data = exports.ox_core.GetPlayer()
-
-    if data then return data.userId, data.charId, data.stateId end
-end)
-
-local player = OxPlayer:new(userId, charId, stateId)
+local player = OxPlayer:new()
 
 function Ox.GetPlayer()
     return player
