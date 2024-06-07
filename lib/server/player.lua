@@ -42,7 +42,7 @@ function OxPlayer:getState()
 end
 
 function OxPlayer:getGroup(filter)
-    local result = OxPlayer:__call('getGroup', filter)
+    local result = OxPlayer.__call(self, 'getGroup', filter)
 
     if type(result) == 'table' then
         return table.unpack(result)
@@ -52,7 +52,7 @@ function OxPlayer:getGroup(filter)
 end
 
 function OxPlayer:getGroupByType(type)
-    local result = OxPlayer:__call('getGroupByType', type)
+    local result = OxPlayer.__call(self, 'getGroupByType', type)
 
     if result then
         return table.unpack(result)
