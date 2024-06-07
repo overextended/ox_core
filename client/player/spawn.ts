@@ -1,4 +1,4 @@
-import { sleep } from '@overextended/ox_lib';
+import { sleep, waitFor } from '@overextended/ox_lib';
 import { cache, inputDialog } from '@overextended/ox_lib/client';
 import { OxPlayer } from './';
 import { netEvent } from 'utils';
@@ -57,7 +57,7 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
     character?.y || SPAWN_LOCATION[1],
     character?.z || SPAWN_LOCATION[2],
   ];
-  const heading = character?.heading || 90;
+  const heading = character?.heading || SPAWN_LOCATION[3];
 
   RequestCollisionAtCoord(x, y, z);
   FreezeEntityPosition(cache.ped, true);
@@ -140,14 +140,12 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
 });
 
 netEvent('ox:setActiveCharacter', async (character: Character) => {
-  await sleep(100); //todo: solve race-condition with illenium-appearance :(
-
   if (CHARACTER_SELECT) {
-    SwitchInPlayer(cache.ped);
+    SwitchInPlayer(PlayerPedId());
     SetGameplayCamRelativeHeading(0);
   }
 
-  while (!IsScreenFadedIn() || GetPlayerSwitchState() !== 12) await sleep(0);
+  await waitFor(() => (IsScreenFadedIn() && GetPlayerSwitchState() === 12 ? true : undefined), '', 0);
 
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
   SetPedArmour(cache.ped, character.armour ?? 0);
