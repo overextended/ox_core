@@ -45,7 +45,7 @@ VehicleInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export type OxVehicleServer = typeof OxVehicle & InstanceType<typeof VehicleInterface>;
+export type OxVehicleServer = InstanceType<typeof OxVehicle> & InstanceType<typeof VehicleInterface>;
 
 function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
   if (!vehicle) return;
