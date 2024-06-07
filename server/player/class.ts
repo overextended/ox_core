@@ -446,14 +446,19 @@ export class OxPlayer extends ClassInterface {
     return this.#characters;
   }
 
-  /** Clears data for the active character. If the player is still connected then transition them to character selection. */
-  async logout(dropped?: boolean) {
+  /**
+   * Clears data for the active character. If the player is still connected then transition them to character selection.
+   * @param dropped If the player has been dropped from the server.
+   * @param save If character data should be saved to the database (defaults to true).
+   */
+  async logout(save: boolean = true, dropped = false) {
     if (!this.charId) return;
 
     for (const name in this.#groups) this.#removeGroup(name, this.#groups[name]);
 
     emit('ox:playerLogout', this.source, this.userId, this.charId);
-    await this.save();
+
+    if (save) await this.save();
 
     if (dropped) return;
 
@@ -579,14 +584,18 @@ export class OxPlayer extends ClassInterface {
 
   /** Deletes a character with the given charId if it's owned by the player. */
   async deleteCharacter(charId: number) {
-    if (this.charId) return;
+    const isActive = this.charId === charId;
 
-    const characterSlot = this.#getCharacterSlotFromId(charId);
+    if (this.charId && !isActive) return;
+
+    const characterSlot = isActive ? 0 : this.#getCharacterSlotFromId(charId);
 
     if (characterSlot === -1) return;
 
     if (await DeleteCharacter(charId)) {
-      this.#characters.splice(characterSlot, 1);
+      if (isActive) this.logout(false);
+      else this.#characters.splice(characterSlot, 1);
+
       emit('ox:deletedCharacter', this.source, this.userId, charId);
 
       DEV: console.info(`Deleted character ${this.charId} for OxPlayer<${this.userId}>`);

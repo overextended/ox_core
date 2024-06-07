@@ -95,7 +95,7 @@ on('playerDropped', () => {
 
   if (!player) return;
 
-  player.logout(true);
+  player.logout(true, true);
   OxPlayer.remove(player.source);
 
   DEV: console.info(`Dropped OxPlayer<${player.userId}>`);
