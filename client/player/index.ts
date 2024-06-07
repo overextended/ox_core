@@ -7,8 +7,8 @@ const callableMethods: Dict<true> = {};
 
 export const OxPlayer = new (class PlayerSingleton {
   userId: number;
-  charId: number;
-  stateId: string;
+  charId?: number;
+  stateId?: string;
   #isLoaded: boolean;
   #groups: Dict<number>;
   #statuses: Dict<number>;
