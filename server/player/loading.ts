@@ -1,10 +1,10 @@
-import { OxPlayer } from 'player/class';
+import { OxPlayer, PlayerInstance } from 'player/class';
 import { CreateUser, GetUserIdFromIdentifier } from './db';
 import { GetIdentifiers, GetPlayerLicense } from 'utils';
 import { DEBUG, SV_LAN } from '../config';
 import type { Dict } from 'types';
 
-const connectingPlayers: Dict<OxPlayer> = {};
+const connectingPlayers: Dict<PlayerInstance> = {};
 
 /** Loads existing data for the player, or inserts new data into the database. */
 async function loadPlayer(playerId: number) {

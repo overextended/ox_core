@@ -11,7 +11,7 @@ import {
   SaveCharacterData,
   UpdateCharacterLicense,
 } from './db';
-import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
+import { getRandomChar, getRandomInt, waitFor } from '@overextended/ox_lib';
 import { GetGroup, GetGroupsByType } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
@@ -26,6 +26,8 @@ import {
 import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
 import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
+
+export type PlayerInstance = InstanceType<typeof OxPlayer>;
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -42,8 +44,8 @@ export class OxPlayer extends ClassInterface {
   #groups: Dict<number>;
   #licenses: Dict<CharacterLicense>;
 
-  protected static members: Dict<OxPlayer> = {};
-  protected static keys: Dict<Dict<OxPlayer>> = {
+  protected static members: Dict<PlayerInstance> = {};
+  protected static keys: Dict<Dict<PlayerInstance>> = {
     userId: {},
     charId: {},
   };
