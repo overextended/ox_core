@@ -14,5 +14,6 @@
   "non_binary": "Non-Binary",
   "date_of_birth": "Date of birth",
   "withdraw": "Withdraw",
-  "deposit": "Deposit"
+  "deposit": "Deposit",
+  "transfer": "Bank transfer"
 }
