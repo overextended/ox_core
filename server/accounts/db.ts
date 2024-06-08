@@ -2,11 +2,26 @@ import { db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
 import locales from '../../common/locales';
+import { getRandomInt } from '@overextended/ox_lib';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 const addTransaction = `INSERT INTO accounts_transactions (fromId, toId, amount, message) VALUES (?, ?, ?, ?)`;
+
+async function GenerateAccountId() {
+  const arr = []
+
+  while (true) {
+    arr[0] = getRandomInt(1, 9)
+
+    for (let i = 1; i < 6; i++)
+      arr[i] = getRandomInt()
+
+    const accountId = arr.join('')
+    if (await IsAccountIdAvailable(accountId)) return accountId
+  }
+}
 
 export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw: boolean, message?: string) {
   return (
@@ -63,6 +78,10 @@ export async function SelectAllAccounts(id: number) {
   );
 }
 
+export async function IsAccountIdAvailable(id: number) {
+  return !(await db.exists('SELECT 1 FROM accounts WHERE id = ?', [id]));
+}
+
 export async function CreateNewAccount(
   column: 'owner' | 'group',
   id: string | number,
@@ -70,14 +89,16 @@ export async function CreateNewAccount(
   shared?: boolean,
   isDefault?: boolean
 ) {
-  const accountId = await db.insert(`INSERT INTO accounts (label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?)`, [
+  const accountId = GenerateAccountId();
+  const result = await db.insert(`INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`, [
+    accountId,
     label,
     id,
     shared ? 'shared' : 'personal',
     isDefault || 0,
   ]);
 
-  if (accountId)
+  if (result)
     db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
 
   return accountId;

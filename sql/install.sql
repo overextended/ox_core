@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `character_licenses` (
 );
 
 CREATE TABLE IF NOT EXISTS `accounts` (
-  `id` INT(6) UNSIGNED AUTO_INCREMENT,
+  `id` INT(6) UNSIGNED NOT NULL,
   `label` VARCHAR(50) NOT NULL,
   `owner` INT UNSIGNED NULL,
   `group` VARCHAR(20) NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   PRIMARY KEY (`id`),
   CONSTRAINT `accounts_owner_fk` FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accounts_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT = 100000;
+);
 
 CREATE TABLE IF NOT EXISTS `accounts_access` (
   `accountId` INT UNSIGNED NOT NULL,
