@@ -11,7 +11,7 @@ import {
   SaveCharacterData,
   UpdateCharacterLicense,
 } from './db';
-import { getRandomChar, getRandomInt, waitFor } from '@overextended/ox_lib';
+import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { GetGroup, GetGroupsByType } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
 import { Statuses } from './status';
