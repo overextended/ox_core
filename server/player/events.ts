@@ -5,6 +5,7 @@ import { db } from 'db';
 import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
 import { Dict, NewCharacter, OxStatus } from 'types';
+import { CREATE_DEFAULT_ACCOUNT } from 'config';
 
 type ScopeEvent = { player: string; for: string };
 
@@ -111,7 +112,9 @@ onClientCallback('ox:deleteCharacter', async (playerId, charId: number) => {
 
 on('ox:createdCharacter', async (playerId: number, userId: number, charId: number) => {
   db.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
-  CreateNewAccount('owner', charId, 'Personal', false, true);
+
+  if (CREATE_DEFAULT_ACCOUNT)
+    CreateNewAccount('owner', charId, 'Personal', false, true);
 });
 
 onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {
