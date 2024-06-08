@@ -61,14 +61,10 @@ export class OxPlayer extends ClassInterface {
   }
 
   /** Compares player fields and metadata to a filter, returning the player if all values match. */
-  private filter(filter: Dict<any>) {
-    const groups = filter.groups;
+  private filter(criteria: Dict<any>) {
+    const { groups, ...filter } = criteria;
 
-    if (groups) {
-      if (!this.getGroup(groups)) return;
-
-      delete filter.groups;
-    }
+    if (groups && !this.getGroup(groups)) return;
 
     for (const key in filter) {
       const value = filter[key];
@@ -88,17 +84,19 @@ export class OxPlayer extends ClassInterface {
   }
 
   /** Gets all instances of OxPlayer, optionally comparing against a filter. */
-  static getAll(filter?: Dict<any>): Dict<OxPlayer> {
+  static getAll(filter?: Dict<any>, asArray?: false): Dict<PlayerInstance>;
+  static getAll(filter?: Dict<any>, asArray?: true): PlayerInstance[];
+  static getAll(filter?: Dict<any>, asArray = false): Dict<PlayerInstance> | PlayerInstance[] {
     if (!filter) return this.members;
 
-    const obj: Dict<OxPlayer> = {};
+    const obj: Dict<PlayerInstance> = {};
 
     for (const id in this.members) {
       const player = this.members[id].filter(filter);
       if (player) obj[id] = player;
     }
 
-    return obj;
+    return asArray ? Object.values(obj) : obj;
   }
 
   /** Saves all players to the database, and optionally kicks them from the server. */
@@ -611,4 +609,4 @@ OxPlayer.init();
 exports('SaveAllPlayers', (arg: any) => OxPlayer.saveAll(arg));
 exports('GetPlayerFromUserId', (arg: any) => OxPlayer.getFromUserId(arg));
 exports('GetPlayerFromFilter', (arg: any) => OxPlayer.getFromFilter(arg));
-exports(`GetPlayers`, (arg: any) => OxPlayer.getAll(arg));
+exports(`GetPlayers`, (arg: any) => OxPlayer.getAll(arg, true));

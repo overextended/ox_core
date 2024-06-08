@@ -83,8 +83,8 @@ end
 function Ox.GetPlayers(filter)
     local players = exports.ox_core:GetPlayers(filter)
 
-    for id, player in pairs(players) do
-        players[id] = CreatePlayerInstance(player)
+    for i = 1, #players do
+        players[i] = CreatePlayerInstance(player)
     end
 
     return players

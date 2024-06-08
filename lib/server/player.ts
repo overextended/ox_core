@@ -65,12 +65,12 @@ export function GetPlayerFromUserId(userId: number) {
   return CreatePlayerInstance(exports.ox_core.GetPlayerFromUserId(userId));
 }
 
-export function GetPlayers(filter?: Dict<any>) {
+export function GetPlayers(filter?: Dict<any>): OxPlayerServer[] {
   const players = exports.ox_core.GetPlayers(filter);
 
   for (const id in players) players[id] = CreatePlayerInstance(players[id]);
 
-  return players as Dict<PlayerInterface & OxPlayer>;
+  return players;
 }
 
 export function GetPlayerFromFilter(filter: Dict<any>) {
