@@ -1,0 +1,18 @@
+{
+  "empty_slot": "Tuščias laukelis",
+  "create_character": "Sukurti nauja veikėja",
+  "select_character_title": "Veikėjų pasirinkimas",
+  "delete_character_title": "Ištrinti veikėja",
+  "select_character": "Pasirinkti veikėja",
+  "delete_character": "Ištrinti pasirinkta veikėja",
+  "delete_character_confirm": "Ar tikrai norite ištrinti %s %s?  \nŠis veiksmas yra negrįžtamas.",
+  "firstname": "Vardas",
+  "lastname": "Pavardė",
+  "gender": "Lytis",
+  "male": "Vyras",
+  "female": "Moteris",
+  "non_binary": "Non-Binary",
+  "date_of_birth": "Gimimo data",
+  "withdraw": "Atsiimti",
+  "deposit": "Įdėti"
+}
