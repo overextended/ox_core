@@ -43,7 +43,7 @@ end
 local getters = {}
 
 function OxPlayer:on(key, callback)
-    self:get(key)
+    self.get(key)
 
     AddEventHandler(('ox:player:%s'):format(key), function(data)
         if GetInvokingResource() == 'ox_core' and source == '' then
@@ -58,7 +58,7 @@ function OxPlayer:get(key)
     if not getters[key] then
         getters[key] = true
 
-        self:on(key, function(data) self[key] = data end)
+        self.on(key, function(data) self[key] = data end)
         self[key] = OxPlayer:__call('get', key);
     end
 
