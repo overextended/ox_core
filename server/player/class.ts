@@ -87,7 +87,7 @@ export class OxPlayer extends ClassInterface {
   static getAll(filter?: Dict<any>, asArray?: false): Dict<PlayerInstance>;
   static getAll(filter?: Dict<any>, asArray?: true): PlayerInstance[];
   static getAll(filter?: Dict<any>, asArray = false): Dict<PlayerInstance> | PlayerInstance[] {
-    if (!filter) return this.members;
+    if (!filter) return asArray ? Object.values(this.members) : this.members;
 
     const obj: Dict<PlayerInstance> = {};
 
