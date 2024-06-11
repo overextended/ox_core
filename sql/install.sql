@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `character_licenses` (
 );
 
 CREATE TABLE IF NOT EXISTS `accounts` (
-  `id` INT(6) UNSIGNED NOT NULL,
+  `id` INT UNSIGNED NOT NULL,
   `label` VARCHAR(50) NOT NULL,
   `owner` INT UNSIGNED NULL,
   `group` VARCHAR(20) NULL,

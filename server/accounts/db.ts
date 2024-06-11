@@ -1,4 +1,4 @@
-import { db } from 'db';
+import { DbConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
 import locales from '../../common/locales';
@@ -9,17 +9,19 @@ const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
+const doesAccountExist = `SELECT 1 FROM accounts WHERE id = ?`;
 
-async function GenerateAccountId() {
-  const arr = [];
+async function GenerateAccountId(conn: DbConnection) {
+  const date = new Date();
+  const year = date.getFullYear().toString().slice(-2);
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const baseId = Number(year + month) * 1e5;
 
   while (true) {
-    arr[0] = getRandomInt(1, 9);
+    const accountId = getRandomInt(1, 3) * 1e9 + baseId + getRandomInt(0, 99999);
+    const existingId = db.scalar<number>(await conn.execute(doesAccountExist, [accountId]));
 
-    for (let i = 1; i < 6; i++) arr[i] = getRandomInt();
-
-    const accountId = Number(arr.join(''));
-    if (await IsAccountIdAvailable(accountId)) return accountId;
+    if (!existingId) return accountId;
   }
 }
 
@@ -120,7 +122,7 @@ export async function SelectAllAccounts(id: number) {
 }
 
 export async function IsAccountIdAvailable(id: number) {
-  return !(await db.exists('SELECT 1 FROM accounts WHERE id = ?', [id]));
+  return !(await db.exists(doesAccountExist, [id]));
 }
 
 export async function CreateNewAccount(
@@ -130,7 +132,9 @@ export async function CreateNewAccount(
   shared?: boolean,
   isDefault?: boolean
 ) {
-  const accountId = await GenerateAccountId();
+  using conn = await db.getConnection();
+
+  const accountId = await GenerateAccountId(conn);
   const result =
     (await db.update(`INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`, [
       accountId,
