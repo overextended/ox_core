@@ -18,33 +18,76 @@ export function GetAccountById(id: number) {
   return SelectAccount(id);
 }
 
+/**
+ * Return the default account for a character.
+ * @param id The charId or stateId used to identify the character.
+ */
 export async function GetCharacterAccount(id: number | string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
   return charId ? SelectDefaultAccount('owner', charId) : null;
 }
 
+/**
+ * Return the default account for a group.
+ */
 export async function GetGroupAccount(group: string) {
   return SelectDefaultAccount('group', group);
 }
 
+/**
+ * Returns an array of all accounts for a character.
+ * @param id The charId or stateId used to identify the character.
+ * @param includeAll If `true` the array will include all accounts the character can access.
+ */
 export async function GetCharacterAccounts(id: number | string, includeAll?: boolean) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
   return (charId && (includeAll ? SelectAllAccounts(charId) : SelectAccounts('owner', id))) || null;
 }
 
+/**
+ * Returns an array of all accounts for a group.
+ */
 export function GetGroupAccounts(group: string) {
   return SelectAccounts('group', group);
 }
 
-export function AddAccountBalance(id: number, amount: number, message?: string) {
+interface UpdateAccountBalance {
+  id: number;
+  amount: number;
+  message?: string;
+}
+
+export function AddAccountBalance({ id, amount, message }: UpdateAccountBalance) {
   return UpdateBalance(id, amount, 'add', false, message);
 }
 
-export function RemoveAccountBalance(id: number, amount: number, overdraw = false, message?: string) {
+interface RemoveAccountBalance extends UpdateAccountBalance {
+  overdraw?: boolean;
+}
+
+export function RemoveAccountBalance({ id, amount, overdraw = false, message }: RemoveAccountBalance) {
   return UpdateBalance(id, amount, 'remove', overdraw, message);
 }
 
-export function TransferAccountBalance(fromId: number, toId: number, amount: number, overdraw = false, message?: string, note?: string, actorId?: number) {
+interface TransferAccountBalance {
+  fromId: number;
+  toId: number;
+  amount: number;
+  overdraw?: boolean;
+  message?: string;
+  note?: string;
+  actorId?: number;
+}
+
+export function TransferAccountBalance({
+  fromId,
+  toId,
+  amount,
+  overdraw = false,
+  message,
+  note,
+  actorId,
+}: TransferAccountBalance) {
   return PerformTransaction(fromId, toId, amount, overdraw, message, note, actorId);
 }
 
@@ -58,7 +101,7 @@ export function CreateGroupAccount(group: string, label: string, shared?: boolea
 
 export async function GetAccountRole(accountId: number, id: number | string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return charId && SelectAccountRole(accountId, charId) || null;
+  return (charId && SelectAccountRole(accountId, charId)) || null;
 }
 
 export async function SetAccountAccess(accountId: number, id: number | string, role: string) {
