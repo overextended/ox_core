@@ -160,7 +160,7 @@ export async function DepositMoney(
   playerId: number,
   accountId: number,
   amount: number,
-  mesasge?: string,
+  message?: string,
   note?: string
 ) {
   const { charId } = OxPlayer.get(playerId);
@@ -194,7 +194,7 @@ export async function DepositMoney(
     null,
     accountId,
     amount,
-    mesasge ?? locales('deposit'),
+    message ?? locales('deposit'),
     note,
     null,
     balance + amount,
