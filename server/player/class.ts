@@ -262,8 +262,6 @@ export class OxPlayer extends ClassInterface {
         }
       }
     }
-
-    return [];
   }
 
   getGroupByType(type: string) {

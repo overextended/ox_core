@@ -126,8 +126,6 @@ class PlayerSingleton {
         }
       }
     }
-
-    return [];
   }
 
   getGroupByType(type: string) {
