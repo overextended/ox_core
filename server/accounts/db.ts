@@ -2,35 +2,91 @@ import { db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
 import locales from '../../common/locales';
+import { getRandomInt } from '@overextended/ox_lib';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
-const addTransaction = `INSERT INTO accounts_transactions (fromId, toId, amount, message) VALUES (?, ?, ?, ?)`;
+const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
 
-export async function UpdateBalance(id: number, amount: number, action: 'add' | 'remove', overdraw: boolean, message?: string) {
+async function GenerateAccountId() {
+  const arr = [];
+
+  while (true) {
+    arr[0] = getRandomInt(1, 9);
+
+    for (let i = 1; i < 6; i++) arr[i] = getRandomInt();
+
+    const accountId = Number(arr.join(''));
+    if (await IsAccountIdAvailable(accountId)) return accountId;
+  }
+}
+
+export async function UpdateBalance(
+  id: number,
+  amount: number,
+  action: 'add' | 'remove',
+  overdraw: boolean,
+  message?: string,
+  note?: string
+) {
+  using conn = await db.getConnection();
+
+  const balance = db.scalar<number>(await conn.execute(getBalance, [id]));
+  if (balance === null) return 'no_balance';
+
+  const addAction = action === 'add';
+
   return (
-    (await db.update(action === 'add' ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [
+    (await db.update(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount])) ===
+      1 &&
+    (await db.update(addTransaction, [
+      null,
+      addAction ? null : id,
+      addAction ? id : null,
       amount,
-      id,
-      amount,
-    ])) === 1 &&
-    (await db.update(addTransaction, [action === 'add' ? null : id, action === 'add' ? id : null, amount, message])) === 1
+      message,
+      note,
+      addAction ? null : balance + amount,
+      addAction ? balance + amount : null,
+    ])) === 1
   );
 }
 
-export async function PerformTransaction(fromId: number, toId: number, amount: number, overdraw: boolean, message?: string) {
+export async function PerformTransaction(
+  fromId: number,
+  toId: number,
+  amount: number,
+  overdraw: boolean,
+  message?: string,
+  note?: string,
+  actorId?: number
+) {
   using conn = await db.getConnection();
+
+  const fromBalance = db.scalar<number>(await conn.execute(getBalance, [fromId]));
+  const toBalance = db.scalar<number>(await conn.execute(getBalance, [toId]));
+  if (fromBalance === null || toBalance === null) return 'no_balance';
+
   await conn.beginTransaction();
 
   try {
     const a =
       (await conn.execute(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount])).affectedRows === 1;
-
     const b = (await conn.execute(addBalance, [amount, toId])).affectedRows === 1;
 
     if (a && b) {
-      await conn.execute(addTransaction, [fromId, toId, amount, message]);
+      await conn.execute(addTransaction, [
+        actorId,
+        fromId,
+        toId,
+        amount,
+        message ?? locales('transfer'),
+        note,
+        fromBalance - amount,
+        toBalance + amount,
+      ]);
       await conn.commit();
       return true;
     }
@@ -63,6 +119,10 @@ export async function SelectAllAccounts(id: number) {
   );
 }
 
+export async function IsAccountIdAvailable(id: number) {
+  return !(await db.exists('SELECT 1 FROM accounts WHERE id = ?', [id]));
+}
+
 export async function CreateNewAccount(
   column: 'owner' | 'group',
   id: string | number,
@@ -70,14 +130,14 @@ export async function CreateNewAccount(
   shared?: boolean,
   isDefault?: boolean
 ) {
-  const accountId = await db.insert(`INSERT INTO accounts (label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?)`, [
-    label,
-    id,
-    shared ? 'shared' : 'personal',
-    isDefault || 0,
-  ]);
+  const accountId = await GenerateAccountId();
+  const result =
+    (await db.execute<boolean>(
+      `INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`,
+      [accountId, label, id, shared ? 'shared' : 'personal', isDefault || 0]
+    )).affectedRows === 1;
 
-  if (accountId)
+  if (result)
     db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
 
   return accountId;
@@ -93,20 +153,29 @@ export function SelectAccountRole(accountId: number, charId: number) {
   return db.column<OxAccount['role']>(selectAccountRole, [accountId, charId]);
 }
 
-export async function DepositMoney(playerId: number, accountId: number, amount: number) {
+export async function DepositMoney(
+  playerId: number,
+  accountId: number,
+  amount: number,
+  mesasge?: string,
+  note?: string
+) {
   const { charId } = OxPlayer.get(playerId);
 
-  if (!charId) return;
+  if (!charId) return 'no_charId';
 
   const money = exports.ox_inventory.GetItemCount(playerId, 'money');
 
-  if (amount > money) return;
+  if (amount > money) return 'insufficient_funds';
 
   using conn = await db.getConnection();
 
+  const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
+  if (balance === null) return 'no_balance';
+
   const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
 
-  if (role !== 'owner') return;
+  if (role !== 'owner') return 'no_access';
 
   await conn.beginTransaction();
 
@@ -117,21 +186,39 @@ export async function DepositMoney(playerId: number, accountId: number, amount: 
     return false;
   }
 
-  await conn.execute(addTransaction, [null, accountId, amount, locales('deposit')]);
+  await conn.execute(addTransaction, [
+    charId,
+    null,
+    accountId,
+    amount,
+    mesasge ?? locales('deposit'),
+    note,
+    null,
+    balance + amount,
+  ]);
   conn.commit();
   return true;
 }
 
-export async function WithdrawMoney(playerId: number, accountId: number, amount: number) {
+export async function WithdrawMoney(
+  playerId: number,
+  accountId: number,
+  amount: number,
+  message?: string,
+  note?: string
+) {
   const { charId } = OxPlayer.get(playerId);
 
-  if (!charId) return;
+  if (!charId) return 'no_charId';
 
   using conn = await db.getConnection();
 
   const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
 
-  if (role !== 'owner' && role !== 'manager') return;
+  if (role !== 'owner' && role !== 'manager') return 'no_access';
+
+  const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
+  if (balance === null) return 'no_balance';
 
   await conn.beginTransaction();
 
@@ -142,7 +229,16 @@ export async function WithdrawMoney(playerId: number, accountId: number, amount:
     return false;
   }
 
-  await conn.execute(addTransaction, [accountId, null, amount, locales('withdraw')]);
+  await conn.execute(addTransaction, [
+    charId,
+    accountId,
+    null,
+    amount,
+    message ?? locales('withdraw'),
+    note,
+    balance - amount,
+    null
+  ]);
   conn.commit();
   return true;
 }
