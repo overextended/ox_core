@@ -39,9 +39,9 @@ export async function UpdateBalance(
   const addAction = action === 'add';
 
   return (
-    (await db.update(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount])) ===
-      1 &&
-    (await db.update(addTransaction, [
+    (await conn.execute(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]))
+      ?.affectedRows === 1 &&
+    (await conn.execute(addTransaction, [
       null,
       addAction ? null : id,
       addAction ? id : null,
@@ -50,7 +50,7 @@ export async function UpdateBalance(
       note,
       addAction ? null : balance + amount,
       addAction ? balance + amount : null,
-    ])) === 1
+    ]))
   );
 }
 
