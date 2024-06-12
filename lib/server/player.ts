@@ -7,8 +7,8 @@ class PlayerInterface {
   constructor(
     public source: number,
     public userId: number,
-    public charId: number,
-    public stateId: string,
+    public charId: number | undefined,
+    public stateId: string | undefined,
     public username: string,
     public identifier: string,
     public ped: number
