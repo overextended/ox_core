@@ -144,14 +144,17 @@ export async function getConnection() {
 setImmediate(async () => {
   try {
     pool = createPool(connectionConfig);
-    isServerConnected = true;
 
     // pool.on('release', () => {
     //   console.log('released conn');
     // });
 
-    const version = await db.column<string>('SELECT VERSION() as version');
+    const version: string = (await pool.execute('SELECT VERSION() as version'))[0].version;
 
+    if (!version.toLowerCase().match('mariadb'))
+      return console.error(`ox_core is specifically designed for use with MariaDB. You are using ${version}.`);
+
+    isServerConnected = true;
     console.log(`${`^5[${version}]`} ^2Database server connection established!^0`);
   } catch (err) {
     console.log(
