@@ -75,8 +75,8 @@ export async function PerformTransaction(
 
   try {
     const a =
-      (await conn.execute(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount])).affectedRows === 1;
-    const b = (await conn.execute(addBalance, [amount, toId])).affectedRows === 1;
+      (await conn.execute(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]))?.affectedRows === 1;
+    const b = (await conn.execute(addBalance, [amount, toId]))?.affectedRows === 1;
 
     if (a && b) {
       await conn.execute(addTransaction, [
@@ -188,7 +188,7 @@ export async function DepositMoney(
 
   await conn.beginTransaction();
 
-  const { affectedRows } = await conn.execute(addBalance, [amount, accountId]);
+  const affectedRows = (await conn.execute(addBalance, [amount, accountId]))?.affectedRows;
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
     conn.rollback();
@@ -232,7 +232,7 @@ export async function WithdrawMoney(
 
   await conn.beginTransaction();
 
-  const { affectedRows } = await conn.execute(safeRemoveBalance, [amount, accountId, amount]);
+  const affectedRows = (await conn.execute(safeRemoveBalance, [amount, accountId, amount]))?.affectedRows;
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
     conn.rollback();
