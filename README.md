@@ -1,34 +1,23 @@
-## Installation
+# ox_core
 
-The rewrite is still a work in progress - the docs will not be updated to reflected changes until finalised.
+A modern FiveM framework.
 
-- Download and install the LTS version of Node.js.
-- Open a command-line terminal (e.g. Terminal, Command Prompt).
-- Enter node --version to confirm successful installation.
-- Enter `npm install -g pnpm` to globally install the package.
-- Download or clone the repo with `git clone https://github.com/overextended/ox_core`.
-- Download and install [MariaDB Community Server](https://mariadb.com/downloads/community/community-server/).
-- Execute the queries in `sql/install.sql` in your database.
-- Install all dependencies with `pnpm i`.
-- Build the resource with `pnpm build`.
+![](https://img.shields.io/github/downloads/overextended/ox_core/total?logo=github)
+![](https://img.shields.io/github/downloads/overextended/ox_core/latest/total?logo=github)
+![](https://img.shields.io/github/contributors/overextended/ox_core?logo=github)
+![](https://img.shields.io/github/v/release/overextended/ox_core?logo=github) 
 
-Use `pnpm watch` to rebuild whenever a file is modified.
-
-~~Refer to our [documentation](https://overextended.github.io/docs/ox_core/) for installing and setting up ox_core on your server.~~
-
-## Database
-
-This project is designed to be used with [MariaDB](https://mariadb.com/downloads/) and utilises [mariadb-connector-nodejs](https://github.com/mariadb-corporation/mariadb-connector-nodejs).
+## 🔗 Links
+- 📚 [Documentation](https://overextended.dev/ox_core)
+  - For installation, setup, and everything else.
+- 🧾 [txAdmin recipe](https://github.com/overextended/txAdminRecipe)
+  - Install and configure ox_core in minutes.
+- 📦 [npm](https://www.npmjs.com/package/@overextended/ox_core)
+  - Use our npm package to create JavaScript resources using ox_core.
 
 ## Third-party resources
 
 When releasing a resource using the this framework _do not use the ox prefix_. This creates confusion about the creator of the resource, and causes conflicts between similarly named resources.
-
-## Sample usage
-
-todo
-
-~~Refer to [ox_core-example](https://github.com/overextended/ox_core-example) for some sample code. This should give some idea of how to use player and vehicle refs.~~
 
 ## Copyright
 
