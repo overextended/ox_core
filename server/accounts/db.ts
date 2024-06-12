@@ -136,16 +136,18 @@ export async function CreateNewAccount(
 
   const accountId = await GenerateAccountId(conn);
   const result =
-    (await db.update(`INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`, [
-      accountId,
-      label,
-      id,
-      shared ? 'shared' : 'personal',
-      isDefault || 0,
-    ])) === 1;
+    (
+      await conn.execute(`INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`, [
+        accountId,
+        label,
+        id,
+        shared ? 'shared' : 'personal',
+        isDefault || 0,
+      ])
+    )?.affectedRows === 1;
 
-  if (result)
-    db.insert(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
+  if (result && typeof id === 'number')
+    conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
 
   return accountId;
 }
@@ -176,8 +178,8 @@ export async function DepositMoney(
   if (amount > money) return 'insufficient_funds';
 
   using conn = await db.getConnection();
-
   const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
+
   if (balance === null) return 'no_balance';
 
   const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
@@ -204,6 +206,7 @@ export async function DepositMoney(
     balance + amount,
   ]);
   conn.commit();
+
   return true;
 }
 
