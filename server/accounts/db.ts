@@ -89,7 +89,7 @@ export async function PerformTransaction(
         fromBalance - amount,
         toBalance + amount,
       ]);
-      await conn.commit();
+
       return true;
     }
   } catch (e) {
@@ -205,7 +205,6 @@ export async function DepositMoney(
     null,
     balance + amount,
   ]);
-  conn.commit();
 
   return true;
 }
@@ -249,7 +248,7 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
-  conn.commit();
+
   return true;
 }
 

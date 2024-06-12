@@ -125,6 +125,8 @@ const connectionConfig: PoolConfig = (() => {
 })();
 
 class Connection {
+  public transaction?: boolean;
+
   constructor(public connection: PoolConnection) {}
 
   async execute<T = MySqlRow[] & OkPacket>(query: string | QueryOptions, values?: any[]) {
@@ -136,10 +138,12 @@ class Connection {
   }
 
   beginTransaction() {
+    this.transaction = true;
     return this.connection.beginTransaction();
   }
 
   rollback() {
+    delete this.transaction;
     return this.connection.rollback();
   }
 
@@ -148,6 +152,7 @@ class Connection {
   }
 
   [Symbol.dispose]() {
+    if (this.transaction) this.commit();
     this.connection.release();
   }
 }
