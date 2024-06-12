@@ -95,8 +95,8 @@ export function CreateAccount(charId: number, label: string, shared?: boolean) {
   return CreateNewAccount('owner', charId, label, shared);
 }
 
-export function CreateGroupAccount(group: string, label: string, shared?: boolean) {
-  return CreateNewAccount('group', group, label, shared);
+export function CreateGroupAccount(group: string, label: string) {
+  return CreateNewAccount('group', group, label, true);
 }
 
 export async function GetAccountRole(accountId: number, id: number | string) {
