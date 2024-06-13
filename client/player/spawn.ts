@@ -141,10 +141,6 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
 
 netEvent('ox:setActiveCharacter', async (character: Character) => {
   if (CHARACTER_SELECT) {
-    AllowPlayerSwitchAscent(false);
-    AllowPlayerSwitchDescent(false);
-    AllowPlayerSwitchOutro(false);
-    AllowPlayerSwitchPan(false);
     DisableSwitchOutroFx();
     SwitchInPlayer(PlayerPedId());
     SetGameplayCamRelativeHeading(0);
