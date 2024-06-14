@@ -1,4 +1,4 @@
-import { DbConnection, db } from 'db';
+import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
 import locales from '../../common/locales';
@@ -11,7 +11,7 @@ const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId
 const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
 const doesAccountExist = `SELECT 1 FROM accounts WHERE id = ?`;
 
-async function GenerateAccountId(conn: DbConnection) {
+async function GenerateAccountId(conn: Connection) {
   const date = new Date();
   const year = date.getFullYear().toString().slice(-2);
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -33,7 +33,7 @@ export async function UpdateBalance(
   message?: string,
   note?: string
 ) {
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
 
   const balance = db.scalar<number>(await conn.execute(getBalance, [id]));
   if (balance === null) return 'no_balance';
@@ -65,10 +65,11 @@ export async function PerformTransaction(
   note?: string,
   actorId?: number
 ) {
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
 
   const fromBalance = db.scalar<number>(await conn.execute(getBalance, [fromId]));
   const toBalance = db.scalar<number>(await conn.execute(getBalance, [toId]));
+
   if (fromBalance === null || toBalance === null) return 'no_balance';
 
   await conn.beginTransaction();
@@ -132,7 +133,7 @@ export async function CreateNewAccount(
   shared?: boolean,
   isDefault?: boolean
 ) {
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
 
   const accountId = await GenerateAccountId(conn);
   const result =
@@ -177,7 +178,7 @@ export async function DepositMoney(
 
   if (amount > money) return 'insufficient_funds';
 
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
   const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
 
   if (balance === null) return 'no_balance';
@@ -220,7 +221,7 @@ export async function WithdrawMoney(
 
   if (!charId) return 'no_charId';
 
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
 
   const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
 

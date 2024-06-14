@@ -1,4 +1,4 @@
-import { db } from 'db';
+import { GetConnection, db } from 'db';
 import type { DbGroup } from 'types';
 
 export function SelectGroups() {
@@ -43,7 +43,7 @@ export function GetCharacterGroups(charId: number) {
 }
 
 export async function SetActiveGroup(charId: number, groupName?: string) {
-  using conn = await db.getConnection();
+  using conn = await GetConnection();
   const params: [number, string?] = [charId];
 
   conn.execute(`UPDATE character_groups SET isActive = 0 WHERE charId = ? AND isActive = 1`, params);
