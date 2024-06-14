@@ -19,7 +19,7 @@ async function GenerateAccountId(conn: Connection) {
 
   while (true) {
     const accountId = getRandomInt(1, 3) * 1e9 + baseId + getRandomInt(0, 99999);
-    const existingId = db.scalar<number>(await conn.execute(doesAccountExist, [accountId]));
+    const existingId = await conn.scalar<number>(doesAccountExist, [accountId]);
 
     if (!existingId) return accountId;
   }
@@ -35,14 +35,14 @@ export async function UpdateBalance(
 ) {
   using conn = await GetConnection();
 
-  const balance = db.scalar<number>(await conn.execute(getBalance, [id]));
+  const balance = await conn.scalar<number>(getBalance, [id]);
+
   if (balance === null) return 'no_balance';
 
   const addAction = action === 'add';
 
   return (
-    (await conn.execute(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]))
-      ?.affectedRows === 1 &&
+    (await conn.update(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount])) &&
     (await conn.execute(addTransaction, [
       null,
       addAction ? null : id,
@@ -67,17 +67,16 @@ export async function PerformTransaction(
 ) {
   using conn = await GetConnection();
 
-  const fromBalance = db.scalar<number>(await conn.execute(getBalance, [fromId]));
-  const toBalance = db.scalar<number>(await conn.execute(getBalance, [toId]));
+  const fromBalance = await conn.scalar<number>(getBalance, [fromId]);
+  const toBalance = await conn.scalar<number>(getBalance, [toId]);
 
   if (fromBalance === null || toBalance === null) return 'no_balance';
 
   await conn.beginTransaction();
 
   try {
-    const a =
-      (await conn.execute(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]))?.affectedRows === 1;
-    const b = (await conn.execute(addBalance, [amount, toId]))?.affectedRows === 1;
+    const a = await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]);
+    const b = await conn.update(addBalance, [amount, toId]);
 
     if (a && b) {
       await conn.execute(addTransaction, [
@@ -136,16 +135,10 @@ export async function CreateNewAccount(
   using conn = await GetConnection();
 
   const accountId = await GenerateAccountId(conn);
-  const result =
-    (
-      await conn.execute(`INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`, [
-        accountId,
-        label,
-        id,
-        shared ? 'shared' : 'personal',
-        isDefault || 0,
-      ])
-    )?.affectedRows === 1;
+  const result = await conn.update(
+    `INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`,
+    [accountId, label, id, shared ? 'shared' : 'personal', isDefault || 0]
+  );
 
   if (result && typeof id === 'number')
     conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
@@ -179,17 +172,17 @@ export async function DepositMoney(
   if (amount > money) return 'insufficient_funds';
 
   using conn = await GetConnection();
-  const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
+  const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null) return 'no_balance';
 
-  const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
+  const role = await conn.scalar<string>(selectAccountRole, [accountId, charId]);
 
   if (role !== 'owner') return 'no_access';
 
   await conn.beginTransaction();
 
-  const affectedRows = (await conn.execute(addBalance, [amount, accountId]))?.affectedRows;
+  const affectedRows = await conn.update(addBalance, [amount, accountId]);
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
     conn.rollback();
@@ -223,16 +216,17 @@ export async function WithdrawMoney(
 
   using conn = await GetConnection();
 
-  const role = db.scalar<string>(await conn.execute(selectAccountRole, [accountId, charId]));
+  const role = await conn.scalar<string>(selectAccountRole, [accountId, charId]);
 
   if (role !== 'owner' && role !== 'manager') return 'no_access';
 
-  const balance = db.scalar<number>(await conn.execute(getBalance, [accountId]));
+  const balance = await conn.scalar<number>(getBalance, [accountId]);
+
   if (balance === null) return 'no_balance';
 
   await conn.beginTransaction();
 
-  const affectedRows = (await conn.execute(safeRemoveBalance, [amount, accountId, amount]))?.affectedRows;
+  const affectedRows = await conn.update(safeRemoveBalance, [amount, accountId, amount]);
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
     conn.rollback();
