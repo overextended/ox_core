@@ -66,7 +66,7 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
 
   if (!CHARACTER_SELECT) return;
 
-  SwitchOutPlayer(cache.ped, 1, 1);
+  SwitchOutPlayer(cache.ped, 1 | 8192, 1);
 
   while (GetPlayerSwitchState() !== 5) await sleep(0);
 
