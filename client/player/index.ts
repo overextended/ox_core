@@ -199,6 +199,4 @@ class PlayerSingleton {
 
 export const OxPlayer = new PlayerSingleton();
 
-import './spawn';
-import './death';
 import './status';

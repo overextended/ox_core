@@ -1,7 +1,7 @@
 import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
 import { Vector3, Vector4 } from '@nativewrappers/fivem';
 import { OxPlayer } from 'player';
-import { DEBUG } from 'config';
+import { DEATH_SYSTEM, DEBUG } from 'config';
 
 const hospitals = [
   new Vector4(340.5, -1396.8, 32.5, 60.1),
@@ -28,7 +28,6 @@ let playerIsDead = false;
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
-  OxPlayer.state.set('isDead', false, true);
   playerIsDead = false;
 
   clearTick(tickId);
@@ -71,18 +70,25 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
   SetPlayerInvincible(cache.playerId, false);
 
   for (let index = 0; index < anims.length; index++) RemoveAnimDict(anims[index][0]);
+
+  OxPlayer.state.set('isDead', false, true);
+  emit('ox:playerRevived');
 }
 
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
   OxPlayer.state.set('isDead', true, true);
+  emit('ox_inventory:disarm');
+  emit('ox:playerDeath');
+
   playerIsDead = true;
+
+  if (!DEATH_SYSTEM) return;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);
 
   ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0);
-  emit('ox_inventory:disarm');
 
   let bleedOut = 0;
   const tickId = setTick(() => {
