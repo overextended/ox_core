@@ -28,7 +28,6 @@ let playerIsDead = false;
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
-  playerIsDead = false;
 
   clearTick(tickId);
 
@@ -82,8 +81,6 @@ async function OnPlayerDeath() {
   emit('ox_inventory:disarm');
   emit('ox:playerDeath');
 
-  playerIsDead = true;
-
   if (!DEATH_SYSTEM) return;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);
@@ -115,6 +112,20 @@ async function OnPlayerDeath() {
   SetEntityHealth(cache.ped, health);
   SetEveryoneIgnorePlayer(cache.playerId, true);
 }
+
+AddStateBagChangeHandler(
+  'isDead',
+  `player:${cache.serverId}`,
+  async (bagName: string, key: string, value: any, reserved: number, replicated: boolean) => {
+    if (!replicated) return;
+
+    playerIsDead = value;
+  }
+);
+
+on('ox:playerLogout', () => {
+  playerIsDead = false;
+});
 
 on('ox:playerLoaded', () => {
   const id: CitizenTimer = setInterval(() => {
