@@ -145,7 +145,7 @@ netEvent('ox:setActiveCharacter', async (character: Character) => {
     SetGameplayCamRelativeHeading(0);
   }
 
-  await waitFor(() => (IsScreenFadedIn() && GetPlayerSwitchState() === 12 ? true : undefined), '', 0);
+  await waitFor(() => (IsScreenFadedIn() && !IsPlayerSwitchInProgress() ? true : undefined), '', 0);
 
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
   SetPedArmour(cache.ped, character.armour ?? 0);
