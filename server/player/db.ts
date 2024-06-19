@@ -44,7 +44,7 @@ export function GetCharacters(userId: number) {
 
 export function SaveCharacterData(values: any[] | any[][], batch?: boolean) {
   const query =
-    'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, isDead = ?, lastPlayed = CURRENT_DATE(), health = ?, armour = ?, statuses = ? WHERE charId = ?';
+    'UPDATE characters SET x = ?, y = ?, z = ?, heading = ?, isDead = ?, lastPlayed = CURRENT_TIMESTAMP(), health = ?, armour = ?, statuses = ? WHERE charId = ?';
 
   return batch ? db.batch(query, values) : db.update(query, values);
 }
