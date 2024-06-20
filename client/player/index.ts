@@ -1,5 +1,5 @@
 import { netEvent } from 'utils';
-import type { Character, Dict, OxGroup, OxStatus } from 'types';
+import type { Character, Dict, OxGroup, OxStatus, PlayerMetadata } from 'types';
 import { GetGroupPermissions } from '../../common';
 
 export const Statuses: Dict<OxStatus> = {};
@@ -100,6 +100,7 @@ class PlayerSingleton {
     return this.#state;
   }
 
+  get<K extends string>(key: K | keyof PlayerMetadata): K extends keyof PlayerMetadata ? PlayerMetadata[K] : any
   get(key?: string) {
     if (!key) return OxPlayer;
 
