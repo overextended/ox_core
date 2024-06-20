@@ -181,8 +181,8 @@ export class OxPlayer extends ClassInterface {
     return GetCharacterAccounts(this.charId, getShared);
   }
 
-  setActiveGroup(groupName: string, temp?: boolean) {
-    if (!this.charId || !(groupName in this.#groups)) return false;
+  setActiveGroup(groupName?: string, temp?: boolean) {
+    if (!this.charId || (groupName && !(groupName in this.#groups))) return false;
 
     SetActiveGroup(this.charId, temp ? undefined : groupName);
 
