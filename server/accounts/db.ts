@@ -15,10 +15,10 @@ async function GenerateAccountId(conn: Connection) {
   const date = new Date();
   const year = date.getFullYear().toString().slice(-2);
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  const baseId = Number(year + month) * 1e5;
+  const baseId = Number(year + month) * 1e3;
 
   while (true) {
-    const accountId = getRandomInt(1, 3) * 1e9 + baseId + getRandomInt(0, 99999);
+    const accountId = getRandomInt(10, 99) * 1e7 + baseId + getRandomInt(0, 9999);
     const existingId = await conn.scalar<number>(doesAccountExist, [accountId]);
 
     if (!existingId) return accountId;
