@@ -147,7 +147,7 @@ export async function CreateNewAccount(
 }
 
 export function DeleteAccount(accountId: number) {
-  return db.update(`DELETE FROM accounts WHERE id = ?`, [accountId]);
+  return db.update(`UPDATE accounts SET \`type\` = 'inactive' WHERE id = ?`, [accountId]);
 }
 
 const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
