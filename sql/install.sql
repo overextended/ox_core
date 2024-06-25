@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `isDefault` TINYINT (1) DEFAULT 0 NOT NULL,
   `type` ENUM ('personal', 'shared', 'group') DEFAULT 'personal' NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `accounts_owner_fk` FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `accounts_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `accounts_owner_fk` FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`) ON UPDATE SET NULL ON DELETE SET NULL,
+  CONSTRAINT `accounts_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE SET NULL ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS `accounts_access` (
