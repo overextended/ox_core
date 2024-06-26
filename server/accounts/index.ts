@@ -2,7 +2,6 @@ import {
   CreateNewAccount,
   DeleteAccount,
   DepositMoney,
-  SelectAccountRole,
   PerformTransaction,
   UpdateAccountAccess,
   SelectAccount,
@@ -11,6 +10,7 @@ import {
   SelectDefaultAccount,
   UpdateBalance,
   WithdrawMoney,
+  GetAccountPermission,
 } from './db';
 import { GetCharIdFromStateId } from 'player/db';
 
@@ -99,14 +99,14 @@ export function CreateGroupAccount(group: string, label: string) {
   return CreateNewAccount('group', group, label, true);
 }
 
-export async function GetAccountRole(accountId: number, id: number | string) {
+export async function HasAccountAccess(accountId: number, id: number | string, permission: string) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return (charId && SelectAccountRole(accountId, charId)) || null;
+  return (charId && GetAccountPermission(accountId, charId, permission)) || null;
 }
 
-export async function SetAccountAccess(accountId: number, id: number | string, role: string) {
+export async function SetAccountAccess(accountId: number, id: number | string, permission: string, value: boolean) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return charId && UpdateAccountAccess(accountId, charId, role);
+  return charId && UpdateAccountAccess(accountId, charId, permission, value);
 }
 
 export async function RemoveAccountAccess(accountId: number, id: number | string) {
@@ -125,7 +125,7 @@ exports('TransferAccountBalance', TransferAccountBalance);
 exports('CreateAccount', CreateAccount);
 exports('CreateGroupAccount', CreateGroupAccount);
 exports('DeleteAccount', DeleteAccount);
-exports('GetAccountRole', GetAccountRole);
+exports('HasAccountAccess', HasAccountAccess);
 exports('DepositMoney', DepositMoney);
 exports('WithdrawMoney', WithdrawMoney);
 exports('SetAccountAccess', SetAccountAccess);
