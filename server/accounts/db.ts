@@ -34,25 +34,27 @@ export async function UpdateBalance(
   note?: string
 ) {
   using conn = await GetConnection();
-
   const balance = await conn.scalar<number>(getBalance, [id]);
 
   if (balance === null) return 'no_balance';
 
   const addAction = action === 'add';
+  const success = addAction
+    ? await conn.update(addBalance, [amount, id])
+    : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]);
 
   return (
-    (await conn.update(addAction ? addBalance : overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount])) &&
-    (await conn.execute(addTransaction, [
+    success &&
+    (await conn.update(addTransaction, [
       null,
       addAction ? null : id,
       addAction ? id : null,
       amount,
       message,
       note,
-      addAction ? null : balance + amount,
-      addAction ? balance + amount : null,
-    ]))
+      addAction ? balance : balance + amount,
+      addAction ? balance + amount : balance,
+    ])) === 1
   );
 }
 
