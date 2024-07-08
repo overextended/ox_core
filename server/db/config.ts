@@ -57,9 +57,10 @@ export function GetConfig(): PoolConfig {
 
   return {
     connectTimeout: 60000,
+    connectionLimit: 5,
+    acquireTimeout: 30000,
     ...options,
     namedPlaceholders: false,
-    connectionLimit: true,
     multipleStatements: true,
     dateStrings: true,
     insertIdAsNumber: true,
