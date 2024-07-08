@@ -143,7 +143,7 @@ export async function CreateNewAccount(
   );
 
   if (result && typeof id === 'number')
-    conn.execute(`INSERT INTO accounts_access (accountId, charId, canView, canDeposit, canWithdraw) VALUE (?, ?, ?, ?, ?)`, [accountId, id, true, true, true]);
+    conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
 
   return accountId;
 }
