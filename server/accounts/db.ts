@@ -1,10 +1,9 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountPermissions, OxAccountRoles } from 'types';
+import type { OxAccount, OxAccountRoles } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
-import { CheckRolePermission } from './roles';
-import { GetGroup } from 'groups';
+import { CanPerformAction } from './roles';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -158,26 +157,6 @@ const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? 
 
 export function SelectAccountRole(accountId: number, charId: number) {
   return db.column<OxAccount['role']>(selectAccountRole, [accountId, charId]);
-}
-
-async function CanPerformAction(
-  player: OxPlayer,
-  accountId: number,
-  role: OxAccountRoles | null,
-  action: keyof OxAccountPermissions
-) {
-  if (CheckRolePermission(role, action)) return true;
-
-  const groupName = (await SelectAccount(accountId))?.group;
-
-  if (groupName) {
-    const group = GetGroup(groupName);
-    const groupRole = group.accountRoles[player.getGroup(groupName)];
-
-    if (CheckRolePermission(groupRole, action)) return true;
-  }
-
-  return false;
 }
 
 export async function DepositMoney(

@@ -23,9 +23,18 @@ import {
   UpdateCharacterGroup,
   SetActiveGroup,
 } from 'groups/db';
-import { GetCharacterAccount, GetCharacterAccounts } from 'accounts';
-import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
+import { GetAccountRole, GetCharacterAccount, GetCharacterAccounts } from 'accounts';
+import type {
+  Character,
+  Dict,
+  NewCharacter,
+  PlayerMetadata,
+  OxGroup,
+  CharacterLicense,
+  OxAccountPermissions,
+} from 'types';
 import { GetGroupPermissions } from '../../common';
+import { CanPerformAction } from 'accounts/roles';
 
 export type PlayerInstance = InstanceType<typeof OxPlayer>;
 
@@ -184,6 +193,12 @@ export class OxPlayer extends ClassInterface {
   getAccounts(getShared?: boolean) {
     if (!this.charId) return;
     return GetCharacterAccounts(this.charId, getShared);
+  }
+
+  async hasAccountPermission(accountId: number, action: keyof OxAccountPermissions) {
+    return (
+      this.charId && CanPerformAction(this, accountId, (await GetAccountRole(accountId, this.charId)) || null, action)
+    );
   }
 
   setActiveGroup(groupName?: string, temp?: boolean) {
