@@ -70,10 +70,10 @@ CREATE TABLE IF NOT EXISTS `ox_group_grades` (
   `group` VARCHAR(20) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL DEFAULT 1,
   `label` VARCHAR(50) NOT NULL,
-  `accountRole` VARCHAR(50) NULL DEFAULT NULL
+  `accountRole` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`group`, `grade`),
-  CONSTRAINT `ox_group_grades_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-  CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE;
+  CONSTRAINT `ox_group_grades_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `character_groups` (
@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
 );
 
 ALTER TABLE `ox_group_grades`
-  ADD COLUMN `accountRole` VARCHAR(50) NULL DEFAULT NULL AFTER `label`,
+  ADD COLUMN IF NOT EXISTS `accountRole` VARCHAR(50) NULL DEFAULT NULL AFTER `label`,
   ADD CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
