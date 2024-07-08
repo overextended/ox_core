@@ -70,8 +70,10 @@ CREATE TABLE IF NOT EXISTS `ox_group_grades` (
   `group` VARCHAR(20) NOT NULL,
   `grade` TINYINT UNSIGNED NOT NULL DEFAULT 1,
   `label` VARCHAR(50) NOT NULL,
+  `accountRole` VARCHAR(50) NULL DEFAULT NULL
   PRIMARY KEY (`group`, `grade`),
   CONSTRAINT `ox_group_grades_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE;
 );
 
 CREATE TABLE IF NOT EXISTS `character_groups` (
@@ -156,14 +158,38 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   CONSTRAINT `accounts_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE SET NULL ON DELETE SET NULL
 );
 
+CREATE TABLE `account_roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL DEFAULT '',
+  `deposit` TINYINT(1) NOT NULL DEFAULT '0',
+  `withdraw` TINYINT(1) NOT NULL DEFAULT '0',
+  `addUser` TINYINT(1) NOT NULL DEFAULT '0',
+  `removeUser` TINYINT(1) NOT NULL DEFAULT '0',
+  `manageUser` TINYINT(1) NOT NULL DEFAULT '0',
+  `transferOwnership` TINYINT(1) NOT NULL DEFAULT '0',
+  `viewHistory` TINYINT(1) NOT NULL DEFAULT '0',
+  `manageAccount` TINYINT(1) NOT NULL DEFAULT '0',
+  `closeAccount` TINYINT(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name` (`name`)
+);
+
+INSERT INTO `account_roles` (`id`, `name`, `deposit`, `withdraw`, `addUser`, `removeUser`, `manageUser`, `transferOwnership`, `viewHistory`, `manageAccount`, `closeAccount`) VALUES
+  (1, 'Viewer', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  (2, 'Contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0),
+  (3, 'Manager', 1, 1, 1, 1, 1, 0, 1, 1, 0),
+  (4, 'Owner', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
 CREATE TABLE IF NOT EXISTS `accounts_access` (
   `accountId` INT UNSIGNED NOT NULL,
   `charId` INT UNSIGNED NOT NULL,
-  `role` ENUM ('contributor', 'manager', 'owner') NOT NULL,
+  `role` VARCHAR(50) NOT NULL DEFAULT 'Viewer',
   PRIMARY KEY (`accountId`, `charId`),
   CONSTRAINT `accounts_access_accountId_fk` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `accounts_access_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `accounts_access_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_accounts_access_account_roles` FOREIGN KEY (`role`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 
 CREATE TABLE IF NOT EXISTS `accounts_transactions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -181,6 +207,11 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
   CONSTRAINT `accounts_transactions_fromId_fk` FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accounts_transactions_toId_fk` FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+ALTER TABLE `ox_group_grades`
+  ADD COLUMN `accountRole` VARCHAR(50) NULL DEFAULT NULL AFTER `label`,
+  ADD CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE;
+
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 

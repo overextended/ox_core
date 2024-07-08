@@ -124,6 +124,7 @@ export interface DbGroup {
   name: string;
   label: string;
   grades: string[];
+  accountRoles: Dict<OxAccountRoles>;
   type?: string;
   colour?: number;
 }
@@ -135,4 +136,18 @@ export interface OxGroup extends DbGroup {
 
 export interface OxGroupPermissions {
   [grade: string]: { [permission: string]: boolean };
+}
+
+export type OxAccountRoles = 'viewer' | 'contributor' | 'manager' | 'owner';
+
+export interface OxAccountPermissions {
+  deposit: boolean;
+  withdraw: boolean;
+  addUser: boolean;
+  removeUser: boolean;
+  manageUser: boolean;
+  transferOwnership: boolean;
+  viewHistory: boolean;
+  manageAccount: boolean;
+  closeAccount: boolean;
 }

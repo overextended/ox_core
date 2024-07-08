@@ -1,51 +1,28 @@
-export type AccountRoles = 'contributor' | 'manager' | 'owner';
+import { db } from 'db';
+import type { OxAccountPermissions, OxAccountRoles } from 'types';
 
-export interface AccountPermissions {
-  view?: boolean;
-  deposit?: boolean;
-  withdraw?: boolean;
-  delete?: boolean;
-  addUser?: boolean;
-  removeUser?: boolean;
-  manageUser?: boolean;
-  transferOwnership?: boolean;
-}
+type DbAccountRow = OxAccountPermissions & { id?: number; name?: OxAccountRoles };
 
-const accountRoles = {} as Record<AccountRoles, AccountPermissions>;
+const accountRoles = {} as Record<OxAccountRoles, OxAccountPermissions>;
 
-function AddAccountRole(name: AccountRoles, permissions: AccountPermissions, extend?: AccountRoles) {
-  if (extend) Object.assign(permissions, accountRoles[extend]);
-
-  accountRoles[name] = permissions;
-}
-
-export function CheckRolePermission(roleName: AccountRoles | null, permission: keyof AccountPermissions) {
+export function CheckRolePermission(roleName: OxAccountRoles | null, permission: keyof OxAccountPermissions) {
   if (!roleName) return;
 
   return accountRoles?.[roleName]?.[permission];
 }
 
-AddAccountRole('contributor', {
-  view: true,
-  deposit: true,
-});
+async function LoadRoles() {
+  const roles = await db.execute<DbAccountRow>(`SELECT * FROM account_roles`);
 
-AddAccountRole(
-  'manager',
-  {
-    withdraw: true,
-    delete: true,
-    addUser: true,
-    removeUser: true,
-  },
-  'contributor'
-);
+  if (!roles[0]) return;
 
-AddAccountRole(
-  'owner',
-  {
-    manageUser: true,
-    transferOwnership: true,
-  },
-  'manager'
-);
+  roles.forEach((role) => {
+    const roleName = role.name as OxAccountRoles;
+    delete role.name;
+    delete role.id;
+
+    accountRoles[roleName] = role;
+  });
+}
+
+setImmediate(LoadRoles);

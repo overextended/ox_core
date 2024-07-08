@@ -4,7 +4,8 @@ import type { DbGroup } from 'types';
 export function SelectGroups() {
   return db.query<DbGroup>(`
     SELECT 
-      ox_groups.*, 
+      ox_groups.*,
+      JSON_OBJECTAGG(ox_group_grades.grade, ox_group_grades.accountRole) AS accountRoles,
       JSON_ARRAYAGG(ox_group_grades.label ORDER BY ox_group_grades.grade) AS grades
     FROM 
         ox_groups
