@@ -159,9 +159,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 CREATE TABLE IF NOT EXISTS `accounts_access` (
   `accountId` INT UNSIGNED NOT NULL,
   `charId` INT UNSIGNED NOT NULL,
-  `canView` TINYINT(1) NOT NULL DEFAULT '1',
-  `canDeposit` TINYINT(1) NOT NULL DEFAULT '0',
-  `canWithdraw` TINYINT(1) NOT NULL DEFAULT '0',
+  `role` ENUM ('contributor', 'manager', 'owner') NOT NULL,
   PRIMARY KEY (`accountId`, `charId`),
   CONSTRAINT `accounts_access_accountId_fk` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accounts_access_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE

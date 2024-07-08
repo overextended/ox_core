@@ -10,7 +10,7 @@ import type {
   CreateGroupAccount,
   GetCharacterAccount,
   GetGroupAccount,
-  HasAccountAccess,
+  GetAccountRole,
   RemoveAccountAccess,
   SetAccountAccess,
 } from 'server/accounts';
@@ -32,7 +32,7 @@ interface OxServer extends OxCommon {
   CreateAccount: typeof CreateAccount;
   CreateGroupAccount: typeof CreateGroupAccount;
   DeleteAccount: typeof DeleteAccount;
-  HasAccountAccess: typeof HasAccountAccess;
+  GetAccountRole: typeof GetAccountRole;
   DepositMoney: typeof DepositMoney;
   WithdrawMoney: typeof WithdrawMoney;
   SetAccountAccess: typeof SetAccountAccess;
