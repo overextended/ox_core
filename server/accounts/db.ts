@@ -52,8 +52,8 @@ export async function UpdateBalance(
       amount,
       message,
       note,
-      addAction ? balance : balance + amount,
-      addAction ? balance + amount : balance,
+      addAction ? null : balance + amount,
+      addAction ? balance + amount : null,
     ])) === 1
   );
 }
@@ -180,7 +180,7 @@ export async function DepositMoney(
 
   const role = await conn.scalar<string>(selectAccountRole, [accountId, charId]);
 
-  if (role !== 'owner') return 'no_access';
+  if (role !== 'contributor' && role !== 'manager' && role !== 'owner') return 'no_access';
 
   await conn.beginTransaction();
 
