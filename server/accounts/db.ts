@@ -3,6 +3,7 @@ import { OxPlayer } from 'player/class';
 import type { OxAccount } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
+import { AccountRoles, CheckRolePermission } from './roles';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -178,9 +179,9 @@ export async function DepositMoney(
 
   if (balance === null) return 'no_balance';
 
-  const role = await conn.scalar<string>(selectAccountRole, [accountId, charId]);
+  const role = await conn.scalar<AccountRoles>(selectAccountRole, [accountId, charId]);
 
-  if (role !== 'contributor' && role !== 'manager' && role !== 'owner') return 'no_access';
+  if (!CheckRolePermission(role, 'deposit')) return 'no_access';
 
   await conn.beginTransaction();
 
@@ -217,10 +218,9 @@ export async function WithdrawMoney(
   if (!charId) return 'no_charId';
 
   using conn = await GetConnection();
+  const role = await conn.scalar<AccountRoles>(selectAccountRole, [accountId, charId]);
 
-  const role = await conn.scalar<string>(selectAccountRole, [accountId, charId]);
-
-  if (role !== 'owner' && role !== 'manager') return 'no_access';
+  if (!CheckRolePermission(role, 'withdraw')) return 'no_access';
 
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
