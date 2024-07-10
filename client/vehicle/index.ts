@@ -84,14 +84,17 @@ AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: s
       i++;
       setVehicleProperties(entity, value);
 
-      if (i > 10) resolve(1);
-      clearInterval(interval);
+      if (i > 10) {
+        resolve(1);
+        clearInterval(interval);
+      }
     }, 100);
   });
 
   const properties = getVehicleProperties(entity);
 
-  if (!doesfivemworkyet(value, properties)) console.error(`vehicle properties probably didn't fully set properly. thanks fivem.`)
+  if (!doesfivemworkyet(value, properties))
+    console.error(`vehicle properties probably didn't fully set properly. thanks fivem.`);
 
   Entity(entity).state.set(key, null, true);
 });
