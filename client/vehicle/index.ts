@@ -79,8 +79,9 @@ AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: s
   // let's set this dumb bullshit in an interval and see if they actually bother setting
   await new Promise((resolve) => {
     let i = 0;
+    let interval: CitizenTimer;
 
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       i++;
       setVehicleProperties(entity, value);
 
