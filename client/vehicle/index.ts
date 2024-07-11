@@ -83,12 +83,13 @@ AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: s
 
     interval = setInterval(() => {
       i++;
-      setVehicleProperties(entity, value);
 
-      if (i > 10) {
-        resolve(1);
-        clearInterval(interval);
+      if (i > 10 || !DoesEntityExist(entity)) {
+        resolve(i > 10 ? 1 : 0);
+        return clearInterval(interval);
       }
+
+      setVehicleProperties(entity, value);
     }, 100);
   });
 
