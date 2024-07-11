@@ -77,7 +77,7 @@ AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: s
 
   // properties and serverside vehicles are one of the most retarded features of fivem
   // let's set this dumb bullshit in an interval and see if they actually bother setting
-  await new Promise((resolve) => {
+  const resolved = await new Promise((resolve) => {
     let i = 0;
     let interval: CitizenTimer;
 
@@ -92,6 +92,8 @@ AddStateBagChangeHandler('vehicleProperties', '', async (bagName: string, key: s
       setVehicleProperties(entity, value);
     }, 100);
   });
+
+  if (!resolved) return;
 
   const properties = getVehicleProperties(entity);
 
