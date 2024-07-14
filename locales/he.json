@@ -1,0 +1,19 @@
+{
+  "empty_slot": "סלוט פנוי",
+  "create_character": "צור דמות חדשה",
+  "select_character_title": "בחירת דמות",
+  "delete_character_title": "מחיקת דמות",
+  "select_character": "בחר דמות",
+  "delete_character": "מחק דמות",
+  "delete_character_confirm": "האם אתה בטוח שאתה רוצה למחוק את הדמות %s %s \n פעולה זו היא פעולה חד פעמית ואי אפשר יהיה לשחזר את הדמות",
+  "firstname": "שם פרטי",
+  "lastname": "שם משפחה",
+  "gender": "מין",
+  "male": "זכר",
+  "female": "נקווה",
+  "non_binary": "לא מוגדר",
+  "date_of_birth": "תאריך לידה",
+  "withdraw": "משוך",
+  "deposit": "הפקד",
+  "transfer": "העברה בנקאית"
+}
