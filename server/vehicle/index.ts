@@ -123,6 +123,18 @@ export async function CreateVehicle(
   state.set('initVehicle', true, true);
   state.set('vehicleProperties', metadata.properties, true);
 
+  let interval: CitizenTimer;
+
+  interval = setInterval(() => {
+    if (GetVehicleNumberPlateText(entity) !== '') {
+      console.log(`Set vehicleProperties for entity ${entity}`);
+      state.set('vehicleProperties', null, true);
+      return clearInterval(interval);
+    }
+
+    if (!DoesEntityExist(entity)) clearInterval(interval);
+  }, 200);
+
   return vehicle;
 }
 
