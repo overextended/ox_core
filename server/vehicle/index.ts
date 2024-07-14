@@ -2,11 +2,10 @@ import { OxVehicle } from './class';
 import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
 import { GetVehicleData } from '../../common/vehicles';
 import { DEBUG } from '../../common/config';
-
 import './class';
 import './commands';
 import './events';
-import { VehicleProperties } from '@overextended/ox_lib';
+import { VehicleProperties, setVehicleProperties } from '@overextended/ox_lib/server';
 import { VectorFromBuffer } from '../../common';
 
 if (DEBUG) import('./parser');
@@ -121,19 +120,7 @@ export async function CreateVehicle(
   const state = vehicle.getState();
 
   state.set('initVehicle', true, true);
-  state.set('vehicleProperties', metadata.properties, true);
-
-  let interval: CitizenTimer;
-
-  interval = setInterval(() => {
-    if (GetVehicleNumberPlateText(entity) !== '') {
-      console.log(`Set vehicleProperties for entity ${entity}`);
-      state.set('vehicleProperties', null, true);
-      return clearInterval(interval);
-    }
-
-    if (!DoesEntityExist(entity)) clearInterval(interval);
-  }, 200);
+  setVehicleProperties(entity, metadata.properties)
 
   return vehicle;
 }
