@@ -6,12 +6,12 @@ import { OxPlayer } from 'player/class';
 
 type DbAccountRow = OxAccountPermissions & { id?: number; name?: OxAccountRoles };
 
-const accountRoles = {} as Record<OxAccountRoles, OxAccountPermissions>;
+const accountRoles = {} as Record<string, OxAccountPermissions>;
 
 export function CheckRolePermission(roleName: OxAccountRoles | null, permission: keyof OxAccountPermissions) {
   if (!roleName) return;
 
-  return accountRoles?.[roleName]?.[permission];
+  return accountRoles?.[roleName.toLowerCase()]?.[permission];
 }
 
 export async function CanPerformAction(
@@ -40,7 +40,7 @@ async function LoadRoles() {
   if (!roles[0]) return;
 
   roles.forEach((role) => {
-    const roleName = role.name as OxAccountRoles;
+    const roleName = (role.name as string).toLowerCase() as OxAccountRoles;
     delete role.name;
     delete role.id;
 
