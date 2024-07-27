@@ -78,10 +78,10 @@ export async function PerformTransaction(
   await conn.beginTransaction();
 
   try {
-    const a = await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]);
-    const b = await conn.update(addBalance, [amount, toId]);
+    const removedBalance = await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]);
+    const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
 
-    if (a && b) {
+    if (addedBalance) {
       await conn.execute(addTransaction, [
         actorId,
         fromId,
