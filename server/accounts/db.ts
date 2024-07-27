@@ -220,7 +220,7 @@ export async function WithdrawMoney(
   using conn = await GetConnection();
   const role = await conn.scalar<OxAccountRoles>(selectAccountRole, [accountId, player.charId]);
 
-  if (!CanPerformAction(player, accountId, role, 'withdraw')) return 'no_access';
+  if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return 'no_access';
 
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
