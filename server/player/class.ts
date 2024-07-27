@@ -197,7 +197,8 @@ export class OxPlayer extends ClassInterface {
 
   async hasAccountPermission(accountId: number, action: keyof OxAccountPermissions) {
     return (
-      this.charId && CanPerformAction(this, accountId, (await GetAccountRole(accountId, this.charId)) || null, action)
+      this.charId &&
+      (await CanPerformAction(this, accountId, (await GetAccountRole(accountId, this.charId)) || null, action))
     );
   }
 
