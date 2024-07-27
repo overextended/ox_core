@@ -175,15 +175,15 @@ CREATE TABLE `account_roles` (
 );
 
 INSERT INTO `account_roles` (`id`, `name`, `deposit`, `withdraw`, `addUser`, `removeUser`, `manageUser`, `transferOwnership`, `viewHistory`, `manageAccount`, `closeAccount`) VALUES
-  (1, 'Viewer', 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  (2, 'Contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0),
-  (3, 'Manager', 1, 1, 1, 1, 1, 0, 1, 1, 0),
-  (4, 'Owner', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+  (1, 'viewer', 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  (2, 'contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0),
+  (3, 'manager', 1, 1, 1, 1, 1, 0, 1, 1, 0),
+  (4, 'owner', 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 CREATE TABLE IF NOT EXISTS `accounts_access` (
   `accountId` INT UNSIGNED NOT NULL,
   `charId` INT UNSIGNED NOT NULL,
-  `role` VARCHAR(50) NOT NULL DEFAULT 'Viewer',
+  `role` VARCHAR(50) NOT NULL DEFAULT 'viewer',
   PRIMARY KEY (`accountId`, `charId`),
   CONSTRAINT `accounts_access_accountId_fk` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accounts_access_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE,
