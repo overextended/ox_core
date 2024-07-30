@@ -15,7 +15,7 @@ const getCharacterAccounts = `SELECT access.role, account.*, CONCAT(c.firstName,
   FROM \`accounts_access\` access
   LEFT JOIN accounts account ON account.id = access.accountId
   LEFT JOIN characters c ON account.owner = c.charId
-  WHERE access.charId = ?`;
+  WHERE access.charId = ? AND account.type != 'inactive'`;
 const getOwnedCharacterAccounts = `${getCharacterAccounts} AND access.role = 'owner'`;
 
 async function GenerateAccountId(conn: Connection) {
