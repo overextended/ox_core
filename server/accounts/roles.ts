@@ -45,7 +45,10 @@ async function LoadRoles() {
     delete role.id;
 
     accountRoles[roleName] = role;
+    GlobalState[`accountRole.${roleName}`] = role;
   });
+
+  GlobalState[`accountRoles`] = Object.keys(accountRoles);
 }
 
 setImmediate(LoadRoles);
