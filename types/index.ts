@@ -117,7 +117,7 @@ export interface OxAccount {
   owner?: number;
   group?: string;
   type: 'personal' | 'shared' | 'group';
-  role: 'contributor' | 'manager' | 'owner';
+  role: OxAccountRoles;
 }
 
 export interface DbGroup {

@@ -11,8 +11,12 @@ const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
 const doesAccountExist = `SELECT 1 FROM accounts WHERE id = ?`;
-const getCharacterAccounts = `SELECT ac.role, a.* FROM \`accounts_access\` ac LEFT JOIN accounts a ON a.id = ac.accountId WHERE ac.charId = ?`;
-const getOwnedCharacterAccounts = `${getCharacterAccounts} AND ac.role = 'owner'`;
+const getCharacterAccounts = `SELECT access.role, account.*, CONCAT(c.firstName, " ", c.lastName) as ownerName
+  FROM \`accounts_access\` access
+  LEFT JOIN accounts account ON account.id = access.accountId
+  LEFT JOIN characters c ON account.owner = c.charId
+  WHERE access.charId = ?`;
+const getOwnedCharacterAccounts = `${getCharacterAccounts} AND access.role = 'owner'`;
 
 async function GenerateAccountId(conn: Connection) {
   const date = new Date();
