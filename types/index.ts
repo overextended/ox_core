@@ -118,6 +118,7 @@ export interface OxAccount {
   group?: string;
   type: 'personal' | 'shared' | 'group';
   role: OxAccountRoles;
+  ownerName: string;
 }
 
 export interface DbGroup {
