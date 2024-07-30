@@ -34,6 +34,10 @@ export async function UpdateBalance(
   message?: string,
   note?: string
 ) {
+  amount = parseInt(String(amount));
+
+  if (isNaN(amount)) return console.error(`Amount is not a number`);
+
   using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [id]);
 
@@ -68,6 +72,10 @@ export async function PerformTransaction(
   note?: string,
   actorId?: number
 ) {
+  amount = parseInt(String(amount));
+
+  if (isNaN(amount)) return console.error(`Amount is not a number`);
+
   using conn = await GetConnection();
 
   const fromBalance = await conn.scalar<number>(getBalance, [fromId]);
@@ -166,6 +174,10 @@ export async function DepositMoney(
   message?: string,
   note?: string
 ) {
+  amount = parseInt(String(amount));
+
+  if (isNaN(amount)) return console.error(`Amount is not a number`);
+
   const player = OxPlayer.get(playerId);
 
   if (!player?.charId) return 'no_charId';
@@ -213,6 +225,10 @@ export async function WithdrawMoney(
   message?: string,
   note?: string
 ) {
+  amount = parseInt(String(amount));
+
+  if (isNaN(amount)) return console.error(`Amount is not a number`);
+
   const player = OxPlayer.get(playerId);
 
   if (!player?.charId) return 'no_charId';
