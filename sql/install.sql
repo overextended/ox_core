@@ -66,16 +66,6 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   PRIMARY KEY (`name`)
 );
 
-CREATE TABLE IF NOT EXISTS `ox_group_grades` (
-  `group` VARCHAR(20) NOT NULL,
-  `grade` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `label` VARCHAR(50) NOT NULL,
-  `accountRole` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`group`, `grade`),
-  CONSTRAINT `ox_group_grades_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE IF NOT EXISTS `character_groups` (
   `charId` INT UNSIGNED NOT NULL,
   `name` VARCHAR(20) NOT NULL,
@@ -179,6 +169,16 @@ INSERT INTO `account_roles` (`id`, `name`, `deposit`, `withdraw`, `addUser`, `re
   (2, 'contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0),
   (3, 'manager', 1, 1, 1, 1, 1, 0, 1, 1, 0),
   (4, 'owner', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+CREATE TABLE IF NOT EXISTS `ox_group_grades` (
+  `group` VARCHAR(20) NOT NULL,
+  `grade` TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  `label` VARCHAR(50) NOT NULL,
+  `accountRole` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`group`, `grade`),
+  CONSTRAINT `ox_group_grades_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ox_group_grades_account_roles` FOREIGN KEY (`accountRole`) REFERENCES `account_roles` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS `accounts_access` (
   `accountId` INT UNSIGNED NOT NULL,
