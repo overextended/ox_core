@@ -41,7 +41,7 @@ export async function GetGroupAccount(group: string) {
  */
 export async function GetCharacterAccounts(id: number | string, includeAll?: boolean) {
   const charId = typeof id === 'string' ? await GetCharIdFromStateId(id) : id;
-  return (charId && (includeAll ? SelectAllAccounts(charId) : SelectAccounts('owner', id))) || null;
+  return (charId && SelectAllAccounts(charId, includeAll)) || null;
 }
 
 /**
