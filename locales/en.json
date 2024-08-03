@@ -6,5 +6,8 @@
   "male": "Male",
   "female": "Female",
   "non_binary": "Non-Binary",
-  "date_of_birth": "Date of birth"
+  "date_of_birth": "Date of birth",
+  "withdraw": "Withdraw",
+  "deposit": "Deposit",
+  "transfer": "Bank transfer"
 }
