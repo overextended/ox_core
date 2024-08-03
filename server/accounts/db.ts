@@ -1,6 +1,6 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountRoles } from 'types';
+import type { OxAccount, OxAccountRole } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
@@ -194,7 +194,7 @@ export async function DepositMoney(
 
   if (balance === null) return 'no_balance';
 
-  const role = await conn.scalar<OxAccountRoles>(selectAccountRole, [accountId, player.charId]);
+  const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
   if (!(await CanPerformAction(player, accountId, role, 'deposit'))) return 'no_access';
 
@@ -237,7 +237,7 @@ export async function WithdrawMoney(
   if (!player?.charId) return 'no_charId';
 
   using conn = await GetConnection();
-  const role = await conn.scalar<OxAccountRoles>(selectAccountRole, [accountId, player.charId]);
+  const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
   if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return 'no_access';
 

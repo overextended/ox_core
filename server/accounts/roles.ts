@@ -1,14 +1,14 @@
 import { db } from 'db';
-import type { OxAccountPermissions, OxAccountRoles } from 'types';
+import type { OxAccountPermissions, OxAccountRole } from 'types';
 import { SelectAccount } from './db';
 import { GetGroup } from 'groups';
 import { OxPlayer } from 'player/class';
 
-type DbAccountRow = OxAccountPermissions & { id?: number; name?: OxAccountRoles };
+type DbAccountRow = OxAccountPermissions & { id?: number; name?: OxAccountRole };
 
 const accountRoles = {} as Record<string, OxAccountPermissions>;
 
-export function CheckRolePermission(roleName: OxAccountRoles | null, permission: keyof OxAccountPermissions) {
+export function CheckRolePermission(roleName: OxAccountRole | null, permission: keyof OxAccountPermissions) {
   if (!roleName) return;
 
   return accountRoles?.[roleName.toLowerCase()]?.[permission];
@@ -17,7 +17,7 @@ export function CheckRolePermission(roleName: OxAccountRoles | null, permission:
 export async function CanPerformAction(
   player: OxPlayer,
   accountId: number,
-  role: OxAccountRoles | null,
+  role: OxAccountRole | null,
   action: keyof OxAccountPermissions
 ) {
   if (CheckRolePermission(role, action)) return true;
@@ -40,7 +40,7 @@ async function LoadRoles() {
   if (!roles[0]) return;
 
   roles.forEach((role) => {
-    const roleName = (role.name as string).toLowerCase() as OxAccountRoles;
+    const roleName = (role.name as string).toLowerCase() as OxAccountRole;
     delete role.name;
     delete role.id;
 

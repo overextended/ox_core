@@ -117,7 +117,7 @@ export interface OxAccount {
   owner?: number;
   group?: string;
   type: 'personal' | 'shared' | 'group';
-  role: OxAccountRoles;
+  role: OxAccountRole;
   ownerName: string;
 }
 
@@ -125,7 +125,7 @@ export interface DbGroup {
   name: string;
   label: string;
   grades: string[];
-  accountRoles: Dict<OxAccountRoles>;
+  accountRoles: Dict<OxAccountRole>;
   type?: string;
   colour?: number;
 }
@@ -139,7 +139,7 @@ export interface OxGroupPermissions {
   [grade: string]: { [permission: string]: boolean };
 }
 
-export type OxAccountRoles = 'viewer' | 'contributor' | 'manager' | 'owner';
+export type OxAccountRole = 'viewer' | 'contributor' | 'manager' | 'owner';
 
 export interface OxAccountPermissions {
   deposit: boolean;
