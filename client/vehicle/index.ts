@@ -1,8 +1,4 @@
-import {
-  cache,
-  onServerCallback,
-  waitFor,
-} from '@overextended/ox_lib/client';
+import { cache, onServerCallback, waitFor } from '@overextended/ox_lib/client';
 import { Vector3 } from '@nativewrappers/fivem';
 import { DEBUG } from '../config';
 
@@ -25,12 +21,17 @@ onServerCallback('ox:getNearbyVehicles', (radius: number) => {
 AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string, value: any) => {
   if (!value) return;
 
-  const entity = await waitFor(async () => {
-    const entity = GetEntityFromStateBagName(bagName);
-    DEV: console.info(key, entity);
+  await waitFor(() => (!NetworkIsInTutorialSession() ? true : undefined), '', 0);
 
-    if (entity) return entity;
-  }, 'failed to get entity from statebag name');
+  const entity = await waitFor(
+    async () => {
+      const entity = GetEntityFromStateBagName(bagName);
+
+      if (entity) return entity;
+    },
+    `failed to get entity from statebag name ${bagName}`,
+    10000
+  );
 
   if (!entity) return;
 
