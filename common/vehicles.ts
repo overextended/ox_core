@@ -37,5 +37,28 @@ export function GetVehicleData(filter?: void | string | string[]) {
   }
 }
 
+/**
+ * Remap vehicle types to their net types.
+ * https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
+ */
+export function GetVehicleNetworkType(modelName: string) {
+  const vehicleType = vehicles[modelName]?.type;
+
+  switch (vehicleType) {
+    case 'bicycle':
+      return 'bike';
+    case 'blimp':
+      return 'heli';
+    case 'quadbike':
+    case 'amphibious_quadbike':
+    case 'amphibious_automobile':
+    case 'submarinecar':
+      return 'automobile';
+    default:
+      return vehicleType;
+  }
+}
+
 exports('GetTopVehicleStats', GetTopVehicleStats);
 exports('GetVehicleData', GetVehicleData);
+exports('GetVehicleNetworkType', GetVehicleNetworkType);
