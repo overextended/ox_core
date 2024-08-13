@@ -6,9 +6,12 @@ import './class';
 import './commands';
 import './events';
 import { VehicleProperties, setVehicleProperties } from '@overextended/ox_lib/server';
+import { Vector3 } from '@nativewrappers/fivem';
 import { VectorFromBuffer } from '../../common';
 
 if (DEBUG) import('./parser');
+
+type Vec3 = number[] | { x: number; y: number; z: number } | { buffer: any };
 
 export async function CreateVehicle(
   data:
@@ -20,7 +23,7 @@ export async function CreateVehicle(
         stored?: string;
         properties?: VehicleProperties;
       }),
-  coords?: number | number[] | { x: number; y: number; z: number } | { buffer: any },
+  coords?: Vec3,
   heading?: number,
   invokingScript = GetInvokingResource()
 ) {
@@ -45,38 +48,11 @@ export async function CreateVehicle(
     }
   }
 
-  let networkType: string = vehicleData.type as any;
+  if (coords) coords = 'buffer' in coords ? VectorFromBuffer(coords) : Vector3.fromObject(coords);
 
-  /**
-   * Remap vehicle types to their net types.
-   * https://github.com/citizenfx/fivem/commit/1e266a2ca5c04eb96c090de67508a3475d35d6da
-   */
+  const entity = coords ? OxVehicle.spawn(data.model, coords as Vector3, heading || 0) : 0;
 
-  switch (networkType) {
-    case 'bicycle':
-      networkType = 'bike';
-      break;
-    case 'blimp':
-      networkType = 'heli';
-      break;
-    case 'quadbike':
-    case 'amphibious_quadbike':
-    case 'amphibious_automobile':
-    case 'submarinecar':
-      networkType = 'automobile';
-      break;
-  }
-
-  if (typeof coords === 'number') coords = GetEntityCoords(coords);
-  else if (typeof coords === 'object' && !Array.isArray(coords)) {
-    coords = 'buffer' in coords ? VectorFromBuffer(coords) : [coords.x || 0, coords.y || 0, coords.z || 0];
-  }
-
-  const entity = coords
-    ? CreateVehicleServerSetter(data.model, networkType, coords[0], coords[1], coords[2], heading || 90)
-    : 0;
-
-  if (!coords || !DoesEntityExist(entity)) return;
+  if (!entity || !DoesEntityExist(entity)) return;
   if (!data.vin && (data.owner || data.group)) data.vin = await OxVehicle.generateVin(vehicleData);
   if (data.vin && !data.owner && !data.group) delete data.vin;
 
@@ -120,12 +96,12 @@ export async function CreateVehicle(
   const state = vehicle.getState();
 
   state.set('initVehicle', true, true);
-  setVehicleProperties(entity, metadata.properties)
+  setVehicleProperties(entity, metadata.properties);
 
   return vehicle;
 }
 
-export async function SpawnVehicle(id: number, coords: number | number[], heading?: number) {
+export async function SpawnVehicle(id: number, coords: Vec3, heading?: number) {
   const invokingScript = GetInvokingResource();
   const vehicle = await GetStoredVehicleFromId(id);
 

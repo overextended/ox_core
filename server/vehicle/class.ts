@@ -3,9 +3,11 @@ import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVe
 import { getRandomString, getRandomAlphanumeric, getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
 import type { Dict, VehicleData } from 'types';
-import { GetVehicleData } from '../../common/vehicles';
+import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
+import { setVehicleProperties } from '@overextended/ox_lib/server';
+import { Vector3 } from '@nativewrappers/fivem';
 
-export type VehicleInstance = InstanceType<typeof OxVehicle>
+export type VehicleInstance = InstanceType<typeof OxVehicle>;
 
 export class OxVehicle extends ClassInterface {
   entity: number;
@@ -27,6 +29,10 @@ export class OxVehicle extends ClassInterface {
     netId: {},
     vin: {},
   };
+
+  static spawn(model: string, coords: Vector3, heading?: number) {
+    return CreateVehicleServerSetter(model, GetVehicleNetworkType(model), coords.x, coords.y, coords.z, heading || 0);
+  }
 
   /** Get an instance of OxVehicle with the matching entityId. */
   static get(entityId: string | number) {
@@ -136,7 +142,6 @@ export class OxVehicle extends ClassInterface {
     this.#stored = stored;
 
     OxVehicle.add(this.entity, this);
-    SetVehicleNumberPlateText(this.entity, this.plate);
     emit('ox:spawnedVehicle', this.entity, this.id);
   }
 
@@ -208,6 +213,22 @@ export class OxVehicle extends ClassInterface {
     this.plate = plate.padEnd(8);
 
     SetVehicleColumn(this.id, 'plate', this.plate);
+  }
+
+  async respawn(coords?: Vector3, rotation?: Vector3) {
+    const hasEntity = DoesEntityExist(this.entity);
+    coords = Vector3.fromObject(coords || hasEntity ? GetEntityCoords(this.entity) : null);
+    rotation = Vector3.fromObject(rotation || hasEntity ? GetEntityRotation(this.entity) : null);
+
+    if (hasEntity) DeleteVehicle(this.entity);
+
+    this.entity = OxVehicle.spawn(this.model, coords, 0);
+    this.netId = NetworkGetNetworkIdFromEntity(this.entity);
+
+    if (rotation) SetEntityRotation(this.entity, rotation.x, rotation.y, rotation.z, 2, false);
+
+    setVehicleProperties(this.entity, this.#metadata.properties);
+    emit('ox:spawnedVehicle', this.entity, this.id);
   }
 }
 
