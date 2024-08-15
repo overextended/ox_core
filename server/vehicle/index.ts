@@ -91,12 +91,9 @@ export async function CreateVehicle(
     data.group
   );
 
-  if (vehicle.id) vehicle.setStored(null, false);
-
   const state = vehicle.getState();
 
-  state.set('initVehicle', true, true);
-  setVehicleProperties(entity, metadata.properties);
+  state.set('initVehicle', true, true)
 
   return vehicle;
 }
