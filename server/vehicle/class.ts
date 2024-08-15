@@ -223,10 +223,9 @@ export class OxVehicle extends ClassInterface {
     coords = Vector3.fromObject(coords || hasEntity ? GetEntityCoords(this.entity) : null);
     rotation = Vector3.fromObject(rotation || hasEntity ? GetEntityRotation(this.entity) : null);
 
-    if (hasEntity) {
-      OxVehicle.remove(this.entity);
-      DeleteVehicle(this.entity);
-    }
+    OxVehicle.remove(this.entity);
+
+    if (hasEntity) DeleteVehicle(this.entity);
 
     this.entity = OxVehicle.spawn(this.model, coords, 0);
     this.netId = NetworkGetNetworkIdFromEntity(this.entity);
