@@ -5,7 +5,7 @@ import { DEBUG } from '../../common/config';
 import './class';
 import './commands';
 import './events';
-import { VehicleProperties, setVehicleProperties } from '@overextended/ox_lib/server';
+import { VehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
 import { VectorFromBuffer } from '../../common';
 
