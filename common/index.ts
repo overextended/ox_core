@@ -13,7 +13,7 @@ export function VectorFromBuffer({ buffer }: any): Vector3 {
 
   for (let offset = 0; offset < buffer.length; offset += 4) arr.push(buffer.readFloatLE(offset));
 
-  return new Vector3(arr[0], arr[1], arr[2]); // Use array elements for x, y, z
+  return new Vector3.fromArray(arr);
 }
 
 export function GetGroupPermissions(groupName: string): OxGroupPermissions {
