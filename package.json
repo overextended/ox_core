@@ -34,15 +34,15 @@
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@types/node": "^20.14.10",
-    "esbuild": "^0.20.2",
+    "@types/node": "^20.16.1",
+    "esbuild": "^0.23.1",
     "prettier": "^3.3.3",
     "tsc-alias": "^1.8.10",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@nativewrappers/fivem": "^0.0.28",
-    "@overextended/ox_lib": "^3.24.0",
+    "@nativewrappers/fivem": "^0.0.41",
+    "@overextended/ox_lib": "^3.25.0",
     "mariadb": "^3.3.1"
   },
   "engines": {
