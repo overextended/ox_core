@@ -208,6 +208,29 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
   CONSTRAINT `accounts_transactions_toId_fk` FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS `accounts_invoices`
+(
+    `id`      INT UNSIGNED AUTO_INCREMENT
+        PRIMARY KEY,
+    `payerId` INT UNSIGNED                          NULL,
+    `fromId`  INT UNSIGNED                          NOT NULL,
+    `toId`    INT UNSIGNED                          NOT NULL,
+    `amount`  INT UNSIGNED                          NOT NULL,
+    `message` VARCHAR(255)                          NULL,
+    `date`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    CONSTRAINT `accounts_invoices_accounts_id_fk`
+        FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`),
+    CONSTRAINT `accounts_invoices_accounts_id_fk_2`
+        FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`),
+    CONSTRAINT `accounts_invoices_characters_charId_fk`
+        FOREIGN KEY (`payerId`) REFERENCES `characters` (`charId`)
+);
+
+
+
+
+
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
