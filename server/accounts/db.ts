@@ -327,3 +327,7 @@ export async function CreateInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
     [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message]
   );
 }
+
+export async function DeleteInvoice(invoiceId: number) {
+  return db.update('DELETE FROM `accounts_invoices` WHERE `id` = ?', [invoiceId]);
+}

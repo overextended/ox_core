@@ -14,6 +14,7 @@ import {
   WithdrawMoney,
   UpdateInvoice,
   CreateInvoice,
+  DeleteInvoice,
 } from './db';
 import { GetCharIdFromStateId } from 'player/db';
 
@@ -117,15 +118,17 @@ export async function RemoveAccountAccess(accountId: number, id: number | string
   return charId && UpdateAccountAccess(accountId, charId);
 }
 
-export async function PayAccountInvoice(invoiceId: number, charId: number) {
+export function PayAccountInvoice(invoiceId: number, charId: number) {
   return UpdateInvoice(invoiceId, charId);
 }
 
-export async function CreateAccountInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
+export function CreateAccountInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
   return CreateInvoice(invoice);
 }
 
-export async function DeleteAccountInvoice(invoiceId: number) {}
+export function DeleteAccountInvoice(invoiceId: number) {
+  return DeleteInvoice(invoiceId);
+}
 
 exports('GetAccountById', GetAccountById);
 exports('GetCharacterAccount', GetCharacterAccount);
