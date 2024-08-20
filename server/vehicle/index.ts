@@ -5,9 +5,8 @@ import { DEBUG } from '../../common/config';
 import './class';
 import './commands';
 import './events';
-import { VehicleProperties, setVehicleProperties } from '@overextended/ox_lib/server';
+import { VehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
-import { VectorFromBuffer } from '../../common';
 
 if (DEBUG) import('./parser');
 
@@ -48,7 +47,7 @@ export async function CreateVehicle(
     }
   }
 
-  if (coords) coords = 'buffer' in coords ? VectorFromBuffer(coords) : Vector3.fromObject(coords);
+  if (coords) coords = Vector3.fromObject(coords);
 
   const entity = coords ? OxVehicle.spawn(data.model, coords as Vector3, heading || 0) : 0;
 

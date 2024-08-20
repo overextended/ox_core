@@ -1,4 +1,18 @@
-if not lib or Ox then return Ox end
+if Ox then return Ox end
+
+if not lib then
+    if GetResourceState('ox_lib') ~= 'started' then
+        error('ox_lib must be started before this resource.', 0)
+    end
+
+    local chunk = LoadResourceFile('ox_lib', 'init.lua')
+
+    if not chunk then
+        error('failed to load resource file @ox_lib/init.lua', 0)
+    end
+
+    load(chunk, '@@ox_lib/init.lua', 't')()
+end
 
 ---@type OxCommon
 Ox = setmetatable({}, {

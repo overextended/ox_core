@@ -106,7 +106,7 @@ async function OnPlayerDeath() {
 
   NetworkResurrectLocalPlayer(coords[0], coords[1], coords[2], GetEntityHeading(cache.ped), 0, false);
 
-  if (cache.vehicle) SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat);
+  if (cache.vehicle) SetPedIntoVehicle(cache.ped, cache.vehicle, cache.seat as number);
 
   SetEntityInvincible(cache.ped, true);
   SetEntityHealth(cache.ped, health);
