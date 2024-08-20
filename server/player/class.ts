@@ -23,7 +23,13 @@ import {
   UpdateCharacterGroup,
   SetActiveGroup,
 } from 'groups/db';
-import { GetAccountRole, GetCharacterAccount, GetCharacterAccounts } from 'accounts';
+import {
+  CreateAccountInvoice,
+  GetAccountRole,
+  GetCharacterAccount,
+  GetCharacterAccounts,
+  PayAccountInvoice,
+} from 'accounts';
 import type {
   Character,
   Dict,
@@ -200,6 +206,25 @@ export class OxPlayer extends ClassInterface {
       this.charId &&
       (await CanPerformAction(this, accountId, (await GetAccountRole(accountId, this.charId)) || null, action))
     );
+  }
+
+  async payInvoice(invoiceId: number) {
+    if (!this.charId) return;
+    return await PayAccountInvoice(invoiceId, this.charId);
+  }
+
+  async createInvoice(data: { fromAccountId: number; toAccountId: number; amount: number; message: string }) {
+    if (!this.charId) return;
+
+    const invoice = {
+      creatorId: this.charId,
+      fromId: data.fromAccountId,
+      toId: data.toAccountId,
+      amount: data.amount,
+      message: data.message,
+    };
+
+    return await CreateAccountInvoice(invoice);
   }
 
   setActiveGroup(groupName?: string, temp?: boolean) {
