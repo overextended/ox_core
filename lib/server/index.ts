@@ -13,6 +13,8 @@ import type {
   GetAccountRole,
   RemoveAccountAccess,
   SetAccountAccess,
+  PayAccountInvoice,
+  CreateAccountInvoice,
 } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { GetCharIdFromStateId } from 'server/player/db';
@@ -44,6 +46,8 @@ interface OxServer extends OxCommon {
   GenerateVehiclePlate: typeof OxVehicle.generatePlate;
   SetGroupPermission: typeof SetGroupPermission;
   RemoveGroupPermission: typeof RemoveGroupPermission;
+  PayAccountInvoice: typeof PayAccountInvoice;
+  CreateAccoutnInvoice: typeof CreateAccountInvoice;
 }
 
 export const Ox = OxCore as OxServer;

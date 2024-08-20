@@ -160,6 +160,8 @@ CREATE TABLE `account_roles` (
   `viewHistory` TINYINT(1) NOT NULL DEFAULT '0',
   `manageAccount` TINYINT(1) NOT NULL DEFAULT '0',
   `closeAccount` TINYINT(1) NOT NULL DEFAULT '0',
+  `sendInvoice` TINYINT(1) NOT NULL DEFAULT '0',
+  `payInvoice` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name` (`name`)
 );
@@ -210,21 +212,25 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
 
 CREATE TABLE IF NOT EXISTS `accounts_invoices`
 (
-    `id`      INT UNSIGNED AUTO_INCREMENT
+    `id`        INT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    `payerId` INT UNSIGNED                          NULL,
-    `fromId`  INT UNSIGNED                          NOT NULL,
-    `toId`    INT UNSIGNED                          NOT NULL,
-    `amount`  INT UNSIGNED                          NOT NULL,
-    `message` VARCHAR(255)                          NULL,
-    `date`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    `creatorId` INT UNSIGNED                          NOT NULL,
+    `payerId`   INT UNSIGNED                          NULL,
+    `fromId`    INT UNSIGNED                          NOT NULL,
+    `toId`      INT UNSIGNED                          NOT NULL,
+    `amount`    INT UNSIGNED                          NOT NULL,
+    `message`   VARCHAR(255)                          NULL,
+    `date`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
     CONSTRAINT `accounts_invoices_accounts_id_fk`
         FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_accounts_id_fk_2`
         FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_characters_charId_fk`
-        FOREIGN KEY (`payerId`) REFERENCES `characters` (`charId`)
+        FOREIGN KEY (`payerId`) REFERENCES `characters` (`charId`),
+    CONSTRAINT `accounts_invoices_characters_charId_fk_2`
+        FOREIGN KEY (`creatorId`) REFERENCES `characters` (`charId`)
 );
+
 
 
 

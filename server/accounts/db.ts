@@ -1,9 +1,10 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountRole } from 'types';
+import type { OxAccount, OxAccountInvoice, OxAccountRole } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
+import { GetAccountById } from 'accounts';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -274,5 +275,55 @@ export function UpdateAccountAccess(accountId: number, id: number, role?: string
   return db.update(
     `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
     [accountId, id, role]
+  );
+}
+
+export async function UpdateInvoice(invoiceId: number, charId: number) {
+  const player = OxPlayer.get(charId);
+
+  if (!player?.charId) return 'no_charId';
+
+  const invoice = await db.row<{ amount: number; payerId?: number; toId: number }>(
+    'SELECT `amount`, `payerId`, `toId` FROM `accounts_invoices` WHERE `id` = ?',
+    [invoiceId]
+  );
+
+  if (!invoice) return 'no_invoice';
+
+  if (invoice.payerId) return 'invoice_paid';
+
+  const hasPermission = await player.hasAccountPermission(invoice.toId, 'payInvoice');
+
+  if (!hasPermission) return 'no_permission';
+
+  const account = (await GetAccountById(invoice.toId))!;
+
+  if (account.balance > invoice.amount) return 'insufficient_balance';
+
+  return db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
+    player.charId,
+    new Date(),
+    invoiceId,
+  ]);
+}
+
+export async function CreateInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
+  const player = OxPlayer.get(invoice.creatorId);
+
+  if (!player?.charId) return 'no_charId';
+
+  console.log(JSON.stringify(invoice, null, 2));
+
+  const hasPermission = await player.hasAccountPermission(invoice.fromId, 'sendInvoice');
+
+  if (!hasPermission) return 'no_permission';
+
+  const targetAccount = await GetAccountById(invoice.toId);
+
+  if (!targetAccount) return 'no_target_account';
+
+  return db.insert(
+    'INSERT INTO accounts_invoices (`creatorId`, `fromId`, `toId`, `amount`, `message`) VALUES (?, ?, ?, ?, ?)',
+    [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message]
   );
 }

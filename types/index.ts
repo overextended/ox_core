@@ -151,4 +151,18 @@ export interface OxAccountPermissions {
   viewHistory: boolean;
   manageAccount: boolean;
   closeAccount: boolean;
+  sendInvoice: boolean;
+  payInvoice: boolean;
+}
+
+export interface OxAccountInvoice {
+  id: number;
+  creatorId: number;
+  payerId?: number;
+  fromId: number;
+  toId: number;
+  amount: number;
+  message?: string;
+  sentAt?: number;
+  paidAt?: number;
 }
