@@ -312,8 +312,6 @@ export async function CreateInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
 
   if (!player?.charId) return 'no_charId';
 
-  console.log(JSON.stringify(invoice, null, 2));
-
   const hasPermission = await player.hasAccountPermission(invoice.fromId, 'sendInvoice');
 
   if (!hasPermission) return 'no_permission';
@@ -323,8 +321,8 @@ export async function CreateInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
   if (!targetAccount) return 'no_target_account';
 
   return db.insert(
-    'INSERT INTO accounts_invoices (`creatorId`, `fromId`, `toId`, `amount`, `message`) VALUES (?, ?, ?, ?, ?)',
-    [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message]
+    'INSERT INTO accounts_invoices (`creatorId`, `fromId`, `toId`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
+    [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message, invoice.dueDate]
   );
 }
 

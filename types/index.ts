@@ -163,6 +163,7 @@ export interface OxAccountInvoice {
   toId: number;
   amount: number;
   message?: string;
-  sentAt?: number;
+  sentAt: number;
+  dueDate: number;
   paidAt?: number;
 }

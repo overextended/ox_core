@@ -220,7 +220,9 @@ CREATE TABLE IF NOT EXISTS `accounts_invoices`
     `toId`      INT UNSIGNED                          NOT NULL,
     `amount`    INT UNSIGNED                          NOT NULL,
     `message`   VARCHAR(255)                          NULL,
-    `date`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    `sentAt`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    `dueDate`   TIMESTAMP                             NOT NULL,
+    `paidAt`    TIMESTAMP                             NULL,
     CONSTRAINT `accounts_invoices_accounts_id_fk`
         FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_accounts_id_fk_2`
@@ -230,12 +232,6 @@ CREATE TABLE IF NOT EXISTS `accounts_invoices`
     CONSTRAINT `accounts_invoices_characters_charId_fk_2`
         FOREIGN KEY (`creatorId`) REFERENCES `characters` (`charId`)
 );
-
-
-
-
-
-
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 
