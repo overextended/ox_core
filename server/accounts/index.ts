@@ -1,4 +1,4 @@
-import { OxAccountInvoice } from 'types';
+import { OxAccountInvoice, OxCreateInvoice } from 'types';
 import {
   CreateNewAccount,
   DeleteAccount,
@@ -122,7 +122,7 @@ export function PayAccountInvoice(invoiceId: number, charId: number) {
   return UpdateInvoice(invoiceId, charId);
 }
 
-export function CreateAccountInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
+export function CreateAccountInvoice(invoice: OxCreateInvoice) {
   return CreateInvoice(invoice);
 }
 

@@ -1,6 +1,6 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountInvoice, OxAccountRole } from 'types';
+import type { OxAccount, OxAccountInvoice, OxAccountRole, OxCreateInvoice } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
@@ -307,7 +307,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
   ]);
 }
 
-export async function CreateInvoice(invoice: Omit<OxAccountInvoice, 'id'>) {
+export async function CreateInvoice(invoice: OxCreateInvoice) {
   const player = OxPlayer.get(invoice.creatorId);
 
   if (!player?.charId) return 'no_charId';

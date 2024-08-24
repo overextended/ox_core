@@ -38,6 +38,7 @@ import type {
   OxGroup,
   CharacterLicense,
   OxAccountPermissions,
+  OxCreateInvoice,
 } from 'types';
 import { GetGroupPermissions } from '../../common';
 import { CanPerformAction } from 'accounts/roles';
@@ -213,16 +214,13 @@ export class OxPlayer extends ClassInterface {
     return await PayAccountInvoice(invoiceId, this.charId);
   }
 
-  async createInvoice(data: { fromAccountId: number; toAccountId: number; amount: number; message: string }) {
+  async createInvoice(data: Omit<OxCreateInvoice, 'creatorId'>) {
     if (!this.charId) return;
 
     const invoice = {
       creatorId: this.charId,
-      fromId: data.fromAccountId,
-      toId: data.toAccountId,
-      amount: data.amount,
-      message: data.message,
-    };
+      ...data,
+    } satisfies OxCreateInvoice;
 
     return await CreateAccountInvoice(invoice);
   }
