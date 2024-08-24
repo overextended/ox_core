@@ -167,3 +167,12 @@ export interface OxAccountInvoice {
   dueDate: number;
   paidAt?: number;
 }
+
+export interface OxCreateInvoice {
+  creatorId: number;
+  fromId: number;
+  toId: number;
+  amount: number;
+  message: string;
+  dueDate: string;
+}
