@@ -166,11 +166,11 @@ CREATE TABLE `account_roles` (
   UNIQUE INDEX `name` (`name`)
 );
 
-INSERT INTO `account_roles` (`id`, `name`, `deposit`, `withdraw`, `addUser`, `removeUser`, `manageUser`, `transferOwnership`, `viewHistory`, `manageAccount`, `closeAccount`) VALUES
-  (1, 'viewer', 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  (2, 'contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0),
-  (3, 'manager', 1, 1, 1, 1, 1, 0, 1, 1, 0),
-  (4, 'owner', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `account_roles` (`id`, `name`, `deposit`, `withdraw`, `addUser`, `removeUser`, `manageUser`, `transferOwnership`, `viewHistory`, `manageAccount`, `closeAccount`, `sendInvoice`, `payInvoice`) VALUES
+  (1, 'viewer', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  (2, 'contributor', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+  (3, 'manager', 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1),
+  (4, 'owner', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
 CREATE TABLE IF NOT EXISTS `ox_group_grades` (
   `group` VARCHAR(20) NOT NULL,
