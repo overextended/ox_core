@@ -218,7 +218,7 @@ export class OxPlayer extends ClassInterface {
     if (!this.charId) return;
 
     const invoice = {
-      creatorId: this.charId,
+      creatorId: +this.source,
       ...data,
     } satisfies OxCreateInvoice;
 
