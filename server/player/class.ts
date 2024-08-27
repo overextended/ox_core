@@ -211,7 +211,7 @@ export class OxPlayer extends ClassInterface {
 
   async payInvoice(invoiceId: number) {
     if (!this.charId) return;
-    return await PayAccountInvoice(invoiceId, this.charId);
+    return await PayAccountInvoice(invoiceId, +this.source);
   }
 
   async createInvoice(data: Omit<OxCreateInvoice, 'creatorId'>) {
