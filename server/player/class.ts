@@ -76,6 +76,11 @@ export class OxPlayer extends ClassInterface {
     return this.keys.userId[id];
   }
 
+  /** Get an instance of OxPlayer with the matching charId. */
+  static getFromCharId(id: number) {
+    return this.keys.charId[id];
+  }
+
   /** Compares player fields and metadata to a filter, returning the player if all values match. */
   private filter(criteria: Dict<any>) {
     const { groups, ...filter } = criteria;
