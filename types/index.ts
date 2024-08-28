@@ -157,10 +157,10 @@ export interface OxAccountPermissions {
 
 export interface OxAccountInvoice {
   id: number;
-  creatorId: number;
+  actorId: number;
   payerId?: number;
-  fromId: number;
-  toId: number;
+  fromAccount: number;
+  toAccount: number;
   amount: number;
   message?: string;
   sentAt: number;
@@ -169,9 +169,9 @@ export interface OxAccountInvoice {
 }
 
 export interface OxCreateInvoice {
-  creatorId: number;
-  fromId: number;
-  toId: number;
+  actorId: number;
+  fromAccount: number;
+  toAccount: number;
   amount: number;
   message: string;
   dueDate: string;
