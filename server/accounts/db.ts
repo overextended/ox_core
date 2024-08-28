@@ -283,8 +283,8 @@ export async function UpdateInvoice(invoiceId: number, playerId: number) {
 
   if (!player?.charId) return 'no_charId';
 
-  const invoice = await db.row<{ amount: number; payerId?: number; toId: number }>(
-    'SELECT `amount`, `payerId`, `toId` FROM `accounts_invoices` WHERE `id` = ?',
+  const invoice = await db.row<{ amount: number; payerId?: number; toAccount: number }>(
+    'SELECT `amount`, `payerId`, `toAccount` FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
 
@@ -292,11 +292,11 @@ export async function UpdateInvoice(invoiceId: number, playerId: number) {
 
   if (invoice.payerId) return 'invoice_paid';
 
-  const hasPermission = await player.hasAccountPermission(invoice.toId, 'payInvoice');
+  const hasPermission = await player.hasAccountPermission(invoice.toAccount, 'payInvoice');
 
   if (!hasPermission) return 'no_permission';
 
-  const account = (await GetAccountById(invoice.toId))!;
+  const account = (await GetAccountById(invoice.toAccount))!;
 
   if (account.balance > invoice.amount) return 'insufficient_balance';
 
@@ -308,21 +308,21 @@ export async function UpdateInvoice(invoiceId: number, playerId: number) {
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
-  const player = OxPlayer.get(invoice.creatorId);
+  const player = OxPlayer.get(invoice.actorId);
 
   if (!player?.charId) return 'no_charId';
 
-  const hasPermission = await player.hasAccountPermission(invoice.fromId, 'sendInvoice');
+  const hasPermission = await player.hasAccountPermission(invoice.fromAccount, 'sendInvoice');
 
   if (!hasPermission) return 'no_permission';
 
-  const targetAccount = await GetAccountById(invoice.toId);
+  const targetAccount = await GetAccountById(invoice.toAccount);
 
   if (!targetAccount) return 'no_target_account';
 
   return db.insert(
-    'INSERT INTO accounts_invoices (`creatorId`, `fromId`, `toId`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
-    [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message, invoice.dueDate]
+    'INSERT INTO accounts_invoices (`actorId`, `fromAccount`, `toAccount`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
+    [invoice.actorId, invoice.fromAccount, invoice.toAccount, invoice.amount, invoice.message, invoice.dueDate]
   );
 }
 

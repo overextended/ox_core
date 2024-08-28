@@ -212,25 +212,25 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
 
 CREATE TABLE IF NOT EXISTS `accounts_invoices`
 (
-    `id`        INT UNSIGNED AUTO_INCREMENT
+    `id`          INT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    `creatorId` INT UNSIGNED                          NOT NULL,
-    `payerId`   INT UNSIGNED                          NULL,
-    `fromId`    INT UNSIGNED                          NOT NULL,
-    `toId`      INT UNSIGNED                          NOT NULL,
-    `amount`    INT UNSIGNED                          NOT NULL,
-    `message`   VARCHAR(255)                          NULL,
-    `sentAt`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-    `dueDate`   TIMESTAMP                             NOT NULL,
-    `paidAt`    TIMESTAMP                             NULL,
+    `actorId`     INT UNSIGNED                          NOT NULL,
+    `payerId`     INT UNSIGNED                          NULL,
+    `fromAccount` INT UNSIGNED                          NOT NULL,
+    `toAccount`   INT UNSIGNED                          NOT NULL,
+    `amount`      INT UNSIGNED                          NOT NULL,
+    `message`     VARCHAR(255)                          NULL,
+    `sentAt`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    `dueDate`     TIMESTAMP                             NOT NULL,
+    `paidAt`      TIMESTAMP                             NULL,
     CONSTRAINT `accounts_invoices_accounts_id_fk`
-        FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`),
+        FOREIGN KEY (`fromAccount`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_accounts_id_fk_2`
-        FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`),
+        FOREIGN KEY (`toAccount`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_characters_charId_fk`
         FOREIGN KEY (`payerId`) REFERENCES `characters` (`charId`),
     CONSTRAINT `accounts_invoices_characters_charId_fk_2`
-        FOREIGN KEY (`creatorId`) REFERENCES `characters` (`charId`)
+        FOREIGN KEY (`actorId`) REFERENCES `characters` (`charId`)
 );
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
