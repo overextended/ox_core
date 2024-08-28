@@ -279,7 +279,7 @@ export function UpdateAccountAccess(accountId: number, id: number, role?: string
 }
 
 export async function UpdateInvoice(invoiceId: number, playerId: number) {
-  const player = OxPlayer.get(playerId);
+  const player = OxPlayer.getFromCharId(playerId);
 
   if (!player?.charId) return 'no_charId';
 
@@ -308,7 +308,7 @@ export async function UpdateInvoice(invoiceId: number, playerId: number) {
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
-  const player = OxPlayer.get(invoice.actorId);
+  const player = OxPlayer.getFromCharId(invoice.actorId);
 
   if (!player?.charId) return 'no_charId';
 
