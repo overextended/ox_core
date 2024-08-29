@@ -1,18 +1,18 @@
+import { GetCharIdFromStateId } from 'player/db';
 import {
   CreateNewAccount,
   DeleteAccount,
   DepositMoney,
-  SelectAccountRole,
   PerformTransaction,
-  UpdateAccountAccess,
   SelectAccount,
+  SelectAccountRole,
   SelectAccounts,
   SelectAllAccounts,
   SelectDefaultAccount,
+  UpdateAccountAccess,
   UpdateBalance,
   WithdrawMoney,
 } from './db';
-import { GetCharIdFromStateId } from 'player/db';
 
 export function GetAccountById(id: number) {
   return SelectAccount(id);
@@ -96,7 +96,7 @@ export function CreateAccount(charId: number, label: string, shared?: boolean) {
 }
 
 export function CreateGroupAccount(group: string, label: string) {
-  return CreateNewAccount('group', group, label, true);
+  return CreateNewAccount('group', group, label, true, true);
 }
 
 export async function GetAccountRole(accountId: number, id: number | string) {
