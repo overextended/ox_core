@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `characters`
   `stateId`     VARCHAR(7)                                               NOT NULL,
   `firstName`   VARCHAR(50)                                              NOT NULL,
   `lastName`    VARCHAR(50)                                              NOT NULL,
+  `fullName`    VARCHAR(101) AS (CONCAT(`firstName`, ' ', `lastName`)) STORED,
   `gender`      VARCHAR(10)                                              NOT NULL,
   `dateOfBirth` DATE                                                     NOT NULL,
   `phoneNumber` VARCHAR(20)                                              NULL,
@@ -54,11 +55,11 @@ CREATE TABLE IF NOT EXISTS `characters`
           ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE FULLTEXT INDEX IF NOT EXISTS `characters_firstName_lastName_index`
-    ON `characters` (`firstName`, `lastName`);
+CREATE FULLTEXT INDEX IF NOT EXISTS `characters_fullName_index`
+  ON `characters` (`fullName`);
 
 CREATE INDEX IF NOT EXISTS `characters_userId_key`
-    ON `characters` (`userId`);
+  ON `characters` (`userId`);
 
 CREATE TABLE IF NOT EXISTS `character_inventory` (
   `charId` INT UNSIGNED NOT NULL,
