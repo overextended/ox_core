@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `accounts`
 );
 
 CREATE FULLTEXT INDEX IF NOT EXISTS `accounts_label_index`
-    ON `accounts` (`label`);
+  ON `accounts` (`label`);
 
 CREATE TABLE `account_roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -228,6 +228,9 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
   CONSTRAINT `accounts_transactions_fromId_fk` FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accounts_transactions_toId_fk` FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE FULLTEXT INDEX IF NOT EXISTS `accounts_transactions_message_index`
+  ON `accounts_transactions` (`message`);
 
 CREATE TABLE IF NOT EXISTS `accounts_invoices`
 (
