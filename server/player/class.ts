@@ -514,6 +514,7 @@ export class OxPlayer extends ClassInterface {
 
     if (dropped) return;
 
+    delete OxPlayer.keys.charId[this.charId];
     delete this.charId;
 
     this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
@@ -615,6 +616,8 @@ export class OxPlayer extends ClassInterface {
     this.set('dateOfBirth', dateOfBirth, true);
     this.set('phoneNumber', phoneNumber, true);
     this.set('activeGroup', groups.find((group) => group.isActive)?.name, true);
+
+    OxPlayer.keys.charId[character.charId] = this;
 
     /**
      * @todo Player metadata can ideally be handled with statebags, but requires security features.
