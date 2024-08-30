@@ -9,5 +9,6 @@
   "date_of_birth": "Date of birth",
   "withdraw": "Withdraw",
   "deposit": "Deposit",
-  "transfer": "Bank transfer"
+  "transfer": "Bank transfer",
+  "invoice_payment": "Invoice payment"
 }
