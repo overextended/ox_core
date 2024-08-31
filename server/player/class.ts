@@ -23,25 +23,9 @@ import {
   UpdateCharacterGroup,
   SetActiveGroup,
 } from 'groups/db';
-import {
-  CreateAccountInvoice,
-  GetAccountRole,
-  GetCharacterAccount,
-  GetCharacterAccounts,
-  PayAccountInvoice,
-} from 'accounts';
-import type {
-  Character,
-  Dict,
-  NewCharacter,
-  PlayerMetadata,
-  OxGroup,
-  CharacterLicense,
-  OxAccountPermissions,
-  OxCreateInvoice,
-} from 'types';
+import { PayAccountInvoice } from 'accounts';
+import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
-import { CanPerformAction } from 'accounts/roles';
 
 export type PlayerInstance = InstanceType<typeof OxPlayer>;
 
@@ -195,39 +179,9 @@ export class OxPlayer extends ClassInterface {
     }
   }
 
-  /** Returns the default account for the active character. */
-  getAccount() {
-    if (!this.charId) return;
-    return GetCharacterAccount(this.charId);
-  }
-
-  /** Returns all accounts for the active character. Passing `true` will include accounts the character has access to. */
-  getAccounts(getShared?: boolean) {
-    if (!this.charId) return;
-    return GetCharacterAccounts(this.charId, getShared);
-  }
-
-  async hasAccountPermission(accountId: number, action: keyof OxAccountPermissions) {
-    return (
-      this.charId &&
-      (await CanPerformAction(this, accountId, (await GetAccountRole(accountId, this.charId)) || null, action))
-    );
-  }
-
   async payInvoice(invoiceId: number) {
     if (!this.charId) return;
     return await PayAccountInvoice(invoiceId, this.charId);
-  }
-
-  async createInvoice(data: Omit<OxCreateInvoice, 'actorId'>) {
-    if (!this.charId) return;
-
-    const invoice = {
-      actorId: this.charId,
-      ...data,
-    } satisfies OxCreateInvoice;
-
-    return await CreateAccountInvoice(invoice);
   }
 
   setActiveGroup(groupName?: string, temp?: boolean) {

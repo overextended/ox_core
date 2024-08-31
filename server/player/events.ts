@@ -113,8 +113,7 @@ onClientCallback('ox:deleteCharacter', async (playerId, charId: number) => {
 on('ox:createdCharacter', async (playerId: number, userId: number, charId: number) => {
   db.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
 
-  if (CREATE_DEFAULT_ACCOUNT)
-    CreateNewAccount('owner', charId, 'Personal', false, true);
+  if (CREATE_DEFAULT_ACCOUNT) CreateNewAccount(charId, 'Personal', true);
 });
 
 onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {

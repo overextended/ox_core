@@ -1,20 +1,6 @@
 import type { OxVehicle } from 'server/vehicle/class';
 import type {
-  GetAccountById,
-  GetCharacterAccounts,
-  GetGroupAccounts,
-  AddAccountBalance,
-  RemoveAccountBalance,
-  TransferAccountBalance,
-  CreateAccount,
-  CreateGroupAccount,
-  GetCharacterAccount,
-  GetGroupAccount,
-  GetAccountRole,
-  RemoveAccountAccess,
-  SetAccountAccess,
   PayAccountInvoice,
-  CreateAccountInvoice,
   DeleteAccountInvoice,
 } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
@@ -24,22 +10,9 @@ import type { RemoveGroupPermission, SetGroupPermission } from 'server/groups';
 import { Ox as OxCore, OxCommon } from 'lib';
 
 interface OxServer extends OxCommon {
-  GetAccountById: typeof GetAccountById;
-  GetCharacterAccount: typeof GetCharacterAccount;
-  GetGroupAccount: typeof GetGroupAccount;
-  GetCharacterAccounts: typeof GetCharacterAccounts;
-  GetGroupAccounts: typeof GetGroupAccounts;
-  AddAccountBalance: typeof AddAccountBalance;
-  RemoveAccountBalance: typeof RemoveAccountBalance;
-  TransferAccountBalance: typeof TransferAccountBalance;
-  CreateAccount: typeof CreateAccount;
-  CreateGroupAccount: typeof CreateGroupAccount;
   DeleteAccount: typeof DeleteAccount;
-  GetAccountRole: typeof GetAccountRole;
   DepositMoney: typeof DepositMoney;
   WithdrawMoney: typeof WithdrawMoney;
-  SetAccountAccess: typeof SetAccountAccess;
-  RemoveAccountAccess: typeof RemoveAccountAccess;
   SaveAllPlayers: typeof OxPlayer.saveAll;
   SaveAllVehicles: typeof OxVehicle.saveAll;
   GetCharIdFromStateId: typeof GetCharIdFromStateId;
@@ -48,7 +21,6 @@ interface OxServer extends OxCommon {
   SetGroupPermission: typeof SetGroupPermission;
   RemoveGroupPermission: typeof RemoveGroupPermission;
   PayAccountInvoice: typeof PayAccountInvoice;
-  CreateAccountInvoice: typeof CreateAccountInvoice;
   DeleteAccountInvoice: typeof DeleteAccountInvoice;
 }
 
@@ -56,3 +28,4 @@ export const Ox = OxCore as OxServer;
 
 export * from './player';
 export * from './vehicle';
+export * from './account';

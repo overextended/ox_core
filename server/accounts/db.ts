@@ -1,10 +1,10 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountRole, OxCreateInvoice } from 'types';
+import type { OxAccountMetadata, OxAccountRole, OxCreateInvoice, OxAccountUserMetadata } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
-import { GetAccountById, RemoveAccountBalance } from 'accounts';
+import { OxAccount } from 'accounts/class';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -12,12 +12,6 @@ const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
 const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
 const doesAccountExist = `SELECT 1 FROM accounts WHERE id = ?`;
-const getCharacterAccounts = `SELECT access.role, account.*, CONCAT(c.firstName, " ", c.lastName) as ownerName
-  FROM \`accounts_access\` access
-  LEFT JOIN accounts account ON account.id = access.accountId
-  LEFT JOIN characters c ON account.owner = c.charId
-  WHERE access.charId = ? AND account.type != 'inactive'`;
-const getOwnedCharacterAccounts = `${getCharacterAccounts} AND access.role = 'owner'`;
 
 async function GenerateAccountId(conn: Connection) {
   const date = new Date();
@@ -121,42 +115,33 @@ export async function PerformTransaction(
 }
 
 export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: number | string) {
-  return db.execute<OxAccount>(`SELECT * FROM accounts WHERE \`${column}\` = ?`, [id]);
+  return db.execute<OxAccountMetadata>(`SELECT * FROM accounts WHERE \`${column}\` = ?`, [id]);
 }
 
-export async function SelectDefaultAccount(column: 'owner' | 'group' | 'id', id: number | string) {
-  return await db.row<OxAccount>(`SELECT * FROM accounts WHERE \`${column}\` = ? AND isDefault = 1`, [id]);
+export async function SelectDefaultAccountId(column: 'owner' | 'group' | 'id', id: number | string) {
+  return await db.column<number>(`SELECT id FROM accounts WHERE \`${column}\` = ? AND isDefault = 1`, [id]);
 }
 
 export async function SelectAccount(id: number) {
   return db.single(await SelectAccounts('id', id));
 }
 
-export async function SelectAllAccounts(id: number, includeAll?: boolean) {
-  return await db.execute<OxAccount>(includeAll ? getCharacterAccounts : getOwnedCharacterAccounts, [id]);
-}
-
 export async function IsAccountIdAvailable(id: number) {
   return !(await db.exists(doesAccountExist, [id]));
 }
 
-export async function CreateNewAccount(
-  column: 'owner' | 'group',
-  id: string | number,
-  label: string,
-  shared?: boolean,
-  isDefault?: boolean
-) {
+export async function CreateNewAccount(owner: string | number, label: string, isDefault?: boolean) {
   using conn = await GetConnection();
 
   const accountId = await GenerateAccountId(conn);
+  const column = typeof owner === 'string' ? 'group' : 'owner';
   const result = await conn.update(
     `INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`,
-    [accountId, label, id, shared ? 'shared' : 'personal', isDefault || 0]
+    [accountId, label, owner, column === 'group' ? 'group' : 'personal', isDefault || 0]
   );
 
-  if (result && typeof id === 'number')
-    conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, id, 'owner']);
+  if (result && column === 'owner')
+    conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, owner, 'owner']);
 
   return accountId;
 }
@@ -168,7 +153,7 @@ export function DeleteAccount(accountId: number) {
 const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
 
 export function SelectAccountRole(accountId: number, charId: number) {
-  return db.column<OxAccount['role']>(selectAccountRole, [accountId, charId]);
+  return db.column<OxAccountUserMetadata['role']>(selectAccountRole, [accountId, charId]);
 }
 
 export async function DepositMoney(
@@ -292,19 +277,18 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (invoice.payerId) return 'invoice_paid';
 
-  const hasPermission = await player.hasAccountPermission(invoice.toAccount, 'payInvoice');
+  const account = await OxAccount.get(invoice.toAccount);
+  const hasPermission = await account?.playerHasPermission(player.source as number, 'payInvoice');
 
   if (!hasPermission) return 'no_permission';
 
-  const account = (await GetAccountById(invoice.toAccount))!;
-
-  if (invoice.amount > account.balance) return 'insufficient_balance';
-
-  const removedBalance = await RemoveAccountBalance({
-    id: invoice.toAccount,
-    amount: invoice.amount,
-    message: locales('invoice_payment'),
-  });
+  const removedBalance = await UpdateBalance(
+    invoice.toAccount,
+    invoice.amount,
+    'remove',
+    false,
+    locales('invoice_payment')
+  );
 
   if (!removedBalance || typeof removedBalance === 'string') return removedBalance;
 
@@ -316,15 +300,18 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
-  const player = OxPlayer.getFromCharId(invoice.actorId);
+  if (invoice.actorId) {
+    const player = OxPlayer.getFromCharId(invoice.actorId);
 
-  if (!player?.charId) return 'no_charId';
+    if (!player?.charId) return 'no_charId';
 
-  const hasPermission = await player.hasAccountPermission(invoice.fromAccount, 'sendInvoice');
+    const account = await OxAccount.get(invoice.fromAccount);
+    const hasPermission = await account?.playerHasPermission(player.source as number, 'sendInvoice');
 
-  if (!hasPermission) return 'no_permission';
+    if (!hasPermission) return 'no_permission';
+  }
 
-  const targetAccount = await GetAccountById(invoice.toAccount);
+  const targetAccount = await OxAccount.get(invoice.toAccount);
 
   if (!targetAccount) return 'no_target_account';
 
@@ -336,4 +323,8 @@ export async function CreateInvoice(invoice: OxCreateInvoice) {
 
 export async function DeleteInvoice(invoiceId: number) {
   return db.update('DELETE FROM `accounts_invoices` WHERE `id` = ?', [invoiceId]);
+}
+
+export async function SetAccountType(accountId: number, type: string) {
+  return db.update('UPDATE `accounts` SET `type` = ? WHERE `id` = ?', [type, accountId]);
 }

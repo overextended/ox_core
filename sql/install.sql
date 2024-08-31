@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `accounts_invoices`
 (
     `id`          INT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    `actorId`     INT UNSIGNED                          NOT NULL,
+    `actorId`     INT UNSIGNED                          NULL,
     `payerId`     INT UNSIGNED                          NULL,
     `fromAccount` INT UNSIGNED                          NOT NULL,
     `toAccount`   INT UNSIGNED                          NOT NULL,
