@@ -32,8 +32,7 @@ export class ClassInterface {
 
       if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid id)`);
 
-      if (!member[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
+      if (!member[method]) return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
 
       if (!this.callableMethods[method])
         return console.error(`cannot call method ${method} on ${name}<${id}> (method is not exported)`);
@@ -45,7 +44,7 @@ export class ClassInterface {
 
     return this;
   }
-
+  
   call(method: string, ...args: any) {
     return (this as any)[method](...args);
   }
@@ -68,9 +67,7 @@ export class ClassInterface {
 
     if (this.keys) {
       Object.entries(this.keys).forEach(([key, obj]) => {
-        if (member[key]) {
-          obj[member[key]] = member;
-        }
+        obj[member[key]] = member;
       });
     }
 
