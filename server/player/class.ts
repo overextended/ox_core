@@ -76,11 +76,6 @@ export class OxPlayer extends ClassInterface {
     return this.keys.userId[id];
   }
 
-  /** Get an instance of OxPlayer with the matching charId. */
-  static getFromCharId(id: number) {
-    return this.keys.charId[id];
-  }
-
   /** Compares player fields and metadata to a filter, returning the player if all values match. */
   private filter(criteria: Dict<any>) {
     const { groups, ...filter } = criteria;
@@ -219,11 +214,11 @@ export class OxPlayer extends ClassInterface {
     return await PayAccountInvoice(invoiceId, this.charId);
   }
 
-  async createInvoice(data: Omit<OxCreateInvoice, 'actorId'>) {
+  async createInvoice(data: Omit<OxCreateInvoice, 'creatorId'>) {
     if (!this.charId) return;
 
     const invoice = {
-      actorId: this.charId,
+      creatorId: this.charId,
       ...data,
     } satisfies OxCreateInvoice;
 
@@ -514,7 +509,6 @@ export class OxPlayer extends ClassInterface {
 
     if (dropped) return;
 
-    delete OxPlayer.keys.charId[this.charId];
     delete this.charId;
 
     this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
@@ -616,8 +610,6 @@ export class OxPlayer extends ClassInterface {
     this.set('dateOfBirth', dateOfBirth, true);
     this.set('phoneNumber', phoneNumber, true);
     this.set('activeGroup', groups.find((group) => group.isActive)?.name, true);
-
-    OxPlayer.keys.charId[character.charId] = this;
 
     /**
      * @todo Player metadata can ideally be handled with statebags, but requires security features.

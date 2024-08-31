@@ -4,7 +4,7 @@ import type { OxAccount, OxAccountInvoice, OxAccountRole, OxCreateInvoice } from
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
-import { GetAccountById, RemoveAccountBalance } from 'accounts';
+import { GetAccountById } from 'accounts';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -279,12 +279,12 @@ export function UpdateAccountAccess(accountId: number, id: number, role?: string
 }
 
 export async function UpdateInvoice(invoiceId: number, charId: number) {
-  const player = OxPlayer.getFromCharId(charId);
+  const player = OxPlayer.get(charId);
 
   if (!player?.charId) return 'no_charId';
 
-  const invoice = await db.row<{ amount: number; payerId?: number; toAccount: number }>(
-    'SELECT `amount`, `payerId`, `toAccount` FROM `accounts_invoices` WHERE `id` = ?',
+  const invoice = await db.row<{ amount: number; payerId?: number; toId: number }>(
+    'SELECT `amount`, `payerId`, `toId` FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
 
@@ -292,21 +292,13 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (invoice.payerId) return 'invoice_paid';
 
-  const hasPermission = await player.hasAccountPermission(invoice.toAccount, 'payInvoice');
+  const hasPermission = await player.hasAccountPermission(invoice.toId, 'payInvoice');
 
   if (!hasPermission) return 'no_permission';
 
-  const account = (await GetAccountById(invoice.toAccount))!;
+  const account = (await GetAccountById(invoice.toId))!;
 
-  if (invoice.amount > account.balance) return 'insufficient_balance';
-
-  const removedBalance = await RemoveAccountBalance({
-    id: invoice.toAccount,
-    amount: invoice.amount,
-    message: locales('invoice_payment'),
-  });
-
-  if (!removedBalance || typeof removedBalance === 'string') return removedBalance;
+  if (account.balance > invoice.amount) return 'insufficient_balance';
 
   return db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
@@ -316,21 +308,21 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
-  const player = OxPlayer.getFromCharId(invoice.actorId);
+  const player = OxPlayer.get(invoice.creatorId);
 
   if (!player?.charId) return 'no_charId';
 
-  const hasPermission = await player.hasAccountPermission(invoice.fromAccount, 'sendInvoice');
+  const hasPermission = await player.hasAccountPermission(invoice.fromId, 'sendInvoice');
 
   if (!hasPermission) return 'no_permission';
 
-  const targetAccount = await GetAccountById(invoice.toAccount);
+  const targetAccount = await GetAccountById(invoice.toId);
 
   if (!targetAccount) return 'no_target_account';
 
   return db.insert(
-    'INSERT INTO accounts_invoices (`actorId`, `fromAccount`, `toAccount`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
-    [invoice.actorId, invoice.fromAccount, invoice.toAccount, invoice.amount, invoice.message, invoice.dueDate]
+    'INSERT INTO accounts_invoices (`creatorId`, `fromId`, `toId`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
+    [invoice.creatorId, invoice.fromId, invoice.toId, invoice.amount, invoice.message, invoice.dueDate]
   );
 }
 

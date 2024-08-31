@@ -48,7 +48,7 @@ interface OxServer extends OxCommon {
   SetGroupPermission: typeof SetGroupPermission;
   RemoveGroupPermission: typeof RemoveGroupPermission;
   PayAccountInvoice: typeof PayAccountInvoice;
-  CreateAccountInvoice: typeof CreateAccountInvoice;
+  CreateAccoutnInvoice: typeof CreateAccountInvoice;
   DeleteAccountInvoice: typeof DeleteAccountInvoice;
 }
 

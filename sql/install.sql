@@ -25,41 +25,30 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`userId`)
 );
 
-CREATE TABLE IF NOT EXISTS `characters`
-(
-  `charId`      INT UNSIGNED AUTO_INCREMENT
-      PRIMARY KEY,
-  `userId`      INT UNSIGNED                                             NOT NULL,
-  `stateId`     VARCHAR(7)                                               NOT NULL,
-  `firstName`   VARCHAR(50)                                              NOT NULL,
-  `lastName`    VARCHAR(50)                                              NOT NULL,
-  `fullName`    VARCHAR(101) AS (CONCAT(`firstName`, ' ', `lastName`)) STORED,
-  `gender`      VARCHAR(10)                                              NOT NULL,
-  `dateOfBirth` DATE                                                     NOT NULL,
-  `phoneNumber` VARCHAR(20)                                              NULL,
-  `lastPlayed`  DATETIME                     DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-  `isDead`      TINYINT(1)                   DEFAULT 0                   NOT NULL,
-  `x`           FLOAT                                                    NULL,
-  `y`           FLOAT                                                    NULL,
-  `z`           FLOAT                                                    NULL,
-  `heading`     FLOAT                                                    NULL,
-  `health`      TINYINT UNSIGNED                                         NULL,
-  `armour`      TINYINT UNSIGNED                                         NULL,
-  `statuses`    LONGTEXT COLLATE utf8mb4_bin DEFAULT JSON_OBJECT()       NOT NULL
-      CHECK (JSON_VALID(`statuses`)),
-  `deleted`     DATE                                                     NULL,
-  CONSTRAINT `characters_stateId_unique`
-      UNIQUE (`stateId`),
-  CONSTRAINT `characters_userId_fk`
-      FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
-          ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS `characters` (
+  `charId` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userId` INT UNSIGNED NOT NULL,
+  `stateId` VARCHAR(7) NOT NULL,
+  `firstName` VARCHAR(50) NOT NULL,
+  `lastName` VARCHAR(50) NOT NULL,
+  `gender` VARCHAR(10) NOT NULL,
+  `dateOfBirth` DATE NOT NULL,
+  `phoneNumber` VARCHAR(20) DEFAULT NULL,
+  `lastPlayed` DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP()),
+  `isDead` TINYINT(1) NOT NULL DEFAULT 0,
+  `x` FLOAT DEFAULT NULL,
+  `y` FLOAT DEFAULT NULL,
+  `z` FLOAT DEFAULT NULL,
+  `heading` FLOAT DEFAULT NULL,
+  `health` TINYINT UNSIGNED DEFAULT NULL,
+  `armour` TINYINT UNSIGNED DEFAULT NULL,
+  `statuses` JSON NOT NULL DEFAULT (JSON_OBJECT()),
+  `deleted` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`charId`),
+  KEY `characters_userId_key` (`userId`),
+  UNIQUE KEY `characters_stateId_unique` (`stateId`),
+  CONSTRAINT `characters_userId_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-CREATE FULLTEXT INDEX IF NOT EXISTS `characters_fullName_index`
-  ON `characters` (`fullName`);
-
-CREATE INDEX IF NOT EXISTS `characters_userId_key`
-  ON `characters` (`userId`);
 
 CREATE TABLE IF NOT EXISTS `character_inventory` (
   `charId` INT UNSIGNED NOT NULL,
@@ -146,26 +135,18 @@ CREATE TABLE IF NOT EXISTS `character_licenses` (
   CONSTRAINT `character_licenses_charId_fk` FOREIGN KEY (`charId`) REFERENCES `characters` (`charId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `accounts`
-(
-  `id`        INT UNSIGNED                                                        NOT NULL
-      PRIMARY KEY,
-  `label`     VARCHAR(50)                                                         NOT NULL,
-  `owner`     INT UNSIGNED                                                        NULL,
-  `group`     VARCHAR(20)                                                         NULL,
-  `balance`   INT                                              DEFAULT 0          NOT NULL,
-  `isDefault` TINYINT(1)                                       DEFAULT 0          NOT NULL,
-  `type`      ENUM ('personal', 'shared', 'group', 'inactive') DEFAULT 'personal' NOT NULL,
-  CONSTRAINT `accounts_group_fk`
-      FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`)
-          ON UPDATE SET NULL ON DELETE SET NULL,
-  CONSTRAINT `accounts_owner_fk`
-      FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`)
-          ON UPDATE SET NULL ON DELETE SET NULL
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `id` INT UNSIGNED NOT NULL,
+  `label` VARCHAR(50) NOT NULL,
+  `owner` INT UNSIGNED NULL,
+  `group` VARCHAR(20) NULL,
+  `balance` INT DEFAULT 0 NOT NULL,
+  `isDefault` TINYINT (1) DEFAULT 0 NOT NULL,
+  `type` ENUM ('personal', 'shared', 'group', 'inactive') DEFAULT 'personal' NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `accounts_owner_fk` FOREIGN KEY (`owner`) REFERENCES `characters` (`charId`) ON UPDATE SET NULL ON DELETE SET NULL,
+  CONSTRAINT `accounts_group_fk` FOREIGN KEY (`group`) REFERENCES `ox_groups` (`name`) ON UPDATE SET NULL ON DELETE SET NULL
 );
-
-CREATE FULLTEXT INDEX IF NOT EXISTS `accounts_label_index`
-  ON `accounts` (`label`);
 
 CREATE TABLE `account_roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -229,34 +210,28 @@ CREATE TABLE IF NOT EXISTS `accounts_transactions` (
   CONSTRAINT `accounts_transactions_toId_fk` FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE FULLTEXT INDEX IF NOT EXISTS `accounts_transactions_message_index`
-  ON `accounts_transactions` (`message`);
-
 CREATE TABLE IF NOT EXISTS `accounts_invoices`
 (
-    `id`          INT UNSIGNED AUTO_INCREMENT
+    `id`        INT UNSIGNED AUTO_INCREMENT
         PRIMARY KEY,
-    `actorId`     INT UNSIGNED                          NOT NULL,
-    `payerId`     INT UNSIGNED                          NULL,
-    `fromAccount` INT UNSIGNED                          NOT NULL,
-    `toAccount`   INT UNSIGNED                          NOT NULL,
-    `amount`      INT UNSIGNED                          NOT NULL,
-    `message`     VARCHAR(255)                          NULL,
-    `sentAt`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
-    `dueDate`     TIMESTAMP                             NOT NULL,
-    `paidAt`      TIMESTAMP                             NULL,
+    `creatorId` INT UNSIGNED                          NOT NULL,
+    `payerId`   INT UNSIGNED                          NULL,
+    `fromId`    INT UNSIGNED                          NOT NULL,
+    `toId`      INT UNSIGNED                          NOT NULL,
+    `amount`    INT UNSIGNED                          NOT NULL,
+    `message`   VARCHAR(255)                          NULL,
+    `sentAt`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP() NOT NULL,
+    `dueDate`   TIMESTAMP                             NOT NULL,
+    `paidAt`    TIMESTAMP                             NULL,
     CONSTRAINT `accounts_invoices_accounts_id_fk`
-        FOREIGN KEY (`fromAccount`) REFERENCES `accounts` (`id`),
+        FOREIGN KEY (`fromId`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_accounts_id_fk_2`
-        FOREIGN KEY (`toAccount`) REFERENCES `accounts` (`id`),
+        FOREIGN KEY (`toId`) REFERENCES `accounts` (`id`),
     CONSTRAINT `accounts_invoices_characters_charId_fk`
         FOREIGN KEY (`payerId`) REFERENCES `characters` (`charId`),
     CONSTRAINT `accounts_invoices_characters_charId_fk_2`
-        FOREIGN KEY (`actorId`) REFERENCES `characters` (`charId`)
+        FOREIGN KEY (`creatorId`) REFERENCES `characters` (`charId`)
 );
-
-CREATE FULLTEXT INDEX IF NOT EXISTS `idx_message_fulltext`
-    ON `accounts_invoices` (`message`);
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 
