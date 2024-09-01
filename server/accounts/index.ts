@@ -1,4 +1,4 @@
-import { OxAccountInvoice, OxCreateInvoice } from 'types';
+import { OxCreateInvoice } from 'types';
 import {
   CreateNewAccount,
   DeleteAccount,

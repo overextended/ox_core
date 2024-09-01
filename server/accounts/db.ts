@@ -1,6 +1,6 @@
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccount, OxAccountInvoice, OxAccountRole, OxCreateInvoice } from 'types';
+import type { OxAccount, OxAccountRole, OxCreateInvoice } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
