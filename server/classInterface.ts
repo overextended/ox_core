@@ -5,6 +5,18 @@ export class ClassInterface {
   protected static keys?: Dict<Dict<any>>;
   protected static callableMethods: Dict<true>;
 
+  static isCallValid(method: string, id: string | number, member: any) {
+    if (!member) return console.error(`cannot call method ${method} on ${this.name}<${id}> (invalid id)`);
+
+    if (!member[method])
+      return console.error(`cannot call method ${method} on ${this.name}<${id}> (method does not exist)`);
+
+    if (!this.callableMethods[method])
+      return console.error(`cannot call method ${method} on ${this.name}<${id}> (method is not exported)`);
+
+    return true;
+  }
+
   /** Exports several class methods and makes non-private methods callable from external resources. */
   static init() {
     const classMethods = Object.getOwnPropertyNames(this.prototype);
@@ -21,22 +33,24 @@ export class ClassInterface {
     const expName = this.name.replace('Ox', '');
 
     // e.g. exports.ox_core.GetPlayer
-    exports(`Get${expName}`, (id: string) => this.members[id]);
+    exports(`Get${expName}`, (id: string | number) => this.get(id));
 
     // e.g. exports.ox_core.GetPlayerCalls
     exports(`Get${expName}Calls`, () => this.callableMethods);
 
     // e.g. exports.ox_core.CallPlayer
     exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
-      const member = this.members[id];
+      const member = this.get(id);
 
-      if (!member) return console.error(`cannot call method ${method} on ${name}<${id}> (invalid id)`);
+      if (member instanceof Promise) {
+        return member.then((resolvedMember) => {
+          if (!this.isCallValid(method, id, resolvedMember)) return;
 
-      if (!member[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method does not exist)`);
+          return resolvedMember.call(method, ...args);
+        });
+      }
 
-      if (!this.callableMethods[method])
-        return console.error(`cannot call method ${method} on ${name}<${id}> (method is not exported)`);
+      if (!this.isCallValid(method, id, member)) return;
 
       return member.call(method, ...args);
     });
