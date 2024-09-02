@@ -284,7 +284,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
   if (!player?.charId) return 'no_charId';
 
   const invoice = await db.row<{ amount: number; payerId?: number; toAccount: number }>(
-    'SELECT `amount`, `payerId`, `toAccount` FROM `accounts_invoices` WHERE `id` = ?',
+    'SELECT * FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
 
@@ -308,11 +308,19 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (!removedBalance || typeof removedBalance === 'string') return removedBalance;
 
-  return db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
+  const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
     new Date(),
     invoiceId,
   ]);
+
+  if (!invoiceUpdated) return invoiceUpdated;
+
+  invoice.payerId = charId;
+
+  emit('ox:invoicePaid', invoice);
+
+  return true;
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
