@@ -4,7 +4,7 @@ import type { OxAccount, OxAccountRole, OxCreateInvoice } from 'types';
 import locales from '../../common/locales';
 import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
-import { GetAccountById, RemoveAccountBalance } from 'accounts';
+import { GetAccountById } from 'accounts';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -39,7 +39,8 @@ export async function UpdateBalance(
   action: 'add' | 'remove',
   overdraw: boolean,
   message?: string,
-  note?: string
+  note?: string,
+  actorId?: number
 ) {
   amount = parseInt(String(amount));
 
@@ -58,7 +59,7 @@ export async function UpdateBalance(
   return (
     success &&
     (await conn.update(addTransaction, [
-      null,
+      actorId || null,
       addAction ? null : id,
       addAction ? id : null,
       amount,
@@ -296,17 +297,17 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (!hasPermission) return 'no_permission';
 
-  const account = (await GetAccountById(invoice.toAccount))!;
+  const success = await UpdateBalance(
+    invoice.toAccount,
+    invoice.amount,
+    'remove',
+    false,
+    locales('invoice_payment'),
+    undefined,
+    charId
+  );
 
-  if (invoice.amount > account.balance) return 'insufficient_balance';
-
-  const removedBalance = await RemoveAccountBalance({
-    id: invoice.toAccount,
-    amount: invoice.amount,
-    message: locales('invoice_payment'),
-  });
-
-  if (!removedBalance || typeof removedBalance === 'string') return removedBalance;
+  if (!success || typeof success === 'string') return success;
 
   const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
