@@ -27,8 +27,6 @@ import { PayAccountInvoice } from 'accounts';
 import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
 
-export type PlayerInstance = InstanceType<typeof OxPlayer>;
-
 export class OxPlayer extends ClassInterface {
   source: number | string;
   userId: number;
@@ -44,8 +42,8 @@ export class OxPlayer extends ClassInterface {
   #groups: Dict<number>;
   #licenses: Dict<CharacterLicense>;
 
-  protected static members: Dict<PlayerInstance> = {};
-  protected static keys: Dict<Dict<PlayerInstance>> = {
+  protected static members: Dict<OxPlayer> = {};
+  protected static keys: Dict<Dict<OxPlayer>> = {
     userId: {},
     charId: {},
   };
@@ -89,12 +87,12 @@ export class OxPlayer extends ClassInterface {
   }
 
   /** Gets all instances of OxPlayer, optionally comparing against a filter. */
-  static getAll(filter?: Dict<any>, asArray?: false): Dict<PlayerInstance>;
-  static getAll(filter?: Dict<any>, asArray?: true): PlayerInstance[];
-  static getAll(filter?: Dict<any>, asArray = false): Dict<PlayerInstance> | PlayerInstance[] {
+  static getAll(filter?: Dict<any>, asArray?: false): Dict<OxPlayer>;
+  static getAll(filter?: Dict<any>, asArray?: true): OxPlayer[];
+  static getAll(filter?: Dict<any>, asArray = false): Dict<OxPlayer> | OxPlayer[] {
     if (!filter) return asArray ? Object.values(this.members) : this.members;
 
-    const obj: Dict<PlayerInstance> = {};
+    const obj: Dict<OxPlayer> = {};
 
     for (const id in this.members) {
       const player = this.members[id].filter(filter);

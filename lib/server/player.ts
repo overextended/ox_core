@@ -1,4 +1,4 @@
-import type { OxPlayer } from 'server/player/class';
+import type { OxPlayer as _OxPlayer } from 'server/player/class';
 import type { Dict } from 'types';
 import { GetCharacterAccount } from './account';
 
@@ -46,9 +46,9 @@ PlayerInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export type OxPlayerServer = InstanceType<typeof OxPlayer> & InstanceType<typeof PlayerInterface>;
+export type OxPlayer = _OxPlayer & PlayerInterface;
 
-function CreatePlayerInstance(player?: InstanceType<typeof OxPlayer>) {
+function CreatePlayerInstance(player?: _OxPlayer) {
   if (!player) return;
 
   return new PlayerInterface(
@@ -59,7 +59,7 @@ function CreatePlayerInstance(player?: InstanceType<typeof OxPlayer>) {
     player.username,
     player.identifier,
     player.ped
-  ) as OxPlayerServer;
+  ) as OxPlayer;
 }
 
 export function GetPlayer(playerId: string | number) {
@@ -70,7 +70,7 @@ export function GetPlayerFromUserId(userId: number) {
   return CreatePlayerInstance(exports.ox_core.GetPlayerFromUserId(userId));
 }
 
-export function GetPlayers(filter?: Dict<any>): OxPlayerServer[] {
+export function GetPlayers(filter?: Dict<any>): OxPlayer[] {
   const players = exports.ox_core.GetPlayers(filter);
 
   for (const id in players) players[id] = CreatePlayerInstance(players[id]);

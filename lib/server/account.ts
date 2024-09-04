@@ -1,4 +1,4 @@
-import type { OxAccount } from 'server/accounts/class';
+import type { OxAccount as _OxAccount } from 'server/accounts/class';
 
 class AccountInterface {
   constructor(public accountId: number) {}
@@ -14,12 +14,12 @@ AccountInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export type OxAccountServer = OxAccount & AccountInterface;
+export type OxAccount = _OxAccount & AccountInterface;
 
-function CreateAccountInstance(account?: OxAccount) {
+function CreateAccountInstance(account?: _OxAccount) {
   if (!account) return;
 
-  return new AccountInterface(account.accountId) as OxAccountServer;
+  return new AccountInterface(account.accountId) as OxAccount;
 }
 
 export async function GetAccount(accountId: number) {

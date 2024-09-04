@@ -1,4 +1,4 @@
-import type { OxVehicle } from 'server/vehicle/class';
+import type { OxVehicle as _OxVehicle } from 'server/vehicle/class';
 import type { VehicleProperties } from '@overextended/ox_lib';
 
 class VehicleInterface {
@@ -45,9 +45,9 @@ VehicleInterface.prototype.toString = function () {
   return JSON.stringify(this, null, 2);
 };
 
-export type OxVehicleServer = InstanceType<typeof OxVehicle> & InstanceType<typeof VehicleInterface>;
+export type OxVehicle = _OxVehicle & VehicleInterface;
 
-function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
+function CreateVehicleInstance(vehicle?: _OxVehicle) {
   if (!vehicle) return;
 
   return new VehicleInterface(
@@ -61,7 +61,7 @@ function CreateVehicleInstance(vehicle?: InstanceType<typeof OxVehicle>) {
     vehicle.vin,
     vehicle.owner,
     vehicle.group
-  ) as OxVehicleServer;
+  ) as OxVehicle;
 }
 
 export function GetVehicle(entityId: number) {

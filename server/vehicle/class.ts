@@ -7,8 +7,6 @@ import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
 import { setVehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
 
-export type VehicleInstance = InstanceType<typeof OxVehicle>;
-
 export class OxVehicle extends ClassInterface {
   entity: number;
   netId: number;
@@ -23,8 +21,8 @@ export class OxVehicle extends ClassInterface {
   #metadata: Dict<any>;
   #stored: string | null;
 
-  protected static members: Dict<VehicleInstance> = {};
-  protected static keys: Dict<Dict<VehicleInstance>> = {
+  protected static members: Dict<OxVehicle> = {};
+  protected static keys: Dict<Dict<OxVehicle>> = {
     id: {},
     netId: {},
     vin: {},
@@ -55,7 +53,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   /** Gets all instances of OxVehicle. */
-  static getAll(): Dict<VehicleInstance> {
+  static getAll(): Dict<OxVehicle> {
     return this.members;
   }
 

@@ -63,8 +63,9 @@ class PlayerInterface {
   }
 }
 
-export type OxPlayerClient = typeof OxPlayer & InstanceType<typeof PlayerInterface>;
-const player = new PlayerInterface() as OxPlayerClient;
+export type OxPlayer = typeof OxPlayer & PlayerInterface;
+
+const player = new PlayerInterface() as OxPlayer;
 
 export function GetPlayer() {
   return player;
