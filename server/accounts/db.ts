@@ -33,7 +33,8 @@ export async function UpdateBalance(
   action: 'add' | 'remove',
   overdraw: boolean,
   message?: string,
-  note?: string
+  note?: string,
+  actorId?: number
 ) {
   amount = parseInt(String(amount));
 
@@ -52,7 +53,7 @@ export async function UpdateBalance(
   return (
     success &&
     (await conn.update(addTransaction, [
-      null,
+      actorId || null,
       addAction ? null : id,
       addAction ? id : null,
       amount,
@@ -269,7 +270,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
   if (!player?.charId) return 'no_charId';
 
   const invoice = await db.row<{ amount: number; payerId?: number; toAccount: number }>(
-    'SELECT `amount`, `payerId`, `toAccount` FROM `accounts_invoices` WHERE `id` = ?',
+    'SELECT * FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
 
@@ -282,21 +283,31 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (!hasPermission) return 'no_permission';
 
-  const removedBalance = await UpdateBalance(
+  const success = await UpdateBalance(
     invoice.toAccount,
     invoice.amount,
     'remove',
     false,
-    locales('invoice_payment')
+    locales('invoice_payment'),
+    undefined,
+    charId
   );
 
-  if (!removedBalance || typeof removedBalance === 'string') return removedBalance;
+  if (!success || typeof success === 'string') return success;
 
-  return db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
+  const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
     new Date(),
     invoiceId,
   ]);
+
+  if (!invoiceUpdated) return invoiceUpdated;
+
+  invoice.payerId = charId;
+
+  emit('ox:invoicePaid', invoice);
+
+  return true;
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
