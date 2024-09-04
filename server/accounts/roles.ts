@@ -4,7 +4,7 @@ import { SelectAccount } from './db';
 import { GetGroup } from 'groups';
 import { OxPlayer } from 'player/class';
 
-type DbAccountRow = OxAccountPermissions & { id?: number; name?: OxAccountRole };
+type OxAccountMetadataRow = OxAccountPermissions & { id?: number; name?: OxAccountRole };
 
 const accountRoles = {} as Record<string, OxAccountPermissions>;
 
@@ -35,7 +35,7 @@ export async function CanPerformAction(
 }
 
 async function LoadRoles() {
-  const roles = await db.execute<DbAccountRow>(`SELECT * FROM account_roles`);
+  const roles = await db.execute<OxAccountMetadataRow>(`SELECT * FROM account_roles`);
 
   if (!roles[0]) return;
 

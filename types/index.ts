@@ -109,14 +109,17 @@ export interface OxStatus {
   onTick: number;
 }
 
-export interface OxAccount {
+export interface OxAccountMetadata {
   id: number;
   balance: number;
   isDefault: boolean;
-  label?: string;
+  label: string;
+  type: 'personal' | 'shared' | 'group';
   owner?: number;
   group?: string;
-  type: 'personal' | 'shared' | 'group';
+}
+
+export interface OxAccountUserMetadata extends OxAccountMetadata {
   role: OxAccountRole;
   ownerName: string;
 }
@@ -157,7 +160,7 @@ export interface OxAccountPermissions {
 
 export interface OxAccountInvoice {
   id: number;
-  actorId: number;
+  actorId?: number;
   payerId?: number;
   fromAccount: number;
   toAccount: number;
@@ -169,8 +172,11 @@ export interface OxAccountInvoice {
 }
 
 export interface OxCreateInvoice {
-  actorId: number;
+  /** The charId of the player creating the invoice. */
+  actorId?: number;
+  /** The accountId of the account issuing the invoice. */
   fromAccount: number;
+  /** The accountId of the account receiving the invoice. */
   toAccount: number;
   amount: number;
   message: string;

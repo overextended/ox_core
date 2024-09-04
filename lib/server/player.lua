@@ -51,6 +51,10 @@ function OxPlayer:getGroup(filter)
     return result
 end
 
+function OxPlayer:getAccount()
+    return self.charId and Ox.GetCharacterAccount(self.charId) or nil
+end
+
 function OxPlayer:getGroupByType(type)
     local result = OxPlayer.__call(self, 'getGroupByType', type)
 

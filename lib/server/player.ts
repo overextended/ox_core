@@ -1,5 +1,6 @@
 import type { OxPlayer } from 'server/player/class';
 import type { Dict } from 'types';
+import { GetCharacterAccount } from './account';
 
 class PlayerInterface {
   public state: StateBagInterface;
@@ -28,6 +29,10 @@ class PlayerInterface {
 
   getState() {
     return Player(source).state;
+  }
+
+  async getAccount() {
+    return this.charId ? GetCharacterAccount(this.charId) : null;
   }
 }
 
