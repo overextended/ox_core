@@ -61,11 +61,14 @@ const client = await getContext('client', {
 });
 
 async function build() {
-  return Promise.all([server.rebuild(), client.rebuild()]).then(() => {
-    writeFile('.yarn.installed', new Date().toISOString());
-    writeFile(
-      'fxmanifest.lua',
-      `fx_version 'cerulean'
+  const built = await Promise.all([server.rebuild(), client.rebuild()]);
+
+  if (!built) return;
+
+  await writeFile('.yarn.installed', new Date().toISOString());
+  await writeFile(
+    'fxmanifest.lua',
+    `fx_version 'cerulean'
 game 'gta5'
 
 name '${pkg.name}'
@@ -91,8 +94,7 @@ client_script 'dist/client.js'
 server_script 'dist/server.js'
 
 `
-    );
-  });
+  );
 }
 
 const tsc = spawn(`tsc --build ${production ? '' : '--watch --preserveWatchOutput'} && tsc-alias`, {
