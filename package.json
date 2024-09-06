@@ -16,7 +16,6 @@
     "./server": "./package/lib/server/index.js"
   },
   "scripts": {
-    "prepare": "tsc --build && tsc-alias",
     "build": "node build.js --mode=production",
     "watch": "node build.js"
   },
