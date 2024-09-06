@@ -20,7 +20,7 @@
     "noEmit": false,
     "emitDeclarationOnly": true,
     "removeComments": true,
-    "outDir": "./package/",
+    "outDir": "./package/"
   },
   "include": ["./", "./types/"],
   "references": [{ "path": "./lib" }]
