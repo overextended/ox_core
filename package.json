@@ -33,6 +33,7 @@
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
+    "@overextended/fx-utils": "^0.0.2",
     "@types/node": "^20.16.5",
     "esbuild": "^0.23.1",
     "prettier": "^3.3.3",
@@ -41,7 +42,6 @@
   },
   "dependencies": {
     "@nativewrappers/fivem": "^0.0.41",
-    "@overextended/fx-utils": "github:overextended/fx-utils",
     "@overextended/ox_lib": "^3.25.0",
     "mariadb": "^3.3.1"
   },
