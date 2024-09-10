@@ -13,7 +13,7 @@ importers:
         version: 0.0.41
       '@overextended/fx-utils':
         specifier: github:overextended/fx-utils
-        version: https://codeload.github.com/overextended/fx-utils/tar.gz/b4f76b00e2bc20664652b1d7c3a2e7b625440df7
+        version: https://codeload.github.com/overextended/fx-utils/tar.gz/211d3b11c4aaec32a3eae93bf1e4b9a27399e6d0
       '@overextended/ox_lib':
         specifier: ^3.25.0
         version: 3.25.0
@@ -23,13 +23,13 @@ importers:
     devDependencies:
       '@citizenfx/client':
         specifier: latest
-        version: 2.0.9481-1
+        version: 2.0.9823-1
       '@citizenfx/server':
         specifier: latest
-        version: 2.0.9481-1
+        version: 2.0.9823-1
       '@types/node':
-        specifier: ^20.16.1
-        version: 20.16.1
+        specifier: ^20.16.5
+        version: 20.16.5
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -40,16 +40,16 @@ importers:
         specifier: ^1.8.10
         version: 1.8.10
       typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
+        specifier: ^5.6.2
+        version: 5.6.2
 
 packages:
 
-  '@citizenfx/client@2.0.9481-1':
-    resolution: {integrity: sha512-Z9nFH/Xo9WwQs2MURCBpkyfB+wV7KILXvJ+aV9hq5PJOj8dpPN1QAR8PmNP1BfOv7+yMjIYp2liKmzWOhOfk1Q==}
+  '@citizenfx/client@2.0.9823-1':
+    resolution: {integrity: sha512-xM0N2k7tz8/ByuEyuuBZ8zLh+4hy1VuLouV2QkmGBaiXzdWzR7h6Cqd3nGVFmdvuZrEt8DsCtiR1FiBU+JCIxQ==}
 
-  '@citizenfx/server@2.0.9481-1':
-    resolution: {integrity: sha512-H1cxJY7rqqVe2SvvBQoaDzy0x3ZEGuVKUmH00wEEJpOi8XoyRfas3Qeq6c7ij+uLSEzLdejizSUvTHqpj4b0hw==}
+  '@citizenfx/server@2.0.9823-1':
+    resolution: {integrity: sha512-4TETkQFhHmoDXmfsRTSMDDgLNsGHds2vH56QIwHic1bkGdsvAt6p0I83VqZjOvXXPXw9EpdHnian3XBfTlPVLQ==}
 
   '@esbuild/aix-ppc64@0.23.1':
     resolution: {integrity: sha512-6VhYk1diRqrhBAqpJEdjASR/+WVRtfjpqKuNw11cLiaWpAT/Uu+nokB+UJnevzy/P9C/ty6AOe0dwueMrGh/iQ==}
@@ -213,8 +213,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@overextended/fx-utils@https://codeload.github.com/overextended/fx-utils/tar.gz/b4f76b00e2bc20664652b1d7c3a2e7b625440df7':
-    resolution: {tarball: https://codeload.github.com/overextended/fx-utils/tar.gz/b4f76b00e2bc20664652b1d7c3a2e7b625440df7}
+  '@overextended/fx-utils@https://codeload.github.com/overextended/fx-utils/tar.gz/211d3b11c4aaec32a3eae93bf1e4b9a27399e6d0':
+    resolution: {tarball: https://codeload.github.com/overextended/fx-utils/tar.gz/211d3b11c4aaec32a3eae93bf1e4b9a27399e6d0}
     version: 0.0.1
     hasBin: true
 
@@ -224,8 +224,8 @@ packages:
   '@types/geojson@7946.0.14':
     resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
 
-  '@types/node@20.16.1':
-    resolution: {integrity: sha512-zJDo7wEadFtSyNz5QITDfRcrhqDvQI1xQNQ0VoizPjM/dVAODqqIUWbJPkvsxmTI0MYRGRikcdjMPhOssnPejQ==}
+  '@types/node@20.16.5':
+    resolution: {integrity: sha512-VwYCweNo3ERajwy0IUlqqcyZ8/A7Zwa9ZP3MnENWcB11AejO+tLy3pu850goUW2FC/IJMdZUfKpX/yxL1gymCA==}
 
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
@@ -333,8 +333,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  micromatch@4.0.7:
-    resolution: {integrity: sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==}
+  micromatch@4.0.8:
+    resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
   mylas@2.1.13:
@@ -395,19 +395,19 @@ packages:
     resolution: {integrity: sha512-Ibv4KAWfFkFdKJxnWfVtdOmB0Zi1RJVxcbPGiCDsFpCQSsmpWyuzHG3rQyI5YkobWwxFPEyQfu1hdo4qLG2zPw==}
     hasBin: true
 
-  typescript@5.5.4:
-    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+  typescript@5.6.2:
+    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.19.6:
-    resolution: {integrity: sha512-e/vggGopEfTKSvj4ihnOLTsqhrKRN3LeO6qSN/GxohhuRv8qH9bNQ4B8W7e/vFL+0XTnmHPB4/kegunZGA4Org==}
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
 snapshots:
 
-  '@citizenfx/client@2.0.9481-1': {}
+  '@citizenfx/client@2.0.9823-1': {}
 
-  '@citizenfx/server@2.0.9481-1': {}
+  '@citizenfx/server@2.0.9823-1': {}
 
   '@esbuild/aix-ppc64@0.23.1':
     optional: true
@@ -497,23 +497,23 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@overextended/fx-utils@https://codeload.github.com/overextended/fx-utils/tar.gz/b4f76b00e2bc20664652b1d7c3a2e7b625440df7':
+  '@overextended/fx-utils@https://codeload.github.com/overextended/fx-utils/tar.gz/211d3b11c4aaec32a3eae93bf1e4b9a27399e6d0':
     dependencies:
       esbuild: 0.23.1
-      typescript: 5.5.4
+      typescript: 5.6.2
 
   '@overextended/ox_lib@3.25.0':
     dependencies:
       '@nativewrappers/client': 1.7.33
       csstype: 3.1.3
       fast-printf: 1.6.9
-      typescript: 5.5.4
+      typescript: 5.6.2
 
   '@types/geojson@7946.0.14': {}
 
-  '@types/node@20.16.1':
+  '@types/node@20.16.5':
     dependencies:
-      undici-types: 6.19.6
+      undici-types: 6.19.8
 
   anymatch@3.1.3:
     dependencies:
@@ -585,7 +585,7 @@ snapshots:
       '@nodelib/fs.walk': 1.2.8
       glob-parent: 5.1.2
       merge2: 1.4.1
-      micromatch: 4.0.7
+      micromatch: 4.0.8
 
   fast-printf@1.6.9:
     dependencies:
@@ -638,14 +638,14 @@ snapshots:
   mariadb@3.3.1:
     dependencies:
       '@types/geojson': 7946.0.14
-      '@types/node': 20.16.1
+      '@types/node': 20.16.5
       denque: 2.1.0
       iconv-lite: 0.6.3
       lru-cache: 10.4.3
 
   merge2@1.4.1: {}
 
-  micromatch@4.0.7:
+  micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
@@ -695,6 +695,6 @@ snapshots:
       normalize-path: 3.0.0
       plimit-lit: 1.6.1
 
-  typescript@5.5.4: {}
+  typescript@5.6.2: {}
 
-  undici-types@6.19.6: {}
+  undici-types@6.19.8: {}

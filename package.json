@@ -33,11 +33,11 @@
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@types/node": "^20.16.1",
+    "@types/node": "^20.16.5",
     "esbuild": "^0.23.1",
     "prettier": "^3.3.3",
     "tsc-alias": "^1.8.10",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "@nativewrappers/fivem": "^0.0.41",
