@@ -25,8 +25,8 @@ importers:
         specifier: latest
         version: 2.0.9823-1
       '@overextended/fx-utils':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.4
+        version: 0.0.4
       '@types/node':
         specifier: ^20.16.5
         version: 20.16.5
@@ -213,8 +213,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@overextended/fx-utils@0.0.2':
-    resolution: {integrity: sha512-1kwgpLRmUo6C00qRm+uZsX6ffDepgEYNzavbZa3vexoItYPJOWFWXtMfvL6A405ESQH5oaO6eMqex0pE2nDh5w==}
+  '@overextended/fx-utils@0.0.4':
+    resolution: {integrity: sha512-8cv3lO6WbipBhUmMtY9xpYscq73xMrte1okgkMdU5SkadU8z6qeqMsXWSCZz/8rM1cmMXYAYyv6OpiVIzt02iw==}
     hasBin: true
 
   '@overextended/ox_lib@3.25.0':
@@ -496,9 +496,10 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@overextended/fx-utils@0.0.2':
+  '@overextended/fx-utils@0.0.4':
     dependencies:
       esbuild: 0.23.1
+      tsc-alias: 1.8.10
 
   '@overextended/ox_lib@3.25.0':
     dependencies:

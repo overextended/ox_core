@@ -1,8 +1,25 @@
 //@ts-check
 
 import { createBuilder, createFxmanifest } from '@overextended/fx-utils';
+import { spawn } from 'child_process';
 
 const watch = process.argv.includes('--watch');
+
+function exec(command) {
+  return new Promise((resolve) => {
+    const child = spawn(command, { stdio: 'inherit', shell: true });
+
+    child.on('exit', (code) => {
+      resolve(code === 0);
+    });
+  });
+}
+
+if (!watch) {
+  const tsc = await exec(`tsc --build ${watch ? '--watch --preserveWatchOutput' : ''} && tsc-alias`);
+
+  if (!tsc) process.exit(0);
+}
 
 createBuilder(
   watch,
@@ -16,6 +33,7 @@ createBuilder(
         platform: 'node',
         target: ['node16'],
         format: 'cjs',
+        entryPoints: [`./server/index.ts`],
       },
     },
     {
@@ -24,6 +42,7 @@ createBuilder(
         platform: 'browser',
         target: ['es2021'],
         format: 'iife',
+        entryPoints: [`./client/index.ts`],
       },
     },
   ],
