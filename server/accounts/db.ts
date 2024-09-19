@@ -1,10 +1,10 @@
+import { getRandomInt } from '@overextended/ox_lib';
+import { OxAccount } from 'accounts/class';
 import { Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
-import type { OxAccountMetadata, OxAccountRole, OxCreateInvoice, OxAccountUserMetadata } from 'types';
+import type { OxAccountMetadata, OxAccountRole, OxAccountUserMetadata, OxCreateInvoice } from 'types';
 import locales from '../../common/locales';
-import { getRandomInt } from '@overextended/ox_lib';
 import { CanPerformAction } from './roles';
-import { OxAccount } from 'accounts/class';
 
 const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
 const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
@@ -269,7 +269,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (!player?.charId) return 'no_charId';
 
-  const invoice = await db.row<{ amount: number; payerId?: number; toAccount: number }>(
+  const invoice = await db.row<{ amount: number; payerId?: number; fromAccount: number; toAccount: number }>(
     'SELECT * FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
@@ -283,7 +283,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   if (!hasPermission) return 'no_permission';
 
-  const success = await UpdateBalance(
+  const toSuccess = await UpdateBalance(
     invoice.toAccount,
     invoice.amount,
     'remove',
@@ -293,7 +293,19 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
     charId
   );
 
-  if (!success || typeof success === 'string') return success;
+  if (!toSuccess || typeof toSuccess === 'string') return toSuccess;
+
+  const fromSuccess = await UpdateBalance(
+    invoice.fromAccount,
+    invoice.amount,
+    'add',
+    false,
+    locales('invoice_payment'),
+    undefined,
+    charId
+  );
+
+  if (!fromSuccess || typeof fromSuccess === 'string') return fromSuccess;
 
   const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
