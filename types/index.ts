@@ -131,6 +131,7 @@ export interface DbGroup {
   accountRoles: Dict<OxAccountRole>;
   type?: string;
   colour?: number;
+  hasAccount: boolean;
 }
 
 export interface OxGroup extends DbGroup {
