@@ -21,6 +21,7 @@ export async function CreateVehicle(
         group?: string;
         stored?: string;
         properties?: VehicleProperties;
+        plate?: string;
       }),
   coords?: Vec3,
   heading?: number,
