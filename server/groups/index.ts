@@ -3,6 +3,8 @@ import { SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
 import type { Dict, OxGroup, DbGroup } from 'types';
 import { GetGroupPermissions } from '../../common';
+import { GetGroupAccount } from 'accounts';
+import { CreateNewAccount } from 'accounts/db';
 
 const groups: Dict<OxGroup> = {};
 GlobalState.groups = [];
@@ -67,6 +69,12 @@ async function CreateGroup(data: DbGroup) {
     }
 
     parent = child;
+  }
+
+  if (group.hasAccount) {
+    GetGroupAccount(group.name).then((account) => {
+      if (!account) CreateNewAccount(group.name, group.label, true);
+    });
   }
 
   DEV: console.info(`Instantiated OxGroup<${group.name}>`);
