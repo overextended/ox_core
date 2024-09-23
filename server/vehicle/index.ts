@@ -56,7 +56,7 @@ export async function CreateVehicle(
   if (data.vin && !data.owner && !data.group) delete data.vin;
 
   data.plate = data.vin
-    ? data.plate
+    ? data.plate!
     : data.plate && (await IsPlateAvailable(data.plate))
       ? data.plate
       : await OxVehicle.generatePlate();
