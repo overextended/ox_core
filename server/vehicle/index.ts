@@ -12,16 +12,16 @@ if (DEBUG) import('./parser');
 
 type Vec3 = number[] | { x: number; y: number; z: number } | { buffer: any };
 
+export interface CreateVehicleData {
+  model: string;
+  owner?: number;
+  group?: string;
+  stored?: string;
+  properties?: VehicleProperties;
+}
+
 export async function CreateVehicle(
-  data:
-    | string
-    | (Partial<VehicleRow> & {
-        model: string;
-        owner?: number;
-        group?: string;
-        stored?: string;
-        properties?: VehicleProperties;
-      }),
+  data: string | CreateVehicleData & Partial<VehicleRow>,
   coords?: Vec3,
   heading?: number,
   invokingScript = GetInvokingResource()

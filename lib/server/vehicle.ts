@@ -1,5 +1,5 @@
 import type { OxVehicle as _OxVehicle } from 'server/vehicle/class';
-import type { VehicleProperties } from '@overextended/ox_lib';
+import type { CreateVehicleData } from 'server/vehicle';
 
 class VehicleInterface {
   constructor(
@@ -77,13 +77,7 @@ export function GetVehicleFromVin(vin: string) {
 }
 
 export async function CreateVehicle(
-  data: {
-    model: string;
-    owner?: number;
-    group?: string;
-    stored?: number;
-    properties?: VehicleProperties;
-  },
+  data: CreateVehicleData,
   coords?: number | number[] | { x: number; y: number; z: number },
   heading?: number
 ) {
