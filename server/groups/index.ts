@@ -1,10 +1,10 @@
 import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
-import { SelectGroups } from './db';
-import { OxPlayer } from 'player/class';
-import type { Dict, OxGroup, DbGroup } from 'types';
-import { GetGroupPermissions } from '../../common';
 import { GetGroupAccount } from 'accounts';
 import { CreateNewAccount } from 'accounts/db';
+import { OxPlayer } from 'player/class';
+import type { DbGroup, Dict, OxGroup } from 'types';
+import { GetGroupPermissions } from '../../common';
+import { SelectGroups } from './db';
 
 const groups: Dict<OxGroup> = {};
 GlobalState.groups = [];
@@ -140,5 +140,6 @@ addCommand<{ target: string; group: string; grade?: number }>(
   }
 );
 
+exports('GetGroupsByType', GetGroupsByType);
 exports('SetGroupPermission', SetGroupPermission);
 exports('RemoveGroupPermission', RemoveGroupPermission);
