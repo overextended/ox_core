@@ -73,7 +73,7 @@ export async function PerformTransaction(
   message?: string,
   note?: string,
   actorId?: number
-) {
+): Promise<{ success: boolean; message?: string } | void> {
   amount = parseInt(String(amount));
 
   if (isNaN(amount)) return console.error(`Amount is not a number`);
@@ -83,7 +83,7 @@ export async function PerformTransaction(
   const fromBalance = await conn.scalar<number>(getBalance, [fromId]);
   const toBalance = await conn.scalar<number>(getBalance, [toId]);
 
-  if (fromBalance === null || toBalance === null) return 'no_balance';
+  if (fromBalance === null || toBalance === null) return { success: false, message: 'no_balance' };
 
   await conn.beginTransaction();
 
@@ -103,7 +103,7 @@ export async function PerformTransaction(
         toBalance + amount,
       ]);
 
-      return true;
+      return { success: true };
     }
   } catch (e) {
     console.error(`Failed to transfer $${amount} from account<${fromId}> to account<${toId}>`);
@@ -112,7 +112,7 @@ export async function PerformTransaction(
 
   conn.rollback();
 
-  return false;
+  return { success: false, message: 'something_went_wrong' };
 }
 
 export async function SelectAccounts(column: 'owner' | 'group' | 'id', id: number | string) {
@@ -163,27 +163,31 @@ export async function DepositMoney(
   amount: number,
   message?: string,
   note?: string
-) {
+): Promise<{ success: boolean; message?: string } | void> {
   amount = parseInt(String(amount));
 
   if (isNaN(amount)) return console.error(`Amount is not a number`);
 
   const player = OxPlayer.get(playerId);
 
-  if (!player?.charId) return 'no_charId';
+  if (!player?.charId)
+    return {
+      success: false,
+      message: 'no_charid',
+    };
 
   const money = exports.ox_inventory.GetItemCount(playerId, 'money');
 
-  if (amount > money) return 'insufficient_funds';
+  if (amount > money) return { success: false, message: 'insufficient_funds' };
 
   using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
-  if (balance === null) return 'no_balance';
+  if (balance === null) return { success: false, message: 'no_balance' };
 
   const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
-  if (!(await CanPerformAction(player, accountId, role, 'deposit'))) return 'no_access';
+  if (!(await CanPerformAction(player, accountId, role, 'deposit'))) return { success: false, message: 'no_access' };
 
   await conn.beginTransaction();
 
@@ -191,7 +195,10 @@ export async function DepositMoney(
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
     conn.rollback();
-    return false;
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
   }
 
   await conn.execute(addTransaction, [
@@ -205,7 +212,9 @@ export async function DepositMoney(
     balance + amount,
   ]);
 
-  return true;
+  return {
+    success: true,
+  };
 }
 
 export async function WithdrawMoney(
@@ -214,23 +223,23 @@ export async function WithdrawMoney(
   amount: number,
   message?: string,
   note?: string
-) {
+): Promise<{ success: boolean; message?: string } | void> {
   amount = parseInt(String(amount));
 
   if (isNaN(amount)) return console.error(`Amount is not a number`);
 
   const player = OxPlayer.get(playerId);
 
-  if (!player?.charId) return 'no_charId';
+  if (!player?.charId) return { success: false, message: 'no_charId' };
 
   using conn = await GetConnection();
   const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
-  if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return 'no_access';
+  if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return { success: false, message: 'no_access' };
 
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
-  if (balance === null) return 'no_balance';
+  if (balance === null) return { success: false, message: 'no_balance' };
 
   await conn.beginTransaction();
 
@@ -238,7 +247,10 @@ export async function WithdrawMoney(
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
     conn.rollback();
-    return false;
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
   }
 
   await conn.execute(addTransaction, [
@@ -252,7 +264,7 @@ export async function WithdrawMoney(
     null,
   ]);
 
-  return true;
+  return { success: true };
 }
 
 export function UpdateAccountAccess(accountId: number, id: number, role?: string) {
@@ -264,24 +276,27 @@ export function UpdateAccountAccess(accountId: number, id: number, role?: string
   );
 }
 
-export async function UpdateInvoice(invoiceId: number, charId: number) {
+export async function UpdateInvoice(
+  invoiceId: number,
+  charId: number
+): Promise<{ success: boolean; message?: string }> {
   const player = OxPlayer.getFromCharId(charId);
 
-  if (!player?.charId) return 'no_charId';
+  if (!player?.charId) return { success: false, message: 'no_charId' };
 
   const invoice = await db.row<{ amount: number; payerId?: number; fromAccount: number; toAccount: number }>(
     'SELECT * FROM `accounts_invoices` WHERE `id` = ?',
     [invoiceId]
   );
 
-  if (!invoice) return 'no_invoice';
+  if (!invoice) return { success: false, message: 'no_invoice' };
 
-  if (invoice.payerId) return 'invoice_paid';
+  if (invoice.payerId) return { success: false, message: 'invoice_paid' };
 
   const account = await OxAccount.get(invoice.toAccount);
   const hasPermission = await account?.playerHasPermission(player.source as number, 'payInvoice');
 
-  if (!hasPermission) return 'no_permission';
+  if (!hasPermission) return { success: false, message: 'no_permission' };
 
   const toSuccess = await UpdateBalance(
     invoice.toAccount,
@@ -293,7 +308,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
     charId
   );
 
-  if (!toSuccess || typeof toSuccess === 'string') return toSuccess;
+  if (!toSuccess || typeof toSuccess === 'string') return { success: false, message: 'no_balance' };
 
   const fromSuccess = await UpdateBalance(
     invoice.fromAccount,
@@ -305,7 +320,7 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
     charId
   );
 
-  if (!fromSuccess || typeof fromSuccess === 'string') return fromSuccess;
+  if (!fromSuccess || typeof fromSuccess === 'string') return { success: false, message: 'no_balance' };
 
   const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
@@ -319,7 +334,9 @@ export async function UpdateInvoice(invoiceId: number, charId: number) {
 
   emit('ox:invoicePaid', invoice);
 
-  return true;
+  return {
+    success: true,
+  };
 }
 
 export async function CreateInvoice(invoice: OxCreateInvoice) {
