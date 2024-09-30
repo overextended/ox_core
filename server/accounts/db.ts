@@ -35,22 +35,33 @@ export async function UpdateBalance(
   message?: string,
   note?: string,
   actorId?: number
-) {
+): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) return console.error(`Amount is not a number`);
+  if (isNaN(amount)) {
+    console.error(`Amount is not a number`);
+
+    return {
+      success: false,
+      message: 'amount_not_number',
+    };
+  }
 
   using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [id]);
 
-  if (balance === null) return 'no_balance';
+  if (balance === null)
+    return {
+      success: false,
+      message: 'no_balance',
+    };
 
   const addAction = action === 'add';
   const success = addAction
     ? await conn.update(addBalance, [amount, id])
     : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]);
 
-  return (
+  const didUpdate =
     success &&
     (await conn.update(addTransaction, [
       actorId || null,
@@ -61,8 +72,15 @@ export async function UpdateBalance(
       note,
       addAction ? null : balance + amount,
       addAction ? balance + amount : null,
-    ])) === 1
-  );
+    ])) === 1;
+
+  if (!didUpdate)
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
+
+  return { success: true };
 }
 
 export async function PerformTransaction(
@@ -73,10 +91,14 @@ export async function PerformTransaction(
   message?: string,
   note?: string,
   actorId?: number
-): Promise<{ success: boolean; message?: string } | void> {
+): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) return console.error(`Amount is not a number`);
+  if (isNaN(amount)) {
+    console.error(`Amount is not a number`);
+
+    return { success: false, message: 'amount_not_number' };
+  }
 
   using conn = await GetConnection();
 
@@ -147,8 +169,16 @@ export async function CreateNewAccount(owner: string | number, label: string, is
   return accountId;
 }
 
-export function DeleteAccount(accountId: number) {
-  return db.update(`UPDATE accounts SET \`type\` = 'inactive' WHERE id = ?`, [accountId]);
+export async function DeleteAccount(accountId: number): Promise<{ success: boolean; message?: string }> {
+  const success = await db.update(`UPDATE accounts SET \`type\` = 'inactive' WHERE id = ?`, [accountId]);
+
+  if (!success)
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
+
+  return { success: true };
 }
 
 const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
@@ -163,10 +193,14 @@ export async function DepositMoney(
   amount: number,
   message?: string,
   note?: string
-): Promise<{ success: boolean; message?: string } | void> {
+): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) return console.error(`Amount is not a number`);
+  if (isNaN(amount)) {
+    console.error(`Amount is not a number`);
+
+    return { success: false, message: 'amount_not_number' };
+  }
 
   const player = OxPlayer.get(playerId);
 
@@ -223,10 +257,14 @@ export async function WithdrawMoney(
   amount: number,
   message?: string,
   note?: string
-): Promise<{ success: boolean; message?: string } | void> {
+): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) return console.error(`Amount is not a number`);
+  if (isNaN(amount)) {
+    console.error(`Amount is not a number`);
+
+    return { success: false, message: 'amount_not_number' };
+  }
 
   const player = OxPlayer.get(playerId);
 
@@ -267,13 +305,25 @@ export async function WithdrawMoney(
   return { success: true };
 }
 
-export function UpdateAccountAccess(accountId: number, id: number, role?: string) {
-  if (!role) return db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
+export async function UpdateAccountAccess(
+  accountId: number,
+  id: number,
+  role?: string
+): Promise<{ success: boolean; message?: string }> {
+  if (!role) {
+    const success = await db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
-  return db.update(
+    if (!success) return { success: false, message: 'something_went_wrong' };
+  }
+
+  const success = await db.update(
     `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
     [accountId, id, role]
   );
+
+  if (!success) return { success: false, message: 'something_went_wrong' };
+
+  return { success: true };
 }
 
 export async function UpdateInvoice(
@@ -298,7 +348,7 @@ export async function UpdateInvoice(
 
   if (!hasPermission) return { success: false, message: 'no_permission' };
 
-  const toSuccess = await UpdateBalance(
+  const updateReceiver = await UpdateBalance(
     invoice.toAccount,
     invoice.amount,
     'remove',
@@ -308,9 +358,9 @@ export async function UpdateInvoice(
     charId
   );
 
-  if (!toSuccess || typeof toSuccess === 'string') return { success: false, message: 'no_balance' };
+  if (!updateReceiver.success) return { success: false, message: 'no_balance' };
 
-  const fromSuccess = await UpdateBalance(
+  const updateSender = await UpdateBalance(
     invoice.fromAccount,
     invoice.amount,
     'add',
@@ -320,15 +370,19 @@ export async function UpdateInvoice(
     charId
   );
 
-  if (!fromSuccess || typeof fromSuccess === 'string') return { success: false, message: 'no_balance' };
+  if (!updateSender.success) return { success: false, message: 'no_balance' };
 
-  const invoiceUpdated = db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
+  const invoiceUpdated = await db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
     new Date(),
     invoiceId,
   ]);
 
-  if (!invoiceUpdated) return invoiceUpdated;
+  if (!invoiceUpdated)
+    return {
+      success: false,
+      message: 'invoice_not_updated',
+    };
 
   invoice.payerId = charId;
 
@@ -339,32 +393,44 @@ export async function UpdateInvoice(
   };
 }
 
-export async function CreateInvoice(invoice: OxCreateInvoice) {
+export async function CreateInvoice(invoice: OxCreateInvoice): Promise<{ success: boolean; message?: string }> {
   if (invoice.actorId) {
     const player = OxPlayer.getFromCharId(invoice.actorId);
 
-    if (!player?.charId) return 'no_charId';
+    if (!player?.charId) return { success: false, message: 'no_charid' };
 
     const account = await OxAccount.get(invoice.fromAccount);
     const hasPermission = await account?.playerHasPermission(player.source as number, 'sendInvoice');
 
-    if (!hasPermission) return 'no_permission';
+    if (!hasPermission) return { success: false, message: 'no_permission' };
   }
 
   const targetAccount = await OxAccount.get(invoice.toAccount);
 
-  if (!targetAccount) return 'no_target_account';
+  if (!targetAccount) return { success: false, message: 'no_target_account' };
 
-  return db.insert(
+  const success = await db.insert(
     'INSERT INTO accounts_invoices (`actorId`, `fromAccount`, `toAccount`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
     [invoice.actorId, invoice.fromAccount, invoice.toAccount, invoice.amount, invoice.message, invoice.dueDate]
   );
+
+  if (!success) return { success: false, message: 'invoice_insert_error' };
+
+  return { success: true };
 }
 
-export async function DeleteInvoice(invoiceId: number) {
-  return db.update('DELETE FROM `accounts_invoices` WHERE `id` = ?', [invoiceId]);
+export async function DeleteInvoice(invoiceId: number): Promise<{ success: boolean; message?: string }> {
+  const success = await db.update('DELETE FROM `accounts_invoices` WHERE `id` = ?', [invoiceId]);
+
+  if (!success) return { success: false, message: 'invoice_delete_error' };
+
+  return { success: true };
 }
 
-export async function SetAccountType(accountId: number, type: string) {
-  return db.update('UPDATE `accounts` SET `type` = ? WHERE `id` = ?', [type, accountId]);
+export async function SetAccountType(accountId: number, type: string): Promise<{ success: boolean; message?: string }> {
+  const success = await db.update('UPDATE `accounts` SET `type` = ? WHERE `id` = ?', [type, accountId]);
+
+  if (!success) return { success: false, message: 'update_account_error' };
+
+  return { success: true };
 }
