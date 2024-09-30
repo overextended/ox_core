@@ -100,7 +100,7 @@ class PlayerSingleton {
     return this.#state;
   }
 
-  get<K extends string>(key: K | keyof PlayerMetadata): K extends keyof PlayerMetadata ? PlayerMetadata[K] : any
+  get<K extends string>(key: K | keyof PlayerMetadata): K extends keyof PlayerMetadata ? PlayerMetadata[K] : any;
   get(key?: string) {
     if (!key) return OxPlayer;
 

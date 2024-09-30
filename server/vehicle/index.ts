@@ -21,7 +21,7 @@ export interface CreateVehicleData {
 }
 
 export async function CreateVehicle(
-  data: string | CreateVehicleData & Partial<VehicleRow>,
+  data: string | (CreateVehicleData & Partial<VehicleRow>),
   coords?: Vec3,
   heading?: number,
   invokingScript = GetInvokingResource()

@@ -1,8 +1,5 @@
 import type { OxVehicle } from 'server/vehicle/class';
-import type {
-  PayAccountInvoice,
-  DeleteAccountInvoice,
-} from 'server/accounts';
+import type { PayAccountInvoice, DeleteAccountInvoice } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { GetCharIdFromStateId } from 'server/player/db';
 import type { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';

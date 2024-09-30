@@ -17,7 +17,8 @@
   },
   "scripts": {
     "build": "node build.js",
-    "watch": "node build.js --watch"
+    "watch": "node build.js --watch",
+    "prettier": "prettier ./{client,common,server,lib}/**/*.{ts,ts} --write"
   },
   "keywords": [
     "fivem",
