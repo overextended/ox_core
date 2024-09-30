@@ -19,7 +19,7 @@ export class OxVehicle extends ClassInterface {
   owner?: number;
   group?: string;
   #metadata: Dict<any>;
-  #stored: string | null;
+  stored: string | null;
 
   protected static members: Dict<OxVehicle> = {};
   protected static keys: Dict<Dict<OxVehicle>> = {
@@ -96,7 +96,7 @@ export class OxVehicle extends ClassInterface {
 
       if (!resource || resource === vehicle.script) {
         if (vehicle.owner || vehicle.group) {
-          vehicle.#stored = 'impound';
+          vehicle.stored = 'impound';
           parameters.push(vehicle.#getSaveData());
         }
 
@@ -136,8 +136,8 @@ export class OxVehicle extends ClassInterface {
     this.vin = vin;
     this.owner = owner;
     this.group = group;
+    this.stored = stored;
     this.#metadata = metadata || {};
-    this.#stored = stored;
 
     if (this.id) this.setStored(null, false);
 
@@ -163,7 +163,7 @@ export class OxVehicle extends ClassInterface {
   #getSaveData() {
     if (!this.id) return;
 
-    return [this.#stored, JSON.stringify(this.#metadata), this.id];
+    return [this.stored, JSON.stringify(this.#metadata), this.id];
   }
 
   save() {
@@ -185,7 +185,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   setStored(value: string | null, despawn?: boolean) {
-    this.#stored = value;
+    this.stored = value;
 
     if (despawn) return this.despawn(true);
 
