@@ -9,7 +9,7 @@ export function GetUserIdFromIdentifier(identifier: string, offset?: number) {
 export function CreateUser(username: string, identifiers: Dict<string>) {
   return db.insert('INSERT INTO users (username, license2, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)', [
     username,
-    identifiers.license2,
+    identifiers.license2 ?? identifiers.license,
     identifiers.steam,
     identifiers.fivem,
     identifiers.discord,
