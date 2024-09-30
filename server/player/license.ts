@@ -1,7 +1,6 @@
-import { addCommand, onClientCallback } from '@overextended/ox_lib/server';
+import { addCommand } from '@overextended/ox_lib/server';
 import { GetLicenses } from './db';
 import type { Dict } from 'types';
-import { OxPlayer } from './class';
 
 export const Licenses: Dict<{ label: string }> = {};
 
@@ -25,10 +24,4 @@ setImmediate(LoadLicenses);
 addCommand('reloadlicenses', LoadLicenses, {
   help: 'Reload licenses from the database.',
   restricted: 'group.admin',
-});
-
-onClientCallback('ox:getLicense', (playerId, licenseName: string, target?: number) => {
-  const player = OxPlayer.get(target || playerId);
-
-  if (player) return licenseName ? player.getLicense(licenseName) : player.getLicenses();
 });

@@ -6,6 +6,7 @@ import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
 import { Dict, NewCharacter, OxStatus } from 'types';
 import { CREATE_DEFAULT_ACCOUNT } from 'config';
+import './license';
 
 type ScopeEvent = { player: string; for: string };
 
@@ -137,4 +138,10 @@ onClientCallback('ox:setActiveGroup', (playerId, groupName: string) => {
   if (!player) return false;
 
   return player.setActiveGroup(groupName);
+});
+
+onClientCallback('ox:getLicense', (playerId, licenseName: string, target?: number) => {
+  const player = OxPlayer.get(target || playerId);
+
+  if (player) return licenseName ? player.getLicense(licenseName) : player.getLicenses();
 });

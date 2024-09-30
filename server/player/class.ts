@@ -26,6 +26,7 @@ import {
 import { PayAccountInvoice } from 'accounts';
 import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
+import { Licenses } from './license';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -349,12 +350,10 @@ export class OxPlayer extends ClassInterface {
   }
 
   async addLicense(licenseName: string) {
-    if (!this.charId || this.#licenses[licenseName]) return false;
-
-    const issued = Date.now();
+    if (!this.charId || this.#licenses[licenseName] || !Licenses[licenseName]) return false;
 
     const license = {
-      issued,
+      issued: Date.now(),
     };
 
     if (!(await AddCharacterLicense(this.charId, licenseName, license))) return false;
