@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `ox_groups` (
   `label` VARCHAR(50) NOT NULL,
   `type` VARCHAR(50) NULL,
   `colour` TINYINT UNSIGNED DEFAULT NULL,
-  `hasAccount` TINYINT(1) NOT NULL DEFAULT '0'
+  `hasAccount` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`name`)
 );
 
