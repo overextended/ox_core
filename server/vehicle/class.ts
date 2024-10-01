@@ -136,8 +136,8 @@ export class OxVehicle extends ClassInterface {
     this.vin = vin;
     this.owner = owner;
     this.group = group;
-    this.#stored = stored;
     this.#metadata = metadata || {};
+    this.#stored = stored;
 
     if (this.id) this.setStored(null, false);
 
