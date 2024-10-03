@@ -7,6 +7,8 @@ import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
 import { setVehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
 
+const setEntityOrphanMode = typeof SetEntityOrphanMode !== 'undefined' ? SetEntityOrphanMode : () => {};
+
 export class OxVehicle extends ClassInterface {
   entity: number;
   netId: number;
@@ -29,7 +31,18 @@ export class OxVehicle extends ClassInterface {
   };
 
   static spawn(model: string, coords: Vector3, heading?: number) {
-    return CreateVehicleServerSetter(model, GetVehicleNetworkType(model), coords.x, coords.y, coords.z, heading || 0);
+    const entityId = CreateVehicleServerSetter(
+      model,
+      GetVehicleNetworkType(model),
+      coords.x,
+      coords.y,
+      coords.z,
+      heading || 0
+    );
+
+    setEntityOrphanMode(entityId, 2);
+
+    return entityId;
   }
 
   /** Get an instance of OxVehicle with the matching entityId. */
