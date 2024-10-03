@@ -160,6 +160,10 @@ export class OxVehicle extends ClassInterface {
     return Entity(this.entity).state;
   }
 
+  getStored() {
+    return this.#stored;
+  }
+
   #getSaveData() {
     if (!this.id) return;
 
