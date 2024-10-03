@@ -35,7 +35,7 @@
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
     "@overextended/fx-utils": "^0.0.4",
-    "@types/node": "^20.16.5",
+    "@types/node": "^20.16.10",
     "esbuild": "^0.23.1",
     "prettier": "^3.3.3",
     "tsc-alias": "^1.8.10",
@@ -43,8 +43,8 @@
   },
   "dependencies": {
     "@nativewrappers/fivem": "^0.0.41",
-    "@overextended/ox_lib": "^3.25.0",
-    "mariadb": "^3.3.1"
+    "@overextended/ox_lib": "^3.26.0",
+    "mariadb": "^3.3.2"
   },
   "engines": {
     "node": ">=16.9.1"
