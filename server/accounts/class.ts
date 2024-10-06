@@ -35,14 +35,24 @@ interface TransferAccountBalance {
 }
 
 export class OxAccount extends ClassInterface {
+  balance: number;
+  isDefault: boolean;
+  label: string;
+  type: 'personal' | 'shared' | 'group';
+  owner?: number;
+  group?: string;
+  ownerName?: string;
+  role?: OxAccountRole;
+
   protected static members: Dict<OxAccount> = {};
 
   static async get(accountId: number) {
-    if (accountId in this.members) this.members[accountId];
+    if (accountId in this.members) return this.members[accountId];
 
     const validAccount = await SelectAccount(accountId);
 
     if (!validAccount) throw new Error(`No account exists with accountId ${accountId}.`);
+    OxAccount.add(accountId, validAccount);
 
     return new OxAccount(accountId);
   }
@@ -53,7 +63,18 @@ export class OxAccount extends ClassInterface {
 
   constructor(public accountId: number) {
     super();
-    OxAccount.add(accountId, this);
+    const account = OxAccount.members[accountId]
+    if (account.owner) {
+      const player = OxPlayer.getFromCharId(account.owner)
+      account.ownerName = player && player.get('firstName') + ' ' + player.get('lastName')
+    }
+    this.balance = account.balance
+    this.isDefault = account.isDefault
+    this.label = account.label
+    this.type = account.type
+    this.group = account.group
+    this.owner = account.owner
+    this.ownerName = account.ownerName
   }
 
   /**
