@@ -1,7 +1,7 @@
 import { ClassInterface } from 'classInterface';
 import { OxPlayer } from 'player/class';
 import { GetCharIdFromStateId } from 'player/db';
-import { Dict, OxAccountMetadata, OxAccountRole, OxAccountPermissions, OxCreateInvoice } from 'types';
+import { Dict, OxAccountMetadata, OxAccountUserMetadata, OxAccountRole, OxAccountPermissions, OxCreateInvoice } from 'types';
 import {
   SelectAccount,
   UpdateBalance,
@@ -35,14 +35,14 @@ interface TransferAccountBalance {
 }
 
 export class OxAccount extends ClassInterface {
-  balance: number;
-  isDefault: boolean;
-  label: string;
-  type: 'personal' | 'shared' | 'group';
-  owner?: number;
-  group?: string;
-  ownerName?: string;
-  role?: OxAccountRole;
+  balance: OxAccountUserMetadata['balance'];
+  isDefault: OxAccountUserMetadata['isDefault'];
+  label: OxAccountUserMetadata['label'];
+  type: OxAccountUserMetadata['type'];
+  owner?: OxAccountUserMetadata['owner'];
+  group?: OxAccountUserMetadata['group'];
+  ownerName?: OxAccountUserMetadata['ownerName'];
+  role?: OxAccountUserMetadata['role'];
 
   protected static members: Dict<OxAccount> = {};
 
