@@ -107,8 +107,6 @@ export async function SpawnVehicle(id: number, coords: Vec3, heading?: number) {
 
   if (!vehicle) return;
 
-  vehicle.data = JSON.parse(vehicle.data as any);
-
   return await CreateVehicle(vehicle, coords, heading, invokingScript);
 }
 

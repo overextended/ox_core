@@ -65,6 +65,6 @@ export function GetConfig(): PoolConfig {
     dateStrings: true,
     insertIdAsNumber: true,
     decimalAsNumber: true,
-    autoJsonMap: false,
+    autoJsonMap: true,
   };
 }

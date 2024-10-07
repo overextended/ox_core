@@ -543,7 +543,7 @@ export class OxPlayer extends ClassInterface {
 
     if (!metadata) return;
 
-    const statuses = JSON.parse(metadata.statuses as any) || this.#statuses;
+    const statuses = metadata.statuses || this.#statuses;
     const { isDead, gender, dateOfBirth, phoneNumber, health, armour } = metadata;
     const groups = await GetCharacterGroups(this.charId);
     const licenses = await GetCharacterLicenses(this.charId);
@@ -552,8 +552,7 @@ export class OxPlayer extends ClassInterface {
     character.armour = armour;
 
     groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
-
-    licenses.forEach(({ name, data }) => (this.#licenses[name] = JSON.parse(data as string)));
+    licenses.forEach(({ name, data }) => (this.#licenses[name] = data));
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
 

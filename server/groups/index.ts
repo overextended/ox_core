@@ -41,8 +41,6 @@ export function RemoveGroupPermission(groupName: string, grade: number, permissi
 async function CreateGroup(data: DbGroup) {
   const group: OxGroup = {
     ...data,
-    grades: JSON.parse(data.grades as any),
-    accountRoles: JSON.parse(data.accountRoles as any),
     principal: `group.${data.name}`,
   };
 
