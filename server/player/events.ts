@@ -8,8 +8,6 @@ import { Dict, NewCharacter, OxStatus } from 'types';
 import { CREATE_DEFAULT_ACCOUNT } from 'config';
 import './license';
 
-type ScopeEvent = { player: string; for: string };
-
 const playerLoadEvents: Dict<Function> = {};
 const playerLogoutEvents: Function[] = [];
 
@@ -79,20 +77,6 @@ on('onResourceStop', (resource: string) => {
 
     if (player.charId) emit('ox:playerLogout', player.source, player.userId, player.charId);
   }
-});
-
-on('playerEnteredScope', (data: ScopeEvent) => {
-  DEV: console.info(`Player ${data.for} entered the scope of Player ${data.player}`);
-  const player = OxPlayer.get(data.for);
-
-  if (player) player.getPlayersInScope()[data.player] = true;
-});
-
-on('playerLeftScope', (data: ScopeEvent) => {
-  DEV: console.info(`Player ${data.for} left the scope of Player ${data.player}`);
-  const player = OxPlayer.get(data.for);
-
-  if (player) delete player.getPlayersInScope()[data.player];
 });
 
 onNet('ox:setActiveCharacter', async (data: number | NewCharacter) => {

@@ -37,7 +37,6 @@ export class OxPlayer extends ClassInterface {
   identifier: string;
   ped: number;
   #characters: Character[];
-  #inScope: Dict<true> = {};
   #metadata: Dict<any>;
   #statuses: Dict<number>;
   #groups: Dict<number>;
@@ -132,7 +131,6 @@ export class OxPlayer extends ClassInterface {
     super();
     this.source = source;
     this.#characters = [];
-    this.#inScope = {};
     this.#metadata = {};
     this.#statuses = {};
     this.#groups = {};
@@ -159,23 +157,6 @@ export class OxPlayer extends ClassInterface {
   /** Gets a value stored in active character's metadata. */
   get<K extends string>(key: K | keyof PlayerMetadata): K extends keyof PlayerMetadata ? PlayerMetadata[K] : any {
     return this.#metadata[key];
-  }
-
-  /** Returns an object of all player id's in range of the player. */
-  getPlayersInScope() {
-    return this.#inScope;
-  }
-
-  /** Returns true if the target player id is in range of the player. */
-  isPlayerInScope(targetId: number) {
-    return targetId in this.#inScope;
-  }
-
-  /** Triggers an event on all players within range of the player. */
-  triggerScopedEvent(eventName: string, ...args: any[]) {
-    for (const id in this.#inScope) {
-      emitNet(eventName, id, ...args);
-    }
   }
 
   async payInvoice(invoiceId: number) {
