@@ -242,6 +242,12 @@ export class OxVehicle extends ClassInterface {
     SetVehicleColumn(this.id, 'plate', this.plate);
   }
 
+  setProperties(properties: VehicleProperties, apply?: boolean) {
+    this.#properties = properties;
+
+    if (apply) setVehicleProperties(this.entity, this.#properties);
+  }
+
   async respawn(coords?: Vector3, rotation?: Vector3) {
     const hasEntity = DoesEntityExist(this.entity);
     coords = Vector3.fromObject(coords || hasEntity ? GetEntityCoords(this.entity) : null);
