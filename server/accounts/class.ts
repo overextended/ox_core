@@ -138,6 +138,9 @@ export class OxAccount extends ClassInterface {
     return charId && UpdateAccountAccess(this.accountId, charId, role);
   }
 
+  /**
+   * Checks if a player's active character has permission to perform an action on the account.
+   */
   async playerHasPermission(playerId: number, permission: keyof OxAccountPermissions) {
     const player = OxPlayer.get(playerId);
 
@@ -147,10 +150,16 @@ export class OxAccount extends ClassInterface {
     return await CanPerformAction(player, this.accountId, role, permission);
   }
 
+  /**
+   * Set the account as shared, allowing permissions to be assigned to other characters.
+   */
   async setShared() {
     return SetAccountType(this.accountId, 'shared');
   }
 
+  /**
+   * Create an unpaid invoice on the account.
+   */
   async createInvoice(data: Omit<OxCreateInvoice, 'fromAccount'>) {
     const invoice = {
       fromAccount: this.accountId,
