@@ -70,7 +70,7 @@ export async function UpdateBalance(
       amount,
       message,
       note,
-      addAction ? null : balance + amount,
+      addAction ? null : balance - amount,
       addAction ? balance + amount : null,
     ])) === 1;
 
