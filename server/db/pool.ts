@@ -9,18 +9,18 @@ setImmediate(async () => {
 
   try {
     const dbPool = createPool(config);
-    const version: string = (await dbPool.execute('SELECT VERSION() as version'))[0].version;
-    const recommendedDb = `Install MariaDB 11.4 for the best experience.\n- https://mariadb.com/kb/en/changes-improvements-in-mariadb-11-4/`;
+    const conn = await dbPool.getConnection();
+    const info = conn.info!; // when would info be null? i'm sure we'll find out eventually!
+    const version = info.serverVersion;
+    const recommendedDb = `Install MariaDB 11.4+ for the best experience.\n- https://mariadb.com/kb/en/changes-improvements-in-mariadb-11-4/`;
 
-    if (!version.toLowerCase().match('mariadb'))
-      return console.error(`MySQL ${version} is not supported. ${recommendedDb}`);
+    conn.release();
 
-    const [major, minor] = version.split('.');
+    if (!version.mariaDb) return console.error(`MySQL ${version?.raw} is not supported. ${recommendedDb}`);
 
-    if (+major < 11 || (+major === 11 && +minor < 4))
-      return console.error(`${version} is not supported. ${recommendedDb}`);
+    if (!info.hasMinVersion(11, 4, 0)) return console.error(`${version.raw} is not supported. ${recommendedDb}`);
 
-    console.log(`${`^5[${version}]`} ^2Database server connection established!^0`);
+    console.log(`${`^5[${version.raw}]`} ^2Database server connection established!^0`);
 
     pool = dbPool;
   } catch (err) {
