@@ -171,7 +171,7 @@ export class OxPlayer extends ClassInterface {
 
     if (currentActiveGroup) GlobalState[`${currentActiveGroup}:activeCount`] -= 1;
 
-    GlobalState[`${groupName}:activeCount`] += 1;
+    if (groupName) GlobalState[`${groupName}:activeCount`] += 1;
 
     SetActiveGroup(this.charId, temp ? undefined : groupName);
     this.set('activeGroup', groupName, true);
