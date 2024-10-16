@@ -3,7 +3,7 @@ import type { PayAccountInvoice, DeleteAccountInvoice } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { GetCharIdFromStateId } from 'server/player/db';
 import type { DeleteAccount, DepositMoney, WithdrawMoney } from 'server/accounts/db';
-import type { RemoveGroupPermission, SetGroupPermission } from 'server/groups';
+import type { GetGroupsByType, RemoveGroupPermission, SetGroupPermission } from 'server/groups';
 import { Ox as OxCore, OxCommon } from 'lib';
 
 interface OxServer extends OxCommon {
@@ -19,6 +19,7 @@ interface OxServer extends OxCommon {
   RemoveGroupPermission: typeof RemoveGroupPermission;
   PayAccountInvoice: typeof PayAccountInvoice;
   DeleteAccountInvoice: typeof DeleteAccountInvoice;
+  GetGroupsByType: typeof GetGroupsByType;
 }
 
 export const Ox = OxCore as OxServer;

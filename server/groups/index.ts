@@ -139,5 +139,6 @@ addCommand<{ target: string; group: string; grade?: number }>(
   }
 );
 
+exports('GetGroupsByType', GetGroupsByType);
 exports('SetGroupPermission', SetGroupPermission);
 exports('RemoveGroupPermission', RemoveGroupPermission);
