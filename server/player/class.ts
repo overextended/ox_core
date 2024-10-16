@@ -167,8 +167,13 @@ export class OxPlayer extends ClassInterface {
   setActiveGroup(groupName?: string, temp?: boolean) {
     if (!this.charId || (groupName && !(groupName in this.#groups))) return false;
 
-    SetActiveGroup(this.charId, temp ? undefined : groupName);
+    const currentActiveGroup = this.get('activeGroup');
 
+    if (currentActiveGroup) GlobalState[`${currentActiveGroup}:activeCount`] -= 1;
+
+    GlobalState[`${groupName}:activeCount`] += 1;
+
+    SetActiveGroup(this.charId, temp ? undefined : groupName);
     this.set('activeGroup', groupName, true);
     emit('ox:setActiveGroup', this.source, groupName);
 
