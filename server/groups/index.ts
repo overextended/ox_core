@@ -46,6 +46,7 @@ async function CreateGroup(data: DbGroup) {
 
   GlobalState[group.principal] = group;
   GlobalState[`${group.name}:count`] = 0;
+  GlobalState[`${group.name}:activeCount`] = 0;
 
   groups[group.name] = group;
   group.grades = group.grades.reduce(
