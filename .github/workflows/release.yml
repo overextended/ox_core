@@ -79,7 +79,7 @@ jobs:
         with:
           repo_token: '${{ secrets.GITHUB_TOKEN }}'
           title: '${{ env.RELEASE_VERSION }}'
-          prerelease: true
+          prerelease: false
           files: ox_core.zip
 
         env:
