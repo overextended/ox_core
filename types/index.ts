@@ -139,6 +139,18 @@ export interface OxGroup extends DbGroup {
   principal: string;
 }
 
+export interface CreateGroupProperties {
+  name: string;
+  label: string;
+  grades: {
+    label: string;
+    accountRole?: OxAccountRole;
+  }[];
+  type?: string;
+  colour?: number;
+  hasAccount?: boolean;
+}
+
 export interface OxGroupPermissions {
   [grade: string]: { [permission: string]: boolean };
 }

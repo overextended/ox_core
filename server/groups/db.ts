@@ -1,4 +1,5 @@
 import { GetConnection, db } from 'db';
+import type { UpsertResult } from 'mariadb';
 import type { DbGroup } from 'types';
 
 export function SelectGroups() {
@@ -16,6 +17,29 @@ export function SelectGroups() {
     GROUP BY 
         ox_groups.name;
   `);
+}
+
+export async function InsertGroup({ name, label, type, colour, hasAccount, grades, accountRoles }: DbGroup) {
+  using conn = await GetConnection();
+  await conn.beginTransaction();
+
+  const insertedGroup = await conn.insert(
+    'INSERT IGNORE INTO `ox_groups` (`name`, `label`, `type`, `colour`, `hasAccount`) VALUES (?, ?, ?, ?, ?)',
+    [name, label, type, colour, hasAccount]
+  );
+
+  if (!insertedGroup) return true;
+
+  const insertedGrades = (await conn.batch(
+    'INSERT INTO `ox_group_grades` (`group`, `grade`, `label`, `accountRole`) VALUES (?, ?, ?, ?)',
+    grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]])
+  )) as UpsertResult;
+
+  return insertedGrades.affectedRows > 0;
+}
+
+export function RemoveGroup(groupName: string) {
+  return db.update('DELETE FROM `ox_groups` WHERE name = ?', [groupName]);
 }
 
 export async function AddCharacterGroup(charId: number, name: string, grade: number) {
