@@ -47,3 +47,4 @@ exports('GetCharacterAccount', GetCharacterAccount);
 exports('GetGroupAccount', GetGroupAccount);
 exports('CreateAccount', CreateAccount);
 exports('PayAccountInvoice', PayAccountInvoice);
+exports('DeleteAccountInvoice', DeleteAccountInvoice);
