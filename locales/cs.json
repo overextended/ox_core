@@ -1,0 +1,14 @@
+{
+  "create_character": "Vytvořit novou postavu",
+  "firstname": "Jméno",
+  "lastname": "Příjmení",
+  "gender": "Pohlaví",
+  "male": "Muž",
+  "female": "Žena",
+  "non_binary": "Nebinární",
+  "date_of_birth": "Datum narození",
+  "withdraw": "Výběr",
+  "deposit": "Vklad",
+  "transfer": "Bankovní převod",
+  "invoice_payment": "Úhrada faktury"
+}
