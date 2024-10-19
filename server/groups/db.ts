@@ -23,7 +23,7 @@ export async function InsertGroup({ name, label, type, colour, hasAccount, grade
   using conn = await GetConnection();
   await conn.beginTransaction();
 
-  const insertedGroup = await conn.insert(
+  const insertedGroup = await conn.update(
     'INSERT IGNORE INTO `ox_groups` (`name`, `label`, `type`, `colour`, `hasAccount`) VALUES (?, ?, ?, ?, ?)',
     [name, label, type, colour, hasAccount]
   );
