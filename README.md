@@ -14,6 +14,8 @@ A modern FiveM framework.
   - Install and configure ox_core in minutes.
 - 📦 [npm](https://www.npmjs.com/package/@overextended/ox_core)
   - Use our npm package to create JavaScript resources using ox_core.
+- 🛤️ [Cfx.re](https://forum.cfx.re/t/pre-release-ox-core-player-and-vehicle-management/5253275)
+  - See our release thread for discussions or other information.
 
 ## Third-party resources
 
