@@ -1,0 +1,14 @@
+{
+  "create_character": "新しいキャラクターを作成",
+  "firstname": "名前",
+  "lastname": "苗字",
+  "gender": "性別",
+  "male": "男性",
+  "female": "女性",
+  "non_binary": "ノンバイナリー",
+  "date_of_birth": "生年月日",
+  "withdraw": "引き出し",
+  "deposit": "預金",
+  "transfer": "銀行振込",
+  "invoice_payment": "請求書の支払い"
+}
