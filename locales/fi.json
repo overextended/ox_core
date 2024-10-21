@@ -1,0 +1,14 @@
+{
+  "create_character": "Luo uusi hahmo",
+  "firstname": "Etunimi",
+  "lastname": "Sukunimi",
+  "gender": "Sukupuoli",
+  "male": "Mies",
+  "female": "Nainen",
+  "non_binary": "Muu",
+  "date_of_birth": "Syntymäaika",
+  "withdraw": "Nosta",
+  "deposit": "Talleta",
+  "transfer": "Pankkisiirto",
+  "invoice_payment": "Laskun maksu"
+}
