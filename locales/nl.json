@@ -1,0 +1,14 @@
+{
+  "create_character": "Maak een nieuw karakter",
+  "firstname": "Voornaam",
+  "lastname": "Achternaam",
+  "gender": "Geslacht",
+  "male": "Man",
+  "female": "Vrouw",
+  "non_binary": "Non-binair",
+  "date_of_birth": "Geboortedatum",
+  "withdraw": "Opnemen",
+  "deposit": "Storten",
+  "transfer": "Overschrijving",
+  "invoice_payment": "Factuurbetaling"
+}
