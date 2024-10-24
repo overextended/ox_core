@@ -186,6 +186,10 @@ export class OxVehicle extends ClassInterface {
     return this.#stored;
   }
 
+  getProperties() {
+    return this.#properties;
+  }
+
   #getSaveData() {
     if (!this.id) return;
 
