@@ -80,7 +80,7 @@ export async function CreateVehicle(
 
   if (!entity) return;
 
-  const vehicle = new OxVehicle(
+  return new OxVehicle(
     entity,
     invokingScript,
     data.plate,
@@ -94,12 +94,6 @@ export async function CreateVehicle(
     data.owner,
     data.group
   );
-
-  const state = vehicle.getState();
-
-  state.set('initVehicle', true, true);
-
-  return vehicle;
 }
 
 export async function SpawnVehicle(id: number, coords: Vec3, heading?: number) {

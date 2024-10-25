@@ -164,8 +164,13 @@ export class OxVehicle extends ClassInterface {
     if (this.id) this.setStored(null, false);
 
     OxVehicle.add(this.entity, this);
+    SetVehicleNumberPlateText(this.entity, properties.plate || this.plate);
     setVehicleProperties(entity, properties);
     emit('ox:spawnedVehicle', this.entity, this.id);
+
+    const state = this.getState();
+
+    state.set('initVehicle', true, true);
   }
 
   /** Stores a value in the vehicle's metadata. */
@@ -267,6 +272,7 @@ export class OxVehicle extends ClassInterface {
     if (rotation) SetEntityRotation(this.entity, rotation.x, rotation.y, rotation.z, 2, false);
 
     OxVehicle.add(this.entity, this);
+    SetVehicleNumberPlateText(this.entity, this.#properties.plate || this.plate);
     setVehicleProperties(this.entity, this.#properties);
     emit('ox:spawnedVehicle', this.entity, this.id);
   }
