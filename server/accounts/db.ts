@@ -314,6 +314,8 @@ export async function UpdateAccountAccess(
     const success = await db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
 
     if (!success) return { success: false, message: 'something_went_wrong' };
+
+    return { success: true };
   }
 
   const success = await db.update(
