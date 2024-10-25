@@ -1,0 +1,14 @@
+{
+  "create_character": "Създай нов герой",
+  "firstname": "Име",
+  "lastname": "Фамилия",
+  "gender": "Пол",
+  "male": "Мъж",
+  "female": "Жена",
+  "non_binary": "Небинарен",
+  "date_of_birth": "Дата на раждане",
+  "withdraw": "Теглене",
+  "deposit": "Депозит",
+  "transfer": "Банков превод",
+  "invoice_payment": "Плащане на фактура"
+}
