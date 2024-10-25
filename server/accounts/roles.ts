@@ -8,6 +8,15 @@ type OxAccountMetadataRow = OxAccountPermissions & { id?: number; name?: OxAccou
 
 const accountRoles = {} as Record<string, OxAccountPermissions>;
 
+const blacklistedGroupActions = {
+  addUser: true,
+  removeUser: true,
+  manageUser: true,
+  transferOwnership: true,
+  manageAccount: true,
+  closeAccount: true,
+} as Record<keyof OxAccountPermissions, true>;
+
 export function CheckRolePermission(roleName: OxAccountRole | null, permission: keyof OxAccountPermissions) {
   if (!roleName) return;
 
@@ -25,6 +34,8 @@ export async function CanPerformAction(
   const groupName = (await SelectAccount(accountId))?.group;
 
   if (groupName) {
+    if (action in blacklistedGroupActions) return false;
+
     const group = GetGroup(groupName);
     const groupRole = group.accountRoles[player.getGroup(groupName)];
 
