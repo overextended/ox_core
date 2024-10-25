@@ -246,7 +246,7 @@ export class OxVehicle extends ClassInterface {
   setPlate(plate: string) {
     if (this.plate === plate) return;
 
-    this.plate = plate.padEnd(8);
+    this.plate = this.plate.length > 8 ? this.plate.substring(0, 8) : this.plate.padEnd(8);
 
     SetVehicleColumn(this.id, 'plate', this.plate);
   }
