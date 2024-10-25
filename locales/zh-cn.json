@@ -1,0 +1,14 @@
+{
+  "create_character": "创建新角色",
+  "firstname": "名字",
+  "lastname": "姓氏",
+  "gender": "性别",
+  "male": "男",
+  "female": "女",
+  "non_binary": "非二元性别",
+  "date_of_birth": "出生日期",
+  "withdraw": "取款",
+  "deposit": "存款",
+  "transfer": "银行转账",
+  "invoice_payment": "账单付款"
+}
