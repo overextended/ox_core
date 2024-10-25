@@ -40,6 +40,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
+        
+      - name: Bump package version
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          pnpm version ${{ github.ref_name }} --git-tag-version false
 
       - name: Run build
         run: pnpm build
@@ -53,12 +59,6 @@ jobs:
           cp -r ./{lib,locales,sql,dist} ./temp/ox_core
           cp -r ./common/data ./temp/ox_core/common/data
           cd ./temp && zip -r ../ox_core.zip ./ox_core
-
-      - name: Bump package version
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          pnpm version ${{ github.ref_name }} --git-tag-version false
 
       - name: Publish npm package
         uses: JS-DevTools/npm-publish@v1
