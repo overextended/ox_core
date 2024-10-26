@@ -1,0 +1,14 @@
+{
+    "create_character": "Crea un nuovo personaggio",
+    "firstname": "Nome",
+    "lastname": "Cognome",
+    "gender": "Genere",
+    "male": "Maschio",
+    "female": "Femmina",
+    "non_binary": "Non-Binario",
+    "date_of_birth": "Data di nascita",
+    "withdraw": "Preleva",
+    "deposit": "Deposita",
+    "transfer": "Bonifico bancario",
+    "invoice_payment": "Pagamento fattura"
+}
