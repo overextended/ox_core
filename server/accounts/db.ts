@@ -266,6 +266,8 @@ export async function WithdrawMoney(
     return { success: false, message: 'amount_not_number' };
   }
 
+  if (amount <= 0) return { success: false, message: 'invalid_amount' };
+
   const player = OxPlayer.get(playerId);
 
   if (!player?.charId) return { success: false, message: 'no_charId' };
