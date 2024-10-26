@@ -1,0 +1,14 @@
+{
+  "create_character": "Loo uus karakter",
+  "firstname": "Eesnimi",
+  "lastname": "Perekonnanimi",
+  "gender": "Sugu",
+  "male": "Mees",
+  "female": "Naine",
+  "non_binary": "Mittebinaarne",
+  "date_of_birth": "Sünnikuupäev",
+  "withdraw": "Väljamakse",
+  "deposit": "Sissemakse",
+  "transfer": "Pangaülekanne",
+  "invoice_payment": "Arve tasumine"
+}
