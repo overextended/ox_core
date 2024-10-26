@@ -82,7 +82,7 @@ function SetupGroup(data: DbGroup) {
 }
 
 // @todo more data validation and error handling
-async function CreateGroup(data: CreateGroupProperties) {
+export async function CreateGroup(data: CreateGroupProperties) {
   if (groups[data.name]) throw new Error(`Cannot create OxGroup<${data.name}> (group already exists with that name)`);
 
   const grades = data.grades.map((grade) => grade.label);
