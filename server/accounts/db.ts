@@ -38,14 +38,9 @@ export async function UpdateBalance(
 ): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) {
-    console.error(`Amount is not a number`);
+  if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
-    return {
-      success: false,
-      message: 'amount_not_number',
-    };
-  }
+  if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
   using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [id]);
@@ -94,11 +89,9 @@ export async function PerformTransaction(
 ): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) {
-    console.error(`Amount is not a number`);
+  if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
-    return { success: false, message: 'amount_not_number' };
-  }
+  if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
   using conn = await GetConnection();
 
@@ -196,11 +189,9 @@ export async function DepositMoney(
 ): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) {
-    console.error(`Amount is not a number`);
+  if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
-    return { success: false, message: 'amount_not_number' };
-  }
+  if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
   const player = OxPlayer.get(playerId);
 
@@ -260,11 +251,7 @@ export async function WithdrawMoney(
 ): Promise<{ success: boolean; message?: string }> {
   amount = parseInt(String(amount));
 
-  if (isNaN(amount)) {
-    console.error(`Amount is not a number`);
-
-    return { success: false, message: 'amount_not_number' };
-  }
+  if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
@@ -397,25 +384,36 @@ export async function UpdateInvoice(
   };
 }
 
-export async function CreateInvoice(invoice: OxCreateInvoice): Promise<{ success: boolean; message?: string }> {
-  if (invoice.actorId) {
-    const player = OxPlayer.getFromCharId(invoice.actorId);
+export async function CreateInvoice({
+  actorId,
+  fromAccount,
+  toAccount,
+  amount,
+  message,
+  dueDate,
+}: OxCreateInvoice): Promise<{ success: boolean; message?: string }> {
+  if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
+
+  if (amount <= 0) return { success: false, message: 'invalid_amount' };
+
+  if (actorId) {
+    const player = OxPlayer.getFromCharId(actorId);
 
     if (!player?.charId) return { success: false, message: 'no_charid' };
 
-    const account = await OxAccount.get(invoice.fromAccount);
+    const account = await OxAccount.get(fromAccount);
     const hasPermission = await account?.playerHasPermission(player.source as number, 'sendInvoice');
 
     if (!hasPermission) return { success: false, message: 'no_permission' };
   }
 
-  const targetAccount = await OxAccount.get(invoice.toAccount);
+  const targetAccount = await OxAccount.get(toAccount);
 
   if (!targetAccount) return { success: false, message: 'no_target_account' };
 
   const success = await db.insert(
     'INSERT INTO accounts_invoices (`actorId`, `fromAccount`, `toAccount`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
-    [invoice.actorId, invoice.fromAccount, invoice.toAccount, invoice.amount, invoice.message, invoice.dueDate]
+    [actorId, fromAccount, toAccount, amount, message, dueDate]
   );
 
   if (!success) return { success: false, message: 'invoice_insert_error' };
