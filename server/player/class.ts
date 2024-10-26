@@ -27,6 +27,7 @@ import { PayAccountInvoice } from 'accounts';
 import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
 import { GetGroupPermissions } from '../../common';
 import { Licenses } from './license';
+import { CHARACTER_SLOTS } from 'config';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -477,7 +478,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Registers a new character for the player. */
   async createCharacter(data: NewCharacter) {
-    if (this.charId) return;
+    if (this.charId || this.#characters.length >= CHARACTER_SLOTS) return;
 
     const stateId = await this.#generateStateId();
     const phoneNumber = await GeneratePhoneNumber();
