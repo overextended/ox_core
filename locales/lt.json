@@ -1,0 +1,14 @@
+{
+  "create_character": "Sukurti naują veikėją",
+  "firstname": "Vardas",
+  "lastname": "Pavardė",
+  "gender": "Lytis",
+  "male": "Vyras",
+  "female": "Moteris",
+  "non_binary": "Nebinarinis lytiškumas",
+  "date_of_birth": "Gimimo data",
+  "withdraw": "Išėmimas",
+  "deposit": "Įmokėjimas",
+  "transfer": "Banko pervedimas",
+  "invoice_payment": "Sąskaitos apmokėjimas"
+}
