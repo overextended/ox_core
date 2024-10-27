@@ -196,9 +196,10 @@ export class OxPlayer extends ClassInterface {
     if (!grade) {
       if (!currentGrade) return;
       if (!(await RemoveCharacterGroup(this.charId, group.name))) return;
-      if (this.get('activeGroup') === groupName) this.set('activeGroup', undefined, true);
 
       this.#removeGroup(group, currentGrade);
+
+      if (this.get('activeGroup') === groupName) this.set('activeGroup', undefined, true);
     } else {
       if (!group.grades[grade] && grade > 0)
         return console.warn(`Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (invalid grade)`);
