@@ -1,0 +1,14 @@
+{
+  "create_character": "Yeni karakter oluştur",
+  "firstname": "İsim",
+  "lastname": "Soyisim",
+  "gender": "Cinsiyet",
+  "male": "Erkek",
+  "female": "Kadın",
+  "non_binary": "İkilik Dışı",
+  "date_of_birth": "Doğum tarihi",
+  "withdraw": "Para çek",
+  "deposit": "Para yatır",
+  "transfer": "Banka transferi",
+  "invoice_payment": "Fatura ödemesi"
+}
