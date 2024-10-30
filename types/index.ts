@@ -5,6 +5,7 @@ export interface Character {
   stateId: string;
   firstName: string;
   lastName: string;
+  gender: string;
   x?: number;
   y?: number;
   z?: number;
