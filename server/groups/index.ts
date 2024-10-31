@@ -102,9 +102,7 @@ export async function CreateGroup(data: CreateGroupProperties) {
 
   if (response) {
     SetupGroup(group);
-    let currentGroups = GlobalState.groups;
-		currentGroups.push(data.name);
-		GlobalState.groups = currentGroups;
+		GlobalState.groups = [...GlobalState.groups, data.name];
   }
 }
 
