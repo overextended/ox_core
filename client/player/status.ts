@@ -6,7 +6,7 @@ function UpdateStatuses() {
 
     if (!status?.onTick) continue;
 
-    const curValue = OxPlayer.getStatus(name) || status.default;
+    const curValue = OxPlayer.getStatus(name) ?? status.default;
     const newValue = curValue + status.onTick;
 
     OxPlayer.setStatus(
