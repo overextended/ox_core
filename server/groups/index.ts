@@ -102,7 +102,7 @@ export async function CreateGroup(data: CreateGroupProperties) {
 
   if (response) {
     SetupGroup(group);
-    GlobalState.groups = GlobalState.groups.push(data.name);
+		GlobalState.groups = [...GlobalState.groups, data.name];
   }
 }
 
@@ -138,7 +138,7 @@ export async function DeleteGroup(groupName: string) {
   GlobalState[group.principal] = null;
   GlobalState[`${group.name}:count`] = null;
   GlobalState[`${group.name}:activeCount`] = null;
-
+  GlobalState.groups = GlobalState.groups.filter((name: string) => name !== groupName);
   delete groups[group.name];
 }
 
