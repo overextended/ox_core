@@ -1,0 +1,14 @@
+{
+  "create_character": "Creează un nou caracter",
+  "firstname": "Prenume",
+  "lastname": "Nume",
+  "gender": "Gen",
+  "male": "Masculin",
+  "female": "Feminin",
+  "non_binary": "Non-Binar",
+  "date_of_birth": "Dată de naștere",
+  "withdraw": "Retragere",
+  "deposit": "Depunere",
+  "transfer": "Transfer bancar",
+  "invoice_payment": "Plată factură"
+}
