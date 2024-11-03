@@ -1,0 +1,14 @@
+{
+  "create_character": "Opret en ny karakter",
+  "firstname": "Fornavn",
+  "lastname": "Efternavn",
+  "gender": "Køn",
+  "male": "Mand",
+  "female": "Kvinde",
+  "non_binary": "Ikke-binær",
+  "date_of_birth": "Fødselsdato",
+  "withdraw": "Hæv",
+  "deposit": "Indsæt",
+  "transfer": "Bankoverførsel",
+  "invoice_payment": "Fakturabetaling"
+}
