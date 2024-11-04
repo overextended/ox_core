@@ -9,7 +9,7 @@ OnPlayerLoaded('ox_inventory', (player) => {
     identifier: player.charId,
     name: `${player.get('firstName')} ${player.get('lastName')}`,
     sex: player.get('gender'),
-    dateofbirth: player.get('dateofbirth'),
+    dateofbirth: player.get('dateOfBirth'),
     groups: {},
   });
 });
