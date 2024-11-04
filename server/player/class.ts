@@ -498,6 +498,7 @@ export class OxPlayer extends ClassInterface {
         phoneNumber
       ),
       isNew: true,
+      gender: data.gender,
     };
 
     this.#characters.push(character);
