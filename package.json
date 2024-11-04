@@ -1,7 +1,7 @@
 {
   "name": "@overextended/ox_core",
   "author": "Overextended",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "license": "LGPL-3.0-or-later",
   "description": "A modern FiveM framework.",
   "type": "module",
