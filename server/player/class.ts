@@ -401,8 +401,6 @@ export class OxPlayer extends ClassInterface {
 
     this.#groups[group.name] = grade;
     GlobalState[`${group.name}:count`] += 1;
-
-    if (group.name === this.get('activeGroup')) GlobalState[`${group.name}:activeCount`] += 1;
   }
 
   /** Removes the active character from the group and sets permissions. */
@@ -559,6 +557,9 @@ export class OxPlayer extends ClassInterface {
     this.set('dateOfBirth', dateOfBirth, true);
     this.set('phoneNumber', phoneNumber, true);
     this.set('activeGroup', groups.find((group) => group.isActive)?.name, true);
+
+    if (this.get('activeGroup')) GlobalState[`${this.get('activeGroup')}:activeCount`] += 1;
+    DEV: console.info(`Restored OxPlayer<${this.userId}> previous active group: ${this.get('activeGroup')}`);
 
     OxPlayer.keys.charId[character.charId] = this;
 
