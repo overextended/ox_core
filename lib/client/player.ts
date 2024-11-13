@@ -51,8 +51,8 @@ class PlayerInterface {
     if (!this.charId) return;
 
     if (!(key in this)) {
+      this[key] = exports.ox_core.CallPlayer('get', key) ?? null;
       this.on(key, (data: unknown) => (this[key] = data));
-      this[key] = exports.ox_core.CallPlayer('get', key) || null;
     }
 
     return this[key];
