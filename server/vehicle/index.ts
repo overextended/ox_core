@@ -1,5 +1,5 @@
 import { OxVehicle } from './class';
-import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
+import { CreateNewVehicle, GetVehicleFromId, IsPlateAvailable, VehicleRow } from './db';
 import { GetVehicleData } from '../../common/vehicles';
 import { DEBUG } from '../../common/config';
 import './class';
@@ -39,7 +39,7 @@ export async function CreateVehicle(
     const vehicle = OxVehicle.getFromVehicleId(data.id);
 
     if (vehicle) {
-      if (DoesEntityExist(vehicle.entity)) {
+      if (vehicle.entity && DoesEntityExist(vehicle.entity)) {
         return vehicle;
       }
 
@@ -51,7 +51,6 @@ export async function CreateVehicle(
 
   const entity = coords ? OxVehicle.spawn(data.model, coords as Vector3, heading || 0) : 0;
 
-  if (!entity || !DoesEntityExist(entity)) return;
   if (!data.vin && (data.owner || data.group)) data.vin = await OxVehicle.generateVin(vehicleData);
   if (data.vin && !data.owner && !data.group) delete data.vin;
 
@@ -79,10 +78,7 @@ export async function CreateVehicle(
     );
   }
 
-  if (!entity) return;
-
   return new OxVehicle(
-    entity,
     invokingScript,
     data.plate,
     data.model,
@@ -91,6 +87,7 @@ export async function CreateVehicle(
     metadata,
     properties,
     data.id,
+    entity,
     data.vin,
     data.owner,
     data.group
@@ -99,9 +96,9 @@ export async function CreateVehicle(
 
 export async function SpawnVehicle(id: number, coords: Vec3, heading?: number) {
   const invokingScript = GetInvokingResource();
-  const vehicle = await GetStoredVehicleFromId(id);
+  const vehicle = await GetVehicleFromId(id);
 
-  if (!vehicle) return;
+  if (!vehicle || !vehicle.stored) return;
 
   return await CreateVehicle(vehicle, coords, heading, invokingScript);
 }

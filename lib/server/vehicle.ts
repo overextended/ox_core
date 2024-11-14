@@ -3,17 +3,19 @@ import type { CreateVehicleData } from 'server/vehicle';
 
 class VehicleInterface {
   constructor(
-    public entity: number,
-    public netId: number,
+    public internalId: string,
     public script: string,
     public plate: string,
     public model: string,
     public make: string,
     public id?: number,
+    public entity?: number,
+    public netId?: number,
     public vin?: string,
     public owner?: number,
     public group?: string
   ) {
+    this.internalId = internalId;
     this.entity = entity;
     this.netId = netId;
     this.script = script;
@@ -37,7 +39,7 @@ class VehicleInterface {
 
 Object.keys(exports.ox_core.GetVehicleCalls()).forEach((method: string) => {
   (VehicleInterface.prototype as any)[method] = function (...args: any[]) {
-    return exports.ox_core.CallVehicle(this.entity, method, ...args);
+    return exports.ox_core.CallVehicle(this.internalId, method, ...args);
   };
 });
 
@@ -51,13 +53,14 @@ function CreateVehicleInstance(vehicle?: _OxVehicle) {
   if (!vehicle) return;
 
   return new VehicleInterface(
-    vehicle.entity,
-    vehicle.netId,
+    vehicle.internalId,
     vehicle.script,
     vehicle.plate,
     vehicle.model,
     vehicle.make,
     vehicle.id,
+    vehicle.entity,
+    vehicle.netId,
     vehicle.vin,
     vehicle.owner,
     vehicle.group

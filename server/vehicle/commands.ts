@@ -55,7 +55,8 @@ addCommand<{ radius?: number; owned?: string }>(
   async (playerId, args, raw) => {
     const ped = GetPlayerPed(playerId as any);
 
-    if (!args.radius) return DeleteCurrentVehicle(ped);
+    if (!args.radius && GetVehiclePedIsIn(ped, false) > 0) return DeleteCurrentVehicle(ped);
+    args.radius = args.radius ?? 2;
 
     const vehicles = await triggerClientCallback<number[]>('ox:getNearbyVehicles', playerId, args.radius);
 

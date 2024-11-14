@@ -1,5 +1,6 @@
 import { ClassInterface } from 'classInterface';
-import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
+import { CreateVehicle } from './index';
+import { DeleteVehicle, GetVehicleFromVin, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
 import {
   getRandomString,
   getRandomAlphanumeric,
@@ -12,17 +13,21 @@ import type { Dict, VehicleData } from 'types';
 import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
 import { setVehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
+import { GenerateUUID } from '../utils';
 
-const setEntityOrphanMode = typeof SetEntityOrphanMode !== 'undefined' ? SetEntityOrphanMode : () => {};
+type Vec3 = number[] | { x: number; y: number; z: number } | { buffer: any };
+
+const setEntityOrphanMode = typeof SetEntityOrphanMode !== 'undefined' ? SetEntityOrphanMode : () => { };
 
 export class OxVehicle extends ClassInterface {
-  entity: number;
-  netId: number;
+  internalId: string;
   script: string;
   plate: string;
   model: string;
   make: string;
   id?: number;
+  entity?: number;
+  netId?: number;
   vin?: string;
   owner?: number;
   group?: string;
@@ -33,6 +38,7 @@ export class OxVehicle extends ClassInterface {
   protected static members: Dict<OxVehicle> = {};
   protected static keys: Dict<Dict<OxVehicle>> = {
     id: {},
+    entity: {},
     netId: {},
     vin: {},
   };
@@ -54,7 +60,10 @@ export class OxVehicle extends ClassInterface {
 
   /** Get an instance of OxVehicle with the matching entityId. */
   static get(entityId: string | number) {
-    return this.members[entityId];
+    // If the entityId is a string, it's the internalId
+    if (typeof entityId === 'string') return this.members[entityId];
+
+    return this.keys.entity[entityId];
   }
 
   /** Get an instance of OxVehicle with the matching vehicleId. */
@@ -68,8 +77,16 @@ export class OxVehicle extends ClassInterface {
   }
 
   /** Get an instance of OxVehicle with the matching vin. */
-  static getFromVin(vin: string) {
-    return this.keys.vin[vin];
+  static async getFromVin(vin: string) {
+    if (this.keys.vin[vin]) {
+      return this.keys.vin[vin];
+    }
+
+    const vehicleDb = await GetVehicleFromVin(vin)
+    if (!vehicleDb) return;
+
+    const vehicle = await CreateVehicle(vehicleDb);
+    return vehicle;
   }
 
   /** Gets all instances of OxVehicle. */
@@ -133,7 +150,6 @@ export class OxVehicle extends ClassInterface {
   }
 
   constructor(
-    entity: number,
     script: string,
     plate: string,
     model: string,
@@ -142,13 +158,13 @@ export class OxVehicle extends ClassInterface {
     metadata: Dict<any>,
     properties: VehicleProperties,
     id?: number,
+    entity?: number,
     vin?: string,
     owner?: number,
     group?: string
   ) {
     super();
-    this.entity = entity;
-    this.netId = NetworkGetNetworkIdFromEntity(entity);
+    this.internalId = GenerateUUID();
     this.script = script;
     this.plate = plate;
     this.model = model;
@@ -161,16 +177,24 @@ export class OxVehicle extends ClassInterface {
     this.#metadata = metadata || {};
     this.#stored = stored;
 
-    if (this.id) this.setStored(null, false);
+    if (entity && entity > 0) {
+      this.entity = entity;
+      this.netId = NetworkGetNetworkIdFromEntity(entity);
 
-    OxVehicle.add(this.entity, this);
-    SetVehicleNumberPlateText(this.entity, properties.plate || this.plate);
-    setVehicleProperties(entity, properties);
-    emit('ox:spawnedVehicle', this.entity, this.id);
+      if (this.id) {
+        this.setStored(null, false);
+      }
 
-    const state = this.getState();
+      SetVehicleNumberPlateText(this.entity, properties.plate || this.plate);
+      setVehicleProperties(entity, properties);
+      emit('ox:spawnedVehicle', this.entity, this.id);
 
-    state.set('initVehicle', true, true);
+      const state = this.getState();
+
+      state.set('initVehicle', true, true);
+    }
+
+    OxVehicle.add(this.internalId, this);
   }
 
   /** Stores a value in the vehicle's metadata. */
@@ -184,6 +208,9 @@ export class OxVehicle extends ClassInterface {
   }
 
   getState() {
+    if (!this.entity) {
+      throw new Error('Vehicle does not have an entity');
+    }
     return Entity(this.entity).state;
   }
 
@@ -209,14 +236,18 @@ export class OxVehicle extends ClassInterface {
   despawn(save?: boolean) {
     const saveData = save && this.#getSaveData();
     if (saveData) SaveVehicleData(saveData);
-    if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
+    if (this.entity && DoesEntityExist(this.entity)) DeleteEntity(this.entity);
 
-    OxVehicle.remove(this.entity);
+    this.untrack();
   }
 
   delete() {
     if (this.id) DeleteVehicle(this.id);
     this.despawn(false);
+  }
+
+  untrack() {
+    OxVehicle.remove(this.internalId);
   }
 
   setStored(value: string | null, despawn?: boolean) {
@@ -254,24 +285,38 @@ export class OxVehicle extends ClassInterface {
   setProperties(properties: VehicleProperties, apply?: boolean) {
     this.#properties = properties;
 
-    if (apply) setVehicleProperties(this.entity, this.#properties);
+    if (apply && this.entity && DoesEntityExist(this.entity)) setVehicleProperties(this.entity, this.#properties);
   }
 
-  async respawn(coords?: Vector3, rotation?: Vector3) {
-    const hasEntity = DoesEntityExist(this.entity);
-    coords = Vector3.fromObject(coords || hasEntity ? GetEntityCoords(this.entity) : null);
-    rotation = Vector3.fromObject(rotation || hasEntity ? GetEntityRotation(this.entity) : null);
+  async respawn(coords?: Vec3, rotation?: Vec3) {
+    const hasEntity = this.entity !== undefined && DoesEntityExist(this.entity);
 
-    OxVehicle.remove(this.entity);
+    if (coords) {
+      coords = Vector3.fromObject(coords);
+    } else if (hasEntity) {
+      coords = GetEntityCoords(this.entity!);
+    } else {
+      throw new Error('Cannot respawn vehicle without entity existing or coords provided');
+    }
 
-    if (hasEntity) DeleteEntity(this.entity);
+    if (rotation) {
+      rotation = Vector3.fromObject(rotation);
+    } else if (hasEntity) {
+      rotation = GetEntityRotation(this.entity!);
+    } else {
+      rotation = new Vector3(0, 0, 0);
+    }
 
-    this.entity = OxVehicle.spawn(this.model, coords, 0);
+    coords = coords as Vector3;
+    rotation = rotation as Vector3;
+
+    if (hasEntity) DeleteEntity(this.entity!);
+
+    this.entity = OxVehicle.spawn(this.model, coords as Vector3, 0);
     this.netId = NetworkGetNetworkIdFromEntity(this.entity);
 
     if (rotation) SetEntityRotation(this.entity, rotation.x, rotation.y, rotation.z, 2, false);
 
-    OxVehicle.add(this.entity, this);
     SetVehicleNumberPlateText(this.entity, this.#properties.plate || this.plate);
     setVehicleProperties(this.entity, this.#properties);
     emit('ox:spawnedVehicle', this.entity, this.id);
