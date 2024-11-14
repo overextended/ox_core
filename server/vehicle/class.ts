@@ -13,7 +13,6 @@ import type { Dict, VehicleData } from 'types';
 import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
 import { setVehicleProperties } from '@overextended/ox_lib/server';
 import { Vector3 } from '@nativewrappers/fivem';
-import { GenerateUUID } from '../utils';
 
 type Vec3 = number[] | { x: number; y: number; z: number } | { buffer: any };
 
@@ -63,6 +62,7 @@ export class OxVehicle extends ClassInterface {
     // If the entityId is a string, it's the internalId
     if (typeof entityId === 'string') return this.members[entityId];
 
+    // If the entityId is a number, it's the entity id
     return this.keys.entity[entityId];
   }
 
@@ -164,7 +164,7 @@ export class OxVehicle extends ClassInterface {
     group?: string
   ) {
     super();
-    this.internalId = GenerateUUID();
+    this.internalId = getRandomString('............');
     this.script = script;
     this.plate = plate;
     this.model = model;
@@ -183,6 +183,12 @@ export class OxVehicle extends ClassInterface {
 
       if (this.id) {
         this.setStored(null, false);
+
+        const existingVehicle = OxVehicle.getFromVehicleId(this.id);
+        if(existingVehicle) {
+          DEV: console.warn(`Vehicle with id ${this.id} already exists in the vehicle cache. Removing existing`, existingVehicle.internalId);
+          OxVehicle.remove(existingVehicle.internalId);
+        }
       }
 
       SetVehicleNumberPlateText(this.entity, properties.plate || this.plate);
@@ -312,8 +318,12 @@ export class OxVehicle extends ClassInterface {
 
     if (hasEntity) DeleteEntity(this.entity!);
 
+    this.untrack();
+
     this.entity = OxVehicle.spawn(this.model, coords as Vector3, 0);
     this.netId = NetworkGetNetworkIdFromEntity(this.entity);
+
+    OxVehicle.add(this.internalId, this);
 
     if (rotation) SetEntityRotation(this.entity, rotation.x, rotation.y, rotation.z, 2, false);
 
