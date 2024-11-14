@@ -264,7 +264,7 @@ export class OxVehicle extends ClassInterface {
 
     OxVehicle.remove(this.entity);
 
-    if (hasEntity) DeleteVehicle(this.entity);
+    if (hasEntity) DeleteEntity(this.entity);
 
     this.entity = OxVehicle.spawn(this.model, coords, 0);
     this.netId = NetworkGetNetworkIdFromEntity(this.entity);
