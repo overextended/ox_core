@@ -58,7 +58,7 @@ export async function UpdateBalance(
   if (!success)
     return {
       success: false,
-      message: 'no_balance',
+      message: 'insufficient_balance',
     };
 
   const didUpdate =
