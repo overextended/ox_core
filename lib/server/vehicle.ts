@@ -29,11 +29,11 @@ class VehicleInterface {
   }
 
   getCoords() {
-    return GetEntityCoords(this.entity);
+    return GetEntityCoords(this.entity!);
   }
 
   getState() {
-    return Entity(this.entity).state;
+    return Entity(this.entity!).state;
   }
 }
 

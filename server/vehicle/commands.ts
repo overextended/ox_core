@@ -33,7 +33,7 @@ addCommand<{ model: string; owner?: number }>(
 
     DeleteCurrentVehicle(ped);
     await sleep(200);
-    SetPedIntoVehicle(ped, vehicle.entity, -1);
+    SetPedIntoVehicle(ped, vehicle.entity!, -1);
   },
   {
     help: `Spawn a vehicle with the given model.`,
