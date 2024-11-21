@@ -1,17 +1,17 @@
-import { ClassInterface } from 'classInterface';
-import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
+import { Vector3 } from '@nativewrappers/fivem';
 import {
-  getRandomString,
   getRandomAlphanumeric,
   getRandomChar,
   getRandomInt,
+  getRandomString,
   VehicleProperties,
 } from '@overextended/ox_lib';
-import { PLATE_PATTERN } from '../../common/config';
-import type { Dict, VehicleData } from 'types';
-import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
 import { setVehicleProperties } from '@overextended/ox_lib/server';
-import { Vector3 } from '@nativewrappers/fivem';
+import { ClassInterface } from 'classInterface';
+import type { Dict, VehicleData } from 'types';
+import { PLATE_PATTERN } from '../../common/config';
+import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
+import { DeleteVehicle, IsPlateAvailable, IsVinAvailable, SaveVehicleData, SetVehicleColumn } from './db';
 
 const setEntityOrphanMode = typeof SetEntityOrphanMode !== 'undefined' ? SetEntityOrphanMode : () => {};
 
@@ -207,6 +207,8 @@ export class OxVehicle extends ClassInterface {
   }
 
   despawn(save?: boolean) {
+    emit('ox:despawnVehicle', this.entity, this.id);
+
     const saveData = save && this.#getSaveData();
     if (saveData) SaveVehicleData(saveData);
     if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
