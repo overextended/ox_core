@@ -51,7 +51,6 @@ export async function CreateVehicle(
 
   const entity = coords ? OxVehicle.spawn(data.model, coords as Vector3, heading || 0) : 0;
 
-  if (coords && (!entity || !DoesEntityExist(entity))) return;
   if (!data.vin && (data.owner || data.group)) data.vin = await OxVehicle.generateVin(vehicleData);
   if (data.vin && !data.owner && !data.group) delete data.vin;
 
