@@ -9,6 +9,7 @@ export type VehicleRow = {
   vin: string;
   model: string;
   data: { properties: VehicleProperties; [key: string]: any };
+  stored?: string;
 };
 
 setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']));
@@ -21,9 +22,16 @@ export async function IsVinAvailable(plate: string) {
   return !(await db.exists('SELECT 1 FROM vehicles WHERE vin = ?', [plate]));
 }
 
-export function GetStoredVehicleFromId(id: number) {
+export function GetVehicleFromVin(vin: string) {
   return db.row<VehicleRow>(
-    'SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL',
+    'SELECT id, owner, `group`, plate, vin, model, data, stored FROM vehicles WHERE vin = ?',
+    [vin]
+  );
+}
+
+export function GetVehicleFromId(id: number) {
+  return db.row<VehicleRow>(
+    'SELECT id, owner, `group`, plate, vin, model, data, stored FROM vehicles WHERE id = ?',
     [id]
   );
 }

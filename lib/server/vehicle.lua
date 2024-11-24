@@ -4,7 +4,6 @@ local OxVehicle = lib.class('OxVehicle')
 
 function OxVehicle:__index(index)
     local value = OxVehicle[index] --[[@as any]]
-
     if type(value) == 'function' then
         self[index] = value == OxVehicle.__call and function(...)
             return value(self, index, ...)
@@ -25,7 +24,7 @@ function OxVehicle:constructor(data)
 end
 
 function OxVehicle:__call(...)
-    return exports.ox_core:CallVehicle(self.entity, ...)
+    return exports.ox_core:CallVehicle(self.internalId, ...)
 end
 
 function OxVehicle:__tostring()
