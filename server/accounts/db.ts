@@ -55,9 +55,13 @@ export async function UpdateBalance(
   const success = addAction
     ? await conn.update(addBalance, [amount, id])
     : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]);
+  if (!success)
+    return {
+      success: false,
+      message: 'insufficient_balance',
+    };
 
   const didUpdate =
-    success &&
     (await conn.update(addTransaction, [
       actorId || null,
       addAction ? null : id,
