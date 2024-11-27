@@ -8,24 +8,30 @@ const connectingPlayers: Dict<OxPlayer> = {};
 
 /** Loads existing data for the player, or inserts new data into the database. */
 async function loadPlayer(playerId: number) {
-  if (serverLockdown) return serverLockdown;
+  try {
+    if (serverLockdown) return serverLockdown;
 
-  const player = new OxPlayer(playerId);
-  const license = SV_LAN ? 'fayoum' : GetPlayerLicense(playerId);
+    const player = new OxPlayer(playerId);
+    const license = SV_LAN ? 'fayoum' : GetPlayerLicense(playerId);
 
-  if (!license) return `could not validate player license.`;
+    if (!license) return `could not validate player license.`;
 
-  const identifier = license.substring(license.indexOf(':') + 1);
-  let userId = await GetUserIdFromIdentifier(identifier);
+    const identifier = license.substring(license.indexOf(':') + 1);
+    let userId: number;
 
-  if (userId && OxPlayer.getFromUserId(userId)) {
-    const kickReason = `userId '${userId}' is already active.`;
+    userId = (await GetUserIdFromIdentifier(identifier)) ?? 0;
 
-    if (!DEBUG) return kickReason;
+    if (userId && OxPlayer.getFromUserId(userId)) {
+      const kickReason = `userId '${userId}' is already active.`;
 
-    userId = await GetUserIdFromIdentifier(identifier, 1);
+      if (!DEBUG) return kickReason;
 
-    if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
+      userId = (await GetUserIdFromIdentifier(identifier, 1)) ?? 0;
+
+      if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
+    }
+  } catch (err) {
+    return err.message;
   }
 
   player.username = GetPlayerName(player.source as string);
