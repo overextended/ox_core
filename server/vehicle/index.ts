@@ -62,8 +62,6 @@ export async function CreateVehicle(
         : await OxVehicle.generatePlate();
 
   const metadata = data.data || ({} as { properties?: VehicleProperties; [key: string]: any });
-  const properties = data.properties || metadata.properties || ({} as VehicleProperties);
-  delete metadata.properties;
 
   if (!data.id && data.vin) {
     data.id = await CreateNewVehicle(
@@ -78,7 +76,10 @@ export async function CreateVehicle(
     );
   }
 
-  if (!entity) return;
+  if (!entity || !DoesEntityExist(entity)) return;
+
+  const properties = data.properties || metadata.properties || ({} as VehicleProperties);
+  delete metadata.properties;
 
   return new OxVehicle(
     entity,
