@@ -1,4 +1,4 @@
-import { sleep } from '@overextended/ox_lib';
+import { waitFor } from '@overextended/ox_lib';
 import { pool } from './pool';
 import type { Dict } from 'types';
 import type { PoolConnection, QueryOptions } from 'mariadb';
@@ -78,7 +78,9 @@ export class Connection {
 }
 
 export async function GetConnection() {
-  while (!pool) await sleep(0);
+  while (!pool) {
+    await waitFor(() => pool, `Failed to acquire database connection.`, 30000);
+  }
 
   return new Connection(await pool.getConnection());
 }
