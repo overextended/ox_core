@@ -30,17 +30,17 @@ async function loadPlayer(playerId: number) {
 
       if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
     }
+
+    player.username = GetPlayerName(player.source as string);
+    player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
+    player.identifier = identifier;
+
+    DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
+
+    return player;
   } catch (err) {
     return err.message;
   }
-
-  player.username = GetPlayerName(player.source as string);
-  player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
-  player.identifier = identifier;
-
-  DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
-
-  return player;
 }
 
 let serverLockdown: string;
