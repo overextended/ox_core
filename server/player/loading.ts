@@ -8,10 +8,12 @@ const connectingPlayers: Dict<OxPlayer> = {};
 
 /** Loads existing data for the player, or inserts new data into the database. */
 async function loadPlayer(playerId: number) {
+  let player: OxPlayer | undefined;
+  
   try {
     if (serverLockdown) return serverLockdown;
 
-    const player = new OxPlayer(playerId);
+    player = new OxPlayer(playerId);
     const license = SV_LAN ? 'fayoum' : GetPlayerLicense(playerId);
 
     if (!license) return `could not validate player license.`;
@@ -23,14 +25,13 @@ async function loadPlayer(playerId: number) {
 
     if (userId && OxPlayer.getFromUserId(userId)) {
       const kickReason = `userId '${userId}' is already active.`;
-
       if (!DEBUG) return kickReason;
 
       userId = (await GetUserIdFromIdentifier(identifier, 1)) ?? 0;
-
       if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
     }
 
+    // Safely set player properties within try block
     player.username = GetPlayerName(player.source as string);
     player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
     player.identifier = identifier;
@@ -38,7 +39,17 @@ async function loadPlayer(playerId: number) {
     DEV: console.info(`Loaded player data for OxPlayer<${player.userId}>`);
 
     return player;
+
   } catch (err) {
+    console.error('Error loading player:', err);
+    // Ensure we clean up if there was an error during setup
+    if (player?.userId) {
+      try {
+        OxPlayer.remove(player.source);
+      } catch (cleanupErr) {
+        console.error('Error during cleanup:', cleanupErr);
+      }
+    }
     return err.message;
   }
 }
