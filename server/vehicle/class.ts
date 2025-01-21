@@ -207,6 +207,8 @@ export class OxVehicle extends ClassInterface {
   }
 
   despawn(save?: boolean) {
+    emit('ox:despawnVehicle', this.entity, this.id);
+    
     const saveData = save && this.#getSaveData();
     if (saveData) SaveVehicleData(saveData);
     if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
