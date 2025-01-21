@@ -60,6 +60,8 @@ export async function UpdateBalance(
       success: false,
       message: 'insufficient_balance',
     };
+  
+  !message && (message = locales(action === 'add' ? 'deposit' : 'withdraw'));
 
   const didUpdate =
     (await conn.update(addTransaction, [
