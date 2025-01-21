@@ -394,7 +394,10 @@ export class OxPlayer extends ClassInterface {
 
   /** Adds the active character to the group and sets permissions. */
   #addGroup(group: string | OxGroup, grade: number) {
-    if (typeof group === 'string') group = GetGroup(group);
+    const groupName = typeof group === 'string' ? group : group.name;
+    group = GetGroup(groupName);
+
+    if (!group) return console.warn(`Failed to add group '${groupName}' to OxPlayer<${this.userId}> (invalid group)`);
 
     addPrincipal(this.source as string, `${group.principal}:${grade}`);
     DEV: console.info(`Added OxPlayer<${this.userId}> to group '${group.name}' as grade ${grade}.`);
@@ -405,7 +408,11 @@ export class OxPlayer extends ClassInterface {
 
   /** Removes the active character from the group and sets permissions. */
   #removeGroup(group: string | OxGroup, grade: number) {
-    if (typeof group === 'string') group = GetGroup(group);
+    const groupName = typeof group === 'string' ? group : group.name;
+    group = GetGroup(groupName);
+
+    if (!group)
+      return console.warn(`Failed to remove group '${groupName}' from OxPlayer<${this.userId}> (invalid group)`);
 
     removePrincipal(this.source as string, `${group.principal}:${grade}`);
     DEV: console.info(`Removed OxPlayer<${this.userId}> from group '${group.name}'.`);
