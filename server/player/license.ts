@@ -1,8 +1,8 @@
 import { addCommand } from '@overextended/ox_lib/server';
-import { GetLicenses } from './db';
-import type { Dict } from 'types';
+import type { Dict, OxLicense } from 'types';
+import { GetLicense, GetLicenses } from './db';
 
-export const Licenses: Dict<{ label: string }> = {};
+export const Licenses: Dict<OxLicense> = {};
 
 async function LoadLicenses() {
   const rows = await GetLicenses();
@@ -25,3 +25,6 @@ addCommand('reloadlicenses', LoadLicenses, {
   help: 'Reload licenses from the database.',
   restricted: 'group.admin',
 });
+
+exports('GetLicenses', GetLicenses);
+exports('GetLicense', GetLicense);

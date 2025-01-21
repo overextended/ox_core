@@ -104,6 +104,11 @@ export interface VehicleData extends VehicleStats {
   weapons?: true;
 }
 
+export interface OxLicense {
+  name?: string;
+  label?: string;
+}
+
 export interface OxStatus {
   name: string;
   default: number;
