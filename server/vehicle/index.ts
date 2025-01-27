@@ -6,7 +6,7 @@ import './class';
 import './commands';
 import './events';
 import { VehicleProperties } from '@overextended/ox_lib/server';
-import { Vector3 } from '@nativewrappers/fivem';
+import { Vector3 } from '@nativewrappers/server';
 
 if (DEBUG) import('./parser');
 
