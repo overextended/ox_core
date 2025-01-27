@@ -21,11 +21,20 @@ export async function IsVinAvailable(plate: string) {
   return !(await db.exists('SELECT 1 FROM vehicles WHERE vin = ?', [plate]));
 }
 
-export function GetStoredVehicleFromId(id: number) {
-  return db.row<VehicleRow>(
+export async function GetStoredVehicleFromId(id: number) {
+  const row = await db.row<VehicleRow>(
     'SELECT id, owner, `group`, plate, vin, model, data FROM vehicles WHERE id = ? AND `stored` IS NOT NULL',
     [id]
   );
+
+  if (row && typeof row.data === 'string') {
+    console.warn(
+      `vehicle.data was selected from the database as a string rather than JSON.\nLet us know if this warning occurred..`
+    );
+    row.data = JSON.parse(row.data);
+  }
+
+  return row;
 }
 
 export async function SetVehicleColumn(id: number | void, column: string, value: any) {

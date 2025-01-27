@@ -208,7 +208,7 @@ export class OxVehicle extends ClassInterface {
 
   despawn(save?: boolean) {
     emit('ox:despawnVehicle', this.entity, this.id);
-    
+
     const saveData = save && this.#getSaveData();
     if (saveData) SaveVehicleData(saveData);
     if (DoesEntityExist(this.entity)) DeleteEntity(this.entity);
@@ -254,7 +254,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   setProperties(properties: VehicleProperties, apply?: boolean) {
-    this.#properties = properties;
+    this.#properties = typeof properties === 'string' ? JSON.parse(properties) : properties;
 
     if (apply) setVehicleProperties(this.entity, this.#properties);
   }
