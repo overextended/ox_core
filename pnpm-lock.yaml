@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@nativewrappers/fivem':
-        specifier: ^0.0.41
-        version: 0.0.41
+        specifier: ^0.0.49
+        version: 0.0.49
       '@nativewrappers/server':
-        specifier: ^0.0.48
-        version: 0.0.48
+        specifier: ^0.0.49
+        version: 0.0.49
       '@overextended/ox_lib':
         specifier: ^3.28.1
         version: 3.28.1
@@ -201,14 +201,14 @@ packages:
   '@nativewrappers/client@1.7.33':
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
 
-  '@nativewrappers/common@0.0.48':
-    resolution: {integrity: sha512-8QfjXVNWxA8l8hbRxHXUtfjMmj/WA49zzhCf9Bxo8HxDMqYv3G5ADLoVg3mJ5TMzvew6hvFHVGLtjmBFba1qNg==}
+  '@nativewrappers/common@0.0.49':
+    resolution: {integrity: sha512-9Ay+oLqXOK+WLd+WsCAjXH3amKO7GMCZsceINnbELFE6ADJq59Klgkhnrv9ALdpUhR5aZ3zU0PP9bwRfk11O6A==}
 
-  '@nativewrappers/fivem@0.0.41':
-    resolution: {integrity: sha512-GUX3N+nlKHj8xT76xtvWUYaQE58UjG18PvjyxMAp6fHAVCP7dktPvX4RwQxg8oQFP9qu4RHZ2DoknVYfrBOGMw==}
+  '@nativewrappers/fivem@0.0.49':
+    resolution: {integrity: sha512-aT0fm6bCIbpjI5cPV2GF+ybmAiMKK/odEPrw4xIF37xFcsRCIypB3+iCZYMmVWEUQ+llmSbHPOcHf32bc+8wbg==}
 
-  '@nativewrappers/server@0.0.48':
-    resolution: {integrity: sha512-0DDI2U/W97cKGZj/GjHBMAvVCcmJW3S/hU0iIYgOxRrKMZs7M/RkO3ZVLx8JOICfF+shzrsjwUnoANFH2DE93A==}
+  '@nativewrappers/server@0.0.49':
+    resolution: {integrity: sha512-VIUDcBKp7h6sgCgp2KjwKFqXWf2BEO20DML852KpzH2etaZJk36LT6iRv+ab24KLcK91RkEjhHjQrEh9Lh8p3A==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -494,13 +494,15 @@ snapshots:
 
   '@nativewrappers/client@1.7.33': {}
 
-  '@nativewrappers/common@0.0.48': {}
+  '@nativewrappers/common@0.0.49': {}
 
-  '@nativewrappers/fivem@0.0.41': {}
-
-  '@nativewrappers/server@0.0.48':
+  '@nativewrappers/fivem@0.0.49':
     dependencies:
-      '@nativewrappers/common': 0.0.48
+      '@nativewrappers/common': 0.0.49
+
+  '@nativewrappers/server@0.0.49':
+    dependencies:
+      '@nativewrappers/common': 0.0.49
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
