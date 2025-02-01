@@ -42,8 +42,8 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@nativewrappers/fivem": "^0.0.49",
-    "@nativewrappers/server": "^0.0.49",
+    "@nativewrappers/fivem": "^0.0.50",
+    "@nativewrappers/server": "^0.0.50",
     "@overextended/ox_lib": "^3.28.1",
     "mariadb": "^3.4.0"
   },
