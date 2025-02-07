@@ -1,5 +1,6 @@
 import { db } from '../db';
 import { VehicleProperties } from '@overextended/ox_lib';
+import { DEFAULT_VEHICLE_STORE } from 'config';
 
 export type VehicleRow = {
   id: number;
@@ -11,7 +12,8 @@ export type VehicleRow = {
   data: { properties: VehicleProperties; [key: string]: any };
 };
 
-setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', ['impound']));
+if (DEFAULT_VEHICLE_STORE)
+  setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', [DEFAULT_VEHICLE_STORE]));
 
 export async function IsPlateAvailable(plate: string) {
   return !(await db.exists('SELECT 1 FROM vehicles WHERE plate = ?', [plate]));
