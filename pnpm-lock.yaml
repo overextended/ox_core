@@ -9,30 +9,30 @@ importers:
   .:
     dependencies:
       '@nativewrappers/fivem':
-        specifier: ^0.0.50
-        version: 0.0.50
+        specifier: ^0.0.51
+        version: 0.0.51
       '@nativewrappers/server':
-        specifier: ^0.0.50
-        version: 0.0.50
+        specifier: ^0.0.51
+        version: 0.0.51
       '@overextended/ox_lib':
-        specifier: ^3.28.1
-        version: 3.28.1
+        specifier: ^3.29.0
+        version: 3.29.0
       mariadb:
         specifier: ^3.4.0
         version: 3.4.0
     devDependencies:
       '@citizenfx/client':
         specifier: latest
-        version: 2.0.12598-1
+        version: 2.0.12796-1
       '@citizenfx/server':
         specifier: latest
-        version: 2.0.12509-1
+        version: 2.0.12796-1
       '@overextended/fx-utils':
         specifier: ^0.0.4
         version: 0.0.4
       '@types/node':
-        specifier: ^20.17.16
-        version: 20.17.16
+        specifier: ^20.17.17
+        version: 20.17.17
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -48,11 +48,11 @@ importers:
 
 packages:
 
-  '@citizenfx/client@2.0.12598-1':
-    resolution: {integrity: sha512-v6ldsg1epIpN3MtUM+tV0DUxgMti7ghWAPtU7xN05q9ccbxlC0BI6FJnU/fGg3xG/73RIZf/xLHu2+60Coz7YQ==}
+  '@citizenfx/client@2.0.12796-1':
+    resolution: {integrity: sha512-F1z33qlQvM6BZs6anJQF3Y8nfwGtxXey0d9Aw/utkZGXVrsxou8B1tSyrCbeN+GcZVwGUxuwKf7nM0wcyOZVyA==}
 
-  '@citizenfx/server@2.0.12509-1':
-    resolution: {integrity: sha512-vABLflNwjTf3zHUXvwE3Fzxr2MTMM1Ok2YVodTUQpu9Y28t6JM8jsogGLNZZHHSBsV27QHszzL9rCJL+vmLfGg==}
+  '@citizenfx/server@2.0.12796-1':
+    resolution: {integrity: sha512-knvQIp0EYpA82ZEf4yfW4F0iYk70qtCJawdFDn7hfG/8RJhfI5OjQUkZV4CxncsUoIC6rzMjNDxGz+UO+RZtfw==}
 
   '@esbuild/aix-ppc64@0.23.1':
     resolution: {integrity: sha512-6VhYk1diRqrhBAqpJEdjASR/+WVRtfjpqKuNw11cLiaWpAT/Uu+nokB+UJnevzy/P9C/ty6AOe0dwueMrGh/iQ==}
@@ -201,14 +201,14 @@ packages:
   '@nativewrappers/client@1.7.33':
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
 
-  '@nativewrappers/common@0.0.50':
-    resolution: {integrity: sha512-miTop92sO3xo3mxIPL0R0fc/BJjCPIP5c6zwpx2v3rhD7cHMRWPpoHs41fFaVx+LgAzgLBISe49i0jQnL6BY6g==}
+  '@nativewrappers/common@0.0.51':
+    resolution: {integrity: sha512-OiYqWaBu8PdJobqaHSVrjtFM+fDi706y5/rx0Q9458Rv0ueI0NFIFaQ/1ZmGvM1KfGPQCqemhY92wOHEwA5tug==}
 
-  '@nativewrappers/fivem@0.0.50':
-    resolution: {integrity: sha512-126dhTi2JUv+tWyHj8wGlKLKWNy2/cvnPkFXFxFZzV6Ldx8RrOkpUdvYDIQHbyscseO7kmI1y9wMORjFBNRPfw==}
+  '@nativewrappers/fivem@0.0.51':
+    resolution: {integrity: sha512-01Aa5oP7X2j2EKupJz+H9if0YHJyi3/tpL6XCT72RtRxU2BhJ6t1GOaNs/okAYPVdVjyFyciU4AhKqXaf30/6Q==}
 
-  '@nativewrappers/server@0.0.50':
-    resolution: {integrity: sha512-+3At8cHQ7cAkhfo8/V30KW2eIk9n6dRDp4Mt84O8BxhVSu78V/r73r5smqoTxtyw7ERcDQbl/LaeCHd9Rmn2Ng==}
+  '@nativewrappers/server@0.0.51':
+    resolution: {integrity: sha512-G1fGcdUqQBM5vN4Uj767QnTyaJ0Tw6rOXRnzS/bOCmdZIM+PgrHOKjeMEaq9w0jnbUPb+ZCdsWb/WvIm1FpveA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -226,17 +226,17 @@ packages:
     resolution: {integrity: sha512-8cv3lO6WbipBhUmMtY9xpYscq73xMrte1okgkMdU5SkadU8z6qeqMsXWSCZz/8rM1cmMXYAYyv6OpiVIzt02iw==}
     hasBin: true
 
-  '@overextended/ox_lib@3.28.1':
-    resolution: {integrity: sha512-I1R/eQRLO8sq+vMFcRN2PpUSY9tEJG0VXUMBap7ge4z2HL/WvRBUncQjBi2cxpMbdAs7M7qN+OsB2/1XE3OdqA==}
+  '@overextended/ox_lib@3.29.0':
+    resolution: {integrity: sha512-nB0OQn5cwzI3VnmY51bQHQG99TYTRiAinzfITh73EDeSKuCOZ3FyVyrEfO10wiqg9heVKAieC7flC6hj355u+w==}
 
   '@types/geojson@7946.0.16':
     resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
 
-  '@types/node@20.17.16':
-    resolution: {integrity: sha512-vOTpLduLkZXePLxHiHsBLp98mHGnl8RptV4YAO3HfKO5UHjDvySGbxKtpYfy8Sx5+WKcgc45qNreJJRVM3L6mw==}
+  '@types/node@20.17.17':
+    resolution: {integrity: sha512-/WndGO4kIfMicEQLTi/mDANUu/iVUhT7KboZPdEqqHQ4aTS+3qT3U5gIqWDFV+XouorjfgGqvKILJeHhuQgFYg==}
 
-  '@types/node@22.10.10':
-    resolution: {integrity: sha512-X47y/mPNzxviAGY5TcYPtYL8JsY3kAq2n8fMmKoRCxq/c4v4pyGNCzM2R6+M5/umG4ZfHuT+sgqDYqWc9rJ6ww==}
+  '@types/node@22.13.1':
+    resolution: {integrity: sha512-jK8uzQlrvXqEU91UxiK5J7pKHyzgnI1Qnl0QDHIgVGuolJhRb9EEl28Cj9b3rGR8B2lhFCtvIm5os8lFnO/1Ew==}
 
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
@@ -286,8 +286,8 @@ packages:
     resolution: {integrity: sha512-GwTgG9O4FVIdShhbVF3JxOgSBY2+ePGsu2V/UONgoCPzF9VY6ZdBMKsHKCYQHZwNk3qNouUolRDsgVxcVA5G1w==}
     engines: {node: '>=10.0'}
 
-  fastq@1.18.0:
-    resolution: {integrity: sha512-QKHXPW0hD8g4UET03SdOdunzSouc9N4AuHdsX8XNcTsuz+yYFILVNIX4l9yHABMhiEI9Db0JTTIpu0wB+Y1QQw==}
+  fastq@1.19.0:
+    resolution: {integrity: sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -416,9 +416,9 @@ packages:
 
 snapshots:
 
-  '@citizenfx/client@2.0.12598-1': {}
+  '@citizenfx/client@2.0.12796-1': {}
 
-  '@citizenfx/server@2.0.12509-1': {}
+  '@citizenfx/server@2.0.12796-1': {}
 
   '@esbuild/aix-ppc64@0.23.1':
     optional: true
@@ -494,15 +494,15 @@ snapshots:
 
   '@nativewrappers/client@1.7.33': {}
 
-  '@nativewrappers/common@0.0.50': {}
+  '@nativewrappers/common@0.0.51': {}
 
-  '@nativewrappers/fivem@0.0.50':
+  '@nativewrappers/fivem@0.0.51':
     dependencies:
-      '@nativewrappers/common': 0.0.50
+      '@nativewrappers/common': 0.0.51
 
-  '@nativewrappers/server@0.0.50':
+  '@nativewrappers/server@0.0.51':
     dependencies:
-      '@nativewrappers/common': 0.0.50
+      '@nativewrappers/common': 0.0.51
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -514,14 +514,14 @@ snapshots:
   '@nodelib/fs.walk@1.2.8':
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
-      fastq: 1.18.0
+      fastq: 1.19.0
 
   '@overextended/fx-utils@0.0.4':
     dependencies:
       esbuild: 0.23.1
       tsc-alias: 1.8.10
 
-  '@overextended/ox_lib@3.28.1':
+  '@overextended/ox_lib@3.29.0':
     dependencies:
       '@nativewrappers/client': 1.7.33
       csstype: 3.1.3
@@ -530,11 +530,11 @@ snapshots:
 
   '@types/geojson@7946.0.16': {}
 
-  '@types/node@20.17.16':
+  '@types/node@20.17.17':
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.10.10':
+  '@types/node@22.13.1':
     dependencies:
       undici-types: 6.20.0
 
@@ -610,7 +610,7 @@ snapshots:
 
   fast-printf@1.6.10: {}
 
-  fastq@1.18.0:
+  fastq@1.19.0:
     dependencies:
       reusify: 1.0.4
 
@@ -657,7 +657,7 @@ snapshots:
   mariadb@3.4.0:
     dependencies:
       '@types/geojson': 7946.0.16
-      '@types/node': 22.10.10
+      '@types/node': 22.13.1
       denque: 2.1.0
       iconv-lite: 0.6.3
       lru-cache: 10.4.3
