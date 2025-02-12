@@ -81,6 +81,8 @@ export async function UpdateBalance(
       message: 'something_went_wrong',
     };
 
+  emit('ox:updatedBalance', { accountId: id, amount, action });
+
   return { success: true };
 }
 
@@ -123,6 +125,8 @@ export async function PerformTransaction(
         fromBalance - amount,
         toBalance + amount,
       ]);
+
+      emit('ox:transferredMoney', { fromId, toId, amount });
 
       return { success: true };
     }
@@ -243,6 +247,8 @@ export async function DepositMoney(
     balance + amount,
   ]);
 
+  emit('ox:depositedMoney', { playerId, accountId, amount });
+
   return {
     success: true,
   };
@@ -296,6 +302,8 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
+
+  emit('ox:withdrewMoney', { playerId, accountId, amount });
 
   return { success: true };
 }
