@@ -28,7 +28,7 @@ async function GenerateAccountId(conn: Connection) {
 }
 
 export async function UpdateBalance(
-  id: number,
+  accountId: number,
   amount: number,
   action: 'add' | 'remove',
   overdraw: boolean,
@@ -43,7 +43,7 @@ export async function UpdateBalance(
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
   using conn = await GetConnection();
-  const balance = await conn.scalar<number>(getBalance, [id]);
+  const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null)
     return {
@@ -53,8 +53,8 @@ export async function UpdateBalance(
 
   const addAction = action === 'add';
   const success = addAction
-    ? await conn.update(addBalance, [amount, id])
-    : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, id, amount]);
+    ? await conn.update(addBalance, [amount, accountId])
+    : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, accountId, amount]);
   if (!success)
     return {
       success: false,
@@ -66,8 +66,8 @@ export async function UpdateBalance(
   const didUpdate =
     (await conn.update(addTransaction, [
       actorId || null,
-      addAction ? null : id,
-      addAction ? id : null,
+      addAction ? null : accountId,
+      addAction ? accountId : null,
       amount,
       message,
       note,
@@ -80,6 +80,8 @@ export async function UpdateBalance(
       success: false,
       message: 'something_went_wrong',
     };
+
+  emit('ox:updatedBalance', { accountId, amount, action });
 
   return { success: true };
 }
@@ -123,6 +125,8 @@ export async function PerformTransaction(
         fromBalance - amount,
         toBalance + amount,
       ]);
+
+      emit('ox:transferredMoney', { fromId, toId, amount });
 
       return { success: true };
     }
@@ -243,6 +247,8 @@ export async function DepositMoney(
     balance + amount,
   ]);
 
+  emit('ox:depositedMoney', { playerId, accountId, amount });
+
   return {
     success: true,
   };
@@ -296,6 +302,8 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
+
+  emit('ox:withdrewMoney', { playerId, accountId, amount });
 
   return { success: true };
 }
