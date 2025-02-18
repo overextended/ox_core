@@ -31,7 +31,7 @@ createBuilder(
       name: 'server',
       options: {
         platform: 'node',
-        target: ['node16'],
+        target: ['node22'],
         format: 'cjs',
         entryPoints: [`./server/index.ts`],
       },
@@ -40,7 +40,7 @@ createBuilder(
       name: 'client',
       options: {
         platform: 'browser',
-        target: ['es2021'],
+        target: ['es2023'],
         format: 'iife',
         entryPoints: [`./client/index.ts`],
       },
@@ -51,7 +51,8 @@ createBuilder(
       client_scripts: [files.client],
       server_scripts: [files.server],
       files: ['lib/init.lua', 'lib/client/**.lua', 'locales/*.json', 'common/data/*.json'],
-      dependencies: ['/server:7290', '/onesync'],
+      dependencies: ['/server:12913', '/onesync'],
+      metadata: { node_version: '22' }
     });
   }
 );
