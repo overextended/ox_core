@@ -4,7 +4,7 @@ import { OxPlayer } from 'player';
 import { DEATH_SYSTEM, DEBUG } from 'config';
 import { LoadDataFile } from '../common';
 
-const hospitals = LoadDataFile('hospitals').map((vec: number[]) => Vector4.fromArray(vec));
+const hospitals: Vector4[] = LoadDataFile('hospitals').map((vec: number[]) => Vector4.fromArray(vec));
 
 const anims = [
   ['missfinale_c1@', 'lying_dead_player0'],
@@ -13,12 +13,6 @@ const anims = [
 ];
 
 let playerIsDead = false;
-
-/**
- * @todo Configs to disable builtin bleedout/respawns.
- * We still want to handle the generic death loop to prevent
- * random variables in weird death systems.
- */
 
 async function ClearDeath(tickId: number, bleedOut: boolean) {
   const anim = cache.vehicle ? anims[1] : anims[0];
@@ -64,7 +58,6 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 
   for (let index = 0; index < anims.length; index++) RemoveAnimDict(anims[index][0]);
 
-  OxPlayer.state.set('isDead', false, true);
   emit('ox:playerRevived');
 }
 
@@ -107,19 +100,16 @@ async function OnPlayerDeath() {
   SetEveryoneIgnorePlayer(cache.playerId, true);
 }
 
-AddStateBagChangeHandler(
-  'isDead',
-  `player:${cache.serverId}`,
-  async (bagName: string, key: string, value: any, reserved: number, replicated: boolean) => {
-    if (!replicated) return;
-
-    playerIsDead = value;
-  }
-);
-
-on('ox:playerLogout', () => {
-  playerIsDead = false;
+AddStateBagChangeHandler('isDead', `player:${cache.serverId}`, async (_bagName: string, _key: string, value: any) => {
+  playerIsDead = value;
 });
+
+function ResetDeathState() {
+  OxPlayer.state.set('isDead', false, true);
+}
+
+on('ox:playerLogout', ResetDeathState);
+on('ox:playerRevived', ResetDeathState);
 
 on('ox:playerLoaded', () => {
   const id: CitizenTimer = setInterval(() => {
