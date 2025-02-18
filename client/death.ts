@@ -1,10 +1,24 @@
 import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
 import { Vector3, Vector4 } from '@nativewrappers/fivem';
 import { OxPlayer } from 'player';
-import { DEATH_SYSTEM, DEBUG } from 'config';
+import { DEATH_SYSTEM, DEBUG, HOSPITAL_BLIPS } from 'config';
 import { LoadDataFile } from '../common';
 
-const hospitals: Vector4[] = LoadDataFile('hospitals').map((vec: number[]) => Vector4.fromArray(vec));
+const hospitals: Vector4[] = LoadDataFile('hospitals').map((vec: number[]) => {
+  const hospital = Vector4.fromArray(vec);
+
+  if (HOSPITAL_BLIPS) {
+    const blip = AddBlipForCoord(hospital.x, hospital.y, hospital.z);
+
+    SetBlipSprite(blip, 61);
+    SetBlipDisplay(blip, 8);
+    SetBlipScale(blip, 0.8);
+    SetBlipColour(blip, 35);
+    SetBlipAsShortRange(blip, true);
+  }
+
+  return hospital;
+});
 
 const anims = [
   ['missfinale_c1@', 'lying_dead_player0'],
