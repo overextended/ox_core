@@ -4,7 +4,7 @@ import { OxPlayer } from 'player';
 import { DEATH_SYSTEM, DEBUG } from 'config';
 import { LoadDataFile } from '../common';
 
-const hospitals = Vector4.fromArrays(LoadDataFile('hospitals'))
+const hospitals = LoadDataFile('hospitals').map((vec: number[]) => Vector4.fromArray(vec));
 
 const anims = [
   ['missfinale_c1@', 'lying_dead_player0'],
