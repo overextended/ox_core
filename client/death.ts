@@ -2,15 +2,9 @@ import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
 import { Vector3, Vector4 } from '@nativewrappers/fivem';
 import { OxPlayer } from 'player';
 import { DEATH_SYSTEM, DEBUG } from 'config';
+import { LoadDataFile } from '../common';
 
-const hospitals = [
-  new Vector4(340.5, -1396.8, 32.5, 60.1),
-  new Vector4(-449.3, -340.2, 34.5, 76.2),
-  new Vector4(295.6, -583.9, 43.2, 79.5),
-  new Vector4(1840.1, 3670.7, 33.9, 207.6),
-  new Vector4(1153.2, -1526.4, 34.8, 352.4),
-  new Vector4(-244.7, 6328.3, 32.4, 242.1),
-];
+const hospitals = Vector4.fromArrays(LoadDataFile('hospitals'))
 
 const anims = [
   ['missfinale_c1@', 'lying_dead_player0'],
