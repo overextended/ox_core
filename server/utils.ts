@@ -1,3 +1,4 @@
+import { SV_LAN } from 'config';
 import type { Dict } from 'types';
 
 export function GetPlayerLicense(playerId: number | string) {
@@ -15,6 +16,12 @@ export function GetIdentifiers(playerId: number | string) {
     const [prefix, identifier] = GetPlayerIdentifier(playerId, index).split(':');
 
     if (prefix !== 'ip') identifiers[prefix] = identifier;
+  }
+
+  if (!identifiers.license2) {
+    identifiers.license2 = SV_LAN ? 'fayoum' : identifiers.license;
+
+    if (!identifiers.license2) throw new Error(`No license2 found for user [${playerId}] ${GetPlayerName(playerId)}`);
   }
 
   return identifiers;

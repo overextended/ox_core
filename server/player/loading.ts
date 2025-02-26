@@ -31,7 +31,6 @@ async function loadPlayer(playerId: number) {
       if (userId && OxPlayer.getFromUserId(userId)) return kickReason;
     }
 
-    // Safely set player properties within try block
     player.username = GetPlayerName(player.source as string);
     player.userId = userId ? userId : await CreateUser(player.username, GetIdentifiers(playerId));
     player.identifier = identifier;

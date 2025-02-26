@@ -6,13 +6,13 @@ export function GetUserIdFromIdentifier(identifier: string, offset?: number) {
   return db.column<number>('SELECT userId FROM users WHERE license2 = ? LIMIT ?, 1', [identifier, offset || 0]);
 }
 
-export function CreateUser(username: string, identifiers: Dict<string>) {
+export function CreateUser(username: string, { license2, steam, fivem, discord }: Dict<string>) {
   return db.insert('INSERT INTO users (username, license2, steam, fivem, discord) VALUES (?, ?, ?, ?, ?)', [
     username,
-    identifiers.license2 ?? identifiers.license,
-    identifiers.steam,
-    identifiers.fivem,
-    identifiers.discord,
+    license2,
+    steam,
+    fivem,
+    discord,
   ]);
 }
 
@@ -81,9 +81,10 @@ export function GetLicense(name: string) {
 }
 
 export function GetCharacterLicenses(charId: number) {
-  return db.query<{ name: string; data: CharacterLicense }>('SELECT name, data FROM character_licenses WHERE charId = ?', [
-    charId,
-  ]);
+  return db.query<{ name: string; data: CharacterLicense }>(
+    'SELECT name, data FROM character_licenses WHERE charId = ?',
+    [charId]
+  );
 }
 
 export function AddCharacterLicense(charId: number, name: string, data: CharacterLicense) {
