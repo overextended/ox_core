@@ -31,7 +31,7 @@ export function CreateCharacter(
 ) {
   return db.insert(
     'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [userId, stateId, firstName, lastName, gender, new Date(date), phoneNumber]
+    [userId, stateId, firstName, lastName, gender, new Date(Number(date)), phoneNumber]
   );
 }
 
