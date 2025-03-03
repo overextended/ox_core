@@ -14,7 +14,7 @@ export function GetTopVehicleStats(category?: VehicleCategories) {
 export function GetVehicleData(): Vehicles;
 export function GetVehicleData<T extends string>(filter: T): VehicleData;
 export function GetVehicleData<T extends string[]>(
-  filter: T
+  filter: T,
 ): {
   [K in T[number]]: VehicleData; // this could be better
 };

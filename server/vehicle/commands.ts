@@ -36,7 +36,7 @@ addCommand<{ model: string; owner?: number }>(
     SetPedIntoVehicle(ped, vehicle.entity, -1);
   },
   {
-    help: `Spawn a vehicle with the given model.`,
+    help: 'Spawn a vehicle with the given model.',
     params: [
       { name: 'model', paramType: 'string', help: 'The vehicle archetype.' },
       {
@@ -47,7 +47,7 @@ addCommand<{ model: string; owner?: number }>(
       },
     ],
     restricted: 'group.admin',
-  }
+  },
 );
 
 addCommand<{ radius?: number; owned?: string }>(
@@ -69,11 +69,11 @@ addCommand<{ radius?: number; owned?: string }>(
     });
   },
   {
-    help: `Deletes your current vehicle, or any vehicles within range.`,
+    help: 'Deletes your current vehicle, or any vehicles within range.',
     params: [
       { name: 'radius', paramType: 'number', help: 'The radius to despawn vehicles (defaults to 2).', optional: true },
       { name: 'owned', help: 'Include player-owned vehicles.', optional: true },
     ],
     restricted: 'group.admin',
-  }
+  },
 );

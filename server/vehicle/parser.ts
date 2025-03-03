@@ -1,6 +1,6 @@
 import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
-import { VehicleData, TopVehicleStats } from 'types';
+import type { VehicleData, TopVehicleStats } from 'types';
 
 function SortObjectProperties(obj: object) {
   return Object.fromEntries(Object.entries(obj).sort());
@@ -12,7 +12,7 @@ addCommand<{ parseAll: boolean }>(
     const response: [Record<string, VehicleData>, TopVehicleStats] | void = await triggerClientCallback(
       'ox:generateVehicleData',
       playerId,
-      args.parseAll
+      args.parseAll,
     );
 
     if (!response) return;
@@ -27,5 +27,5 @@ addCommand<{ parseAll: boolean }>(
     help: 'Parses and generates vehicle data for all vehicle models available on a client.',
     params: [{ name: 'parseAll', optional: true, help: 'Include vehicles with existing data in the data generation.' }],
     restricted: 'group.admin',
-  }
+  },
 );

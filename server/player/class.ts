@@ -147,7 +147,7 @@ export class OxPlayer extends ClassInterface {
   set<K extends string>(
     key: K | keyof PlayerMetadata,
     value: K extends keyof PlayerMetadata ? PlayerMetadata[K] : any,
-    replicated?: boolean
+    replicated?: boolean,
   ): void;
   set(key: string, value: any, replicated?: boolean) {
     this.#metadata[key] = value;
@@ -219,7 +219,7 @@ export class OxPlayer extends ClassInterface {
           })
         )
           return console.warn(
-            `Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (already has group of type '${group.type}')`
+            `Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (already has group of type '${group.type}')`,
           );
 
         if (!(await AddCharacterGroup(this.charId, group.name, grade))) return;
@@ -451,7 +451,7 @@ export class OxPlayer extends ClassInterface {
    * @param dropped If the player has been dropped from the server.
    * @param save If character data should be saved to the database (defaults to true).
    */
-  async logout(save: boolean = true, dropped = false) {
+  async logout(save = true, dropped = false) {
     if (!this.charId) return;
 
     for (const name in this.#groups) this.#removeGroup(name, this.#groups[name]);
@@ -500,7 +500,7 @@ export class OxPlayer extends ClassInterface {
         data.lastName,
         data.gender,
         data.date,
-        phoneNumber
+        phoneNumber,
       ),
       isNew: true,
       gender: data.gender,
@@ -614,4 +614,4 @@ OxPlayer.init();
 exports('SaveAllPlayers', (arg: any) => OxPlayer.saveAll(arg));
 exports('GetPlayerFromUserId', (arg: any) => OxPlayer.getFromUserId(arg));
 exports('GetPlayerFromFilter', (arg: any) => OxPlayer.getFromFilter(arg));
-exports(`GetPlayers`, (arg: any) => OxPlayer.getAll(arg, true));
+exports('GetPlayers', (arg: any) => OxPlayer.getAll(arg, true));

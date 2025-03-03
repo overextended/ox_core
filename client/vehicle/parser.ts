@@ -1,6 +1,6 @@
 import { cache, notify, onServerCallback, requestModel } from '@overextended/ox_lib/client';
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
-import { VehicleData, VehicleTypes, VehicleStats, VehicleCategories } from 'types';
+import type { VehicleData, VehicleTypes, VehicleStats, VehicleCategories } from 'types';
 
 const vehiclePriceModifiers: Partial<Record<VehicleTypes, number>> = {
   automobile: 1600,
@@ -20,6 +20,7 @@ const vehiclePriceModifiers: Partial<Record<VehicleTypes, number>> = {
 onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
   const coords = GetEntityCoords(cache.ped, true);
   const vehicles: Record<string, VehicleData> = {} as any;
+  const vehicles: Record<string, VehicleData> = {};
   const vehicleModels: string[] = GetAllVehicleModels()
     .map((vehicle: string) => {
       vehicle = vehicle.toLowerCase();
@@ -61,11 +62,11 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     const vehicleType = GetVehicleType(entity) as VehicleTypes;
 
     const stats: VehicleStats = {
-      acceleration: parseFloat(GetVehicleModelAcceleration(hash).toFixed(4)),
-      braking: parseFloat(GetVehicleModelMaxBraking(hash).toFixed(4)),
-      handling: parseFloat(GetVehicleModelEstimatedAgility(hash).toFixed(4)),
-      speed: parseFloat(GetVehicleModelEstimatedMaxSpeed(hash).toFixed(4)),
-      traction: parseFloat(GetVehicleModelMaxTraction(hash).toFixed(4)),
+      acceleration: Number.parseFloat(GetVehicleModelAcceleration(hash).toFixed(4)),
+      braking: Number.parseFloat(GetVehicleModelMaxBraking(hash).toFixed(4)),
+      handling: Number.parseFloat(GetVehicleModelEstimatedAgility(hash).toFixed(4)),
+      speed: Number.parseFloat(GetVehicleModelEstimatedMaxSpeed(hash).toFixed(4)),
+      traction: Number.parseFloat(GetVehicleModelMaxTraction(hash).toFixed(4)),
     };
 
     const data: VehicleData = {

@@ -2,7 +2,7 @@ import { db } from 'db';
 import type { OxAccountPermissions, OxAccountRole } from 'types';
 import { SelectAccount } from './db';
 import { GetGroup } from 'groups';
-import { OxPlayer } from 'player/class';
+import type { OxPlayer } from 'player/class';
 
 type OxAccountMetadataRow = OxAccountPermissions & { id?: number; name?: OxAccountRole };
 
@@ -27,7 +27,7 @@ export async function CanPerformAction(
   player: OxPlayer,
   accountId: number,
   role: OxAccountRole | null,
-  action: keyof OxAccountPermissions
+  action: keyof OxAccountPermissions,
 ) {
   if (CheckRolePermission(role, action)) return true;
 
@@ -46,7 +46,7 @@ export async function CanPerformAction(
 }
 
 async function LoadRoles() {
-  const roles = await db.execute<OxAccountMetadataRow>(`SELECT * FROM account_roles`);
+  const roles = await db.execute<OxAccountMetadataRow>('SELECT * FROM account_roles');
 
   if (!roles[0]) return;
 
@@ -59,7 +59,7 @@ async function LoadRoles() {
     GlobalState[`accountRole.${roleName}`] = role;
   });
 
-  GlobalState[`accountRoles`] = Object.keys(accountRoles);
+  GlobalState['accountRoles'] = Object.keys(accountRoles);
 }
 
 setImmediate(LoadRoles);

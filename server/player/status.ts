@@ -1,7 +1,7 @@
 import { addCommand } from '@overextended/ox_lib/server';
 import { GetStatuses } from './db';
 import { OxPlayer } from './class';
-import { Dict, OxStatus } from 'types';
+import type { Dict, OxStatus } from 'types';
 
 export const Statuses: Dict<OxStatus> = {};
 

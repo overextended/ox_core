@@ -1,4 +1,4 @@
-import { locale, FlattenObjectKeys } from '@overextended/ox_lib';
+import { locale, type FlattenObjectKeys } from '@overextended/ox_lib';
 
 type Locales = FlattenObjectKeys<typeof import('../locales/en.json')>;
 

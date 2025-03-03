@@ -126,7 +126,7 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
     ],
     {
       allowCancel: false,
-    }
+    },
   );
 
   if (!input) return;

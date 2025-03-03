@@ -7,7 +7,7 @@ SetConvar(
     playerTable: 'characters',
     identifierColumn: 'charId',
     phoneNumberColumn: 'phoneNumber',
-  })
+  }),
 );
 
 OnPlayerLoaded('npwd', (player) => {

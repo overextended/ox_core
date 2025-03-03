@@ -27,18 +27,18 @@ export function CreateCharacter(
   lastName: string,
   gender: string,
   date: number,
-  phoneNumber?: number
+  phoneNumber?: number,
 ) {
   return db.insert(
     'INSERT INTO characters (userId, stateId, firstName, lastName, gender, dateOfBirth, phoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [userId, stateId, firstName, lastName, gender, new Date(Number(date)), phoneNumber]
+    [userId, stateId, firstName, lastName, gender, new Date(Number(date)), phoneNumber],
   );
 }
 
 export function GetCharacters(userId: number) {
   return db.execute<Character>(
     'SELECT charId, stateId, firstName, lastName, gender, x, y, z, heading, DATE_FORMAT(lastPlayed, "%d/%m/%Y") AS lastPlayed FROM characters WHERE userId = ? AND deleted IS NULL LIMIT ?',
-    [userId, CHARACTER_SLOTS]
+    [userId, CHARACTER_SLOTS],
   );
 }
 
@@ -64,7 +64,7 @@ export function GetCharacterMetadata(charId: number) {
     statuses: Dict<number>;
   }>(
     'SELECT isDead, gender, DATE_FORMAT(dateOfBirth, "%d/%m/%Y") AS dateOfBirth, phoneNumber, health, armour, statuses FROM characters WHERE charId = ?',
-    [charId]
+    [charId],
   );
 }
 
@@ -83,7 +83,7 @@ export function GetLicense(name: string) {
 export function GetCharacterLicenses(charId: number) {
   return db.query<{ name: string; data: CharacterLicense }>(
     'SELECT name, data FROM character_licenses WHERE charId = ?',
-    [charId]
+    [charId],
   );
 }
 
@@ -103,11 +103,11 @@ export function UpdateCharacterLicense(charId: number, name: string, key: string
   const params = [`$.${key}`, name, charId];
 
   if (value == null)
-    return db.update(`UPDATE character_licenses SET data = JSON_REMOVE(data, ?) WHERE name = ? AND charId = ?`, params);
+    return db.update('UPDATE character_licenses SET data = JSON_REMOVE(data, ?) WHERE name = ? AND charId = ?', params);
 
   params.splice(1, 0, value);
 
-  return db.update(`UPDATE character_licenses SET data = JSON_SET(data, ?, ?) WHERE name = ? AND charId = ?`, params);
+  return db.update('UPDATE character_licenses SET data = JSON_SET(data, ?, ?) WHERE name = ? AND charId = ?', params);
 }
 
 export function GetCharIdFromStateId(stateId: string) {

@@ -5,7 +5,7 @@ import {
   getRandomAlphanumeric,
   getRandomChar,
   getRandomInt,
-  VehicleProperties,
+  type VehicleProperties,
 } from '@overextended/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
 import type { Dict, VehicleData } from 'types';
@@ -44,7 +44,7 @@ export class OxVehicle extends ClassInterface {
       coords.x,
       coords.y,
       coords.z,
-      heading || 0
+      heading || 0,
     );
 
     setEntityOrphanMode(entityId, 2);
@@ -78,7 +78,7 @@ export class OxVehicle extends ClassInterface {
   }
 
   static async generateVin({ make, name }: VehicleData) {
-    if (!name) throw new Error(`generateVin received invalid VehicleData (invalid model)`);
+    if (!name) throw new Error('generateVin received invalid VehicleData (invalid model)');
 
     const arr = [
       getRandomInt(),
@@ -144,7 +144,7 @@ export class OxVehicle extends ClassInterface {
     id?: number,
     vin?: string,
     owner?: number,
-    group?: string
+    group?: string,
   ) {
     super();
     this.entity = entity;

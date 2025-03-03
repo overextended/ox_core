@@ -18,7 +18,8 @@
   "scripts": {
     "build": "node build.js",
     "watch": "node build.js --watch",
-    "prettier": "prettier ./{client,common,server,lib}/**/*.{ts,ts} --write"
+    "format": "pnpm biome format --write",
+    "lint": "pnpm biome lint --write"
   },
   "keywords": [
     "fivem",
@@ -42,6 +43,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@nativewrappers/fivem": "^0.0.56",
     "@nativewrappers/server": "^0.0.56",
     "@overextended/ox_lib": "^3.29.0",

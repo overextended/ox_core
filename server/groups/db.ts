@@ -25,14 +25,14 @@ export async function InsertGroup({ name, label, type, colour, hasAccount, grade
 
   const insertedGroup = await conn.update(
     'INSERT IGNORE INTO `ox_groups` (`name`, `label`, `type`, `colour`, `hasAccount`) VALUES (?, ?, ?, ?, ?)',
-    [name, label, type, colour, hasAccount]
+    [name, label, type, colour, hasAccount],
   );
 
   if (!insertedGroup) return true;
 
   const insertedGrades = (await conn.batch(
     'INSERT INTO `ox_group_grades` (`group`, `grade`, `label`, `accountRole`) VALUES (?, ?, ?, ?)',
-    grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]])
+    grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]]),
   )) as UpsertResult;
 
   return insertedGrades.affectedRows > 0;
@@ -63,7 +63,7 @@ export async function RemoveCharacterGroup(charId: number, name: string) {
 export function GetCharacterGroups(charId: number) {
   return db.execute<{ name: string; grade: number; isActive: boolean }>(
     'SELECT name, grade, isActive FROM character_groups WHERE charId = ?',
-    [charId]
+    [charId],
   );
 }
 
@@ -71,10 +71,10 @@ export async function SetActiveGroup(charId: number, groupName?: string) {
   using conn = await GetConnection();
   const params: [number, string?] = [charId];
 
-  conn.execute(`UPDATE character_groups SET isActive = 0 WHERE charId = ? AND isActive = 1`, params);
+  conn.execute('UPDATE character_groups SET isActive = 0 WHERE charId = ? AND isActive = 1', params);
 
   if (groupName) {
     params.push(groupName);
-    conn.execute(`UPDATE character_groups SET isActive = 1 WHERE charId = ? AND name = ?`, params);
+    conn.execute('UPDATE character_groups SET isActive = 1 WHERE charId = ? AND name = ?', params);
   }
 }

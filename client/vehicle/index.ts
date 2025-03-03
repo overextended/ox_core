@@ -30,7 +30,7 @@ AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string,
       if (entity) return entity;
     },
     `failed to get entity from statebag name ${bagName}`,
-    10000
+    10000,
   );
 
   if (!entity) return;

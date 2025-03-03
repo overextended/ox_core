@@ -20,7 +20,7 @@ addCommand(
   {
     help: 'Hard delete your current character (cannot be reversed).',
     restricted: 'group.admin',
-  }
+  },
 );
 
 addCommand(
@@ -31,5 +31,5 @@ addCommand(
   },
   {
     help: 'Display basic character information.',
-  }
+  },
 );

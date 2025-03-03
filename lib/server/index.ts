@@ -2,8 +2,14 @@ import type { OxVehicle } from 'server/vehicle/class';
 import type { PayAccountInvoice, DeleteAccountInvoice } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
 import type { GetCharIdFromStateId, GetLicense, GetLicenses } from 'server/player/db';
-import type { CreateGroup, DeleteGroup, GetGroupsByType, RemoveGroupPermission, SetGroupPermission } from 'server/groups';
-import { Ox as OxCore, OxCommon } from 'lib';
+import type {
+  CreateGroup,
+  DeleteGroup,
+  GetGroupsByType,
+  RemoveGroupPermission,
+  SetGroupPermission,
+} from 'server/groups';
+import { Ox as OxCore, type OxCommon } from 'lib';
 
 interface OxServer extends OxCommon {
   SaveAllPlayers: typeof OxPlayer.saveAll;

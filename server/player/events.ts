@@ -4,7 +4,7 @@ import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
 import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
-import { Dict, NewCharacter, OxStatus } from 'types';
+import type { Dict, NewCharacter, OxStatus } from 'types';
 import { CREATE_DEFAULT_ACCOUNT } from 'config';
 import './license';
 

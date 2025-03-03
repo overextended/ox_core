@@ -54,7 +54,7 @@ function SetupGroup(data: DbGroup) {
       acc[index + 1] = value;
       return acc;
     },
-    {} as Record<number, string>
+    {} as Record<number, string>,
   ) as any;
 
   let parent = group.principal;
@@ -86,10 +86,13 @@ export async function CreateGroup(data: CreateGroupProperties) {
   if (groups[data.name]) throw new Error(`Cannot create OxGroup<${data.name}> (group already exists with that name)`);
 
   const grades = data.grades.map((grade) => grade.label);
-  const accountRoles = data.grades.reduce((acc, grade, index) => {
-    if (grade.accountRole) acc[index + 1] = grade.accountRole;
-    return acc;
-  }, {} as Dict<OxAccountRole>);
+  const accountRoles = data.grades.reduce(
+    (acc, grade, index) => {
+      if (grade.accountRole) acc[index + 1] = grade.accountRole;
+      return acc;
+    },
+    {} as Dict<OxAccountRole>,
+  );
 
   const group: DbGroup = {
     ...data,
@@ -102,7 +105,7 @@ export async function CreateGroup(data: CreateGroupProperties) {
 
   if (response) {
     SetupGroup(group);
-		GlobalState.groups = [...GlobalState.groups, data.name];
+    GlobalState.groups = [...GlobalState.groups, data.name];
   }
 }
 
@@ -173,7 +176,7 @@ addCommand<{ target: string; group: string; grade?: number }>(
         optional: true,
       },
     ],
-  }
+  },
 );
 
 exports('GetGroupsByType', GetGroupsByType);

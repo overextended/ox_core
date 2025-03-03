@@ -1,7 +1,7 @@
 import { ClassInterface } from 'classInterface';
 import { OxPlayer } from 'player/class';
 import { GetCharIdFromStateId } from 'player/db';
-import { Dict, OxAccountMetadata, OxAccountRole, OxAccountPermissions, OxCreateInvoice } from 'types';
+import type { Dict, OxAccountMetadata, OxAccountRole, OxAccountPermissions, OxCreateInvoice } from 'types';
 import {
   SelectAccount,
   UpdateBalance,
@@ -62,7 +62,7 @@ export class OxAccount extends ClassInterface {
   async get<T extends keyof OxAccountMetadata>(key: T): Promise<OxAccountMetadata[T]>;
   async get<T extends keyof OxAccountMetadata>(keys: T[]): Promise<Pick<OxAccountMetadata, T>>;
   async get<T extends keyof OxAccountMetadata>(
-    keys: T | T[]
+    keys: T | T[],
   ): Promise<OxAccountMetadata[T] | Pick<OxAccountMetadata, T> | null> {
     const metadata = await SelectAccount(this.accountId);
 
@@ -74,7 +74,7 @@ export class OxAccount extends ClassInterface {
           acc[key] = metadata[key];
           return acc;
         },
-        {} as Pick<OxAccountMetadata, T>
+        {} as Pick<OxAccountMetadata, T>,
       );
 
     return metadata[keys];

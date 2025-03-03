@@ -1,0 +1,68 @@
+{
+  "files": {
+    "include": ["./client/*.ts", "./common/*.ts", "./server/*.ts"],
+    "ignore": ["**/*.d.ts"]
+  },
+  "linter": {
+    "enabled": false,
+    "rules": {
+      "suspicious": {
+        "noConfusingLabels": "off",
+        "noAssignInExpressions": "off",
+        "noExplicitAny": "off",
+        "noFallthroughSwitchClause": "off",
+        "noGlobalIsNan": "off",
+        "noControlCharactersInRegex": "off"
+      },
+      "correctness": {
+        "noUnusedLabels": "off",
+        "noVoidTypeReturn": "off"
+      },
+      "style": {
+        "useEnumInitializers": "off",
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "off",
+        "noArguments": "off",
+        "noUnusedTemplateLiteral": {
+          "fix": "safe"
+        }
+      },
+      "performance": {
+        "noDelete": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noUselessConstructor": "off",
+        "noStaticOnlyClass": "off",
+        "noThisInStatic": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "attributePosition": "auto",
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  }
+}

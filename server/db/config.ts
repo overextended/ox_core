@@ -4,14 +4,12 @@ import type { Dict } from 'types';
 export function GetConfig(): PoolConfig {
   const connectionString = GetConvar('mysql_connection_string', 'mysql://root@localhost').replace(
     'mysql://',
-    'mariadb://'
+    'mariadb://',
   );
 
   function parseUri() {
     const splitMatchGroups = connectionString.match(
-      new RegExp(
-        '^(?:([^:/?#.]+):)?(?://(?:([^/?#]*)@)?([\\w\\d\\-\\u0100-\\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\\?([^#]*))?$'
-      )
+      /^(?:([^:\/?#.]+):)?(?:\/\/(?:([^\/?#]*)@)?([\w\d\-\u0100-\uffff.%]*)(?::([0-9]+))?)?([^?#]+)?(?:\?([^#]*))?$/,
     ) as RegExpMatchArray;
 
     if (!splitMatchGroups) throw new Error(`mysql_connection_string structure was invalid (${connectionString})`);
@@ -22,7 +20,7 @@ export function GetConfig(): PoolConfig {
       user: authTarget[0] || undefined,
       password: authTarget[1] || undefined,
       host: splitMatchGroups[3],
-      port: parseInt(splitMatchGroups[4]),
+      port: Number.parseInt(splitMatchGroups[4]),
       database: splitMatchGroups[5].replace(/^\/+/, ''),
       ...(splitMatchGroups[6] &&
         splitMatchGroups[6].split('&').reduce<Dict<string>>((connectionInfo, parameter) => {

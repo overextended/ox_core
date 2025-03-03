@@ -12,7 +12,7 @@ class VehicleInterface {
     public id?: number,
     public vin?: string,
     public owner?: number,
-    public group?: string
+    public group?: string,
   ) {
     this.entity = entity;
     this.netId = netId;
@@ -60,7 +60,7 @@ function CreateVehicleInstance(vehicle?: _OxVehicle) {
     vehicle.id,
     vehicle.vin,
     vehicle.owner,
-    vehicle.group
+    vehicle.group,
   ) as OxVehicle;
 }
 
@@ -79,7 +79,7 @@ export function GetVehicleFromVin(vin: string) {
 export async function CreateVehicle(
   data: CreateVehicleData,
   coords?: number | number[] | { x: number; y: number; z: number },
-  heading?: number
+  heading?: number,
 ) {
   return CreateVehicleInstance(await exports.ox_core.CreateVehicle(data, coords, heading));
 }
@@ -87,7 +87,7 @@ export async function CreateVehicle(
 export async function SpawnVehicle(
   dbId: number,
   coords: number | number[] | { x: number; y: number; z: number },
-  heading?: number
+  heading?: number,
 ) {
   return CreateVehicleInstance(await exports.ox_core.SpawnVehicle(dbId, coords, heading));
 }

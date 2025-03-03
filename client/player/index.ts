@@ -28,7 +28,7 @@ class PlayerSingleton {
 
         return methods;
       },
-      callableMethods
+      callableMethods,
     );
 
     netEvent('ox:startCharacterSelect', (userId: number) => {
@@ -73,11 +73,11 @@ class PlayerSingleton {
       this.#groups[name] = grade;
     });
 
-    exports(`GetPlayer`, () => this);
+    exports('GetPlayer', () => this);
 
-    exports(`GetPlayerCalls`, () => callableMethods);
+    exports('GetPlayerCalls', () => callableMethods);
 
-    exports(`CallPlayer`, (method: string, ...args: any[]) => {
+    exports('CallPlayer', (method: string, ...args: any[]) => {
       const fn = (this as any)[method];
 
       if (!fn) return console.error(`cannot call method ${method} (method does not exist)`);

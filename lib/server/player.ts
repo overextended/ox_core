@@ -12,7 +12,7 @@ class PlayerInterface {
     public stateId: string | undefined,
     public username: string,
     public identifier: string,
-    public ped: number
+    public ped: number,
   ) {
     this.source = source;
     this.userId = userId;
@@ -58,7 +58,7 @@ function CreatePlayerInstance(player?: _OxPlayer) {
     player.stateId,
     player.username,
     player.identifier,
-    player.ped
+    player.ped,
   ) as OxPlayer;
 }
 

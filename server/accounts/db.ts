@@ -1,17 +1,18 @@
 import { getRandomInt } from '@overextended/ox_lib';
 import { OxAccount } from 'accounts/class';
-import { Connection, GetConnection, db } from 'db';
+import { type Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';
 import type { OxAccountMetadata, OxAccountRole, OxAccountUserMetadata, OxCreateInvoice } from 'types';
 import locales from '../../common/locales';
 import { CanPerformAction } from './roles';
 
-const addBalance = `UPDATE accounts SET balance = balance + ? WHERE id = ?`;
-const removeBalance = `UPDATE accounts SET balance = balance - ? WHERE id = ?`;
+const addBalance = 'UPDATE accounts SET balance = balance + ? WHERE id = ?';
+const removeBalance = 'UPDATE accounts SET balance = balance - ? WHERE id = ?';
 const safeRemoveBalance = `${removeBalance} AND (balance - ?) >= 0`;
-const addTransaction = `INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-const getBalance = `SELECT balance FROM accounts WHERE id = ?`;
-const doesAccountExist = `SELECT 1 FROM accounts WHERE id = ?`;
+const addTransaction =
+  'INSERT INTO accounts_transactions (actorId, fromId, toId, amount, message, note, fromBalance, toBalance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+const getBalance = 'SELECT balance FROM accounts WHERE id = ?';
+const doesAccountExist = 'SELECT 1 FROM accounts WHERE id = ?';
 
 async function GenerateAccountId(conn: Connection) {
   const date = new Date();
@@ -34,9 +35,9 @@ export async function UpdateBalance(
   overdraw: boolean,
   message?: string,
   note?: string,
-  actorId?: number
+  actorId?: number,
 ): Promise<{ success: boolean; message?: string }> {
-  amount = parseInt(String(amount));
+  amount = Number.parseInt(String(amount));
 
   if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
@@ -60,7 +61,7 @@ export async function UpdateBalance(
       success: false,
       message: 'insufficient_balance',
     };
-  
+
   !message && (message = locales(action === 'add' ? 'deposit' : 'withdraw'));
 
   const didUpdate =
@@ -93,9 +94,9 @@ export async function PerformTransaction(
   overdraw: boolean,
   message?: string,
   note?: string,
-  actorId?: number
+  actorId?: number,
 ): Promise<{ success: boolean; message?: string }> {
-  amount = parseInt(String(amount));
+  amount = Number.parseInt(String(amount));
 
   if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
@@ -163,11 +164,11 @@ export async function CreateNewAccount(owner: string | number, label: string, is
   const column = typeof owner === 'string' ? 'group' : 'owner';
   const result = await conn.update(
     `INSERT INTO accounts (id, label, \`${column}\`, type, isDefault) VALUES (?, ?, ?, ?, ?)`,
-    [accountId, label, owner, column === 'group' ? 'group' : 'personal', isDefault || 0]
+    [accountId, label, owner, column === 'group' ? 'group' : 'personal', isDefault || 0],
   );
 
   if (result && column === 'owner')
-    conn.execute(`INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)`, [accountId, owner, 'owner']);
+    conn.execute('INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?)', [accountId, owner, 'owner']);
 
   return accountId;
 }
@@ -184,7 +185,7 @@ export async function DeleteAccount(accountId: number): Promise<{ success: boole
   return { success: true };
 }
 
-const selectAccountRole = `SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?`;
+const selectAccountRole = 'SELECT role FROM accounts_access WHERE accountId = ? AND charId = ?';
 
 export function SelectAccountRole(accountId: number, charId: number) {
   return db.column<OxAccountUserMetadata['role']>(selectAccountRole, [accountId, charId]);
@@ -195,9 +196,9 @@ export async function DepositMoney(
   accountId: number,
   amount: number,
   message?: string,
-  note?: string
+  note?: string,
 ): Promise<{ success: boolean; message?: string }> {
-  amount = parseInt(String(amount));
+  amount = Number.parseInt(String(amount));
 
   if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
@@ -259,9 +260,9 @@ export async function WithdrawMoney(
   accountId: number,
   amount: number,
   message?: string,
-  note?: string
+  note?: string,
 ): Promise<{ success: boolean; message?: string }> {
-  amount = parseInt(String(amount));
+  amount = Number.parseInt(String(amount));
 
   if (isNaN(amount)) return { success: false, message: 'amount_not_number' };
 
@@ -311,10 +312,10 @@ export async function WithdrawMoney(
 export async function UpdateAccountAccess(
   accountId: number,
   id: number,
-  role?: string
+  role?: string,
 ): Promise<{ success: boolean; message?: string }> {
   if (!role) {
-    const success = await db.update(`DELETE FROM accounts_access WHERE accountId = ? AND charId = ?`, [accountId, id]);
+    const success = await db.update('DELETE FROM accounts_access WHERE accountId = ? AND charId = ?', [accountId, id]);
 
     if (!success) return { success: false, message: 'something_went_wrong' };
 
@@ -322,8 +323,8 @@ export async function UpdateAccountAccess(
   }
 
   const success = await db.update(
-    `INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)`,
-    [accountId, id, role]
+    'INSERT INTO accounts_access (accountId, charId, role) VALUE (?, ?, ?) ON DUPLICATE KEY UPDATE role = VALUES(role)',
+    [accountId, id, role],
   );
 
   if (!success) return { success: false, message: 'something_went_wrong' };
@@ -333,7 +334,7 @@ export async function UpdateAccountAccess(
 
 export async function UpdateInvoice(
   invoiceId: number,
-  charId: number
+  charId: number,
 ): Promise<{ success: boolean; message?: string }> {
   const player = OxPlayer.getFromCharId(charId);
 
@@ -341,7 +342,7 @@ export async function UpdateInvoice(
 
   const invoice = await db.row<{ amount: number; payerId?: number; fromAccount: number; toAccount: number }>(
     'SELECT * FROM `accounts_invoices` WHERE `id` = ?',
-    [invoiceId]
+    [invoiceId],
   );
 
   if (!invoice) return { success: false, message: 'no_invoice' };
@@ -360,7 +361,7 @@ export async function UpdateInvoice(
     false,
     locales('invoice_payment'),
     undefined,
-    charId
+    charId,
   );
 
   if (!updateReceiver.success) return { success: false, message: 'no_balance' };
@@ -372,7 +373,7 @@ export async function UpdateInvoice(
     false,
     locales('invoice_payment'),
     undefined,
-    charId
+    charId,
   );
 
   if (!updateSender.success) return { success: false, message: 'no_balance' };
@@ -427,7 +428,7 @@ export async function CreateInvoice({
 
   const success = await db.insert(
     'INSERT INTO accounts_invoices (`actorId`, `fromAccount`, `toAccount`, `amount`, `message`, `dueDate`) VALUES (?, ?, ?, ?, ?, ?)',
-    [actorId, fromAccount, toAccount, amount, message, dueDate]
+    [actorId, fromAccount, toAccount, amount, message, dueDate],
   );
 
   if (!success) return { success: false, message: 'invoice_insert_error' };

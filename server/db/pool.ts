@@ -12,7 +12,8 @@ setImmediate(async () => {
     const conn = await dbPool.getConnection();
     const info = conn.info!; // when would info be null? i'm sure we'll find out eventually!
     const version = info.serverVersion;
-    const recommendedDb = `Install MariaDB 11.4+ for the best experience.\n- https://mariadb.com/kb/en/changes-improvements-in-mariadb-11-4/`;
+    const recommendedDb =
+      'Install MariaDB 11.4+ for the best experience.\n- https://mariadb.com/kb/en/changes-improvements-in-mariadb-11-4/';
 
     conn.release();
 
@@ -25,7 +26,7 @@ setImmediate(async () => {
     pool = dbPool;
   } catch (err) {
     console.log(
-      `^3Unable to establish a connection to the database (${err.code})!\n^1Error ${err.errno}: ${err.message}^0`
+      `^3Unable to establish a connection to the database (${err.code})!\n^1Error ${err.errno}: ${err.message}^0`,
     );
 
     if (config.password) config.password = '******';
