@@ -1,4 +1,4 @@
-import { cache, notify, onServerCallback, requestModel } from '@overextended/ox_lib/client';
+import { cache, notify, onServerCallback, requestModel, sleep } from '@overextended/ox_lib/client';
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
 import type { VehicleData, VehicleTypes, VehicleCategories } from 'types';
 
@@ -18,10 +18,11 @@ const PRICE_WEIGHTS: Partial<Record<VehicleTypes, number>> = {
 };
 
 const BATCH_SIZE = 10;
+const vehicles = GetVehicleData();
 
 function GetVehicleModels(parseAll: boolean): string[] {
   return GetAllVehicleModels()
-    .filter((vehicle: string) => parseAll || !GetVehicleData(vehicle))
+    .filter((vehicle: string) => parseAll || !vehicles[vehicle])
     .sort();
 }
 
@@ -104,10 +105,19 @@ function CleanupVehicle(entity: number, coords: [number, number, number]) {
   SetEntityCoordsNoOffset(cache.ped, ...coords, false, false, false);
 }
 
+/**
+ * An event only registered when DEBUG is enabled.
+ * Allows external scripts to freely modify vehicle data.
+ */
+on('ox:setVehicleData', (model: string, data: Record<string, any>) => {
+  if (!vehicles[model]) console.error(`Cannot set vehicle data for ${model} (invalid model)`);
+
+  Object.assign(vehicles[model], data);
+});
+
 onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
   const coords = GetEntityCoords(cache.ped, true) as [number, number, number];
   const invalidVehicles: string[] = [];
-  const vehicles: Record<string, VehicleData> = {};
   const vehicleModels = GetVehicleModels(parseAll);
 
   SetPlayerControl(cache.playerId, false, 1 << 8);
@@ -129,6 +139,7 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
         try {
           const entity = SpawnVehicle(hash, coords);
           vehicles[model] = ParseVehicleData(entity, hash, model);
+          emit(`ox:parsedVehicle`, model, entity);
           ++parsed;
 
           CleanupVehicle(entity, coords);
@@ -154,6 +165,8 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     console.log(
       `^3Failed to parse data for ${invalidVehicles.length} invalid vehicles.\n${JSON.stringify(invalidVehicles, null, 2)}^0`,
     );
+
+  await sleep(5000);
 
   return [vehicles, GetTopVehicleStats(), invalidVehicles];
 });

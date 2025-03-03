@@ -103,6 +103,7 @@ export interface VehicleData extends VehicleStats {
   type: VehicleTypes;
   category: VehicleCategories;
   weapons?: true;
+  [key: string]: unknown;
 }
 
 export interface OxLicense {
