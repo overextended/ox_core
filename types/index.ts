@@ -101,6 +101,7 @@ export interface VehicleData extends VehicleStats {
   price: number;
   seats: number;
   type: VehicleTypes;
+  category: VehicleCategories;
   weapons?: true;
 }
 
