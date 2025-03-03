@@ -40,7 +40,8 @@ export class ClassInterface {
 
     // e.g. exports.ox_core.CallPlayer
     exports(`Call${expName}`, (id: string | number, method: string, ...args: any[]) => {
-      const member = this.get(id);
+      // Maintain backwards compatibility with OxVehicle indexed by entityId..
+      const member = expName === 'Vehicle' && typeof id === 'number' ? this.keys?.entity[id] : this.get(id);
 
       if (member instanceof Promise) {
         return member.then((resolvedMember) => {

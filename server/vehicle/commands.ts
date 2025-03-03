@@ -9,9 +9,12 @@ export function DeleteCurrentVehicle(ped: number) {
 
   if (!entity) return;
 
-  const vehicle = OxVehicle.get(entity);
+  const vehicle = OxVehicle.getFromEntity(entity);
 
-  vehicle ? vehicle.setStored('impound', true) : DeleteEntity(entity);
+  if (!vehicle) return DeleteEntity(entity);
+
+  vehicle.setStored('impound', true);
+  vehicle.remove();
 }
 
 addCommand<{ model: string; owner?: number }>(
@@ -29,7 +32,7 @@ addCommand<{ model: string; owner?: number }>(
 
     const vehicle = await CreateVehicle(data, GetEntityCoords(ped), GetEntityHeading(ped));
 
-    if (!vehicle) return;
+    if (!vehicle.entity) return vehicle.remove();
 
     DeleteCurrentVehicle(ped);
     await sleep(200);
@@ -65,7 +68,10 @@ addCommand<{ radius?: number; owned?: string }>(
       const vehicle = OxVehicle.getFromNetId(netId);
 
       if (!vehicle) DeleteEntity(NetworkGetEntityFromNetworkId(netId));
-      else if (args.owned) vehicle.setStored('impound', true);
+      else if (args.owned) {
+        vehicle.setStored('impound', true);
+        vehicle.remove();
+      }
     });
   },
   {

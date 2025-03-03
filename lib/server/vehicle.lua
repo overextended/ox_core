@@ -25,7 +25,7 @@ function OxVehicle:constructor(data)
 end
 
 function OxVehicle:__call(...)
-    return exports.ox_core:CallVehicle(self.entity, ...)
+    return exports.ox_core:CallVehicle(self.vin, ...)
 end
 
 function OxVehicle:__tostring()

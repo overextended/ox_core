@@ -12,7 +12,7 @@ onServerCallback('ox:getNearbyVehicles', (radius: number) => {
     const coords = Vector3.fromArray(GetEntityCoords(entityId, true));
     const distance = coords.distance(playerCoords);
 
-    if (distance <= (radius || 2) && NetworkGetEntityIsNetworked(entityId)) nearbyEntities.push(VehToNet(entityId));
+    if (distance <= (radius ?? 2) && NetworkGetEntityIsNetworked(entityId)) nearbyEntities.push(VehToNet(entityId));
   });
 
   return nearbyEntities;

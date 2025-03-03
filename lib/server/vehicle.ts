@@ -3,8 +3,8 @@ import type { CreateVehicleData } from 'server/vehicle';
 
 class VehicleInterface {
   constructor(
-    public entity: number,
-    public netId: number,
+    public entity: number | undefined,
+    public netId: number | undefined,
     public script: string,
     public plate: string,
     public model: string,
@@ -27,17 +27,17 @@ class VehicleInterface {
   }
 
   getCoords() {
-    return GetEntityCoords(this.entity);
+    return this.entity ? GetEntityCoords(this.entity) : null;
   }
 
   getState() {
-    return Entity(this.entity).state;
+    return this.entity ? Entity(this.entity).state : null;
   }
 }
 
 Object.keys(exports.ox_core.GetVehicleCalls()).forEach((method: string) => {
   (VehicleInterface.prototype as any)[method] = function (...args: any[]) {
-    return exports.ox_core.CallVehicle(this.entity, method, ...args);
+    return exports.ox_core.CallVehicle(this.vin, method, ...args);
   };
 });
 
@@ -47,9 +47,7 @@ VehicleInterface.prototype.toString = function () {
 
 export type OxVehicle = _OxVehicle & VehicleInterface;
 
-function CreateVehicleInstance(vehicle?: _OxVehicle) {
-  if (!vehicle) return;
-
+function CreateVehicleInstance(vehicle: _OxVehicle) {
   return new VehicleInterface(
     vehicle.entity,
     vehicle.netId,
@@ -64,8 +62,9 @@ function CreateVehicleInstance(vehicle?: _OxVehicle) {
   ) as OxVehicle;
 }
 
-export function GetVehicle(entityId: number) {
-  return CreateVehicleInstance(exports.ox_core.GetVehicle(entityId));
+export function GetVehicle(entityId: number): OxVehicle;
+export function GetVehicle(vin: number | string) {
+  return typeof vin === 'string' ? GetVehicleFromVin(vin) : CreateVehicleInstance(exports.ox_core.GetVehicle(vin));
 }
 
 export function GetVehicleFromNetId(netId: number) {
