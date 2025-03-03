@@ -596,6 +596,20 @@
     "type": "automobile",
     "price": 74887
   },
+  "banshee3": {
+    "acceleration": 0.3878,
+    "braking": 0.72,
+    "handling": 0.8478,
+    "speed": 53.8674,
+    "traction": 2.6065,
+    "name": "Banshee GTS",
+    "make": "Bravado",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 89316
+  },
   "barracks": {
     "acceleration": 0.11,
     "braking": 0.3,
@@ -874,8 +888,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 21457
+    "type": "automobile",
+    "price": 57220
   },
   "blazer2": {
     "acceleration": 0.12,
@@ -888,8 +902,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 15679
+    "type": "automobile",
+    "price": 41811
   },
   "blazer3": {
     "acceleration": 0.2,
@@ -902,8 +916,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 21457
+    "type": "automobile",
+    "price": 57220
   },
   "blazer4": {
     "acceleration": 0.25,
@@ -916,8 +930,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 24453
+    "type": "automobile",
+    "price": 65209
   },
   "blazer5": {
     "acceleration": 0.272,
@@ -931,7 +945,7 @@
     "seats": 1,
     "doors": 0,
     "type": "amphibious_quadbike",
-    "price": 513615,
+    "price": 1369641,
     "weapons": true
   },
   "blimp": {
@@ -945,8 +959,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "blimp",
-    "price": 1024161
+    "type": "heli",
+    "price": 7681212
   },
   "blimp2": {
     "acceleration": 6.076,
@@ -959,8 +973,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "blimp",
-    "price": 1036862
+    "type": "heli",
+    "price": 7776468
   },
   "blimp3": {
     "acceleration": 5.684,
@@ -973,8 +987,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "blimp",
-    "price": 1024161
+    "type": "heli",
+    "price": 7681212
   },
   "blista": {
     "acceleration": 0.23,
@@ -1029,8 +1043,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 2735
+    "type": "bike",
+    "price": 9116
   },
   "boattrailer": {
     "acceleration": 0,
@@ -1891,6 +1905,20 @@
     "type": "heli",
     "price": 5616990
   },
+  "cargobob5": {
+    "acceleration": 5.88,
+    "braking": 3.524,
+    "handling": 5.88,
+    "speed": 59.9315,
+    "traction": 1.3,
+    "name": "DH-7 Iron Mule",
+    "make": "Buckingham",
+    "class": 15,
+    "seats": 16,
+    "doors": 6,
+    "type": "heli",
+    "price": 6769394
+  },
   "cargoplane": {
     "acceleration": 6.174,
     "braking": 4.8714,
@@ -2048,6 +2076,20 @@
     "type": "automobile",
     "price": 86582
   },
+  "chavosv6": {
+    "acceleration": 0.274,
+    "braking": 0.69,
+    "handling": 0.654,
+    "speed": 46.6629,
+    "traction": 2.554,
+    "name": "Chavos V6",
+    "make": "Dinka",
+    "class": 1,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 77249
+  },
   "cheburek": {
     "acceleration": 0.265,
     "braking": 0.8,
@@ -2116,8 +2158,8 @@
     "class": 8,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 22412
+    "type": "automobile",
+    "price": 59767
   },
   "chino": {
     "acceleration": 0.2,
@@ -2498,6 +2540,20 @@
     "type": "automobile",
     "price": 78153
   },
+  "coquette6": {
+    "acceleration": 0.325,
+    "braking": 0.7,
+    "handling": 0.705,
+    "speed": 49.3143,
+    "traction": 2.637,
+    "name": "Coquette D5",
+    "make": "Invetero",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 81670
+  },
   "corsita": {
     "acceleration": 0.4,
     "braking": 1.3,
@@ -2537,8 +2593,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 2751
+    "type": "bike",
+    "price": 9170
   },
   "crusader": {
     "acceleration": 0.18,
@@ -3132,6 +3188,20 @@
     "type": "automobile",
     "price": 72622
   },
+  "driftcheburek": {
+    "acceleration": 0.7075,
+    "braking": 0.59,
+    "handling": 1.0875,
+    "speed": 44.4167,
+    "traction": 1.53,
+    "name": "Cheburek",
+    "make": "RUNE",
+    "class": 5,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 74882
+  },
   "driftcypher": {
     "acceleration": 0.7075,
     "braking": 0.83,
@@ -3188,6 +3258,20 @@
     "type": "automobile",
     "price": 75037
   },
+  "driftfuto2": {
+    "acceleration": 0.71,
+    "braking": 0.66,
+    "handling": 1.09,
+    "speed": 44.3333,
+    "traction": 1.53,
+    "name": "Futo",
+    "make": "Karin",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 74869
+  },
   "driftjester": {
     "acceleration": 0.706,
     "braking": 0.875,
@@ -3201,6 +3285,20 @@
     "doors": 4,
     "type": "automobile",
     "price": 74933
+  },
+  "driftjester3": {
+    "acceleration": 0.711,
+    "braking": 0.65,
+    "handling": 1.091,
+    "speed": 44.6667,
+    "traction": 1.53,
+    "name": "Jester Classic",
+    "make": "Dinka",
+    "class": 5,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 75389
   },
   "driftnebula": {
     "acceleration": 0.725,
@@ -3482,6 +3580,20 @@
     "doors": 0,
     "type": "plane",
     "price": 1321065
+  },
+  "duster2": {
+    "acceleration": 6.566,
+    "braking": 5.9026,
+    "handling": 6.566,
+    "speed": 89.897,
+    "traction": 2.15,
+    "name": "Duster 300-H",
+    "make": "Western",
+    "class": 16,
+    "seats": 1,
+    "doors": 1,
+    "type": "plane",
+    "price": 1742905
   },
   "dynasty": {
     "acceleration": 0.18,
@@ -3987,6 +4099,20 @@
     "type": "automobile",
     "price": 76444
   },
+  "firebolt": {
+    "acceleration": 0.2962,
+    "braking": 0.39,
+    "handling": 0.7362,
+    "speed": 46.6612,
+    "traction": 2.34,
+    "name": "Firebolt ASP",
+    "make": "Vapid",
+    "class": 9,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 76933
+  },
   "firetruk": {
     "acceleration": 0.16,
     "braking": 0.5,
@@ -4013,8 +4139,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 2835
+    "type": "bike",
+    "price": 9450
   },
   "flashgt": {
     "acceleration": 0.32,
@@ -4185,6 +4311,20 @@
     "price": 194680
   },
   "freightcar2": {
+    "acceleration": 0.2,
+    "braking": 5,
+    "handling": 0.58,
+    "speed": 26.6667,
+    "traction": 2.5,
+    "name": "Freight Train",
+    "make": "",
+    "class": 21,
+    "seats": 0,
+    "doors": 0,
+    "type": "train",
+    "price": 194680
+  },
+  "freightcar3": {
     "acceleration": 0.2,
     "braking": 5,
     "handling": 0.58,
@@ -5009,7 +5149,7 @@
     "traction": 2.3,
     "name": "Impaler SZ",
     "make": "Declasse",
-    "class": 1,
+    "class": 4,
     "seats": 4,
     "doors": 6,
     "type": "automobile",
@@ -5082,8 +5222,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 4345
+    "type": "bike",
+    "price": 14486
   },
   "inductor2": {
     "acceleration": 0.112,
@@ -5096,8 +5236,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 4345
+    "type": "bike",
+    "price": 14486
   },
   "infernus": {
     "acceleration": 0.34,
@@ -5478,6 +5618,20 @@
     "doors": 4,
     "type": "automobile",
     "price": 79879
+  },
+  "jester5": {
+    "acceleration": 0.3291,
+    "braking": 0.85,
+    "handling": 0.7091,
+    "speed": 46.905,
+    "traction": 2.725,
+    "name": "Jester RR Widebody",
+    "make": "Dinka",
+    "class": 6,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 78069
   },
   "jet": {
     "acceleration": 6.174,
@@ -7300,6 +7454,34 @@
     "type": "bike",
     "price": 14051
   },
+  "polcaracara": {
+    "acceleration": 0.27,
+    "braking": 0.3,
+    "handling": 0.65,
+    "speed": 39.2704,
+    "traction": 2.05,
+    "name": "Caracara Pursuit",
+    "make": "Vapid",
+    "class": 18,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 64784
+  },
+  "polcoquette4": {
+    "acceleration": 0.32,
+    "braking": 0.6,
+    "handling": 0.7,
+    "speed": 48.8621,
+    "traction": 2.6,
+    "name": "Coquette D10 Pursuit",
+    "make": "Invetero",
+    "class": 18,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 80771
+  },
   "poldominator10": {
     "acceleration": 0.3,
     "braking": 0.69,
@@ -7327,6 +7509,20 @@
     "doors": 6,
     "type": "automobile",
     "price": 69578
+  },
+  "polfaction2": {
+    "acceleration": 0.28,
+    "braking": 0.8,
+    "handling": 0.66,
+    "speed": 46.6667,
+    "traction": 2.25,
+    "name": "Outreach Faction",
+    "make": "Willard",
+    "class": 18,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 77450
   },
   "polgauntlet": {
     "acceleration": 0.362,
@@ -7538,6 +7734,20 @@
     "type": "heli",
     "price": 31465710,
     "weapons": true
+  },
+  "polterminus": {
+    "acceleration": 0.269,
+    "braking": 0.55,
+    "handling": 0.649,
+    "speed": 43.2138,
+    "traction": 2.1875,
+    "name": "Terminus Patrol",
+    "make": "Canis",
+    "class": 18,
+    "seats": 4,
+    "doors": 7,
+    "type": "automobile",
+    "price": 71490
   },
   "pony": {
     "acceleration": 0.16,
@@ -8311,8 +8521,8 @@
     "class": 8,
     "seats": 1,
     "doors": 0,
-    "type": "quadbike",
-    "price": 26257
+    "type": "automobile",
+    "price": 70019
   },
   "rt3000": {
     "acceleration": 0.312,
@@ -8803,8 +9013,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 2782
+    "type": "bike",
+    "price": 9274
   },
   "scramjet": {
     "acceleration": 0.4,
@@ -9647,8 +9857,8 @@
     "class": 8,
     "seats": 2,
     "doors": 0,
-    "type": "quadbike",
-    "price": 26711
+    "type": "automobile",
+    "price": 71229
   },
   "stunt": {
     "acceleration": 9.8,
@@ -10341,6 +10551,21 @@
     "type": "plane",
     "price": 1521753
   },
+  "titan2": {
+    "acceleration": 6.125,
+    "braking": 4.8942,
+    "handling": 6.125,
+    "speed": 79.9059,
+    "traction": 0.85,
+    "name": "Titan 250 D",
+    "make": "Eberhard",
+    "class": 16,
+    "seats": 16,
+    "doors": 4,
+    "type": "plane",
+    "price": 7764008,
+    "weapons": true
+  },
   "toreador": {
     "acceleration": 0.3,
     "braking": 1,
@@ -10845,8 +11070,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 3622
+    "type": "bike",
+    "price": 12075
   },
   "tribike2": {
     "acceleration": 0.135,
@@ -10859,8 +11084,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 3622
+    "type": "bike",
+    "price": 12075
   },
   "tribike3": {
     "acceleration": 0.135,
@@ -10873,8 +11098,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bicycle",
-    "price": 3622
+    "type": "bike",
+    "price": 12075
   },
   "trophytruck": {
     "acceleration": 0.339,
@@ -11101,6 +11326,20 @@
     "type": "automobile",
     "price": 84350
   },
+  "uranus": {
+    "acceleration": 0.3245,
+    "braking": 0.48,
+    "handling": 0.7045,
+    "speed": 47.8313,
+    "traction": 2.54,
+    "name": "Uranus LozSpeed",
+    "make": "Vapid",
+    "class": 5,
+    "seats": 2,
+    "doors": 4,
+    "type": "automobile",
+    "price": 78944
+  },
   "utillitruck": {
     "acceleration": 0.12,
     "braking": 0.25,
@@ -11310,8 +11549,8 @@
     "class": 9,
     "seats": 2,
     "doors": 0,
-    "type": "quadbike",
-    "price": 16526
+    "type": "automobile",
+    "price": 44070
   },
   "vestra": {
     "acceleration": 9.016,
@@ -11946,6 +12185,20 @@
     "price": 63151
   },
   "youga4": {
+    "acceleration": 0.158,
+    "braking": 0.32,
+    "handling": 0.538,
+    "speed": 36.6417,
+    "traction": 1.8,
+    "name": "Youga Custom",
+    "make": "Vapid",
+    "class": 12,
+    "seats": 4,
+    "doors": 6,
+    "type": "automobile",
+    "price": 60252
+  },
+  "youga5": {
     "acceleration": 0.158,
     "braking": 0.32,
     "handling": 0.538,

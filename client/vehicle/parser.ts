@@ -19,7 +19,7 @@ const vehiclePriceModifiers: Partial<Record<VehicleTypes, number>> = {
 
 onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
   const coords = GetEntityCoords(cache.ped, true);
-  const vehicles: Record<string, VehicleData> = {} as any;
+  const invalidVehicles = [];
   const vehicles: Record<string, VehicleData> = {};
   const vehicleModels: string[] = GetAllVehicleModels()
     .map((vehicle: string) => {
@@ -43,11 +43,19 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
 
   for (let index = 0; index < vehicleModels.length; index++) {
     const model = vehicleModels[index];
-    const hash = await requestModel(model, 5000);
+    const hash = GetHashKey(model);
 
-    if (!hash) return;
+    try {
+      await requestModel(model, 10000);
+    } catch (e) {
+      invalidVehicles.push(model);
+
+      console.log(`^3ignoring invalid model ${model} (${hash})^0`);
+      continue;
+    }
 
     const entity = CreateVehicle(hash, coords[0], coords[1], coords[2], 0, false, false);
+
     let make = GetMakeNameFromVehicleModel(hash);
 
     if (!make) {
@@ -83,8 +91,6 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
       type: vehicleType,
       price: 0,
     };
-
-    console.log(index, model, `^3| ${data.make} ${data.name}^0`);
 
     const weapons = DoesVehicleHaveWeapons(entity);
 
@@ -134,6 +140,8 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
     SetModelAsNoLongerNeeded(hash);
     DeleteEntity(entity);
     SetEntityCoordsNoOffset(cache.ped, coords[0], coords[1], coords[2], false, false, false);
+
+    console.log(`^5parsed valid model ${model} (${data.make || '?'} ${data.name})^0`);
   }
 
   SetPlayerControl(cache.playerId, true, 0);
@@ -141,9 +149,16 @@ onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
 
   notify({
     title: 'Generated vehicle data',
-    description: `Generated new data for ${parsed}/${vehicleModels.length} models.`,
+    description: `Generated data for ${parsed}/${vehicleModels.length} models.`,
     type: 'success',
   });
 
-  return [vehicles, GetTopVehicleStats()];
+  console.log(`^5Generated data for ${parsed}/${vehicleModels.length} models.^0`);
+
+  if (invalidVehicles.length)
+    console.log(
+      `^3Failed to parse data for ${invalidVehicles.length} invalid vehicles.\n${JSON.stringify(invalidVehicles, null, 2)}^0`,
+    );
+
+  return [vehicles, GetTopVehicleStats(), invalidVehicles];
 });
