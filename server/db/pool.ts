@@ -1,6 +1,7 @@
 import { createPool } from 'mariadb';
 import { GetConfig } from './config';
 import type { Pool } from 'mariadb';
+import schema from './schema';
 
 export let pool: Pool;
 
@@ -22,6 +23,8 @@ setImmediate(async () => {
     if (!info.hasMinVersion(11, 4, 0)) return console.error(`${version.raw} is not supported. ${recommendedDb}`);
 
     console.log(`${`^5[${version.raw}]`} ^2Database server connection established!^0`);
+
+    await schema(dbPool);
 
     pool = dbPool;
   } catch (err) {

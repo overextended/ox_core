@@ -1,7 +1,7 @@
 import type { OxVehicle } from 'server/vehicle/class';
 import type { PayAccountInvoice, DeleteAccountInvoice } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
-import type { GetCharIdFromStateId, GetLicense, GetLicenses } from 'server/player/db';
+import type { BanUser, GetCharIdFromStateId, GetLicense, GetLicenses, UnbanUser } from 'server/player/db';
 import type {
   CreateGroup,
   DeleteGroup,
@@ -26,6 +26,8 @@ interface OxServer extends OxCommon {
   DeleteGroup: typeof DeleteGroup;
   GetLicenses: typeof GetLicenses;
   GetLicense: typeof GetLicense;
+  BanUser: typeof BanUser;
+  UnbanUser: typeof UnbanUser;
 }
 
 export const Ox = OxCore as OxServer;

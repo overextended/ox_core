@@ -10,5 +10,14 @@
   "withdraw": "Withdraw",
   "deposit": "Deposit",
   "transfer": "Bank transfer",
-  "invoice_payment": "Invoice payment"
+  "invoice_payment": "Invoice payment",
+  "hours": "hours",
+  "minutes": "minutes",
+  "seconds": "seconds",
+  "ban_indefinite": "This ban will not expire.",
+  "ban_expires_in": "Ban expires in %s ${hours}, %s ${minutes}, and %s ${seconds}.",
+  "ban_notice": "⚠️ You have been banned from this server! ⚠️\nBan issued: %s\nReason: %s\n\n%s",
+  "userid_is_active": "Your userId (%s), is already active.",
+  "no_license": "We were unable to verify your game license.",
+  "server_restarting": "The server is about to restart. You cannot join at this time."
 }

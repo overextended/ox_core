@@ -203,3 +203,11 @@ export interface OxCreateInvoice {
   message: string;
   dueDate: string;
 }
+
+export interface BanDetails {
+  userId: number;
+  token?: string;
+  reason?: string;
+  banned_at: number;
+  unban_at?: number;
+}

@@ -2,7 +2,7 @@ import './loading';
 import './events';
 import './commands';
 import { OxPlayer } from './class';
-import { GetCharIdFromStateId } from './db';
+import { BanUser, GetCharIdFromStateId, UnbanUser } from './db';
 
 /**
  * Sets an interval to save every 10 minutes.
@@ -12,3 +12,5 @@ import { GetCharIdFromStateId } from './db';
 setInterval(() => OxPlayer.saveAll(), 600000);
 
 exports('GetCharIdFromStateId', GetCharIdFromStateId);
+exports('BanUser', BanUser);
+exports('UnbanUser', UnbanUser);

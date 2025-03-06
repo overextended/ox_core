@@ -24,10 +24,11 @@ import {
   SetActiveGroup,
 } from 'groups/db';
 import { PayAccountInvoice } from 'accounts';
-import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense } from 'types';
+import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense, BanDetails } from 'types';
 import { GetGroupPermissions } from '../../common';
 import { Licenses } from './license';
 import { CHARACTER_SLOTS } from 'config';
+import locales from '../../common/locales';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -62,6 +63,22 @@ export class OxPlayer extends ClassInterface {
   /** Get an instance of OxPlayer with the matching charId. */
   static getFromCharId(id: number) {
     return this.keys.charId[id];
+  }
+
+  static formatBanReason(ban: BanDetails) {
+    const unbanTime = ban.unban_at ? new Date(ban.unban_at) : null;
+    let timeRemainingMessage;
+
+    if (unbanTime) {
+      const timeRemaining = +unbanTime - Date.now();
+      const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      timeRemainingMessage = locales('ban_expires_in', hours, minutes, seconds);
+    } else timeRemainingMessage = locales('ban_indefinite');
+
+    return locales('ban_notice', new Date(ban.banned_at).toLocaleString(), ban.reason, timeRemainingMessage);
   }
 
   /** Compares player fields and metadata to a filter, returning the player if all values match. */
