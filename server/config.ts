@@ -4,4 +4,4 @@ export * from '../common/config';
 
 export const CREATE_DEFAULT_ACCOUNT = GetConvarInt('ox:createDefaultAccount', 1) === 1;
 
-if (DEBUG) GetConvarInt('ox:callbackTimeout', 1_200_000);
+if (DEBUG) SetConvar('ox:callbackTimeout', '1200000');
