@@ -15,7 +15,7 @@
   "minutes": "minutes",
   "seconds": "secondes",
   "ban_indefinite": "Cette bannissement ne sera pas expiré.",
-  "ban_expires_in": "Le bannissement expire dans %s ${heures}, %s ${minutes}, et %s ${secondes}.",
+  "ban_expires_in": "Le bannissement expire dans %s ${hours}, %s ${minutes}, et %s ${seconds}.",
   "ban_notice": "⚠️ Vous avez été banni de ce serveur ! ⚠️\nBannissement effectué le : %s\nRaison : %s\n\n%s",
   "userid_is_active": "Votre userId (%s), est déjà actif.",
   "no_license": "Nous n'avons pas pu vérifier votre licence de jeu.",
