@@ -193,8 +193,8 @@
     "class": 19,
     "seats": 4,
     "doors": 4,
-    "type": "automobile",
-    "price": 192050,
+    "type": "amphibious_automobile",
+    "price": 768201,
     "category": "land",
     "weapons": true
   },
@@ -455,7 +455,7 @@
     "seats": 4,
     "doors": 4,
     "type": "submarine",
-    "price": 804616,
+    "price": 1029160,
     "category": "sea"
   },
   "bagger": {
@@ -950,8 +950,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 57220,
+    "type": "quadbike",
+    "price": 39339,
     "category": "land"
   },
   "blazer2": {
@@ -965,8 +965,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 41811,
+    "type": "quadbike",
+    "price": 28745,
     "category": "land"
   },
   "blazer3": {
@@ -980,8 +980,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 57220,
+    "type": "quadbike",
+    "price": 39339,
     "category": "land"
   },
   "blazer4": {
@@ -995,8 +995,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 65209,
+    "type": "quadbike",
+    "price": 44831,
     "category": "land"
   },
   "blazer5": {
@@ -1010,8 +1010,8 @@
     "class": 9,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 342410,
+    "type": "amphibious_quadbike",
+    "price": 984429,
     "category": "land",
     "weapons": true
   },
@@ -1026,8 +1026,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "heli",
-    "price": 7681212,
+    "type": "blimp",
+    "price": 1194855,
     "category": "air"
   },
   "blimp2": {
@@ -1041,8 +1041,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "heli",
-    "price": 7776468,
+    "type": "blimp",
+    "price": 1209672,
     "category": "air"
   },
   "blimp3": {
@@ -1056,8 +1056,8 @@
     "class": 16,
     "seats": 4,
     "doors": 4,
-    "type": "heli",
-    "price": 7681212,
+    "type": "blimp",
+    "price": 1194855,
     "category": "air"
   },
   "blista": {
@@ -1116,8 +1116,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 9116,
+    "type": "bicycle",
+    "price": 2735,
     "category": "land"
   },
   "boattrailer": {
@@ -2310,8 +2310,8 @@
     "class": 8,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 59767,
+    "type": "quadbike",
+    "price": 41090,
     "category": "land"
   },
   "chino": {
@@ -2776,8 +2776,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 9170,
+    "type": "bicycle",
+    "price": 2751,
     "category": "land"
   },
   "crusader": {
@@ -4432,8 +4432,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 9450,
+    "type": "bicycle",
+    "price": 2835,
     "category": "land"
   },
   "flashgt": {
@@ -5592,8 +5592,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 14486,
+    "type": "bicycle",
+    "price": 4345,
     "category": "land"
   },
   "inductor2": {
@@ -5607,8 +5607,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 14486,
+    "type": "bicycle",
+    "price": 4345,
     "category": "land"
   },
   "infernus": {
@@ -6241,7 +6241,7 @@
     "seats": 1,
     "doors": 3,
     "type": "submarine",
-    "price": 3120080,
+    "price": 3990800,
     "category": "sea",
     "weapons": true
   },
@@ -9125,8 +9125,8 @@
     "class": 8,
     "seats": 1,
     "doors": 0,
-    "type": "automobile",
-    "price": 70019,
+    "type": "quadbike",
+    "price": 48138,
     "category": "land"
   },
   "rt3000": {
@@ -9652,8 +9652,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 9274,
+    "type": "bicycle",
+    "price": 2782,
     "category": "land"
   },
   "scramjet": {
@@ -10540,8 +10540,8 @@
     "class": 5,
     "seats": 2,
     "doors": 2,
-    "type": "automobile",
-    "price": 382632,
+    "type": "submarinecar",
+    "price": 6217783,
     "category": "land",
     "weapons": true
   },
@@ -10556,8 +10556,8 @@
     "class": 8,
     "seats": 2,
     "doors": 0,
-    "type": "automobile",
-    "price": 71229,
+    "type": "quadbike",
+    "price": 48970,
     "category": "land"
   },
   "stunt": {
@@ -10587,7 +10587,7 @@
     "seats": 1,
     "doors": 1,
     "type": "submarine",
-    "price": 718616,
+    "price": 919160,
     "category": "sea"
   },
   "submersible2": {
@@ -10602,7 +10602,7 @@
     "seats": 1,
     "doors": 1,
     "type": "submarine",
-    "price": 787416,
+    "price": 1007160,
     "category": "sea"
   },
   "sugoi": {
@@ -11083,8 +11083,8 @@
     "class": 9,
     "seats": 3,
     "doors": 3,
-    "type": "automobile",
-    "price": 329551,
+    "type": "amphibious_automobile",
+    "price": 1318204,
     "category": "land",
     "weapons": true
   },
@@ -11327,8 +11327,8 @@
     "class": 5,
     "seats": 4,
     "doors": 4,
-    "type": "automobile",
-    "price": 1175448,
+    "type": "submarinecar",
+    "price": 19101030,
     "category": "land",
     "weapons": true
   },
@@ -11855,8 +11855,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 12075,
+    "type": "bicycle",
+    "price": 3622,
     "category": "land"
   },
   "tribike2": {
@@ -11870,8 +11870,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 12075,
+    "type": "bicycle",
+    "price": 3622,
     "category": "land"
   },
   "tribike3": {
@@ -11885,8 +11885,8 @@
     "class": 13,
     "seats": 1,
     "doors": 1,
-    "type": "bike",
-    "price": 12075,
+    "type": "bicycle",
+    "price": 3622,
     "category": "land"
   },
   "trophytruck": {
@@ -12368,8 +12368,8 @@
     "class": 9,
     "seats": 2,
     "doors": 0,
-    "type": "automobile",
-    "price": 44070,
+    "type": "quadbike",
+    "price": 30298,
     "category": "land"
   },
   "vestra": {
@@ -13135,8 +13135,8 @@
     "class": 9,
     "seats": 4,
     "doors": 6,
-    "type": "automobile",
-    "price": 50950,
+    "type": "amphibious_automobile",
+    "price": 203802,
     "category": "land"
   },
   "zion": {

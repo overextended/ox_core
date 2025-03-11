@@ -2,19 +2,21 @@ import { cache, notify, onServerCallback, requestModel, sleep } from '@overexten
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
 import type { VehicleData, VehicleTypes, VehicleCategories } from 'types';
 
-const PRICE_WEIGHTS: Partial<Record<VehicleTypes, number>> = {
+const PRICE_WEIGHTS: Record<VehicleTypes, number> = {
   automobile: 1600,
   bicycle: 150,
   bike: 500,
   boat: 6000,
   heli: 90000,
   plane: 16000,
-  quadbike: 600,
+  quadbike: 1100,
   train: 6000,
-  submarinecar: 18000,
-  submarine: 17200,
-  blimp: 12000,
+  submarinecar: 26000,
+  submarine: 22000,
+  blimp: 14000,
   trailer: 10000,
+  amphibious_automobile: 6400,
+  amphibious_quadbike: 4600
 };
 
 const BATCH_SIZE = 10;
@@ -41,11 +43,45 @@ function SpawnVehicle(hash: number, coords: [number, number, number]): number {
   return entity;
 }
 
+function GetVehicleTypeEx(entity: number): VehicleTypes {
+  switch (GetVehicleTypeRaw(entity)) {
+    case 0:
+    default:
+      return 'automobile';
+    case 1:
+      return 'plane';
+    case 2:
+      return 'trailer';
+    case 3:
+      return 'quadbike';
+    case 5:
+      return 'submarinecar';
+    case 6:
+      return 'amphibious_automobile';
+    case 7:
+      return 'amphibious_quadbike';
+    case 8:
+      return 'heli';
+    case 9:
+      return 'blimp';
+    case 11:
+      return 'bike';
+    case 12:
+      return 'bicycle';
+    case 13:
+      return 'boat';
+    case 14:
+      return 'train';
+    case 15:
+      return 'submarine';
+  }
+}
+
 function ParseVehicleData(entity: number, hash: number, model: string): VehicleData {
   let make = GetMakeNameFromVehicleModel(hash);
   if (!make) make = GetMakeNameFromVehicleModel(model.replace(/\W/g, '')) || '';
 
-  const vehicleType = GetVehicleType(entity) as VehicleTypes;
+  const vehicleType = GetVehicleTypeEx(entity);
   const vehicleCategory: VehicleCategories =
     vehicleType === 'heli' || vehicleType === 'plane' || vehicleType === 'blimp'
       ? 'air'
@@ -86,14 +122,6 @@ function CalculateVehiclePrice(data: VehicleData, entity: number) {
   if (GetCanVehicleJump(entity)) price *= 1.5;
   if (GetVehicleHasParachute(entity)) price *= 1.5;
   if (data.weapons) price *= 5;
-
-  if (IsThisModelAnAmphibiousCar(entity)) {
-    data.type = 'amphibious_automobile';
-    price *= 4;
-  } else if (IsThisModelAnAmphibiousQuadbike(entity)) {
-    data.type = 'amphibious_quadbike';
-    price *= 4;
-  }
 
   data.price = Math.floor(price * (PRICE_WEIGHTS[data.type] ?? 1));
 }
