@@ -12,11 +12,11 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       '@nativewrappers/fivem':
-        specifier: ^0.0.73
-        version: 0.0.73
+        specifier: ^0.0.86
+        version: 0.0.86
       '@nativewrappers/server':
-        specifier: ^0.0.73
-        version: 0.0.73
+        specifier: ^0.0.86
+        version: 0.0.86
       '@overextended/ox_lib':
         specifier: ^3.29.0
         version: 3.29.0
@@ -26,16 +26,16 @@ importers:
     devDependencies:
       '@citizenfx/client':
         specifier: latest
-        version: 2.0.13079-1
+        version: 2.0.13337-1
       '@citizenfx/server':
         specifier: latest
-        version: 2.0.13079-1
+        version: 2.0.13337-1
       '@overextended/fx-utils':
         specifier: ^0.0.4
         version: 0.0.4
       '@types/node':
-        specifier: ^22.13.9
-        version: 22.13.9
+        specifier: ^22.13.10
+        version: 22.13.10
       esbuild:
         specifier: ^0.23.1
         version: 0.23.1
@@ -101,11 +101,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@citizenfx/client@2.0.13079-1':
-    resolution: {integrity: sha512-vqeJ3fZeF8pvnai4tNmPkBFt9lm0NkzHxOws8Ci27bKAn+17H+TrO/wlBIr4SJpmO5xMlhAn48zv3CQzquO90A==}
+  '@citizenfx/client@2.0.13337-1':
+    resolution: {integrity: sha512-lyyMIvfQinyCTm4mwn6KmQl4fyi7xxnMDSglRdAaWs6N9ICOS8lrbYXyHRV9d8eN7MyUxfzWP994Y2l10Nd8VQ==}
 
-  '@citizenfx/server@2.0.13079-1':
-    resolution: {integrity: sha512-1PyU5s93pfDalQ4NTq/eCTDnPOX0er7JSJfEe2nL5a9rKyVqDkZFfFO2J83gFDE0nsHsooBcRi8Rk5PaXhk8oQ==}
+  '@citizenfx/server@2.0.13337-1':
+    resolution: {integrity: sha512-nlz4yxhzrleaxpAq5of8BvigcEwoPh+icv9rYEgfy69p0cxPXS8HY5PiuMQ6D2upR/w77xnnsxEH64RnEXR5ww==}
 
   '@esbuild/aix-ppc64@0.23.1':
     resolution: {integrity: sha512-6VhYk1diRqrhBAqpJEdjASR/+WVRtfjpqKuNw11cLiaWpAT/Uu+nokB+UJnevzy/P9C/ty6AOe0dwueMrGh/iQ==}
@@ -254,11 +254,11 @@ packages:
   '@nativewrappers/client@1.7.33':
     resolution: {integrity: sha512-phuBBGdDPxZiZyw5CaFs1XWfvllnEtwATMdLaNucwMofVg/O/FjlP1bTUq4SOm4qhSZ4Zdo351ijHzBSIbZs6g==}
 
-  '@nativewrappers/fivem@0.0.73':
-    resolution: {integrity: sha512-QrUenXAwnfa1XYpsZCnv399wh+o0xlWgV5rtLKJzKjd6nxg9LNOz9nFPUHTzjKbA9xd/aIJjJ83EjA9o8aKBTg==}
+  '@nativewrappers/fivem@0.0.86':
+    resolution: {integrity: sha512-NBGw8jQYBIVURfH/jbjz+6NDO+2MTyT2sR5EK7mBhMpHE/eXzIKUpRQgXB5ksxg/+A0KKWmyyGvARbqOLOb9LA==}
 
-  '@nativewrappers/server@0.0.73':
-    resolution: {integrity: sha512-JPA9u/+gEKvzldYKoa6UXFRJPH9K2LrNApQDADOC2CEM5U6NrhZ8Ig1qp6zCBwvAuMkknuhJySsoNvXGR3oxrA==}
+  '@nativewrappers/server@0.0.86':
+    resolution: {integrity: sha512-WyY9pWHbmL3X4J1EHUkjWjX2mSyxOhJzDCDnLP5FVEbvtII+AV0MRuMFWvhWVSA7Im8Y8v2IQ0oNnQ8u6NM3sg==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -282,8 +282,8 @@ packages:
   '@types/geojson@7946.0.16':
     resolution: {integrity: sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg==}
 
-  '@types/node@22.13.9':
-    resolution: {integrity: sha512-acBjXdRJ3A6Pb3tqnw9HZmyR3Fiol3aGxRCK1x3d+6CDAMjl7I649wpSd+yNURCjbOUGu9tqtLKnTGxmK6CyGw==}
+  '@types/node@22.13.10':
+    resolution: {integrity: sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==}
 
   anymatch@3.1.3:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
@@ -490,9 +490,9 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@citizenfx/client@2.0.13079-1': {}
+  '@citizenfx/client@2.0.13337-1': {}
 
-  '@citizenfx/server@2.0.13079-1': {}
+  '@citizenfx/server@2.0.13337-1': {}
 
   '@esbuild/aix-ppc64@0.23.1':
     optional: true
@@ -568,9 +568,9 @@ snapshots:
 
   '@nativewrappers/client@1.7.33': {}
 
-  '@nativewrappers/fivem@0.0.73': {}
+  '@nativewrappers/fivem@0.0.86': {}
 
-  '@nativewrappers/server@0.0.73': {}
+  '@nativewrappers/server@0.0.86': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -598,7 +598,7 @@ snapshots:
 
   '@types/geojson@7946.0.16': {}
 
-  '@types/node@22.13.9':
+  '@types/node@22.13.10':
     dependencies:
       undici-types: 6.20.0
 
@@ -721,7 +721,7 @@ snapshots:
   mariadb@3.4.0:
     dependencies:
       '@types/geojson': 7946.0.16
-      '@types/node': 22.13.9
+      '@types/node': 22.13.10
       denque: 2.1.0
       iconv-lite: 0.6.3
       lru-cache: 10.4.3
