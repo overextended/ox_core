@@ -40,7 +40,7 @@ createBuilder(
       name: 'client',
       options: {
         platform: 'browser',
-        target: ['es2021'],
+        target: ['es2023'],
         format: 'iife',
         entryPoints: [`./client/index.ts`],
       },
