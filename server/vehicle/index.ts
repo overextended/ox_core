@@ -92,6 +92,8 @@ export async function CreateVehicle(
     vehicle.respawn(coords, heading || 0);
   }
 
+  if (vehicle.entity) vehicle.setStored(null, false);
+
   return vehicle;
 }
 
@@ -101,12 +103,7 @@ export async function SpawnVehicle(id: number | string, coords?: Vec3, heading?:
 
   if (!vehicle) return;
 
-  return await CreateVehicle(
-    vehicle,
-    coords,
-    heading,
-    invokingScript,
-  );
+  return await CreateVehicle(vehicle, coords, heading, invokingScript);
 }
 
 exports('CreateVehicle', CreateVehicle);
