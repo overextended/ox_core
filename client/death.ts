@@ -7,7 +7,7 @@ import { LoadDataFile } from '../common';
 const hospitals: Vector4[] = LoadDataFile('hospitals').map((vec: number[]) => {
   const hospital = Vector4.fromArray(vec);
 
-  if (HOSPITAL_BLIPS) {
+  if (HOSPITAL_BLIPS && DEATH_SYSTEM) {
     const blip = AddBlipForCoord(hospital.x, hospital.y, hospital.z);
 
     SetBlipSprite(blip, 61);
