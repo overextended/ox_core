@@ -10,5 +10,14 @@
   "withdraw": "Retirar",
   "deposit": "Depositar",
   "transfer": "Transferencia bancaria",
-  "invoice_payment": "Pago de factura"
+  "invoice_payment": "Pago de factura",
+  "hours": "horas",
+  "minutes": "minutos",
+  "seconds": "segundos",
+  "ban_indefinite": "Este baneo es indefinido.",
+  "ban_expires_in": "El baneo expira en %s ${hours}, %s ${minutes}, y %s ${seconds}.",
+  "ban_notice": "⚠️ Has sido baneado de este servidor! ⚠️\nBaneado el: %s\nRazón: %s\n\n%s",
+  "userid_is_active": "Tu userId (%s), ya está activo.",
+  "no_license": "No pudimos verificar tu licencia de juego.",
+  "server_restarting": "El servidor está a punto de reiniciar. No puedes unirte en estos momentos."
 }
