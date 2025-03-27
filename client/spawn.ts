@@ -2,7 +2,7 @@ import { sleep, waitFor } from '@overextended/ox_lib';
 import { cache, inputDialog } from '@overextended/ox_lib/client';
 import { OxPlayer } from './player';
 import { netEvent } from 'utils';
-import { CHARACTER_SELECT, SPAWN_LOCATION } from 'config';
+import { CHARACTER_SELECT, EXTERNAL_CHARACTER_SELECT, SPAWN_LOCATION } from 'config';
 import locale from '../common/locales';
 import type { Character, NewCharacter } from 'types';
 
@@ -75,6 +75,8 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
   if (character) {
     return emitNet('ox:setActiveCharacter', character.charId);
   }
+
+  if (!EXTERNAL_CHARACTER_SELECT) return;
 
   const input = await inputDialog(
     locale('create_character'),
