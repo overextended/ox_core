@@ -421,6 +421,8 @@ export class OxPlayer extends ClassInterface {
 
     this.#groups[group.name] = grade;
     GlobalState[`${group.name}:count`] += 1;
+
+    if (group.name === this.get('activeGroup')) GlobalState[`${group.name}:activeCount`] += 1;
   }
 
   /** Removes the active character from the group and sets permissions. */
