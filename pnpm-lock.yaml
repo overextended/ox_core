@@ -21,8 +21,8 @@ importers:
         specifier: ^3.29.0
         version: 3.29.0
       mariadb:
-        specifier: ^3.4.0
-        version: 3.4.0
+        specifier: ^3.4.1
+        version: 3.4.1
     devDependencies:
       '@citizenfx/client':
         specifier: latest
@@ -380,8 +380,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  mariadb@3.4.0:
-    resolution: {integrity: sha512-hdRPcAzs+MTxK5VG1thBW18gGTlw6yWBe9YnLB65GLo7q0fO5DWsgomIevV/pXSaWRmD3qi6ka4oSFRTExRiEQ==}
+  mariadb@3.4.1:
+    resolution: {integrity: sha512-h2q6JREwHrzPx7bVVdHCkMGCbCXZmUk6WhDPcNrmhgGoYe15Cbs24Giq/m43oXFO/6Gqz4MTaRrnipWCgtgetQ==}
     engines: {node: '>= 14'}
 
   merge2@1.4.1:
@@ -718,7 +718,7 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  mariadb@3.4.0:
+  mariadb@3.4.1:
     dependencies:
       '@types/geojson': 7946.0.16
       '@types/node': 22.13.10

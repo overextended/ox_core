@@ -112,7 +112,12 @@ export async function PerformTransaction(
   await conn.beginTransaction();
 
   try {
-    const removedBalance = await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, fromId, amount]);
+    const query = overdraw ? removeBalance : safeRemoveBalance;
+    const values = [amount, fromId];
+
+    if (!overdraw) values.push(amount);
+
+    const removedBalance = await conn.update(query, values);
     const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
 
     if (addedBalance) {

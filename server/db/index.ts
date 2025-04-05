@@ -68,6 +68,7 @@ export class Connection {
   }
 
   commit() {
+    delete this.transaction;
     return this.connection.commit();
   }
 

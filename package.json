@@ -46,7 +46,7 @@
     "@nativewrappers/fivem": "^0.0.86",
     "@nativewrappers/server": "^0.0.86",
     "@overextended/ox_lib": "^3.29.0",
-    "mariadb": "^3.4.0"
+    "mariadb": "^3.4.1"
   },
   "engines": {
     "node": ">=22.9.0"
