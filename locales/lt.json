@@ -10,5 +10,14 @@
   "withdraw": "Išėmimas",
   "deposit": "Įmokėjimas",
   "transfer": "Banko pervedimas",
-  "invoice_payment": "Sąskaitos apmokėjimas"
+  "invoice_payment": "Sąskaitos apmokėjimas",
+  "hours": "valandos",
+  "minutes": "minutes",
+  "seconds": "sekundes",
+  "ban_indefinite": "Šis užblokavimas niekada nesibaigs.",
+  "ban_expires_in": "Užblokavimas baigsis už %s ${hours}, %s ${minutes}, ir %s ${seconds}.",
+  "ban_notice": "⚠️ Jūs buvote užblokuotas iš šito serverio! ⚠️\nAtsakingas asmuo: %s\nKodėl: %s\n\n%s",
+  "userid_is_active": "Jūsų userId (%s), yra jau aktyvus.",
+  "no_license": "Negalėjome patvirtinti jūsų žaidimo licenzijos.",
+  "server_restarting": "Serveris restartuojasi. Negalima dabar prisijungti."
 }
