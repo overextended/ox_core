@@ -57,6 +57,10 @@ function Ox.GetVehicle(entityId)
     return CreateVehicleInstance(exports.ox_core:GetVehicle(entityId))
 end
 
+function Ox.GetVehicleFromEntity(entityId)
+    return CreateVehicleInstance(exports.ox_core:GetVehicleFromEntity(entityId))
+end
+
 function Ox.GetVehicleFromNetId(netId)
     return CreateVehicleInstance(exports.ox_core:GetVehicleFromNetId(netId))
 end
