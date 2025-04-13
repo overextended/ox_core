@@ -214,7 +214,7 @@ export class OxPlayer extends ClassInterface {
       if (!currentGrade) return;
       if (!(await RemoveCharacterGroup(this.charId, group.name))) return;
 
-      this.#removeGroup(group, currentGrade);
+      this.#removeGroup(group, currentGrade, true);
 
       if (this.get('activeGroup') === groupName) this.set('activeGroup', undefined, true);
     } else {
@@ -224,7 +224,7 @@ export class OxPlayer extends ClassInterface {
       if (currentGrade) {
         if (!(await UpdateCharacterGroup(this.charId, group.name, grade))) return;
 
-        this.#removeGroup(group, currentGrade);
+        this.#removeGroup(group, currentGrade, false);
         this.#addGroup(group, grade);
       } else {
         const relatedGroups = group.type && GetGroupsByType(group.type);
@@ -421,12 +421,10 @@ export class OxPlayer extends ClassInterface {
 
     this.#groups[group.name] = grade;
     GlobalState[`${group.name}:count`] += 1;
-
-    if (group.name === this.get('activeGroup')) GlobalState[`${group.name}:activeCount`] += 1;
   }
 
   /** Removes the active character from the group and sets permissions. */
-  #removeGroup(group: string | OxGroup, grade: number) {
+  #removeGroup(group: string | OxGroup, grade: number, canRemoveActiveCount = false) {
     const groupName = typeof group === 'string' ? group : group.name;
     group = GetGroup(groupName);
 
@@ -439,7 +437,7 @@ export class OxPlayer extends ClassInterface {
     delete this.#groups[group.name];
     GlobalState[`${group.name}:count`] -= 1;
 
-    if (group.name === this.get('activeGroup')) GlobalState[`${group.name}:activeCount`] -= 1;
+    if (canRemoveActiveCount && group.name === this.get('activeGroup')) GlobalState[`${group.name}:activeCount`] -= 1;
   }
 
   /** Saves the active character to the database. */
@@ -473,7 +471,7 @@ export class OxPlayer extends ClassInterface {
   async logout(save = true, dropped = false) {
     if (!this.charId) return;
 
-    for (const name in this.#groups) this.#removeGroup(name, this.#groups[name]);
+    for (const name in this.#groups) this.#removeGroup(name, this.#groups[name], true);
 
     emit('ox:playerLogout', this.source, this.userId, this.charId);
 
