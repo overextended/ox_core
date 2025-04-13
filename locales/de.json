@@ -9,6 +9,15 @@
   "date_of_birth": "Geburtsdatum",
   "withdraw": "Abheben",
   "deposit": "Einzahlen",
-  "transfer": "Überweisung",
-  "invoice_payment": "Rechnungszahlung"
+  "transfer": "Banküberweisung",
+  "invoice_payment": "Rechnungszahlung",
+  "hours": "Stunden",
+  "minutes": "Minuten",
+  "seconds": "Sekunden",
+  "ban_indefinite": "Dieses Verbot läuft nicht ab.",
+  "ban_expires_in": "Das Verbot läuft in %s ${hours}, %s ${minutes} und %s ${seconds} ab.",
+  "ban_notice": "⚠️ Du wurdest von diesem Server gebannt! ⚠️\nVerbot erteilt: %s\nGrund: %s\n\n%s",
+  "userid_is_active": "Deine Benutzer-ID (%s) ist bereits aktiv.",
+  "no_license": "Wir konnten deine Spiel-Lizenz nicht verifizieren.",
+  "server_restarting": "Der Server wird neu gestartet. Du kannst dich derzeit nicht verbinden."
 }
