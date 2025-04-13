@@ -166,6 +166,7 @@ addCommand<{ target: string; group: string; grade?: number }>(
   },
   {
     help: `Update a player's grade for a group.`,
+    restricted: 'group.admin',
     params: [
       { name: 'target', paramType: 'playerId' },
       { name: 'group', paramType: 'string' },
