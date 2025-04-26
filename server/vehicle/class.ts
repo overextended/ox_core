@@ -230,7 +230,7 @@ export class OxVehicle extends ClassInterface {
   setStored(value: string | null, despawn?: boolean) {
     this.#stored = value;
 
-    if (despawn) return this.despawn(true);
+    if (despawn) return this.remove();
 
     SetVehicleColumn(this.id, 'stored', value);
   }
