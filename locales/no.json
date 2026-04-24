@@ -1,0 +1,23 @@
+{
+  "create_character": "Opprett ny karakter",
+  "firstname": "Fornavn",
+  "lastname": "Etternavn",
+  "gender": "Kjønn",
+  "male": "Mann",
+  "female": "Kvinne",
+  "non_binary": "Ikke-binær",
+  "date_of_birth": "Fødselsdato",
+  "withdraw": "Ta ut",
+  "deposit": "Sett inn",
+  "transfer": "Bankoverføring",
+  "invoice_payment": "Fakturabetaling",
+  "hours": "timer",
+  "minutes": "minutter",
+  "seconds": "sekunder",
+  "ban_indefinite": "Denne utestengelsen utløper ikke.",
+  "ban_expires_in": "Utestengelsen utløper om %s ${hours}, %s ${minutes} og %s ${seconds}.",
+  "ban_notice": "⚠️ Du er utestengt fra denne serveren! ⚠️\nUtestengt: %s\nÅrsak: %s\n\n%s",
+  "userid_is_active": "Din bruker (%s) er allerede aktiv.",
+  "no_license": "Vi kunne ikke verifisere spill-lisensen din.",
+  "server_restarting": "Serveren er i ferd med å starte på nytt. Du kan ikke koble til nå."
+}

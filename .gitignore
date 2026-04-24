@@ -5,7 +5,6 @@ fxmanifest.lua
 .yarn.installed
 *.zip
 **.d.ts
-**.js
 *.tgz
 *.tsbuildinfo
 /package/

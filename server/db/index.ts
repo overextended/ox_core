@@ -1,4 +1,4 @@
-import { waitFor } from '@overextended/ox_lib';
+import { waitFor } from '@communityox/ox_lib';
 import { pool } from './pool';
 import type { Dict } from 'types';
 import type { PoolConnection, QueryOptions } from 'mariadb';

@@ -6,11 +6,11 @@ import {
   getRandomChar,
   getRandomInt,
   type VehicleProperties,
-} from '@overextended/ox_lib';
+} from '@communityox/ox_lib';
 import { PLATE_PATTERN } from '../../common/config';
 import type { Dict, VehicleData } from 'types';
 import { GetVehicleData, GetVehicleNetworkType } from '../../common/vehicles';
-import { setVehicleProperties } from '@overextended/ox_lib/server';
+import { setVehicleProperties } from '@communityox/ox_lib/server';
 import { Vector3 } from '@nativewrappers/server';
 import { SpawnVehicle } from 'vehicle';
 
@@ -30,7 +30,7 @@ export class OxVehicle extends ClassInterface {
   entity?: number;
   netId?: number;
   #metadata: Dict<any>;
-  #properties: VehicleProperties;
+  #properties: Partial<VehicleProperties>;
   #stored: string | null;
 
   protected static members: Dict<OxVehicle> = {};
@@ -79,9 +79,39 @@ export class OxVehicle extends ClassInterface {
     return this.keys.entity[entityId];
   }
 
-  /** Gets all instances of OxVehicle. */
-  static getAll(): Dict<OxVehicle> {
-    return this.members;
+  /** Compares vehicle fields and metadata to a filter, returning the vehicle if all values match. */
+  private filter(criteria: Dict<any>) {
+    for (const key in criteria) {
+      const value = criteria[key];
+
+      if (this[key as keyof OxVehicle] !== value && this.#metadata[key] !== value) return;
+    }
+
+    return this;
+  }
+
+  /** Get an instance of OxVehicle that matches the filter. */
+  static getFromFilter(filter: Dict<any>) {
+    for (const id in this.members) {
+      const vehicle = this.members[id].filter(filter);
+      if (vehicle) return vehicle;
+    }
+  }
+
+  /** Gets all instances of OxVehicle, optionally comparing against a filter. */
+  static getAll(filter?: Dict<any>, asArray?: false): Dict<OxVehicle>;
+  static getAll(filter?: Dict<any>, asArray?: true): OxVehicle[];
+  static getAll(filter?: Dict<any>, asArray = false): Dict<OxVehicle> | OxVehicle[] {
+    if (!filter) return asArray ? Object.values(this.members) : this.members;
+
+    const obj: Dict<OxVehicle> = {};
+
+    for (const id in this.members) {
+      const vehicle = this.members[id].filter(filter);
+      if (vehicle) obj[id] = vehicle;
+    }
+
+    return asArray ? Object.values(obj) : obj;
   }
 
   static async generateVin({ make, name }: VehicleData, isOwned = true) {
@@ -109,9 +139,9 @@ export class OxVehicle extends ClassInterface {
     return isOwned ? vin : `T${vin}`;
   }
 
-  static async generatePlate() {
+  static async generatePlate(pattern: string = PLATE_PATTERN) {
     while (true) {
-      const plate = getRandomString(PLATE_PATTERN);
+      const plate = getRandomString(pattern);
 
       if (await IsPlateAvailable(plate)) return plate;
     }
@@ -151,7 +181,7 @@ export class OxVehicle extends ClassInterface {
     make: string,
     stored: string | null,
     metadata: Dict<any>,
-    properties: VehicleProperties,
+    properties: Partial<VehicleProperties>,
     id?: number,
     owner?: number,
     group?: string,
@@ -259,7 +289,7 @@ export class OxVehicle extends ClassInterface {
     SetVehicleColumn(this.id, 'plate', this.plate);
   }
 
-  setProperties(properties: VehicleProperties, apply?: boolean) {
+  setProperties(properties: Partial<VehicleProperties>, apply?: boolean) {
     if (!this.entity) return;
 
     this.#properties = typeof properties === 'string' ? JSON.parse(properties) : properties;
@@ -283,14 +313,22 @@ export class OxVehicle extends ClassInterface {
         ? rotation
         : Vector3.fromObject(rotation || hasEntity ? GetEntityRotation(this.entity as number) : null);
 
-    if (hasEntity) DeleteEntity(this.entity as number);
+    // Clean up existing entity and registry entries before spawning new one
+    if (hasEntity) {
+      emit('ox:despawnVehicle', this.entity, this.id);
+      DeleteEntity(this.entity as number);
+    }
 
+    // Remove from registry before creating new entity to avoid conflicts
+    OxVehicle.remove(this.vin);
+
+    // Create new entity
     this.entity = OxVehicle.spawn(this.model, coords as Vector3, typeof rotation === 'number' ? rotation : 0);
     this.netId = NetworkGetNetworkIdFromEntity(this.entity);
 
     if (typeof rotation !== 'number') SetEntityRotation(this.entity, rotation.x, rotation.y, rotation.z, 2, false);
 
-    OxVehicle.remove(this.vin);
+    // Re-add to registry after successful spawn
     OxVehicle.add(this.vin, this);
     SetVehicleNumberPlateText(this.entity, this.#properties.plate || this.plate);
     setVehicleProperties(this.entity, this.#properties);
@@ -310,5 +348,7 @@ exports('SaveAllVehicles', (arg: any) => OxVehicle.saveAll(arg));
 exports('GetVehicleFromNetId', (arg: any) => OxVehicle.getFromNetId(arg));
 exports('GetVehicleFromVin', (arg: any) => OxVehicle.get(arg));
 exports('GetVehicleFromEntity', (arg: any) => OxVehicle.getFromEntity(arg));
+exports('GetVehicleFromFilter', (arg: any) => OxVehicle.getFromFilter(arg))
+exports('GetVehicles', (arg: any) => OxVehicle.getAll(arg, true));
 exports('GenerateVehicleVin', (model: string) => OxVehicle.generateVin(GetVehicleData(model)));
-exports('GenerateVehiclePlate', () => OxVehicle.generatePlate());
+exports('GenerateVehiclePlate', (pattern?: string) => OxVehicle.generatePlate(pattern));

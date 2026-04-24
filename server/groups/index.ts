@@ -1,4 +1,4 @@
-import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@overextended/ox_lib/server';
+import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@communityox/ox_lib/server';
 import { InsertGroup, RemoveGroup, SelectGroups } from './db';
 import { OxPlayer } from 'player/class';
 import type { Dict, OxGroup, DbGroup, CreateGroupProperties, OxAccountRole } from 'types';
@@ -18,6 +18,21 @@ export function GetGroupsByType(type: string) {
     if (group.type === type) acc.push(group.name);
     return acc;
   }, [] as string[]);
+}
+
+export function GetGroupActivePlayers(groupName: string) {
+  const group = groups[groupName];
+
+  return group ? [...group.activePlayers] : [];
+}
+
+export function GetGroupActivePlayersByType(type: string) {
+  return Object.values(groups).reduce((acc, group) => {
+    if (group.type === type) {
+      acc.push(...group.activePlayers);
+    }
+    return acc;
+  }, [] as number[]);
 }
 
 export function SetGroupPermission(groupName: string, grade: number, permission: string, value: 'allow' | 'deny') {
@@ -42,11 +57,14 @@ function SetupGroup(data: DbGroup) {
   const group: OxGroup = {
     ...data,
     principal: `group.${data.name}`,
+    hasAccount: Boolean(data.hasAccount),
   };
 
   GlobalState[group.principal] = group;
   GlobalState[`${group.name}:count`] = 0;
   GlobalState[`${group.name}:activeCount`] = 0;
+
+  group.activePlayers = new Set();
 
   groups[group.name] = group;
   group.grades = group.grades.reduce(
@@ -99,6 +117,7 @@ export async function CreateGroup(data: CreateGroupProperties) {
     grades: grades,
     accountRoles: accountRoles,
     hasAccount: data.hasAccount ?? false,
+    activePlayers: new Set(),
   };
 
   const response = await InsertGroup(group);
@@ -135,7 +154,7 @@ export async function DeleteGroup(groupName: string) {
   for (const id in players) {
     const player = players[id];
 
-    player.setGroup(groupName, 0);
+    player.setGroup(groupName, 0, true);
   }
 
   GlobalState[group.principal] = null;
@@ -185,3 +204,5 @@ exports('SetGroupPermission', SetGroupPermission);
 exports('RemoveGroupPermission', RemoveGroupPermission);
 exports('CreateGroup', CreateGroup);
 exports('DeleteGroup', DeleteGroup);
+exports('GetGroupActivePlayers', GetGroupActivePlayers);
+exports('GetGroupActivePlayersByType', GetGroupActivePlayersByType);

@@ -1,4 +1,4 @@
-import { cache, notify, onServerCallback, requestModel, sleep } from '@overextended/ox_lib/client';
+import { cache, notify, onServerCallback, requestModel, sleep } from '@communityox/ox_lib/client';
 import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
 import type { VehicleData, VehicleTypes, VehicleCategories } from 'types';
 

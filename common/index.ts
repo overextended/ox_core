@@ -1,4 +1,4 @@
-import { checkDependency } from '@overextended/ox_lib/';
+import { checkDependency } from '@communityox/ox_lib/';
 import type { OxGroupPermissions } from 'types';
 
 if (!checkDependency('ox_lib', '3.24.0', true)) throw new Error('Failed dependency check.');

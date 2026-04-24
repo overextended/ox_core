@@ -1,4 +1,4 @@
-import { cache } from '@overextended/ox_lib/client';
+import { cache } from '@communityox/ox_lib/client';
 import type { OxPlayer } from 'client/player';
 import type { Dict } from 'types';
 

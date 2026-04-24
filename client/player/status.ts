@@ -11,7 +11,7 @@ function UpdateStatuses() {
 
     OxPlayer.setStatus(
       name,
-      newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat((curValue + status.onTick).toPrecision(8)),
+      newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat((newValue).toPrecision(8)),
     );
   }
 

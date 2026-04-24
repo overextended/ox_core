@@ -1,4 +1,4 @@
-import { addCommand } from '@overextended/ox_lib/server';
+import { addCommand } from '@communityox/ox_lib/server';
 import { GetStatuses } from './db';
 import { OxPlayer } from './class';
 import type { Dict, OxStatus } from 'types';

@@ -1,4 +1,4 @@
-import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
+import { cache, requestAnimDict, sleep } from '@communityox/ox_lib/client';
 import { Vector3, Vector4 } from '@nativewrappers/fivem';
 import { OxPlayer } from 'player';
 import { DEATH_SYSTEM, DEBUG, HOSPITAL_BLIPS } from 'config';

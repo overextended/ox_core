@@ -140,6 +140,7 @@ export interface DbGroup {
   type?: string;
   colour?: number;
   hasAccount: boolean;
+  activePlayers: Set<number>;
 }
 
 export interface OxGroup extends DbGroup {

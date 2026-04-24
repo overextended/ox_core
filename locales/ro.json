@@ -10,5 +10,14 @@
   "withdraw": "Retragere",
   "deposit": "Depunere",
   "transfer": "Transfer bancar",
-  "invoice_payment": "Plată factură"
+  "invoice_payment": "Plată factură",
+  "hours": "ore",
+  "minutes": "minute",
+  "seconds": "secunde",
+  "ban_indefinite": "Acest ban nu va expira.",
+  "ban_expires_in": "Banul expiră în %s ${hours}, %s ${minutes}, și %s ${seconds}.",
+  "ban_notice": "⚠️ Ai fost banat de pe server! ⚠️\nBan emis la: %s\nMotiv: %s\n\n%s",
+  "userid_is_active": "ID-ul tău de utilizator (%s), este deja activ.",
+  "no_license": "Nu am putut să-ți verificăm licența jocului tău.",
+  "server_restarting": "Serverul este pe cale să se repornească. Nu poți să te conectezi în acest moment."
 }

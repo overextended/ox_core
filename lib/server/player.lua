@@ -84,6 +84,10 @@ function Ox.GetPlayerFromUserId(userId)
     return CreatePlayerInstance(exports.ox_core:GetPlayerFromUserId(userId))
 end
 
+function Ox.GetPlayerFromCharId(charId)
+    return CreatePlayerInstance(exports.ox_core:GetPlayerFromCharId(charId))
+end
+
 function Ox.GetPlayers(filter)
     local players = exports.ox_core:GetPlayers(filter)
 

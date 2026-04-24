@@ -1,4 +1,4 @@
-import { cache, onServerCallback, waitFor } from '@overextended/ox_lib/client';
+import { cache, onServerCallback, waitFor } from '@communityox/ox_lib/client';
 import { Vector3 } from '@nativewrappers/fivem';
 import { DEBUG } from '../config';
 

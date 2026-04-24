@@ -1,0 +1,23 @@
+{
+  "create_character": "إنشاء شخصية جديدة",
+  "firstname": "الاسم الأول",
+  "lastname": "اسم العائلة",
+  "gender": "الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "non_binary": "غير ثنائي",
+  "date_of_birth": "تاريخ الميلاد",
+  "withdraw": "سحب",
+  "deposit": "إيداع",
+  "transfer": "تحويل بنكي",
+  "invoice_payment": "دفع الفاتورة",
+  "hours": "ساعات",
+  "minutes": "دقائق",
+  "seconds": "ثوانٍ",
+  "ban_indefinite": "هذا الحظر ليس له مدة انتهاء.",
+  "ban_expires_in": "ينتهي الحظر خلال %s ${hours}، %s ${minutes}، و %s ${seconds}.",
+  "ban_notice": "⚠️ لقد تم حظرك من هذا الخادم! ⚠️\nتاريخ الحظر: %s\nالسبب: %s\n\n%s",
+  "userid_is_active": "معرّف المستخدم الخاص بك (%s) نشط بالفعل.",
+  "no_license": "تعذر علينا التحقق من رخصة لعبتك.",
+  "server_restarting": "الخادم على وشك إعادة التشغيل. لا يمكنك الانضمام في الوقت الحالي."
+}

@@ -1,0 +1,24 @@
+{
+    "create_character": "Új karakter létrehozása",
+    "firstname": "Keresztnév",
+    "lastname": "Vezetéknév",
+    "gender": "Neme",
+    "male": "Férfi",
+    "female": "Nő",
+    "non_binary": "Nem-bináris",
+    "date_of_birth": "Születési dátum",
+    "withdraw": "Felvevés",
+    "deposit": "Befizetés",
+    "transfer": "Banki átutalás",
+    "invoice_payment": "Számla kifizetése",
+    "hours": "Óra",
+    "minutes": "Perc",
+    "seconds": "Másodperc",
+    "ban_indefinite": "Ez a kitiltás nem fog lejárni.",
+    "ban_expires_in": "A tiltás le fog járni %s ${hours}, %s ${minutes}, és %s ${seconds} múlva.",
+    "ban_notice": "⚠️ Ki lettél tiltva erről a szerverről! ⚠️\nEkkor: %s\nIndok: %s\n\n%s",
+    "userid_is_active": "A te userId-d (%s), éppen használatban van.",
+    "no_license": "Nem bírtuk ellenőrizni a játék liszenszedet.",
+    "server_restarting": "A szerver mindjárt újra indul. Ezalatt az idő alatt nem lehet csatlakozni."
+  }
+  

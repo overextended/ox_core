@@ -1,4 +1,4 @@
-import { addCommand } from '@overextended/ox_lib/server';
+import { addCommand } from '@communityox/ox_lib/server';
 import type { Dict, OxLicense } from 'types';
 import { GetLicense, GetLicenses } from './db';
 

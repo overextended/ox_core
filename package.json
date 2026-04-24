@@ -1,7 +1,7 @@
 {
-  "name": "@overextended/ox_core",
+  "name": "@communityox/ox_core",
   "author": "Overextended",
-  "version": "1.5.1",
+  "version": "1.5.9",
   "license": "LGPL-3.0-or-later",
   "description": "A modern FiveM framework.",
   "type": "module",
@@ -16,26 +16,27 @@
     "./server": "./package/lib/server/index.js"
   },
   "scripts": {
-    "build": "node build.js",
-    "watch": "node build.js --watch",
-    "format": "pnpm biome format --write",
-    "lint": "pnpm biome lint --write"
+    "build": "bun run build.js",
+    "watch": "bun run build.js --watch",
+    "format": "bun run biome format --write",
+    "lint": "bun run biome lint --write"
   },
   "keywords": [
     "fivem",
     "ox_core",
     "ox",
-    "overextended"
+    "overextended",
+    "communityox"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/overextended/ox_core.git"
+    "url": "git+https://github.com/CommunityOx/ox_core.git"
   },
-  "bugs": "https://github.com/overextended/ox_core/issues",
+  "bugs": "https://github.com/CommunityOx/ox_core/issues",
   "devDependencies": {
     "@citizenfx/client": "latest",
     "@citizenfx/server": "latest",
-    "@overextended/fx-utils": "^0.0.4",
+    "@communityox/fx-utils": "^0.0.4",
     "@types/node": "^22.13.10",
     "esbuild": "^0.23.1",
     "tsc-alias": "^1.8.11",
@@ -45,7 +46,7 @@
     "@biomejs/biome": "^1.9.4",
     "@nativewrappers/fivem": "^0.0.86",
     "@nativewrappers/server": "^0.0.86",
-    "@overextended/ox_lib": "^3.29.0",
+    "@communityox/ox_lib": "^3.29.0",
     "mariadb": "^3.4.1"
   },
   "engines": {

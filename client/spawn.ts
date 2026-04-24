@@ -1,5 +1,5 @@
-import { sleep, waitFor } from '@overextended/ox_lib';
-import { cache, inputDialog } from '@overextended/ox_lib/client';
+import { sleep, waitFor } from '@communityox/ox_lib';
+import { cache, inputDialog } from '@communityox/ox_lib/client';
 import { OxPlayer } from './player';
 import { netEvent } from 'utils';
 import { CHARACTER_SELECT, SPAWN_LOCATION } from 'config';
@@ -51,6 +51,8 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
 
   StartSession();
 
+  if (!CHARACTER_SELECT) return;
+
   const character = characters[0];
   const [x, y, z] = [
     character?.x || SPAWN_LOCATION[0],
@@ -63,8 +65,6 @@ netEvent('ox:startCharacterSelect', async (_userId: number, characters: Characte
   FreezeEntityPosition(cache.ped, true);
   SetEntityCoordsNoOffset(cache.ped, x, y, z, true, true, false);
   SetEntityHeading(cache.ped, heading);
-
-  if (!CHARACTER_SELECT) return;
 
   SwitchOutPlayer(cache.ped, 1 | 8192, 1);
 

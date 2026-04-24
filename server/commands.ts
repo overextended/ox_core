@@ -1,4 +1,4 @@
-import { addCommand } from '@overextended/ox_lib/server';
+import { addCommand } from '@communityox/ox_lib/server';
 import { OxPlayer } from 'player/class';
 import { OxVehicle } from 'vehicle/class';
 

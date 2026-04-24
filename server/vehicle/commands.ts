@@ -1,6 +1,6 @@
-import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
+import { addCommand, triggerClientCallback } from '@communityox/ox_lib/server';
 import { OxVehicle } from './class';
-import { sleep } from '@overextended/ox_lib';
+import { sleep } from '@communityox/ox_lib';
 import { CreateVehicle } from 'vehicle';
 import { OxPlayer } from 'player/class';
 

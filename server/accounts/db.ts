@@ -1,4 +1,4 @@
-import { getRandomInt } from '@overextended/ox_lib';
+import { getRandomInt } from '@communityox/ox_lib';
 import { OxAccount } from 'accounts/class';
 import { type Connection, GetConnection, db } from 'db';
 import { OxPlayer } from 'player/class';

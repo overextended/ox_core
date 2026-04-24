@@ -1,6 +1,6 @@
-import { onClientCallback } from '@overextended/ox_lib/server';
+import { onClientCallback } from '@communityox/ox_lib/server';
 import { OxPlayer } from './class';
-import { sleep } from '@overextended/ox_lib';
+import { sleep } from '@communityox/ox_lib';
 import { db } from 'db';
 import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
@@ -128,4 +128,20 @@ onClientCallback('ox:getLicense', (playerId, licenseName: string, target?: numbe
   const player = OxPlayer.get(target || playerId);
 
   if (player) return licenseName ? player.getLicense(licenseName) : player.getLicenses();
+});
+
+on('txAdmin:events:playerHealed', ({ target, author }: { target: number, author: string }) => {
+  if (target === -1) {
+    const players = OxPlayer.getAll();
+
+    for (const id in players) {
+      const state = Player(id).state;
+      
+      state.set('isDead', false, true);
+    }
+  } else {
+    const state = Player(target).state;
+    
+    state.set('isDead', false, true);
+  }  
 });

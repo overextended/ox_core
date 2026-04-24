@@ -53,8 +53,8 @@ end
 ---@class OxServer
 local Ox = Ox
 
-function Ox.GetVehicle(entityId)
-    return CreateVehicleInstance(exports.ox_core:GetVehicle(entityId))
+function Ox.GetVehicle(handle)
+    return type(handle) == 'string' and Ox.GetVehicleFromVin(handle) or Ox.GetVehicleFromEntity(handle)
 end
 
 function Ox.GetVehicleFromEntity(entityId)
@@ -67,6 +67,20 @@ end
 
 function Ox.GetVehicleFromVin(vin)
     return CreateVehicleInstance(exports.ox_core:GetVehicleFromVin(vin))
+end
+
+function Ox.GetVehicles(filter)
+    local vehicles = exports.ox_core:GetVehicles(filter)
+
+    for i = 1, #vehicles do
+        vehicles[i] = CreateVehicleInstance(vehicles[i])
+    end
+
+    return vehicles
+end
+
+function Ox.GetVehicleFromFilter(filter)
+    return CreateVehicleInstance(exports.ox_core:GetVehicleFromFilter(filter))
 end
 
 function Ox.CreateVehicle(data, coords, heading)

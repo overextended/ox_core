@@ -70,6 +70,10 @@ export function GetPlayerFromUserId(userId: number) {
   return CreatePlayerInstance(exports.ox_core.GetPlayerFromUserId(userId));
 }
 
+export function GetPlayerFromCharId(charId: number) {
+  return CreatePlayerInstance(exports.ox_core.GetPlayerFromCharId(charId));
+}
+
 export function GetPlayers(filter?: Dict<any>): OxPlayer[] {
   const players = exports.ox_core.GetPlayers(filter);
 

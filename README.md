@@ -2,17 +2,17 @@
 
 A modern FiveM framework.
 
-![](https://img.shields.io/github/downloads/overextended/ox_core/total?logo=github)
-![](https://img.shields.io/github/downloads/overextended/ox_core/latest/total?logo=github)
-![](https://img.shields.io/github/contributors/overextended/ox_core?logo=github)
-![](https://img.shields.io/github/v/release/overextended/ox_core?logo=github) 
+![](https://img.shields.io/github/downloads/communityox/ox_core/total?logo=github)
+![](https://img.shields.io/github/downloads/communityox/ox_core/latest/total?logo=github)
+![](https://img.shields.io/github/contributors/communityox/ox_core?logo=github)
+![](https://img.shields.io/github/v/release/communityox/ox_core?logo=github) 
 
 ## 🔗 Links
-- 📚 [Documentation](https://overextended.dev/ox_core)
+- 📚 [Documentation](https://coxdocs.dev/ox_core)
   - For installation, setup, and everything else.
-- 🧾 [txAdmin recipe](https://github.com/overextended/txAdminRecipe)
+- 🧾 [txAdmin recipe](https://github.com/communityox/txAdminRecipe)
   - Install and configure ox_core in minutes.
-- 📦 [npm](https://www.npmjs.com/package/@overextended/ox_core)
+- 📦 [npm](https://www.npmjs.com/package/@communityox/ox_core)
   - Use our npm package to create JavaScript resources using ox_core.
 - 🛤️ [Cfx.re](https://forum.cfx.re/t/pre-release-ox-core-player-and-vehicle-management/5253275)
   - See our release thread for discussions or other information.

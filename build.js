@@ -1,6 +1,6 @@
 //@ts-check
 
-import { createBuilder, createFxmanifest } from '@overextended/fx-utils';
+import { createBuilder, createFxmanifest } from '@communityox/fx-utils';
 import { spawn } from 'child_process';
 
 const watch = process.argv.includes('--watch');
