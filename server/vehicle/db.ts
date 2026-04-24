@@ -1,6 +1,6 @@
-import { db } from '../db';
-import type { VehicleProperties } from '@communityox/ox_lib';
-import { DEFAULT_VEHICLE_STORE } from 'config';
+import { db } from "../db";
+import type { VehicleProperties } from "@overextended/ox_lib";
+import { DEFAULT_VEHICLE_STORE } from "config";
 
 export type VehicleRow = {
   id: number;
@@ -13,25 +13,25 @@ export type VehicleRow = {
 };
 
 if (DEFAULT_VEHICLE_STORE)
-  setImmediate(() => db.query('UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL', [DEFAULT_VEHICLE_STORE]));
+  setImmediate(() => db.query("UPDATE vehicles SET `stored` = ? WHERE `stored` IS NULL", [DEFAULT_VEHICLE_STORE]));
 
 export async function IsPlateAvailable(plate: string) {
-  return !(await db.exists('SELECT 1 FROM vehicles WHERE plate = ?', [plate]));
+  return !(await db.exists("SELECT 1 FROM vehicles WHERE plate = ?", [plate]));
 }
 
 export async function IsVinAvailable(plate: string) {
-  return !(await db.exists('SELECT 1 FROM vehicles WHERE vin = ?', [plate]));
+  return !(await db.exists("SELECT 1 FROM vehicles WHERE vin = ?", [plate]));
 }
 
-export async function GetStoredVehicleFromId(id: number | string, column = 'id') {
+export async function GetStoredVehicleFromId(id: number | string, column = "id") {
   const row = await db.row<VehicleRow>(
     `SELECT id, owner, \`group\`, plate, vin, model, data FROM vehicles WHERE ${column} = ? AND \`stored\` IS NOT NULL`,
     [id],
   );
 
-  if (row && typeof row.data === 'string') {
+  if (row && typeof row.data === "string") {
     console.warn(
-      'vehicle.data was selected from the database as a string rather than JSON.\nLet us know if this warning occurred..',
+      "vehicle.data was selected from the database as a string rather than JSON.\nLet us know if this warning occurred..",
     );
     row.data = JSON.parse(row.data);
   }
@@ -49,7 +49,7 @@ export function SaveVehicleData(
   values: any, // -.-
   batch?: boolean,
 ) {
-  const query = 'UPDATE vehicles SET `stored` = ?, data = ? WHERE id = ?';
+  const query = "UPDATE vehicles SET `stored` = ?, data = ? WHERE id = ?";
 
   return batch ? db.batch(query, values) : db.update(query, values);
 }
@@ -65,11 +65,11 @@ export function CreateNewVehicle(
   stored: string | null,
 ) {
   return db.insert(
-    'INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, `stored`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    "INSERT INTO vehicles (plate, vin, owner, `group`, model, class, data, `stored`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     [plate, vin, owner, group, model, vehicleClass, JSON.stringify(data), stored],
   );
 }
 
 export async function DeleteVehicle(id: number) {
-  return (await db.update('DELETE FROM vehicles WHERE id = ?', [id])) === 1;
+  return (await db.update("DELETE FROM vehicles WHERE id = ?", [id])) === 1;
 }

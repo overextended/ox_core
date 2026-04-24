@@ -1,7 +1,7 @@
-import { addCommand } from '@communityox/ox_lib/server';
-import { GetStatuses } from './db';
-import { OxPlayer } from './class';
-import type { Dict, OxStatus } from 'types';
+import { addCommand } from "@overextended/ox_lib/server";
+import { GetStatuses } from "./db";
+import { OxPlayer } from "./class";
+import type { Dict, OxStatus } from "types";
 
 export const Statuses: Dict<OxStatus> = {};
 
@@ -29,7 +29,7 @@ async function LoadStatuses() {
 
 setImmediate(LoadStatuses);
 
-addCommand('reloadstatuses', LoadStatuses, {
-  help: 'Reload statuses from the database.',
-  restricted: 'group.admin',
+addCommand("reloadstatuses", LoadStatuses, {
+  help: "Reload statuses from the database.",
+  restricted: "group.admin",
 });

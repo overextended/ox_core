@@ -1,22 +1,22 @@
 //@ts-check
 
-import { createBuilder, createFxmanifest } from '@communityox/fx-utils';
-import { spawn } from 'child_process';
+import { createBuilder, createFxmanifest } from "@overextended/fx-utils";
+import { spawn } from "child_process";
 
-const watch = process.argv.includes('--watch');
+const watch = process.argv.includes("--watch");
 
 function exec(command) {
   return new Promise((resolve) => {
-    const child = spawn(command, { stdio: 'inherit', shell: true });
+    const child = spawn(command, { stdio: "inherit", shell: true });
 
-    child.on('exit', (code) => {
+    child.on("exit", (code) => {
       resolve(code === 0);
     });
   });
 }
 
 if (!watch) {
-  const tsc = await exec(`tsc --build ${watch ? '--watch --preserveWatchOutput' : ''} && tsc-alias`);
+  const tsc = await exec(`tsc --build ${watch ? "--watch --preserveWatchOutput" : ""} && tsc-alias`);
 
   if (!tsc) process.exit(0);
 }
@@ -24,24 +24,24 @@ if (!watch) {
 createBuilder(
   watch,
   {
-    dropLabels: !watch ? ['DEV'] : undefined,
+    dropLabels: !watch ? ["DEV"] : undefined,
   },
   [
     {
-      name: 'server',
+      name: "server",
       options: {
-        platform: 'node',
-        target: ['node22'],
-        format: 'cjs',
+        platform: "node",
+        target: ["node22"],
+        format: "cjs",
         entryPoints: [`./server/index.ts`],
       },
     },
     {
-      name: 'client',
+      name: "client",
       options: {
-        platform: 'browser',
-        target: ['es2023'],
-        format: 'iife',
+        platform: "browser",
+        target: ["es2023"],
+        format: "iife",
         entryPoints: [`./client/index.ts`],
       },
     },
@@ -50,9 +50,9 @@ createBuilder(
     await createFxmanifest({
       client_scripts: [files.client],
       server_scripts: [files.server],
-      files: ['lib/init.lua', 'lib/client/**.lua', 'locales/*.json', 'common/data/*.json'],
-      dependencies: ['/server:12913', '/onesync'],
-      metadata: { node_version: '22' }
+      files: ["lib/init.lua", "lib/client/**.lua", "locales/*.json", "common/data/*.json"],
+      dependencies: ["/server:12913", "/onesync"],
+      metadata: { node_version: "22" },
     });
-  }
+  },
 );

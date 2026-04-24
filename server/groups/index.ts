@@ -1,10 +1,10 @@
-import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from '@communityox/ox_lib/server';
-import { InsertGroup, RemoveGroup, SelectGroups } from './db';
-import { OxPlayer } from 'player/class';
-import type { Dict, OxGroup, DbGroup, CreateGroupProperties, OxAccountRole } from 'types';
-import { GetGroupPermissions } from '../../common';
-import { GetGroupAccount } from 'accounts';
-import { CreateNewAccount } from 'accounts/db';
+import { addAce, addCommand, addPrincipal, removeAce, removePrincipal } from "@overextended/ox_lib/server";
+import { InsertGroup, RemoveGroup, SelectGroups } from "./db";
+import { OxPlayer } from "player/class";
+import type { Dict, OxGroup, DbGroup, CreateGroupProperties, OxAccountRole } from "types";
+import { GetGroupPermissions } from "../../common";
+import { GetGroupAccount } from "accounts";
+import { CreateNewAccount } from "accounts/db";
 
 const groups: Dict<OxGroup> = {};
 GlobalState.groups = [];
@@ -35,12 +35,12 @@ export function GetGroupActivePlayersByType(type: string) {
   }, [] as number[]);
 }
 
-export function SetGroupPermission(groupName: string, grade: number, permission: string, value: 'allow' | 'deny') {
+export function SetGroupPermission(groupName: string, grade: number, permission: string, value: "allow" | "deny") {
   const permissions = GetGroupPermissions(groupName);
 
   if (!permissions[grade]) permissions[grade] = {};
 
-  permissions[grade][permission] = value === 'allow' ? true : false;
+  permissions[grade][permission] = value === "allow" ? true : false;
   GlobalState[`group.${groupName}:permissions`] = permissions;
 }
 
@@ -104,13 +104,10 @@ export async function CreateGroup(data: CreateGroupProperties) {
   if (groups[data.name]) throw new Error(`Cannot create OxGroup<${data.name}> (group already exists with that name)`);
 
   const grades = data.grades.map((grade) => grade.label);
-  const accountRoles = data.grades.reduce(
-    (acc, grade, index) => {
-      if (grade.accountRole) acc[index + 1] = grade.accountRole;
-      return acc;
-    },
-    {} as Dict<OxAccountRole>,
-  );
+  const accountRoles = data.grades.reduce((acc, grade, index) => {
+    if (grade.accountRole) acc[index + 1] = grade.accountRole;
+    return acc;
+  }, {} as Dict<OxAccountRole>);
 
   const group: DbGroup = {
     ...data,
@@ -171,13 +168,13 @@ async function LoadGroups() {
 
 setImmediate(LoadGroups);
 
-addCommand('reloadgroups', LoadGroups, {
-  help: 'Reload groups from the database.',
-  restricted: 'group.admin',
+addCommand("reloadgroups", LoadGroups, {
+  help: "Reload groups from the database.",
+  restricted: "group.admin",
 });
 
 addCommand<{ target: string; group: string; grade?: number }>(
-  'setgroup',
+  "setgroup",
   async (playerId, args, raw) => {
     const player = OxPlayer.get(args.target);
 
@@ -185,24 +182,24 @@ addCommand<{ target: string; group: string; grade?: number }>(
   },
   {
     help: `Update a player's grade for a group.`,
-    restricted: 'group.admin',
+    restricted: "group.admin",
     params: [
-      { name: 'target', paramType: 'playerId' },
-      { name: 'group', paramType: 'string' },
+      { name: "target", paramType: "playerId" },
+      { name: "group", paramType: "string" },
       {
-        name: 'grade',
-        paramType: 'number',
-        help: 'The new grade to set. Set to 0 or omit to remove the group.',
+        name: "grade",
+        paramType: "number",
+        help: "The new grade to set. Set to 0 or omit to remove the group.",
         optional: true,
       },
     ],
   },
 );
 
-exports('GetGroupsByType', GetGroupsByType);
-exports('SetGroupPermission', SetGroupPermission);
-exports('RemoveGroupPermission', RemoveGroupPermission);
-exports('CreateGroup', CreateGroup);
-exports('DeleteGroup', DeleteGroup);
-exports('GetGroupActivePlayers', GetGroupActivePlayers);
-exports('GetGroupActivePlayersByType', GetGroupActivePlayersByType);
+exports("GetGroupsByType", GetGroupsByType);
+exports("SetGroupPermission", SetGroupPermission);
+exports("RemoveGroupPermission", RemoveGroupPermission);
+exports("CreateGroup", CreateGroup);
+exports("DeleteGroup", DeleteGroup);
+exports("GetGroupActivePlayers", GetGroupActivePlayers);
+exports("GetGroupActivePlayersByType", GetGroupActivePlayersByType);

@@ -1,13 +1,13 @@
-import { OxVehicle, Vec3 } from './class';
-import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, type VehicleRow } from './db';
-import { GetVehicleData } from '../../common/vehicles';
-import { DEBUG } from '../../common/config';
-import './class';
-import './commands';
-import './events';
-import type { VehicleProperties } from '@communityox/ox_lib/server';
+import { OxVehicle, Vec3 } from "./class";
+import { CreateNewVehicle, GetStoredVehicleFromId, IsPlateAvailable, type VehicleRow } from "./db";
+import { GetVehicleData } from "../../common/vehicles";
+import { DEBUG } from "../../common/config";
+import "./class";
+import "./commands";
+import "./events";
+import type { VehicleProperties } from "@overextended/ox_lib/server";
 
-if (DEBUG) import('./parser');
+if (DEBUG) import("./parser");
 
 export interface CreateVehicleData {
   model: string;
@@ -23,7 +23,7 @@ export async function CreateVehicle(
   heading?: number,
   invokingScript = GetInvokingResource(),
 ) {
-  if (typeof data === 'string') data = { model: data };
+  if (typeof data === "string") data = { model: data };
 
   const vehicleData = GetVehicleData(data.model as string);
 
@@ -99,12 +99,12 @@ export async function CreateVehicle(
 
 export async function SpawnVehicle(id: number | string, coords?: Vec3, heading?: number) {
   const invokingScript = GetInvokingResource();
-  const vehicle = await GetStoredVehicleFromId(id, typeof id === 'string' ? 'vin' : 'id');
+  const vehicle = await GetStoredVehicleFromId(id, typeof id === "string" ? "vin" : "id");
 
   if (!vehicle) return;
 
   return await CreateVehicle(vehicle, coords, heading, invokingScript);
 }
 
-exports('CreateVehicle', CreateVehicle);
-exports('SpawnVehicle', SpawnVehicle);
+exports("CreateVehicle", CreateVehicle);
+exports("SpawnVehicle", SpawnVehicle);

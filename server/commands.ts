@@ -1,15 +1,15 @@
-import { addCommand } from '@communityox/ox_lib/server';
-import { OxPlayer } from 'player/class';
-import { OxVehicle } from 'vehicle/class';
+import { addCommand } from "@overextended/ox_lib/server";
+import { OxPlayer } from "player/class";
+import { OxVehicle } from "vehicle/class";
 
 addCommand(
-  'saveall',
+  "saveall",
   async () => {
     OxPlayer.saveAll();
     OxVehicle.saveAll();
   },
   {
-    help: 'Saves all players and vehicles to the database.',
-    restricted: 'group.admin',
+    help: "Saves all players and vehicles to the database.",
+    restricted: "group.admin",
   },
 );

@@ -1,6 +1,6 @@
-import { addCommand } from '@communityox/ox_lib/server';
-import type { Dict, OxLicense } from 'types';
-import { GetLicense, GetLicenses } from './db';
+import { addCommand } from "@overextended/ox_lib/server";
+import type { Dict, OxLicense } from "types";
+import { GetLicense, GetLicenses } from "./db";
 
 export const Licenses: Dict<OxLicense> = {};
 
@@ -21,10 +21,10 @@ async function LoadLicenses() {
 
 setImmediate(LoadLicenses);
 
-addCommand('reloadlicenses', LoadLicenses, {
-  help: 'Reload licenses from the database.',
-  restricted: 'group.admin',
+addCommand("reloadlicenses", LoadLicenses, {
+  help: "Reload licenses from the database.",
+  restricted: "group.admin",
 });
 
-exports('GetLicenses', GetLicenses);
-exports('GetLicense', GetLicense);
+exports("GetLicenses", GetLicenses);
+exports("GetLicense", GetLicense);

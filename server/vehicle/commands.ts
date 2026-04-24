@@ -1,8 +1,8 @@
-import { addCommand, triggerClientCallback } from '@communityox/ox_lib/server';
-import { OxVehicle } from './class';
-import { sleep } from '@communityox/ox_lib';
-import { CreateVehicle } from 'vehicle';
-import { OxPlayer } from 'player/class';
+import { addCommand, triggerClientCallback } from "@overextended/ox_lib/server";
+import { OxVehicle } from "./class";
+import { sleep } from "@overextended/ox_lib";
+import { CreateVehicle } from "vehicle";
+import { OxPlayer } from "player/class";
 
 export function DeleteCurrentVehicle(ped: number) {
   const entity = GetVehiclePedIsIn(ped, false);
@@ -13,12 +13,12 @@ export function DeleteCurrentVehicle(ped: number) {
 
   if (!vehicle) return DeleteEntity(entity);
 
-  vehicle.setStored('impound', true);
+  vehicle.setStored("impound", true);
   vehicle.remove();
 }
 
 addCommand<{ model: string; owner?: number }>(
-  'car',
+  "car",
   async (playerId, args, raw) => {
     const ped = playerId && GetPlayerPed(playerId as any);
 
@@ -39,28 +39,28 @@ addCommand<{ model: string; owner?: number }>(
     SetPedIntoVehicle(ped, vehicle.entity, -1);
   },
   {
-    help: 'Spawn a vehicle with the given model.',
+    help: "Spawn a vehicle with the given model.",
     params: [
-      { name: 'model', paramType: 'string', help: 'The vehicle archetype.' },
+      { name: "model", paramType: "string", help: "The vehicle archetype." },
       {
-        name: 'owner',
-        paramType: 'playerId',
+        name: "owner",
+        paramType: "playerId",
         help: "Create a persistent vehicle owned by the target's active character.",
         optional: true,
       },
     ],
-    restricted: 'group.admin',
+    restricted: "group.admin",
   },
 );
 
 addCommand<{ radius?: number; owned?: string }>(
-  'dv',
+  "dv",
   async (playerId, args, raw) => {
     const ped = GetPlayerPed(playerId as any);
 
     if (!args.radius) return DeleteCurrentVehicle(ped);
 
-    const vehicles = await triggerClientCallback<number[]>('ox:getNearbyVehicles', playerId, args.radius);
+    const vehicles = await triggerClientCallback<number[]>("ox:getNearbyVehicles", playerId, args.radius);
 
     if (!vehicles) return;
 
@@ -69,17 +69,17 @@ addCommand<{ radius?: number; owned?: string }>(
 
       if (!vehicle) DeleteEntity(NetworkGetEntityFromNetworkId(netId));
       else if (args.owned) {
-        vehicle.setStored('impound', true);
+        vehicle.setStored("impound", true);
         vehicle.remove();
       }
     });
   },
   {
-    help: 'Deletes your current vehicle, or any vehicles within range.',
+    help: "Deletes your current vehicle, or any vehicles within range.",
     params: [
-      { name: 'radius', paramType: 'number', help: 'The radius to despawn vehicles (defaults to 2).', optional: true },
-      { name: 'owned', help: 'Include player-owned vehicles.', optional: true },
+      { name: "radius", paramType: "number", help: "The radius to despawn vehicles (defaults to 2).", optional: true },
+      { name: "owned", help: "Include player-owned vehicles.", optional: true },
     ],
-    restricted: 'group.admin',
+    restricted: "group.admin",
   },
 );
