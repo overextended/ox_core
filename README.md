@@ -8,7 +8,7 @@ A modern FiveM framework.
 ![](https://img.shields.io/github/v/release/overextended/ox_core?logo=github) 
 
 ## 🔗 Links
-- 📚 [Documentation](https://coxdocs.dev/ox_core)
+- 📚 [Documentation](https://overextended.dev/ox_core)
   - For installation, setup, and everything else.
 - 🧾 [txAdmin recipe](https://github.com/overextended/txAdminRecipe)
   - Install and configure ox_core in minutes.

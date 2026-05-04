@@ -116,6 +116,8 @@ export function GetCharIdFromStateId(stateId: string) {
 }
 
 export async function UpdateUserTokens(userId: number, tokens: string[]) {
+  if (tokens.length === 0) return;
+
   const parameters = tokens.map((token) => [userId, token]);
 
   await db.batch('INSERT IGNORE INTO user_tokens (userId, token) VALUES (?, ?)', parameters);
