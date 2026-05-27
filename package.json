@@ -34,22 +34,22 @@
   },
   "bugs": "https://github.com/overextended/ox_core/issues",
   "devDependencies": {
-    "@citizenfx/client": "latest",
-    "@citizenfx/server": "latest",
+    "@citizenfx/client": "2.0.29753-1",
+    "@citizenfx/server": "2.0.29753-1",
     "@overextended/fx-utils": "^0.0.6",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22",
     "esbuild": "^0.23.1",
-    "tsc-alias": "^1.8.11",
-    "typescript": "^5.8.2"
+    "tsc-alias": "^1.8.17",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
     "@nativewrappers/fivem": "^0.0.86",
     "@nativewrappers/server": "^0.0.86",
-    "@overextended/ox_lib": "^3.32.6",
-    "mariadb": "^3.4.1"
+    "@overextended/ox_lib": "^3.35.0",
+    "mariadb": "^3.5.2"
   },
   "engines": {
-    "node": ">=22.9.0"
+    "node": ">=22.22.0"
   }
 }
