@@ -33,9 +33,9 @@ export async function InsertGroup({ name, label, type, colour, hasAccount, grade
   const insertedGrades = (await conn.batch(
     'INSERT INTO `ox_group_grades` (`group`, `grade`, `label`, `accountRole`) VALUES (?, ?, ?, ?)',
     grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]]),
-  )) as UpsertResult;
+  )) as UpsertResult[];
 
-  return insertedGrades.affectedRows > 0;
+  return insertedGrades.reduce((acc, curr) => acc + curr.affectedRows, 0) > 0
 }
 
 export function RemoveGroup(groupName: string) {

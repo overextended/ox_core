@@ -103,11 +103,25 @@ function SetupGroup(data: DbGroup) {
 export async function CreateGroup(data: CreateGroupProperties) {
   if (groups[data.name]) throw new Error(`Cannot create OxGroup<${data.name}> (group already exists with that name)`);
 
-  const grades = data.grades.map((grade) => grade.label);
-  const accountRoles = data.grades.reduce((acc, grade, index) => {
-    if (grade.accountRole) acc[index + 1] = grade.accountRole;
-    return acc;
-  }, {} as Dict<OxAccountRole>);
+  if (data.label.length > 50) {
+    throw new Error(`Cannot create OxGroup<${data.name}> (label is too long)`)
+  }
+
+  const grades = data.grades
+    .filter((grade) => grade.label)
+    .map((grade) => grade.label);
+
+  const accountRoles = data.grades.reduce(
+    (acc, grade, index) => {
+      if (grade.accountRole) acc[index + 1] = grade.accountRole;
+      return acc;
+    },
+    {} as Dict<OxAccountRole>,
+  );
+
+  if (grades.length === 0) {
+    throw new Error(`Cannot create OxGroup<${data.name}> (missing at least one grade)`)
+  }
 
   const group: DbGroup = {
     ...data,
