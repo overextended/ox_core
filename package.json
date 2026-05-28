@@ -46,7 +46,7 @@
     "@biomejs/biome": "^1.9.4",
     "@nativewrappers/fivem": "^0.0.86",
     "@nativewrappers/server": "^0.0.86",
-    "@overextended/ox_lib": "^3.35.0",
+    "@overextended/ox_lib": "^3.36.0",
     "mariadb": "^3.5.2"
   },
   "engines": {

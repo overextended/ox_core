@@ -198,11 +198,11 @@ addCommand<{ target: string; group: string; grade?: number }>(
     help: `Update a player's grade for a group.`,
     restricted: "group.admin",
     params: [
-      { name: "target", paramType: "playerId" },
-      { name: "group", paramType: "string" },
+      { name: "target", type: "playerId" },
+      { name: "group", type: "string" },
       {
         name: "grade",
-        paramType: "number",
+        type: "number",
         help: "The new grade to set. Set to 0 or omit to remove the group.",
         optional: true,
       },

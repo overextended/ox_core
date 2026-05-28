@@ -41,10 +41,10 @@ addCommand<{ model: string; owner?: number }>(
   {
     help: "Spawn a vehicle with the given model.",
     params: [
-      { name: "model", paramType: "string", help: "The vehicle archetype." },
+      { name: "model", type: "string", help: "The vehicle archetype." },
       {
         name: "owner",
-        paramType: "playerId",
+        type: "playerId",
         help: "Create a persistent vehicle owned by the target's active character.",
         optional: true,
       },
@@ -77,7 +77,7 @@ addCommand<{ radius?: number; owned?: string }>(
   {
     help: "Deletes your current vehicle, or any vehicles within range.",
     params: [
-      { name: "radius", paramType: "number", help: "The radius to despawn vehicles (defaults to 2).", optional: true },
+      { name: "radius", type: "number", help: "The radius to despawn vehicles (defaults to 2).", optional: true },
       { name: "owned", help: "Include player-owned vehicles.", optional: true },
     ],
     restricted: "group.admin",

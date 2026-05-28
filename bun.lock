@@ -8,14 +8,14 @@
         "@biomejs/biome": "^1.9.4",
         "@nativewrappers/fivem": "^0.0.86",
         "@nativewrappers/server": "^0.0.86",
-        "@overextended/ox_lib": "^3.35.0",
+        "@overextended/ox_lib": "^3.36.0",
         "mariadb": "^3.5.2",
       },
       "devDependencies": {
         "@citizenfx/client": "2.0.29753-1",
         "@citizenfx/server": "2.0.29753-1",
         "@overextended/fx-utils": "^0.0.6",
-        "@types/node": "^22.0.0",
+        "@types/node": "^22",
         "esbuild": "^0.23.1",
         "tsc-alias": "^1.8.17",
         "typescript": "^5.9.3",
@@ -107,7 +107,7 @@
 
     "@overextended/fx-utils": ["@overextended/fx-utils@0.0.6", "", { "dependencies": { "esbuild": "^0.23.1", "tsc-alias": "^1.8.10" }, "bin": { "fxdoc": "dist/bin/fxdoc.js" } }, "sha512-2/9obBE7P6V1fcQU9pXE301+aPK0TPcY4mhoFv/m3Xro51p6vuFIu2mPfMdW1LGn1B7uSqH2mHTQIcjZu1Remw=="],
 
-    "@overextended/ox_lib": ["@overextended/ox_lib@3.35.0", "", { "dependencies": { "@overextended/core": "^0.2.5", "csstype": "^3.2.3", "fast-printf": "^1.6.10", "typescript": "^6.0.3" } }, "sha512-O9LWjPN9nhUvyJnsUGCpfxFpxt5kXy+4vQ6xbkAVR0Yx+ybnrQGoRaVFKTwOLlSRMhor8EJvnrmNe4u/jV5zgw=="],
+    "@overextended/ox_lib": ["@overextended/ox_lib@3.36.0", "", { "dependencies": { "@overextended/core": "^0.2.5", "csstype": "^3.2.3", "fast-printf": "^1.6.10", "typescript": "^6.0.3" } }, "sha512-Yibd99lCTLaHfAgQ7rDRmPkFCAO/coTer/AdLdM9KmEBu+Ff70ioFgDGf22dXgTOcymVyRYQaDT3P/iRpjlJMQ=="],
 
     "@types/geojson": ["@types/geojson@7946.0.16", "", {}, "sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg=="],
 
