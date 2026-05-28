@@ -9,10 +9,7 @@ function UpdateStatuses() {
     const curValue = OxPlayer.getStatus(name) ?? status.default;
     const newValue = curValue + status.onTick;
 
-    OxPlayer.setStatus(
-      name,
-      newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat((newValue).toPrecision(8)),
-    );
+    OxPlayer.setStatus(name, newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat(newValue.toPrecision(8)));
   }
 
   emit('ox:statusTick', OxPlayer.getStatuses());

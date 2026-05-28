@@ -1,9 +1,9 @@
-import { waitFor } from "@overextended/ox_lib";
-import { pool } from "./pool";
-import type { Dict } from "types";
-import type { PoolConnection, QueryOptions } from "mariadb";
+import { waitFor } from '@overextended/ox_lib';
+import { pool } from './pool';
+import type { Dict } from 'types';
+import type { PoolConnection, QueryOptions } from 'mariadb';
 
-(Symbol as any).dispose ??= Symbol("Symbol.dispose");
+(Symbol as any).dispose ??= Symbol('Symbol.dispose');
 
 export interface MySqlRow<T = string | number | boolean | Dict<any> | undefined> {
   [column: string]: T;
@@ -80,7 +80,7 @@ export class Connection {
 
 export async function GetConnection() {
   while (!pool) {
-    await waitFor(() => pool, "Failed to acquire database connection.", 30000);
+    await waitFor(() => pool, 'Failed to acquire database connection.', 30000);
   }
 
   return new Connection(await pool.getConnection());

@@ -1,14 +1,14 @@
-import { sleep, waitFor } from "@overextended/ox_lib";
-import { cache, inputDialog } from "@overextended/ox_lib/client";
-import { OxPlayer } from "./player";
-import { netEvent } from "utils";
-import { CHARACTER_SELECT, SPAWN_LOCATION } from "config";
-import locale from "../common/locales";
-import type { Character, NewCharacter } from "types";
+import { sleep, waitFor } from '@overextended/ox_lib';
+import { cache, inputDialog } from '@overextended/ox_lib/client';
+import { OxPlayer } from './player';
+import { netEvent } from 'utils';
+import { CHARACTER_SELECT, SPAWN_LOCATION } from 'config';
+import locale from '../common/locales';
+import type { Character, NewCharacter } from 'types';
 
 DoScreenFadeOut(0);
 NetworkStartSoloTutorialSession();
-setTimeout(() => emitNet("ox:playerJoined"));
+setTimeout(() => emitNet('ox:playerJoined'));
 
 async function StartSession() {
   if (IsPlayerSwitchInProgress()) {
@@ -42,11 +42,11 @@ async function StartSession() {
   SetPlayerHealthRechargeMultiplier(cache.playerId, 0.0);
 }
 
-netEvent("ox:startCharacterSelect", async (_userId: number, characters: Character[]) => {
+netEvent('ox:startCharacterSelect', async (_userId: number, characters: Character[]) => {
   if (OxPlayer.isLoaded) {
     OxPlayer.isLoaded = false;
 
-    emit("ox:playerLogout");
+    emit('ox:playerLogout');
   }
 
   StartSession();
@@ -73,55 +73,55 @@ netEvent("ox:startCharacterSelect", async (_userId: number, characters: Characte
   DoScreenFadeIn(200);
 
   if (character) {
-    return emitNet("ox:setActiveCharacter", character.charId);
+    return emitNet('ox:setActiveCharacter', character.charId);
   }
 
   const input = await inputDialog(
-    locale("create_character"),
+    locale('create_character'),
     [
       {
-        type: "input",
+        type: 'input',
         required: true,
-        icon: "user-pen",
-        label: locale("firstname"),
-        placeholder: "John",
+        icon: 'user-pen',
+        label: locale('firstname'),
+        placeholder: 'John',
       },
       {
-        type: "input",
+        type: 'input',
         required: true,
-        icon: "user-pen",
-        label: locale("lastname"),
-        placeholder: "Smith",
+        icon: 'user-pen',
+        label: locale('lastname'),
+        placeholder: 'Smith',
       },
       {
-        type: "select",
+        type: 'select',
         required: true,
-        icon: "circle-user",
-        label: locale("gender"),
+        icon: 'circle-user',
+        label: locale('gender'),
         options: [
           {
-            label: locale("male"),
-            value: "male",
+            label: locale('male'),
+            value: 'male',
           },
           {
-            label: locale("female"),
-            value: "female",
+            label: locale('female'),
+            value: 'female',
           },
           {
-            label: locale("non_binary"),
-            value: "non_binary",
+            label: locale('non_binary'),
+            value: 'non_binary',
           },
         ],
       },
       {
-        type: "date",
+        type: 'date',
         required: true,
-        icon: "calendar-days",
-        label: locale("date_of_birth"),
-        format: "YYYY-MM-DD",
-        min: "1900-01-01",
-        max: "2006-01-01",
-        default: "2006-01-01",
+        icon: 'calendar-days',
+        label: locale('date_of_birth'),
+        format: 'YYYY-MM-DD',
+        min: '1900-01-01',
+        max: '2006-01-01',
+        default: '2006-01-01',
       },
     ],
     {
@@ -131,7 +131,7 @@ netEvent("ox:startCharacterSelect", async (_userId: number, characters: Characte
 
   if (!input) return;
 
-  emitNet("ox:setActiveCharacter", <NewCharacter>{
+  emitNet('ox:setActiveCharacter', <NewCharacter>{
     firstName: input[0] as string,
     lastName: input[1] as string,
     gender: input[2] as string,
@@ -139,13 +139,13 @@ netEvent("ox:startCharacterSelect", async (_userId: number, characters: Characte
   });
 });
 
-netEvent("ox:setActiveCharacter", async (character: Character) => {
+netEvent('ox:setActiveCharacter', async (character: Character) => {
   if (CHARACTER_SELECT) {
     SwitchInPlayer(PlayerPedId());
     SetGameplayCamRelativeHeading(0);
   }
 
-  await waitFor(() => (IsScreenFadedIn() && !IsPlayerSwitchInProgress() ? true : undefined), "", 0);
+  await waitFor(() => (IsScreenFadedIn() && !IsPlayerSwitchInProgress() ? true : undefined), '', 0);
 
   SetEntityHealth(cache.ped, character.health ?? GetEntityMaxHealth(cache.ped));
   SetPedArmour(cache.ped, character.armour ?? 0);
@@ -153,6 +153,6 @@ netEvent("ox:setActiveCharacter", async (character: Character) => {
 
   OxPlayer.isLoaded = true;
 
-  emit("playerSpawned");
-  emit("ox:playerLoaded", OxPlayer, character.isNew);
+  emit('playerSpawned');
+  emit('ox:playerLoaded', OxPlayer, character.isNew);
 });

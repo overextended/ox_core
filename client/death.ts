@@ -1,10 +1,10 @@
-import { cache, requestAnimDict, sleep } from "@overextended/ox_lib/client";
-import { Vector3, Vector4 } from "@nativewrappers/fivem";
-import { OxPlayer } from "player";
-import { DEATH_SYSTEM, DEBUG, HOSPITAL_BLIPS } from "config";
-import { LoadDataFile } from "../common";
+import { cache, requestAnimDict, sleep } from '@overextended/ox_lib/client';
+import { Vector3, Vector4 } from '@nativewrappers/fivem';
+import { OxPlayer } from 'player';
+import { DEATH_SYSTEM, DEBUG, HOSPITAL_BLIPS } from 'config';
+import { LoadDataFile } from '../common';
 
-const hospitals: Vector4[] = LoadDataFile("hospitals").map((vec: number[]) => {
+const hospitals: Vector4[] = LoadDataFile('hospitals').map((vec: number[]) => {
   const hospital = Vector4.fromArray(vec);
 
   if (HOSPITAL_BLIPS) {
@@ -21,9 +21,9 @@ const hospitals: Vector4[] = LoadDataFile("hospitals").map((vec: number[]) => {
 });
 
 const anims = [
-  ["missfinale_c1@", "lying_dead_player0"],
-  ["veh@low@front_ps@idle_duck", "sit"],
-  ["dead", "dead_a"],
+  ['missfinale_c1@', 'lying_dead_player0'],
+  ['veh@low@front_ps@idle_duck', 'sit'],
+  ['dead', 'dead_a'],
 ];
 
 let playerIsDead = false;
@@ -72,21 +72,21 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 
   for (let index = 0; index < anims.length; index++) RemoveAnimDict(anims[index][0]);
 
-  emit("ox:playerRevived");
+  emit('ox:playerRevived');
 }
 
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
-  OxPlayer.state.set("isDead", true, true);
-  emit("ox_inventory:disarm");
-  emit("ox:playerDeath");
+  OxPlayer.state.set('isDead', true, true);
+  emit('ox_inventory:disarm');
+  emit('ox:playerDeath');
 
   if (!DEATH_SYSTEM) return;
 
   for (let index = 0; index < anims.length; index++) await requestAnimDict(anims[index][0]);
 
-  ShakeGameplayCam("DEATH_FAIL_IN_EFFECT_SHAKE", 1.0);
+  ShakeGameplayCam('DEATH_FAIL_IN_EFFECT_SHAKE', 1.0);
 
   let bleedOut = 0;
   const tickId = setTick(() => {
@@ -114,18 +114,18 @@ async function OnPlayerDeath() {
   SetEveryoneIgnorePlayer(cache.playerId, true);
 }
 
-AddStateBagChangeHandler("isDead", `player:${cache.serverId}`, async (_bagName: string, _key: string, value: any) => {
+AddStateBagChangeHandler('isDead', `player:${cache.serverId}`, async (_bagName: string, _key: string, value: any) => {
   playerIsDead = value;
 });
 
 function ResetDeathState() {
-  OxPlayer.state.set("isDead", false, true);
+  OxPlayer.state.set('isDead', false, true);
 }
 
-on("ox:playerLogout", ResetDeathState);
-on("ox:playerRevived", ResetDeathState);
+on('ox:playerLogout', ResetDeathState);
+on('ox:playerRevived', ResetDeathState);
 
-on("ox:playerLoaded", () => {
+on('ox:playerLoaded', () => {
   const id: CitizenTimer = setInterval(() => {
     if (!OxPlayer.isLoaded) return clearInterval(id);
 

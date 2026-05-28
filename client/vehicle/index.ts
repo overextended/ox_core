@@ -1,14 +1,14 @@
-import { cache, onServerCallback, waitFor } from "@overextended/ox_lib/client";
-import { Vector3 } from "@nativewrappers/fivem";
-import { DEBUG } from "../config";
+import { cache, onServerCallback, waitFor } from '@overextended/ox_lib/client';
+import { Vector3 } from '@nativewrappers/fivem';
+import { DEBUG } from '../config';
 
-if (DEBUG) import("./parser");
+if (DEBUG) import('./parser');
 
-onServerCallback("ox:getNearbyVehicles", (radius: number) => {
+onServerCallback('ox:getNearbyVehicles', (radius: number) => {
   const nearbyEntities: number[] = [];
   const playerCoords = Vector3.fromArray(GetEntityCoords(cache.ped, true));
 
-  (GetGamePool("CVehicle") as number[]).forEach((entityId) => {
+  (GetGamePool('CVehicle') as number[]).forEach((entityId) => {
     const coords = Vector3.fromArray(GetEntityCoords(entityId, true));
     const distance = coords.distance(playerCoords);
 
@@ -18,10 +18,10 @@ onServerCallback("ox:getNearbyVehicles", (radius: number) => {
   return nearbyEntities;
 });
 
-AddStateBagChangeHandler("initVehicle", "", async (bagName: string, key: string, value: any) => {
+AddStateBagChangeHandler('initVehicle', '', async (bagName: string, key: string, value: any) => {
   if (!value) return;
 
-  await waitFor(() => (!NetworkIsInTutorialSession() ? true : undefined), "", 0);
+  await waitFor(() => (!NetworkIsInTutorialSession() ? true : undefined), '', 0);
 
   const entity = await waitFor(
     async () => {

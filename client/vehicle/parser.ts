@@ -1,6 +1,6 @@
-import { cache, notify, onServerCallback, requestModel, sleep } from "@overextended/ox_lib/client";
-import { GetTopVehicleStats, GetVehicleData } from "../../common/vehicles";
-import type { VehicleData, VehicleTypes, VehicleCategories } from "types";
+import { cache, notify, onServerCallback, requestModel, sleep } from '@overextended/ox_lib/client';
+import { GetTopVehicleStats, GetVehicleData } from '../../common/vehicles';
+import type { VehicleData, VehicleTypes, VehicleCategories } from 'types';
 
 const PRICE_WEIGHTS: Record<VehicleTypes, number> = {
   automobile: 1600,
@@ -47,47 +47,47 @@ function GetVehicleTypeEx(entity: number): VehicleTypes {
   switch (GetVehicleTypeRaw(entity)) {
     case 0:
     default:
-      return "automobile";
+      return 'automobile';
     case 1:
-      return "plane";
+      return 'plane';
     case 2:
-      return "trailer";
+      return 'trailer';
     case 3:
-      return "quadbike";
+      return 'quadbike';
     case 5:
-      return "submarinecar";
+      return 'submarinecar';
     case 6:
-      return "amphibious_automobile";
+      return 'amphibious_automobile';
     case 7:
-      return "amphibious_quadbike";
+      return 'amphibious_quadbike';
     case 8:
-      return "heli";
+      return 'heli';
     case 9:
-      return "blimp";
+      return 'blimp';
     case 11:
-      return "bike";
+      return 'bike';
     case 12:
-      return "bicycle";
+      return 'bicycle';
     case 13:
-      return "boat";
+      return 'boat';
     case 14:
-      return "train";
+      return 'train';
     case 15:
-      return "submarine";
+      return 'submarine';
   }
 }
 
 function ParseVehicleData(entity: number, hash: number, model: string): VehicleData {
   let make = GetMakeNameFromVehicleModel(hash);
-  if (!make) make = GetMakeNameFromVehicleModel(model.replace(/\W/g, "")) || "";
+  if (!make) make = GetMakeNameFromVehicleModel(model.replace(/\W/g, '')) || '';
 
   const vehicleType = GetVehicleTypeEx(entity);
   const vehicleCategory: VehicleCategories =
-    vehicleType === "heli" || vehicleType === "plane" || vehicleType === "blimp"
-      ? "air"
-      : vehicleType === "boat" || vehicleType === "submarine"
-        ? "sea"
-        : "land";
+    vehicleType === 'heli' || vehicleType === 'plane' || vehicleType === 'blimp'
+      ? 'air'
+      : vehicleType === 'boat' || vehicleType === 'submarine'
+        ? 'sea'
+        : 'land';
 
   const data: VehicleData = {
     acceleration: +GetVehicleModelAcceleration(hash).toFixed(4),
@@ -96,7 +96,7 @@ function ParseVehicleData(entity: number, hash: number, model: string): VehicleD
     speed: +GetVehicleModelEstimatedMaxSpeed(hash).toFixed(4),
     traction: +GetVehicleModelMaxTraction(hash).toFixed(4),
     name: GetLabelText(GetDisplayNameFromVehicleModel(hash)),
-    make: make ? GetLabelText(make) : "",
+    make: make ? GetLabelText(make) : '',
     class: GetVehicleClass(entity),
     seats: GetVehicleModelNumberOfSeats(hash),
     doors: GetNumberOfVehicleDoors(entity),
@@ -109,7 +109,7 @@ function ParseVehicleData(entity: number, hash: number, model: string): VehicleD
 
   CalculateVehiclePrice(data, entity);
 
-  console.log(`^5Parsed valid model ${model} (${data.make || "?"} ${data.name})^0`);
+  console.log(`^5Parsed valid model ${model} (${data.make || '?'} ${data.name})^0`);
 
   return data;
 }
@@ -137,13 +137,13 @@ function CleanupVehicle(entity: number, coords: [number, number, number]) {
  * An event only registered when DEBUG is enabled.
  * Allows external scripts to freely modify vehicle data.
  */
-on("ox:setVehicleData", (model: string, data: Record<string, any>) => {
+on('ox:setVehicleData', (model: string, data: Record<string, any>) => {
   if (!vehicles[model]) console.error(`Cannot set vehicle data for ${model} (invalid model)`);
 
   Object.assign(vehicles[model], data);
 });
 
-onServerCallback("ox:generateVehicleData", async (parseAll: boolean) => {
+onServerCallback('ox:generateVehicleData', async (parseAll: boolean) => {
   const coords = GetEntityCoords(cache.ped, true) as [number, number, number];
   const invalidVehicles: string[] = [];
   const vehicleModels = GetVehicleModels(parseAll);
@@ -151,7 +151,7 @@ onServerCallback("ox:generateVehicleData", async (parseAll: boolean) => {
   SetPlayerControl(cache.playerId, false, 1 << 8);
   FreezeEntityPosition(cache.ped, true);
 
-  notify({ title: "Generating vehicle data", description: `${vehicleModels.length} models loaded.`, type: "inform" });
+  notify({ title: 'Generating vehicle data', description: `${vehicleModels.length} models loaded.`, type: 'inform' });
 
   let parsed = 0;
 
@@ -182,9 +182,9 @@ onServerCallback("ox:generateVehicleData", async (parseAll: boolean) => {
   FreezeEntityPosition(cache.ped, false);
 
   notify({
-    title: "Generated vehicle data",
+    title: 'Generated vehicle data',
     description: `Generated data for ${parsed}/${vehicleModels.length} models.`,
-    type: "success",
+    type: 'success',
   });
 
   console.log(`^5Generated data for ${parsed}/${vehicleModels.length} models.^0`);

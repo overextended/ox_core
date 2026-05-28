@@ -1,4 +1,4 @@
-import { ClassInterface } from "classInterface";
+import { ClassInterface } from 'classInterface';
 import {
   AddCharacterLicense,
   CreateCharacter,
@@ -10,25 +10,25 @@ import {
   RemoveCharacterLicense,
   SaveCharacterData,
   UpdateCharacterLicense,
-} from "./db";
-import { getRandomChar, getRandomInt } from "@overextended/ox_lib";
-import { GetGroup, GetGroupsByType } from "groups";
-import { GeneratePhoneNumber } from "bridge/npwd";
-import { Statuses } from "./status";
-import { addPrincipal, removePrincipal } from "@overextended/ox_lib/server";
+} from './db';
+import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
+import { GetGroup, GetGroupsByType } from 'groups';
+import { GeneratePhoneNumber } from 'bridge/npwd';
+import { Statuses } from './status';
+import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import {
   AddCharacterGroup,
   GetCharacterGroups,
   RemoveCharacterGroup,
   UpdateCharacterGroup,
   SetActiveGroup,
-} from "groups/db";
-import { PayAccountInvoice } from "accounts";
-import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense, BanDetails } from "types";
-import { GetGroupPermissions } from "../../common";
-import { Licenses } from "./license";
-import { CHARACTER_SLOTS } from "config";
-import locales from "../../common/locales";
+} from 'groups/db';
+import { PayAccountInvoice } from 'accounts';
+import type { Character, Dict, NewCharacter, PlayerMetadata, OxGroup, CharacterLicense, BanDetails } from 'types';
+import { GetGroupPermissions } from '../../common';
+import { Licenses } from './license';
+import { CHARACTER_SLOTS } from 'config';
+import locales from '../../common/locales';
 
 export class OxPlayer extends ClassInterface {
   source: number | string;
@@ -75,10 +75,10 @@ export class OxPlayer extends ClassInterface {
       const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-      timeRemainingMessage = locales("ban_expires_in", hours, minutes, seconds);
-    } else timeRemainingMessage = locales("ban_indefinite");
+      timeRemainingMessage = locales('ban_expires_in', hours, minutes, seconds);
+    } else timeRemainingMessage = locales('ban_indefinite');
 
-    return locales("ban_notice", new Date(ban.banned_at).toLocaleString(), ban.reason, timeRemainingMessage);
+    return locales('ban_notice', new Date(ban.banned_at).toLocaleString(), ban.reason, timeRemainingMessage);
   }
 
   /** Compares player fields and metadata to a filter, returning the player if all values match. */
@@ -141,7 +141,7 @@ export class OxPlayer extends ClassInterface {
 
     if (parameters.length > 0) {
       SaveCharacterData(parameters, true);
-      emit("ox:savedPlayers", parameters.length);
+      emit('ox:savedPlayers', parameters.length);
     }
   }
 
@@ -169,7 +169,7 @@ export class OxPlayer extends ClassInterface {
   set(key: string, value: any, replicated?: boolean) {
     this.#metadata[key] = value;
 
-    if (replicated) this.emit("ox:setPlayerData", key, value);
+    if (replicated) this.emit('ox:setPlayerData', key, value);
   }
 
   /** Gets a value stored in active character's metadata. */
@@ -185,7 +185,7 @@ export class OxPlayer extends ClassInterface {
   setActiveGroup(groupName?: string, temp?: boolean) {
     if (!this.charId || (groupName && !(groupName in this.#groups))) return false;
 
-    const currentActiveGroup = this.get("activeGroup");
+    const currentActiveGroup = this.get('activeGroup');
 
     if (currentActiveGroup) {
       GlobalState[`${currentActiveGroup}:activeCount`] -= 1;
@@ -202,8 +202,8 @@ export class OxPlayer extends ClassInterface {
     }
 
     SetActiveGroup(this.charId, temp ? undefined : groupName);
-    this.set("activeGroup", groupName, true);
-    emit("ox:setActiveGroup", this.source, groupName, currentActiveGroup);
+    this.set('activeGroup', groupName, true);
+    emit('ox:setActiveGroup', this.source, groupName, currentActiveGroup);
 
     return true;
   }
@@ -226,7 +226,7 @@ export class OxPlayer extends ClassInterface {
 
       this.#removeGroup(group, currentGrade, true);
 
-      if (this.get("activeGroup") === groupName) this.set("activeGroup", undefined, true);
+      if (this.get('activeGroup') === groupName) this.set('activeGroup', undefined, true);
     } else {
       if (!group.grades[grade] && grade > 0)
         return console.warn(`Failed to set OxPlayer<${this.userId}> ${group.name}:${grade} (invalid grade)`);
@@ -255,8 +255,8 @@ export class OxPlayer extends ClassInterface {
       }
     }
 
-    emit("ox:setGroup", this.source, group.name, grade ? grade : null);
-    this.emit("ox:setGroup", group.name, grade ? grade : null);
+    emit('ox:setGroup', this.source, group.name, grade ? grade : null);
+    this.emit('ox:setGroup', group.name, grade ? grade : null);
 
     return true;
   }
@@ -265,7 +265,7 @@ export class OxPlayer extends ClassInterface {
   getGroup(filter: string): number;
   getGroup(filter: string[] | Record<string, number>): [string, number] | [];
   getGroup(filter: string | string[] | Record<string, number>) {
-    if (typeof filter === "string") {
+    if (typeof filter === 'string') {
       return this.#groups[filter];
     }
 
@@ -274,7 +274,7 @@ export class OxPlayer extends ClassInterface {
         const grade = this.#groups[name];
         if (grade) return [name, grade];
       }
-    } else if (typeof filter === "object") {
+    } else if (typeof filter === 'object') {
       for (const [name, requiredGrade] of Object.entries(filter)) {
         const grade = this.#groups[name];
         if (grade && (requiredGrade as number) <= grade) {
@@ -321,7 +321,7 @@ export class OxPlayer extends ClassInterface {
     const newValue = value < 0 ? 0 : value > 100 ? 100 : Number.parseFloat(value.toPrecision(8));
     this.#statuses[statusName] = newValue;
 
-    this.emit("ox:setPlayerStatus", statusName, newValue, true);
+    this.emit('ox:setPlayerStatus', statusName, newValue, true);
 
     return true;
   }
@@ -344,7 +344,7 @@ export class OxPlayer extends ClassInterface {
     newValue = newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat(newValue.toPrecision(8));
 
     this.#statuses[statusName] = newValue;
-    this.emit("ox:setPlayerStatus", statusName, newValue);
+    this.emit('ox:setPlayerStatus', statusName, newValue);
 
     return true;
   }
@@ -357,7 +357,7 @@ export class OxPlayer extends ClassInterface {
     newValue = newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat(newValue.toPrecision(8));
 
     this.#statuses[statusName] = newValue;
-    this.emit("ox:setPlayerStatus", statusName, newValue);
+    this.emit('ox:setPlayerStatus', statusName, newValue);
 
     return true;
   }
@@ -381,8 +381,8 @@ export class OxPlayer extends ClassInterface {
 
     this.#licenses[licenseName] = license;
 
-    emit("ox:licenseAdded", this.source, licenseName);
-    this.emit("ox:licenseAdded", licenseName);
+    emit('ox:licenseAdded', this.source, licenseName);
+    this.emit('ox:licenseAdded', licenseName);
 
     return true;
   }
@@ -392,8 +392,8 @@ export class OxPlayer extends ClassInterface {
 
     delete this.#licenses[licenseName];
 
-    emit("ox:licenseRemoved", this.source, licenseName);
-    this.emit("ox:licenseRemoved", licenseName);
+    emit('ox:licenseRemoved', this.source, licenseName);
+    this.emit('ox:licenseRemoved', licenseName);
 
     return true;
   }
@@ -403,7 +403,7 @@ export class OxPlayer extends ClassInterface {
 
     const license = this.#licenses[licenseName];
 
-    if (!license || key === "issued") return false;
+    if (!license || key === 'issued') return false;
 
     if (!(await UpdateCharacterLicense(this.charId, licenseName, key, value))) return false;
 
@@ -427,7 +427,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Adds the active character to the group and sets permissions. */
   #addGroup(group: string | OxGroup, grade: number) {
-    const groupName = typeof group === "string" ? group : group.name;
+    const groupName = typeof group === 'string' ? group : group.name;
     group = GetGroup(groupName);
 
     if (!group) return console.warn(`Failed to add group '${groupName}' to OxPlayer<${this.userId}> (invalid group)`);
@@ -441,7 +441,7 @@ export class OxPlayer extends ClassInterface {
 
   /** Removes the active character from the group and sets permissions. */
   #removeGroup(group: string | OxGroup, grade: number, canRemoveActiveCount = false) {
-    const groupName = typeof group === "string" ? group : group.name;
+    const groupName = typeof group === 'string' ? group : group.name;
     group = GetGroup(groupName);
 
     if (!group)
@@ -453,7 +453,7 @@ export class OxPlayer extends ClassInterface {
     delete this.#groups[group.name];
     GlobalState[`${group.name}:count`] -= 1;
 
-    if (canRemoveActiveCount && group.name === this.get("activeGroup")) {
+    if (canRemoveActiveCount && group.name === this.get('activeGroup')) {
       GlobalState[`${group.name}:activeCount`] -= 1;
       group.activePlayers.delete(+this.source);
     }
@@ -468,12 +468,12 @@ export class OxPlayer extends ClassInterface {
   async setAsJoined() {
     if (!OxPlayer.getFromUserId(this.userId)) {
       OxPlayer.add(this.source, this);
-      Player(this.source).state.set("userId", this.userId, true);
+      Player(this.source).state.set('userId', this.userId, true);
     }
 
     DEV: console.info(`Starting character selection for OxPlayer<${this.userId}>`);
 
-    this.emit("ox:startCharacterSelect", this.userId, await this.#getCharacters());
+    this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
   }
 
   /** Returns an array of all characters owned by the player, excluding soft-deleted characters. */
@@ -492,7 +492,7 @@ export class OxPlayer extends ClassInterface {
 
     for (const name in this.#groups) this.#removeGroup(name, this.#groups[name], true);
 
-    emit("ox:playerLogout", this.source, this.userId, this.charId);
+    emit('ox:playerLogout', this.source, this.userId, this.charId);
 
     if (save) await this.save();
 
@@ -501,7 +501,7 @@ export class OxPlayer extends ClassInterface {
     delete OxPlayer.keys.charId[this.charId];
     delete this.charId;
 
-    this.emit("ox:startCharacterSelect", this.userId, await this.#getCharacters());
+    this.emit('ox:startCharacterSelect', this.userId, await this.#getCharacters());
   }
 
   /** Creates a stateId for a newly created character. */
@@ -512,7 +512,7 @@ export class OxPlayer extends ClassInterface {
       for (let i = 0; i < 2; i++) arr[i] = getRandomChar();
       for (let i = 2; i < 6; i++) arr[i] = getRandomInt();
 
-      const stateId = arr.join("");
+      const stateId = arr.join('');
 
       if (await IsStateIdAvailable(stateId)) return stateId;
     }
@@ -543,7 +543,7 @@ export class OxPlayer extends ClassInterface {
     };
 
     this.#characters.push(character);
-    emit("ox:createdCharacter", this.source, this.userId, character.charId);
+    emit('ox:createdCharacter', this.source, this.userId, character.charId);
 
     return this.#characters.length - 1;
   }
@@ -562,7 +562,7 @@ export class OxPlayer extends ClassInterface {
     if (this.charId) return;
 
     const characterSlot =
-      typeof data === "object" ? await this.createCharacter(data) : this.#getCharacterSlotFromId(data);
+      typeof data === 'object' ? await this.createCharacter(data) : this.#getCharacterSlotFromId(data);
 
     if (characterSlot == null) return;
 
@@ -591,16 +591,16 @@ export class OxPlayer extends ClassInterface {
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
 
-    this.emit("ox:setActiveCharacter", character, this.#groups);
+    this.emit('ox:setActiveCharacter', character, this.#groups);
 
     // Values stored in metadata and synced to client.
-    this.set("name", `${character.firstName} ${character.lastName}`, true);
-    this.set("firstName", character.firstName, true);
-    this.set("lastName", character.lastName, true);
-    this.set("gender", gender, true);
-    this.set("dateOfBirth", dateOfBirth, true);
-    this.set("phoneNumber", phoneNumber, true);
-    this.set("activeGroup", activeGroup, true);
+    this.set('name', `${character.firstName} ${character.lastName}`, true);
+    this.set('firstName', character.firstName, true);
+    this.set('lastName', character.lastName, true);
+    this.set('gender', gender, true);
+    this.set('dateOfBirth', dateOfBirth, true);
+    this.set('phoneNumber', phoneNumber, true);
+    this.set('activeGroup', activeGroup, true);
 
     if (activeGroup) {
       GlobalState[`${activeGroup}:activeCount`] += 1;
@@ -621,11 +621,11 @@ export class OxPlayer extends ClassInterface {
      * https://github.com/citizenfx/fivem/pull/2257 - state bag write policies
      */
     const state = Player(this.source).state;
-    state.set("isDead", isDead === 1, true);
+    state.set('isDead', isDead === 1, true);
 
-    DEV: console.info(`OxPlayer<${this.userId}> loaded character ${this.get("name")} (${this.charId})`);
+    DEV: console.info(`OxPlayer<${this.userId}> loaded character ${this.get('name')} (${this.charId})`);
 
-    emit("ox:playerLoaded", this.source, this.userId, character.charId);
+    emit('ox:playerLoaded', this.source, this.userId, character.charId);
 
     return character;
   }
@@ -644,7 +644,7 @@ export class OxPlayer extends ClassInterface {
       if (isActive) this.logout(false);
       else this.#characters.splice(characterSlot, 1);
 
-      emit("ox:deletedCharacter", this.source, this.userId, charId);
+      emit('ox:deletedCharacter', this.source, this.userId, charId);
 
       DEV: console.info(`Deleted character ${charId} for OxPlayer<${this.userId}>`);
       return true;
@@ -654,8 +654,8 @@ export class OxPlayer extends ClassInterface {
 
 OxPlayer.init();
 
-exports("SaveAllPlayers", (arg: any) => OxPlayer.saveAll(arg));
-exports("GetPlayerFromUserId", (arg: any) => OxPlayer.getFromUserId(arg));
-exports("GetPlayerFromCharId", (arg: any) => OxPlayer.getFromCharId(arg));
-exports("GetPlayerFromFilter", (arg: any) => OxPlayer.getFromFilter(arg));
-exports("GetPlayers", (arg: any) => OxPlayer.getAll(arg, true));
+exports('SaveAllPlayers', (arg: any) => OxPlayer.saveAll(arg));
+exports('GetPlayerFromUserId', (arg: any) => OxPlayer.getFromUserId(arg));
+exports('GetPlayerFromCharId', (arg: any) => OxPlayer.getFromCharId(arg));
+exports('GetPlayerFromFilter', (arg: any) => OxPlayer.getFromFilter(arg));
+exports('GetPlayers', (arg: any) => OxPlayer.getAll(arg, true));
