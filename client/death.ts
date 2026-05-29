@@ -78,9 +78,10 @@ async function ClearDeath(tickId: number, bleedOut: boolean) {
 const bleedOutTime = DEBUG ? 100 : 1000;
 
 async function OnPlayerDeath() {
-  OxPlayer.state.set('isDead', true, true);
+  emitNet('ox:playerDeath');
   emit('ox_inventory:disarm');
   emit('ox:playerDeath');
+
 
   if (!DEATH_SYSTEM) return;
 
@@ -119,7 +120,7 @@ AddStateBagChangeHandler('isDead', `player:${cache.serverId}`, async (_bagName: 
 });
 
 function ResetDeathState() {
-  OxPlayer.state.set('isDead', false, true);
+  emitNet('ox:playerRevived')
 }
 
 on('ox:playerLogout', ResetDeathState);

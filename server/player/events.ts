@@ -145,3 +145,6 @@ on('txAdmin:events:playerHealed', ({ target, author }: { target: number; author:
     state.set('isDead', false, true);
   }
 });
+
+onNet('ox:playerDeath', () => Player(source).state.set('isDead', true, true))
+onNet('ox:playerRevived', () => Player(source).state.set('isDead', false, true))

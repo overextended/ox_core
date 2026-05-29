@@ -336,7 +336,8 @@ export class OxVehicle extends ClassInterface {
 
     const state = this.getState();
 
-    if (state) state.set('initVehicle', true, true);
+    // @todo use ox_lib's entity wrapper..
+    if (state) state.set('ox_entity_setonground', true, true);
 
     return this.entity;
   }
