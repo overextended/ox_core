@@ -1,4 +1,4 @@
-import { addCommand, triggerClientCallback } from '@overextended/ox_lib/server';
+import { addCommand } from '@overextended/ox_lib/server';
 import { OxVehicle } from './class';
 import { sleep } from '@overextended/ox_lib';
 import { CreateVehicle } from 'vehicle';
@@ -15,6 +15,8 @@ export function DeleteCurrentVehicle(ped: number) {
 
   vehicle.setStored('impound', true);
   vehicle.remove();
+
+  return true;
 }
 
 addCommand<{ model: string; owner?: number }>(
@@ -58,16 +60,15 @@ addCommand<{ radius?: number; owned?: string }>(
   async (playerId, args, raw) => {
     const ped = GetPlayerPed(playerId as any);
 
-    if (!args.radius) return DeleteCurrentVehicle(ped);
+    if (!args.radius && DeleteCurrentVehicle(ped)) return;
 
-    const vehicles = await triggerClientCallback<number[]>('ox:getNearbyVehicles', playerId, args.radius);
+    const [x,y,z] = GetEntityCoords(ped)
+    const vehicles: number[] = GetEntitiesInRadius(x, y, z, args.radius || 2, 2, false, [])
 
-    if (!vehicles) return;
+    vehicles.forEach((handle) => {
+      const vehicle = OxVehicle.getFromEntity(handle)
 
-    vehicles.forEach((netId) => {
-      const vehicle = OxVehicle.getFromNetId(netId);
-
-      if (!vehicle) DeleteEntity(NetworkGetEntityFromNetworkId(netId));
+      if (!vehicle || !vehicle.owner) DeleteEntity(handle);
       else if (args.owned) {
         vehicle.setStored('impound', true);
         vehicle.remove();
