@@ -37,16 +37,16 @@
     "@citizenfx/client": "2.0.29753-1",
     "@citizenfx/server": "2.0.29753-1",
     "@overextended/fx-utils": "^0.0.6",
-    "@types/node": "^22",
+    "@types/node": "^22.19.20",
     "esbuild": "^0.23.1",
     "tsc-alias": "^1.8.17",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@nativewrappers/fivem": "^0.0.86",
-    "@nativewrappers/server": "^0.0.86",
-    "@overextended/ox_lib": "^3.36.0",
+    "@nativewrappers/fivem": "^0.0.174",
+    "@nativewrappers/server": "^0.0.174",
+    "@overextended/ox_lib": "^3.37.1",
     "mariadb": "^3.5.2"
   },
   "engines": {
