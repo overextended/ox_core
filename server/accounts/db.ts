@@ -373,29 +373,17 @@ export async function UpdateInvoice(
 
   if (!hasPermission) return { success: false, message: 'no_permission' };
 
-  const updateReceiver = await UpdateBalance(
+  const transfer = await PerformTransaction(
     invoice.toAccount,
-    invoice.amount,
-    'remove',
-    false,
-    locales('invoice_payment'),
-    undefined,
-    charId,
-  );
-
-  if (!updateReceiver.success) return { success: false, message: 'no_balance' };
-
-  const updateSender = await UpdateBalance(
     invoice.fromAccount,
     invoice.amount,
-    'add',
     false,
     locales('invoice_payment'),
     undefined,
     charId,
   );
 
-  if (!updateSender.success) return { success: false, message: 'no_balance' };
+  if (!transfer.success) return { success: false, message: transfer.message ?? 'no_balance' };
 
   const invoiceUpdated = await db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
     player.charId,
