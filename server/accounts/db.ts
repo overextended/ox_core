@@ -53,14 +53,21 @@ export async function UpdateBalance(
     };
 
   const addAction = action === 'add';
+
+  await conn.beginTransaction();
+
   const success = addAction
     ? await conn.update(addBalance, [amount, accountId])
     : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, accountId, amount]);
-  if (!success)
+
+  if (!success) {
+    await conn.rollback();
+
     return {
       success: false,
       message: 'insufficient_balance',
     };
+  }
 
   !message && (message = locales(action === 'add' ? 'deposit' : 'withdraw'));
 
@@ -76,11 +83,16 @@ export async function UpdateBalance(
       addAction ? balance + amount : null,
     ])) === 1;
 
-  if (!didUpdate)
+  if (!didUpdate) {
+    await conn.rollback();
+
     return {
       success: false,
       message: 'something_went_wrong',
     };
+  }
+
+  await conn.commit();
 
   emit('ox:updatedBalance', { accountId, amount, action });
 
