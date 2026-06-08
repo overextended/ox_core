@@ -20,7 +20,7 @@ export function SelectGroups() {
 }
 
 export async function InsertGroup({ name, label, type, colour, hasAccount, grades, accountRoles }: DbGroup) {
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   await conn.beginTransaction();
 
   const insertedGroup = await conn.update(

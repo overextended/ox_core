@@ -43,7 +43,7 @@ export async function UpdateBalance(
 
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null)
@@ -114,7 +114,7 @@ export async function PerformTransaction(
 
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
 
   const fromBalance = await conn.scalar<number>(getBalance, [fromId]);
   const toBalance = await conn.scalar<number>(getBalance, [toId]);
@@ -235,7 +235,7 @@ export async function DepositMoney(
 
   if (amount > money) return { success: false, message: 'insufficient_funds' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null) return { success: false, message: 'no_balance' };
@@ -293,7 +293,7 @@ export async function WithdrawMoney(
 
   if (!player?.charId) return { success: false, message: 'no_charId' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
   if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return { success: false, message: 'no_access' };

@@ -4,6 +4,7 @@ import type { Dict } from 'types';
 import type { PoolConnection, QueryOptions } from 'mariadb';
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
+(Symbol as any).asyncDispose ??= Symbol('Symbol.asyncDispose');
 
 export interface MySqlRow<T = string | number | boolean | Dict<any> | undefined> {
   [column: string]: T;
@@ -72,8 +73,13 @@ export class Connection {
     return this.connection.commit();
   }
 
+  async [Symbol.asyncDispose]() {
+    if (this.transaction) await this.rollback();
+    await this.connection.release();
+  }
+
   [Symbol.dispose]() {
-    if (this.transaction) this.commit();
+    if (this.transaction) this.rollback();
     this.connection.release();
   }
 }
