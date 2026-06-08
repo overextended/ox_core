@@ -99,6 +99,43 @@ export async function UpdateBalance(
   return { success: true };
 }
 
+/** Moves funds between two accounts on an existing transaction, without committing. */
+async function ApplyTransfer(
+  conn: Connection,
+  fromId: number,
+  toId: number,
+  amount: number,
+  overdraw: boolean,
+  fromBalance: number,
+  toBalance: number,
+  message?: string,
+  note?: string,
+  actorId?: number,
+) {
+  const query = overdraw ? removeBalance : safeRemoveBalance;
+  const values = [amount, fromId];
+
+  if (!overdraw) values.push(amount);
+
+  const removedBalance = await conn.update(query, values);
+  const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
+
+  if (!addedBalance) return false;
+
+  await conn.execute(addTransaction, [
+    actorId,
+    fromId,
+    toId,
+    amount,
+    message ?? locales('transfer'),
+    note,
+    fromBalance - amount,
+    toBalance + amount,
+  ]);
+
+  return true;
+}
+
 export async function PerformTransaction(
   fromId: number,
   toId: number,
@@ -124,26 +161,7 @@ export async function PerformTransaction(
   await conn.beginTransaction();
 
   try {
-    const query = overdraw ? removeBalance : safeRemoveBalance;
-    const values = [amount, fromId];
-
-    if (!overdraw) values.push(amount);
-
-    const removedBalance = await conn.update(query, values);
-    const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
-
-    if (addedBalance) {
-      await conn.execute(addTransaction, [
-        actorId,
-        fromId,
-        toId,
-        amount,
-        message ?? locales('transfer'),
-        note,
-        fromBalance - amount,
-        toBalance + amount,
-      ]);
-
+    if (await ApplyTransfer(conn, fromId, toId, amount, overdraw, fromBalance, toBalance, message, note, actorId)) {
       await conn.commit();
 
       emit('ox:transferredMoney', { fromId, toId, amount });
@@ -377,37 +395,59 @@ export async function UpdateInvoice(
 
   if (!hasPermission) return { success: false, message: 'no_permission' };
 
-  const transfer = await PerformTransaction(
-    invoice.toAccount,
-    invoice.fromAccount,
-    invoice.amount,
-    false,
-    locales('invoice_payment'),
-    undefined,
-    charId,
-  );
+  await using conn = await GetConnection();
 
-  if (!transfer.success) return { success: false, message: transfer.message ?? 'no_balance' };
+  const fromBalance = await conn.scalar<number>(getBalance, [invoice.toAccount]);
+  const toBalance = await conn.scalar<number>(getBalance, [invoice.fromAccount]);
 
-  const invoiceUpdated = await db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
-    player.charId,
-    new Date(),
-    invoiceId,
-  ]);
+  if (fromBalance === null || toBalance === null) return { success: false, message: 'no_balance' };
 
-  if (!invoiceUpdated)
-    return {
-      success: false,
-      message: 'invoice_not_updated',
-    };
+  await conn.beginTransaction();
+
+  try {
+    const transferred = await ApplyTransfer(
+      conn,
+      invoice.toAccount,
+      invoice.fromAccount,
+      invoice.amount,
+      false,
+      fromBalance,
+      toBalance,
+      locales('invoice_payment'),
+      undefined,
+      charId,
+    );
+
+    if (!transferred) {
+      await conn.rollback();
+      return { success: false, message: 'no_balance' };
+    }
+
+    const invoiceUpdated = await conn.update(
+      'UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?',
+      [player.charId, new Date(), invoiceId],
+    );
+
+    if (!invoiceUpdated) {
+      await conn.rollback();
+      return { success: false, message: 'invoice_not_updated' };
+    }
+
+    await conn.commit();
+  } catch (e) {
+    console.error(`Failed to pay invoice ${invoiceId}`);
+    console.log(e);
+
+    await conn.rollback();
+    return { success: false, message: 'something_went_wrong' };
+  }
 
   invoice.payerId = charId;
 
+  emit('ox:transferredMoney', { fromId: invoice.toAccount, toId: invoice.fromAccount, amount: invoice.amount });
   emit('ox:invoicePaid', invoice);
 
-  return {
-    success: true,
-  };
+  return { success: true };
 }
 
 export async function CreateInvoice({
