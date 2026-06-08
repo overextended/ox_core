@@ -155,7 +155,7 @@ export async function PerformTransaction(
     console.log(e);
   }
 
-  conn.rollback();
+  await conn.rollback();
 
   return { success: false, message: 'something_went_wrong' };
 }
@@ -249,7 +249,7 @@ export async function DepositMoney(
   const affectedRows = await conn.update(addBalance, [amount, accountId]);
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
-    conn.rollback();
+    await conn.rollback();
     return {
       success: false,
       message: 'something_went_wrong',
@@ -305,7 +305,7 @@ export async function WithdrawMoney(
   const affectedRows = await conn.update(safeRemoveBalance, [amount, accountId, amount]);
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
-    conn.rollback();
+    await conn.rollback();
     return {
       success: false,
       message: 'something_went_wrong',
