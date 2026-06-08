@@ -144,6 +144,8 @@ export async function PerformTransaction(
         toBalance + amount,
       ]);
 
+      await conn.commit();
+
       emit('ox:transferredMoney', { fromId, toId, amount });
 
       return { success: true };
