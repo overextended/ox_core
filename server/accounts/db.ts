@@ -267,6 +267,8 @@ export async function DepositMoney(
     balance + amount,
   ]);
 
+  await conn.commit();
+
   emit('ox:depositedMoney', { playerId, accountId, amount });
 
   return {
@@ -322,6 +324,8 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
+
+  await conn.commit();
 
   emit('ox:withdrewMoney', { playerId, accountId, amount });
 
