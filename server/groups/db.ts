@@ -35,6 +35,8 @@ export async function InsertGroup({ name, label, type, colour, hasAccount, grade
     grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]]),
   )) as UpsertResult[];
 
+  await conn.commit();
+
   return insertedGrades.reduce((acc, curr) => acc + curr.affectedRows, 0) > 0;
 }
 
