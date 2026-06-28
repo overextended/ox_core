@@ -266,7 +266,7 @@ export async function DepositMoney(
 
   const affectedRows = await conn.update(addBalance, [amount, accountId]);
 
-  if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+  if (!affectedRows) {
     await conn.rollback();
     return {
       success: false,
@@ -284,6 +284,14 @@ export async function DepositMoney(
     null,
     balance + amount,
   ]);
+
+  if (!exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+    await conn.rollback();
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
+  }
 
   await conn.commit();
 
@@ -324,7 +332,7 @@ export async function WithdrawMoney(
 
   const affectedRows = await conn.update(safeRemoveBalance, [amount, accountId, amount]);
 
-  if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+  if (!affectedRows) {
     await conn.rollback();
     return {
       success: false,
@@ -342,6 +350,14 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
+
+  if (!exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+    await conn.rollback();
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
+  }
 
   await conn.commit();
 
