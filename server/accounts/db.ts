@@ -274,18 +274,23 @@ export async function DepositMoney(
     };
   }
 
-  await conn.execute(addTransaction, [
-    player.charId,
-    null,
-    accountId,
-    amount,
-    message ?? locales('deposit'),
-    note,
-    null,
-    balance + amount,
-  ]);
+  try {
+    await conn.execute(addTransaction, [
+      player.charId,
+      null,
+      accountId,
+      amount,
+      message ?? locales('deposit'),
+      note,
+      null,
+      balance + amount,
+    ]);
 
-  await conn.commit();
+    await conn.commit();
+  } catch (e) {
+    exports.ox_inventory.AddItem(playerId, 'money', amount);
+    return { success: false, message: 'something_went_wrong' };
+  }
 
   emit('ox:depositedMoney', { playerId, accountId, amount });
 
@@ -332,18 +337,23 @@ export async function WithdrawMoney(
     };
   }
 
-  await conn.execute(addTransaction, [
-    player.charId,
-    accountId,
-    null,
-    amount,
-    message ?? locales('withdraw'),
-    note,
-    balance - amount,
-    null,
-  ]);
+  try {
+    await conn.execute(addTransaction, [
+      player.charId,
+      accountId,
+      null,
+      amount,
+      message ?? locales('withdraw'),
+      note,
+      balance - amount,
+      null,
+    ]);
 
-  await conn.commit();
+    await conn.commit();
+  } catch (e) {
+    exports.ox_inventory.RemoveItem(playerId, 'money', amount);
+    return { success: false, message: 'something_went_wrong' };
+  }
 
   emit('ox:withdrewMoney', { playerId, accountId, amount });
 
