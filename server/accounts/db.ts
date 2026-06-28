@@ -266,7 +266,7 @@ export async function DepositMoney(
 
   const affectedRows = await conn.update(addBalance, [amount, accountId]);
 
-  if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+  if (!affectedRows) {
     await conn.rollback();
     return {
       success: false,
@@ -274,23 +274,26 @@ export async function DepositMoney(
     };
   }
 
-  try {
-    await conn.execute(addTransaction, [
-      player.charId,
-      null,
-      accountId,
-      amount,
-      message ?? locales('deposit'),
-      note,
-      null,
-      balance + amount,
-    ]);
+  await conn.execute(addTransaction, [
+    player.charId,
+    null,
+    accountId,
+    amount,
+    message ?? locales('deposit'),
+    note,
+    null,
+    balance + amount,
+  ]);
 
-    await conn.commit();
-  } catch (e) {
-    exports.ox_inventory.AddItem(playerId, 'money', amount);
-    return { success: false, message: 'something_went_wrong' };
+  if (!exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+    await conn.rollback();
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
   }
+
+  await conn.commit();
 
   emit('ox:depositedMoney', { playerId, accountId, amount });
 
@@ -329,7 +332,7 @@ export async function WithdrawMoney(
 
   const affectedRows = await conn.update(safeRemoveBalance, [amount, accountId, amount]);
 
-  if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+  if (!affectedRows) {
     await conn.rollback();
     return {
       success: false,
@@ -337,23 +340,26 @@ export async function WithdrawMoney(
     };
   }
 
-  try {
-    await conn.execute(addTransaction, [
-      player.charId,
-      accountId,
-      null,
-      amount,
-      message ?? locales('withdraw'),
-      note,
-      balance - amount,
-      null,
-    ]);
+  await conn.execute(addTransaction, [
+    player.charId,
+    accountId,
+    null,
+    amount,
+    message ?? locales('withdraw'),
+    note,
+    balance - amount,
+    null,
+  ]);
 
-    await conn.commit();
-  } catch (e) {
-    exports.ox_inventory.RemoveItem(playerId, 'money', amount);
-    return { success: false, message: 'something_went_wrong' };
+  if (!exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+    await conn.rollback();
+    return {
+      success: false,
+      message: 'something_went_wrong',
+    };
   }
+
+  await conn.commit();
 
   emit('ox:withdrewMoney', { playerId, accountId, amount });
 
