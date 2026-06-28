@@ -31,13 +31,13 @@ import { CHARACTER_SLOTS } from 'config';
 import locales from '../../common/locales';
 
 export class OxPlayer extends ClassInterface {
-  source: number | string;
-  userId: number;
+  source: number | string = 0;
+  userId: number = 0;
   charId?: number;
   stateId?: string;
-  username: string;
-  identifier: string;
-  ped: number;
+  username: string = '';
+  identifier: string = '';
+  ped: number = 0;
   #characters: Character[];
   #metadata: Dict<any>;
   #statuses: Dict<number>;
