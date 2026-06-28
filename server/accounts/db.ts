@@ -43,7 +43,7 @@ export async function UpdateBalance(
 
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null)
@@ -53,14 +53,21 @@ export async function UpdateBalance(
     };
 
   const addAction = action === 'add';
+
+  await conn.beginTransaction();
+
   const success = addAction
     ? await conn.update(addBalance, [amount, accountId])
     : await conn.update(overdraw ? removeBalance : safeRemoveBalance, [amount, accountId, amount]);
-  if (!success)
+
+  if (!success) {
+    await conn.rollback();
+
     return {
       success: false,
       message: 'insufficient_balance',
     };
+  }
 
   !message && (message = locales(action === 'add' ? 'deposit' : 'withdraw'));
 
@@ -76,15 +83,57 @@ export async function UpdateBalance(
       addAction ? balance + amount : null,
     ])) === 1;
 
-  if (!didUpdate)
+  if (!didUpdate) {
+    await conn.rollback();
+
     return {
       success: false,
       message: 'something_went_wrong',
     };
+  }
+
+  await conn.commit();
 
   emit('ox:updatedBalance', { accountId, amount, action });
 
   return { success: true };
+}
+
+/** Moves funds between two accounts on an existing transaction, without committing. */
+async function ApplyTransfer(
+  conn: Connection,
+  fromId: number,
+  toId: number,
+  amount: number,
+  overdraw: boolean,
+  fromBalance: number,
+  toBalance: number,
+  message?: string,
+  note?: string,
+  actorId?: number,
+) {
+  const query = overdraw ? removeBalance : safeRemoveBalance;
+  const values = [amount, fromId];
+
+  if (!overdraw) values.push(amount);
+
+  const removedBalance = await conn.update(query, values);
+  const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
+
+  if (!addedBalance) return false;
+
+  await conn.execute(addTransaction, [
+    actorId,
+    fromId,
+    toId,
+    amount,
+    message ?? locales('transfer'),
+    note,
+    fromBalance - amount,
+    toBalance + amount,
+  ]);
+
+  return true;
 }
 
 export async function PerformTransaction(
@@ -102,7 +151,7 @@ export async function PerformTransaction(
 
   if (amount <= 0) return { success: false, message: 'invalid_amount' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
 
   const fromBalance = await conn.scalar<number>(getBalance, [fromId]);
   const toBalance = await conn.scalar<number>(getBalance, [toId]);
@@ -112,25 +161,8 @@ export async function PerformTransaction(
   await conn.beginTransaction();
 
   try {
-    const query = overdraw ? removeBalance : safeRemoveBalance;
-    const values = [amount, fromId];
-
-    if (!overdraw) values.push(amount);
-
-    const removedBalance = await conn.update(query, values);
-    const addedBalance = removedBalance && (await conn.update(addBalance, [amount, toId]));
-
-    if (addedBalance) {
-      await conn.execute(addTransaction, [
-        actorId,
-        fromId,
-        toId,
-        amount,
-        message ?? locales('transfer'),
-        note,
-        fromBalance - amount,
-        toBalance + amount,
-      ]);
+    if (await ApplyTransfer(conn, fromId, toId, amount, overdraw, fromBalance, toBalance, message, note, actorId)) {
+      await conn.commit();
 
       emit('ox:transferredMoney', { fromId, toId, amount });
 
@@ -141,7 +173,7 @@ export async function PerformTransaction(
     console.log(e);
   }
 
-  conn.rollback();
+  await conn.rollback();
 
   return { success: false, message: 'something_went_wrong' };
 }
@@ -221,7 +253,7 @@ export async function DepositMoney(
 
   if (amount > money) return { success: false, message: 'insufficient_funds' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const balance = await conn.scalar<number>(getBalance, [accountId]);
 
   if (balance === null) return { success: false, message: 'no_balance' };
@@ -235,7 +267,7 @@ export async function DepositMoney(
   const affectedRows = await conn.update(addBalance, [amount, accountId]);
 
   if (!affectedRows || !exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
-    conn.rollback();
+    await conn.rollback();
     return {
       success: false,
       message: 'something_went_wrong',
@@ -252,6 +284,8 @@ export async function DepositMoney(
     null,
     balance + amount,
   ]);
+
+  await conn.commit();
 
   emit('ox:depositedMoney', { playerId, accountId, amount });
 
@@ -277,7 +311,7 @@ export async function WithdrawMoney(
 
   if (!player?.charId) return { success: false, message: 'no_charId' };
 
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   const role = await conn.scalar<OxAccountRole>(selectAccountRole, [accountId, player.charId]);
 
   if (!(await CanPerformAction(player, accountId, role, 'withdraw'))) return { success: false, message: 'no_access' };
@@ -291,7 +325,7 @@ export async function WithdrawMoney(
   const affectedRows = await conn.update(safeRemoveBalance, [amount, accountId, amount]);
 
   if (!affectedRows || !exports.ox_inventory.AddItem(playerId, 'money', amount)) {
-    conn.rollback();
+    await conn.rollback();
     return {
       success: false,
       message: 'something_went_wrong',
@@ -308,6 +342,8 @@ export async function WithdrawMoney(
     balance - amount,
     null,
   ]);
+
+  await conn.commit();
 
   emit('ox:withdrewMoney', { playerId, accountId, amount });
 
@@ -359,49 +395,59 @@ export async function UpdateInvoice(
 
   if (!hasPermission) return { success: false, message: 'no_permission' };
 
-  const updateReceiver = await UpdateBalance(
-    invoice.toAccount,
-    invoice.amount,
-    'remove',
-    false,
-    locales('invoice_payment'),
-    undefined,
-    charId,
-  );
+  await using conn = await GetConnection();
 
-  if (!updateReceiver.success) return { success: false, message: 'no_balance' };
+  const fromBalance = await conn.scalar<number>(getBalance, [invoice.toAccount]);
+  const toBalance = await conn.scalar<number>(getBalance, [invoice.fromAccount]);
 
-  const updateSender = await UpdateBalance(
-    invoice.fromAccount,
-    invoice.amount,
-    'add',
-    false,
-    locales('invoice_payment'),
-    undefined,
-    charId,
-  );
+  if (fromBalance === null || toBalance === null) return { success: false, message: 'no_balance' };
 
-  if (!updateSender.success) return { success: false, message: 'no_balance' };
+  await conn.beginTransaction();
 
-  const invoiceUpdated = await db.update('UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?', [
-    player.charId,
-    new Date(),
-    invoiceId,
-  ]);
+  try {
+    const transferred = await ApplyTransfer(
+      conn,
+      invoice.toAccount,
+      invoice.fromAccount,
+      invoice.amount,
+      false,
+      fromBalance,
+      toBalance,
+      locales('invoice_payment'),
+      undefined,
+      charId,
+    );
 
-  if (!invoiceUpdated)
-    return {
-      success: false,
-      message: 'invoice_not_updated',
-    };
+    if (!transferred) {
+      await conn.rollback();
+      return { success: false, message: 'no_balance' };
+    }
+
+    const invoiceUpdated = await conn.update(
+      'UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?',
+      [player.charId, new Date(), invoiceId],
+    );
+
+    if (!invoiceUpdated) {
+      await conn.rollback();
+      return { success: false, message: 'invoice_not_updated' };
+    }
+
+    await conn.commit();
+  } catch (e) {
+    console.error(`Failed to pay invoice ${invoiceId}`);
+    console.log(e);
+
+    await conn.rollback();
+    return { success: false, message: 'something_went_wrong' };
+  }
 
   invoice.payerId = charId;
 
+  emit('ox:transferredMoney', { fromId: invoice.toAccount, toId: invoice.fromAccount, amount: invoice.amount });
   emit('ox:invoicePaid', invoice);
 
-  return {
-    success: true,
-  };
+  return { success: true };
 }
 
 export async function CreateInvoice({

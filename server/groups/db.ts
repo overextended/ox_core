@@ -20,7 +20,7 @@ export function SelectGroups() {
 }
 
 export async function InsertGroup({ name, label, type, colour, hasAccount, grades, accountRoles }: DbGroup) {
-  using conn = await GetConnection();
+  await using conn = await GetConnection();
   await conn.beginTransaction();
 
   const insertedGroup = await conn.update(
@@ -34,6 +34,8 @@ export async function InsertGroup({ name, label, type, colour, hasAccount, grade
     'INSERT INTO `ox_group_grades` (`group`, `grade`, `label`, `accountRole`) VALUES (?, ?, ?, ?)',
     grades.map((gradeLabel, index) => [name, index + 1, gradeLabel, accountRoles[index + 1]]),
   )) as UpsertResult[];
+
+  await conn.commit();
 
   return insertedGrades.reduce((acc, curr) => acc + curr.affectedRows, 0) > 0;
 }
