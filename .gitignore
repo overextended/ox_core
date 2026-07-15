@@ -2,6 +2,7 @@
 node_modules
 dist
 fxmanifest.lua
+.luarc.json
 .yarn.installed
 *.zip
 **.d.ts
