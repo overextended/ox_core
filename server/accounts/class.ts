@@ -38,7 +38,9 @@ export class OxAccount extends ClassInterface {
   protected static members: Dict<OxAccount> = {};
 
   static async get(accountId: number) {
-    if (accountId in this.members) this.members[accountId];
+    const account = this.members[accountId];
+
+    if (account) return account;
 
     const validAccount = await SelectAccount(accountId);
 
