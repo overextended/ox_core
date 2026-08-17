@@ -28,7 +28,7 @@ class PlayerInterface {
   }
 
   getState() {
-    return Player(source).state;
+    return Player(this.source).state;
   }
 
   async getAccount() {
