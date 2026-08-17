@@ -500,6 +500,8 @@ export async function CreateInvoice({
 
   if (!success) return { success: false, message: 'invoice_insert_error' };
 
+  emit('ox:invoiceCreated', { id: success, actorId, fromAccount, toAccount, amount, message, dueDate });
+
   return { success: true };
 }
 
