@@ -14,6 +14,10 @@ const addTransaction =
 const getBalance = 'SELECT balance FROM accounts WHERE id = ?';
 const doesAccountExist = 'SELECT 1 FROM accounts WHERE id = ?';
 
+function inventorySucceeded(result: unknown) {
+  return (Array.isArray(result) ? result[0] : result) === true;
+}
+
 async function GenerateAccountId(conn: Connection) {
   const date = new Date();
   const year = date.getFullYear().toString().slice(-2);
@@ -285,7 +289,7 @@ export async function DepositMoney(
     balance + amount,
   ]);
 
-  if (!exports.ox_inventory.RemoveItem(playerId, 'money', amount)) {
+  if (!inventorySucceeded(exports.ox_inventory.RemoveItem(playerId, 'money', amount))) {
     await conn.rollback();
     return {
       success: false,
@@ -351,7 +355,7 @@ export async function WithdrawMoney(
     null,
   ]);
 
-  if (!exports.ox_inventory.AddItem(playerId, 'money', amount)) {
+  if (!inventorySucceeded(exports.ox_inventory.AddItem(playerId, 'money', amount))) {
     await conn.rollback();
     return {
       success: false,
