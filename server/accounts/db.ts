@@ -421,6 +421,16 @@ export async function UpdateInvoice(
   await conn.beginTransaction();
 
   try {
+    const claimed = await conn.update(
+      'UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ? AND `payerId` IS NULL',
+      [player.charId, new Date(), invoiceId],
+    );
+
+    if (!claimed) {
+      await conn.rollback();
+      return { success: false, message: 'invoice_paid' };
+    }
+
     const transferred = await ApplyTransfer(
       conn,
       invoice.toAccount,
@@ -437,16 +447,6 @@ export async function UpdateInvoice(
     if (!transferred) {
       await conn.rollback();
       return { success: false, message: 'no_balance' };
-    }
-
-    const invoiceUpdated = await conn.update(
-      'UPDATE `accounts_invoices` SET `payerId` = ?, `paidAt` = ? WHERE `id` = ?',
-      [player.charId, new Date(), invoiceId],
-    );
-
-    if (!invoiceUpdated) {
-      await conn.rollback();
-      return { success: false, message: 'invoice_not_updated' };
     }
 
     await conn.commit();
