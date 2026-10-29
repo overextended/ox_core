@@ -7,7 +7,10 @@ export function SelectGroups() {
     SELECT 
       ox_groups.*,
       JSON_OBJECTAGG(ox_group_grades.grade, ox_group_grades.accountRole) AS accountRoles,
-      JSON_ARRAYAGG(ox_group_grades.label ORDER BY ox_group_grades.grade) AS grades
+      JSON_ARRAYAGG(
+        CONVERT(ox_group_grades.label USING utf8mb4)
+        ORDER BY ox_group_grades.grade
+      ) AS grades
     FROM 
         ox_groups
     JOIN 
@@ -18,6 +21,7 @@ export function SelectGroups() {
         ox_groups.name;
   `);
 }
+
 
 export async function InsertGroup({ name, label, type, colour, hasAccount, grades, accountRoles }: DbGroup) {
   await using conn = await GetConnection();
