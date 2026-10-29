@@ -4,7 +4,8 @@ import type { Dict } from 'types';
 export function GetPlayerLicense(playerId: number | string) {
   return (
     GetPlayerIdentifierByType(playerId as string, 'license2') ||
-    GetPlayerIdentifierByType(playerId as string, 'license')
+    GetPlayerIdentifierByType(playerId as string, 'license') ||
+    SV_LAN && 'temp' + GetHashKey(GetPlayerIdentifierByType(playerId as string, 'ip')).toString(16).padStart(36, '0')
   );
 }
 
@@ -18,11 +19,7 @@ export function GetIdentifiers(playerId: number | string) {
     if (prefix !== 'ip') identifiers[prefix] = identifier;
   }
 
-  if (!identifiers.license2) {
-    identifiers.license2 = SV_LAN ? 'fayoum' : identifiers.license;
-
-    if (!identifiers.license2) throw new Error(`No license2 found for user [${playerId}] ${GetPlayerName(playerId)}`);
-  }
+  identifiers.license2 ??= identifiers.license;
 
   return identifiers;
 }

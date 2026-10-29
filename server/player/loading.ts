@@ -1,7 +1,7 @@
 import { OxPlayer } from 'player/class';
 import { CreateUser, GetUserIdFromIdentifier, IsUserBanned, UpdateUserTokens } from './db';
 import { GetIdentifiers, GetPlayerLicense } from 'utils';
-import { DEBUG, SV_LAN } from '../config';
+import { DEBUG } from '../config';
 import type { Dict } from 'types';
 import locales from '../../common/locales';
 
@@ -15,7 +15,7 @@ async function loadPlayer(playerId: number) {
     if (serverLockdown) return serverLockdown;
 
     player = new OxPlayer(playerId);
-    const license = SV_LAN ? 'fayoum' : GetPlayerLicense(playerId);
+    const license = GetPlayerLicense(playerId);
 
     if (!license) return locales('no_license');
 
