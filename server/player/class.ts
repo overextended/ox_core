@@ -14,7 +14,7 @@ import {
 import { getRandomChar, getRandomInt } from '@overextended/ox_lib';
 import { GetGroup, GetGroupsByType } from 'groups';
 import { GeneratePhoneNumber } from 'bridge/npwd';
-import { Statuses } from './status';
+import { Statuses, clampStatus } from './status';
 import { addPrincipal, removePrincipal } from '@overextended/ox_lib/server';
 import {
   AddCharacterGroup,
@@ -41,6 +41,7 @@ export class OxPlayer extends ClassInterface {
   #characters: Character[];
   #metadata: Dict<any>;
   #statuses: Dict<number>;
+  #statusesTickedAt: number;
   #groups: Dict<number>;
   #licenses: Dict<CharacterLicense>;
 
@@ -151,6 +152,7 @@ export class OxPlayer extends ClassInterface {
     this.#characters = [];
     this.#metadata = {};
     this.#statuses = {};
+    this.#statusesTickedAt = GetGameTimer();
     this.#groups = {};
     this.#licenses = {};
   }
@@ -314,12 +316,29 @@ export class OxPlayer extends ClassInterface {
     return false;
   }
 
+  /** Statuses decay at a fixed rate, so elapsed ticks are applied on access. */
+  get #tickedStatuses() {
+    const ticks = Math.floor((GetGameTimer() - this.#statusesTickedAt) / 1000);
+
+    if (ticks < 1) return this.#statuses;
+
+    this.#statusesTickedAt += ticks * 1000;
+
+    for (const statusName in Statuses) {
+      const value = this.#statuses[statusName];
+
+      if (value !== undefined) this.#statuses[statusName] = clampStatus(value + Statuses[statusName].onTick * ticks);
+    }
+
+    return this.#statuses;
+  }
+
   /** Sets the value of a status. */
   setStatus(statusName: string, value = Statuses[statusName].default) {
     if (Statuses[statusName] === undefined) return;
 
-    const newValue = value < 0 ? 0 : value > 100 ? 100 : Number.parseFloat(value.toPrecision(8));
-    this.#statuses[statusName] = newValue;
+    const newValue = clampStatus(value);
+    this.#tickedStatuses[statusName] = newValue;
 
     this.emit('ox:setPlayerStatus', statusName, newValue, true);
 
@@ -328,35 +347,32 @@ export class OxPlayer extends ClassInterface {
 
   /** Returns the current value of a status. */
   getStatus(statusName: string) {
-    return this.#statuses[statusName];
+    return this.#tickedStatuses[statusName];
   }
 
   /** Returns an object containing all status names and their values. */
   getStatuses() {
-    return this.#statuses;
+    return this.#tickedStatuses;
   }
 
   /** Increases the status's value by the given amount. */
   addStatus(statusName: string, value: number) {
-    if (this.#statuses[statusName] === undefined) return;
-
-    let newValue = this.#statuses[statusName] + value;
-    newValue = newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat(newValue.toPrecision(8));
-
-    this.#statuses[statusName] = newValue;
-    this.emit('ox:setPlayerStatus', statusName, newValue);
-
-    return true;
+    return this.#adjustStatus(statusName, value);
   }
 
   /** Reduces the status's value by the given amount. */
   removeStatus(statusName: string, value: number) {
-    if (this.#statuses[statusName] === undefined) return;
+    return this.#adjustStatus(statusName, -value);
+  }
 
-    let newValue = this.#statuses[statusName] - value;
-    newValue = newValue < 0 ? 0 : newValue > 100 ? 100 : Number.parseFloat(newValue.toPrecision(8));
+  #adjustStatus(statusName: string, value: number) {
+    const statuses = this.#tickedStatuses;
 
-    this.#statuses[statusName] = newValue;
+    if (statuses[statusName] === undefined) return;
+
+    const newValue = clampStatus(statuses[statusName] + value);
+
+    statuses[statusName] = newValue;
     this.emit('ox:setPlayerStatus', statusName, newValue);
 
     return true;
@@ -420,7 +436,7 @@ export class OxPlayer extends ClassInterface {
       Player(this.source).state.isDead || false,
       GetEntityHealth(this.ped),
       GetPedArmour(this.ped),
-      JSON.stringify(this.#statuses || {}),
+      JSON.stringify(this.#tickedStatuses || {}),
       this.charId,
     ];
   }
@@ -588,6 +604,8 @@ export class OxPlayer extends ClassInterface {
 
     groups.forEach(({ name, grade }) => this.#addGroup(name, grade));
     licenses.forEach(({ name, data }) => (this.#licenses[name] = data));
+
+    this.#statusesTickedAt = GetGameTimer();
 
     for (const name in Statuses) this.setStatus(name, statuses[name]);
 

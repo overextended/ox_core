@@ -2,9 +2,8 @@ import { onClientCallback } from '@overextended/ox_lib/server';
 import { OxPlayer } from './class';
 import { sleep } from '@overextended/ox_lib';
 import { db } from 'db';
-import { Statuses } from './status';
 import { CreateNewAccount } from 'accounts/db';
-import type { Dict, NewCharacter, OxStatus } from 'types';
+import type { Dict, NewCharacter } from 'types';
 import { CREATE_DEFAULT_ACCOUNT } from 'config';
 import './license';
 
@@ -99,21 +98,6 @@ on('ox:createdCharacter', async (playerId: number, userId: number, charId: numbe
   db.execute('INSERT INTO character_inventory (charId) VALUES (?)', [charId]);
 
   if (CREATE_DEFAULT_ACCOUNT) CreateNewAccount(charId, 'Personal', true);
-});
-
-onNet('ox:updateStatuses', async (data: Dict<OxStatus>) => {
-  const player = OxPlayer.get(source);
-
-  if (!player) return;
-
-  for (const name in data) {
-    const status = Statuses[name];
-    const value = data[name];
-
-    if (status && typeof value === 'number') {
-      player.setStatus(name, value);
-    }
-  }
 });
 
 onClientCallback('ox:setActiveGroup', (playerId, groupName: string) => {
