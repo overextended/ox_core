@@ -1,11 +1,15 @@
 import { SV_LAN } from 'config';
 import type { Dict } from 'types';
 
+function CreateDummyLicense(playerId: number | string) {
+  return 'temp' + GetHashKey(GetPlayerIdentifierByType(playerId as string, 'ip')).toString(16).padStart(36, '0')
+}
+
 export function GetPlayerLicense(playerId: number | string) {
   return (
     GetPlayerIdentifierByType(playerId as string, 'license2') ||
     GetPlayerIdentifierByType(playerId as string, 'license') ||
-    SV_LAN && 'temp' + GetHashKey(GetPlayerIdentifierByType(playerId as string, 'ip')).toString(16).padStart(36, '0')
+    SV_LAN && CreateDummyLicense(playerId)
   );
 }
 
@@ -18,6 +22,8 @@ export function GetIdentifiers(playerId: number | string) {
 
     if (prefix !== 'ip') identifiers[prefix] = identifier;
   }
+
+  if (SV_LAN) identifiers.license ??= CreateDummyLicense(playerId);
 
   identifiers.license2 ??= identifiers.license;
 
