@@ -71,7 +71,6 @@ addCommand<{ radius?: number; owned?: string }>(
       if (!vehicle || !vehicle.owner) DeleteEntity(handle);
       else if (args.owned) {
         vehicle.setStored('impound', true);
-        vehicle.remove();
       }
     });
   },
