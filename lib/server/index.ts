@@ -1,7 +1,7 @@
 import type { OxVehicle } from 'server/vehicle/class';
 import type { PayAccountInvoice, DeleteAccountInvoice } from 'server/accounts';
 import type { OxPlayer } from 'server/player/class';
-import type { BanUser, GetCharIdFromStateId, GetLicense, GetLicenses, UnbanUser } from 'server/player/db';
+import type { BanUser, GetCharIdFromStateId, GetLicense, GetLicenses, IsUserBanned, UnbanUser } from 'server/player/db';
 import type {
   CreateGroup,
   DeleteGroup,
@@ -27,6 +27,7 @@ interface OxServer extends OxCommon {
   GetLicenses: typeof GetLicenses;
   GetLicense: typeof GetLicense;
   BanUser: typeof BanUser;
+  IsUserBanned: typeof IsUserBanned;
   UnbanUser: typeof UnbanUser;
 }
 

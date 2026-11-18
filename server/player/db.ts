@@ -161,7 +161,7 @@ export async function BanUser(userId: number, reason?: string, hours?: number) {
 
   if (playerId) {
     const banned_at = Date.now();
-    const unban_at = banned_at + (hours ? hours * 60 * 60 * 1000 : 0);
+    const unban_at = hours ? banned_at + hours * 60 * 60 * 1000 : undefined;
 
     DropPlayer(playerId, OxPlayer.formatBanReason({ userId, banned_at, unban_at, reason }));
   }
