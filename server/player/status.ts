@@ -5,6 +5,11 @@ import type { Dict, OxStatus } from 'types';
 
 export const Statuses: Dict<OxStatus> = {};
 
+/** Restricts a status value to the 0-100 range. */
+export function clampStatus(value: number) {
+  return value < 0 ? 0 : value > 100 ? 100 : Number.parseFloat(value.toPrecision(8));
+}
+
 async function LoadStatuses() {
   const rows = await GetStatuses();
 

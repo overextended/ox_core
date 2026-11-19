@@ -13,7 +13,6 @@ function UpdateStatuses() {
   }
 
   emit('ox:statusTick', OxPlayer.getStatuses());
-  emitNet('ox:updateStatuses', OxPlayer.getStatuses());
 }
 
 on('ox:playerLoaded', () => {
